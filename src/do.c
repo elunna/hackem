@@ -2534,7 +2534,7 @@ long timeout UNUSED;
      * appear on top and look weird, so prevent that.
      */
      
-    bad_spot = ((body->where == OBJ_FLOOR || body->where==OBJ_BURIED)
+    bad_spot = ((body->where == OBJ_FLOOR || body->where == OBJ_BURIED)
                         && (is_pool(body->ox, body->oy)
                             || is_lava(body->ox, body->oy)
                             || is_ice(body->ox, body->oy)
@@ -2542,13 +2542,12 @@ long timeout UNUSED;
                             || sobj_at(BOULDER, body->ox, body->oy)));
 
     /* maybe F are genocided? */
-     no_eligible = (newpm == NULL);
+    no_eligible = (newpm == NULL);
 
     /* Don't grow mold on the corpse the player is eating. */
     munching = (body == context.victual.piece);
 
     if (already_fungus || bad_spot || no_eligible || munching) {
-        /* Double check it doesn't already have a rot timer */
         if (!obj_has_timer(body, ROT_CORPSE)) {
             /* set to rot away normally */
             start_timer(250L - (monstermoves - peek_at_iced_corpse_age(body)),
@@ -2592,17 +2591,21 @@ long timeout UNUSED;
     if (has_omonst(body))
         free_omonst(body);
 
-    if(!revive_corpse(body, TRUE) || oldquan > 1) {
+    if (!revive_corpse(body, TRUE) || oldquan > 1) {
         /* revive failed, or there were multiple corpses. Reset everything,
          * and set the new corpses to rot away normally. */
         body->corpsenm = oldtyp;
         if (old_oname)
             ONAME(body) = old_oname;
         body->owt = weight(body);
+        if (!obj_has_timer(body, ROT_CORPSE))
+            (void) stop_timer(ROT_CORPSE, obj_to_any(body));
+        
         start_timer(250L - (monstermoves - peek_at_iced_corpse_age(body)),
                     TIMER_OBJECT, ROT_CORPSE, arg);
     }
 }
+
 
 /* Timeout callback. Revive the corpse as a zombie. */
 void
