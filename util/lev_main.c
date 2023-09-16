@@ -308,7 +308,6 @@ char **argv;
         ":dat:knox.des",
         ":dat:kobold.des",
         ":dat:lethe.des",
-        ":dat:mall.des",
         ":dat:medusa.des",
         ":dat:mines.des",
         ":dat:mtemple.des",

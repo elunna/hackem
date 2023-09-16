@@ -814,8 +814,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
     $(DAT)/grund.des \
     $(DAT)/knox.des \
     $(DAT)/lethe.des \
-    $(DAT)/mall-1.des \
-    $(DAT)/mall-2.des \
     $(DAT)/medusa.des \
     $(DAT)/mtemple.des \
     $(DAT)/nkai.des \
@@ -868,8 +866,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(subst /,\,$(U)levcomp $(DAT)/lethe.des)
 	$(subst /,\,$(U)levcomp $(DAT)/nkai.des)
 	$(subst /,\,$(U)levcomp $(DAT)/knox.des)
-	$(subst /,\,$(U)levcomp $(DAT)/mall-1.des)
-    $(subst /,\,$(U)levcomp $(DAT)/mall-2.des)
 	$(subst /,\,$(U)levcomp $(DAT)/mines.des)
 	$(subst /,\,$(U)levcomp $(DAT)/medusa.des)
 	$(subst /,\,$(U)levcomp $(DAT)/mtemple.des

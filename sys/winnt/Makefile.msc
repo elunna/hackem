@@ -766,7 +766,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(DAT)\knox.des \
 	$(DAT)\kobold.des \
 	$(DAT)\lethe.des \
-	$(DAT)\mall.des \
 	$(DAT)\medusa.des \
 	$(DAT)\mines.des \
 	$(DAT)\mtemple.des \
@@ -822,7 +821,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(U)levcomp knox.des
 	$(U)levcomp kobold.des
 	$(U)levcomp lethe.des
-	$(U)levcomp mall.des
 	$(U)levcomp medusa.des
     $(U)levcomp mines.des
 	$(U)levcomp mtemple.des

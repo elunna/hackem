@@ -62,7 +62,6 @@
     <Desfiles Include = "knox.des"/>
     <Desfiles Include = "kobold.des"/>
     <Desfiles Include = "lethe.des"/>
-    <Desfiles Include = "mall.des"/>
     <Desfiles Include = "medusa.des"/>
     <Desfiles Include = "mines.des"/>
     <Desfiles Include = "mtemple.des"/>
@@ -263,6 +262,8 @@
     <Levfiles Include = "town-1.lev"/>
     <Levfiles Include = "town-2.lev"/>
     <Levfiles Include = "town-3.lev"/>
+    <Levfiles Include = "town-4.lev"/>
+    <Levfiles Include = "town-5.lev"/>
     <Levfiles Include = "ucastle.lev"/>
     <Levfiles Include = "vlt-0000.lev"/>
     <Levfiles Include = "vlt-0001.lev"/>

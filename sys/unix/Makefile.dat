@@ -140,7 +140,6 @@ spec_levs: ../util/lev_comp \
 	knox.des \
 	kobold.des \
 	lethe.des \
-	mall.des \
 	medusa.des \
 	mines.des \
 	mtemple.des \
@@ -174,7 +173,6 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp knox.des
 	../util/lev_comp kobold.des
 	../util/lev_comp lethe.des
-	../util/lev_comp mall.des
 	../util/lev_comp medusa.des
 	../util/lev_comp mines.des
 	../util/lev_comp mtemple.des
