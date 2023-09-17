@@ -4361,6 +4361,12 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                 break;
             /*FALLTHRU*/
         case AT_BITE:
+            if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+                /* Impossible to bite with this on */
+                if (!rn2(5))
+                    You("cannot bite with this helm on.");
+                break;
+            }
             /* [ALI] Vampires are also smart. They avoid biting
                monsters if doing so would be fatal */
             if ((i > 0 && is_vampire(youmonst.data))

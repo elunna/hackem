@@ -629,6 +629,11 @@ register struct monst *magr, *mdef;
                           rn2(2) ? "dodges" : "evades", s_suffix(mon_nam(magr)));
                 strike = FALSE;
             }
+            /* Impossible to bite with this on */
+            struct obj *helmet = which_armor(magr, W_ARMH);
+            if (mattk->aatyp == AT_BITE
+                  && helmet && helmet->otyp == PLASTEEL_HELM)
+                strike = FALSE;
             if (strike) {
                 short type = 0;
                 int corpsenm = 0;

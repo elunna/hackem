@@ -993,6 +993,11 @@ register struct monst *mtmp;
             if (!range2 && (!MON_WEP(mtmp) || mtmp->mconf || Conflict
                             || !touch_petrifies(youmonst.data))) {
                 if (foundyou) {
+                    /* Impossible to bite with this on */
+                    struct obj *helmet = which_armor(mtmp, W_ARMH);
+                    if (mattk->aatyp == AT_BITE 
+                          && helmet && helmet->otyp == PLASTEEL_HELM)
+                        return 0; /* attack stops */
                     /* if our hero is sized tiny/small and unencumbered,
                        they have a decent chance of evading a zombie's
                        bite attack */
