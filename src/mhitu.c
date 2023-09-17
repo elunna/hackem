@@ -1740,8 +1740,12 @@ register struct attack *mattk;
     case AD_BLND:
         if (!shield_blockable(mtmp, mattk) && 
               can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj *) 0)) {
-            if (!Blind)
+            if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+                Your("shaded visor protects you from %s light.", s_suffix(mon_nam(mtmp)));
+                break;
+            } else if (!Blind)
                 pline("%s blinds you!", Monnam(mtmp));
+            
             make_blinded(Blinded + (long) dmg, FALSE);
             if (!Blind)
                 Your1(vision_clears);
@@ -3255,6 +3259,8 @@ boolean ufound;
         if (ufound && !not_affected) {
             if (defends(AD_BLND, uarm)) {
                 Your("armor reflects the explosion of light!");
+            } else if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+                Your("shaded visor protects you from the light.");
             }
             /* sometimes you're affected even if it's invisible */
             else if (mon_visible(mtmp) || (rnd(tmp /= 2) > u.ulevel)) {
@@ -3801,7 +3807,9 @@ struct attack *mattk;
             } else if (defends(AD_BLND, uarm)) {
                 if (!rn2(5))
                     /* Don't show msg every round, as mentioned above */
-                    Your("armor reflects %s radiance!",  s_suffix(mon_nam(mtmp)));
+                    Your("armor reflects %s radiance!", s_suffix(mon_nam(mtmp)));
+            } else if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+                Your("shaded visor protects you from %s radiance!", s_suffix(mon_nam(mtmp)));
             } else {
                 int blnd = d((int) mattk->damn, (int) mattk->damd);
 

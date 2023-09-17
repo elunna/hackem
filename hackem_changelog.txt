@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Plasteel helms now protect from the blinding attacks of monsters.
 Fix: Behavior of plasteel helm and eyewear was inconsistent (reported by hothraxxa). Fixes #475.
 Ice armor technique for ice mage and intrinsic AC for monk.
 Merged the mall maps back in with the town level.

@@ -264,8 +264,11 @@ struct obj *obj; /* aatyp == AT_WEAP, AT_SPIT */
         /* light-based attacks may be cancelled or resisted */
         if (magr && magr->mcan)
             return FALSE;
-        return !resists_blnd(mdef);
-
+        if (resists_blnd(mdef))
+            return FALSE;
+        check_visor = TRUE;
+        break;
+        
     case AT_WEAP:
     case AT_SPIT:
     case AT_NONE:
@@ -288,7 +291,8 @@ struct obj *obj; /* aatyp == AT_WEAP, AT_SPIT */
         break;
 
     case AT_ENGL:
-        if (is_you && (Blindfolded || Unaware || u.ucreamed))
+        if (is_you && (Blindfolded || Unaware || u.ucreamed 
+              || (uarmh && uarmh->otyp == PLASTEEL_HELM)))
             return FALSE;
         if (!is_you && mdef->msleeping)
             return FALSE;
@@ -318,7 +322,8 @@ struct obj *obj; /* aatyp == AT_WEAP, AT_SPIT */
     if (check_visor) {
         o = (mdef == &youmonst) ? invent : mdef->minvent;
         for (; o; o = o->nobj)
-            if ((o->owornmask & W_ARMH) && objdescr_is(o, "visored helmet"))
+            if ((o->owornmask & W_ARMH) 
+                && (objdescr_is(o, "visored helmet") || o->otyp == PLASTEEL_HELM))
                 return FALSE;
     }
 
