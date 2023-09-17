@@ -511,7 +511,10 @@ struct obj {
 #define pair_of(o) \
     ((o)->otyp == LENSES || (o)->otyp == GOGGLES \
      || is_gloves(o) || is_boots(o))
-
+#define eyewear(o) \
+    ((o)->otyp == BLINDFOLD || (o)->otyp == TOWEL \
+     || (o)->otyp == LENSES || (o)->otyp == GOGGLES \
+     || (o)->otyp == MASK)
 #define bypass_forging_rules(obj) \
     ((obj)->otyp == SADDLE)
 

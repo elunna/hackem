@@ -772,7 +772,6 @@ Helmet_off(VOID_ARGS)
     case DWARVISH_HELM:
     case ORCISH_HELM:
     case TINFOIL_HAT:
-
     case PLASTEEL_HELM:
         break;
     case DUNCE_CAP:
@@ -2400,7 +2399,10 @@ dotakeoff()
         otmp = getobj(clothes, "take off");
     if (!otmp)
         return 0;
-
+    if (eyewear(otmp) && uarmh && uarmh->otyp == PLASTEEL_HELM) {
+        pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+        return 0;
+    }
     return armor_or_accessory_off(otmp);
 }
 
@@ -2423,7 +2425,10 @@ doremring()
         otmp = getobj(accessories, "remove");
     if (!otmp)
         return 0;
-
+    if (eyewear(otmp) && uarmh && uarmh->otyp == PLASTEEL_HELM) {
+        pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+        return 0;
+    }
     return armor_or_accessory_off(otmp);
 }
 
@@ -2831,7 +2836,7 @@ accessory_or_armor_on(obj)
 struct obj *obj;
 {
     long mask = 0L;
-    boolean armor, ring, eyewear;
+    boolean armor, ring;
 
     if (obj->owornmask & (W_ACCESSORY | W_ARMOR)) {
         already_wearing(c_that_);
@@ -2839,11 +2844,7 @@ struct obj *obj;
     }
     armor = (obj->oclass == ARMOR_CLASS);
     ring = (obj->oclass == RING_CLASS || obj->otyp == MEAT_RING);
-    eyewear = (obj->otyp == BLINDFOLD 
-               || obj->otyp == TOWEL
-               || obj->otyp == LENSES 
-               || obj->otyp == GOGGLES
-               || obj->otyp == MASK);
+
     /* checks which are performed prior to actually touching the item */
     if (armor) {
         if (!canwearobj(obj, &mask, TRUE))
@@ -2859,6 +2860,11 @@ struct obj *obj;
             makeknown(obj->otyp);
             context.botl = 1; /*for AC after zeroing u.ublessed */
             return 1;
+        }
+        if (obj->otyp == PLASTEEL_HELM 
+            && ublindf && ublindf->otyp != BLINDFOLD) {
+            You("cannot fit your helm around %s.", yname(ublindf));
+            return 0;
         }
     } else {
         /* accessory */
@@ -2930,7 +2936,14 @@ struct obj *obj;
                 already_wearing("an amulet");
                 return 0;
             }
-        } else if (eyewear) {
+        } else if (eyewear(obj)) {
+            if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+                if (obj->otyp == BLINDFOLD)
+                    pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+                else
+                    You("can't fit %s under your helm.", an(xname(obj)));
+                return 0;
+            }
             if (ublindf) {
                 if (ublindf->otyp == MASK)
                     Your("%s is already covered by a mask.",
@@ -3033,7 +3046,7 @@ struct obj *obj;
             Amulet_on();
             /* no feedback here if amulet of change got used up */
             give_feedback = (uamul != 0);
-        } else if (eyewear) {
+        } else if (eyewear(obj)) {
             /* setworn() handled by Blindf_on() */
             Blindf_on(obj);
             /* message handled by Blindf_on(); leave give_feedback False */
@@ -3089,11 +3102,17 @@ doputon()
                                                                     : "a blindfold");
         return 0;
     }
-    if (uarmh && uarmh->otyp == PLASTEEL_HELM){
-        pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+
+    otmp = getobj(accessories, "put on");
+    
+    if (otmp && eyewear(otmp) && uarmh && uarmh->otyp == PLASTEEL_HELM) {
+        if (otmp->otyp == BLINDFOLD)
+            pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+        else
+            You("can't fit %s under your helm.", an(xname(otmp)));        
         return 1;
     }
-    otmp = getobj(accessories, "put on");
+    
     return otmp ? accessory_or_armor_on(otmp) : 0;
 }
 

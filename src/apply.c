@@ -5005,6 +5005,13 @@ doapply()
     case LENSES:
     case GOGGLES:
     case MASK:
+        if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+            if (obj->otyp == BLINDFOLD)
+                pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+            else
+                You("can't fit %s under your helm.", an(xname(obj)));
+            return 0;
+        }
         if (obj == ublindf) {
             if (!cursed(obj, FALSE))
                 Blindf_off(obj);
