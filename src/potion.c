@@ -3450,7 +3450,8 @@ dodip()
             obj->otyp = TORCH;
             obj->age = (long) rn1(300, 600);
             obj->oclass = TOOL_CLASS;
-            if(potion->dknown && !objects[potion->otyp].oc_name_known)
+            obj->owt = weight(obj);
+            if (potion->dknown && !objects[potion->otyp].oc_name_known)
                 makeknown(potion->otyp);
             goto poof;
         } else if (obj->oclass != WEAPON_CLASS && !is_weptool(obj)) {
