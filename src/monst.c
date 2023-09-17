@@ -1361,7 +1361,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(WT_HUMAN, 400, MS_SILENT, MZ_HUMAN), 
         MR_FIRE | MR_POISON | MR_ACID | MR_ELEC, 0,
         M1_POIS | M1_FLY | M1_THICK_HIDE, 
-        M2_STALK | M2_HOSTILE | M2_NASTY, 0, 0, MH_DEMON, 10, CLR_YELLOW),
+        M2_STALK | M2_HOSTILE | M2_NASTY, 0, 0, 0, 10, CLR_YELLOW),
     MON("nupperibo", S_IMP,                                     /* Slash'EM */
         LVL(7, 12, 0, 20, -7), (G_GENO | 1),
         A(ATTK(AT_CLAW, AD_DRST, 3, 4), 
