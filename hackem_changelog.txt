@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Added a couple missing dragon types to the Lawful quest chamber of dragon meat.
 Plasteel helms now protect from mind flayer attacks and zombie brain eating.
 Fix: Dust devils could demongate.
 Plasteel helms now protect from the blinding attacks of monsters.

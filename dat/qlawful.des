@@ -178,7 +178,10 @@ OBJECT: ('%', "corpse"), $places[3], montype:"green dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"blue dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"shimmering dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"gray dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"silver dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"white dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"gold dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"celestial dragon", 0
 MONSTER: ('w', "maggot"), $places[3], hostile
 MONSTER: ('w', "maggot"), $places[3], hostile
 MONSTER: ('w', "maggot"), $places[3], hostile
