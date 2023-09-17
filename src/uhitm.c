@@ -2578,6 +2578,12 @@ struct attack *mattk;
         }
         return TRUE;
     }
+    if (mattk->adtyp == AD_DRIN && is_mind_flayer(youmonst.data)
+                     && obj && obj->otyp == PLASTEEL_HELM) {
+        pline("%s helm prevents your tentacles from latching on!", s_suffix(Monnam(mdef)));
+        return TRUE;
+    }
+        
     return FALSE;
 }
 
@@ -3517,8 +3523,9 @@ do_rust:
             break;
 
         
-        if ((helmet = which_armor(mdef, W_ARMH)) != 0 && (rn2(8) ||
-              which_armor(mdef, W_ARMH)->otyp == TINFOIL_HAT)) {
+        if ((helmet = which_armor(mdef, W_ARMH)) != 0 && (rn2(8) 
+              || (which_armor(mdef, W_ARMH)->otyp == TINFOIL_HAT 
+              || which_armor(mdef, W_ARMH)->otyp == PLASTEEL_HELM))) {
             pline("%s %s blocks your attack to %s head.",
                   s_suffix(Monnam(mdef)), helm_simple_name(helmet),
                   mhis(mdef));

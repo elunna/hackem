@@ -2378,7 +2378,8 @@ post_stone:
             break;
         }
         if ((mdef->misc_worn_check & W_ARMH
-                && (rn2(8) || which_armor(mdef, W_ARMH)->otyp == TINFOIL_HAT))
+                && (rn2(8) || (which_armor(mdef, W_ARMH)->otyp == TINFOIL_HAT
+                               || which_armor(mdef, W_ARMH)->otyp == PLASTEEL_HELM)))
             || (mdef->misc_worn_check & W_BARDING && rn2(8))) {
 
             if (vis && canspotmon(magr) && canseemon(mdef)) {

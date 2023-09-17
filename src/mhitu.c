@@ -1313,6 +1313,10 @@ struct attack *mattk;
             Monnam(mtmp), (mattk->adtyp == AD_WRAP && !is_sal)
                                 ? "swings itself around" : "grabs");
         return TRUE;
+    } else if (mattk->adtyp == AD_DRIN && is_mind_flayer(mtmp->data) 
+          && uarmh && uarmh->otyp == PLASTEEL_HELM) {
+        Your("helm prevents %s tentacles from latching on!", s_suffix(mon_nam(mtmp)));
+        return TRUE;
     }
     /* 50% chance (with a luck bonus) of slipping free with mud boots. 
      * Doesn't apply to brain attacks. */
@@ -1785,7 +1789,7 @@ register struct attack *mattk;
          * it will be when deflecting tentacle/bite attacks. Harder material
          * will do a better job than a soft cap. */
         if (uarmh && ((is_hard(uarmh) && rn2(4))
-                      || uarmh->otyp == TINFOIL_HAT)) {
+                      || (uarmh->otyp == TINFOIL_HAT || uarmh->otyp == PLASTEEL_HELM))) {
             /* not body_part(HEAD) */
             Your("%s %s the %s to your head.",
                  helm_simple_name(uarmh), 
