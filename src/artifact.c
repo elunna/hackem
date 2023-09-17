@@ -2844,7 +2844,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
     }
     
-    if (otmp->oartifact == ART_CIRCE_S_WITCHSTAFF && dieroll < 3) {
+    if (otmp->oartifact == ART_CIRCE_S_WITCHSTAFF && dieroll < 5) {
         wepdesc = "The witch's rod";
         if (youdefend && !Antimagic && !Unchanging) {
             pline("%s sends bizarre energies coursing through you!", wepdesc);
@@ -2866,7 +2866,9 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             return TRUE;
         } else {
             pline("%s blasts %s with magical power!", wepdesc, mon_nam(mdef));
-            newcham(mdef, rn2(2) ? &mons[PM_PIG] : &mons[PM_FERAL_HOG], FALSE, TRUE);
+            if (!newcham(mdef, rn2(3) ? &mons[PM_PIG] : &mons[PM_FERAL_HOG], FALSE, TRUE)) {
+                *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
+            }
             return TRUE;
         }
     }

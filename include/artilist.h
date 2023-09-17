@@ -175,7 +175,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     /* Staff of Circe. 1/20 chance of turning target into an animal. */
     A("Circe's Witchstaff", STAFF_OF_MATTER,
       (SPFX_RESTR | SPFX_WARN) , 0, 0,
-      PHYS(4, 4), NO_DFNS, NO_CARY, TAMING, A_NEUTRAL, NON_PM, NON_PM, 3500L,
+      PHYS(8, 4), NO_DFNS, NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 5500L,
       CLR_GREEN, COPPER),
     
     A("Cleaver", BATTLE_AXE, SPFX_RESTR, 0, 0, PHYS(3, 6), NO_DFNS, NO_CARY,
