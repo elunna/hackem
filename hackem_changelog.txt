@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Plasteel helms can also disguise convicts from town guards.
 Vampires (and other biting monsters) can't use their bite attack with a plasteel helm on.
 Eating and drinking is allowed with plasteel helms as long as they aren't cursed (suggested by Noisytoot)
 Added a couple missing dragon types to the Lawful quest chamber of dragon meat.
