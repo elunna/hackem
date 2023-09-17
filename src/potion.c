@@ -646,7 +646,7 @@ dodrink()
         pline("If you can't breathe air, how can you drink liquid?");
         return 0;
     }
-    if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+    if (uarmh && uarmh->otyp == PLASTEEL_HELM && cursed(uarmh, TRUE)) {
         pline_The("%s covers your whole face.", xname(uarmh));
         return 0;
     }
