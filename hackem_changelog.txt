@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Add config option for auto-stair travel.
 Updates to likes_ice.
 More is_flaming and likes_fire updates.
 Add some more flamers to the is_flaming list (from EvilHack).

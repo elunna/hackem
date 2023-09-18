@@ -160,6 +160,9 @@ OPTIONS=!autodig
 # Auto open doors
 OPTIONS=autoopen
 
+# Auto-travel to stairs using < or >
+OPTIONS=autostairtravel
+
 # Travelling: Update map after every step? 
 #  (walk goes slow, run goes fast, teleport=instant)
 OPTIONS=runmode:teleport

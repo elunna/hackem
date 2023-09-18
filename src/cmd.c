@@ -3276,9 +3276,9 @@ int final;
     char buf[BUFSZ];
     register struct obj *otmp;
 
-    /*\
+    /*
      *  Attributes
-    \*/
+     */
     enlght_out("");
     enlght_out_attr(ATR_SUBHEAD, final ? "Final Attributes:" : "Current Attributes:");
 
@@ -6970,6 +6970,7 @@ do_stair_travel(char up_or_down)
     boolean upstairs = (up_or_down == '<');
     coord cc;
     int stairs = 0;
+    if (!iflags.autostairtravel) return 0;
     if ((stairs = find_remembered_stairs(upstairs, &cc)) > 0) {
         iflags.travelcc.x = cc.x;
         iflags.travelcc.y = cc.y;
