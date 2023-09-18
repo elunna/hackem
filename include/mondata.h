@@ -206,16 +206,22 @@
 #define is_elemental(ptr) \
     ((ptr)->mlet == S_ELEMENTAL && (ptr) != &mons[PM_STALKER])
 #define flaming(ptr) \
-    ((ptr) == &mons[PM_FIRE_ELEMENTAL] \
+    ((ptr) == &mons[PM_BALROG] \
+     || (ptr) == &mons[PM_BLAZING_FERN] \
+     || (ptr) == &mons[PM_BLAZING_FERN_SPROUT] \
+     || (ptr) == &mons[PM_FIRE_ELEMENTAL] \
+     || (ptr) == &mons[PM_FIRE_VAMPIRE] \
      || (ptr) == &mons[PM_FIRE_VORTEX] \
      || (ptr) == &mons[PM_FLAMING_SPHERE] \
      || (ptr) == &mons[PM_HELLBAT] \
      || (ptr) == &mons[PM_HELLCAT] \
+     || (ptr) == &mons[PM_LAVA_BLOB] \
      || (ptr) == &mons[PM_LAVA_DEMON] \
      || (ptr) == &mons[PM_LAVA_GREMLIN] \
+     || (ptr) == &mons[PM_MAGMA_ELEMENTAL] \
+     || (ptr) == &mons[PM_MEPHISTOPHELES] \
      || (ptr) == &mons[PM_SALAMANDER] \
-     || (ptr) == &mons[PM_BALROG] \
-     || (ptr) == &mons[PM_MEPHISTOPHELES])
+     || (ptr) == &mons[PM_WAX_GOLEM])
 
 #define is_silent(ptr) ((ptr)->msound == MS_SILENT)
 #define unsolid(ptr) (((ptr)->mflags1 & M1_UNSOLID) != 0L)
@@ -591,7 +597,7 @@
 #define likes_lava(ptr) \
     ((ptr) == &mons[PM_FIRE_ELEMENTAL] \
      || (ptr) == &mons[PM_SALAMANDER]  \
-     || (ptr) == &mons[PM_MAGMA_ELEMENTAL]  \
+     || (ptr) == &mons[PM_MAGMA_ELEMENTAL] \
      || (ptr) == &mons[PM_LAVA_BLOB] \
      || (ptr) == &mons[PM_LAVA_DEMON] \
      || (ptr) == &mons[PM_LAVA_GREMLIN])
@@ -603,18 +609,19 @@
 
 /* could probably add more */
 #define likes_fire(ptr) \
-    ((ptr) == &mons[PM_FIRE_VORTEX] \
-     || (ptr) == &mons[PM_FIRE_VAMPIRE] \
-     || (ptr) == &mons[PM_FLAME_MAGE] \
-     || (ptr) == &mons[PM_FLAMING_SPHERE] \
-     || (ptr) == &mons[PM_WAX_GOLEM] \
-     || (ptr) == &mons[PM_FIRE_ANT] \
-     || (ptr) == &mons[PM_LAVA_BLOB] \
-     || (ptr) == &mons[PM_NOVA_FOX] \
-     || (ptr) == &mons[PM_PHOENIX] \
+    ((ptr) == &mons[PM_BALROG] \
      || (ptr) == &mons[PM_BLAZING_FERN] \
      || (ptr) == &mons[PM_BLAZING_FERN_SPROUT] \
-     || (ptr) == &mons[PM_BLAZING_FERN_SPORE] \
+     || (ptr) == &mons[PM_BLAZING_FERN_SPORE]  \
+     || (ptr) == &mons[PM_FIRE_ANT] \
+     || (ptr) == &mons[PM_FIRE_VAMPIRE] \
+     || (ptr) == &mons[PM_FIRE_VORTEX] \
+     || (ptr) == &mons[PM_FLAME_MAGE] \
+     || (ptr) == &mons[PM_FLAMING_SPHERE] \
+     || (ptr) == &mons[PM_MEPHISTOPHELES] \
+     || (ptr) == &mons[PM_NOVA_FOX] \
+     || (ptr) == &mons[PM_PHOENIX] \
+     || (ptr) == &mons[PM_WAX_GOLEM] \
      || likes_lava(ptr))
 
 #define likes_ice(ptr) \
