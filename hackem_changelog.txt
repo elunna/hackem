@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Add some more flamers to the is_flaming list (from EvilHack).
 Fix: Weight wasn't recalculated when a club was dipped into oil to make a torch.
 Circe's Witchstaff buffs.
 Plasteel helms can also disguise convicts from town guards.
