@@ -872,11 +872,8 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                 Strcat(buf, helm_simple_name(obj));
             else if (is_shield(obj))
                 Strcat(buf, "shield");
-            else if (is_robe(obj))
-                Strcat(buf, "robe");
             else
                 Strcat(buf, "armor");
-
             propnames(buf, obj->oprops, obj->oprops_known,
                       FALSE, FALSE);
             Strcat(buf, " called ");

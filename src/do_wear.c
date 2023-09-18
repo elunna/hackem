@@ -2602,8 +2602,24 @@ boolean noisy;
         return 0;
     }
 
-
-    if (which && !can_wear_arm(otmp, noisy)) {
+    which = is_cloak(otmp)
+                ? c_cloak
+                : is_shirt(otmp)
+                    ? c_shirt
+                    : is_suit(otmp)
+                        ? c_suit
+                        : 0;
+    
+    if (which && cantweararm(&youmonst)
+        /* same exception for cloaks as used in m_dowear() */
+        && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
+        && otmp->otyp != MUMMY_WRAPPING /* Exception for giants */
+        && (racial_exception(&youmonst, otmp) < 1)
+        && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
+        && !(Race_if(PM_GIANT) && otmp
+             && otmp->otyp == CHROMATIC_DRAGON_SCALES)) {
+        if (noisy)
+            pline_The("%s will not fit on your body.", which);
         return 0;
     } else if (otmp->owornmask & W_ARMOR) {
         if (noisy)
@@ -2800,8 +2816,6 @@ boolean noisy;
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
         && otmp->otyp != MUMMY_WRAPPING /* Exception for giants/tortles */
         && (racial_exception(&youmonst, otmp) < 1)
-        /* For tortles and giants */
-        && !(otmp->oartifact == ART_GRANDMASTER_S_ROBE)
         && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
         && !(Race_if(PM_GIANT) && otmp
              && otmp->otyp == CHROMATIC_DRAGON_SCALES);

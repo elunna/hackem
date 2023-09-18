@@ -2346,11 +2346,7 @@ dosacrifice()
                     exercise(A_WIS, TRUE);
 
                     /* make sure we can use this weapon */
-                    if (otmp->oartifact == ART_GRANDMASTER_S_ROBE)
-                        unrestrict_weapon_skill(P_MARTIAL_ARTS);
-                    else
-                        unrestrict_weapon_skill(weapon_type(otmp));
-
+                    unrestrict_weapon_skill(weapon_type(otmp));
                     if (!Hallucination && !Blind) {
                         otmp->dknown = 1;
                         makeknown(otmp->otyp);

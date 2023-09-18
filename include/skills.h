@@ -85,8 +85,7 @@ enum p_skills {
 #define martial_bonus() (Role_if(PM_SAMURAI) \
                          || Role_if(PM_MONK) \
                          || Role_if(PM_JEDI) \
-                         || Role_if(PM_UNDEAD_SLAYER) \
-                         || (uarm && uarm->oartifact == ART_GRANDMASTER_S_ROBE))
+                         || Role_if(PM_UNDEAD_SLAYER))
 
 /*
  * These are the standard weapon skill levels.  It is important that

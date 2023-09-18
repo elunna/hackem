@@ -62,7 +62,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("", STRANGE_OBJECT, 0, 0, 0, NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 0L, NO_COLOR, DEFAULT_MAT),
 
-    /*** Lawful artifacts ***/
+        /*** Lawful artifacts ***/
 
     /* Balmung shreds the armor of opponents. */
     A("Balmung", BROADSWORD, (SPFX_RESTR), 0, 0, 
@@ -165,7 +165,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       1000L, NO_COLOR, DEFAULT_MAT),
 
 
-    /*** Neutral artifacts ***/
+        /*** Neutral artifacts ***/
 
     /* This lance does a lot of damage, and also occasionally stuns */
     A("Bradamante\'s Fury", LANCE, (SPFX_RESTR), 0, 0,
@@ -266,11 +266,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, DFNS(AD_DISE), NO_CARY, LEVITATION, A_NEUTRAL, NON_PM, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
 
-    A("Grandmaster\'s Robe", ROBE_OF_POWER, 0, 0, 0,
-      NO_ATTK, DFNS(AD_DISN), NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 
-      5000L, NO_COLOR, DEFAULT_MAT),
-
-    /*** Chaotic artifacts ***/
+        /*** Chaotic artifacts ***/
 
     A("Bat from Hell", BASEBALL_BAT,
       (SPFX_RESTR), 0, 0,
@@ -390,7 +386,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       DFNS(AD_DRLI), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM, 
       6000L, NO_COLOR, BONE),
 
-    /*** Unaligned artifacts ***/
+      /*** Unaligned artifacts ***/
 
     /* The quasi-evil twin of Demonbane, Angelslayer is an unholy trident
      * geared towards the destruction of all angelic beings */

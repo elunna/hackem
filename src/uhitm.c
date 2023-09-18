@@ -862,12 +862,12 @@ struct attack *uattk;
     boolean malive = TRUE, wep_was_destroyed = FALSE;
     struct obj *wepbefore = uwep;
     struct obj *wearshield = uarms;
+    struct obj *weararmor = uarm;
     int armorpenalty, attknum = 0, x = u.ux + u.dx, y = u.uy + u.dy,
                       tmp = find_roll_to_hit(mon, uattk->aatyp, uwep,
                                              &attknum, &armorpenalty);
     int dieroll = rnd(20), oldumort = u.umortality;
     int mhit = (tmp > dieroll || u.uswallow);
-    int mhit_get_grandmaster_robe_bonus = 0;
     int bash_chance = (P_SKILL(P_SHIELD) == P_MASTER ? !rn2(3) :
                        P_SKILL(P_SHIELD) == P_EXPERT ? !rn2(4) :
                        P_SKILL(P_SHIELD) == P_SKILLED ? !rn2(6) : !rn2(8));
@@ -904,7 +904,6 @@ struct attack *uattk;
         /* bhitpos is set up by caller */
         malive = known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk,
                              dieroll);
-        mhit_get_grandmaster_robe_bonus = mhit;
         if (wepbefore && !uwep)
             wep_was_destroyed = TRUE;
         (void) passive(mon, uwep, mhit, malive, AT_WEAP, wep_was_destroyed);
@@ -947,12 +946,6 @@ struct attack *uattk;
             mhit = (tmp > dieroll || u.uswallow);
             malive = known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk,
                                  dieroll);
-
-            /* if mhit_get_grandmaster_robe_bonus is set then the grandmaster's robe
-             * bonus attack chain gets triggered if the second attack hits */
-            if (mhit_get_grandmaster_robe_bonus)
-                mhit_get_grandmaster_robe_bonus = mhit;
-
             /* second passive counter-attack only occurs if second attack hits */
             if (mhit)
                 (void) passive(mon, uwep, mhit, malive, AT_CLAW, FALSE);
@@ -966,10 +959,10 @@ struct attack *uattk;
         && !(u.usteed || u.uswallow || u.uinwater
              || multi < 0 || u.umortality > oldumort
              || !malive || m_at(x, y) != mon)) {
-        if (uarm && !is_robe(uarm)) {
+        if (weararmor && !is_robe(uarm)) {
             if (!rn2(8))
                 Your("extra kick attack is ineffective while wearing %s.",
-                      xname(uarm));
+                      xname(weararmor));
         } else if (Wounded_legs) {
             /* note: taken from dokick.c */
             long wl = (EWounded_legs & BOTH_SIDES);
@@ -1012,31 +1005,6 @@ struct attack *uattk;
             (void) passive(mon, wearshield, mhit, malive, AT_WEAP, FALSE);
     }
 
-    /* extra hit with 50% chance of another extra hit if wearing Grandmaster's Robe */
-    if (!uwep && malive
-            && mhit_get_grandmaster_robe_bonus
-            && uarm
-            && uarm->oartifact == ART_GRANDMASTER_S_ROBE) {
-        tmp = find_roll_to_hit(mon, uattk->aatyp, uwep, &attknum,
-                               &armorpenalty);
-        dieroll = rnd(20);
-        mhit = (tmp > dieroll || u.uswallow);
-        malive =
-            known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk, dieroll);
-
-        /* 50% chance to get a second bonus attack */
-        if (malive && mhit && rn2(2)) {
-            tmp = find_roll_to_hit(mon, uattk->aatyp, uwep, &attknum,
-                                   &armorpenalty);
-            dieroll = rnd(20);
-            mhit = (tmp > dieroll || u.uswallow);
-            malive = known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk,
-                                 dieroll);
-        }
-        /* second passive counter-attack only occurs if second attack hits */
-        if (mhit)
-            (void) passive(mon, uwep, mhit, malive, AT_CLAW, FALSE);
-    }
 
     /* Your race may grant extra attacks. Illithids don't use
      * their tentacle attack every turn, Centaurs are strong

@@ -1335,12 +1335,6 @@ const char *name;
     if (obj->oartifact || (lth && exist_artifact(obj->otyp, name)))
         return obj;
 
-    if (!strcmpi(name, "Grandmaster's Robe")
-            && Is_dragon_scaled_armor(obj)) {
-        pline("While engraving, your %s slips.", body_part(HAND));
-        return obj;
-    }
-
     new_oname(obj, lth); /* removes old name if one is present */
     if (lth)
         Strcpy(ONAME(obj), name);
@@ -1358,7 +1352,7 @@ const char *name;
         /* if obj is owned by a shop, increase your bill */
         if (obj->unpaid)
             alter_cost(obj, 0L);
-        if (via_naming && obj->oartifact != ART_GRANDMASTER_S_ROBE) {
+        if (via_naming) {
             /* naming an artifact has consequences now, much like
                wishing for one... not as bad as spawning a player
                monster or quest nemesis, but you're still not

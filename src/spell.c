@@ -2088,12 +2088,8 @@ int spell;
         splcaster += urole.spelarmr;
     else if (uarm && !is_robe(uarm) && uarm->otyp != CRYSTAL_PLATE_MAIL) 
         splcaster += 5;
-    else if (uarm && uarm->otyp == ROBE_OF_POWER) {
+    else if (uarm && uarm->otyp == ROBE_OF_POWER)
         splcaster -= urole.spelarmr;
-
-        if (uarm && uarm->oartifact == ART_GRANDMASTER_S_ROBE)
-            splcaster -= urole.spelarmr;
-    }
     
     if (uarms && uarms->oartifact != ART_MIRRORBRIGHT)
         splcaster += urole.spelshld;
