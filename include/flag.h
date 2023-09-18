@@ -302,6 +302,7 @@ struct instance_flags {
     boolean autodescribe;     /* autodescribe mode in getpos() */
     boolean autostairtravel;  /* travel to stairs when > or < pressed */
     boolean cbreak;           /* in cbreak mode, rogue format */
+    boolean ctrlkick;         /* Kick via control+direction */
     boolean deferred_X;       /* deferred entry into explore mode */
     boolean echo;             /* 1 to echo characters */
     boolean force_invmenu;    /* always menu when handling inventory */

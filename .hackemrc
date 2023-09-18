@@ -163,6 +163,9 @@ OPTIONS=autoopen
 # Auto-travel to stairs using < or >
 OPTIONS=autostairtravel
 
+# Enable kicking with ctrl+direction
+OPTIONS=ctrlkick
+
 # Travelling: Update map after every step? 
 #  (walk goes slow, run goes fast, teleport=instant)
 OPTIONS=runmode:teleport

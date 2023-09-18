@@ -3023,6 +3023,8 @@ new players if it detects some anticipated mistakes (default on).
 .lp "confirm "
 Have user confirm attacks on pets, shopkeepers, and other
 peaceable creatures (default on).  Persistent.
+.lp ctrlkick
+Enable kicking shortcuts with ctrl + direction.
 .lp dark_room
 Show out-of-sight areas of lit rooms (default on).  Persistent.
 .lp disclose

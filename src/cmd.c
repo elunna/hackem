@@ -5683,15 +5683,14 @@ register char *cmd;
             context.run = 1;
             domove_attempting |= DOMOVE_RUSH;
         } else if (movecmd(unctrl(*cmd))) {
-            /* Control + Movement key 
-             * Highjacking this to support kick shortcut commands
-             */
-#if 0
-            context.run = 3;
-            domove_attempting |= DOMOVE_RUSH;
-#endif  
-            dokickdir(FALSE);
-            return;
+            /* Control + Movement key */
+            if (iflags.ctrlkick) {
+                dokickdir(FALSE);
+                return;
+            } else {
+                context.run = 3;
+                domove_attempting |= DOMOVE_RUSH;
+            }
         }
         break;
     }

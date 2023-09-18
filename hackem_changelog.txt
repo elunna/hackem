@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Add config option for kicking shortcuts. Closes #477.
 Add config option for auto-stair travel.
 Updates to likes_ice.
 More is_flaming and likes_fire updates.

@@ -3420,7 +3420,10 @@
           confirm
             Have  user  confirm  attacks  on  pets,  shopkeepers, and other
             peaceable creatures (default on).  Persistent.
-
+          
+          ctrlkick
+            Enable kicking shortcuts with ctrl + direction.
+            
           dark_room
             Show out-of-sight areas of lit rooms (default on).  Persistent.
 
