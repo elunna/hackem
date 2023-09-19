@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+fix #K4006 - 'null obj after quiver merge' panic (NetHack 3.7)
 Gave fire bolt a little to-hit boost.
 Chaotic dragons can betray you (from SLASH'EM).
 Fix: follow-up to last commit (kicking and martial arts) (From EvilHack).
