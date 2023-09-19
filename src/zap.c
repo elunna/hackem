@@ -217,7 +217,7 @@ struct obj *otmp;
             shieldeff(mtmp->mx, mtmp->my);
             pline("Swoosh!");
             break; /* skip makeknown */
-        } else if (u.uswallow || rnd(20) < 10 + find_mac(mtmp)) {
+        } else if (u.uswallow || rnd(20) < 14 + find_mac(mtmp)) {
             /* A chance of setting monster's stuff on fire */
             if (!rn2(3)) 
                 erode_armor(mtmp, ERODE_BURN);

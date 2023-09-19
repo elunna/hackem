@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Gave fire bolt a little to-hit boost.
 Chaotic dragons can betray you (from SLASH'EM).
 Fix: follow-up to last commit (kicking and martial arts) (From EvilHack).
 Fix: pets and players poly'd and attacking disintegrators (From EvilHack).
