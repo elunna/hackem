@@ -125,7 +125,7 @@ const char *name; /* if null, then format `*objp' */
             && rn2(5)) {
         /* dodge four of five missiles, even when blind see "A new hope" 
             * for blindness reference */
-        You("dodge %s with %s.", onm, yname(uwep));
+        You("deflect %s with %s.", onm, yname(uwep));
         return 0;
     } else {
         if (Blind || !flags.verbose)
