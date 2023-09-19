@@ -1291,7 +1291,7 @@ struct monst *mtmp;   /* Pet */
 
 boolean
 acceptable_pet_target(mtmp, mtmp2, ranged)
-register struct monst *mtmp; /* your pet */
+register struct monst *mtmp;  /* your pet */
 register struct monst *mtmp2; /* the potential target */
 boolean ranged;
 {
