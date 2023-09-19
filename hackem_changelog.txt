@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: shambling horror possible resistances, add more info to pokedex (From EvilHack).
 Baby dragon tweaks (From EvilHack).
 Fix: hated material sear message feedback not appearing if attacking unarmed (From EvilHack).
 Add config option for kicking shortcuts. Closes #477.
