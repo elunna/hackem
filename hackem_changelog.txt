@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: hated material sear message feedback not appearing if attacking unarmed (From EvilHack).
 Add config option for kicking shortcuts. Closes #477.
 Add config option for auto-stair travel.
 Updates to likes_ice.
