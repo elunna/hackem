@@ -3250,13 +3250,13 @@ NEARDATA struct permonst mons[] = {
      * Dragons
      */
     /* The order of the dragons is VERY IMPORTANT.
-     * The code depends on the *order* being the same as that for dragon scales
-     * in objects.c.  Baby dragons cannot confer intrinsics, to avoid
-     * polyself/egg abuse.
+     * The code depends on the *order* being the same as that for dragon
+     * scales in objects.c.  Baby dragons cannot confer intrinsics, to
+     * avoid polyself/egg abuse.
      *
-     * Adult dragons are all lawful or chaotic; sea dragons as well as
-     * baby dragons are all neutral.  This affects monster generation on
-     * some special levels.
+     * Dragons are all lawful or chaotic; sea dragons and celestial
+     * dragons are the exception (neutral).  This affects monster
+     * generation on some special levels.
      *
      * As reptiles, dragons are cold-blooded and thus aren't seen with
      * infravision.  Red and gold dragons (also Tiamat) are the
@@ -3270,7 +3270,7 @@ NEARDATA struct permonst mons[] = {
     /* <Umbire> The reflection comes from its scales,
      * and they only fully grow in upon reaching adulthood. */
     MON("baby gray dragon", S_DRAGON,
-        LVL(12, 9, 2, 20, 0), G_GENO,
+        LVL(12, 9, 2, 20, 4), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -3280,7 +3280,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0, 0,
         MH_DRAGON, 13, CLR_GRAY),
     MON("baby silver dragon", S_DRAGON,
-        LVL(12, 9, 2, 10, 0), G_GENO,
+        LVL(12, 9, 2, 10, 4), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4), 
@@ -3290,7 +3290,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0, 0,
         MH_DRAGON, 13, DRAGON_SILVER),
     MON("baby shimmering dragon", S_DRAGON,            /* Evilhack/Slash'EM */
-        LVL(12, 9, 2, 10, 0), G_GENO,
+        LVL(12, 9, 2, 10, 4), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -3300,7 +3300,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 
         0, 0, MH_DRAGON, 13, CLR_CYAN),
     MON("baby deep dragon", S_DRAGON,                           /* Slash'EM */
-        LVL(12, 9, 2, 10, 0), G_GENO,
+        LVL(12, 9, 2, 10, -6), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -3310,7 +3310,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 
         0, 0, MH_DRAGON, 13, CLR_MAGENTA),
     MON("baby red dragon", S_DRAGON,
-        LVL(12, 9, 2, 10, 0), G_GENO,
+        LVL(12, 9, 2, 10, -4), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 6, 5), 
           ATTK(AT_CLAW, AD_PHYS, 2, 6),
           ATTK(AT_CLAW, AD_PHYS, 2, 6),
@@ -3320,7 +3320,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, M3_INFRAVISIBLE,
         M4_VULNERABLE_COLD, MH_DRAGON, 13, CLR_RED),
     MON("baby white dragon", S_DRAGON,
-        LVL(12, 9, 2, 10, 0), (G_NOHELL | G_GENO),
+        LVL(12, 9, 2, 10, -4), (G_NOHELL | G_GENO),
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -3330,7 +3330,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0,
         M4_VULNERABLE_FIRE, MH_DRAGON, 13, CLR_WHITE),
     MON("baby orange dragon", S_DRAGON,
-        LVL(12, 9, 2, 10, 0), G_GENO,
+        LVL(12, 9, 2, 10, -5), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -3340,7 +3340,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0, 0,
         MH_DRAGON, 13, CLR_ORANGE),
     MON("baby black dragon", S_DRAGON,
-        LVL(12, 9, 2, 10, 0), G_GENO,
+        LVL(12, 9, 2, 10, -6), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -3350,7 +3350,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0, 0,
         MH_DRAGON, 13, CLR_BLACK),
     MON("baby blue dragon", S_DRAGON,
-        LVL(12, 14, 2, 10, 0), G_GENO,
+        LVL(12, 14, 2, 10, -7), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4), 
@@ -3360,7 +3360,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0, 0,
         MH_DRAGON, 13, CLR_BLUE),
     MON("baby green dragon", S_DRAGON,
-        LVL(12, 9, 2, 10, 0), G_GENO,
+        LVL(12, 9, 2, 10, -6), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
@@ -3369,8 +3369,8 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE | M1_POIS,
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, 0, 0,
         MH_DRAGON, 13, CLR_GREEN),
-    MON("baby gold dragon", S_DRAGON,                           /* EvilHack */
-        LVL(12, 9, 2, 10, 0), G_GENO,
+    MON("baby gold dragon", S_DRAGON,                           /* SporkHack */
+        LVL(12, 9, 2, 10, 4), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4), 
@@ -3390,7 +3390,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS,
         0, M4_VULNERABLE_ELEC, MH_DRAGON, 13, HI_ZAP),
     MON("baby yellow dragon", S_DRAGON,
-        LVL(12, 9, 2, 10, 0), G_GENO,
+        LVL(12, 9, 2, 10, -7), G_GENO,
         A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
           ATTK(AT_CLAW, AD_PHYS, 2, 4),
           ATTK(AT_CLAW, AD_PHYS, 2, 4),

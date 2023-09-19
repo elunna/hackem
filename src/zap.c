@@ -3546,8 +3546,7 @@ boolean youattack, allow_cancel_kill, self_cancel;
                         mon_nam(mdef));
                 return FALSE;
             } else if (mdef->data == &mons[PM_TIAMAT]
-                       || mdef->data == &mons[PM_GRAY_DRAGON]
-                       || mdef->data == &mons[PM_BABY_GRAY_DRAGON]) {
+                       || mdef->data == &mons[PM_GRAY_DRAGON]) {
                 shieldeff(mdef->mx, mdef->my);
                 if (canseemon(mdef))
                     You("sense a wave of energy dissipate around %s.",
@@ -3586,8 +3585,7 @@ boolean youattack, allow_cancel_kill, self_cancel;
                 shieldeff(u.ux, u.uy);
                 You_feel("a wave of energy dissipate around you.");
                 return FALSE;
-            } else if (Upolyd && (youmonst.data == &mons[PM_GRAY_DRAGON]
-                                  || youmonst.data == &mons[PM_BABY_GRAY_DRAGON])) {
+            } else if (Upolyd && youmonst.data == &mons[PM_GRAY_DRAGON]) {
                 shieldeff(u.ux, u.uy);
                 You_feel("a wave of energy dissipate around you.");
                 return FALSE;
@@ -3620,8 +3618,7 @@ boolean youattack, allow_cancel_kill, self_cancel;
                         mon_nam(mdef));
                 return FALSE;
             } else if (mdef->data == &mons[PM_TIAMAT]
-                       || mdef->data == &mons[PM_GRAY_DRAGON]
-                       || mdef->data == &mons[PM_BABY_GRAY_DRAGON]) {
+                       || mdef->data == &mons[PM_GRAY_DRAGON]) {
                 shieldeff(mdef->mx, mdef->my);
                 if (canseemon(mdef))
                     You("sense a wave of energy dissipate around %s.",
