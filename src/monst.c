@@ -4389,6 +4389,14 @@ struct permonst _mons2[] = {
         SIZ(WT_HUMAN, 200, MS_ARREST, MZ_HUMAN), 0, 0, M1_HUMANOID | M1_CARNIVORE,
         M2_WANDER | M2_HOSTILE | M2_STRONG | M2_MALE | M2_COLLECT | M2_FLANK,
         M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 6, HI_LORD),
+    MON("Kop Kommissioner", S_KOP,
+        LVL(10, 14, 10, 20, 12), (G_NOGEN),
+        A(ATTK(AT_WEAP, AD_PHYS, 2, 8),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(WT_HUMAN, 200, MS_ARREST, MZ_HUMAN), 0, 0, M1_HUMANOID | M1_CARNIVORE,
+        M2_WANDER | M2_HOSTILE | M2_STRONG | M2_MALE | M2_COLLECT | M2_FLANK,
+        M3_INFRAVISIBLE, 0, MH_HUMAN, 8, HI_LORD),
+        
     /*
      * Liches
      */
