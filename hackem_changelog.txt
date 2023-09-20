@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Severed hand weighed 0; caused segfault on object lookup.
 Fix errors in makekops.
 Cleanup makekops and imported kop kommissioners (from SlashTHEM).
 Fix lightsaber deflection message (reported by Umbire). Fixes #480.
