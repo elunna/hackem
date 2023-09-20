@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Disabled the Black Market.
 Hand of Vecna weighs 300.
 Stomping boots are iron.
 Removed energy regen from The Candle of Eternal Flame.

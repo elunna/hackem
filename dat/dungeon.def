@@ -33,7 +33,7 @@ BRANCH:         "Neutral Quest" @ (15, 5) portal
 BRANCH:         "Chaotic Quest" @ (15, 5) portal
 
 BRANCH: 	    "The Wyrm Caves" @ (20, 2)
-BRANCH:		    "One-eyed Sam's Market" @ (22, 2) portal
+# BRANCH:		    "One-eyed Sam's Market" @ (22, 2) portal
 BRANCH: 	    "The Lost Tomb" @ (21, 4)
 BRANCH:		    "The Spider Caves" @ (26, 4)
 BRANCH:		    "The Sunless Sea" @ (28, 4)
@@ -180,10 +180,10 @@ LEVEL:          "cavebegn" "D" @ (1, 0)
 LEVEL:          "caveend" "D" @ (2, 0)
 
 ### The Black Market ###
-DUNGEON:        "One-eyed Sam's Market" "D" (1, 0)
-ALIGNMENT:      chaotic
-DESCRIPTION:    mazelike
-RNDLEVEL:       "blkmar" "B" @ (1, 0) 2
+#DUNGEON:        "One-eyed Sam's Market" "D" (1, 0)
+#ALIGNMENT:      chaotic
+#DESCRIPTION:    mazelike
+#RNDLEVEL:       "blkmar" "B" @ (1, 0) 2
 
 ### The Lost Tomb ###
 DUNGEON:        "The Lost Tomb" "L" (1, 0)
