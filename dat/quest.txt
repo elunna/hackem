@@ -6635,12 +6635,8 @@ the sake of us all:  Go bravely with %d!
 %Cc - 00303
 As you watch Vecna's decrepit body crumble to dust, you sense
 a powerful, evil force leave his quickly disintegrating body.
-It dissipates out into the void, gone forever.  At that same
-moment, you hear from far away the terrified screams of the
-liches that still remain in Vecna's stronghold.  Their source
-of power that kept them from being annihilated no longer
-protects them.  They know it, and now so do you.
-%E [Vecna has been destroyed, allowing all other liches to be eliminated.]
+It dissipates out into the void, gone forever.
+%E [Vecna has been destroyed.]
 #
 # Defeating Cerberus
 #
