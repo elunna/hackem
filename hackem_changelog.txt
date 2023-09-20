@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Hand of Vecna weighs 300.
 Stomping boots are iron.
 Removed energy regen from The Candle of Eternal Flame.
 Require the Iron Spoon of Liberation to be wielded to grant free action and searching.
