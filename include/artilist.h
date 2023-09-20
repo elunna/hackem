@@ -625,7 +625,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     
     A("The Great Dagger of Glaurgnaa", GREAT_DAGGER,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL | SPFX_DRLI | SPFX_DALIGN), 
-      0, 0, DRLI(8, 4), NO_DFNS, CARY(AD_MAGM), ENERGY_BOOST, A_CHAOTIC, 
+      0, 0, DRLI(8, 4), DFNS(AD_MAGM), NO_CARY, ENERGY_BOOST, A_CHAOTIC, 
       PM_NECROMANCER, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
     A("The Mitre of Holiness", HELM_OF_BRILLIANCE,
@@ -675,7 +675,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Stake of Van Helsing", STAKE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_WARN | SPFX_DFLAGH), 
       0, MH_VAMPIRE,
-      PHYS(5, 12), NO_DFNS, CARY(AD_MAGM), 0, A_LAWFUL, 
+      PHYS(5, 12), DFNS(AD_MAGM), NO_CARY, 0, A_LAWFUL, 
       PM_UNDEAD_SLAYER, NON_PM, 5000L, CLR_RED, WOOD),
 
 #if 0 /* Replaced by Gjallar */
@@ -697,7 +697,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     
     A("The Crown of Saint Edward", HELM_OF_TELEPATHY,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), (SPFX_HSPDAM), 0,
-      NO_ATTK, NO_DFNS, CARY(AD_MAGM), 0,  
+      NO_ATTK, DFNS(AD_MAGM), NO_CARY, 0,  
       A_LAWFUL, PM_YEOMAN, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
     /*
