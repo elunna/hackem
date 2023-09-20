@@ -1227,7 +1227,8 @@ struct obj *sobj;
     unsigned was_peaceful = mtmp->mpeaceful;
 
     /* No taming in the Black Market! */
-    if (sobj->cursed || Is_blackmarket(&u.uz)) {
+    if (sobj->cursed || Is_blackmarket(&u.uz) 
+          || (Is_astralevel(&u.uz) && rn2(10))) {
         setmangry(mtmp, FALSE);
         if (was_peaceful && !mtmp->mpeaceful)
             return -1;

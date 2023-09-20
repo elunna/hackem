@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Taming is much more difficult on the Astral Plane.
 Changed Helm of Hermes to Hermes Boots.
 Introduced forged artifact Squall (from SpliceHack), nerfed Thunderstruck a bit.
 Removed chromatic dragon scales.
