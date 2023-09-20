@@ -3673,7 +3673,12 @@ struct obj* obj;
         case PHIAL:
         case AMULET_OF_YENDOR:
         case FAKE_AMULET_OF_YENDOR:
+        /* Tshirts and mummy wrappings can only be cloth. */
         case MUMMY_WRAPPING:
+        case HAWAIIAN_SHIRT:
+        case STRIPED_SHIRT:
+        case RUFFLED_SHIRT:
+        case T_SHIRT:
             return NULL;
         /* Any other cases for specific object types go here. */
         case SHIELD_OF_REFLECTION:
