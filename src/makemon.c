@@ -2931,7 +2931,8 @@ xchar x, y; /* clone's preferred location or 0 (near mon) */
            when peaceful while being different alignment from hero */
         atyp = EMIN(m2)->min_align;
         EMIN(m2)->renegade = (atyp != u.ualign.type) ^ !m2->mpeaceful;
-    } else if (m2->mtame) {
+    } 
+    if (m2->mtame) {
         /* Because m2 is a copy of mon it is tame but not init'ed.
            However, tamedog() will not re-tame a tame dog, so m2
            must be made non-tame to get initialized properly. */
