@@ -172,7 +172,7 @@ MONSTER: (''', "wood golem"), (19,18), asleep, hostile
 CONTAINER: ('(', "chest"), (19,18) {
 
   # Potential easter eggs hidden within the chest...
-  [75%]: OBJECT: (')', "long sword"), blessed, +3, name:"The Master Sword"
+  [5%]: OBJECT: (')', "long sword"), blessed, +3, name:"The Master Sword"
   [5%]: OBJECT: ('[', "plate mail"), blessed, +5, name:"Erdrick's Armor"
   #[5%]: OBJECT: (')', "mallet"), blessed, +4, name:"Tendo Mallet"
   [5%]: OBJECT: (')', "broadsword"), blessed, +2, name:"Grandleon"

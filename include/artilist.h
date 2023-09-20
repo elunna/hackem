@@ -430,10 +430,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 
       1700L, NO_COLOR, DEFAULT_MAT),
     
-    A("The Master Sword", LONG_SWORD, 
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_ATTK), 0, 0, 
+    A("The Master Sword", LONG_SWORD,
+      (SPFX_RESTR | SPFX_ATTK), 0, 0, 
       MAST(3, 3), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1000L, 
-      NO_COLOR, GEMSTONE),
+      NO_COLOR, SILVER),
     
     /* Attacks deal double damage, but at the cost of hallucination.
     *      This effect is only active while the user can see. */
