@@ -3263,6 +3263,7 @@ long mmflags;
                     after that, boulder carriers are fair game */
                  && ((tryct == 1 && throws_rocks(ptr) && In_sokoban(&u.uz))
                      || (is_mplayer(ptr) && no_mplayer)
+                     || (ptr == &mons[PM_VOLATILE_MUSHROOM] && inside_shop(x, y))
                      || !goodpos(x, y, &fakemon, gpflags)));
         mndx = monsndx(ptr);
     }
