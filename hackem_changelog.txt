@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Require the Iron Spoon of Liberation to be wielded to grant free action and searching.
 Require the 3 SLASH'EM artifacts to be wielded or worn to grant magic resistance.
 Reverted SLASH'EM style flat damage for artifacts.
 Removed celestial dragons.
