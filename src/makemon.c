@@ -3663,8 +3663,9 @@ int mndx;
      */
 
     /* assert(MAXMONNO < 255); */
-    return (mndx == PM_NAZGUL ? 9 
-            : mndx == PM_ERINYS ? 3 
+    return (mndx == PM_NAZGUL ? 9
+            : mndx == PM_ERINYS ? 3
+            : mndx == PM_NOSFERATU ? 7
             : mndx == PM_THRIAE ? 3: MAXMONNO);
 }
 
