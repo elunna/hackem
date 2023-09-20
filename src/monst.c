@@ -959,6 +959,15 @@ NEARDATA struct permonst mons[] = {
         SIZ(600, 300, MS_GROWL, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_FEMALE,
         M3_INFRAVISIBLE, 0, 0, 8, CLR_YELLOW),
+    MON("serpopard", S_FELINE,                                /* SpliceHack */
+        LVL(6, 15, 6, 0, 0), (G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 2, 3),
+          ATTK(AT_CLAW, AD_PHYS, 2, 3),
+          ATTK(AT_HUGS, AD_WRAP, 1, 8),
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(600, 300, MS_GROWL, MZ_LARGE), MR_POISON, 0,
+        M1_ANIMAL | M1_SLITHY | M1_NOHANDS | M1_CARNIVORE,
+        M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 8, CLR_MAGENTA),
     MON("fat cat", S_FELINE,                                  /* SpliceHack */
         LVL(10, 14, 3, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 3, 4), 
@@ -977,6 +986,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(750, 400, MS_GROWL, MZ_LARGE), MR_SLEEP, MR_SLEEP,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
         M3_INFRAVISIBLE, 0, 0, 13, CLR_ORANGE),
+
     MON("saber-toothed tiger", S_FELINE,                        /* EvilHack */
         LVL(12, 14, 2, 0, 0), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 4, 4), 
@@ -1006,16 +1016,6 @@ NEARDATA struct permonst mons[] = {
         SIZ(800, 400, MS_GROWL, MZ_LARGE), MR_FIRE, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_FLANK, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 14, CLR_RED),
-    MON("serpopard", S_FELINE,                                /* SpliceHack */
-        LVL(27, 15, 6, 0, 0), (G_GENO | 1),
-        A(ATTK(AT_CLAW, AD_PHYS, 6, 9), 
-          ATTK(AT_CLAW, AD_PHYS, 6, 9),
-          ATTK(AT_HUGS, AD_WRAP, 1, 8), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(600, 300, MS_GROWL, MZ_LARGE), MR_POISON, 0,
-        M1_ANIMAL | M1_SLITHY | M1_NOHANDS | M1_CARNIVORE, 
-        M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 
-        30, CLR_MAGENTA),
     /*
      * gremlins and gargoyles
      */

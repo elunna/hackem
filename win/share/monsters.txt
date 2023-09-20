@@ -1929,6 +1929,25 @@ Z = (195, 195, 195)
   .....HKAA..HKA..
   ................
 }
+# tile 105 (serpopard)
+{
+  .......HHHAJ....
+  ......HHJJAHH...
+  ......AAAAHHHJ..
+  ..........AAAHJ.
+  ..H..H.....AHHAH
+  ..HH.HJ.....JJAJ
+  .HHHHHJ.....HHHJ
+  .GHGHHJHAAHHJHHH
+  .HHHHHJHHHHHHHJA
+  .HDDDJHAAHHAJHH.
+  ..HHAHHAJHHAAHA.
+  ....HAHHJJJHHJA.
+  ....HAHAAAAAAA..
+  ...HKAHAAAAA....
+  .....HHAA.......
+  ................
+}
 # tile 100 (fat cat)
 {
   ................
@@ -2022,25 +2041,6 @@ Z = (195, 195, 195)
   ....DADCCCCKDDA.
   ...DDADAAAAADAA.
   .....DDAA..KDA..
-  ................
-}
-# tile 105 (serpopard)
-{
-  .......HHHAJ....
-  ......HHJJAHH...
-  ......AAAAHHHJ..
-  ..........AAAHJ.
-  ..H..H.....AHHAH
-  ..HH.HJ.....JJAJ
-  .HHHHHJ.....HHHJ
-  .GHGHHJHAAHHJHHH
-  .HHHHHJHHHHHHHJA
-  .HDDDJHAAHHAJHH.
-  ..HHAHHAJHHAAHA.
-  ....HAHHJJJHHJA.
-  ....HAHAAAAAAA..
-  ...HKAHAAAAA....
-  .....HHAA.......
   ................
 }
 # tile 106 (jermlaine)

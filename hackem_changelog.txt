@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Revert serpopard to SpliceHack levels.
 Revert grave trolls to SpliceHack levels.
 Prevent volatile mushrooms from generating inside shops.
 Disabled the Black Market.
