@@ -1103,7 +1103,7 @@ char *usr_text;
     boolean is_artifact = obj && obj->oartifact;
     boolean show_corpse = obj && otyp == CORPSE;
     /* We have the object and it is reveal_info */
-    boolean reveal_fullname = (obj && (oc.oc_name_known || obj->oprops_known));
+    boolean reveal_fullname = (obj && oc.oc_name_known);
     boolean reveal_info = (boolean) (!obj || (obj && oc.oc_name_known));
     int i, mat_bon;
 
@@ -1112,7 +1112,6 @@ char *usr_text;
     dummy.oclass = oc.oc_class;
     /* Use actual object's material if available, otherwise the default */
     dummy.material = obj ? obj->material : oc.oc_material;
-    dummy.oprops_known = obj ? obj->oprops_known : 0;
     dummy.bknown = obj ? obj->bknown : 0;
     dummy.blessed = obj ? obj->blessed : 0;
     dummy.cursed = obj ? obj->cursed : 0;
@@ -1220,16 +1219,6 @@ char *usr_text;
         if (damage_info.light_damage)   { OBJPUTSTR(damage_info.light_damage); }
         if (damage_info.mat_damage)     { OBJPUTSTR(damage_info.mat_damage); }
         if (damage_info.hate_damage)    { OBJPUTSTR(damage_info.hate_damage); }
-
-        /* Properties */
-        if (dummy.oprops_known) {
-            if (obj->oprops & ITEM_FIRE) OBJPUTSTR("\t+1d5 + 3 fire damage");
-            if (obj->oprops & ITEM_FROST) OBJPUTSTR("\t+1d5 + 3 cold damage");
-            if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("\t+1d5 + 3 shock damage");
-            if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("\t+1d5 + 3 sonic damage");
-            if (obj->oprops & ITEM_ACID) OBJPUTSTR("\t+1d5 + 3 acid damage");
-            if (obj->oprops & ITEM_VENOM) OBJPUTSTR("\tdoes 1d2 (+ 10% chance of 6-15 extra) poison damage; \n\t10% chance of instakill by poison");
-        }
         
         if (reveal_info || is_artifact) {
             Sprintf(buf, "Has a %s%d %s to hit.",
@@ -1274,29 +1263,6 @@ char *usr_text;
                 oc.oc_delay == 0 ? 1 : oc.oc_delay, 
                 (oc.oc_delay == 1 ? "" : "s"));
         OBJPUTSTR(buf);
-        
-        if (dummy.oprops_known) {
-            if (obj->oprops & ITEM_FIRE) OBJPUTSTR("Grants fire resistance");
-            if (obj->oprops & ITEM_FROST) OBJPUTSTR("Grants cold resistance");
-            if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("Grants shock resistance");
-            if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("Grants sonic resistance");
-            if (obj->oprops & ITEM_VENOM) OBJPUTSTR("Grants poison resistance");
-            if (obj->oprops & ITEM_ACID) OBJPUTSTR("Grants acid resistance");
-            if (obj->oprops & ITEM_DRLI) OBJPUTSTR("Grants drain resistance");
-            if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
-            if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
-        }
-    }
-
-    /* PROPERTY INFO */
-
-    if (dummy.oprops_known
-        && (oc.oc_class == WEAPON_CLASS || oc.oc_class == ARMOR_CLASS)) {
-        if (obj->oprops & ITEM_ESP) OBJPUTSTR("Grants telepathy");
-        if (obj->oprops & ITEM_SEARCHING) OBJPUTSTR("Grants searching");
-        if (obj->oprops & ITEM_WARNING) OBJPUTSTR("Grants warning");
-        if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/charisma adjustment");
-        if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
     }
 
     /* APPEARANCE BONUSES */

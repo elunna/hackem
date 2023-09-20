@@ -226,7 +226,6 @@ boolean magic;
 
     obj->dknown = 1;
     if (magic) {
-        obj->oprops_known |= obj->oprops;
         if ((objects[obj->otyp].oc_magic || obj->oartifact)
             && !is_soko_prize_flag(obj)) {
             makeknown(obj->otyp);
@@ -239,9 +238,7 @@ boolean magic;
 }
 
 #define is_magic(obj) \
-                 (((obj)->oprops & ITEM_PROP_MASK) \
-                  || (objects[(obj)->otyp]).oc_magic \
-                  || (obj)->oartifact)
+                 ((objects[(obj)->otyp]).oc_magic || (obj)->oartifact)
 
 /* Check whether the location has an outdated object displayed on it. */
 STATIC_OVL boolean
@@ -1019,197 +1016,6 @@ int mclass;                /* monster class, 0 for all */
         if (u.uburied)
             under_ground(2);
     }
-    return 0;
-}
-
-/* TODO: other magical types of creature? */
-#define MAGICMONSTER(mon) (attacktype(mon->data, AT_MAGC))
-
-/*
- * Used for scrolls.  Returns:
- *
- * 1 - nothing was detected
- * 0 - something was detected
- */
-int
-magic_detect(detector)
-struct obj *detector;   /* object doing the detecting */
-{
-    register int x, y;
-    char stuff[BUFSZ];
-    int is_cursed = (detector && detector->cursed);
-    int do_pknown = (detector && (detector->oclass == SCROLL_CLASS)
-                     && detector->blessed);
-    int ct = 0, ctu = 0;
-    register struct obj *obj;
-    struct obj otmp;
-    register struct monst *mtmp;
-    int uw = u.uinwater, ter_typ = TER_DETECT | TER_OBJ;
-    boolean woken = FALSE;
-
-    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon)
-        if (!DEADMONSTER(mtmp) && MAGICMONSTER(mtmp)) {
-            ter_typ |= TER_MON;
-            ct++;
-            break;
-        }
-
-    if (Upolyd
-        && attacktype(youmonst.data, AT_MAGC))
-        ctu++;
-
-    if (Hallucination || Confusion)
-        Strcpy(stuff, something);
-    else
-        Strcpy(stuff, "magic");
-
-    for (obj = invent; obj; obj = obj->nobj)
-        if (is_magic(obj)) {
-            obj->oprops_known |= ITEM_MAGICAL;
-            if (do_pknown)
-                do_dknown_of(obj, TRUE);
-        }
-
-    for (obj = fobj; obj; obj = obj->nobj) {
-        if (!is_magic(obj))
-            continue;
-        if (obj->ox == u.ux && obj->oy == u.uy)
-            ctu++;
-        else
-            ct++;
-        obj->oprops_known |= ITEM_MAGICAL;
-        if (do_pknown)
-            do_dknown_of(obj, TRUE);
-    }
-
-    for (obj = level.buriedobjlist; obj; obj = obj->nobj) {
-        if (!is_magic(obj))
-            continue;
-        if (obj->ox == u.ux && obj->oy == u.uy)
-            ctu++;
-        else
-            ct++;
-        obj->oprops_known |= ITEM_MAGICAL;
-        if (do_pknown)
-            do_dknown_of(obj, TRUE);
-    }
-
-    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-        if (DEADMONSTER(mtmp))
-            continue;
-        for (obj = mtmp->minvent; obj; obj = obj->nobj) {
-            if (!is_magic(obj))
-                continue;
-            ct++;
-            obj->oprops_known |= ITEM_MAGICAL;
-            if (do_pknown)
-                do_dknown_of(obj, TRUE);
-        }
-        if (is_cursed && mtmp->m_ap_type == M_AP_OBJECT
-            && objects[mtmp->mappearance].oc_magic) {
-            ct++;
-            break;
-        }
-    }
-
-    if (!clear_stale_map(ALL_CLASSES, 0, TRUE) && !ct) {
-        if (!ctu) {
-            if (detector)
-                strange_feeling(detector, "You feel mundane.");
-            return 1;
-        }
-
-        You("sense %s nearby.", stuff);
-        return 0;
-    }
-
-    cls();
-
-    u.uinwater = 0;
-    (void) unconstrain_map();
-    /* Map all buried objects first */
-    for (obj = level.buriedobjlist; obj; obj = obj->nobj)
-        if (is_magic(obj)) {
-            map_object(obj, 1);
-        }
-    /*
-     * If we are mapping all objects, map only the top object of a pile or
-     * the first object in a monster's inventory.  Otherwise, go looking
-     * for a matching object class and display the first one encountered
-     * at each location.
-     *
-     * Objects on the floor override buried objects.
-     */
-    for (x = 1; x < COLNO; x++)
-        for (y = 0; y < ROWNO; y++)
-            for (obj = level.objects[x][y]; obj; obj = obj->nexthere)
-                if (is_magic(obj)) {
-                    map_object(obj, 1);
-                    break;
-                }
-
-    /* Objects in the monster's inventory override floor objects */
-    for (mtmp = fmon ; mtmp ; mtmp = mtmp->nmon) {
-        if (DEADMONSTER(mtmp))
-            continue;
-        for (obj = mtmp->minvent; obj; obj = obj->nobj)
-            if (is_magic(obj)) {
-                otmp = *obj;
-                otmp.ox = mtmp->mx; /* at monster location */
-                otmp.oy = mtmp->my;
-                map_object(&otmp, 1);
-                break;
-            }
-        /* Allow a mimic to override the detected objects it is carrying */
-        if (is_cursed && mtmp->m_ap_type == M_AP_OBJECT
-            && (objects[mtmp->mappearance].oc_magic)) {
-            otmp.otyp = mtmp->mappearance; /* needed for obj_to_glyph() */
-            otmp.ox = mtmp->mx;
-            otmp.oy = mtmp->my;
-            otmp.corpsenm = PM_TENGU; /* if mimicing a corpse */
-            map_object(&otmp, 1);
-        }
-    }
-
-    /* Magical monsters override objects */
-    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-        if (DEADMONSTER(mtmp) || !MAGICMONSTER(mtmp))
-            continue;
-        map_monst(mtmp, TRUE);
-        if (is_cursed && (mtmp->msleeping || !mtmp->mcanmove)) {
-            mtmp->msleeping = mtmp->mfrozen = 0;
-            mtmp->mcanmove = 1;
-            woken = TRUE;
-        }
-    }
-    if (!glyph_is_object(glyph_at(u.ux, u.uy))) {
-        newsym(u.ux, u.uy);
-        ter_typ |= TER_MON;
-    }
-    /* newsym(u.ux, u.uy); */
-    You("detect the %s of %s.",
-        ct ? "presence" : "absence", stuff);
-    if (woken)
-        pline("%s detects the presence of you.", upstart(stuff));
-    if (!ct)
-        display_nhwindow(WIN_MAP, TRUE);
-    else {
-        EDetect_monsters |= I_SPECIAL;
-        browse_map(ter_typ, "magical object");
-        EDetect_monsters &= ~I_SPECIAL;
-    }
-
-    /*
-     * What are we going to do when the hero does an object detect while blind
-     * and the detected object covers a known pool?
-     */
-    reconstrain_map();
-    docrt(); /* this will correctly reset vision */
-    u.uinwater = uw;
-    if (Underwater)
-        under_water(2);
-    if (u.uburied)
-        under_ground(2);
     return 0;
 }
 

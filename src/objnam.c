@@ -510,123 +510,6 @@ boolean forward;
     }
 }
 
-STATIC_OVL
-void
-propnames(buf, props, props_known, weapon, has_of)
-register char *buf;
-register long props, props_known;
-boolean weapon;
-boolean has_of;
-{
-    char of[6];
-
-    Strcpy(of, (has_of) ? " and" : " of");
-    if (props & ITEM_FIRE) {
-        if ((props_known & ITEM_FIRE)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, weapon ? " fire" : " fire resistance"),
-            Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_FROST) {
-        if ((props_known & ITEM_FROST)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, weapon ? " frost" : " cold resistance"),
-            Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_DRLI) {
-        if ((props_known & ITEM_DRLI)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, weapon ? " decay" : " drain resistance"),
-            Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_SHOCK) {
-        if ((props_known & ITEM_SHOCK)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, weapon ? " lightning" : " shock resistance"),
-            Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_SCREAM) {
-        if ((props_known & ITEM_SCREAM)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-                Strcat(buf, weapon ? " scream" : " sonic resistance"),
-                Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_VENOM) {
-        if ((props_known & ITEM_VENOM)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, weapon ? " venom" : " poison resistance"),
-            Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_ACID) {
-        if ((props_known & ITEM_ACID)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-                Strcat(buf, weapon ? " sizzle" : " acid resistance"),
-                Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_ESP) {
-        if ((props_known & ITEM_ESP)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " telepathy"),
-            Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_SEARCHING) {
-        if ((props_known & ITEM_SEARCHING)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " searching"),
-            Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_WARNING) {
-        if ((props_known & ITEM_WARNING)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " warning"),
-            Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_FUMBLING) {
-        if ((props_known & ITEM_FUMBLING)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " fumbling"),
-            Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_HUNGER) {
-        if ((props_known & ITEM_HUNGER)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " hunger"),
-            Strcpy(of, " and");
-        }
-    }
-    if (props & ITEM_EXCEL) {
-        if ((props_known & ITEM_EXCEL)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " excellence"),
-            Strcpy(of, " and");
-        }
-    }
-}
-
 /* add "<pfx> called <sfx>" to end of buf, truncating if necessary */
 STATIC_OVL void
 xcalled(buf, siz, pfx, sfx)
@@ -677,7 +560,6 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
     register int typ = obj->otyp;
     register struct objclass *ocl = &objects[typ];
     int nn = ocl->oc_name_known, omndx = obj->corpsenm;
-    long orig_opknwn = obj->oprops_known;
     const char *actualn = OBJ_NAME(*ocl);
     const char *dn = OBJ_DESCR(*ocl);
     const char *un = ocl->oc_uname;
@@ -708,11 +590,6 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         obj->dknown = 1;
     if (is_soko_prize_flag(obj))
         obj->dknown = 1;
-    if (Role_if(PM_WIZARD)
-        && ((obj->oprops & ITEM_PROP_MASK)
-            || (objects[obj->otyp].oc_magic && !nn)
-            || obj->oartifact))
-        obj->oprops_known |= ITEM_MAGICAL;
     if (Role_if(PM_PRIEST) || Role_if(PM_NECROMANCER))
         obj->bknown = 1; /* actively avoid set_bknown();
                           * we mustn't call update_inventory() now because
@@ -725,7 +602,6 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         obj->known = 1;
     if (iflags.override_ID) {
         known = dknown = bknown = TRUE;
-        obj->oprops_known = ITEM_PROP_MASK;
         nn = 1;
     } else {
         known = obj->known;
@@ -735,17 +611,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
 
     if (obj_is_pname(obj))
         goto nameit;
-
-    if (dknown && (obj->oprops_known & ITEM_MAGICAL)
-        && (((obj->oprops && !(obj->oprops_known & ~ITEM_MAGICAL
-                               || dump_prop_flag))
-                && (!objects[obj->otyp].oc_magic
-                    || !objects[obj->otyp].oc_name_known))
-            || (!obj->oprops && objects[obj->otyp].oc_magic
-                && !objects[obj->otyp].oc_name_known)
-            || (obj->oartifact && not_fully_identified(obj))))
-        Strcat(buf, "magical ");
-
+    
     switch (obj->oclass) {
     case AMULET_CLASS:
         if (obj->material != objects[typ].oc_material && dknown) {
@@ -799,9 +665,6 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         else
             Strcat(buf, dn);
 
-        propnames(buf, obj->oprops, obj->oprops_known,
-                  TRUE, !!strstri(buf, " of "));
-
         if ((typ == FIGURINE || typ == MASK) && omndx != NON_PM) {
             char anbuf[10]; /* [4] would be enough: 'a','n',' ','\0' */
 
@@ -831,36 +694,24 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
 
         if (is_boots(obj) || is_gloves(obj))
             Strcat(buf, "pair of ");
-
-        if (dknown && (obj->oprops & ITEM_OILSKIN)
-            && ((obj->oprops_known & ITEM_OILSKIN)
-                || dump_prop_flag))
-            Strcat(buf, "oilskin ");
-
+        
         if ((obj->material != objects[typ].oc_material
              || force_material_name(typ)) && dknown) {
             Strcat(buf, materialnm[obj->material]);
             Strcat(buf, " ");
         }
 
-        if (obj->otyp >= ELVEN_SHIELD && obj->otyp <= ORCISH_SHIELD
-            && !dknown) {
+        if (obj->otyp >= ELVEN_SHIELD && obj->otyp <= ORCISH_SHIELD && !dknown) {
             Strcat(buf, "shield");
-            propnames(buf, obj->oprops, obj->oprops_known,
-                      FALSE, FALSE);
             break;
         }
         if (obj->otyp == SHIELD_OF_REFLECTION && !dknown) {
             Strcat(buf, "smooth shield");
-            propnames(buf, obj->oprops, obj->oprops_known,
-                      FALSE, FALSE);
             break;
         }
 
         if (nn && !is_soko_prize_flag(obj)) {
             Strcat(buf, actualn);
-            propnames(buf, obj->oprops, obj->oprops_known,
-                      FALSE, !!strstri(actualn, " of "));
         } else if (un && !is_soko_prize_flag(obj)) {
             if (is_boots(obj))
                 Strcat(buf, "boots");
@@ -874,16 +725,12 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                 Strcat(buf, "shield");
             else
                 Strcat(buf, "armor");
-            propnames(buf, obj->oprops, obj->oprops_known,
-                      FALSE, FALSE);
             Strcat(buf, " called ");
             Strcat(buf, un);
         } else if (is_soko_prize_flag(obj)) {
             Strcpy(buf, "sokoban prize armor");
         } else {
             Strcat(buf, dn);
-            propnames(buf, obj->oprops, obj->oprops_known,
-                      FALSE, !!strstri(dn, " of "));
         }
         break;
     case FOOD_CLASS:
@@ -1138,10 +985,6 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
     if (!strncmpi(buf, "the ", 4))
         buf += 4;
 
-    /* reset oprops_known to avoid side-effects from debug identification
-     * command (^I) */
-    obj->oprops_known = orig_opknwn;
-
     return buf;
 }
 
@@ -1353,7 +1196,6 @@ unsigned doname_flags;
             vague_quan = (doname_flags & DONAME_VAGUE_QUAN) != 0,
             weightshown = FALSE;
     boolean known, dknown, cknown, bknown, lknown;
-    long orig_opknwn = obj->oprops_known;
     int omndx = obj->corpsenm;
     register char *bp;
     char prefix[PREFIX], globbuf[QBUFSZ];
@@ -1373,7 +1215,6 @@ unsigned doname_flags;
     
     if (iflags.override_ID) {
         known = dknown = cknown = bknown = lknown = TRUE;
-        obj->oprops_known = ITEM_PROP_MASK;
     } else {
         known = obj->known;
         dknown = obj->dknown;
@@ -1767,9 +1608,7 @@ unsigned doname_flags;
     }
 
     bp = strprepend(bp, prefix);
-
-    obj->oprops_known = orig_opknwn;
-
+    
     return bp;
 }
 
@@ -1827,8 +1666,6 @@ struct obj *otmp;
         return TRUE;
     if ((!otmp->cknown && (Is_container(otmp) || otmp->otyp == STATUE))
         || (!otmp->lknown && Is_box(otmp)))
-        return TRUE;
-    if (((otmp->oprops_known & otmp->oprops) & ITEM_PROP_MASK) != otmp->oprops)
         return TRUE;
     if (otmp->oartifact && undiscovered_artifact(otmp->oartifact))
         return TRUE;
@@ -3751,7 +3588,6 @@ struct obj *no_wish;
     int tmp, tinv, tvariety;
     int wetness, gsize = 0;
     int l = 0;
-    int of = 4;
     boolean zombo;
     struct fruit *f;
     int ftype = context.current_fruit;
@@ -3771,11 +3607,8 @@ struct obj *no_wish;
      * automatically sticks 'candied' in front of such names.
      */
     char oclass;
-    char *un, *dn, *actualn, *tmpp, *origbp = bp;
+    char *un, *dn, *actualn, *origbp = bp;
     const char *name = 0;
-
-    long objprops = 0;
-    long objpropcount = 0;
 
     cnt = spe = spesgn = typ = 0;
     very = rechrg = blessed = uncursed = iscursed = magical = ispoisoned 
@@ -3938,12 +3771,6 @@ struct obj *no_wish;
                 break;
             /* "very large " had "very " peeled off on previous iteration */
             gsize = (very != 1) ? 3 : 4;
-        } else if (!strncmpi(bp, "oilskin ", l = 8)
-                   && !!strncmpi(bp, "oilskin cloak", 13)
-                   && !!strncmpi(bp, "oilskin sack", 12)) {
-            if (!objpropcount || wizard)
-                objprops |= ITEM_OILSKIN;
-            objpropcount++;
         } else {
             /* check for materials */
             if (!strncmpi(bp, "silver dragon", l = 13)
@@ -4145,7 +3972,6 @@ struct obj *no_wish;
               && !strstri(bp, "hand ")
               /* && !strstri(bp, "master sword") */
               && !strstri(bp, "sword of kas")) {
-            l = 0, of = 4;
 
             if ((p = strstri(bp, "tin of ")) != 0) {
                 if (!strcmpi(p + 7, "spinach")) {
@@ -4159,111 +3985,9 @@ struct obj *no_wish;
                 typ = TIN;
                 goto typfnd;
             }
-
-            p = bp;
-            while (p != 0) {
-                tmpp = strstri(p, " of ");
-                if (tmpp) {
-                    if ((tmpp - 6 >= bp && !strncmpi(tmpp - 6, "amulet", 6))
-                        || (tmpp - 6 >= bp && !strncmpi(tmpp - 6, "potion", 6))
-                        || (tmpp - 4 >= bp && !strncmpi(tmpp - 4, "ring", 4))) {
-                        p = tmpp + 4;
-                        continue;
-                    }
-                    of = 4;
-                    p = tmpp;
-                } else {
-                    tmpp = strstri(p, " and ");
-                    if (tmpp) {
-                        of = 5, p = tmpp;
-                    } else {
-                       p = 0;
-                       break;
-                    }
-                }
-
-                l = 0;
-
-                if ((mntmp = name_to_mon(p + of)) >= LOW_PM) {
-                    *p = 0;
-                    p = 0;
-                } else if (!strncmpi((p + of), "fire", l = 4)
-                           && strncmpi(bp, "scroll", l = 5)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_FIRE;
-                    objpropcount++;
-                } else if ((!strncmpi((p + of), "frost", l = 5)
-                           || !strncmpi((p + of), "cold", l = 4))) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_FROST;
-                    objpropcount++;
-                } else if (!strncmpi((p + of), "drain", l = 5)
-                           || !strncmpi((p + of), "decay", l = 5)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_DRLI;
-                    objpropcount++;
-                } else if (!strncmpi((p + of), "shock", l = 5)
-                           || !strncmpi((p + of), "lightning", l = 9)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_SHOCK;
-                    objpropcount++;
-                } else if (!strncmpi((p + of), "sonic", l = 5)
-                           || !strncmpi((p + of), "scream", l = 9)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_SCREAM;
-                    objpropcount++;
-                } else if (!strncmpi((p + of), "poison", l = 6)
-                           || !strncmpi((p + of), "venom", l = 5)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_VENOM;
-                    objpropcount++;
-                } else if (!strncmpi((p + of), "acid", l = 6)
-                           || !strncmpi((p + of), "sizzle", l = 5)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_ACID;
-                    objpropcount++;
-                } else if ((!strncmpi((p + of), "telepathy", l = 9)
-                            && strncmpi(bp, "helm", l = 4))
-                           || !strncmpi((p + 4), "ESP", l = 3)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_ESP;
-                    objpropcount++;
-                } else if (!strncmpi((p + of), "searching", l = 9)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_SEARCHING;
-                    objpropcount++;
-                } else if (!strncmpi((p + of), "warning", l = 7)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_WARNING;
-                    objpropcount++;
-                } else if (!strncmpi((p + of), "fumbling", l = 8)
-                           && strncmpi(bp, "gauntlets", l = 9)) {
-                    /* do not need to account for 'boots' here,
-                       as they don't exist, you'd wish for 'fumble
-                       boots' instead */
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_FUMBLING;
-                    objpropcount++;
-                } else if (!strncmpi((p + of), "hunger", l = 6)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_HUNGER;
-                    objpropcount++;
-                } else if (!strncmpi((p + of), "excellence", l = 10)) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_EXCEL;
-                    objpropcount++;
-                } else
-                    l = 0;
-
-                if (l > 0)
-                    *p = 0;
-
-                if (p)
-                    p += (of + l);
-            }
         }
     }
-
+    
     /* Alternate spellings (pick-ax, silver sabre, &c) */
     {
         const struct alt_spellings *as = spellings;
@@ -5077,10 +4801,6 @@ struct obj *no_wish;
     } else if (spesgn < 0) {
         curse(otmp);
     }
-    otmp->oprops = 0;
-    if (magical && (!objpropcount || wizard)) {
-        create_oprop(otmp, TRUE);
-    }
 
     /* set otmp->recharged */
     if (oclass == WAND_CLASS) {
@@ -5453,64 +5173,6 @@ struct obj *no_wish;
         if (erodeproof && (is_damageable(otmp) || otmp->otyp == CRYSKNIFE
                            || objects[otmp->otyp].oc_material == GLASS))
             otmp->oerodeproof = (Luck >= 0 || wizard);
-    }
-
-    /* object property restrictions */
-    if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp) 
-          || otmp->oclass == ARMOR_CLASS) {
-        if (objprops & ITEM_FROST)
-            objprops &= ~(ITEM_FIRE | ITEM_DRLI | ITEM_SHOCK 
-                    | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
-        else if (objprops & ITEM_FIRE)
-            objprops &= ~(ITEM_FROST | ITEM_DRLI | ITEM_SHOCK 
-                    | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
-        else if (objprops & ITEM_DRLI)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_SHOCK 
-                    | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
-        else if (objprops & ITEM_SHOCK)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI 
-                    | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
-        else if (objprops & ITEM_VENOM)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI 
-                    | ITEM_SCREAM | ITEM_SHOCK | ITEM_ACID);
-        else if (objprops & ITEM_SCREAM)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI 
-                    | ITEM_SHOCK | ITEM_VENOM | ITEM_ACID);
-        else if (objprops & ITEM_ACID)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI 
-                    | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM);
-
-        if (objects[otmp->otyp].oc_unique || otmp->oartifact
-            || Is_dragon_armor(otmp))
-            objprops &= ~ITEM_PROP_MASK;
-
-        if (objects[otmp->otyp].oc_magic && !wizard)
-            objprops &= ~ITEM_PROP_MASK;
-        
-        if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
-            objprops &= ~(ITEM_DRLI | ITEM_ACID | ITEM_SCREAM 
-                    | ITEM_FUMBLING | ITEM_HUNGER);
-
-        if (is_launcher(otmp))
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK 
-                    | ITEM_VENOM | ITEM_ACID | ITEM_SCREAM
-                    | ITEM_OILSKIN);
-
-        if (is_ammo(otmp) || is_missile(otmp))
-            objprops &= ~(ITEM_DRLI | ITEM_ACID | ITEM_SCREAM | ITEM_OILSKIN
-                    | ITEM_ESP | ITEM_SEARCHING | ITEM_WARNING | ITEM_FUMBLING 
-                    | ITEM_HUNGER | ITEM_EXCEL);
-
-        if (otmp->material != CLOTH)
-            objprops &= ~ITEM_OILSKIN;
-
-        if (otmp->otyp == OILSKIN_CLOAK)
-            objprops &= ~ITEM_OILSKIN;
-
-        if (is_helmet(otmp))
-            objprops &= ~ITEM_ESP;
-
-        otmp->oprops |= objprops;
     }
 
     if (halfeaten && otmp->oclass == FOOD_CLASS) {

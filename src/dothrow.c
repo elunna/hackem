@@ -1277,14 +1277,10 @@ boolean hitsroof;
         boolean less_damage = uarmh && (is_hard(uarmh)), artimsg = FALSE;
         int dmg = dmgval(obj, &youmonst);
 
-        if (obj->oartifact
-            || (obj->oclass == WEAPON_CLASS && obj->oprops))
+        if (obj->oartifact)
             /* need a fake die roll here; rn1(18,2) avoids 1 and 20 */
             artimsg = artifact_hit((struct monst *) 0, &youmonst, obj, &dmg,
                                    rn1(18, 2));
-
-        if (ammo_stack)
-            ammo_stack->oprops_known |= obj->oprops_known;
 
         if (!dmg) { /* probably wasn't a weapon; base damage on weight */
             dmg = (int) obj->owt / 100;
@@ -1458,15 +1454,11 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                 u.dz = 1;
                 You("hit yourself in the %s!", body_part(LEG));
 
-                if (obj->oartifact
-                    || (obj->oclass == WEAPON_CLASS && obj->oprops))
+                if (obj->oartifact)
                     /* need a fake die roll here; rn1(18,2) avoids 1 and 20 */
                     (void) artifact_hit((struct monst *) 0, &youmonst, obj, &dmg,
                                         rn1(18, 2));
-
-                if (ammo_stack)
-                    ammo_stack->oprops_known |= obj->oprops_known;
-
+                    
                 if (dmg > 0)
                     dmg += u.udaminc;
                 if (dmg < 0)
@@ -1702,8 +1694,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
         (void) snuff_candle(obj);
         notonhead = (bhitpos.x != mon->mx || bhitpos.y != mon->my);
         obj_gone = thitmonst(mon, obj);
-        if (!obj_gone && ammo_stack)
-            ammo_stack->oprops_known |= obj->oprops_known;
+        
         /* Monster may have been tamed; this frees old mon [obsolete] */
         mon = m_at(bhitpos.x, bhitpos.y);
 

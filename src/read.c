@@ -1445,12 +1445,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                             }
                         }
                         setnotworn(armor);
-                        /* don't allow a suit of armor with an object property
-                           to co-exist with merged dragon scales */
-                        if ((armor->oprops & ITEM_PROP_MASK) != 0) {
-                            oprops_off(armor, W_ARM);
-                            armor->oprops &= ~(ITEM_PROP_MASK);
-                        }
                         armor->dragonscales = scales->otyp;
                         armor->cursed = 0;
                         if (sblessed) {
@@ -1595,12 +1589,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     }
                 }
                 setnotworn(armor);
-                /* don't allow a suit of armor with an object property
-                   to co-exist with merged dragon scales */
-                if ((armor->oprops & ITEM_PROP_MASK) != 0L) {
-                    oprops_off(armor, W_ARM);
-                    armor->oprops &= ~(ITEM_PROP_MASK);
-                }
                 armor->dragonscales = scales->otyp;
                 armor->cursed = 0;
                 if (sblessed) {
@@ -2658,11 +2646,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     }
-    case SCR_MAGIC_DETECTION:
-        if (magic_detect(sobj))
-            return 1;
-        known = TRUE;
-        break;
     case SCR_FLOOD:
         cval = bcsign(sobj);
         useup(sobj);
@@ -3986,7 +3969,6 @@ struct obj **sobjp;
         otmp2->recharged = otmp->recharged;
         otmp2->opoisoned = otmp->opoisoned;
         otmp2->corpsenm = otmp->corpsenm;
-        otmp2->oprops = otmp->oprops;
 
         /* For slime mold names */
         if (otmp->oextra)

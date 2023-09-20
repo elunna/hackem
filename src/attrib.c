@@ -1385,16 +1385,7 @@ int x;
         if (uarmh && uarmh->otyp == FEDORA) 
             tmp += 1;        
         if (uarmh && uarmh->otyp == HELM_OF_MADNESS) 
-            tmp += 3; 
-        if ((uwep && (uwep->oprops & ITEM_EXCEL))
-            || (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {
-            if (tmp > 6 && (uwep->cursed || (u.twoweap && uswapwep->cursed)))
-                return (schar) 6;
-            else if (tmp < 18 && (!uwep->blessed || (u.twoweap && !uswapwep->blessed)))
-                return (schar) 18;
-            else if (uwep->blessed || (u.twoweap && uswapwep->blessed))
-                return (schar) 25;
-        }
+            tmp += 3;
     } else if (x == A_CON) {
         if (wielding_artifact(ART_OGRESMASHER))
             return (schar) 25;

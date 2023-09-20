@@ -2274,10 +2274,6 @@ register struct trobj *origtrop;
         if (obj->oclass == AMULET_CLASS)
             setworn(obj, W_AMUL);
 
-        /* Don't allow gear with object properties
-         * to be start scummed for */
-        obj->oprops = obj->oprops_known = 0L;
-
 #if !defined(PYRAMID_BUG) && !defined(MAC)
         if (--trop->trquan)
             continue; /* make a similar object */

@@ -42,7 +42,6 @@ short otyp;
     case SCR_REMOVE_CURSE:
     case SCR_ENCHANT_WEAPON:
     case SCR_CHARGING:
-    case SCR_MAGIC_DETECTION:
     case SCR_AIR:
     case SCR_TRANSMOGRIFY:
         return 16;
