@@ -1972,18 +1972,19 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 
     if (attacks(AD_LOUD, otmp)) {
         if (realizes_damage) {
-            if (otmp->oartifact == ART_THUNDERSTRUCK) {
+            if (otmp->oartifact == ART_SQUALL) {
                 pline_The("thunderous morning star %s %s%c",
                           !spec_dbon_applies ? "hits" : "blasts", hittee,
                           !spec_dbon_applies ? '.' : '!');
                 
-                /* Occasionally shoot out a sonic beam */
-                if (!rn2(4)) {
+                /* Occasionally shoot out a lightning bolt */
+                if (!rn2(3)) {
+                    pline("The world shakes!");
                     if (youattack && can_we_zap(u.dx, u.dy, 13)) {
-                        dobuzz((int) (20 + (AD_LOUD - 1)), 3, u.ux, u.uy,
+                        dobuzz((int) (20 + (AD_ELEC - 1)), 3, u.ux, u.uy,
                                u.dx, u.dy, TRUE);
                     } else {
-                        dobuzz((int) (-20 - (AD_LOUD - 1)), 3, magr->mx,
+                        dobuzz((int) (-20 - (AD_ELEC - 1)), 3, magr->mx,
                                magr->my, mdx, mdy, TRUE);
                     }
                 }
@@ -4974,8 +4975,8 @@ artifact_info(int anum)
     case ART_SUNSPOT: 
         art_info.xattack = "blinds monsters";
         break;
-    case ART_THUNDERSTRUCK: 
-        art_info.xattack = "shoots sonic beams";
+    case ART_SQUALL: 
+        art_info.xattack = "shoots lightning bolts";
         break;
     case ART_TROLLSBANE: 
         art_info.wielded[16] = "Prevents troll revival";

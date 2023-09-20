@@ -1460,7 +1460,7 @@ struct obj *obj;
     case RIN_SONIC_RESISTANCE:
         if (!(resists_sonic(mon) || defended(mon, AD_LOUD)))
             rc = (dmgtype(youmonst.data, AD_LOUD)
-                  || wielding_artifact(ART_THUNDERSTRUCK)
+                  || wielding_artifact(ART_SQUALL)
                   || (u.twoweap && uswapwep->oprops & ITEM_SCREAM)
                   || (uwep && uwep->oprops & ITEM_SCREAM)) ? 25 : 5;
         break;
