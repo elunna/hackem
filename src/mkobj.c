@@ -3673,6 +3673,7 @@ struct obj* obj;
         case PHIAL:
         case AMULET_OF_YENDOR:
         case FAKE_AMULET_OF_YENDOR:
+        case MUMMY_WRAPPING:
             return NULL;
         /* Any other cases for specific object types go here. */
         case SHIELD_OF_REFLECTION:
