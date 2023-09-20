@@ -5644,9 +5644,8 @@ STATIC_OVL void
 makekops(mm)
 coord *mm;
 {
-    const int TYPES = 5;
-    short k_mndx[TYPES];
-    int k_cnt[TYPES], cnt, mndx, k;
+    short k_mndx[5];
+    int k_cnt[5], cnt, mndx, k;
     if (Is_blackmarket(&u.uz)) {
         cnt = 7 + rnd(5);
         k_mndx[0] = PM_SOLDIER;
@@ -5669,7 +5668,7 @@ coord *mm;
     k_cnt[3] = (cnt / 9);     /* and maybe a kaptain */
     k_cnt[4] = (cnt / 12);     /* and maybe a general */
 
-    for (k = 0; k < TYPES; k++) {
+    for (k = 0; k < 5; k++) {
         if ((cnt = k_cnt[k]) == 0)
             break;
         mndx = k_mndx[k];
