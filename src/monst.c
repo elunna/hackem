@@ -5032,6 +5032,17 @@ struct permonst _mons2[] = {
         M2_STRONG | M2_STALK | M2_HOSTILE, 
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR,
         M4_VULNERABLE_ELEC, MH_TROLL, 13, CLR_BLUE),
+    MON("grave troll", S_TROLL,                               /* SpliceHack */
+        LVL(11, 8, 0, 60, 0), (G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 2, 6),
+          ATTK(AT_CLAW, AD_PHYS, 2, 6),
+          ATTK(AT_BITE, AD_DISE, 2, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1200, 300, MS_BONES, MZ_LARGE), 0, 0,
+        M1_HUMANOID | M1_REGEN | M1_CARNIVORE | M1_THICK_HIDE | M1_POIS,
+        M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT,
+        M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0,
+        MH_TROLL | MH_UNDEAD, 13, CLR_GRAY),
     MON("Olog-hai", S_TROLL,
         LVL(13, 12, -4, 0, -7), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 6), 
@@ -5065,17 +5076,6 @@ struct permonst _mons2[] = {
         M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
         0, MH_TROLL, 21, CLR_BLACK),
-    MON("grave troll", S_TROLL,                               /* SpliceHack */
-        LVL(22, 8, 0, 60, 0), (G_GENO | 1),
-        A(ATTK(AT_CLAW, AD_PHYS, 2, 12), 
-          ATTK(AT_CLAW, AD_PHYS, 2, 12),
-          ATTK(AT_BITE, AD_DISE, 2, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1200, 300, MS_BONES, MZ_LARGE), 0, 0,
-        M1_HUMANOID | M1_REGEN | M1_CARNIVORE | M1_THICK_HIDE | M1_POIS,
-        M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT,
-        M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, 
-        MH_TROLL | MH_UNDEAD, 27, CLR_GRAY),
     /*
      * Umber hulk
      */
