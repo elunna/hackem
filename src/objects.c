@@ -682,7 +682,7 @@ BOOTS("water walking boots", "jungle boots",
 BOOTS("jumping boots", "hiking boots",
       0, 1,    JUMPING, 12, 2, 20, 50, 9, 0, LEATHER, HI_LEATHER),
 BOOTS("stomping boots", "steel-toed boots",                    /* SpliceHack */
-      0, 1,          0, 12, 2, 20, 50, 9, 0, LEATHER, HI_LEATHER),
+      0, 1,          0, 12, 2, 20, 50, 9, 0, IRON, HI_LEATHER),
 BOOTS("elven boots", "mud boots",
       0, 1,    STEALTH, 12, 2, 15,  8, 9, 0, LEATHER, HI_LEATHER),
 BOOTS("kicking boots", "buckled boots",
