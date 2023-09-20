@@ -723,7 +723,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Iron Ball of Liberation", HEAVY_IRON_BALL,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
       (SPFX_STLTH | SPFX_SEARCH | SPFX_WARN | SPFX_FREE), 0,
-      NO_ATTK, NO_DFNS, CARY(AD_MAGM), PASSES_WALLS,
+      NO_ATTK, NO_DFNS, CARY(AD_MAGM), PHASING,
       A_CHAOTIC, PM_CONVICT, NON_PM, 10000L, NO_COLOR, DEFAULT_MAT),
 #endif
     
@@ -738,7 +738,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      */
     A("The Iron Spoon of Liberation", SPOON,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_STLTH | SPFX_SEARCH | SPFX_DIG), 
-      (SPFX_LUCK), 0, PHYS(5,0), DFNS(AD_PLYS), NO_CARY, PASSES_WALLS,
+      (SPFX_LUCK), 0, PHYS(5,0), DFNS(AD_PLYS), NO_CARY, PHASING,
       A_CHAOTIC, PM_CONVICT, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
     /* Infidel role quest artifact. Confers energy regeneration,

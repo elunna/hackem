@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Revert "The Iron Spoon of Liberation grants phasing with no timeout. Fixes #358."
 Revert the adult green dragon in The Dragon of Bactria to a baby.
 Limit nosferatu to 7 max per game.
 If carrying the Storm Whistle, the tech timeout for the ice armor tech is halved.
@@ -287,6 +288,7 @@ Fix: Object lookup used total weight of a item stack in player's possession - no
 Fix: Object lookup leaking info for object's in player's possession.
 
 Version 1.2.0 (released July 28, 2023)
+
 
 Tweaks to stealing from monsters (EvilHack)
 Fix: ukiller can't be null if killer wants to go through player inventory. (EvilHack)
