@@ -5096,7 +5096,7 @@ struct monst *mtmp;
             && !Underwater
             && !Confusion
             && !Role_if(PM_KNIGHT)
-            && !(uarmg && uarmg->oartifact == ART_DRAGONBANE)
+            && !wielding_artifact(ART_DRAGONBANE)
             && !(uarms && uarms->oartifact == ART_PRIDWEN)) {
             i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
             

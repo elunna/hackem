@@ -1198,7 +1198,7 @@ struct obj *obj;
     if (wielding_artifact(ART_VORPAL_BLADE) && is_jabberwock(mtmp->data))
         return FALSE;
 
-    if (uarmg && uarmg->oartifact == ART_DRAGONBANE && is_dragon(mtmp->data))
+    if (wielding_artifact(ART_DRAGONBANE) && is_dragon(mtmp->data))
         return FALSE;
 
     /* worst case, at least it'll be peaceful. */

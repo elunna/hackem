@@ -401,17 +401,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PLYS(6, 10), NO_DFNS, NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 800L, CLR_RED, DEFAULT_MAT),
 
-    /* Dragonbane is no longer a weapon, but a pair of magical gloves made from
-     * the scales of a long dead ancient dragon. The gloves afford much of the
-     * same special abilities as the weapon did, but swaps fire resistance for
-     * resistance. Other dragons will be able to sense the power of these gloves
-     * and will be affected accordingly.
-     */
-    A("Dragonbane", GLOVES,
+    A("Dragonbane", BROADSWORD,
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REFLECT), 0, MH_DRAGON,
-      NO_ATTK, DFNS(AD_ACID), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
-      NO_COLOR, DRAGON_HIDE),
-
+      PHYS(5, 0), DFNS(AD_FIRE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
+      NO_COLOR, IRON),
+      
     A("Drowsing Rod", STAFF_OF_HEALING, (SPFX_RESTR), 0, 0,
       SLEE(5, 4), DFNS(AD_SLEE), NO_CARY, 0, A_NONE, PM_HEALER, NON_PM, 500L,
       CLR_MAGENTA, COPPER),

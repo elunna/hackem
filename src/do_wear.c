@@ -3927,14 +3927,11 @@ boolean choose;
         (void) Helmet_off();
         useup(otmp);
     } else if (DESTROY_ARM(uarmg)) {
-        if (uarmg && (uarmg == otmp)
-            && otmp->oartifact == ART_DRAGONBANE) {
-            pline("%s %s and cannot be disintegrated.",
-                  Yname2(otmp), rn2(2) ? "resists completely"
-                                       : "defies physics");
-            otmp->in_use = FALSE; /* nothing happens */
-            return 0;
-        }
+        if (donning(otmp))
+            cancel_don();
+        Your("gloves disintegrate!");
+        (void) Gloves_off();
+        useup(otmp);
     } else if (DESTROY_ARM(uarmf)) {
         if (donning(otmp))
             cancel_don();

@@ -5249,16 +5249,8 @@ boolean wep_was_destroyed;
                         && (aatyp == AT_WEAP || aatyp == AT_CLAW
                             || aatyp == AT_MAGC || aatyp == AT_TUCH)) {
                         if (uarmg) {
-                            if (uarmg->oartifact == ART_DRAGONBANE)
-                                pline("%s %s, but remains %s.", xname(uarmg),
-                                      rn2(2) ? "shudders violently"
-                                             : "vibrates unexpectedly",
-                                      rn2(2) ? "whole" : "intact");
-                            else if (rn2(2)
-                                     && (uarmg->oerodeproof
-                                         || is_supermaterial(uarmg)))
-                                pline("%s being disintegrated!",
-                                      Yobjnam2(uarmg, "resist"));
+                            if (rn2(2) && (uarmg->oerodeproof || is_supermaterial(uarmg)))
+                                pline("%s being disintegrated!", Yobjnam2(uarmg, "resist"));
                             else
                                 (void) destroy_arm(uarmg, FALSE);
                         }
@@ -5530,17 +5522,6 @@ boolean wep_was_destroyed;
             }
         }
     }
-    if  ((passive_armor = which_armor(mon, W_ARMG))) {
-        switch (passive_armor->otyp) {
-        case GLOVES:
-            if (!is_dragon(youmonst.data))
-                break;
-            if (!rn2(3) && passive_armor->oartifact == ART_DRAGONBANE) {
-                pline("Dragonbane sears your scaly hide!");
-                mdamageu(mon, rnd(6) + 2);
-            }
-        }
-    }
     return (malive | mhit);
 }
 
@@ -5620,12 +5601,6 @@ struct attack *mattk;     /* null means we find one internally */
             if (obj_resists(obj, 0, 0)) {
                 pline_The("%s %s and cannot be disintegrated.",
                           xname(obj), rn2(2) ? "resists completely" : "defies physics");
-                break;
-            } else if (obj->oartifact == ART_DRAGONBANE
-                       && mon->data != &mons[PM_ANTIMATTER_VORTEX]) {
-                pline("%s %s, but remains %s.", xname(obj),
-                      rn2(2) ? "shudders violently" : "vibrates unexpectedly",
-                      rn2(2) ? "whole" : "intact");
                 break;
             } else if (obj->otyp == BLACK_DRAGON_SCALES
                        || (Is_dragon_scaled_armor(obj)
