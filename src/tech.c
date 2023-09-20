@@ -1013,8 +1013,11 @@ int tech_no;
             break;
         case T_ICEARMOR:
             res = tech_icearmor();
-            if (res)
+            if (res) {
                 t_timeout = rn1(500, 500);
+                if (carrying_arti(ART_STORM_WHISTLE))
+                    t_timeout /= 2;
+            }
             break;
         case T_REINFORCE:
             res = tech_reinforce();
