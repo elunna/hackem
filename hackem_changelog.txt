@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Shk service for fixing armor; secondary erosion and some other tweaks (reported by Umbire).
 Fix: Severed hand weighed 0; caused segfault on object lookup.
 Fix errors in makekops.
 Cleanup makekops and imported kop kommissioners (from SlashTHEM).

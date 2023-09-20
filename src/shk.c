@@ -4375,8 +4375,8 @@ long svc_type;
             verbalize("They'll call you the man of stainless steel!");
 
         /* Costs more the more rusty it is (oeroded 0-3) */
-        charge = 300 * (obj->oeroded + 1);
-        if (obj->oeroded > 2)
+        charge = 300 * (obj->oeroded + obj->oeroded2 + 1);
+        if ((obj->oeroded + obj->oeroded2) > 2)
             verbalize("Yikes!  This thing's a mess!");
 
         /* Artifacts cost more to deal with */
@@ -4385,7 +4385,7 @@ long svc_type;
             charge = charge * 3 / 2;
 
         /* Smooth out the charge a bit */
-        shk_smooth_charge(&charge, 100, 1000);
+        shk_smooth_charge(&charge, 300, 3000);
 
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
@@ -4397,6 +4397,7 @@ long svc_type;
             You("mistake your %s for a pot and...", xname(obj));
 
         obj->oeroded = 0;
+        obj->oeroded2 = 0;
         obj->rknown = TRUE;
         obj->oerodeproof = TRUE;
         update_inventory();
@@ -4404,7 +4405,7 @@ long svc_type;
 
     case SHK_ARM_ENC:
         if (Is_dragon_scales(obj)) {
-            verbalize("Sorry I don't handle dragon scales yet.");
+            verbalize("Sorry I don't handle dragon scales, allergic you see...");
             return 0;
         }
         verbalize("Nobody will ever hit on you again.");
