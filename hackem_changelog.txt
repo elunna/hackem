@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Revert steel golem weaknesses to water.
 Master Sword tweaks.
 Juggarnauts are untameable.
 Revert serpopard to SpliceHack levels.

@@ -5294,7 +5294,7 @@ xchar sx, sy;
                 dam = 0;
             }
             break;
-        } else if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+        } else if (u.umonnum == PM_IRON_GOLEM) {
             You("rust!");
             rehumanize();
             dam = 0; /* Prevent more damage after rehumanize */
@@ -7560,7 +7560,7 @@ delugehitsm(mon, tmp)
 struct monst *mon;
 int tmp;
 {
-    if (mon->data == &mons[PM_IRON_GOLEM] || mon->data == &mons[PM_STEEL_GOLEM]) {
+    if (mon->data == &mons[PM_IRON_GOLEM]) {
         if (canseemon(mon))
             pline("%s falls to pieces!", Monnam(mon));
         if (mon->mtame)

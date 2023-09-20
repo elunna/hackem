@@ -2139,8 +2139,7 @@ int how;
             } else if (mon->data == &mons[PM_GREMLIN]) {
                 angermon = FALSE;
                 (void) split_mon(mon, (struct monst *) 0);
-            } else if (mon->data == &mons[PM_IRON_GOLEM] 
-                       || mon->data == &mons[PM_STEEL_GOLEM]) {
+            } else if (mon->data == &mons[PM_IRON_GOLEM]) {
                 if (canseemon(mon))
                     pline("%s rusts.", Monnam(mon));
                 damage_mon(mon, d(1, 6), AD_PHYS);
@@ -2163,7 +2162,6 @@ int how;
                     damage_mon(mon, d(1, 6), AD_PHYS);
                     break;
                 case PM_IRON_GOLEM:
-                case PM_STEEL_GOLEM:
                     if (canseemon(mon))
                         pline("%s rusts.", Monnam(mon));
                     damage_mon(mon, d(1, 6), AD_PHYS);
@@ -2575,7 +2573,7 @@ register struct obj *obj;
         else if (u.umonnum == PM_FLAMING_SPHERE) {
             You("flicker!");
             losehp(d(1, 6),"potion of amnesia", KILLED_BY_AN);
-        } else if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+        } else if (u.umonnum == PM_IRON_GOLEM) {
             You("rust!");
             losehp(d(1,6),"potion of amnesia", KILLED_BY_AN);
         }

@@ -1400,7 +1400,7 @@ unsigned trflags;
         }
         update_inventory();
 
-        if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+        if (u.umonnum == PM_IRON_GOLEM) {
             int dam = u.mhmax;
 
             You("are covered with rust!");
@@ -2821,7 +2821,7 @@ register struct monst *mtmp;
                                         TRUE, mtmp->mx, mtmp->my);
             }
 
-            if (mptr == &mons[PM_IRON_GOLEM] || mptr == &mons[PM_STEEL_GOLEM]) {
+            if (mptr == &mons[PM_IRON_GOLEM]) {
                 if (in_sight)
                     pline("%s falls to pieces!", Monnam(mtmp));
                 else if (mtmp->mtame)
@@ -4565,7 +4565,7 @@ uwatereffects()
     
     if (u.umonnum == PM_GREMLIN && rn2(3))
         (void) split_mon(&youmonst, (struct monst *) 0);
-    else if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+    else if (u.umonnum == PM_IRON_GOLEM) {
         You("rust!");
         i = Maybe_Half_Phys(d(2, 6));
         if (u.mhmax > i)

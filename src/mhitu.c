@@ -2284,7 +2284,7 @@ register struct attack *mattk;
 do_rust:
         if (mtmp->mcan)
             break;
-        if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+        if (u.umonnum == PM_IRON_GOLEM) {
             You("rust!");
             /* KMH -- this is okay with unchanging */
             rehumanize();
@@ -5058,8 +5058,7 @@ struct attack *mattk;
             if (canseemon(mtmp))
                 pline("%s is splashed!", Monnam(mtmp));
 
-            if (mtmp->data == &mons[PM_IRON_GOLEM] 
-                || mtmp->data == &mons[PM_STEEL_GOLEM]) {
+            if (mtmp->data == &mons[PM_IRON_GOLEM]) {
                 if (canseemon(mtmp))
                     pline("%s falls to pieces!", Monnam(mtmp));
                 xkilled(mtmp, XKILL_NOMSG);

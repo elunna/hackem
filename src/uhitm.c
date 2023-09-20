@@ -3402,7 +3402,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         break;
     case AD_RUST:
 do_rust:
-        if (pd == &mons[PM_IRON_GOLEM] || pd == &mons[PM_STEEL_GOLEM]) {
+        if (pd == &mons[PM_IRON_GOLEM]) {
             if (canseemon(mdef))
                 pline("%s falls to pieces!", Monnam(mdef));
             xkilled(mdef, XKILL_NOMSG);
@@ -5345,7 +5345,7 @@ boolean wep_was_destroyed;
                 if (canseemon(mon))
                     You("are splashed!");
 
-                if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+                if (u.umonnum == PM_IRON_GOLEM) {
                     You("rust to pieces!");
                     /* KMH -- this is okay with unchanging */
                     rehumanize();
