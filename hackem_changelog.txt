@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Reverted SLASH'EM style flat damage for artifacts.
 Removed celestial dragons.
 Shirts can only be cloth.
 Mummy wrappings can only be cloth.
