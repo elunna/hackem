@@ -2099,7 +2099,7 @@ NEARDATA struct permonst mons[] = {
         MR_FIRE | MR_POISON | MR_ELEC | MR_SLEEP | MR_ACID | MR_STONE, 0,
         M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS | M1_MINDLESS | M1_HERBIVORE | M1_REGEN,
         M2_HOSTILE | M2_NASTY | M2_STRONG,
-        M3_INFRAVISION, 0, 0, 31, CLR_YELLOW),
+        M3_INFRAVISION | M3_NOTAME, 0, 0, 31, CLR_YELLOW),
     MON("Jumbo the Elephant", S_QUADRUPED,                      /* Slash'EM */
         LVL(30, 12, 5, 0, 0), (G_UNIQ | 1),
         A(ATTK(AT_BUTT, AD_PHYS, 6, 8), 
