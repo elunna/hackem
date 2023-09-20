@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Revert the adult green dragon in The Dragon of Bactria to a baby.
 Limit nosferatu to 7 max per game.
 If carrying the Storm Whistle, the tech timeout for the ice armor tech is halved.
 Revert steel golem weaknesses to water.
