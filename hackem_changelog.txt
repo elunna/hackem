@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Removed celestial dragons.
 Shirts can only be cloth.
 Mummy wrappings can only be cloth.
 Dragonhide armor bonus has been reduced from 8AC to 5AC.

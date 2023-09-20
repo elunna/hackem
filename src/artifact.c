@@ -799,8 +799,7 @@ struct obj *otmp;
         case AD_STON: /* petrification resistance */
             return (otyp == YELLOW_DRAGON_SCALES);
         case AD_LOUD: /* sonic */
-            return (otyp == CELESTIAL_DRAGON_SCALES 
-                    || otyp == DEEP_DRAGON_SCALES);
+            return (otyp == DEEP_DRAGON_SCALES);
         case AD_STUN: /* stun resistance */
             return (otyp == SHIMMERING_DRAGON_SCALES);
         default:

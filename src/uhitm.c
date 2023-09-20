@@ -3212,7 +3212,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         tmp += destroy_mitem(mdef, POTION_CLASS, AD_COLD);
         break;
     /* currently the only monster that uses AD_LOUD are
-     * Nazgul and celestial dragons, and are both M2_NOPOLY,
+     * Nazgul, and are both M2_NOPOLY,
      * but we'll put this here for completeness sake */
     case AD_LOUD:
         if (negated) {

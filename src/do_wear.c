@@ -434,8 +434,7 @@ Cloak_on(VOID_ARGS)
         u.uprops[objects[uarmc->otyp].oc_oprop].extrinsic & ~WORN_CLOAK;
 
     if (Is_dragon_scales(uarmc)
-        && otyp != SHIMMERING_DRAGON_SCALES
-        && otyp != CELESTIAL_DRAGON_SCALES) {
+        && otyp != SHIMMERING_DRAGON_SCALES) {
         /* most scales are handled the same in this function */
         otyp = GRAY_DRAGON_SCALES;
     }
@@ -461,7 +460,6 @@ Cloak_on(VOID_ARGS)
         toggle_displacement(uarmc, oldprop, TRUE);
         break;
     case CLOAK_OF_FLIGHT:
-    case CELESTIAL_DRAGON_SCALES:
         /* setworn() has already set extrinisic flying */
         float_vs_flight(); /* block flying if levitating */
         check_wings(TRUE); /* are we in a form that has wings and can already fly? */
@@ -543,8 +541,7 @@ Cloak_off(VOID_ARGS)
     boolean was_arti_light = otmp && otmp->lamplit && artifact_light(otmp);
     boolean was_opera = (otmp && objdescr_is(otmp, "opera cloak"));
     if (Is_dragon_scales(uarmc)
-        && otyp != SHIMMERING_DRAGON_SCALES
-        && otyp != CELESTIAL_DRAGON_SCALES) {
+        && otyp != SHIMMERING_DRAGON_SCALES) {
         /* most scales are handled the same in this function */
         otyp = GRAY_DRAGON_SCALES;
     }
@@ -573,8 +570,7 @@ Cloak_off(VOID_ARGS)
     case SHIMMERING_DRAGON_SCALES:
         toggle_displacement(otmp, oldprop, FALSE);
         break;
-    case CLOAK_OF_FLIGHT:
-    case CELESTIAL_DRAGON_SCALES: {
+    case CLOAK_OF_FLIGHT: {
         boolean was_flying = !!Flying;
 
         /* remove scales 'early' to determine whether Flying changes */
@@ -1201,56 +1197,6 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             }
         }
         break;
-    case CELESTIAL_DRAGON_SCALES: {
-        boolean already_flying, was_flying;
-        long cramped_wings = BFlying;
-        if (puton) {
-            ESleep_resistance |= W_ARM;
-            EShock_resistance |= W_ARM;
-            ESonic_resistance |= W_ARM;
-
-            /* setworn() has already set extrinisic flying */
-            float_vs_flight(); /* block flying if levitating */
-            check_wings(TRUE); /* are we in a form that has wings and can
-                                  already fly? */
-
-            if (Flying) {
-                /* to determine whether this flight is new we have to muck
-                   about in the Flying intrinsic (actually extrinsic) */
-                EFlying &= ~W_ARM;
-                BFlying &= ~W_ARM;
-                already_flying = !!Flying;
-                BFlying |= cramped_wings;
-                EFlying |= W_ARM;
-
-                if (!already_flying) {
-                    context.botl = TRUE; /* status: 'Fly' On */
-                    You("are now in flight.");
-                }
-            }
-        } else {
-            ESleep_resistance &= ~W_ARM;
-            EShock_resistance &= ~W_ARM;
-            ESonic_resistance &= ~W_ARM;
-
-            was_flying = !!Flying;
-
-            /* remove armor 'early' to determine whether Flying changes */
-            setworn((struct obj *) 0, W_ARM);
-            float_vs_flight(); /* probably not needed here */
-            check_wings(TRUE); /* are we in a form that has wings and can
-                                  already fly? */
-            if (was_flying && !Flying) {
-                context.botl = TRUE; /* status: 'Fly' Off */
-                You("%s.", (is_pool_or_lava(u.ux, u.uy)
-                            || Is_waterlevel(&u.uz) || Is_airlevel(&u.uz))
-                               ? "stop flying"
-                               : "land");
-                spoteffects(TRUE);
-            }
-        }
-        break;
-    }
     case CHROMATIC_DRAGON_SCALES:
         /* magic res handled in objects.c */
         if (puton) {

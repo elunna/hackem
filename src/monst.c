@@ -3254,9 +3254,8 @@ NEARDATA struct permonst mons[] = {
      * scales in objects.c.  Baby dragons cannot confer intrinsics, to
      * avoid polyself/egg abuse.
      *
-     * Dragons are all lawful or chaotic; sea dragons and celestial
-     * dragons are the exception (neutral).  This affects monster
-     * generation on some special levels.
+     * Dragons are all lawful or chaotic; sea dragons dragons are the exception
+     * (neutral).  This affects monster generation on some special levels.
      *
      * As reptiles, dragons are cold-blooded and thus aren't seen with
      * infravision.  Red and gold dragons (also Tiamat) are the
@@ -3399,19 +3398,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE | M1_ACID,
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, M3_TRAITOR, 0,
         MH_DRAGON, 13, CLR_YELLOW),
-    MON("baby celestial dragon", S_DRAGON, LVL(24, 15, -2, 50, 0), G_NOGEN,
-        A(ATTK(AT_BITE, AD_PHYS, 4, 8), 
-          ATTK(AT_CLAW, AD_PHYS, 4, 6),
-          ATTK(AT_CLAW, AD_PHYS, 4, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(3000, 1000, MS_ROAR, MZ_HUGE),
-        MR_FIRE | MR_COLD | MR_SLEEP | MR_ELEC | MR_ACID
-            | MR_STONE | MR_SONIC, 0,
-        M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS
-            | M1_CARNIVORE | M1_REGEN,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_GREEDY
-            | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 26, CLR_BRIGHT_MAGENTA),
     /* From GruntHack - adult dragons can now engulf, and their attack
      * stats are bumped up some.
      */
@@ -3587,21 +3573,6 @@ NEARDATA struct permonst mons[] = {
             | M1_OVIPAROUS | M1_CARNIVORE | M1_ACID,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
         M3_TRAITOR, 0, MH_DRAGON, 30, CLR_YELLOW),
-    MON("celestial dragon", S_DRAGON, LVL(30, 15, -6, 50, 0), G_NOGEN,
-        A(ATTK(AT_BREA, AD_LOUD, 4, 6),
-          ATTK(AT_SCRE, AD_LOUD, 16, 4), 
-          ATTK(AT_BITE, AD_PHYS, 4, 8),
-          ATTK(AT_CLAW, AD_PHYS, 4, 6), 
-          ATTK(AT_CLAW, AD_PHYS, 4, 6),
-          ATTK(AT_MAGC, AD_CLRC, 4, 4)),
-        SIZ(WT_DRAGON, 5000, MS_ROAR, MZ_GIGANTIC),
-        MR_FIRE | MR_COLD | MR_SLEEP | MR_ELEC | MR_ACID
-            | MR_STONE, MR_SLEEP | MR_ELEC,
-        M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS
-            | M1_OVIPAROUS | M1_CARNIVORE | M1_REGEN,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY
-            | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 34, CLR_BRIGHT_MAGENTA),
     /* strictly a placeholder for chromatic dragon scales */
     MON("chromatic dragon", S_DRAGON,
         LVL(0, 9, -1, 20, -7), G_NOGEN,
