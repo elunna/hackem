@@ -1596,7 +1596,7 @@ int dieroll;
                            them */
                         if (uwep->oartifact == ART_LONGBOW_OF_DIANA
                             || uwep->oartifact == ART_CROSSBOW_OF_CARL)
-                            tmp += 6;
+                            tmp += rnd(6);
                         /* Elves and Samurai do extra damage using
                          * their bows&arrows; they're highly trained.
                          */
