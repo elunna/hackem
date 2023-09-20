@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Changed Helm of Hermes to Hermes Boots.
 Introduced forged artifact Squall (from SpliceHack), nerfed Thunderstruck a bit.
 Removed chromatic dragon scales.
 Reverted Dragonbane to the vanilla broadsword.

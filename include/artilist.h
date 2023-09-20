@@ -262,8 +262,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_TOURIST, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
     
-    A("Helm of Hermes", HELM_OF_SPEED, (SPFX_RESTR), 0, 0,
-      NO_ATTK, DFNS(AD_DISE), NO_CARY, LEVITATION, A_NEUTRAL, NON_PM, NON_PM, 
+    A("Hermes Boots", WATER_WALKING_BOOTS, (SPFX_RESTR), 0, 0,
+      NO_ATTK, DFNS(AD_DISE), NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
 
         /*** Chaotic artifacts ***/
