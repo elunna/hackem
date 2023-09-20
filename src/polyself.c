@@ -1130,15 +1130,9 @@ break_armor()
                 (void) Cloak_off();
                 dropx(otmp);
             } else {
-                if (youmonst.data->msize >= MZ_HUGE
-                    && humanoid(youmonst.data)
-                    && otmp->otyp == CHROMATIC_DRAGON_SCALES) {
-                    ; /* nothing bad happens, armor is still worn */
-                } else {
-                    Your("%s tears apart!", cloak_simple_name(otmp));
-                    (void) Cloak_off();
-                    useup(otmp);
-                }
+                Your("%s tears apart!", cloak_simple_name(otmp));
+                (void) Cloak_off();
+                useup(otmp);
             }
         }
         if ((otmp = uarmu) != 0) {
@@ -2362,12 +2356,8 @@ struct monst *mon;
 
     for (i = 0; i < 3; ++i) {
         if (array[i] != NULL) {
-            if (Is_dragon_armor(array[i])) {
-                if (Dragon_armor_to_pm(array[i]) == PM_CHROMATIC_DRAGON)
-                    return PM_RED_DRAGON;
-                else
-                    return Dragon_armor_to_pm(array[i]);
-            }
+            if (Is_dragon_armor(array[i])) 
+                return Dragon_armor_to_pm(array[i]);
         }
     }
     return NON_PM;

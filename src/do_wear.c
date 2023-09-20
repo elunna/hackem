@@ -1197,35 +1197,6 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             }
         }
         break;
-    case CHROMATIC_DRAGON_SCALES:
-        /* magic res handled in objects.c */
-        if (puton) {
-            EPoison_resistance |= W_ARM;
-            EFire_resistance   |= W_ARM;
-            ECold_resistance   |= W_ARM;
-            ESleep_resistance  |= W_ARM;
-            EDisint_resistance |= W_ARM;
-            EShock_resistance  |= W_ARM;
-            EAcid_resistance   |= W_ARM;
-            EStone_resistance  |= W_ARM;
-            EReflecting        |= W_ARM;
-
-            if (Stone_resistance && Stoned) {
-                make_stoned(0L, "You no longer seem to be petrifying.", 0,
-                            (char *) 0);
-            }
-        } else {
-            EPoison_resistance &= ~W_ARM;
-            EFire_resistance   &= ~W_ARM;
-            ECold_resistance   &= ~W_ARM;
-            ESleep_resistance  &= ~W_ARM;
-            EDisint_resistance &= ~W_ARM;
-            EShock_resistance  &= ~W_ARM;
-            EAcid_resistance   &= ~W_ARM;
-            EStone_resistance  &= ~W_ARM;
-            EReflecting        &= ~W_ARM;
-        }
-        break;
     default:
         break;
     }
@@ -2561,9 +2532,7 @@ boolean noisy;
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
         && otmp->otyp != MUMMY_WRAPPING /* Exception for giants */
         && (racial_exception(&youmonst, otmp) < 1)
-        && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
-        && !(Race_if(PM_GIANT) && otmp
-             && otmp->otyp == CHROMATIC_DRAGON_SCALES)) {
+        && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)) {
         if (noisy)
             pline_The("%s will not fit on your body.", which);
         return 0;
@@ -2700,12 +2669,6 @@ boolean noisy;
             err++;
         } else
             *mask = W_ARMC;
-        if (!Upolyd && Race_if(PM_GIANT) && otmp
-            && otmp->otyp == CHROMATIC_DRAGON_SCALES) {
-            *mask = W_ARMC;
-            if (noisy)
-                pline_The("scales are just large enough to fit your body.");
-        }
     } else if (is_suit(otmp)) {
         if (uarmc) {
             if (noisy)
@@ -2762,9 +2725,7 @@ boolean noisy;
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
         && otmp->otyp != MUMMY_WRAPPING /* Exception for giants/tortles */
         && (racial_exception(&youmonst, otmp) < 1)
-        && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
-        && !(Race_if(PM_GIANT) && otmp
-             && otmp->otyp == CHROMATIC_DRAGON_SCALES);
+        && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL);
 
     if (cantwear &&noisy)
         pline_The("%s will not fit on your body.", which);
@@ -3889,9 +3850,8 @@ boolean choose;
     if (DESTROY_ARM(uarmc)) {
         if (donning(otmp))
             cancel_don();
-        /* for gold/chromatic DS, we don't want Cloak_off() to report
-           that it stops shining _after_ we've been told that it is
-           destroyed */
+        /* for gold DS, we don't want Cloak_off() to report that it
+         * stops shining _after_ we've been told that it is destroyed */
         if (otmp->lamplit)
             end_burn(otmp, FALSE);
         Your("%s crumbles and turns to dust!", cloak_simple_name(uarmc));
@@ -3905,7 +3865,7 @@ boolean choose;
         } else {
             if (donning(otmp))
                 cancel_don();
-            /* for gold/chromatic dragon-scaled armor, we don't want
+            /* for gold dragon-scaled armor, we don't want
                Armor_gone() to report that it stops shining _after_
                we've been told that it is destroyed */
             if (otmp->lamplit)

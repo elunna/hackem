@@ -7098,25 +7098,6 @@ Z = (195, 195, 195)
   ....NHAAJJJHHJA.
   ........HHHHJA..
 }
-# tile 372 (chromatic dragon)
-{
-  ......GGGFA.....
-  .....NFNFEEA....
-  ....GFFFEECA....
-  ..DCHHF..CCA....
-  CHCHCD..BCCA....
-  HD.D...BFFA.....
-  ......OBFAAAAAA.
-  ....HOGFAAAAAAAA
-  ..HOOIEA.EF.AAA.
-  .HOOOIEEEEFFJAA.
-  .HOOOIEEFFFDDAA.
-  HBOOIIEFFFDDCCA.
-  HB.OIEFOODD.CJA.
-  HBAAGE.AADDACCA.
-  ....GFAA...CCJA.
-  ........FFFFJA..
-}
 # tile 373 (wyvern)
 {
   ................

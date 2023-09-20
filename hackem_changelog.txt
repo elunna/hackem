@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Removed chromatic dragon scales.
 Reverted Dragonbane to the vanilla broadsword.
 Revert "The Iron Spoon of Liberation grants phasing with no timeout. Fixes #358."
 Revert the adult green dragon in The Dragon of Bactria to a baby.

@@ -1463,7 +1463,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         if (otmp->unpaid)
                             alter_cost(otmp, 0L); /* shop bill */
 
-                        /* handle gold/chromatic dragon-scaled armor... */
+                        /* handle gold dragon-scaled armor... */
                         if (scales->lamplit) {
                             if (armor->lamplit) {
                                 /* if melding lit dragon scales onto already lit dragon-scaled
@@ -1481,7 +1481,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                             maybe_adjust_light(armor, old_light);
                         } else if (armor->lamplit) {
                             /* scales not lit but armor is: melding non-gold scales onto
-                               gold/chromatic-scaled armor, which will no longer be a
+                               gold-scaled armor, which will no longer be a
                                light source */
                             end_burn(armor, FALSE);
                         }
@@ -1613,7 +1613,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 if (otmp->unpaid)
                     alter_cost(otmp, 0L); /* shop bill */
 
-                /* handle gold/chromatic dragon-scaled armor... */
+                /* handle gold dragon-scaled armor... */
                 if (scales->lamplit) {
                     if (armor->lamplit) {
                         /* if melding lit dragon scales onto already lit
@@ -1632,7 +1632,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     maybe_adjust_light(armor, old_light);
                 } else if (armor->lamplit) {
                     /* scales not lit but armor is: melding non-gold scales
-                       onto gold/chromatic-scaled armor, which will no longer
+                       onto gold-scaled armor, which will no longer
                        be a light source */
                     end_burn(armor, FALSE);
                 }

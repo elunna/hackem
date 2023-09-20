@@ -3976,8 +3976,7 @@ const char *str;
         return TRUE;
     } else if ((orefl = which_armor(mon, W_ARM))
                && Is_dragon_scaled_armor(orefl)
-               && (Dragon_armor_to_scales(orefl) == SILVER_DRAGON_SCALES
-                   || Dragon_armor_to_scales(orefl) == CHROMATIC_DRAGON_SCALES)) {
+               && (Dragon_armor_to_scales(orefl) == SILVER_DRAGON_SCALES)) {
         if (str)
             pline(str, s_suffix(mon_nam(mon)), "armor");
         return TRUE;

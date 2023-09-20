@@ -776,8 +776,7 @@ struct obj *otmp;
 
         switch (adtyp) {
         case AD_MAGM: /* magic missiles => general magic resistance */
-            return (otyp == GRAY_DRAGON_SCALES
-                    || otyp == CHROMATIC_DRAGON_SCALES);
+            return (otyp == GRAY_DRAGON_SCALES);
         case AD_FIRE:
             return (otyp == RED_DRAGON_SCALES); /* red but not gold */
         case AD_DRLI:
@@ -4085,8 +4084,7 @@ struct obj *obj;
     /* not artifacts but treat them as if they were because they emit
        light without burning */
     if (obj && (Is_dragon_armor(obj)
-                && (Dragon_armor_to_scales(obj) == GOLD_DRAGON_SCALES
-                    || Dragon_armor_to_scales(obj) == CHROMATIC_DRAGON_SCALES))
+                && (Dragon_armor_to_scales(obj) == GOLD_DRAGON_SCALES))
         && (obj->owornmask & (W_ARM | W_ARMC)) != 0L)
         return TRUE;
 

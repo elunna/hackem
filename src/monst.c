@@ -3573,23 +3573,6 @@ NEARDATA struct permonst mons[] = {
             | M1_OVIPAROUS | M1_CARNIVORE | M1_ACID,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
         M3_TRAITOR, 0, MH_DRAGON, 30, CLR_YELLOW),
-    /* strictly a placeholder for chromatic dragon scales */
-    MON("chromatic dragon", S_DRAGON,
-        LVL(0, 9, -1, 20, -7), G_NOGEN,
-        A(ATTK(AT_BREA, AD_RBRE, 6, 6), 
-          ATTK(AT_BREA, AD_RBRE, 6, 6),
-          ATTK(AT_BITE, AD_PHYS, 4, 8), 
-          ATTK(AT_CLAW, AD_PHYS, 4, 4),
-          ATTK(AT_CLAW, AD_PHYS, 4, 4), 
-          ATTK(AT_ENGL, AD_DGST, 2, 10)),
-        SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC),
-        MR_FIRE | MR_COLD | MR_SLEEP | MR_DISINT | MR_ELEC | MR_POISON
-            | MR_ACID | MR_STONE | MR_SONIC,
-        MR_FIRE | MR_COLD | MR_SLEEP | MR_DISINT | MR_ELEC | MR_POISON | MR_STONE,
-        M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE | M1_SEE_INVIS | M1_POIS,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY
-            | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 20, HI_LORD),
     MON("wyvern", S_DRAGON,                                     /* Slash'EM */
         LVL(18, 9, -4, 20, 7), (G_GENO | 1),
         A(ATTK(AT_STNG, AD_DRST, 4, 6), ATTK(AT_BITE, AD_PHYS, 3, 8),

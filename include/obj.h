@@ -384,9 +384,9 @@ struct obj {
  * NOTE: this assumes that gray dragons come first and yellow last, as detailed
  * in monst.c. */
 #define FIRST_DRAGON        PM_GRAY_DRAGON
-#define LAST_DRAGON         PM_CHROMATIC_DRAGON
+#define LAST_DRAGON         PM_YELLOW_DRAGON
 #define FIRST_DRAGON_SCALES GRAY_DRAGON_SCALES
-#define LAST_DRAGON_SCALES  CHROMATIC_DRAGON_SCALES
+#define LAST_DRAGON_SCALES  YELLOW_DRAGON_SCALES
 #define Is_dragon_scales(obj) \
     ((obj)->otyp >= FIRST_DRAGON_SCALES && (obj)->otyp <= LAST_DRAGON_SCALES)
 /* Note: dragonscales is corpsenm, and corpsenm is usually initialized to

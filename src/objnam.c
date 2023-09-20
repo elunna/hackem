@@ -4891,9 +4891,6 @@ struct obj *no_wish;
         case SPE_BOOK_OF_THE_DEAD:
             typ = SPE_BLANK_PAPER;
             break;
-        case CHROMATIC_DRAGON_SCALES:
-            typ = rnd_class(FIRST_DRAGON_SCALES, LAST_DRAGON_SCALES - 1);
-            break;
         default:
             /* catch any other non-wishable objects (venom) */
             if (objects[typ].oc_nowish)
@@ -4907,7 +4904,7 @@ struct obj *no_wish;
      * scale mail; don't screw over players who aren't aware of the dtsund-DSM
      * changes - produce a set of scales instead of nothing */
     if (typ == SCALE_MAIL && mntmp >= FIRST_DRAGON
-        && mntmp <= PM_YELLOW_DRAGON) { /* chromatic dragon scales are off-limits */
+        && mntmp <= PM_YELLOW_DRAGON) {
         typ = mndx_to_dragon_scales(mntmp);
         mntmp = NON_PM; /* no monster */
     }
