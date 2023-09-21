@@ -3611,7 +3611,7 @@ tech_shieldblock()
          return 0;
     }
     You("inject your energy into %s shield.", yname(uarms));
-    techt_inuse(tech_no) = d(3, 4) + techlev(tech_no);
+    techt_inuse(tech_no) = (d(3, 4) + techlev(tech_no)) * 2;
     return 1;
 }
 

@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Double the time power shield is usually active.
 Rename 'shield block' tech to 'power shield'.
 Add a warning to the guaranteed wands of wishing.
 Removed forged weapons.
