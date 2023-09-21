@@ -75,7 +75,7 @@ long mask;
                             u.uprops[p].extrinsic & ~wp->w_mask;
                         if ((p = w_blocks(oobj, mask)) != 0)
                             u.uprops[p].blocked &= ~wp->w_mask;
-                        if (oobj->oartifact || oobj->oprops)
+                        if (oobj->oartifact)
                             set_artifact_intrinsic(oobj, 0, mask);
                     }
                     /* in case wearing or removal is in progress or removal
@@ -100,7 +100,7 @@ long mask;
                             if ((p = w_blocks(obj, mask)) != 0)
                                 u.uprops[p].blocked |= wp->w_mask;
                         }
-                        if (obj->oartifact || obj->oprops)
+                        if (obj->oartifact)
                             set_artifact_intrinsic(obj, 1, mask);
                     }
                 }
@@ -133,7 +133,7 @@ register struct obj *obj;
             p = armor_provides_extrinsic(obj);
             u.uprops[p].extrinsic = u.uprops[p].extrinsic & ~wp->w_mask;
             obj->owornmask &= ~wp->w_mask;
-            if (obj->oartifact || obj->oprops)
+            if (obj->oartifact)
                 set_artifact_intrinsic(obj, 0, wp->w_mask);
             if ((p = w_blocks(obj, wp->w_mask)) != 0)
                 u.uprops[p].blocked &= ~wp->w_mask;
@@ -357,48 +357,6 @@ int which;
 {
     if (objects[obj->otyp].oc_oprop == which)
         return TRUE;
-
-    if (!obj->oprops)
-        return FALSE;
-
-    switch (which) {
-    case FIRE_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_FIRE));
-    case COLD_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_FROST));
-    case DRAIN_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_DRLI));
-    case SHOCK_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_SHOCK));
-    case SONIC_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_SCREAM));
-    case POISON_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_VENOM));
-    case ACID_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_ACID));
-    case TELEPAT:
-        return !!(obj->oprops & ITEM_ESP);
-    case FUMBLING:
-        return !!(obj->oprops & ITEM_FUMBLING);
-    case HUNGER:
-        return !!(obj->oprops & ITEM_HUNGER);
-    case ADORNED:
-        return !!(obj->oprops & ITEM_EXCEL);
-    }
     return FALSE;
 }
 
@@ -426,8 +384,6 @@ boolean on, silently;
     struct obj *otmp;
     int which = (int) armor_provides_extrinsic(obj),
         altwhich = altprop(obj);
-    long props = obj->oprops;
-    int i = 0;
 
     unseen = !canseemon(mon);
     if (!which && !altwhich)
@@ -597,65 +553,6 @@ boolean on, silently;
         break;
     default:
         break;
-    }
-
-    while (props) {
-        if (!i)
-            i = 1;
-        else
-            i <<= 1;
-
-        if (i > ITEM_PROP_MASK)
-            break;
-
-        if (props & i) {
-            which = 0;
-            props &= ~(i);
-            switch (i) {
-            case ITEM_FIRE:
-                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
-                    which = FIRE_RES;
-                break;
-            case ITEM_FROST:
-                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
-                    which = COLD_RES;
-                break;
-            case ITEM_DRLI:
-                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
-                    which = DRAIN_RES;
-                break;
-            case ITEM_SHOCK:
-                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
-                    which = SHOCK_RES;
-                break;
-            case ITEM_SCREAM:
-                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
-                    which = SONIC_RES;
-                break;
-            case ITEM_VENOM:
-                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
-                    which = POISON_RES;
-                break;
-            case ITEM_ACID:
-                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
-                    which = ACID_RES;
-                break;
-            case ITEM_ESP:
-                which = TELEPAT;
-                break;
-            case ITEM_FUMBLING:
-                which = FUMBLING;
-                break;
-            case ITEM_HUNGER:
-                which = HUNGER;
-                break;
-            case ITEM_EXCEL:
-                which = ADORNED;
-                break;
-            }
-            if (which)
-                goto again;
-        }
     }
 
     if (!on && mon == u.usteed && obj->otyp == SADDLE)
@@ -1429,40 +1326,30 @@ struct obj *obj;
                   || wielding_artifact(ART_FIRE_BRAND)
                   || wielding_artifact(ART_FIREWALL)
                   || wielding_artifact(ART_ITLACHIAYAQUE)
-                  || wielding_artifact(ART_ANGELSLAYER)
-                  || (u.twoweap && uswapwep->oprops & ITEM_FIRE)
-                  || (uwep && uwep->oprops & ITEM_FIRE)) ? 25 : 5;
+                  || wielding_artifact(ART_ANGELSLAYER)) ? 25 : 5;
         break;
     case RIN_COLD_RESISTANCE:
         if (!(resists_cold(mon) || defended(mon, AD_COLD)))
             rc = (dmgtype(youmonst.data, AD_COLD)
                   || wielding_artifact(ART_FROST_BRAND)
-                  || wielding_artifact(ART_DEEP_FREEZE)
-                  || (u.twoweap && uswapwep->oprops & ITEM_FROST)
-                  || (uwep && uwep->oprops & ITEM_FROST)) ? 25 : 5;
+                  || wielding_artifact(ART_DEEP_FREEZE)) ? 25 : 5;
         break;
     case RIN_POISON_RESISTANCE:
         if (!(resists_poison(mon) || defended(mon, AD_DRST)))
             rc = (dmgtype(youmonst.data, AD_DRST)
                   || dmgtype(youmonst.data, AD_DRCO)
-                  || dmgtype(youmonst.data, AD_DRDX)
-                  || (u.twoweap && uswapwep->oprops & ITEM_VENOM)
-                  || (uwep && uwep->oprops & ITEM_VENOM)) ? 25 : 5;
+                  || dmgtype(youmonst.data, AD_DRDX)) ? 25 : 5;
         break;
     case RIN_SHOCK_RESISTANCE:
         if (!(resists_elec(mon) || defended(mon, AD_ELEC)))
             rc = (dmgtype(youmonst.data, AD_ELEC)
                   || wielding_artifact(ART_MJOLLNIR)
-                  || wielding_artifact(ART_SKULLCRUSHER)
-                  || (u.twoweap && uswapwep->oprops & ITEM_SHOCK)
-                  || (uwep && uwep->oprops & ITEM_SHOCK)) ? 25 : 5;
+                  || wielding_artifact(ART_KEOLEWA)) ? 25 : 5;
         break;
     case RIN_SONIC_RESISTANCE:
         if (!(resists_sonic(mon) || defended(mon, AD_LOUD)))
             rc = (dmgtype(youmonst.data, AD_LOUD)
-                  || wielding_artifact(ART_THUNDERSTRUCK)
-                  || (u.twoweap && uswapwep->oprops & ITEM_SCREAM)
-                  || (uwep && uwep->oprops & ITEM_SCREAM)) ? 25 : 5;
+                  || wielding_artifact(ART_THUNDERSTRUCK)) ? 25 : 5;
         break;
     case RIN_REGENERATION:
         rc = !mon_prop(mon, REGENERATION) ? 25 : 5;

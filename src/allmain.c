@@ -666,7 +666,7 @@ boolean resuming;
                        monsters that they are against hostile should they
                        be tame or peaceful */
                     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-                        if ((uarmg && uarmg->oartifact == ART_DRAGONBANE
+                        if ((wielding_artifact(ART_DRAGONBANE)
                              && is_dragon(mtmp->data))
                             || (wielding_artifact(ART_DEATHSWORD)
                                 && racial_human(mtmp))

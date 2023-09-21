@@ -126,7 +126,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "booze",            /* 39 */
     /* SlashTHEM techs */
     "souleater",        /* 40 */
-    "shield block",     /* 41 */
+    "power shield",     /* 41 */
     "jedi jump",        /* 42 */
     "charge saber",     /* 43 */
     "telekinesis",      /* 44 */
@@ -294,7 +294,7 @@ static const struct innate_tech
     },
     war_tech[] = { 
         { 1, T_PRACTICE, 1 }, /* warrior */
-        { 1, T_SHIELD_BLOCK, 1 }, /*Let them get at least skilled in shield*/
+        { 1, T_POWER_SHIELD, 1 }, /*Let them get at least skilled in shield*/
         { 0, 0, 0 } 
     },
     lun_tech[] = { 
@@ -1013,8 +1013,11 @@ int tech_no;
             break;
         case T_ICEARMOR:
             res = tech_icearmor();
-            if (res)
+            if (res) {
                 t_timeout = rn1(500, 500);
+                if (carrying_arti(ART_STORM_WHISTLE))
+                    t_timeout /= 2;
+            }
             break;
         case T_REINFORCE:
             res = tech_reinforce();
@@ -1165,7 +1168,7 @@ int tech_no;
             if (res)
                 t_timeout = rn1(500, 500);
             break;
-        case T_SHIELD_BLOCK:
+        case T_POWER_SHIELD:
             res = tech_shieldblock();
             if (res)
                 t_timeout = rn1(500, 500);
@@ -1232,21 +1235,21 @@ int dam;
 {
     int i;
     for (i = 0; i < MAXTECH; ++i) {
-        if (techid(i) == T_SHIELD_BLOCK)
+        if (techid(i) == T_POWER_SHIELD)
             break;
     }
     if (i == MAXTECH) {
-        impossible("no shield block tech");
+        impossible("no power shield tech");
         return;
     }
-    if (tech_inuse(T_SHIELD_BLOCK)) {
+    if (tech_inuse(T_POWER_SHIELD)) {
         u.uen -= dam;
         if (u.uen <= 0) {
               u.uen = 0;
               You("can no longer block damage with %s.", 
                   uarms ? yname(uarms) : "a shield");
               for (i = 0; i < MAXTECH; ++i) {
-                    if (techid(i) == T_SHIELD_BLOCK) {
+                    if (techid(i) == T_POWER_SHIELD) {
                         techt_inuse(i) = 0;
                         break;
                     }
@@ -1261,19 +1264,16 @@ shield_blockable(mtmp, mattk)
 struct monst *mtmp;
 struct attack *mattk;
 {
-    if (!tech_inuse(T_SHIELD_BLOCK) ||
+    if (!tech_inuse(T_POWER_SHIELD) ||
           /* Additional restrictions: */
           !canspotmon(mtmp) 
           || u.uhs >= 3 
-          || u.uswallow 
+          || u.uswallow
           || u.usleep
           || Fumbling
-          || Stunned 
-          || Confusion 
-          || Afraid
-          || Slow
-          || Blind 
-          || Vomiting)
+          || Stunned
+          || Confusion
+          || Blind)
         return FALSE;
     /* Assuming you took it off or had it stolen while tech is active */
     if (!uarms)
@@ -1373,7 +1373,7 @@ tech_timeout()
                         pline_The("dark flames surrounding %s dissipate.",
                                   doname(uwep));
                     break;
-                case T_SHIELD_BLOCK:
+                case T_POWER_SHIELD:
                     if (uarms)
                         You("release the energy from %s.", yname(uarms));
                     break;
@@ -3605,13 +3605,13 @@ tech_souleater()
 int
 tech_shieldblock()
 {
-    int tech_no = get_tech_no(T_SHIELD_BLOCK);
+    int tech_no = get_tech_no(T_POWER_SHIELD);
     if (!uarms) {
          You_cant("block attacks without a shield.");
          return 0;
     }
     You("inject your energy into %s shield.", yname(uarms));
-    techt_inuse(tech_no) = d(3, 4) + techlev(tech_no);
+    techt_inuse(tech_no) = (d(3, 4) + techlev(tech_no)) * 2;
     return 1;
 }
 

@@ -398,6 +398,8 @@ int *attk_count, *role_roll_penalty;
         tmp += 4;
     if (tech_inuse(T_BERSERK) || tech_inuse(T_SOULEATER))
         tmp += 2;
+    if (Role_if(PM_JEDI) && uarmg && uarmg->otyp == GAUNTLETS_OF_FORCE)
+        tmp += 1;
     
     /* if unskilled with a weapon/object type (bare-handed is exempt),
      * you'll never have a chance greater than 75% to land a hit.
@@ -1102,7 +1104,6 @@ int dieroll;
     boolean lightobj = FALSE;
     boolean thievery = FALSE;
     boolean issecespita = FALSE;
-    boolean isvenom  = FALSE;
     boolean valid_weapon_attack = FALSE;
     boolean unarmed = !uwep && (!uarm || is_robe(uarm)) && !uarms;
     boolean actually_unarmed = !obj;
@@ -1303,8 +1304,6 @@ int dieroll;
             pline("There is a bright flash as %s hits %s.",
                   artiname(obj->oartifact), the(mon_nam(mon)));
         }
-        if (obj->oprops & ITEM_VENOM)
-            isvenom = TRUE;
         if (!(artifact_light(obj) && obj->lamplit))
             Strcpy(saved_oname, cxname(obj));
         else
@@ -1544,8 +1543,7 @@ int dieroll;
                 }
                 /* a minimal hit doesn't exercise proficiency */
                 valid_weapon_attack = (tmp > 0);
-                if (((obj->oclass == WEAPON_CLASS && obj->oprops) || obj->oartifact)
-                    && artifact_hit(&youmonst, mon, obj, &tmp, dieroll)) {
+                if ((obj->oartifact) && artifact_hit(&youmonst, mon, obj, &tmp, dieroll)) {
                     if (DEADMONSTER(mon)) /* artifact killed monster */
                         return FALSE;
                     if (tmp == 0)
@@ -1596,7 +1594,7 @@ int dieroll;
                            them */
                         if (uwep->oartifact == ART_LONGBOW_OF_DIANA
                             || uwep->oartifact == ART_CROSSBOW_OF_CARL)
-                            tmp += 6;
+                            tmp += rnd(6);
                         /* Elves and Samurai do extra damage using
                          * their bows&arrows; they're highly trained.
                          */
@@ -2054,7 +2052,7 @@ int dieroll;
     }
 
     if (!ispotion && obj /* potion obj will have been freed by here */
-        && (ispoisoned || isvenom)) {
+        && (ispoisoned)) {
         int nopoison = (10 - (obj->owt / 10));
 
         if (nopoison < 2)
@@ -2066,7 +2064,7 @@ int dieroll;
             You_feel("like an evil coward for using a poisoned weapon.");
             adjalign(Role_if(PM_KNIGHT) ? -3 : -1);
         }
-        if (obj && !rn2(nopoison) && !isvenom && !is_bullet(obj)) {
+        if (obj && !rn2(nopoison) && !is_bullet(obj)) {
             /* remove poison now in case obj ends up in a bones file */
             obj->opoisoned = FALSE;
             /* defer "obj is no longer poisoned" until after hit message */
@@ -2335,20 +2333,12 @@ int dieroll;
 
     if (needpoismsg) {
         pline_The("poison doesn't seem to affect %s.", mon_nam(mon));
-        if (obj && (obj->oprops & ITEM_VENOM)) {
-            obj->oprops_known |= ITEM_VENOM;
-            update_inventory();
-        }
     }
     if (poiskilled) {
         pline_The("poison was deadly...");
         if (!already_killed)
             xkilled(mon, XKILL_NOMSG);
         destroyed = TRUE; /* return FALSE; */
-        if (obj && (obj->oprops & ITEM_VENOM)) {
-            obj->oprops_known |= ITEM_VENOM;
-            update_inventory();
-        }
     } else if (vapekilled) {
         if (cansee(mon->mx, mon->my))
             pline("%s%ss body vaporizes!", Monnam(mon),
@@ -2526,8 +2516,7 @@ struct attack *mattk;
        protection might fail (33% chance) when the armor is cursed.
        Grammar has been altered to accommodate both player vs monster
        and monster vs monster attacks */
-    if (obj && (obj->greased || obj->otyp == OILSKIN_CLOAK
-                || (obj->oprops & ITEM_OILSKIN))
+    if (obj && (obj->greased || obj->otyp == OILSKIN_CLOAK)
         && (!obj->cursed || rn2(3))) {
         pline_The("%s %s %s %s!",
                   ((mattk->adtyp == AD_WRAP
@@ -2711,8 +2700,7 @@ struct attack *mattk;
     /* greased objects are difficult to get a grip on, hence
     the odds that an attempt at stealing it may fail */
     if (otmp && (otmp->greased || otmp->otyp == OILSKIN_CLOAK
-        || otmp->otyp == OILSKIN_SACK
-        || (otmp->oprops & ITEM_OILSKIN))
+        || otmp->otyp == OILSKIN_SACK)
         && (!otmp->cursed || rn2(4))) {
         Your("%s slip off of %s %s %s!",
               makeplural(body_part(HAND)),
@@ -2899,8 +2887,7 @@ struct attack *mattk;
         failing to steal a greased object will stop you from stealing
         anything else to avoid infinite loop nastiness */
         if (otmp && (otmp->greased || otmp->otyp == OILSKIN_CLOAK
-            || otmp->otyp == OILSKIN_SACK
-            || (otmp->oprops & ITEM_OILSKIN))
+            || otmp->otyp == OILSKIN_SACK)
             && (!otmp->cursed || rn2(4))) {
             Your("%s slip off of %s %s %s!",
                 makeplural(body_part(HAND)),
@@ -3212,7 +3199,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         tmp += destroy_mitem(mdef, POTION_CLASS, AD_COLD);
         break;
     /* currently the only monster that uses AD_LOUD are
-     * Nazgul and celestial dragons, and are both M2_NOPOLY,
+     * Nazgul, and are both M2_NOPOLY,
      * but we'll put this here for completeness sake */
     case AD_LOUD:
         if (negated) {
@@ -3402,7 +3389,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         break;
     case AD_RUST:
 do_rust:
-        if (pd == &mons[PM_IRON_GOLEM] || pd == &mons[PM_STEEL_GOLEM]) {
+        if (pd == &mons[PM_IRON_GOLEM]) {
             if (canseemon(mdef))
                 pline("%s falls to pieces!", Monnam(mdef));
             xkilled(mdef, XKILL_NOMSG);
@@ -5249,16 +5236,8 @@ boolean wep_was_destroyed;
                         && (aatyp == AT_WEAP || aatyp == AT_CLAW
                             || aatyp == AT_MAGC || aatyp == AT_TUCH)) {
                         if (uarmg) {
-                            if (uarmg->oartifact == ART_DRAGONBANE)
-                                pline("%s %s, but remains %s.", xname(uarmg),
-                                      rn2(2) ? "shudders violently"
-                                             : "vibrates unexpectedly",
-                                      rn2(2) ? "whole" : "intact");
-                            else if (rn2(2)
-                                     && (uarmg->oerodeproof
-                                         || is_supermaterial(uarmg)))
-                                pline("%s being disintegrated!",
-                                      Yobjnam2(uarmg, "resist"));
+                            if (rn2(2) && (uarmg->oerodeproof || is_supermaterial(uarmg)))
+                                pline("%s being disintegrated!", Yobjnam2(uarmg, "resist"));
                             else
                                 (void) destroy_arm(uarmg, FALSE);
                         }
@@ -5345,7 +5324,7 @@ boolean wep_was_destroyed;
                 if (canseemon(mon))
                     You("are splashed!");
 
-                if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+                if (u.umonnum == PM_IRON_GOLEM) {
                     You("rust to pieces!");
                     /* KMH -- this is okay with unchanging */
                     rehumanize();
@@ -5530,17 +5509,6 @@ boolean wep_was_destroyed;
             }
         }
     }
-    if  ((passive_armor = which_armor(mon, W_ARMG))) {
-        switch (passive_armor->otyp) {
-        case GLOVES:
-            if (!is_dragon(youmonst.data))
-                break;
-            if (!rn2(3) && passive_armor->oartifact == ART_DRAGONBANE) {
-                pline("Dragonbane sears your scaly hide!");
-                mdamageu(mon, rnd(6) + 2);
-            }
-        }
-    }
     return (malive | mhit);
 }
 
@@ -5620,12 +5588,6 @@ struct attack *mattk;     /* null means we find one internally */
             if (obj_resists(obj, 0, 0)) {
                 pline_The("%s %s and cannot be disintegrated.",
                           xname(obj), rn2(2) ? "resists completely" : "defies physics");
-                break;
-            } else if (obj->oartifact == ART_DRAGONBANE
-                       && mon->data != &mons[PM_ANTIMATTER_VORTEX]) {
-                pline("%s %s, but remains %s.", xname(obj),
-                      rn2(2) ? "shudders violently" : "vibrates unexpectedly",
-                      rn2(2) ? "whole" : "intact");
                 break;
             } else if (obj->otyp == BLACK_DRAGON_SCALES
                        || (Is_dragon_scaled_armor(obj)

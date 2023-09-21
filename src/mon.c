@@ -617,7 +617,6 @@ unsigned corpseflags;
     case PM_GOLD_DRAGON:
     case PM_SEA_DRAGON:
     case PM_YELLOW_DRAGON:
-    case PM_CELESTIAL_DRAGON:
         /* Make dragon scales.  This assumes that the order of the
            dragons is the same as the order of the scales.
            If the dragon is a pet, no scales generated. */
@@ -635,12 +634,6 @@ unsigned corpseflags;
         }
         break;
     case PM_TIAMAT:
-        /* Make chromatic dragon scales */
-        if (!rn2(3)) { /* Tiamat cannot be revived, no corpse */
-            obj = mksobj_at(CHROMATIC_DRAGON_SCALES, x, y, FALSE, FALSE);
-            obj->spe = 0;
-            obj->cursed = obj->blessed = FALSE;
-        }
         goto default_1;
     case PM_TIGER:
         if (!mtmp->mrevived && !rn2(100)) {
@@ -1052,8 +1045,7 @@ register struct monst *mtmp;
         if (inforge && !rn2(3))
             blowupforge(mtmp->mx, mtmp->my);
         return 0;
-    } else if ((mtmp->data == &mons[PM_IRON_GOLEM] 
-                || mtmp->data == &mons[PM_STEEL_GOLEM])
+    } else if ((mtmp->data == &mons[PM_IRON_GOLEM])
                && ((inpool && !rn2(5)) || (inshallow && rn2(2)))) {
         int dam = d(2, 6);
 
@@ -2704,8 +2696,7 @@ long flag;
                 && (is_sewage(nx, ny) == wantsewage || !wantsewage)
                 && (is_puddle(nx, ny) == wantpuddle || !wantpuddle)
                 /* iron golems and longworms avoid shallow water */
-                && ((mon->data != &mons[PM_IRON_GOLEM] 
-                     && mon->data != &mons[PM_STEEL_GOLEM] 
+                && ((mon->data != &mons[PM_IRON_GOLEM]
                      && !is_longworm(mdat)
                      && !vs_cantflyorswim(mdat))
                     || !(is_puddle(nx, ny) || is_sewage(nx, ny)))) {
@@ -2808,9 +2799,7 @@ long flag;
                                    ttmp->ttyp);
                             continue;
                     }
-                    if ((ttmp->ttyp != RUST_TRAP
-                         || (mdat == &mons[PM_IRON_GOLEM]
-                             || mdat == &mons[PM_STEEL_GOLEM]))
+                    if ((ttmp->ttyp != RUST_TRAP ||mdat == &mons[PM_IRON_GOLEM])
                         && ttmp->ttyp != STATUE_TRAP
                         && ttmp->ttyp != VIBRATING_SQUARE
                         && ((!is_pit(ttmp->ttyp) && !is_hole(ttmp->ttyp))
@@ -5101,7 +5090,7 @@ struct monst *mtmp;
             && !Underwater
             && !Confusion
             && !Role_if(PM_KNIGHT)
-            && !(uarmg && uarmg->oartifact == ART_DRAGONBANE)
+            && !wielding_artifact(ART_DRAGONBANE)
             && !(uarms && uarms->oartifact == ART_PRIDWEN)) {
             i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
             
@@ -5153,7 +5142,7 @@ boolean via_attack;
         /* reduce to 3 (average) when alignment is already very low */
         if (u.ualign.type != A_NONE) {
             You_feel("like a hypocrite.");
-            adjalign((u.ualign.record > 5) ? -5 : -rnd(5));
+            adjalign(-1);
         } else
             You_feel("clever."); /* no alignment penalty */
 
@@ -6426,8 +6415,7 @@ int damtype, dam;
             heal = (dam + 5) / 6;
         else if (damtype == AD_FIRE || damtype == AD_COLD)
             slow = 1;
-    } else if (mon->data == &mons[PM_IRON_GOLEM] 
-               || mon->data == &mons[PM_STEEL_GOLEM]) {
+    } else if (mon->data == &mons[PM_IRON_GOLEM]) {
         if (damtype == AD_ELEC)
             slow = 1;
         else if (damtype == AD_FIRE)

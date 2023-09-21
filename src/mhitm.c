@@ -1862,7 +1862,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     case AD_RUST:
         if (magr->mcan)
             break;
-        if (pd == &mons[PM_IRON_GOLEM] || pd == &mons[PM_STEEL_GOLEM]) {
+        if (pd == &mons[PM_IRON_GOLEM]) {
             if (vis && canseemon(mdef))
                 pline("%s falls to pieces!", Monnam(mdef));
             mondied(mdef);
@@ -2270,8 +2270,7 @@ post_stone:
             /* greased objects are difficult to get a grip on, hence
                the odds that an attempt at stealing it may fail */
             if ((obj->greased || obj->otyp == OILSKIN_CLOAK
-                 || obj->otyp == OILSKIN_SACK
-                 || (obj->oprops & ITEM_OILSKIN))
+                 || obj->otyp == OILSKIN_SACK)
                 && (!obj->cursed || rn2(4))) {
                 if (vis && canseemon(mdef)) {
                     pline("%s %s slip off of %s's %s %s!", s_suffix(Monnam(magr)),
@@ -3082,10 +3081,8 @@ struct obj *mwep;
                                       s_suffix(Monnam(magr)), xname(which_armor(magr, W_ARMF)));
                             m_useup(magr, which_armor(magr, W_ARMF));
                         } else if ((magr->misc_worn_check & W_ARMG)
-                                   && (aatyp == AT_WEAP || aatyp == AT_CLAW
-                                       || aatyp == AT_TUCH)
-                                   && !MON_WEP(magr) && !rn2(12)
-                                   && !((which_armor(magr, W_ARMG))->oartifact == ART_DRAGONBANE)) {
+                                   && (aatyp == AT_WEAP || aatyp == AT_CLAW || aatyp == AT_TUCH)
+                                   && !MON_WEP(magr) && !rn2(12)) {
                             if (canseemon(magr))
                                 pline("%s %s are disintegrated!",
                                       s_suffix(Monnam(magr)), xname(which_armor(magr, W_ARMG)));
@@ -3227,29 +3224,6 @@ struct obj *mwep;
             }
         }
 
-    }
-    if ((passive_armor = which_armor(mdef, W_ARMG))) {
-        switch (passive_armor->otyp) {
-            case GLOVES:
-                if (!is_dragon(magr->data))
-                    break;
-                if (!rn2(3) && is_dragon(magr->data)
-                    && passive_armor->oartifact == ART_DRAGONBANE) {
-                    if (canseemon(magr))
-                        pline("Dragonbane sears %s scaly hide!", s_suffix(mon_nam(magr)));
-                    magr->mhp -= rnd(6) + 2;
-                }
-                if (magr->mhp < 1) {
-                    if (canseemon(magr))
-                        pline("Dragonbane's power overwhelms %s!", mon_nam(magr));
-                    pline("%s dies!", Monnam(magr));
-                    monkilled(magr, "", AD_PHYS);
-                    return (mdead | mhit | MM_AGR_DIED);
-                }
-                break;
-            default: /* all other types of armor, just pass on through */
-                break;
-        }
     }
     
     for (i = 0;; i++) {

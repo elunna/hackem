@@ -1096,14 +1096,7 @@ gcrownu()
         case A_NONE:
             /* OK, we don't get an artifact, but surely Moloch
              * can at least offer His own blessing? */
-            obj = uwep;
-            if (ok_wep(obj) && !obj->oartifact && obj->quan == 1
-                && !(obj->oprops & ITEM_PROP_MASK)) {
-                Your("%s is wreathed in hellfire!",
-                     simple_typename(obj->otyp));
-                obj->oprops |= ITEM_FIRE;
-                obj->oprops_known |= ITEM_FIRE;
-            }
+            /* Right??? */
             break;
         default:
             obj = 0; /* lint */
@@ -1242,7 +1235,7 @@ aligntyp g_align;
               && !exist_artifact(ATGEIR, artiname(ART_GUNGNIR))
               && (u.ualign.type == A_LAWFUL || u.ualign.type == A_NEUTRAL)) {
             pline("Secret runes are engraved on your %s.", xname(uwep));
-            uwep->oprops = uwep->oprops_known = 0L;
+            
             /* Convert to an atgeir */
             uwep->otyp = ATGEIR;
             uwep->material = IRON;
@@ -1935,7 +1928,7 @@ dosacrifice()
                 && !uwep->oartifact && !(uarmh && uarmh->otyp == HELM_OF_OPPOSITE_ALIGNMENT)
                 && !exist_artifact(LONG_SWORD, artiname(ART_DIRGE))) {
                 Your("sword melts in your hand and transforms into something new!");
-                uwep->oprops = uwep->oprops_known = 0L;
+
                 uwep->otyp = LONG_SWORD;
                 uwep = oname(uwep, artiname(ART_DIRGE));
                 discover_artifact(ART_DIRGE);

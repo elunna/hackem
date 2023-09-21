@@ -880,11 +880,9 @@ boolean artif;
             if (is_poisonable(otmp) && !rn2(100))
                 otmp->opoisoned = 1;
 
-            if (artif && !rn2( (Role_if(PM_PIRATE) ? 5 : 30) 
+            if (artif && !rn2((Role_if(PM_PIRATE) ? 5 : 30) 
                               + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
-            else if (rn2(175) < (level_difficulty() / 2))
-                otmp = create_oprop(otmp, TRUE);
 
             if (Is_medusa_level(&u.uz) && otmp->otyp == ORCISH_ARROW) {
                 bless(otmp);
@@ -1157,8 +1155,6 @@ boolean artif;
             if (artif && !rn2( (Role_if(PM_PIRATE) ? 10 : 40) 
                               + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
-            else if (!rn2(150))
-                otmp = create_oprop(otmp, TRUE);
             /* simulate lacquered armor for samurai */
             if (Role_if(PM_SAMURAI) && otmp->otyp == SPLINT_MAIL
                 && (moves <= 1 || In_quest(&u.uz))) {
@@ -1186,8 +1182,7 @@ boolean artif;
             break;
         case WAND_CLASS:
             if (otmp->otyp == WAN_WISHING) {
-                otmp->spe = rnd(3);
-                otmp->recharged = (Is_stronghold(&u.uz) || discover) ? 0 : 1;
+                otmp->spe = 1;
             } else if (otmp->otyp == WAN_WONDER) {
                 otmp->spe = rn1(10, 15);
             } else if (otmp->otyp == WAN_CREATE_HORDE) {
@@ -1826,7 +1821,7 @@ const int matac[] = {
      3,  /* LEATHER */
      4,  /* WOOD */
      5,  /* BONE */
-     8,  /* DRAGON_HIDE */
+     5,  /* DRAGON_HIDE */
      5,  /* IRON - de facto baseline for metal armor */
      5,  /* METAL */
      4,  /* COPPER */
@@ -1878,10 +1873,12 @@ long amount;
 int x, y;
 {
     struct obj *gold = g_at(x, y);
-    
-    if (amount <= 0L)
-        amount = (long) (1 + rnd(level_difficulty() + 2) * rnd(30));
 
+    if (amount <= 0L) {
+        long mul = rnd(30 / max(12-depth(&u.uz), 2));
+
+        amount = (long) (1 + rnd(level_difficulty() + 2) * mul);
+    }
     if (gold) {
         gold->quan += amount;
     } else {
@@ -2126,9 +2123,6 @@ register struct obj *otmp;
         || otyp == FIRE_HORN)
         return FALSE;
     else if (attacks(AD_FIRE, otmp) || defends(AD_FIRE, otmp))
-        return FALSE;
-    /* weapons of fire are handled above; armor is not*/
-    else if (otmp->oprops  && otmp->oprops & ITEM_FIRE)
         return FALSE;
 
     if (otyp == SPE_BOOK_OF_THE_DEAD)
@@ -3673,6 +3667,12 @@ struct obj* obj;
         case PHIAL:
         case AMULET_OF_YENDOR:
         case FAKE_AMULET_OF_YENDOR:
+        /* Tshirts and mummy wrappings can only be cloth. */
+        case MUMMY_WRAPPING:
+        case HAWAIIAN_SHIRT:
+        case STRIPED_SHIRT:
+        case RUFFLED_SHIRT:
+        case T_SHIRT:
             return NULL;
         /* Any other cases for specific object types go here. */
         case SHIELD_OF_REFLECTION:

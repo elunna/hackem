@@ -1445,7 +1445,11 @@ boolean telekinesis;
             (obj->quan == 1L) ? "another" : "more", simpleonames(obj));
         return -1;
     }
-
+    /* Exceptions, exceptions, exceptions... */
+    if (Role_if(PM_NECROMANCER) && inv_cnt(FALSE) < 52 
+        && obj->oartifact && obj->oartifact == ART_HAND_OF_VECNA)
+        return 1;
+    
     *cnt_p = carry_count(obj, container, *cnt_p, telekinesis,
                          &old_wt, &new_wt);
     if (*cnt_p < 1L) {
@@ -3556,7 +3560,6 @@ boolean creation;
             && (obj->oclass == ARMOR_CLASS || obj->oclass == WEAPON_CLASS)
             /* keep/stash "special" (magical/artifact) weapons and armor */
             && !obj->oartifact && !objects[obj->otyp].oc_magic
-            && (obj->oprops & ITEM_PROP_MASK) == 0
             /* if the player explicitly gave it to their pet, go ahead and
              * (maybe) stash it anyway */
             && !obj->invlet)

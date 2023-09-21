@@ -72,6 +72,7 @@ MONSTER:('d',"hell hound"),(16,06)
 MONSTER:('V',"vampire royal"),(18,06)
 # The local treasure
 OBJECT:('+',"Book of the Dead"),(17,06)
+OBJECT:('/',"wishing"),(16,05), name:"CAUTION: DO NOT RECHARGE!"
 # Surrounding terror
 MONSTER:(';',"kraken"),(15,03)
 MONSTER:(';',"giant eel"),(18,03)

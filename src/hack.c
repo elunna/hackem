@@ -2546,8 +2546,7 @@ boolean newspot;             /* true if called by spoteffects */
 
             if (Upolyd && youmonst.data  == &mons[PM_GREMLIN])
                 (void) split_mon(&youmonst, NULL);
-            else if ((youmonst.data == &mons[PM_IRON_GOLEM] 
-                      || youmonst.data == &mons[PM_STEEL_GOLEM])
+            else if ((youmonst.data == &mons[PM_IRON_GOLEM])
                      /* mud boots keep the feet dry */
                      && (!uarmf
                          || strncmp(OBJ_DESCR(objects[uarmf->otyp]), "mud ", 4))) {
@@ -3715,6 +3714,9 @@ inv_weight()
             wt += (int) (((long) otmp->quan + 50L) / 100L);
         else if (otmp->otyp == BOULDER && racial_throws_rocks(&youmonst))
             wt += GIANT_BLDR_WEIGHT * otmp->quan;
+        else if (Role_if(PM_NECROMANCER)
+            && otmp->oartifact && otmp->oartifact == ART_HAND_OF_VECNA)
+            wt += 1;
         else /*if (otmp->otyp != BOULDER || !racial_throws_rocks(&youmonst)) */
             wt += otmp->owt;
         otmp = otmp->nobj;

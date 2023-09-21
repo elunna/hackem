@@ -3962,13 +3962,6 @@ const char *str;
             makeknown(BARDING_OF_REFLECTION);
         }
         return TRUE;
-    } else if ((orefl = which_armor(mon, W_ARMG))
-               && orefl->otyp == ART_DRAGONBANE) {
-        if (str) {
-            pline(str, s_suffix(mon_nam(mon)), "gloves");
-            makeknown(ART_DRAGONBANE);
-        }
-        return TRUE;
     } else if (arti_reflects(MON_WEP(mon))) {
         /* due to wielded artifact weapon */
         if (str)
@@ -3983,8 +3976,7 @@ const char *str;
         return TRUE;
     } else if ((orefl = which_armor(mon, W_ARM))
                && Is_dragon_scaled_armor(orefl)
-               && (Dragon_armor_to_scales(orefl) == SILVER_DRAGON_SCALES
-                   || Dragon_armor_to_scales(orefl) == CHROMATIC_DRAGON_SCALES)) {
+               && (Dragon_armor_to_scales(orefl) == SILVER_DRAGON_SCALES)) {
         if (str)
             pline(str, s_suffix(mon_nam(mon)), "armor");
         return TRUE;
@@ -4031,7 +4023,6 @@ const char *fmt, *str;
         monstseesu(M_SEEN_REFL);
         return TRUE;
     } else if (EReflecting & W_ARMG) {
-        /* Due to wearing the artifact Dragonbane */
         if (fmt && str)
             pline(fmt, str, "gloves");
         monstseesu(M_SEEN_REFL);

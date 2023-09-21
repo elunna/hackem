@@ -518,8 +518,6 @@ DRGN_SCALES("green dragon scales",      0, POISON_RES,        500, CLR_GREEN),
 DRGN_SCALES("gold dragon scales",       0, 0,                 500, HI_GOLD),
 DRGN_SCALES("sea dragon scales",        0, MAGICAL_BREATHING, 500, HI_ZAP),
 DRGN_SCALES("yellow dragon scales",     0, ACID_RES,          500, CLR_YELLOW),
-DRGN_SCALES("celestial dragon scales",  0, FLYING,           1000, CLR_BRIGHT_MAGENTA),
-DRGN_SCALES("chromatic dragon scales",  0, ANTIMAGIC,        1500, CLR_MAGENTA),
 #undef DRGN_SCALES
 /* other suits */
 ARMOR("plate mail", None,
@@ -683,7 +681,7 @@ BOOTS("water walking boots", "jungle boots",
 BOOTS("jumping boots", "hiking boots",
       0, 1,    JUMPING, 12, 2, 20, 50, 9, 0, LEATHER, HI_LEATHER),
 BOOTS("stomping boots", "steel-toed boots",                    /* SpliceHack */
-      0, 1,          0, 12, 2, 20, 50, 9, 0, LEATHER, HI_LEATHER),
+      0, 1,          0, 12, 2, 20, 50, 9, 0, IRON, HI_LEATHER),
 BOOTS("elven boots", "mud boots",
       0, 1,    STEALTH, 12, 2, 15,  8, 9, 0, LEATHER, HI_LEATHER),
 BOOTS("kicking boots", "buckled boots",
@@ -841,10 +839,10 @@ TOOL("credit card",         None, 1, 0, 0, 0,  15,   1,  10, PLASTIC, CLR_WHITE)
 /* light sources */
 TOOL("tallow candle",   "candle", 0, 1, 0, 0,  20,   2,  10, WAX, CLR_WHITE),
 TOOL("wax candle",      "candle", 0, 1, 0, 0,   5,   2,  20, WAX, CLR_WHITE),
-TOOL("magic candle",    "candle", 0, 1, 1, 0,   5,   2, 500, WAX, CLR_WHITE),       /* Slash'EM */
+TOOL("magic candle",    "candle", 0, 1, 1, 0,   7,   2, 500, WAX, CLR_WHITE),       /* Slash'EM */
 TOOL("lantern",             None, 1, 0, 0, 0,  30,  30,  12, COPPER, CLR_YELLOW),
 TOOL("oil lamp",          "lamp", 0, 0, 0, 0,  45,  20,  10, COPPER, CLR_YELLOW),
-TOOL("magic lamp",        "lamp", 0, 0, 1, 0,  15,  20,1000, COPPER, CLR_YELLOW),
+TOOL("magic lamp",        "lamp", 0, 0, 1, 0,   1,  20,1000, COPPER, CLR_YELLOW),
 /* other tools */
 TOOL("expensive camera",    None, 1, 0, 0, 1,  15,  12, 200, PLASTIC, CLR_BLACK),
 TOOL("mirror",   "looking glass", 0, 0, 0, 0,  45,  13,  10, GLASS, HI_SILVER),
@@ -952,7 +950,7 @@ FOOD("tripe ration",        140,  2, 10, 0, FLESH, 200, CLR_BROWN),
 FOOD("corpse",                0,  1,  0, 0, FLESH,   0, CLR_BROWN),
 /* body parts (currently only for base object: the Eye of Vecna) */
 FOOD("eyeball",               0,  1,  1, 0, FLESH,   5, CLR_WHITE),
-FOOD("severed hand",          0,  1,  5, 0, FLESH,  40, CLR_BROWN),
+FOOD("severed hand",          0,  1,300, 0, FLESH,  40, CLR_BROWN),
 FOOD("egg",                  85,  1,  1, 1, FLESH,  80, CLR_WHITE),
 FOOD("meatball",              0,  1,  1, 0, FLESH,   5, CLR_BROWN),
 FOOD("meat stick",            0,  1,  1, 0, FLESH,   5, CLR_BROWN),
@@ -1099,9 +1097,8 @@ SCROLL("cloning",               "TOYL ENT RUBLE",  1,   5, 300),  /* SpliceHack 
 SCROLL("stinking cloud",             "VELOX NEB",  1,  15, 300),
 SCROLL("acquirement",       "HZLRC KSTSBD MPFNG",  1,  10, 300),
 SCROLL("ice",		           "OOBID IBBOB",  1,  10, 200), /* SlashTHEM */
-SCROLL("magic detection",        "FOOBIE BLETCH",  1,  25, 300), /* EvilHack */
     /* Extra descriptions, shuffled into use at start of new game.
-     * Code in win/share/tilemap.c depends on SCR_MAGIC_DETECTION preceding
+     * Code in win/share/tilemap.c depends on SCR_ICE preceding
      * these and on how many of them there are.  If a real scroll gets added
      * after stinking cloud or the number of extra descriptions changes,
      * tilemap.c must be modified to match.
@@ -1278,7 +1275,7 @@ WAND("enlightenment", "crystal",  58, 150, 1, NODIR, GLASS, HI_GLASS),
 WAND("healing",        "bamboo",  60, 150, 1, IMMEDIATE, WOOD, CLR_YELLOW),         /* Slash'EM */
 WAND("create monster",  "maple", 135, 200, 1, NODIR, WOOD, HI_WOOD),
 WAND("fear",            "crusty",  25, 200, 1, NODIR, IRON, CLR_RED),                /* Slash'EM */
-WAND("wishing",          "pine",   2, 500, 1, NODIR, WOOD, HI_WOOD),
+WAND("wishing",          "pine",   1, 500, 1, NODIR, WOOD, HI_WOOD),
 WAND("nothing",           "oak",  75, 500, 0, IMMEDIATE, WOOD, HI_WOOD),
 WAND("wonder",        "plastic",  5, 100, 0, IMMEDIATE, PLASTIC, CLR_RED),          /* SpliceHack */
 WAND("wind",            "green", 15, 175, 1, IMMEDIATE, PLASTIC,                    /* SpliceHack */

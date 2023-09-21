@@ -266,8 +266,10 @@ forcelock(VOID_ARGS)
         }
     } else if (xlock.picktyp == 0) /* blunt */
         wake_nearby(); /* due to hammering on the container */
-
-    if (rn2(100) >= xlock.chance)
+        
+    if (uarmg && uarmg->otyp == GAUNTLETS_OF_FORCE)
+        ; /* Forcing is easy with these! */
+    else if (rn2(100) >= xlock.chance)
         return 1; /* still busy */
 
     You("succeed in forcing the lock.");
@@ -308,8 +310,10 @@ forcedoor(VOID_ARGS)
         exercise(A_STR, TRUE);      /* even if you don't succeed */
         return ((xlock.usedtime = 0));
     }
-
-    if (rn2(100) > xlock.chance)
+    
+    if (uarmg && uarmg->otyp == GAUNTLETS_OF_FORCE)
+        ; /* Forcing is easy with these! */
+    else if (rn2(100) > xlock.chance)
         return 1; /* still busy */
 
     You("succeed in %s the door.",

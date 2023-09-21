@@ -1145,6 +1145,10 @@ struct obj *obj;
     if (non_tameable(mtmp->data))
         return FALSE;
 
+    /* Taming is much harder on the Astral Plane! */
+    if (Is_astralevel(&u.uz) && rn2(10))
+        return FALSE;
+    
     /* Knights can never tame dragons of differing alignment */
     if (Role_if(PM_KNIGHT) && is_dragon(mtmp->data)
         && !same_align)
@@ -1198,7 +1202,7 @@ struct obj *obj;
     if (wielding_artifact(ART_VORPAL_BLADE) && is_jabberwock(mtmp->data))
         return FALSE;
 
-    if (uarmg && uarmg->oartifact == ART_DRAGONBANE && is_dragon(mtmp->data))
+    if (wielding_artifact(ART_DRAGONBANE) && is_dragon(mtmp->data))
         return FALSE;
 
     /* worst case, at least it'll be peaceful. */

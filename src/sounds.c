@@ -421,7 +421,6 @@ dosounds()
         }
         return;
     }
-
     if (!Is_blackmarket(&u.uz) 
             && at_dgn_entrance("One-eyed Sam's Market") 
             && !rn2(200)) {

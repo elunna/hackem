@@ -5,6 +5,58 @@
 
 Version 1.2.1 (unreleased)
 
+
+Double the time power shield is usually active.
+Rename 'shield block' tech to 'power shield'.
+Add a warning to the guaranteed wands of wishing.
+Removed forged weapons.
+Necromancer nerfs.
+Limit the alignment penalty for attacking from Elbereth to -1.
+Main dungeon length is capped at 35-40 levels.
+Change storage room to use SLASH'EM placement.
+Widen range that the big level can appear in the dungeon.
+Widen range that Aphrodite's level can appear in the dungeon.
+Move Oracle level placement back to vanilla style.
+Gauntlets of force makings forcing locks and doors take 1 turn. Bonus dmg for Jedi.
+Make the Hand of Vecna actually weigh 300.
+Hand of Vecna weighs only 1 aum for Necromancers.
+Fix stun resistance source in ctrl-x info.
+Nighthorn buffs.
+Monsters are never given dragon scales.
+Clinic special rooms cannot be too large.
+Random big vault rooms cannot be special rooms.
+Reduced the size of the Black Market and brought it back.
+Wizards don't have magical items pre-identified.
+Lowered probability of magic lamps generating.
+Put chickatrices and cockatrice eggs in cockatrice nests (from xNetHack)
+Don't hide magic portals (from xNetHack)
+Removed all object properties and scroll of magic detection.
+Taming is much more difficult on the Astral Plane.
+Changed Helm of Hermes to Hermes Boots.
+Introduced forged artifact Squall (from SpliceHack), nerfed Thunderstruck a bit.
+Removed chromatic dragon scales.
+Reverted Dragonbane to the vanilla broadsword.
+Revert "The Iron Spoon of Liberation grants phasing with no timeout. Fixes #358."
+Revert the adult green dragon in The Dragon of Bactria to a baby.
+Limit nosferatu to 7 max per game.
+If carrying the Storm Whistle, the tech timeout for the ice armor tech is halved.
+Revert steel golem weaknesses to water.
+Master Sword tweaks.
+Juggarnauts are untameable.
+Revert serpopard to SpliceHack levels.
+Revert grave trolls to SpliceHack levels.
+Prevent volatile mushrooms from generating inside shops.
+Disabled the Black Market.
+Hand of Vecna weighs 300.
+Stomping boots are iron.
+Removed energy regen from The Candle of Eternal Flame.
+Require the Iron Spoon of Liberation to be wielded to grant free action and searching.
+Require the 3 SLASH'EM artifacts to be wielded or worn to grant magic resistance.
+Reverted SLASH'EM style flat damage for artifacts.
+Removed celestial dragons.
+Shirts can only be cloth.
+Mummy wrappings can only be cloth.
+Dragonhide armor bonus has been reduced from 8AC to 5AC.
 Fix: Tame gremlin minion causes segfault when multiplying (reported by hothraxxa). Fixes #481.
 Remove defunct message for destroying Vecna (reported by mobileuser).
 Fix: Shk service for fixing armor; secondary erosion and some other tweaks (reported by Umbire).

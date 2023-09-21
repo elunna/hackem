@@ -1071,8 +1071,6 @@ register struct monst *mtmp;
                     if (mtmp->m_lev >= 20 || rn2(400) < mtmp->m_lev * mtmp->m_lev) {
                         if (!rn2(100 + 10 * nartifact_exist()))
                             mk_artifact(otmp, sgn(mon_aligntyp(mtmp)));
-                        else if (!rn2(8))
-                            create_oprop(otmp, FALSE);
                     }
                 }
             }
@@ -1518,7 +1516,6 @@ register struct monst *mtmp;
         } else if (mm == PM_RAT_KING) {
             otmp = mksobj(SCIMITAR, FALSE, FALSE);
             bless(otmp);
-            otmp->oprops = ITEM_VENOM;
             otmp->oerodeproof = TRUE;
             otmp->spe = rnd(3);
             (void) mpickobj(mtmp, otmp);
@@ -1617,7 +1614,6 @@ register struct monst *mtmp;
                 set_material(received, GOLD);
         } else if (mm == PM_WIZARD_OF_YENDOR) {
             otmp = mksobj(rn2(3) ? ATHAME : QUARTERSTAFF, FALSE, FALSE);
-            otmp->oprops = (rn2(3) ? ITEM_FIRE : rn2(2) ? ITEM_FROST : ITEM_VENOM);
             otmp->spe = rnd(4) + 1;
             (void) mpickobj(mtmp, otmp);
             if (rn2(2))
@@ -1657,9 +1653,6 @@ register struct monst *mtmp;
                                       : ptr->maligntyp) == A_LAWFUL) {
                 otmp = oname(otmp, artiname(typ == LONG_SWORD
                                             ? ART_SUNSWORD : ART_DEMONBANE));
-                if (!otmp->oartifact && !rn2(10)) {
-                    create_oprop(otmp, FALSE);
-                }
             }
             bless(otmp);
             otmp->oerodeproof = TRUE;
@@ -1704,8 +1697,6 @@ register struct monst *mtmp;
             case PM_GNOLL_WARRIOR:
                 if(!rn2(2)) 
                     (void) mongets(mtmp, ORCISH_HELM);
-                if (!rn2(20))
-                    (void) mongets(mtmp, ORANGE_DRAGON_SCALES);
                 else if (rn2(3))
                     (void) mongets(mtmp, SCALE_MAIL);
                 else
@@ -1718,24 +1709,14 @@ register struct monst *mtmp;
 
             case PM_GNOLL_CHIEFTAIN:
                 (void) mongets(mtmp, ORCISH_HELM);
-
-                if (!rn2(10))
-                    (void) mongets(mtmp, BLUE_DRAGON_SCALES);
-                else
-                    (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
-
+                (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
                 (void) mongets(mtmp, ORCISH_SHIELD);
                 (void) mongets(mtmp, KATANA);
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
                 break;
             case PM_GNOLL_SHAMAN:
-                if (!rn2(10))
-                    (void) mongets(mtmp, SILVER_DRAGON_SCALES);
-                else if (rn2(5))
+                 if (rn2(5))
                     (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
-                else
-                    (void) mongets(mtmp, RED_DRAGON_SCALES);
-
                 (void) mongets(mtmp, PARAZONIUM);
                 m_initthrow(mtmp, SHURIKEN, 12);
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
@@ -1770,7 +1751,6 @@ register struct monst *mtmp;
                 (void) mpickobj(mtmp, otmp);
                 /* defenses */
                 (void) mongets(mtmp, rnd_defensive_item(mtmp));
-                (void) mongets(mtmp, GREEN_DRAGON_SCALES);
                 break;
             default:
                 m_initweap_normal(mtmp);
@@ -2129,12 +2109,10 @@ register struct monst *mtmp;
             } else {
                 (void) mongets(mtmp, FLAMING_LASH);
                 otmp = mksobj(BROADSWORD, FALSE, FALSE);
-                otmp->oprops = ITEM_FIRE;
                 otmp->spe = rnd(3) + 2;
                 (void) mpickobj(mtmp, otmp);
             }
             otmp = mksobj(BULLWHIP, FALSE, FALSE);
-            otmp->oprops = ITEM_FIRE;
             otmp->spe = rnd(3) + 2;
             (void) mpickobj(mtmp, otmp);
             break;
@@ -2143,7 +2121,6 @@ register struct monst *mtmp;
             break;
         case PM_DISPATER:
             otmp = mksobj(ROD, FALSE, FALSE);
-            create_oprop(otmp, FALSE);
             curse(otmp);
             otmp->spe = rnd(3) + 2;
             set_material(otmp, GOLD);
@@ -2152,7 +2129,6 @@ register struct monst *mtmp;
             break;
         case PM_GERYON:
             otmp = mksobj(BATTLE_AXE, FALSE, FALSE);
-            otmp->oprops = ITEM_SHOCK;
             curse(otmp);
             otmp->spe = rnd(3) + 2;
             set_material(otmp, METAL);
@@ -2168,7 +2144,6 @@ register struct monst *mtmp;
             break;
         case PM_LOLTH:
             otmp = mksobj(SCIMITAR, FALSE, FALSE);
-            otmp->oprops = ITEM_VENOM;
             curse(otmp);
             otmp->oerodeproof = TRUE;
             otmp->spe = rnd(3) + 2;
@@ -2176,7 +2151,6 @@ register struct monst *mtmp;
             break;
         case PM_BAPHOMET:
             otmp = mksobj(BARDICHE, FALSE, FALSE);
-            otmp->oprops = ITEM_VENOM;
             curse(otmp);
             otmp->oerodeproof = TRUE;
             otmp->spe = rnd(3) + 2;
@@ -2184,7 +2158,6 @@ register struct monst *mtmp;
             break;
         case PM_MEPHISTOPHELES:
             otmp = mksobj(RANSEUR, FALSE, FALSE);
-            otmp->oprops = ITEM_FIRE;
             curse(otmp);
             otmp->oerodeproof = TRUE;
             otmp->spe = rnd(3) + 2;
@@ -2201,7 +2174,6 @@ register struct monst *mtmp;
             break;
         case PM_ASMODEUS:
             otmp = mksobj(ROD, FALSE, FALSE);
-            otmp->oprops = ITEM_FROST;
             curse(otmp);
             otmp->spe = rnd(3) + 4;
             set_material(otmp, GEMSTONE);
@@ -2564,12 +2536,6 @@ register struct monst *mtmp;
             otmp->spe = rn1(3, 3);
             if (rn2(2)) { /* spice it up a little */
                 set_material(otmp, SILVER);
-                /* only add a property if silver; we don't want the player
-                 * immediately giving this to a summoned demon */
-                if (!rn2(3))
-                    otmp->oprops = ITEM_FROST;
-                else if (!rn2(4))
-                    otmp->oprops = ITEM_SHOCK;
             }
             (void) mpickobj(mtmp, otmp);
             /* the Paladin wears no helmet
@@ -2646,7 +2612,6 @@ register struct monst *mtmp;
             (void) mpickobj(mtmp, otmp);
         } else if (ptr == &mons[PM_VECNA]) {
             otmp = mksobj(ROBE, FALSE, FALSE);
-            otmp->oprops = ITEM_DRLI;
             otmp->oeroded2 = TRUE;
             curse(otmp);
             (void) mpickobj(mtmp, otmp);
@@ -3264,6 +3229,7 @@ long mmflags;
                     after that, boulder carriers are fair game */
                  && ((tryct == 1 && throws_rocks(ptr) && In_sokoban(&u.uz))
                      || (is_mplayer(ptr) && no_mplayer)
+                     || (ptr == &mons[PM_VOLATILE_MUSHROOM] && inside_shop(x, y))
                      || !goodpos(x, y, &fakemon, gpflags)));
         mndx = monsndx(ptr);
     }
@@ -3663,8 +3629,9 @@ int mndx;
      */
 
     /* assert(MAXMONNO < 255); */
-    return (mndx == PM_NAZGUL ? 9 
-            : mndx == PM_ERINYS ? 3 
+    return (mndx == PM_NAZGUL ? 9
+            : mndx == PM_ERINYS ? 3
+            : mndx == PM_NOSFERATU ? 7
             : mndx == PM_THRIAE ? 3: MAXMONNO);
 }
 

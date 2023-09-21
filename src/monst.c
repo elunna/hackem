@@ -959,6 +959,15 @@ NEARDATA struct permonst mons[] = {
         SIZ(600, 300, MS_GROWL, MZ_LARGE), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_FEMALE,
         M3_INFRAVISIBLE, 0, 0, 8, CLR_YELLOW),
+    MON("serpopard", S_FELINE,                                /* SpliceHack */
+        LVL(6, 15, 6, 0, 0), (G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 2, 3),
+          ATTK(AT_CLAW, AD_PHYS, 2, 3),
+          ATTK(AT_HUGS, AD_WRAP, 1, 8),
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(600, 300, MS_GROWL, MZ_LARGE), MR_POISON, 0,
+        M1_ANIMAL | M1_SLITHY | M1_NOHANDS | M1_CARNIVORE,
+        M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 8, CLR_MAGENTA),
     MON("fat cat", S_FELINE,                                  /* SpliceHack */
         LVL(10, 14, 3, 0, 0), (G_GENO | G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 3, 4), 
@@ -977,6 +986,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(750, 400, MS_GROWL, MZ_LARGE), MR_SLEEP, MR_SLEEP,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
         M3_INFRAVISIBLE, 0, 0, 13, CLR_ORANGE),
+
     MON("saber-toothed tiger", S_FELINE,                        /* EvilHack */
         LVL(12, 14, 2, 0, 0), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 4, 4), 
@@ -1006,16 +1016,6 @@ NEARDATA struct permonst mons[] = {
         SIZ(800, 400, MS_GROWL, MZ_LARGE), MR_FIRE, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE | M2_FLANK, 
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 14, CLR_RED),
-    MON("serpopard", S_FELINE,                                /* SpliceHack */
-        LVL(27, 15, 6, 0, 0), (G_GENO | 1),
-        A(ATTK(AT_CLAW, AD_PHYS, 6, 9), 
-          ATTK(AT_CLAW, AD_PHYS, 6, 9),
-          ATTK(AT_HUGS, AD_WRAP, 1, 8), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(600, 300, MS_GROWL, MZ_LARGE), MR_POISON, 0,
-        M1_ANIMAL | M1_SLITHY | M1_NOHANDS | M1_CARNIVORE, 
-        M2_HOSTILE, M3_INFRAVISIBLE, 0, 0, 
-        30, CLR_MAGENTA),
     /*
      * gremlins and gargoyles
      */
@@ -2099,7 +2099,7 @@ NEARDATA struct permonst mons[] = {
         MR_FIRE | MR_POISON | MR_ELEC | MR_SLEEP | MR_ACID | MR_STONE, 0,
         M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS | M1_MINDLESS | M1_HERBIVORE | M1_REGEN,
         M2_HOSTILE | M2_NASTY | M2_STRONG,
-        M3_INFRAVISION, 0, 0, 31, CLR_YELLOW),
+        M3_INFRAVISION | M3_NOTAME, 0, 0, 31, CLR_YELLOW),
     MON("Jumbo the Elephant", S_QUADRUPED,                      /* Slash'EM */
         LVL(30, 12, 5, 0, 0), (G_UNIQ | 1),
         A(ATTK(AT_BUTT, AD_PHYS, 6, 8), 
@@ -3254,9 +3254,8 @@ NEARDATA struct permonst mons[] = {
      * scales in objects.c.  Baby dragons cannot confer intrinsics, to
      * avoid polyself/egg abuse.
      *
-     * Dragons are all lawful or chaotic; sea dragons and celestial
-     * dragons are the exception (neutral).  This affects monster
-     * generation on some special levels.
+     * Dragons are all lawful or chaotic; sea dragons dragons are the exception
+     * (neutral).  This affects monster generation on some special levels.
      *
      * As reptiles, dragons are cold-blooded and thus aren't seen with
      * infravision.  Red and gold dragons (also Tiamat) are the
@@ -3399,19 +3398,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE | M1_ACID,
         M2_HOSTILE | M2_STRONG | M2_GREEDY | M2_JEWELS, M3_TRAITOR, 0,
         MH_DRAGON, 13, CLR_YELLOW),
-    MON("baby celestial dragon", S_DRAGON, LVL(24, 15, -2, 50, 0), G_NOGEN,
-        A(ATTK(AT_BITE, AD_PHYS, 4, 8), 
-          ATTK(AT_CLAW, AD_PHYS, 4, 6),
-          ATTK(AT_CLAW, AD_PHYS, 4, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(3000, 1000, MS_ROAR, MZ_HUGE),
-        MR_FIRE | MR_COLD | MR_SLEEP | MR_ELEC | MR_ACID
-            | MR_STONE | MR_SONIC, 0,
-        M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS
-            | M1_CARNIVORE | M1_REGEN,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_GREEDY
-            | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 26, CLR_BRIGHT_MAGENTA),
     /* From GruntHack - adult dragons can now engulf, and their attack
      * stats are bumped up some.
      */
@@ -3587,38 +3573,6 @@ NEARDATA struct permonst mons[] = {
             | M1_OVIPAROUS | M1_CARNIVORE | M1_ACID,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
         M3_TRAITOR, 0, MH_DRAGON, 30, CLR_YELLOW),
-    MON("celestial dragon", S_DRAGON, LVL(30, 15, -6, 50, 0), G_NOGEN,
-        A(ATTK(AT_BREA, AD_LOUD, 4, 6),
-          ATTK(AT_SCRE, AD_LOUD, 16, 4), 
-          ATTK(AT_BITE, AD_PHYS, 4, 8),
-          ATTK(AT_CLAW, AD_PHYS, 4, 6), 
-          ATTK(AT_CLAW, AD_PHYS, 4, 6),
-          ATTK(AT_MAGC, AD_CLRC, 4, 4)),
-        SIZ(WT_DRAGON, 5000, MS_ROAR, MZ_GIGANTIC),
-        MR_FIRE | MR_COLD | MR_SLEEP | MR_ELEC | MR_ACID
-            | MR_STONE, MR_SLEEP | MR_ELEC,
-        M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS
-            | M1_OVIPAROUS | M1_CARNIVORE | M1_REGEN,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY
-            | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 34, CLR_BRIGHT_MAGENTA),
-    /* strictly a placeholder for chromatic dragon scales */
-    MON("chromatic dragon", S_DRAGON,
-        LVL(0, 9, -1, 20, -7), G_NOGEN,
-        A(ATTK(AT_BREA, AD_RBRE, 6, 6), 
-          ATTK(AT_BREA, AD_RBRE, 6, 6),
-          ATTK(AT_BITE, AD_PHYS, 4, 8), 
-          ATTK(AT_CLAW, AD_PHYS, 4, 4),
-          ATTK(AT_CLAW, AD_PHYS, 4, 4), 
-          ATTK(AT_ENGL, AD_DGST, 2, 10)),
-        SIZ(WT_DRAGON, 1500, MS_ROAR, MZ_GIGANTIC),
-        MR_FIRE | MR_COLD | MR_SLEEP | MR_DISINT | MR_ELEC | MR_POISON
-            | MR_ACID | MR_STONE | MR_SONIC,
-        MR_FIRE | MR_COLD | MR_SLEEP | MR_DISINT | MR_ELEC | MR_POISON | MR_STONE,
-        M1_THICK_HIDE | M1_NOHANDS | M1_CARNIVORE | M1_SEE_INVIS | M1_POIS,
-        M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY
-            | M2_JEWELS | M2_MAGIC,
-        0, 0, MH_DRAGON, 20, HI_LORD),
     MON("wyvern", S_DRAGON,                                     /* Slash'EM */
         LVL(18, 9, -4, 20, 7), (G_GENO | 1),
         A(ATTK(AT_STNG, AD_DRST, 4, 6), ATTK(AT_BITE, AD_PHYS, 3, 8),
@@ -5061,6 +5015,17 @@ struct permonst _mons2[] = {
         M2_STRONG | M2_STALK | M2_HOSTILE, 
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR,
         M4_VULNERABLE_ELEC, MH_TROLL, 13, CLR_BLUE),
+    MON("grave troll", S_TROLL,                               /* SpliceHack */
+        LVL(11, 8, 0, 60, 0), (G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_PHYS, 2, 6),
+          ATTK(AT_CLAW, AD_PHYS, 2, 6),
+          ATTK(AT_BITE, AD_DISE, 2, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1200, 300, MS_BONES, MZ_LARGE), 0, 0,
+        M1_HUMANOID | M1_REGEN | M1_CARNIVORE | M1_THICK_HIDE | M1_POIS,
+        M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT,
+        M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0,
+        MH_TROLL | MH_UNDEAD, 13, CLR_GRAY),
     MON("Olog-hai", S_TROLL,
         LVL(13, 12, -4, 0, -7), (G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 6), 
@@ -5094,17 +5059,6 @@ struct permonst _mons2[] = {
         M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 
         0, MH_TROLL, 21, CLR_BLACK),
-    MON("grave troll", S_TROLL,                               /* SpliceHack */
-        LVL(22, 8, 0, 60, 0), (G_GENO | 1),
-        A(ATTK(AT_CLAW, AD_PHYS, 2, 12), 
-          ATTK(AT_CLAW, AD_PHYS, 2, 12),
-          ATTK(AT_BITE, AD_DISE, 2, 6), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(1200, 300, MS_BONES, MZ_LARGE), 0, 0,
-        M1_HUMANOID | M1_REGEN | M1_CARNIVORE | M1_THICK_HIDE | M1_POIS,
-        M2_STRONG | M2_STALK | M2_HOSTILE | M2_COLLECT,
-        M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, 
-        MH_TROLL | MH_UNDEAD, 27, CLR_GRAY),
     /*
      * Umber hulk
      */
@@ -6127,15 +6081,6 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE, M2_NOPOLY | M2_PEACEFUL
             | M2_STRONG | M2_COLLECT | M2_MAGIC,
         M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 15, HI_DOMESTIC),
-    MON("black marketeer", S_HUMAN,                            /* UnNetHack */
-        LVL(20, 20, -5, 40, -2), G_NOGEN,
-        A(ATTK(AT_WEAP, AD_PHYS, 4, 10), NO_ATTK, NO_ATTK,
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_SELL, MZ_HUMAN),
-        MR_SLEEP | MR_STONE,
-        MR_SLEEP, M1_HUMANOID | M1_OMNIVORE,
-        M2_NOPOLY | M2_PEACEFUL | M2_STRONG | M2_COLLECT | M2_MAGIC,
-        M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 24, HI_DOMESTIC),
     MON("One-eyed Sam", S_HUMAN,                               /* UnNetHack */
         LVL(25, 24, -8, 50, -2), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 10), NO_ATTK, NO_ATTK,

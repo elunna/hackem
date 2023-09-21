@@ -2412,6 +2412,13 @@ end:
         }
     }
 
+    if (obj->oartifact == ART_NIGHTHORN) {
+        if (!obj->cursed && rn2(10) < chance)
+            make_afraid(0L, TRUE);
+        else if (obj->cursed)
+            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+    }
+    
     if (did_prop)
         context.botl = TRUE;
 

@@ -1574,6 +1574,7 @@ int ochance, achance; /* percent chance for ordinary objects, artifacts */
         || (obj->otyp == CORPSE && is_rider(&mons[obj->corpsenm]))
         || (obj->oartifact & (obj->oartifact == ART_BALMUNG
                               || obj->oartifact == ART_BRADAMANTE_S_FURY
+                              || obj->oartifact == ART_DRAGONBANE
                               || is_artikey(obj)))) {
         return TRUE;
     } else {
@@ -1972,7 +1973,7 @@ int id;
 
     case SCROLL_CLASS:
         while (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT)
-            otmp->otyp = rnd_class(SCR_ENCHANT_ARMOR, SCR_MAGIC_DETECTION);
+            otmp->otyp = rnd_class(SCR_ENCHANT_ARMOR, SCR_ICE);
         break;
         
     case SPBOOK_CLASS:
@@ -2790,7 +2791,7 @@ dozap()
         obj = current_wand;
         current_wand = 0;
     }
-    if (obj && obj->spe < 0) {
+    if (obj && (obj->spe < 0 || (obj->otyp == WAN_WISHING && obj->spe == 0))) {
         pline("%s to dust.", Tobjnam(obj, "turn"));
         useup(obj);
     }
@@ -3538,8 +3539,7 @@ boolean youattack, allow_cancel_kill, self_cancel;
             if (rn2(10)
                 && (otmp = which_armor(mdef, W_ARM))
                 && Is_dragon_scaled_armor(otmp)
-                && (Dragon_armor_to_scales(otmp) == GRAY_DRAGON_SCALES
-                    || Dragon_armor_to_scales(otmp) == CHROMATIC_DRAGON_SCALES)) {
+                && (Dragon_armor_to_scales(otmp) == GRAY_DRAGON_SCALES)) {
                 shieldeff(mdef->mx, mdef->my);
                 if (canseemon(mdef))
                     You("sense a wave of energy dissipate around %s.",
@@ -3575,8 +3575,7 @@ boolean youattack, allow_cancel_kill, self_cancel;
         if (youdefend) {
             if (rn2(10) && uarm
                 && Is_dragon_scaled_armor(uarm)
-                && (Dragon_armor_to_scales(uarm) == GRAY_DRAGON_SCALES
-                    || Dragon_armor_to_scales(uarm) == CHROMATIC_DRAGON_SCALES)) {
+                && (Dragon_armor_to_scales(uarm) == GRAY_DRAGON_SCALES)) {
                 shieldeff(u.ux, u.uy);
                 You_feel("a wave of energy dissipate around you.");
                 return FALSE;
@@ -3610,8 +3609,7 @@ boolean youattack, allow_cancel_kill, self_cancel;
             if (rn2(10)
                 && (otmp = which_armor(mdef, W_ARM))
                 && Is_dragon_scaled_armor(otmp)
-                && (Dragon_armor_to_scales(otmp) == GRAY_DRAGON_SCALES
-                    || Dragon_armor_to_scales(otmp) == CHROMATIC_DRAGON_SCALES)) {
+                && (Dragon_armor_to_scales(otmp) == GRAY_DRAGON_SCALES)) {
                 shieldeff(mdef->mx, mdef->my);
                 if (canseemon(mdef))
                     You("sense a wave of energy dissipate around %s.",
@@ -5294,7 +5292,7 @@ xchar sx, sy;
                 dam = 0;
             }
             break;
-        } else if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+        } else if (u.umonnum == PM_IRON_GOLEM) {
             You("rust!");
             rehumanize();
             dam = 0; /* Prevent more damage after rehumanize */
@@ -7560,7 +7558,7 @@ delugehitsm(mon, tmp)
 struct monst *mon;
 int tmp;
 {
-    if (mon->data == &mons[PM_IRON_GOLEM] || mon->data == &mons[PM_STEEL_GOLEM]) {
+    if (mon->data == &mons[PM_IRON_GOLEM]) {
         if (canseemon(mon))
             pline("%s falls to pieces!", Monnam(mon));
         if (mon->mtame)

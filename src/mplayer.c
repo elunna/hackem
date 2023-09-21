@@ -397,14 +397,12 @@ short typ;
     if (!rn2(3))
         bless(obj);
     if (objects[obj->otyp].oc_armcat == ARM_SUIT) {
-        /* make sure player monsters don't spawn with a set of
-           chromatic dragon scales... */
         obj->dragonscales = rnd_class(FIRST_DRAGON_SCALES,
-                                      LAST_DRAGON_SCALES - 1);
+                                      LAST_DRAGON_SCALES);
         if (monsndx(mon->data) == PM_WIZARD) {
             /* Wizards have a guaranteed cloak of magic resistance. */
             obj->dragonscales = rnd_class(FIRST_DRAGON_SCALES + 1,
-                                          LAST_DRAGON_SCALES - 1);
+                                          LAST_DRAGON_SCALES);
         }
     }
     /* Most players who get to the endgame who have cursed equipment
@@ -663,8 +661,6 @@ struct obj *obj;
             if (!obj) {
                 if (!rn2(5))
                     otmp = mk_artifact(otmp, A_NONE);
-                else
-                    otmp = create_oprop(otmp, FALSE);
             }
         }
         /* usually increase stack size if stackable weapon */

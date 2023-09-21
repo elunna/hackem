@@ -823,9 +823,7 @@ struct monst *mtmp;
         obj->known = 1;
     
     if (obj->oclass == WAND_CLASS) {
-        int lim = (obj->otyp == WAN_WISHING)
-                      ? 3
-                      : (objects[obj->otyp].oc_dir != NODIR) ? 8 : 15;
+        int lim = (objects[obj->otyp].oc_dir != NODIR) ? 8 : 15;
 
         /* undo any prior cancellation, even when is_cursed */
         if (obj->spe == -1)
@@ -846,8 +844,8 @@ struct monst *mtmp;
          *      7 : 100     100
          */
         n = (int) obj->recharged;
-        if (n > 0 && (obj->otyp == WAN_WISHING || obj->otyp == WAN_DEATH
-                      || (n * n * n > rn2(7 * 7 * 7)))) { /* recharge_limit */
+        if (obj->otyp == WAN_WISHING
+            || (n > 0 && (n * n * n > rn2(7 * 7 * 7)))) { /* recharge_limit */
             if (yours)
                 wand_explode(obj, rnd(lim));
             else
@@ -861,7 +859,7 @@ struct monst *mtmp;
         if (is_cursed) {
             stripspe(obj);
         } else {
-            n = (lim == 3) ? 3 : rn1(5, lim + 1 - 5);
+            n = rn1(5, lim + 1 - 5);
             if (!is_blessed)
                 n = rnd(n);
 
@@ -869,13 +867,6 @@ struct monst *mtmp;
                 obj->spe = n;
             else
                 obj->spe++;
-            if (obj->otyp == WAN_WISHING && obj->spe > 3) {
-                if (yours)
-                    wand_explode(obj, 1);
-                else
-                    mwand_explode(mtmp, obj);
-                return;
-            }
             if (yours) {
                 if (obj->spe >= lim)
                     p_glow2(obj, NH_BLUE);
@@ -1227,7 +1218,8 @@ struct obj *sobj;
     unsigned was_peaceful = mtmp->mpeaceful;
 
     /* No taming in the Black Market! */
-    if (sobj->cursed || Is_blackmarket(&u.uz)) {
+    if (sobj->cursed || Is_blackmarket(&u.uz) 
+          || (Is_astralevel(&u.uz) && rn2(10))) {
         setmangry(mtmp, FALSE);
         if (was_peaceful && !mtmp->mpeaceful)
             return -1;
@@ -1444,12 +1436,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                             }
                         }
                         setnotworn(armor);
-                        /* don't allow a suit of armor with an object property
-                           to co-exist with merged dragon scales */
-                        if ((armor->oprops & ITEM_PROP_MASK) != 0) {
-                            oprops_off(armor, W_ARM);
-                            armor->oprops &= ~(ITEM_PROP_MASK);
-                        }
                         armor->dragonscales = scales->otyp;
                         armor->cursed = 0;
                         if (sblessed) {
@@ -1463,7 +1449,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         if (otmp->unpaid)
                             alter_cost(otmp, 0L); /* shop bill */
 
-                        /* handle gold/chromatic dragon-scaled armor... */
+                        /* handle gold dragon-scaled armor... */
                         if (scales->lamplit) {
                             if (armor->lamplit) {
                                 /* if melding lit dragon scales onto already lit dragon-scaled
@@ -1481,7 +1467,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                             maybe_adjust_light(armor, old_light);
                         } else if (armor->lamplit) {
                             /* scales not lit but armor is: melding non-gold scales onto
-                               gold/chromatic-scaled armor, which will no longer be a
+                               gold-scaled armor, which will no longer be a
                                light source */
                             end_burn(armor, FALSE);
                         }
@@ -1594,12 +1580,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     }
                 }
                 setnotworn(armor);
-                /* don't allow a suit of armor with an object property
-                   to co-exist with merged dragon scales */
-                if ((armor->oprops & ITEM_PROP_MASK) != 0L) {
-                    oprops_off(armor, W_ARM);
-                    armor->oprops &= ~(ITEM_PROP_MASK);
-                }
                 armor->dragonscales = scales->otyp;
                 armor->cursed = 0;
                 if (sblessed) {
@@ -1613,7 +1593,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 if (otmp->unpaid)
                     alter_cost(otmp, 0L); /* shop bill */
 
-                /* handle gold/chromatic dragon-scaled armor... */
+                /* handle gold dragon-scaled armor... */
                 if (scales->lamplit) {
                     if (armor->lamplit) {
                         /* if melding lit dragon scales onto already lit
@@ -1632,7 +1612,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     maybe_adjust_light(armor, old_light);
                 } else if (armor->lamplit) {
                     /* scales not lit but armor is: melding non-gold scales
-                       onto gold/chromatic-scaled armor, which will no longer
+                       onto gold-scaled armor, which will no longer
                        be a light source */
                     end_burn(armor, FALSE);
                 }
@@ -2657,11 +2637,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     }
-    case SCR_MAGIC_DETECTION:
-        if (magic_detect(sobj))
-            return 1;
-        known = TRUE;
-        break;
     case SCR_FLOOD:
         cval = bcsign(sobj);
         useup(sobj);
@@ -3985,7 +3960,6 @@ struct obj **sobjp;
         otmp2->recharged = otmp->recharged;
         otmp2->opoisoned = otmp->opoisoned;
         otmp2->corpsenm = otmp->corpsenm;
-        otmp2->oprops = otmp->oprops;
 
         /* For slime mold names */
         if (otmp->oextra)

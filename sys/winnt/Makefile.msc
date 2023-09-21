@@ -1353,7 +1353,7 @@ spotless: clean
 	if exist $(DAT)\???-strt.lev	 del $(DAT)\???-strt.lev
 	if exist $(DAT)\air.lev		 del $(DAT)\air.lev
 	if exist $(DAT)\astral.lev	 del $(DAT)\astral.lev
-	if exist $(DAT)\blkmar-?.lev	 del $(DAT)\blkmar-?.lev
+	if exist $(DAT)\blkmar.lev	 del $(DAT)\blkmar.lev
 	if exist $(DAT)\bigrm-*.lev	 del $(DAT)\bigrm-*.lev
 	if exist $(DAT)\castle-?.lev	 del $(DAT)\castle-?.lev
 	if exist $(DAT)\cave*.lev	 del $(DAT)\cave*.lev

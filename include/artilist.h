@@ -105,7 +105,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Hand Grenade of Antioch", FIRE_BOMB, (SPFX_RESTR), 0, 0, 
       PHYS(1, 1), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 300L, 
       NO_COLOR, DEFAULT_MAT),
-    
+
+    /* Original idea by Spicy. Prevents all monster regen. */
+    A("Mortality Dial", EXECUTIONER_S_MACE, (SPFX_RESTR | SPFX_REGEN),
+      0, 0, PHYS(5, 5), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM,
+      5000L, NO_COLOR, DEFAULT_MAT),
+      
     /*
      *      Orcrist and Sting have same alignment as elves.
      *
@@ -262,8 +267,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, NO_DFNS, NO_CARY, 0, A_NEUTRAL, PM_TOURIST, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
     
-    A("Helm of Hermes", HELM_OF_SPEED, (SPFX_RESTR), 0, 0,
-      NO_ATTK, DFNS(AD_DISE), NO_CARY, LEVITATION, A_NEUTRAL, NON_PM, NON_PM, 
+    A("Hermes Boots", WATER_WALKING_BOOTS, (SPFX_RESTR), 0, 0,
+      NO_ATTK, DFNS(AD_DISE), NO_CARY, 0, A_NEUTRAL, NON_PM, NON_PM, 
       5000L, NO_COLOR, DEFAULT_MAT),
 
         /*** Chaotic artifacts ***/
@@ -401,17 +406,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PLYS(6, 10), NO_DFNS, NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 800L, CLR_RED, DEFAULT_MAT),
 
-    /* Dragonbane is no longer a weapon, but a pair of magical gloves made from
-     * the scales of a long dead ancient dragon. The gloves afford much of the
-     * same special abilities as the weapon did, but swaps fire resistance for
-     * resistance. Other dragons will be able to sense the power of these gloves
-     * and will be affected accordingly.
-     */
-    A("Dragonbane", GLOVES,
+    A("Dragonbane", BROADSWORD,
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REFLECT), 0, MH_DRAGON,
-      NO_ATTK, DFNS(AD_ACID), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
-      NO_COLOR, DRAGON_HIDE),
-
+      PHYS(5, 0), DFNS(AD_FIRE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
+      NO_COLOR, IRON),
+      
     A("Drowsing Rod", STAFF_OF_HEALING, (SPFX_RESTR), 0, 0,
       SLEE(5, 4), DFNS(AD_SLEE), NO_CARY, 0, A_NONE, PM_HEALER, NON_PM, 500L,
       CLR_MAGENTA, COPPER),
@@ -430,10 +429,10 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 
       1700L, NO_COLOR, DEFAULT_MAT),
     
-    A("The Master Sword", LONG_SWORD, 
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_ATTK), 0, 0, 
+    A("The Master Sword", LONG_SWORD,
+      (SPFX_RESTR | SPFX_ATTK), 0, 0, 
       MAST(3, 3), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1000L, 
-      NO_COLOR, GEMSTONE),
+      NO_COLOR, SILVER),
     
     /* Attacks deal double damage, but at the cost of hallucination.
     *      This effect is only active while the user can see. */
@@ -462,12 +461,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 1), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 
       1500L, NO_COLOR, PLATINUM),
     
-    /* Resisted by very few monsters, but is a morning star and also
-    *       happens to destroy tons of items. 
-     *      (Previously known as Sonicboom in SpliceHack) */
+    /* Resisted by very few monsters, but is a morning star and also happens to 
+     * destroy tons of items. (Previously known as Sonicboom in SpliceHack) */
     A("Thunderstruck", MORNING_STAR, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      LOUD(5, 20), DFNS(AD_LOUD), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
-      NO_COLOR, METAL),
+      LOUD(5, 0), DFNS(AD_LOUD), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
+      NO_COLOR, DEFAULT_MAT),
 
     A("Trollsbane", MORNING_STAR, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REGEN), 0, MH_TROLL,
       PHYS(5, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 1000L,
@@ -488,8 +486,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     /*** Alignment quest artifacts ***/
     A("Nighthorn", UNICORN_HORN,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_REFLECT), 0, 0,
-      NO_ATTK, NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_REFLECT | SPFX_INTEL), 0, 0,
+      PHYS(1, 3), DFNS(AD_STUN), NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 
       10000L, NO_COLOR, DEFAULT_MAT),
     
     A("The Eye of the Beholder", EYEBALL,
@@ -542,18 +540,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, 0, DISN(5, 12), DFNS(AD_DISN), NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 25000L, NO_COLOR, METAL),
 #endif
+
     A("The Key Of Access", SKELETON_KEY,
       (SPFX_RESTR | SPFX_NOWISH | SPFX_NOGEN | SPFX_FORGED), 0, 0, 
       NO_ATTK, NO_DFNS, NO_CARY,
       CREATE_PORTAL, A_NONE, NON_PM, NON_PM, 200L, NO_COLOR, GEMSTONE),
-    
-    /* Created by fusing werebane and trollsbane. Original idea by Spicy.
-            Prevents all monster regen. */
-    A("Mortality Dial", EXECUTIONER_S_MACE,
-      (SPFX_RESTR | SPFX_REGEN | SPFX_NOGEN | SPFX_FORGED),
-      0, 0, PHYS(10, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
-      5000L, NO_COLOR, DEFAULT_MAT),
-
+      
     /*
      *      The artifacts for the quest dungeon, all self-willed.
      */
@@ -590,8 +582,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       TAMING, A_CHAOTIC, NON_PM , PM_ELF, 8000L, NO_COLOR, DEFAULT_MAT),
 #endif
     A("The Candle of Eternal Flame", MAGIC_CANDLE,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), 
-      (SPFX_WARN | SPFX_TCTRL | SPFX_EREGEN), 
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), (SPFX_WARN | SPFX_TCTRL), 
       0, NO_ATTK, NO_DFNS, CARY(AD_FIRE), SUMMON_FIRE_ELEMENTAL, A_LAWFUL, 
       PM_FLAME_MAGE, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
@@ -602,7 +593,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
     A("The Storm Whistle", MAGIC_WHISTLE,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), 
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
       (SPFX_WARN | SPFX_TCTRL | SPFX_SEARCH), 0,
       NO_ATTK, NO_DFNS, CARY(AD_ELEC), SUMMON_WATER_ELEMENTAL,
       A_NEUTRAL, PM_ICE_MAGE, NON_PM, 1000L, NO_COLOR, DEFAULT_MAT),
@@ -625,7 +616,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     
     A("The Great Dagger of Glaurgnaa", GREAT_DAGGER,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL | SPFX_DRLI | SPFX_DALIGN), 
-      0, 0, DRLI(8, 4), NO_DFNS, CARY(AD_MAGM), ENERGY_BOOST, A_CHAOTIC, 
+      0, 0, DRLI(8, 4), DFNS(AD_MAGM), NO_CARY, ENERGY_BOOST, A_CHAOTIC, 
       PM_NECROMANCER, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
     A("The Mitre of Holiness", HELM_OF_BRILLIANCE,
@@ -675,7 +666,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Stake of Van Helsing", STAKE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_WARN | SPFX_DFLAGH), 
       0, MH_VAMPIRE,
-      PHYS(5, 12), NO_DFNS, CARY(AD_MAGM), 0, A_LAWFUL, 
+      PHYS(5, 12), DFNS(AD_MAGM), NO_CARY, 0, A_LAWFUL, 
       PM_UNDEAD_SLAYER, NON_PM, 5000L, CLR_RED, WOOD),
 
 #if 0 /* Replaced by Gjallar */
@@ -697,7 +688,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     
     A("The Crown of Saint Edward", HELM_OF_TELEPATHY,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL), (SPFX_HSPDAM), 0,
-      NO_ATTK, NO_DFNS, CARY(AD_MAGM), 0,  
+      NO_ATTK, DFNS(AD_MAGM), NO_CARY, 0,  
       A_LAWFUL, PM_YEOMAN, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
     /*
@@ -724,23 +715,22 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Iron Ball of Liberation", HEAVY_IRON_BALL,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
       (SPFX_STLTH | SPFX_SEARCH | SPFX_WARN | SPFX_FREE), 0,
-      NO_ATTK, NO_DFNS, CARY(AD_MAGM), PASSES_WALLS,
+      NO_ATTK, NO_DFNS, CARY(AD_MAGM), PHASING,
       A_CHAOTIC, PM_CONVICT, NON_PM, 10000L, NO_COLOR, DEFAULT_MAT),
 #endif
     
     /* Convict role quest artifact (from dnh)
-     * has a +1d5 to-hit bonus and does double damage to all monsters. 
-     * When carried, it confers automatic searching, free action, and luck.
-     * When wielded, it confers stealth. 
+     * has a +1d5 to-hit bonus and does double damage to all monsters.
+     * As a spoon, Convicts wielding it can make sneak attacks similar to a Rogue.
+     * When carried, it confers luck.
+     * When wielded, it confers automatic searching, stealth, and free action. 
      * Invoking allows you to phase through walls for a limited time, 
      * Applying The Iron Spoon of Liberation allows you to dig; 
      * It can also be used to engrave with the same quality and speed as an athame.
-     * Also - As a spoon, Convicts wielding it can make sneak attacks similar to a Rogue.
      */
     A("The Iron Spoon of Liberation", SPOON,
-      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_STLTH | SPFX_DIG), 
-      (SPFX_SEARCH | SPFX_LUCK), 0,
-      PHYS(5,0), NO_DFNS, CARY(AD_PLYS), PASSES_WALLS,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_STLTH | SPFX_SEARCH | SPFX_DIG), 
+      (SPFX_LUCK), 0, PHYS(5,0), DFNS(AD_PLYS), NO_CARY, PHASING,
       A_CHAOTIC, PM_CONVICT, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
     /* Infidel role quest artifact. Confers energy regeneration,

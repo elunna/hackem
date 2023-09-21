@@ -473,9 +473,6 @@ register struct monst *mtmp;
             }
             wakeup(mt, TRUE);
         }
-        /* All for one and one for all */
-        else if (mt->isshk && mt->data == &mons[PM_BLACK_MARKETEER])
-            hot_pursuit(mt);
     }
     rlock = FALSE;
 }
@@ -1592,7 +1589,7 @@ dopay()
             make_happy_shk(shkp, FALSE);
         } else {
             /* Blackmarket shopkeeper are not easily pacified */
-            int peace_offering = (shkp->data == &mons[PM_BLACK_MARKETEER]) 
+            int peace_offering = (shkp->data == &mons[PM_ONE_EYED_SAM]) 
                                   ? 5000L : 1000L;
 
             /* shopkeeper is angry, but has not been robbed --
@@ -1963,12 +1960,6 @@ shk_other_services()
                  MENU_ITEMFLAGS_NONE);
     }
     
-    /* Property grafting*/
-    if (ESHK(shkp)->services & SHK_PROP) {
-        any.a_int = 26;
-        add_menu(tmpwin, NO_GLYPH, &any, 'P', 0, ATR_NONE, "Add Property",
-                 MENU_ITEMFLAGS_NONE);
-    }
     end_menu(tmpwin, "Services Available:");
     n = select_menu(tmpwin, PICK_ONE, &selected);
     destroy_nhwindow(tmpwin);
@@ -2050,9 +2041,6 @@ shk_other_services()
             break;
         case 25:
             result = shk_tinker(slang, shkp);
-            break;
-        case 26:
-            result = shk_weapon_works(slang, shkp, SHK_PROP);
             break;
         default:
             pline("Unknown Service");
@@ -4219,9 +4207,7 @@ long svc_type;
     int charge;
 
     /* Pick weapon */
-    if (svc_type == SHK_WEP_FIX 
-          || svc_type == SHK_WEP_ENC 
-          || svc_type == SHK_PROP)
+    if (svc_type == SHK_WEP_FIX || svc_type == SHK_WEP_ENC)
         obj = getobj(weapon_types, "improve");
     else
         obj = getobj(weapon_types, "poison");
@@ -4320,30 +4306,6 @@ long svc_type;
         obj->opoisoned = TRUE;
             update_inventory();
         break;
-    case SHK_PROP:
-        if (obj->oprops) {
-            verbalize("Your weapon already has a property.");
-            return 0;
-        } else if (obj->oartifact) {
-            verbalize("That weapon is already pretty special.");
-        }
-        verbalize("Imbue your weapon with special power!");
-        charge = 9 * 625;
-        
-        if (shk_offer_price(slang, charge, shkp) == FALSE) 
-            return 0;
-        
-        /* Have some fun! */
-        if (Confusion) {
-            Your("%s weirdly!", aobjnam(obj, "vibrate"));
-            create_oprop(obj, TRUE);
-        } else if (Hallucination) {
-            Your("%s to dissemble into pieces!", aobjnam(obj, "seem"));
-        } else
-            create_oprop(obj, FALSE);
-        update_inventory();
-        break;
-        
     default:
         impossible("Unknown Weapon Enhancement");
         return 0;
@@ -4958,13 +4920,8 @@ boolean shk_buying;
         tmp = arti_cost(obj);
         if (shk_buying)
             tmp /= 4;
-    } else if (obj->oprops) {
-        int i, factor = 50, next = 2;
-        for (i = 0; i < MAX_ITEM_PROPS; i++)
-            if (obj->oprops & (1 << i))
-                factor *= next, next = (next == 2) ? 5 : 2;
-        tmp += factor;
     }
+    
     switch (obj->oclass) {
     case FOOD_CLASS:
         /* simpler hunger check, (2-4)*cost */

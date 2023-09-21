@@ -262,8 +262,7 @@ struct attack *mattk;
                  blocker->oartifact ? xname(blocker)
                                     : simple_typename(blocker->otyp),
                  rn2(2) ? "block" : "deflect",
-                 ((blocker == uarmg && blocker->oartifact != ART_DRAGONBANE)
-                  || blocker == uarmf) ? "" : "s",
+                 (blocker == uarmg || blocker == uarmf) ? "" : "s",
                  s_suffix(mon_nam(mtmp)));
         }
         if (!blocker)
@@ -1290,8 +1289,7 @@ struct attack *mattk;
 
     /* if your cloak/armor is greased, monster slips off; this
        protection might fail (33% chance) when the armor is cursed */
-    if (obj && (obj->greased || obj->otyp == OILSKIN_CLOAK
-        || (obj->oprops & ITEM_OILSKIN))
+    if (obj && (obj->greased || obj->otyp == OILSKIN_CLOAK)
         && (!obj->cursed || rn2(3))) {
         pline("%s %s your %s %s!", Monnam(mtmp),
               (mattk->adtyp == AD_WRAP && !is_sal) 
@@ -1564,8 +1562,7 @@ register struct attack *mattk;
                     dmg += rn1(4, 3); /* 3..6 */
                 if (dmg <= 0)
                     dmg = 1;
-                if (!(((otmp->oclass == WEAPON_CLASS
-                        && otmp->oprops) || otmp->oartifact)
+                if (!(otmp->oartifact
                         && artifact_hit(mtmp, &youmonst, otmp, &dmg, dieroll)))
                     hitmsg(mtmp, mattk);
 
@@ -2284,7 +2281,7 @@ register struct attack *mattk;
 do_rust:
         if (mtmp->mcan)
             break;
-        if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+        if (u.umonnum == PM_IRON_GOLEM) {
             You("rust!");
             /* KMH -- this is okay with unchanging */
             rehumanize();
@@ -4939,8 +4936,7 @@ struct attack *mattk;
                 } else if ((mtmp->misc_worn_check & W_ARMG)
                            && (mattk->aatyp == AT_WEAP || mattk->aatyp == AT_CLAW
                                || mattk->aatyp == AT_TUCH)
-                           && !MON_WEP(mtmp) && !rn2(12)
-                           && !((which_armor(mtmp, W_ARMG))->oartifact == ART_DRAGONBANE)) {
+                           && !MON_WEP(mtmp) && !rn2(12)) {
                     if (canseemon(mtmp))
                         pline("%s %s are disintegrated!",
                               s_suffix(Monnam(mtmp)), xname(which_armor(mtmp, W_ARMG)));
@@ -5058,8 +5054,7 @@ struct attack *mattk;
             if (canseemon(mtmp))
                 pline("%s is splashed!", Monnam(mtmp));
 
-            if (mtmp->data == &mons[PM_IRON_GOLEM] 
-                || mtmp->data == &mons[PM_STEEL_GOLEM]) {
+            if (mtmp->data == &mons[PM_IRON_GOLEM]) {
                 if (canseemon(mtmp))
                     pline("%s falls to pieces!", Monnam(mtmp));
                 xkilled(mtmp, XKILL_NOMSG);
@@ -5221,32 +5216,6 @@ struct attack *mattk;
         case GRAY_DRAGON_SCALES:
             if (!rn2(6))
                 (void) cancel_monst(mtmp, (struct obj *) 0, TRUE, TRUE, FALSE);
-            break;
-        default: /* all other types of armor, just pass on through */
-            break;
-        }
-    }
-
-    if (uarmg) {
-        switch (uarmg->otyp) {
-        case GLOVES:
-            if (!is_dragon(mtmp->data))
-                break;
-            if (!rn2(3) && is_dragon(mtmp->data)
-                && uarmg->oartifact == ART_DRAGONBANE) {
-                if (canseemon(mtmp))
-                    pline("Dragonbane sears %s scaly hide!", s_suffix(mon_nam(mtmp)));
-                mtmp->mhp -= rnd(6) + 2;
-            }
-            if (mtmp->mhp < 1) {
-                if (canseemon(mtmp))
-                    pline("Dragonbane's power overwhelms %s!", mon_nam(mtmp));
-                pline("%s dies!", Monnam(mtmp));
-                xkilled(mtmp, XKILL_NOMSG);
-                if (!DEADMONSTER(mtmp))
-                    return 1;
-                return 2;
-            }
             break;
         default: /* all other types of armor, just pass on through */
             break;

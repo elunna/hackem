@@ -69,6 +69,7 @@ enum invoke_prop_types {
     ENLIGHTENING,
     CREATE_AMMO,
     FEAR,
+    PHASING,
     CHANNEL,
     DEATH_GAZE,
     SUMMON_UNDEAD,

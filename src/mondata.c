@@ -112,7 +112,7 @@ int adtyp;
     /* if 'mon' is an adult dragon, treat it as if it was wearing scales
        so that it has the same benefit as a hero wearing dragon scales */
     mndx = monsndx(mon->data);
-    if (mndx >= PM_GRAY_DRAGON && mndx <= PM_CELESTIAL_DRAGON) {
+    if (mndx >= PM_GRAY_DRAGON && mndx <= PM_YELLOW_DRAGON) {
         /* a dragon is its own suit...  if mon is poly'd hero, we don't
            care about embedded scales (uskin) because being a dragon with
            embedded scales is no better than just being a dragon */
@@ -139,20 +139,11 @@ resists_drli(mon)
 struct monst *mon;
 {
     struct permonst *ptr = raceptr(mon); /* handle demonic race */
-    struct obj *armor;
-    long slotmask;
 
     if (resists_drain(ptr) || is_vampshifter(mon)
         || (mon == &youmonst && (u.ulycn >= LOW_PM || Invulnerable)))
         return TRUE;
-    armor = (mon == &youmonst) ? invent : mon->minvent;
-    slotmask = W_ARMOR | W_ACCESSORY;
-    /* check for drain res object property */
-    for (; armor; armor = armor->nobj) {
-        if ((armor->owornmask & slotmask) != 0L
-            && obj_has_prop(armor, DRAIN_RES))
-            return TRUE;
-    }
+
     return defended(mon, AD_DRLI);
 }
 
@@ -1326,7 +1317,6 @@ static const short grownups[][2] = {
     { PM_BABY_GOLD_DRAGON, PM_GOLD_DRAGON },
     { PM_BABY_SEA_DRAGON, PM_SEA_DRAGON },
     { PM_BABY_YELLOW_DRAGON, PM_YELLOW_DRAGON },
-    { PM_BABY_CELESTIAL_DRAGON, PM_CELESTIAL_DRAGON },
     { PM_PSEUDODRAGON, PM_ELDER_PSEUDODRAGON },
     { PM_ELDER_PSEUDODRAGON, PM_ANCIENT_PSEUDODRAGON },
     { PM_RED_NAGA_HATCHLING, PM_RED_NAGA },
@@ -1568,7 +1558,6 @@ enum on_fire_types attktype;
     case PM_GLASS_GOLEM:
     case PM_GOLD_GOLEM:
     case PM_IRON_GOLEM:
-    case PM_STEEL_GOLEM:
         /* Melts into a puddle. */
         switch (attktype) {
         case ON_FIRE_DEAD:
