@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Monsters are never given dragon scales.
 Clinic special rooms cannot be too large.
 Random big vault rooms cannot be special rooms.
 Reduced the size of the Black Market and brought it back.
