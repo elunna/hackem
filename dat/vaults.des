@@ -337,11 +337,8 @@ xxx|...|xxx
 |.........|
 -----------
 ENDMAP
-IF [80%] {
-  REGION:(5,5,5,5),random,"rndvault",irregular { }
-} ELSE {
-  REGION:(5,5,5,5),random,"ordinary",irregular { }
-}
+REGION:(5,5,5,5),random,"ordinary",irregular { }
+
 
 # T-shaped, r2
 LEVEL:"vlt-0018"
@@ -418,11 +415,8 @@ xxx|...|
 xxx|...|
 xxx-----
 ENDMAP
-IF [80%] {
-  REGION:(5,5,5,5),random,"rndvault",irregular { }
-} ELSE {
-  REGION:(5,5,5,5),random,"ordinary",irregular { }
-}
+REGION:(5,5,5,5),random,"ordinary",irregular { }
+
 
 # S-shaped, r2
 LEVEL:"vlt-0022"
@@ -817,7 +811,7 @@ ROOM:"rndvault", random, random, random, random {
 LEVEL:"vlt-0042"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:random, random, random, random, (17,10) {
+ROOM:"rndvault", random, random, random, (17,10) {
   REPLACE_TERRAIN:(0, 0, 16, 9),'.', ',', 15%
   REPLACE_TERRAIN:(0, 0, 16, 9),'.', 'T', 3%
 }
@@ -826,9 +820,9 @@ ROOM:random, random, random, random, (17,10) {
 LEVEL:"vlt-0043"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"ordinary", random, random, random, (30,10) {
+ROOM:"rndvault", random, random, random, (30,10) {
    IF [75%] {
-      SUBROOM:random,random,random,random {
+      SUBROOM:"rndvault",random,random,random {
          ROOMDOOR:random,random,random,random
          IF [50%] { ROOMDOOR:random,random,random,random }
       }
@@ -839,7 +833,7 @@ ROOM:"ordinary", random, random, random, (30,10) {
 LEVEL:"vlt-0044"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"ordinary", random, random, random, (10,17) {
+ROOM:"rndvault", random, random, random, (10,17) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
@@ -851,7 +845,7 @@ ROOM:"ordinary", random, random, random, (10,17) {
 LEVEL:"vlt-0045"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"ordinary", random, random, random, (17,3) {
+ROOM:"rndvault", random, random, random, (17,3) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
@@ -863,7 +857,7 @@ ROOM:"ordinary", random, random, random, (17,3) {
 LEVEL:"vlt-0046"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"ordinary", random, random, random, (3,17) {
+ROOM:"rndvault", random, random, random, (3,17) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
@@ -875,7 +869,7 @@ ROOM:"ordinary", random, random, random, (3,17) {
 LEVEL:"vlt-0047"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"ordinary", random, random, random, (50,5) {
+ROOM:"rndvault", random, random, random, (50,5) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
@@ -887,7 +881,7 @@ ROOM:"ordinary", random, random, random, (50,5) {
 LEVEL:"vlt-0048"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"ordinary", random, random, random, (70,3) {
+ROOM:"rndvault", random, random, random, (70,3) {
   LOOP [ 2d3 ] {
      MONSTER: random, random, hostile
   }
@@ -895,11 +889,8 @@ ROOM:"ordinary", random, random, random, (70,3) {
   REPLACE_TERRAIN:(0, 0, 69, 2),'.', 'T', 3%
 }
 
-
-
 # Below are distinct themed rooms - the most complicated and differentiated
 # by monsters/terrains or other.
-
 
 # lava/ice/pool/tree/sewage/fountain room
 LEVEL:"vlt-0049"
@@ -1027,11 +1018,7 @@ IF [75%] {
   SHUFFLE: $terr
   REPLACE_TERRAIN:(1,1,9,9),'L', $terr[0],100%
 }
-IF [80%] {
-  REGION:(1,1,1,1),random,"rndvault",irregular { }
-} ELSE {
-  REGION:(1,1,1,1),random,"ordinary",irregular { }
-}
+REGION:(1,1,1,1),random,"rndvault",irregular { }
 
 # spider nest
 LEVEL:"vlt-0057"
@@ -1134,7 +1121,7 @@ ROOM: "rndvault", lit, random, random, (11,9) {
 LEVEL:"vlt-0064"
 FLAGS:rndvault
 MINDEPTH:8
-ROOM:"ordinary", unlit, random, random, random {
+ROOM:"rndvault", unlit, random, random, random {
   OBJECT:('(', "oil lamp"), random, lit
 }
 
@@ -1142,7 +1129,7 @@ ROOM:"ordinary", unlit, random, random, random {
 LEVEL:"vlt-0065"
 FLAGS:rndvault
 MINDEPTH:17
-ROOM:"ordinary", unlit, random, random, random {
+ROOM:"rndvault", unlit, random, random, random {
 GRAVE:random
 [20%]: GRAVE:random, random
 MONSTER: '&', random
@@ -1288,7 +1275,6 @@ ROOM:"rndvault", random, random, random, (5,5) {
 }
 
 
-                                              
 # Default room
 # Because this is the last room this will show up regardless of MINLEVEL
 # (At least that's what some testing revealed.)
