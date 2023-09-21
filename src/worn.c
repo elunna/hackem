@@ -1349,7 +1349,7 @@ struct obj *obj;
     case RIN_SONIC_RESISTANCE:
         if (!(resists_sonic(mon) || defended(mon, AD_LOUD)))
             rc = (dmgtype(youmonst.data, AD_LOUD)
-                  || wielding_artifact(ART_SQUALL)) ? 25 : 5;
+                  || wielding_artifact(ART_THUNDERSTRUCK)) ? 25 : 5;
         break;
     case RIN_REGENERATION:
         rc = !mon_prop(mon, REGENERATION) ? 25 : 5;

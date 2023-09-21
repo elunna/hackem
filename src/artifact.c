@@ -1701,7 +1701,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 
     if (attacks(AD_LOUD, otmp)) {
         if (realizes_damage) {
-            if (otmp->oartifact == ART_SQUALL) {
+            if (otmp->oartifact == ART_THUNDERSTRUCK) {
                 pline_The("thunderous morning star %s %s%c",
                           !spec_dbon_applies ? "hits" : "blasts", hittee,
                           !spec_dbon_applies ? '.' : '!');
@@ -4641,7 +4641,7 @@ artifact_info(int anum)
     case ART_SUNSPOT: 
         art_info.xattack = "blinds monsters";
         break;
-    case ART_SQUALL: 
+    case ART_THUNDERSTRUCK: 
         art_info.xattack = "shoots lightning bolts";
         break;
     case ART_TROLLSBANE: 

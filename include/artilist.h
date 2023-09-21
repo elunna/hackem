@@ -105,7 +105,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Hand Grenade of Antioch", FIRE_BOMB, (SPFX_RESTR), 0, 0, 
       PHYS(1, 1), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 300L, 
       NO_COLOR, DEFAULT_MAT),
-    
+
+    /* Original idea by Spicy. Prevents all monster regen. */
+    A("Mortality Dial", EXECUTIONER_S_MACE, (SPFX_RESTR | SPFX_REGEN),
+      0, 0, PHYS(5, 5), NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM,
+      5000L, NO_COLOR, DEFAULT_MAT),
+      
     /*
      *      Orcrist and Sting have same alignment as elves.
      *
@@ -458,8 +463,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     
     /* Resisted by very few monsters, but is a morning star and also happens to 
      * destroy tons of items. (Previously known as Sonicboom in SpliceHack) */
-    A("Thunderstruck", MORNING_STAR, (SPFX_RESTR | SPFX_ATTK), 0, 0,
-      LOUD(5, 8), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
+    A("Thunderstruck", MORNING_STAR, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      LOUD(5, 0), DFNS(AD_LOUD), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
       NO_COLOR, DEFAULT_MAT),
 
     A("Trollsbane", MORNING_STAR, (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REGEN), 0, MH_TROLL,
@@ -535,22 +540,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       0, 0, DISN(5, 12), DFNS(AD_DISN), NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 25000L, NO_COLOR, METAL),
 #endif
+
     A("The Key Of Access", SKELETON_KEY,
       (SPFX_RESTR | SPFX_NOWISH | SPFX_NOGEN | SPFX_FORGED), 0, 0, 
       NO_ATTK, NO_DFNS, NO_CARY,
       CREATE_PORTAL, A_NONE, NON_PM, NON_PM, 200L, NO_COLOR, GEMSTONE),
-    
-    /* Created by fusing werebane and trollsbane. Original idea by Spicy.
-            Prevents all monster regen. */
-    A("Mortality Dial", EXECUTIONER_S_MACE,
-      (SPFX_RESTR | SPFX_REGEN | SPFX_NOGEN | SPFX_FORGED),
-      0, 0, PHYS(10, 10), NO_DFNS, NO_CARY, 0, A_NONE, NON_PM, NON_PM,
-      5000L, NO_COLOR, DEFAULT_MAT),
-
-    /* Created by fusing Thunderstruck and Sunspot. Shoots bolts of lightning. */
-    A("Squall", MORNING_STAR, (SPFX_RESTR | SPFX_NOGEN | SPFX_FORGED | SPFX_ATTK | SPFX_DEFN | SPFX_BLIND), 0, 0,
-      LOUD(5, 0), DFNS(AD_LOUD), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 5000L,
-      NO_COLOR, DEFAULT_MAT),
       
     /*
      *      The artifacts for the quest dungeon, all self-willed.
