@@ -1082,8 +1082,8 @@ makelevel()
             mkroom(BEEHIVE);
         else if (u_depth > 9 && !rn2(19)) 
             mkroom(REALZOO);
-        else if (u_depth> 10 && !rn2(40)) 
-            mkroom(CLINIC); /* supposed to be very rare --Amy */
+        else if (u_depth > 10 && !rn2(30)) 
+            mkroom(CLINIC); 
         else if (u_depth > 10 && !rn2(16)
                  && !(mvitals[PM_BABY_OWLBEAR].mvflags & G_GONE))
             mkroom(OWLBNEST);

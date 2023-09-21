@@ -266,6 +266,7 @@ gottype:
         if (isbig(sroom) && 
             (shtypes[i].symb == WAND_CLASS
              || shtypes[i].symb == SPBOOK_CLASS
+             || sroom->rtype == CLINIC
              || !strcmp(shtypes[i].name, "mask shop"))) {
             i = 0;
         } 
