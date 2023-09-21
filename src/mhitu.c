@@ -480,6 +480,9 @@ boolean message;
     unstuck(mtmp); /* ball&chain returned in unstuck() */
     mnexto(mtmp);
     newsym(u.ux, u.uy);
+    /* to cover for a case where mtmp is not in a next square */
+    if (um_dist(mtmp->mx, mtmp->my, 1))
+        pline("Brrooaa...  You land hard at some distance.");
     spoteffects(TRUE);
 }
 
@@ -712,7 +715,6 @@ register struct monst *mtmp;
             if (youmonst.data->mlet != S_PIERCER
                 && youmonst.data != &mons[PM_DROP_BEAR])
                 return 0; /* lurkers don't attack */
-                          
 
             obj = which_armor(mtmp, WORN_HELMET);
             if (obj && is_metallic(obj)) {
@@ -4911,7 +4913,7 @@ struct attack *mattk;
             if (resists_disint(mtmp) || defended(mtmp, AD_DISN)) {
                 if (canseemon(mtmp) && !rn2(3)) {
                     shieldeff(mtmp->mx, mtmp->my);
-                    Your("armor does not appear to affect %s",
+                    Your("armor does not appear to affect %s.",
                          mon_nam(mtmp));
                 }
                 break;
@@ -4950,7 +4952,19 @@ struct attack *mattk;
                         if (canseemon(mtmp))
                             pline("%s is disintegrated completely!", Monnam(mtmp));
                         disint_mon_invent(mtmp);
-                        xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
+                        if (is_rider(mtmp->data)) {
+                            if (canseemon(mtmp)) {
+                                pline("%s body reintegrates before your %s!",
+                                      s_suffix(Monnam(mtmp)),
+                                      (eyecount(youmonst.data) == 1)
+                                         ? body_part(EYE)
+                                         : makeplural(body_part(EYE)));
+                                pline("%s resurrects!", Monnam(mtmp));
+                            }
+                            mtmp->mhp = mtmp->mhpmax;
+                        } else {
+                            xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
+                        }
                         if (!DEADMONSTER(mtmp))
                             return 1;
                         return 2;
@@ -5170,7 +5184,7 @@ struct attack *mattk;
                 if (rn2(20)) {
                     if (canseemon(mtmp))
                         pline("%s gets zapped!", Monnam(mtmp));
-                    damage_mon(mtmp, rnd(6), AD_ELEC);
+                    damage_mon(mtmp, rnd(4), AD_ELEC);
                 } else {
                     if (canseemon(mtmp))
                         pline("%s is jolted with electricity!", Monnam(mtmp));
@@ -5287,7 +5301,7 @@ struct attack *mattk;
         if (resists_disint(mtmp) || defended(mtmp, AD_DISN)) {
             if (canseemon(mtmp) && !rn2(3)) {
                 shieldeff(mtmp->mx, mtmp->my);
-                Your("deadly %s does not appear to affect %s",
+                Your("deadly %s does not appear to affect %s.",
                      youmonst.data == &mons[PM_ANTIMATTER_VORTEX]
                          ? "form" : "hide", mon_nam(mtmp));
             }
@@ -5330,7 +5344,19 @@ struct attack *mattk;
                              youmonst.data == &mons[PM_ANTIMATTER_VORTEX]
                                  ? "form" : "hide", mon_nam(mtmp));
                         disint_mon_invent(mtmp);
-                        xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
+                        if (is_rider(mtmp->data)) {
+                            if (canseemon(mtmp)) {
+                                pline("%s body reintegrates before your %s!",
+                                      s_suffix(Monnam(mtmp)),
+                                      (eyecount(youmonst.data) == 1)
+                                         ? body_part(EYE)
+                                         : makeplural(body_part(EYE)));
+                                pline("%s resurrects!", Monnam(mtmp));
+                            }
+                            mtmp->mhp = mtmp->mhpmax;
+                        } else {
+                            xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
+                        }
                         if (!DEADMONSTER(mtmp))
                             return 1;
                         return 2;

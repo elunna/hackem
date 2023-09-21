@@ -38,7 +38,7 @@ struct monst *mdef;
 int hurt;
 {
     struct obj *target;
-     
+
     /* What the following code does: it keeps looping until it
      * finds a target for the rust monster.
      * Head, feet, etc... not covered by metal, or covered by
@@ -1967,7 +1967,7 @@ int dieroll;
        a slight damage boost */
     if (uarm && Is_dragon_scaled_armor(uarm)
         && Dragon_armor_to_scales(uarm) == RED_DRAGON_SCALES)
-	tmp += rnd(6);
+        tmp += rnd(6);
 
     /* Stakes vs vampires */
     if (uwep && uwep->otyp == STAKE && is_vampire(mdat) && !thrown) {
@@ -5188,51 +5188,50 @@ boolean wep_was_destroyed;
                     }
                 }
                 break;
-            case BLACK_DRAGON_SCALES: {
-                long protector = attk_protection((int) aatyp);
+            case BLACK_DRAGON_SCALES: 
+                {
+                    long protector = attk_protection((int) aatyp);
 
-                /* hero using monsters' AT_MAGC attack is hitting hand to
-                   hand rather than casting a spell */
-                if (aatyp == AT_MAGC)
-                    protector = W_ARMG;
+                    /* hero using monsters' AT_MAGC attack is hitting hand to
+                       hand rather than casting a spell */
+                    if (aatyp == AT_MAGC)
+                        protector = W_ARMG;
 
-                if (protector == 0L /* no protection */
-                    || (protector == W_ARMG && !uarmg && !uwep
-                        && !wep_was_destroyed)
-                    || (protector == W_ARMF && !uarmf)
-                    || (protector == W_ARMH && !uarmh)
-                    || (protector == (W_ARMC | W_ARMG)
-                        && (!uarmc || !uarmg))) {
-                    if (how_resistant(DISINT_RES) == 100) {
-                        if (!rn2(3))
-                            You("are unaffected by %s deadly armor.",
-                                s_suffix(mon_nam(mon)));
-                        monstseesu(M_SEEN_DISINT);
-                        break;
-                    } else {
-                        if (rn2(40)) {
-                            You("partially disintegrate!");
-                            t = resist_reduce(t, DISINT_RES);
-                            mdamageu(mon, t);
+                    if (protector == 0L /* no protection */
+                        || (protector == W_ARMG && !uarmg
+                            && !uwep && !wep_was_destroyed)
+                        || (protector == W_ARMF && !uarmf)
+                        || (protector == W_ARMH && !uarmh)
+                        || (protector == (W_ARMC | W_ARMG) && (!uarmc || !uarmg))) {
+                        if (how_resistant(DISINT_RES) == 100) {
+                            if (!rn2(3))
+                                You("are unaffected by %s deadly armor.",
+                                    s_suffix(mon_nam(mon)));
+                            monstseesu(M_SEEN_DISINT);
+                            break;
                         } else {
-                            if (how_resistant(DISINT_RES) < 50) {
-                                pline("%s deadly armor disintegrates you!",
-                                      s_suffix(Monnam(mon)));
-                                u.ugrave_arise = -3;
-                                done_in_by(mon, DIED);
-                                return 2;
-                            } else {
+                            if (rn2(40)) {
                                 You("partially disintegrate!");
                                 t = resist_reduce(t, DISINT_RES);
                                 mdamageu(mon, t);
+                            } else {
+                                if (how_resistant(DISINT_RES) < 50) {
+                                    pline("%s deadly armor disintegrates you!",
+                                          s_suffix(Monnam(mon)));
+                                    u.ugrave_arise = -3;
+                                    done_in_by(mon, DIED);
+                                    return 2;
+                                } else {
+                                    You("partially disintegrate!");
+                                    t = resist_reduce(t, DISINT_RES);
+                                    mdamageu(mon, t);
+                                }
                             }
                         }
                     }
                 }
-            }
                 if (!rn2(12)) {
-                    if (!(uwep || (u.twoweap && uswapwep))
-                        && !wep_was_destroyed
+                    if (!(uwep || (u.twoweap && uswapwep)) && !wep_was_destroyed
                         && (aatyp == AT_WEAP || aatyp == AT_CLAW
                             || aatyp == AT_MAGC || aatyp == AT_TUCH)) {
                         if (uarmg) {
@@ -5260,27 +5259,22 @@ boolean wep_was_destroyed;
                                || aatyp == AT_MAGC || aatyp == AT_TUCH) {
                         if (obj_resists(weapon, 0, 0)) {
                             pline_The("%s %s and cannot be disintegrated.",
-                                      xname(weapon),
-                                      rn2(2) ? "resists completely"
-                                             : "defies physics");
+                                      xname(weapon), rn2(2) ? "resists completely" : "defies physics");
                             break;
                         } else if (weapon->otyp == BLACK_DRAGON_SCALES
                                    || (Is_dragon_scaled_armor(weapon)
                                        && Dragon_armor_to_scales(weapon)
                                               == BLACK_DRAGON_SCALES)) {
                             pline("%s disintegration-proof and %s intact.",
-                                  Yobjnam2(weapon, "are"),
-                                  otense(weapon, "remain"));
+                                  Yobjnam2(weapon, "are"), otense(weapon, "remain"));
                             break;
                         } else if (weapon->oartifact && rn2(50)) {
-                            pline("%s %s, but remains %s.", Yname2(weapon),
-                                  rn2(2) ? "shudders violently"
-                                         : "vibrates unexpectedly",
-                                  rn2(2) ? "whole" : "intact");
+                                   pline("%s %s, but remains %s.", Yname2(weapon),
+                                   rn2(2) ? "shudders violently" : "vibrates unexpectedly",
+                                   rn2(2) ? "whole" : "intact");
                             break;
                         } else if (rn2(2)
-                                   && (weapon->oerodeproof
-                                       || is_supermaterial(weapon))) {
+                                   && (weapon->oerodeproof || is_supermaterial(weapon))) {
                             pline("%s being disintegrated!",
                                   Yobjnam2(weapon, "resist"));
                             break;
@@ -5301,7 +5295,7 @@ boolean wep_was_destroyed;
                 update_inventory();
                 break;
             case SHIMMERING_DRAGON_SCALES:
-                /* These can have a few random effects: confuse, stun, and slow */
+                /* These can have a few random effects: confuse, stun */
                 if (!rn2(3)) {
                     if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
                         pline("%s protect you from %s shimmering armor!",
@@ -5426,32 +5420,6 @@ boolean wep_was_destroyed;
                     }
                 }
                 break;
-                case YELLOW_DRAGON_SCALES:
-                    if (how_resistant(ACID_RES) == 100
-                        || Underwater) {
-                        shieldeff(u.ux, u.uy);
-                        monstseesu(M_SEEN_ACID);
-                        You_feel("a mild sting from %s armor.",
-                                 s_suffix(mon_nam(mon)));
-                        ugolemeffects(AD_ACID, t);
-                        break;
-                    } else {
-                        if (rn2(20)) {
-                            You_feel("a searing sensation!");
-                            t = resist_reduce(t, ACID_RES);
-                            mdamageu(mon, t);
-                        } else {
-                            pline("%s acidic armor critically sears you!",
-                                  s_suffix(Monnam(mon)));
-                            t = resist_reduce(t, ACID_RES);
-                            mdamageu(mon, d(3, 6) + t);
-                        }
-                    }
-                    if (rn2(u.twoweap ? 2 : 3))
-                        acid_damage(uwep);
-                    if (u.twoweap && rn2(2))
-                        acid_damage(uswapwep);
-                    break;
             case RED_DRAGON_SCALES:
                 if (how_resistant(FIRE_RES) == 100
                     || Underwater) {
@@ -5473,6 +5441,32 @@ boolean wep_was_destroyed;
                         mdamageu(mon, d(3, 6) + t);
                     }
                 }
+                break;
+            case YELLOW_DRAGON_SCALES:
+                if (how_resistant(ACID_RES) == 100
+                    || Underwater) {
+                    shieldeff(u.ux, u.uy);
+                    monstseesu(M_SEEN_ACID);
+                    You_feel("a mild sting from %s armor.",
+                             s_suffix(mon_nam(mon)));
+                    ugolemeffects(AD_ACID, t);
+                    break;
+                } else {
+                    if (rn2(20)) {
+                        You_feel("a searing sensation!");
+                        t = resist_reduce(t, ACID_RES);
+                        mdamageu(mon, t);
+                    } else {
+                        pline("%s acidic armor critically sears you!",
+                              s_suffix(Monnam(mon)));
+                        t = resist_reduce(t, ACID_RES);
+                        mdamageu(mon, d(3, 6) + t);
+                    }
+                }
+                if (rn2(u.twoweap ? 2 : 3))
+                    acid_damage(uwep);
+                if (u.twoweap && rn2(2))
+                    acid_damage(uswapwep);
                 break;
             case BLUE_DRAGON_SCALES:
                 if (how_resistant(SHOCK_RES) == 100) {

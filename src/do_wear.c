@@ -958,36 +958,7 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
         return;
 
     switch (Dragon_armor_to_scales(otmp)) {
-        /* gray: no extra effect */
-
-    case BLACK_DRAGON_SCALES:
-        if (puton) {
-            ESlow_digestion |= W_ARM;
-        } else {
-            ESlow_digestion &= ~W_ARM;
-        }
-        break;
-    case SILVER_DRAGON_SCALES:
-        if (puton) {
-            ECold_resistance |= W_ARM;
-        } else {
-            ECold_resistance &= ~W_ARM;
-        }
-        break;
-    case GOLD_DRAGON_SCALES:
-        if (puton) {
-            EInfravision |= W_ARM;
-        } else {
-            EInfravision &= ~W_ARM;
-        }
-        break;
-    case ORANGE_DRAGON_SCALES:
-        if (puton) {
-            Free_action |= W_ARM;
-        } else {
-            Free_action &= ~W_ARM;
-        }
-        break;
+    /* gray: no extra effect */
     case GREEN_DRAGON_SCALES:
         if (puton) {
             ESick_resistance |= W_ARM;
@@ -997,6 +968,29 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             }
         } else {
             ESick_resistance &= ~W_ARM;
+        }
+        break;
+    case GOLD_DRAGON_SCALES:
+        if (puton) {
+            EInfravision |= W_ARM;
+            EClairvoyant |= W_ARM;
+        } else {
+            EInfravision &= ~W_ARM;
+            EClairvoyant &= ~W_ARM;
+        }
+        break;
+    case ORANGE_DRAGON_SCALES:
+        if (puton) {
+            Free_action |= W_ARM;
+        } else {
+            Free_action &= ~W_ARM;
+        }
+        break;
+    case SILVER_DRAGON_SCALES:
+        if (puton) {
+            ECold_resistance |= W_ARM;
+        } else {
+            ECold_resistance &= ~W_ARM;
         }
         break;
     case BLUE_DRAGON_SCALES:
@@ -1038,11 +1032,9 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
                 Stunned = 0L;
             }
             EStun_resistance |= W_ARM;
-            EPsychic_resistance |= W_ARM;
         } else {
             toggle_displacement(otmp, (EDisplaced & ~W_ARM), FALSE);
             EStun_resistance &= ~W_ARM;
-            EPsychic_resistance &= ~W_ARM;
         }
         break;
     case DEEP_DRAGON_SCALES:

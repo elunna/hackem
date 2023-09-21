@@ -5,7 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
-
+Sync up some minor differences between EvilHack and Hack'EM dragon scales.
 Double the time power shield is usually active.
 Rename 'shield block' tech to 'power shield'.
 Add a warning to the guaranteed wands of wishing.

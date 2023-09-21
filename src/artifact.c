@@ -607,7 +607,7 @@ struct obj *otmp;
         case AD_DRLI:
             return (otyp == DEEP_DRAGON_SCALES); /* Deep roots hold you firm */
         case AD_COLD:
-            return (otyp == WHITE_DRAGON_SCALES 
+            return (otyp == WHITE_DRAGON_SCALES
                     || otyp == SILVER_DRAGON_SCALES);
         case AD_DRST: /* drain strength => poison */
         case AD_DISE: /* blocks disease but not slime */
