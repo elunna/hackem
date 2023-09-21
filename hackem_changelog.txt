@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Move Oracle level placement back to vanilla style.
 Gauntlets of force makings forcing locks and doors take 1 turn. Bonus dmg for Jedi.
 Make the Hand of Vecna actually weigh 300.
 Hand of Vecna weighs only 1 aum for Necromancers.
