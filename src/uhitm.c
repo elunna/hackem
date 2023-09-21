@@ -3342,12 +3342,12 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         tmp = 0;
         break;
     case AD_DRLI:
-        if (!negated && rnd(3)
+        if (!negated && !rn2(3)
             && !(resists_drli(mdef) || defended(mdef, AD_DRLI))) {
             int xtmp = d(2, 6);
-            
             if (mdef->mhp < xtmp) 
                 xtmp = mdef->mhp;
+            
             /* Player vampires are smart enough not to feed while
              * biting if they might have trouble getting it down 
              */
@@ -3357,20 +3357,11 @@ int specialdmg; /* blessed and/or silver bonus against various things */
                 /* For the life of a creature is in the blood (Lev 17:11) */
                 if (flags.verbose)
                     You("feed on the lifeblood.");
+                
                 /* [ALI] Biting monsters does not count against eating 
                  * conducts. The draining of life is considered to be 
                  * primarily a non-physical effect */
                 lesshungry(xtmp * 6);
-                /* Feeding increases HP */
-                if (Upolyd) {
-                    u.mh += xtmp * 2;
-                    if (u.mh > u.mhmax)
-                        u.mh = u.mhmax;
-                } else {
-                    u.uhp += xtmp * 2;
-                    if (u.uhp > u.uhpmax)
-                        u.uhp = u.uhpmax;
-                }
             }
             
             if (canseemon(mdef))

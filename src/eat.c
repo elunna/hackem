@@ -3478,7 +3478,7 @@ gethungry()
     accessorytime = rn2(20); /* rn2(20) replaces (int) (moves % 20L) */
     if (accessorytime % 2) { /* odd */
          /* Regeneration uses up food when injured, unless due to an artifact
-         * or playing as a Giant */
+         * or playing as a race that has it intrinsically */
         if ((HRegeneration & ~(FROMFORM | FROMRACE))
             || ((ERegeneration & ~(W_ARTI | W_WEP | W_ARMOR)) &&
              (uhp() < uhpmax())))

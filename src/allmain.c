@@ -944,11 +944,6 @@ int wtcap;
             && (!uarmc || (uarmc && uarmc->otyp != POISONOUS_CLOAK))
             && (encumbrance_ok || U_CAN_REGEN()) && !Is_valley(&u.uz)
             && !infidel_no_amulet) {
-            
-            if (Race_if(PM_VAMPIRIC) && rn2(3)) 
-                return; /* Vampires have regeneration penalty, they only
-                         * regenerate on 1/3rd of valid turns, so must rely
-                         * more on draining life. */
             /*
             * KMH, balance patch -- New regeneration code
             * Healthstones have been added, which alter your effective

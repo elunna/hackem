@@ -202,11 +202,11 @@ static const struct innate {
                  { 0, 0, 0, 0 } },
   
   vam_abil[] =   { { 1, &(HPoison_resistance), "", "" },
-                   { 1, &(HSleep_resistance), "", "" },
                    { 1, &(HDrain_resistance), "", "" },
                    { 1, &(HBreathless), "breathless", "full of air" },
-                   /*{ 10, &(HHunger), "ravenous", "more content" },*/
-                   { 10, &(HRegeneration), "resilient", "less resilient" },
+                   { 1, &(HRegeneration), "resilient", "less resilient" },
+                   { 1, &(HHunger), "", "" },
+                   { 9, &(HSleep_resistance), "", "" },
                    /*{ 1, &(HFlying), "lighter than air", "gravity's pull" },*/
                    { 0, 0, 0, 0 } },
   
@@ -610,7 +610,8 @@ exerper()
         debugpline0("exerper: Hunger checks");
         switch (hs) {
         case SATIATED:
-            if (!Race_if(PM_VAMPIRIC))  /* undead */
+            /* Don't punish vampires for eating too much */
+            if (maybe_polyd(!is_vampire(youmonst.data), !Race_if(PM_VAMPIRE)))
                 exercise(A_DEX, FALSE);
             if (Role_if(PM_MONK))
                 exercise(A_WIS, FALSE);
