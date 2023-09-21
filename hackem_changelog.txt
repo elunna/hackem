@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Hand of Vecna weighs only 1 aum for Necromancers.
 Fix stun resistance source in ctrl-x info.
 Nighthorn buffs.
 Monsters are never given dragon scales.

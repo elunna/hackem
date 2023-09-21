@@ -1445,7 +1445,11 @@ boolean telekinesis;
             (obj->quan == 1L) ? "another" : "more", simpleonames(obj));
         return -1;
     }
-
+    /* Exceptions, exceptions, exceptions... */
+    if (Role_if(PM_NECROMANCER) && inv_cnt(FALSE) < 52 
+        && obj->oartifact && obj->oartifact == ART_HAND_OF_VECNA)
+        return 1;
+    
     *cnt_p = carry_count(obj, container, *cnt_p, telekinesis,
                          &old_wt, &new_wt);
     if (*cnt_p < 1L) {

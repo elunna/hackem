@@ -3714,6 +3714,9 @@ inv_weight()
             wt += (int) (((long) otmp->quan + 50L) / 100L);
         else if (otmp->otyp == BOULDER && racial_throws_rocks(&youmonst))
             wt += GIANT_BLDR_WEIGHT * otmp->quan;
+        else if (Role_if(PM_NECROMANCER)
+            && otmp->oartifact && otmp->oartifact == ART_HAND_OF_VECNA)
+            wt += 1;
         else /*if (otmp->otyp != BOULDER || !racial_throws_rocks(&youmonst)) */
             wt += otmp->owt;
         otmp = otmp->nobj;
