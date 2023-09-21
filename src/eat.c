@@ -3778,7 +3778,7 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
     boolean feeding = !strcmp(verb, "eat"),    /* corpsecheck==0 */
         offering = (!strcmp(verb, "sacrifice")); /* corpsecheck==1 */
 
-    if (feeding && maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))) {
+    if (feeding && (is_vampire(youmonst.data) || Race_if(PM_VAMPIRIC))) {
         You("can't eat.");
         if (flags.verbose)
             pline("You can feed on lifeblood by attacking and biting other monsters.");
