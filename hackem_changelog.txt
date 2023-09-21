@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Make the Hand of Vecna actually weigh 300.
 Hand of Vecna weighs only 1 aum for Necromancers.
 Fix stun resistance source in ctrl-x info.
 Nighthorn buffs.
