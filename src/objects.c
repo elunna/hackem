@@ -1275,7 +1275,7 @@ WAND("enlightenment", "crystal",  58, 150, 1, NODIR, GLASS, HI_GLASS),
 WAND("healing",        "bamboo",  60, 150, 1, IMMEDIATE, WOOD, CLR_YELLOW),         /* Slash'EM */
 WAND("create monster",  "maple", 135, 200, 1, NODIR, WOOD, HI_WOOD),
 WAND("fear",            "crusty",  25, 200, 1, NODIR, IRON, CLR_RED),                /* Slash'EM */
-WAND("wishing",          "pine",   2, 500, 1, NODIR, WOOD, HI_WOOD),
+WAND("wishing",          "pine",   1, 500, 1, NODIR, WOOD, HI_WOOD),
 WAND("nothing",           "oak",  75, 500, 0, IMMEDIATE, WOOD, HI_WOOD),
 WAND("wonder",        "plastic",  5, 100, 0, IMMEDIATE, PLASTIC, CLR_RED),          /* SpliceHack */
 WAND("wind",            "green", 15, 175, 1, IMMEDIATE, PLASTIC,                    /* SpliceHack */

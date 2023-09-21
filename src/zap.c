@@ -2791,7 +2791,7 @@ dozap()
         obj = current_wand;
         current_wand = 0;
     }
-    if (obj && obj->spe < 0) {
+    if (obj && (obj->spe < 0 || (obj->otyp == WAN_WISHING && obj->spe == 0))) {
         pline("%s to dust.", Tobjnam(obj, "turn"));
         useup(obj);
     }
