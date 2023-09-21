@@ -481,8 +481,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     /*** Alignment quest artifacts ***/
     A("Nighthorn", UNICORN_HORN,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_REFLECT), 0, 0,
-      NO_ATTK, NO_DFNS, NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_REFLECT | SPFX_INTEL), 0, 0,
+      PHYS(1, 3), DFNS(AD_STUN), NO_CARY, 0, A_LAWFUL, NON_PM, NON_PM, 
       10000L, NO_COLOR, DEFAULT_MAT),
     
     A("The Eye of the Beholder", EYEBALL,
