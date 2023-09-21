@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Don't hide magic portals (from xNetHack)
 Removed all object properties and scroll of magic detection.
 Taming is much more difficult on the Astral Plane.
 Changed Helm of Hermes to Hermes Boots.

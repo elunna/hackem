@@ -435,7 +435,8 @@ int x, y, typ;
     ttmp->dst.dnum = ttmp->dst.dlevel = -1;
     ttmp->madeby_u = 0;
     ttmp->once = 0;
-    ttmp->tseen = (typ == HOLE); /* hide non-holes */
+    /* hide most traps, but not holes or portals */
+    ttmp->tseen = (typ == HOLE || typ == MAGIC_PORTAL);
     ttmp->ttyp = typ;
 
     switch (typ) {
