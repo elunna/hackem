@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix stun resistance source in ctrl-x info.
 Nighthorn buffs.
 Monsters are never given dragon scales.
 Clinic special rooms cannot be too large.

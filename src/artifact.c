@@ -3831,6 +3831,7 @@ long *abil;
         { &ESick_resistance, AD_DISE },
         { &EDeath_resistance, AD_DETH },
         { &ESonic_resistance, AD_LOUD },
+        { &EStun_resistance, AD_STUN },
         /* AD_WTHR has no Withering Resistance */
     };
     int k;
@@ -4709,7 +4710,7 @@ boolean defend;
     case AD_BLND:
         return "blinding";
     case AD_STUN:
-        return "stuns/magic";
+        return defend ? "stun" : "stuns/magic";
     case AD_DREN:
         return "drain energy";
     case AD_WTHR:
