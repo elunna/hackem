@@ -5020,7 +5020,7 @@ struct monst *mtmp;
 {
     int i;
     if (mtmp->data->msound == MS_SHRIEK) {
-        if (!Deaf) {
+        if (!Deaf && !(uarmh && uarmh->otyp == TOQUE)) {
             pline("%s %s.", Monnam(mtmp), 
                   (mtmp->data == &mons[PM_SHRIEKER] ? "shrieks" : 
                     mtmp->data == &mons[PM_SQUEALER] ? "squeals": "screams"));

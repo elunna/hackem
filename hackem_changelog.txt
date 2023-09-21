@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Screamer's message when wearing a toque.
 Vampires and the vampiric race cannot eat even if polymorphed.
 Sync up some minor differences between EvilHack and Hack'EM dragon scales.
 Double the time power shield is usually active.
