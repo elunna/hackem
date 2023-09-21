@@ -5142,7 +5142,7 @@ boolean via_attack;
         /* reduce to 3 (average) when alignment is already very low */
         if (u.ualign.type != A_NONE) {
             You_feel("like a hypocrite.");
-            adjalign((u.ualign.record > 5) ? -5 : -rnd(5));
+            adjalign(-1);
         } else
             You_feel("clever."); /* no alignment penalty */
 
