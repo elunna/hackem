@@ -1434,13 +1434,6 @@ u_init()
             ini_inv(Lamp);
         if (!rn2(5))
             ini_inv(Blindfold);
-        knows_object(MAGIC_MARKER);
-        knows_object(MAGIC_WHISTLE);
-        knows_object(MAGIC_HARP);
-        knows_object(MAGIC_FLUTE);
-        knows_object(MAGIC_CANDLE);
-        knows_object(MAGIC_LAMP);
-        knows_object(DRUM_OF_EARTHQUAKE);
         skill_init(Skill_W);
         
         break;
