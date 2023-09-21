@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Put chickatrices and cockatrice eggs in cockatrice nests (from xNetHack)
 Don't hide magic portals (from xNetHack)
 Removed all object properties and scroll of magic detection.
 Taming is much more difficult on the Astral Plane.
