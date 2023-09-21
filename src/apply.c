@@ -2246,7 +2246,7 @@ void
 use_unicorn_horn(obj)
 struct obj *obj;
 {
-#define PROP_COUNT 7           /* number of properties we're dealing with */
+#define PROP_COUNT 8           /* number of properties we're dealing with */
 #define ATTR_COUNT (A_MAX * 3) /* number of attribute points we might fix */
     int idx, val, val_limit, trouble_count, unfixable_trbl, did_prop;
     int trouble_list[PROP_COUNT + ATTR_COUNT];
@@ -2261,6 +2261,12 @@ struct obj *obj;
     if (obj && obj->cursed) {
         long lcount = (long) rn1(90, 10);
 
+        /* Always makes you afraid if cursed */
+        if (obj && obj->oartifact == ART_NIGHTHORN) {
+            if (Afraid) /* No feedback when already afraid */
+                pline("Nothing seems to happen.");
+            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+        }
         switch (rn2(15) / 2) { /* case 7 is half as likely as the others */
         case 0:
             make_sick((Sick & TIMEOUT) ? (Sick & TIMEOUT) / 3L + 1L
@@ -2328,6 +2334,8 @@ struct obj *obj;
         prop_trouble(STUNNED);
     if (TimedTrouble(HDeaf))
         prop_trouble(DEAF);
+    if (TimedTrouble(HAfraid))
+        prop_trouble(AFRAID);
 
     unfixable_trbl = unfixable_trouble_count(TRUE);
 
@@ -2405,18 +2413,17 @@ end:
                     make_deaf(0L, TRUE);
                     did_prop++;
                     break;
+                case prop2trbl(AFRAID):
+                    if (obj && obj->oartifact == ART_NIGHTHORN) {
+                        make_afraid(0L, TRUE);
+                        did_prop++;
+                    }
+                    break;
                 default:
                     panic("use_unicorn_horn: bad trouble? (%d)", idx);
                     break;
             }
         }
-    }
-
-    if (obj->oartifact == ART_NIGHTHORN) {
-        if (!obj->cursed && rn2(10) < chance)
-            make_afraid(0L, TRUE);
-        else if (obj->cursed)
-            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
     }
     
     if (did_prop)

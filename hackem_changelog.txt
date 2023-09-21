@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Fix: Crash with Nighthorn curing and causing fear.
 Imported rumors from SLASH'EM, SlashTHEM, UnNetHack, and xNetHack.
 Fix: Screamer's message when wearing a toque.
 Vampires and the vampiric race cannot eat even if polymorphed.
