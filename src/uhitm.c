@@ -398,6 +398,8 @@ int *attk_count, *role_roll_penalty;
         tmp += 4;
     if (tech_inuse(T_BERSERK) || tech_inuse(T_SOULEATER))
         tmp += 2;
+    if (Role_if(PM_JEDI) && uarmg && uarmg->otyp == GAUNTLETS_OF_FORCE)
+        tmp += 1;
     
     /* if unskilled with a weapon/object type (bare-handed is exempt),
      * you'll never have a chance greater than 75% to land a hit.
