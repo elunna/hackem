@@ -839,10 +839,10 @@ TOOL("credit card",         None, 1, 0, 0, 0,  15,   1,  10, PLASTIC, CLR_WHITE)
 /* light sources */
 TOOL("tallow candle",   "candle", 0, 1, 0, 0,  20,   2,  10, WAX, CLR_WHITE),
 TOOL("wax candle",      "candle", 0, 1, 0, 0,   5,   2,  20, WAX, CLR_WHITE),
-TOOL("magic candle",    "candle", 0, 1, 1, 0,   5,   2, 500, WAX, CLR_WHITE),       /* Slash'EM */
+TOOL("magic candle",    "candle", 0, 1, 1, 0,   7,   2, 500, WAX, CLR_WHITE),       /* Slash'EM */
 TOOL("lantern",             None, 1, 0, 0, 0,  30,  30,  12, COPPER, CLR_YELLOW),
 TOOL("oil lamp",          "lamp", 0, 0, 0, 0,  45,  20,  10, COPPER, CLR_YELLOW),
-TOOL("magic lamp",        "lamp", 0, 0, 1, 0,  15,  20,1000, COPPER, CLR_YELLOW),
+TOOL("magic lamp",        "lamp", 0, 0, 1, 0,   1,  20,1000, COPPER, CLR_YELLOW),
 /* other tools */
 TOOL("expensive camera",    None, 1, 0, 0, 1,  15,  12, 200, PLASTIC, CLR_BLACK),
 TOOL("mirror",   "looking glass", 0, 0, 0, 0,  45,  13,  10, GLASS, HI_SILVER),
