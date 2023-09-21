@@ -110,7 +110,6 @@
     || (ptr) == &mons[PM_SHADOW_OGRE] \
     || (ptr) == &mons[PM_SHADOW_WOLF] \
     || (ptr) == &mons[PM_STATUE_GARGOYLE] \
-    || (ptr) == &mons[PM_BLACK_MARKETEER] \
     || (ptr) == &mons[PM_CERBERUS] \
     || (ptr) == &mons[PM_DEATH] \
     || (ptr) == &mons[PM_NIGHTMARE] \
@@ -838,9 +837,7 @@
 
 #define is_racialmon(ptr) (is_mplayer(ptr) || is_mercenary(ptr))
 
-#define is_blkmktstaff(ptr) (Is_blackmarket(&u.uz) && \
-                             ((ptr) == &mons[PM_BLACK_MARKETEER] || \
-                              (ptr) == &mons[PM_ONE_EYED_SAM]))
+#define is_blkmktstaff(ptr) (Is_blackmarket(&u.uz) && (ptr) == &mons[PM_ONE_EYED_SAM])
                               
 #define M_IN_WATER(ptr) \
     ((ptr)->mlet == S_EEL || amphibious(ptr) || is_swimmer(ptr))

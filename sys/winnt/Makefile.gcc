@@ -1347,7 +1347,7 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\???-strt.lev	   del $(W_DAT)\???-strt.lev
 	if exist $(W_DAT)\air.lev          del $(W_DAT)\air.lev
 	if exist $(W_DAT)\astral.lev	   del $(W_DAT)\astral.lev
-	if exist $(W_DAT)\blkmar-?.lev	   del $(W_DAT)\blkmar-?.lev
+	if exist $(W_DAT)\blkmar.lev	   del $(W_DAT)\blkmar.lev
 	if exist $(W_DAT)\bigrm-*.lev	   del $(W_DAT)\bigrm-*.lev
 	if exist $(W_DAT)\castle-?.lev	   del $(W_DAT)\castle-?.lev
 	if exist $(W_DAT)\cave*.lev	   del $(W_DAT)\cave*.lev

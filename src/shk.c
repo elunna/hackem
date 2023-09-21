@@ -473,9 +473,6 @@ register struct monst *mtmp;
             }
             wakeup(mt, TRUE);
         }
-        /* All for one and one for all */
-        else if (mt->isshk && mt->data == &mons[PM_BLACK_MARKETEER])
-            hot_pursuit(mt);
     }
     rlock = FALSE;
 }
@@ -1592,7 +1589,7 @@ dopay()
             make_happy_shk(shkp, FALSE);
         } else {
             /* Blackmarket shopkeeper are not easily pacified */
-            int peace_offering = (shkp->data == &mons[PM_BLACK_MARKETEER]) 
+            int peace_offering = (shkp->data == &mons[PM_ONE_EYED_SAM]) 
                                   ? 5000L : 1000L;
 
             /* shopkeeper is angry, but has not been robbed --

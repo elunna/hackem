@@ -106,8 +106,7 @@
     <Levfiles Include = "bigrm-18.lev"/>
     <Levfiles Include = "bigrm-19.lev"/>
     <Levfiles Include = "bigrm-20.lev"/>
-    <Levfiles Include = "blkmar-1.lev"/>
-    <Levfiles Include = "blkmar-2.lev"/>
+    <Levfiles Include = "blkmar.lev"/>
     <Levfiles Include = "castle-1.lev"/>
     <Levfiles Include = "castle-2.lev"/>
     <Levfiles Include = "castle-3.lev"/>

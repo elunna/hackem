@@ -863,8 +863,6 @@ int shp_indx;
     if (Is_blackmarket(&u.uz)) {
         if (sroom->rtype == BLACKSHOP) {
             shk = makemon(&mons[PM_ONE_EYED_SAM], sx, sy, MM_ESHK);
-        } else {
-            shk = makemon(&mons[PM_BLACK_MARKETEER], sx, sy, MM_ESHK);
         }
     }
     if (!shk) {

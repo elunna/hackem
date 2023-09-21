@@ -421,7 +421,6 @@ dosounds()
         }
         return;
     }
-#if 0
     if (!Is_blackmarket(&u.uz) 
             && at_dgn_entrance("One-eyed Sam's Market") 
             && !rn2(200)) {
@@ -432,7 +431,6 @@ dosounds()
         };
         pline("%s", blkmar_msg[rn2(2)+hallu]);
     }
-#endif
 }
 
 static const char *const h_sounds[] = {

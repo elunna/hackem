@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Reduced the size of the Black Market and brought it back.
 Wizards don't have magical items pre-identified.
 Lowered probability of magic lamps generating.
 Put chickatrices and cockatrice eggs in cockatrice nests (from xNetHack)

@@ -1966,8 +1966,7 @@ boolean give_feedback;
         unstuck(mtmp);
         (void) rloc(mtmp, TRUE);
 
-    } else if (((mtmp->data == &mons[PM_BLACK_MARKETEER] && rn2(5)) ||
-                (mtmp->data == &mons[PM_ONE_EYED_SAM] && rn2(13))) &&
+    } else if ((mtmp->data == &mons[PM_ONE_EYED_SAM] && rn2(13)) &&
                enexto_core_range(&cc, u.ux, u.uy, mtmp->data, 0,
                                  rnf(1, 10) ? 4 : 3)) {
         rloc_to(mtmp, cc.x, cc.y);

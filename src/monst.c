@@ -6081,15 +6081,6 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE, M2_NOPOLY | M2_PEACEFUL
             | M2_STRONG | M2_COLLECT | M2_MAGIC,
         M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 15, HI_DOMESTIC),
-    MON("black marketeer", S_HUMAN,                            /* UnNetHack */
-        LVL(20, 20, -5, 40, -2), G_NOGEN,
-        A(ATTK(AT_WEAP, AD_PHYS, 4, 10), NO_ATTK, NO_ATTK,
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_SELL, MZ_HUMAN),
-        MR_SLEEP | MR_STONE,
-        MR_SLEEP, M1_HUMANOID | M1_OMNIVORE,
-        M2_NOPOLY | M2_PEACEFUL | M2_STRONG | M2_COLLECT | M2_MAGIC,
-        M3_ACCURATE | M3_INFRAVISIBLE, 0, MH_HUMAN, 24, HI_DOMESTIC),
     MON("One-eyed Sam", S_HUMAN,                               /* UnNetHack */
         LVL(25, 24, -8, 50, -2), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 10), NO_ATTK, NO_ATTK,
