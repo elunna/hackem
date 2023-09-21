@@ -5,7 +5,8 @@
 
 Version 1.2.1 (unreleased)
 
-Widen range that Aphrodite's level can appear in the dungeon. 
+Widen range that the big level can appear in the dungeon.
+Widen range that Aphrodite's level can appear in the dungeon.
 Move Oracle level placement back to vanilla style.
 Gauntlets of force makings forcing locks and doors take 1 turn. Bonus dmg for Jedi.
 Make the Hand of Vecna actually weigh 300.
