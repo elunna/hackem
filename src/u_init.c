@@ -699,22 +699,15 @@ static const struct def_skill Skill_Mon[] = {
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_N[] = {
-    { P_DAGGER, P_EXPERT },             /* Sac gift and generally good */
-    { P_KNIFE,  P_SKILLED },            /* For... making bodies */
-    { P_AXE, P_SKILLED },               /* For choppin up bodies */
-    { P_PICK_AXE, P_EXPERT },           /* For digging up graves */
-    { P_CLUB, P_SKILLED },              /* So aklys is an option */
-    { P_POLEARMS, P_EXPERT },           /* For scythes */
-    { P_MACE, P_SKILLED },              /* Good choices here, see Worm that Walks */
-    { P_SPEAR, P_BASIC },
-    { P_SABER, P_BASIC },
-    { P_CROSSBOW, P_SKILLED },
-    { P_DART, P_BASIC },
-    { P_UNICORN_HORN, P_EXPERT },       /* Using a dead animals horn is dark */
+    { P_DAGGER, P_EXPERT },             /* Sac gift and quest artifact */
+    { P_AXE, P_BASIC },                 /* For choppin up bodies */
+    { P_PICK_AXE, P_BASIC },            /* For digging up graves */
+    { P_POLEARMS, P_BASIC },            /* For scythes */
+    { P_MACE, P_BASIC },                /* Executioner's mace, etc */
+    { P_CROSSBOW, P_BASIC },
+    { P_UNICORN_HORN, P_BASIC },        /* Using a dead animals horn is dark */
 
     { P_ATTACK_SPELL, P_SKILLED },
-    { P_MATTER_SPELL, P_BASIC },
-    { P_DIVINATION_SPELL, P_BASIC },
     { P_NECROMANCY_SPELL, P_EXPERT },
     { P_BARE_HANDED_COMBAT, P_BASIC },
     { P_SHIELD, P_SKILLED },

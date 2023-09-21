@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Necromancer nerfs.
 Limit the alignment penalty for attacking from Elbereth to -1.
 Main dungeon length is capped at 35-40 levels.
 Change storage room to use SLASH'EM placement.
