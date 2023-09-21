@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Main dungeon length is capped at 35-40 levels.
 Change storage room to use SLASH'EM placement.
 Widen range that the big level can appear in the dungeon.
 Widen range that Aphrodite's level can appear in the dungeon.
