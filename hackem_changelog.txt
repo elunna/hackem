@@ -5,6 +5,7 @@
 
 Version 1.2.1 (unreleased)
 
+Add a warning to the guaranteed wands of wishing.
 Removed forged weapons.
 Necromancer nerfs.
 Limit the alignment penalty for attacking from Elbereth to -1.

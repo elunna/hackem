@@ -46,7 +46,7 @@ DOOR:closed,(03,06)
 # treasures
 
 CONTAINER:"iron safe",(07,05) {
-    OBJECT: ('/', "wishing")
+    OBJECT: ('/', "wishing"), name:"CAUTION: DO NOT RECHARGE!"
 }
 
 # +4 containers are secretly coffins.
