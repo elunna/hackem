@@ -1922,10 +1922,10 @@ int skill;
     	learntech(T_DISARM, FROMOUTSIDE, 1);
     	You("learn how to perform disarm!");
     }
-    if (!tech_known(T_SHIELD_BLOCK)
+    if (!tech_known(T_POWER_SHIELD)
         && skill == P_SHIELD && P_SKILL(skill) == P_SKILLED) {
-        learntech(T_SHIELD_BLOCK, FROMOUTSIDE, 1);
-        You("learn how to perform shield block!");
+        learntech(T_POWER_SHIELD, FROMOUTSIDE, 1);
+        You("learn how to perform power shield!");
     }
 }
 
@@ -2210,17 +2210,17 @@ int n; /* number of slots to lose; normally one */
                skill by using the refunded slots, but giving a message
                to that effect would seem pretty confusing.... */
 
-            /* Potentially lose shield block tech */
-            if (skill == P_SHIELD && tech_known(T_SHIELD_BLOCK)
+            /* Potentially lose power shield tech */
+            if (skill == P_SHIELD && tech_known(T_POWER_SHIELD)
                 && P_SKILL(skill) < P_SKILLED)
-                learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
+                learntech(T_POWER_SHIELD, FROMOUTSIDE, -1);
         }
     }
     if (check_disarm)
         maybe_lose_disarm();
-    if (check_shield && tech_known(T_SHIELD_BLOCK)
+    if (check_shield && tech_known(T_POWER_SHIELD)
             && P_SKILL(skill) < P_SKILLED)
-        learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
+        learntech(T_POWER_SHIELD, FROMOUTSIDE, -1);
 }
 
 void
@@ -2266,9 +2266,9 @@ int n; /* number of skills to drain */
 
     if (check_disarm)
         maybe_lose_disarm();
-    if (check_shield && tech_known(T_SHIELD_BLOCK)
+    if (check_shield && tech_known(T_POWER_SHIELD)
             && P_SKILL(skill) < P_SKILLED)
-        learntech(T_SHIELD_BLOCK, FROMOUTSIDE, -1);
+        learntech(T_POWER_SHIELD, FROMOUTSIDE, -1);
 
 }
 
