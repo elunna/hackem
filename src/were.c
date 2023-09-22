@@ -58,6 +58,7 @@ register struct monst *mon;
                         You_hear("the moon %s like a %s", howl, howler);
                     else
                         You_hear("a %s %s at the moon.", howler, howl);
+                    wake_nearto(mon->mx, mon->my, 4 * 4);
                 }
             }
         }
