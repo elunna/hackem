@@ -2876,8 +2876,9 @@ struct monst *magr, *mdef;
         return ALLOW_M | ALLOW_TM;
 
     /* elves vs orcs */
-    if (racial_elf(magr) && racial_orc(mdef))
-        return ALLOW_M | ALLOW_TM;
+    if (racial_elf(magr) && racial_orc(mdef)
+        && !(nonliving(ma) || nonliving(md)))
+    return ALLOW_M | ALLOW_TM;
 
     /* angels vs demons */
     if ((is_angel(ma) && ma != &mons[PM_ELDRITCH_KI_RIN])
