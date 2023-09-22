@@ -675,8 +675,8 @@ struct obj *instr;
                     "PWAAAAOOMP!"};
                 if (!Deaf) pline("%s", blasting_msg[rn2(3)]);
             }
-            buzz((instr->otyp == FROST_HORN) ? AD_COLD - 1 : 
-                    (instr->otyp == HORN_OF_BLASTING) ? AD_LOUD - 1 : AD_FIRE - 1,
+            buzz((instr->otyp == FROST_HORN) ? ZT_COLD : 
+                    (instr->otyp == HORN_OF_BLASTING) ? ZT_SONIC : ZT_FIRE,
                     u.ulevel, u.ux, u.uy, u.dx, u.dy);
         }
         /* makeknown(instr->otyp); */

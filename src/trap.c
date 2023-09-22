@@ -6366,7 +6366,7 @@ int bodypart;
     }
 
     pline("KABOOM!!  %s was booby-trapped!", The(item));
-    explode(u.ux, u.uy, AD_FIRE - 1, resist_reduce(dmg, FIRE_RES),
+    explode(u.ux, u.uy, ZT_FIRE, resist_reduce(dmg, FIRE_RES),
             TRAPPED_DOOR, EXPL_FIERY);
     scatter(u.ux, u.uy, dmg,
             VIS_EFFECTS | MAY_HIT | MAY_DESTROY | MAY_FRACTURE, 0);
@@ -6764,23 +6764,23 @@ randomray()
     /* no AD_DISN, thanks */
     switch (rn2(10)) {
     case 0: 
-        return -20-(AD_FIRE - 1);
+        return -ZT_BREATH(ZT_FIRE);
     case 1:
-        return -10-(AD_COLD - 1);
+        return -ZT_SPELL(ZT_COLD);
     case 2:
-        return -10-(AD_SLEE - 1);
+        return -ZT_SPELL(ZT_SLEEP);
     case 3:
-        return -20-(AD_ELEC - 1);
+        return -ZT_BREATH(ZT_LIGHTNING);
     case 4:
-        return -20-(AD_DRST - 1);
+        return -ZT_BREATH(ZT_POISON_GAS);
     case 5:
-        return -20-(AD_ACID - 1);
+        return -ZT_BREATH(ZT_ACID);
     case 6:
-        return -20-(AD_LOUD - 1);
+        return -ZT_SPELL(ZT_SONIC);
     case 7:
-        return -20-(AD_WATR - 1);
+        return -ZT_SPELL(ZT_WATER);
     default:
-        return -10-(AD_MAGM - 1);
+        return -ZT_SPELL(ZT_MAGIC_MISSILE);
     }
 }
 

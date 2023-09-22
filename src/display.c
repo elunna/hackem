@@ -2039,7 +2039,7 @@ zapdir_to_glyph(dx, dy, beam_type)
 register int dx, dy;
 int beam_type;
 {
-    if (beam_type >= NUM_ZAP) {
+    if (beam_type > NUM_ZAP) {
         impossible("zapdir_to_glyph:  illegal beam type");
         beam_type = 0;
     }

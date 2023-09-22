@@ -1710,10 +1710,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 if (!rn2(3)) {
                     pline("The world shakes!");
                     if (youattack && can_we_zap(u.dx, u.dy, 13)) {
-                        dobuzz((int) (20 + (AD_ELEC - 1)), 3, u.ux, u.uy,
+                        dobuzz((int) ZT_SPELL(ZT_LIGHTNING), 3, u.ux, u.uy,
                                u.dx, u.dy, TRUE);
                     } else {
-                        dobuzz((int) (-20 - (AD_ELEC - 1)), 3, magr->mx,
+                        dobuzz((int) -ZT_SPELL(ZT_LIGHTNING), 3, magr->mx,
                                magr->my, mdx, mdy, TRUE);
                     }
                 }
@@ -1766,10 +1766,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
              * 2d6 - same as a wand. */
             if (rn2(4)) {
                 if (youattack && (u.uhp == u.uhpmax) && can_we_zap(u.dx, u.dy, 13)) {
-                    dobuzz((int) (20 + (AD_MAGM - 1)), 2, u.ux, u.uy, u.dx,
+                    dobuzz((int) ZT_SPELL(ZT_MAGIC_MISSILE), 2, u.ux, u.uy, u.dx,
                            u.dy, TRUE);
                 } else if (magr && magr->mhp == magr->mhpmax) {
-                    dobuzz((int) (-20 - (AD_MAGM - 1)), 2, magr->mx, magr->my,
+                    dobuzz((int) -ZT_SPELL(ZT_MAGIC_MISSILE), 2, magr->mx, magr->my,
                            mdx, mdy, TRUE);
                 }
             }
@@ -3246,7 +3246,7 @@ struct obj *obj;
             struct obj* pseudo = mksobj(WAN_LIGHTNING, FALSE, FALSE);
             pseudo->blessed = pseudo->cursed = 0;
             /* type is a "spell of lightning bolt" which doesn't actually
-            * exist: 10 + AD_ELEC - 1 */
+            * exist: 10 + ZT_LIGHTNING */
             if(!getdir(NULL) || (!u.dx && !u.dy && !u.dz)) {
                 int damage = zapyourself(pseudo, TRUE);
                 if (damage > 0) {
