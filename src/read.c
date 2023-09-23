@@ -2254,10 +2254,16 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     }
     case SCR_FOOD_DETECTION:
-    case SPE_DETECT_FOOD:
-        if (food_detect(sobj))
-            sobj = 0; /* nothing detected: strange_feeling -> useup */
+    case SPE_DETECT_FOOD: {
+        boolean failure;
+        failure = (food_detect(sobj) != 0);
+        if (!failure && sobj && sobj->blessed && monster_detect(sobj, S_BAD_FOOD))
+            failure = FALSE;
+        if (failure) {
+            sobj = 0; /* failure: strange_feeling() -> useup() */
+        }
         break;
+    }
     case SCR_KNOWLEDGE: {
         useup(sobj);
         sobj = 0; /* it's gone */
