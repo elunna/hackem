@@ -1369,8 +1369,7 @@ int how;
             context.botl = 1;
         }
     }
-    if (Lifesaved && (how <= GENOCIDED)
-        && !nonliving(youmonst.data)) {
+    if (Lifesaved && (how <= GENOCIDED)) {
         pline("But wait...");
         makeknown(AMULET_OF_LIFE_SAVING);
         Your("medallion %s!", !Blind ? "begins to glow" : "feels warm");
