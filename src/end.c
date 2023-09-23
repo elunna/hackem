@@ -1374,40 +1374,30 @@ int how;
         pline("But wait...");
         makeknown(AMULET_OF_LIFE_SAVING);
         Your("medallion %s!", !Blind ? "begins to glow" : "feels warm");
-        if (uamul->cursed) {
-            Your("medallion %s!", !Blind ? "glows white-hot" : "sears your neck");
-            You_hear("manic laughter in the distance...");
-            Your("medallion turns to ash!");
-            pline("It appears your luck has run out...");
-            savelife(how); /* killed by foo, while bar */
-            survive = FALSE;
-            if (uamul)
-                useup(uamul);
-        } else {
-            if (how == CHOKING)
-                You("vomit ...");
-            You_feel("much better!");
-            pline_The("medallion crumbles to dust!");
-            if (uamul)
-                useup(uamul);
 
-            (void) adjattrib(A_CON, -1, TRUE);
-            savelife(how);
-            if (how == GENOCIDED) {
-                pline("Unfortunately you are still genocided...");
-            } else if (is_open_air(x, y) && !Levitation
-                       && !(Flying && !(Punished && !carried(uball)
-                            && is_open_air(uball->ox, uball->oy)))) {
-                if (safe_teleds(TELEDS_ALLOW_DRAG | TELEDS_TELEPORT))
-                    return; /* successful life-save */
-                /* nowhere safe to land; repeat falling loop... */
-                pline("Unfortunately the impact was too great...");
-            } else {
-                char killbuf[BUFSZ];
-                formatkiller(killbuf, BUFSZ, how, FALSE);
-                livelog_printf(LL_LIFESAVE, "averted death (%s)", killbuf);
-                survive = TRUE;
-            }
+        if (how == CHOKING)
+            You("vomit ...");
+        You_feel("much better!");
+        pline_The("medallion crumbles to dust!");
+        if (uamul)
+            useup(uamul);
+
+        (void) adjattrib(A_CON, -1, TRUE);
+        savelife(how);
+        if (how == GENOCIDED) {
+            pline("Unfortunately you are still genocided...");
+        } else if (is_open_air(x, y) && !Levitation
+                   && !(Flying && !(Punished && !carried(uball)
+                        && is_open_air(uball->ox, uball->oy)))) {
+            if (safe_teleds(TELEDS_ALLOW_DRAG | TELEDS_TELEPORT))
+                return; /* successful life-save */
+            /* nowhere safe to land; repeat falling loop... */
+            pline("Unfortunately the impact was too great...");
+        } else {
+            char killbuf[BUFSZ];
+            formatkiller(killbuf, BUFSZ, how, FALSE);
+            livelog_printf(LL_LIFESAVE, "averted death (%s)", killbuf);
+            survive = TRUE;
         }
     }
 
