@@ -2606,7 +2606,7 @@ struct monst *mtmp;
         if (oseen)
             makeknown(otmp->otyp);
         m_using = TRUE;
-        buzz((int) (-30 - (otmp->otyp - WAN_MAGIC_MISSILE)),
+        buzz(ZT_MONWAND(otmp->otyp - WAN_MAGIC_MISSILE),
              (otmp->otyp == WAN_MAGIC_MISSILE) ? 2 : 6, mtmp->mx, mtmp->my,
              sgn(tbx), sgn(tby));
         m_using = FALSE;
@@ -2616,9 +2616,8 @@ struct monst *mtmp;
     case MUSE_HORN_OF_BLASTING:
         mplayhorn(mtmp, otmp, FALSE);
         m_using = TRUE;
-        buzz(-30 - ((otmp->otyp == FROST_HORN) ? AD_COLD - 1 : 
-            (otmp->otyp == HORN_OF_BLASTING) ? AD_LOUD - 1 : AD_FIRE - 1),
-             mtmp->m_lev, mtmp->mx, mtmp->my, sgn(tbx),
+        buzz(ZT_MONWAND((otmp->otyp == FROST_HORN) ? ZT_COLD : ZT_FIRE),
+             rn1(6, 6), mtmp->mx, mtmp->my, sgn(tbx),
              sgn(tby));
         m_using = FALSE;
         return (DEADMONSTER(mtmp)) ? 1 : 2;
@@ -4405,8 +4404,9 @@ boolean by_you; /* true: if mon kills itself, hero gets credit/blame */
             pline("%s breathes fire on %sself.", Monnam(mon), mhim(mon));
         if (!rn2(3))
             mon->mspec_used = rn1(10, 5);
-        /* -21 => monster's fire breath; 1 => # of damage dice */
-        dmg = zhitm(mon, by_you ? 21 : -21, 1, &odummyp);
+        /* 1 => # of damage dice */
+        dmg = zhitm(mon, by_you ? ZT_BREATH(ZT_FIRE) : -ZT_BREATH(ZT_FIRE),
+                    1, &odummyp);
     } else if (otyp == SCR_FIRE) {
         mreadmsg(mon, obj);
         if (mon->mconf) {
@@ -4421,9 +4421,7 @@ boolean by_you; /* true: if mon kills itself, hero gets credit/blame */
         } else {
             dmg = (2 * (rn1(3, 3) + 2 * bcsign(obj)) + 1) / 3;
             m_useup(mon, obj); /* before explode() */
-            /* -11 => monster's fireball */
-            explode(mon->mx, mon->my, -11, dmg, SCROLL_CLASS,
-                    /* by_you: override -11 for mon but not others */
+            explode(mon->mx, mon->my, -ZT_SPELL(ZT_FIRE), dmg, SCROLL_CLASS,
                     by_you ? -EXPL_FIERY : EXPL_FIERY);
             dmg = 0; /* damage has been applied by explode() */
         }
@@ -4432,8 +4430,9 @@ boolean by_you; /* true: if mon kills itself, hero gets credit/blame */
             mplayhorn(mon, obj, TRUE);
         else
             mzapwand(mon, obj, TRUE);
-        /* -1 => monster's wand of fire; 2 => # of damage dice */
-        dmg = zhitm(mon, by_you ? 1 : -1, 2, &odummyp);
+        /* 2 => # of damage dice */
+        dmg = zhitm(mon, by_you ? ZT_WAND(ZT_FIRE) : -ZT_WAND(ZT_FIRE),
+                    2, &odummyp);
     }
 
     if (dmg) {

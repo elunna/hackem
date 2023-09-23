@@ -65,8 +65,8 @@ int expltype;
                other types produce a generic magical explosion */
             if (objects[type].oc_dir == RAY
                 && type != WAN_DIGGING && type != WAN_DELUGE && type != WAN_SLEEP) {
-                type -= WAN_MAGIC_MISSILE;
-                if (type < 0 || type > 9) {
+                type -= FIRST_WAND;
+                if (type < 0 || type > MAX_ZT) {
                     impossible("explode: wand has bad zap type (%d).", type);
                     type = 0;
                 }
@@ -148,7 +148,7 @@ int expltype;
         /* If str is e.g. "flaming sphere's explosion" from above, we want to
          * still assign adtyp appropriately, but not replace str. */
         const char *adstr = NULL;
-        switch (abs(type) % 10) {
+        switch (BASE_ZT(abs(type))) {
         case 0:
             adstr = (olet == SPIRIT_CLASS) ? "soul blast" : "magical blast";
             adtyp = AD_MAGM;
@@ -934,9 +934,7 @@ boolean diluted_oil;
 {
     int dmg = d(diluted_oil ? 3 : 4, 4);
 
-/* ZT_SPELL(ZT_FIRE) = ZT_SPELL(AD_FIRE-1) = 10+(2-1) = 11 */
-#define ZT_SPELL_O_FIRE 11 /* value kludge, see zap.c */
-    explode(x, y, ZT_SPELL_O_FIRE, dmg, BURNING_OIL, EXPL_FIERY);
+    explode(x, y, ZT_SPELL(ZT_FIRE), dmg, BURNING_OIL, EXPL_FIERY);
 }
 
 /* lit potion of oil is exploding; extinguish it as a light source before
@@ -1011,12 +1009,12 @@ struct attack *mattk;
 
     if (mattk->adtyp == AD_PHYS) {
         type = PHYS_EXPL_TYPE;
-    } else if (mattk->adtyp >= AD_MAGM && mattk->adtyp <= AD_PSYC) {
-        /* The -1, +20, *-1 math is to set it up as a 'monster breath' type for
-         * the explosions (it isn't, but this is the closest analogue). */
-        type = -((mattk->adtyp - 1) + 20);
+    } else if (mattk->adtyp >= AD_MAGM && mattk->adtyp <= AD_WATR) {
+        /* Set it up as a 'monster breath' type for the explosions (it isn't,
+         * but this is the closest analogue). */
+        type = -(ZT_BREATH(mattk->adtyp - 1));
     } else {
-        impossible("unknown type for mon_explode %d", mattk->adtyp);
+        impossible("unknown type for mon_explodes %d", mattk->adtyp);
         return;
     }
 

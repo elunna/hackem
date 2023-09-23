@@ -38,49 +38,45 @@ STATIC_DCL void FDECL(destroy_one_item, (struct obj *, int, int));
 STATIC_DCL void FDECL(wishcmdassist, (int));
 STATIC_DCL boolean elemental_shift(struct monst *, int);
 
-#define ZT_MAGIC_MISSILE (AD_MAGM - 1)
-#define ZT_FIRE (AD_FIRE - 1)
-#define ZT_COLD (AD_COLD - 1)
-#define ZT_SLEEP (AD_SLEE - 1)
-#define ZT_DEATH (AD_DISN - 1) /* or disintegration */
-#define ZT_LIGHTNING (AD_ELEC - 1)
-#define ZT_POISON_GAS (AD_DRST - 1)
-#define ZT_ACID (AD_ACID - 1)
-#define ZT_SONIC (AD_LOUD - 1)
-#define ZT_WATER (AD_WATR - 1)
-#define ZT_PSYCHIC (AD_PSYC - 1)
-
-#define ZT_FIRST                (ZT_MAGIC_MISSILE)
-#define ZT_LAST                 (ZT_PSYCHIC) /*For checking of spells of a type*/
-
-#define ZT_WAND(x) (x)
-#define ZT_SPELL(x) (10 + (x))
-#define ZT_BREATH(x) (20 + (x))
-#define ZT_MONWAND(x)   (-(30+(x)))
-
-#define is_hero_spell(type) ((type) >= 10 && (type) < 20)
+#define is_hero_spell(type) ((type) >= MAX_ZT && (type) < (MAX_ZT * 2))
 
 STATIC_VAR const char are_blinded_by_the_flash[] =
     "are blinded by the flash!";
 
 const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
     {
-        "magic missile", /* Wands must be 0-9 */
-        "bolt of fire", "bolt of cold", "sleep ray", "death ray",
-        "bolt of lightning", "poison gas", "acid stream", 
-        "sonic beam", "water stream",
+        "magic missile",        /*ZT_MAGIC_MISSILE*/
+        "bolt of fire",         /*ZT_FIRE*/
+        "bolt of cold",         /*ZT_COLD*/
+        "sleep ray",            /*ZT_SLEEP*/
+        "death ray",            /*ZT_DEATH*/
+        "bolt of lightning",    /*ZT_LIGHTNING*/
+        "poison gas",           /*ZT_POISON_GAS*/
+        "acid stream",          /*ZT_ACID*/
+        "sonic beam",           /*ZT_SONIC*/
+        "water stream",         /*ZT_WATER*/
 
-        "magic missile", /* Spell equivalents must be 10-19 */
-        "fireball", "cone of cold", "sleep ray", "finger of death",
-        "bolt of lightning", 
-        "blast of poison gas", "blast of acid",
-        "sonic beam",  "water stream",
+        "magic missile",
+        "fireball",
+        "cone of cold",
+        "sleep ray",
+        "finger of death",
+        "bolt of lightning",
+        "blast of poison gas",
+        "blast of acid",
+        "sonic beam",
+        "water stream",
 
-        "blast of missiles", /* Dragon breath equivalents 20-29*/
-        "blast of fire", "blast of frost", "blast of sleep gas",
-        "blast of disintegration", "blast of lightning",
-        "blast of poison gas",  "blast of acid", 
-        "blast of sound", "blast of water"
+        "blast of missiles",
+        "blast of fire",
+        "blast of frost",
+        "blast of sleep gas",
+        "blast of disintegration",
+        "blast of lightning",
+        "blast of poison gas",
+        "blast of acid",
+        "blast of sound",
+        "blast of water",
     };
 
 /*
@@ -2877,7 +2873,8 @@ boolean ordinary;
         break;
     case SPE_FIREBALL:
         You("explode a fireball on top of yourself!");
-        explode(u.ux, u.uy, 11, d(6, 6), WAND_CLASS, EXPL_FIERY);
+        explode(u.ux, u.uy, ZT_SPELL(ZT_FIRE), d(6, 6), WAND_CLASS,
+                EXPL_FIERY);
         break;
     case WAN_FIRE:
     case SPE_FIRE_BOLT:
@@ -3365,7 +3362,7 @@ void
 ubreatheu(mattk)
 struct attack *mattk;
 {
-    int dtyp = 20 + mattk->adtyp - 1;      /* breath by hero */
+    int dtyp = ZT_BREATH(AD_to_ZT(mattk->adtyp));      /* breath by hero */
     const char *fltxt = flash_types[dtyp]; /* blast of <something> */
 
     zhitu(dtyp, mattk->damn, fltxt, u.ux, u.uy);
@@ -4074,12 +4071,12 @@ struct obj *obj;
 
         if (otyp == WAN_DIGGING || otyp == SPE_DIG)
             zap_dig();
-        else if (otyp >= SPE_MAGIC_MISSILE && otyp <= SPE_SONICBOOM)
-            buzz(otyp - SPE_MAGIC_MISSILE + 10, u.ulevel / 2 + 1, u.ux, u.uy,
-                 u.dx, u.dy);
-        else if (otyp >= WAN_MAGIC_MISSILE && otyp <= WAN_DELUGE)
-            buzz(otyp - WAN_MAGIC_MISSILE,
-                 (otyp == WAN_MAGIC_MISSILE) ? 2 : 6, u.ux, u.uy, u.dx, u.dy);
+        else if (otyp >= FIRST_SPELLBOOK && otyp <= LAST_SPELLBOOK)
+            buzz(ZT_SPELL(otyp - FIRST_SPELLBOOK), u.ulevel / 2 + 1,
+                 u.ux, u.uy, u.dx, u.dy);
+        else if (otyp >= FIRST_WAND && otyp <= LAST_WAND)
+            buzz(otyp - FIRST_WAND,
+                 (otyp == FIRST_WAND) ? 2 : 6, u.ux, u.uy, u.dx, u.dy);
         else
             impossible("weffects: unexpected spell or wand");
         disclose = TRUE;
@@ -4245,7 +4242,7 @@ struct obj *otmp;
         } else if (is_magical_trap(ttmp->ttyp)) {
             if (!Deaf)
                 pline("Kaboom!");
-            explode(x, y, AD_MAGM - 1,
+            explode(x, y, ZT_MAGIC_MISSILE,
                     20 + d(3 ,6), TRAP_EXPLODE, EXPL_MAGICAL);
             deltrap(ttmp);
             newsym(x, y);
@@ -4847,12 +4844,12 @@ register int type, nd;
 struct obj **ootmp; /* to return worn armor for caller to disintegrate */
 {
     register int tmp = 0;
-    register int abstype = abs(type) % 10;
+    register int abstype = BASE_ZT(abs(type));
     boolean sho_shieldeff = FALSE;
     boolean spellcaster = is_hero_spell(type); /* maybe get a bonus! */
 
     *ootmp = (struct obj *) 0;
-    switch (abstype) {
+    switch (BASE_ZT(abstype)) {
     case ZT_MAGIC_MISSILE:
         tmp = d(nd, 6);
         if (spellcaster)
@@ -5064,9 +5061,10 @@ int type, nd;
 const char *fltxt;
 xchar sx, sy;
 {
-    int dam = 0, abstyp = abs(type);
-
-    switch (abstyp % 10) {
+    int dam = 0;
+    register int abstype = BASE_ZT(abs(type));
+    
+    switch (abstype) {
     case ZT_MAGIC_MISSILE:
         dam = d(nd, 6);
         exercise(A_STR, FALSE);
@@ -5132,7 +5130,7 @@ xchar sx, sy;
         }
         break;
     case ZT_DEATH:
-        if (abstyp == ZT_BREATH(ZT_DEATH)) {
+        if (abs(type) == ZT_BREATH(ZT_DEATH)) {
             if (how_resistant(DISINT_RES) == 100) {
                 You("are not disintegrated.");
                 monstseesu(M_SEEN_DISINT);
@@ -5318,7 +5316,7 @@ xchar sx, sy;
 
     /* Half_spell_damage protection yields half-damage for wands & spells,
        including hero's own ricochets; breath attacks do full damage */
-    if (dam && Half_spell_damage && !(abstyp >= 20 && abstyp <= 29))
+    if (dam && Half_spell_damage && abstype >= 0 && abstype <= ZT_BREATH(MAX_ZT))
         dam = (dam + 1) / 2;
     losehp(dam, fltxt, KILLED_BY_AN);
     return;
@@ -5550,7 +5548,7 @@ register xchar sx, sy;
 register int dx, dy;
 boolean say; /* Announce out of sight hit/miss events if true */
 {
-    int range, abstype = abs(type) % 10;
+    int range, abstype = BASE_ZT(abs(type));
     register xchar lsx, lsy;
     struct monst *mon;
     coord save_bhitpos;
@@ -5558,12 +5556,12 @@ boolean say; /* Announce out of sight hit/miss events if true */
     const char *fltxt;
     struct obj *otmp;
     int spell_type;
-    boolean is_wand = (type >= 0 && type <= 10);
+    boolean is_wand = (type >= 0 && type <= MAX_ZT);
     
-    /* if its a Hero Spell then get its SPE_TYPE */
-    spell_type = is_hero_spell(type) ? SPE_MAGIC_MISSILE + abstype : 0;
+    /* if it's a Hero Spell then get its SPE_TYPE */
+    spell_type = is_hero_spell(type) ? FIRST_SPELLBOOK + abstype : 0;
     
-    fltxt = flash_types[(type <= -30) ? abstype : abs(type)];
+    fltxt = flash_types[(type <= ZT_MONWAND(0)) ? abstype : abs(type)];
     if (u.uswallow) {
         register int tmp;
 
@@ -5696,7 +5694,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
                                if it's fire, highly flammable monsters leave
                                no corpse; don't bother reporting that they
                                "burn completely" -- unnecessary verbosity */
-                            if ((type % 10 == ZT_FIRE)
+                            if ((BASE_ZT(type) == ZT_FIRE)
                                 /* paper golem or straw golem */
                                 && completelyburns(mon->data))
                                 xkflags |= XKILL_NOCORPSE;
@@ -6047,7 +6045,7 @@ boolean moncast;
     struct trap *t;
     struct rm *lev = &levl[x][y];
     boolean see_it = cansee(x, y), yourzap;
-    int rangemod = 0, abstype = abs(type) % 10;
+    int rangemod = 0, abstype = BASE_ZT(abs(type));
 
     if (type == PHYS_EXPL_TYPE) {
         /* this won't have any effect on the floor */
@@ -6275,7 +6273,7 @@ boolean moncast;
             if (see_it)
                 pline_The("rust trap explodes in an alchemic blast!");
             rangemod -= 1;
-            explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
+            explode(x, y, ZT_MAGIC_MISSILE, d(6, 6), WAND_CLASS, EXPL_ACID);
             disarm_rust_trap(t, FALSE, TRUE);
         }
         else if (lev->typ == TREE) {
@@ -6306,19 +6304,19 @@ boolean moncast;
             /* Might make more sense to have this be an acidic blast, 
              * but that results in problems with infinite explosions, 
              * and we can't control if dryup actually dries up the fountain */
-            explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
+            explode(x, y, ZT_MAGIC_MISSILE, d(6, 6), WAND_CLASS, EXPL_ACID);
             dryup(x, y, type > 0);
         } else if (IS_TOILET(lev->typ)) {
             if (see_it)
                 pline_The("toilet explodes in an alchemic blast!");
             rangemod -= 1;
-            explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
+            explode(x, y, ZT_MAGIC_MISSILE, d(6, 6), WAND_CLASS, EXPL_ACID);
             breaktoilet(x, y);
         } else if (IS_SINK(lev->typ)) {
             if (see_it)
                 pline_The("sink explodes in an alchemic blast!");
             rangemod -= 1;
-            explode(x, y, AD_MAGM - 1, d(6, 6), WAND_CLASS, EXPL_ACID);
+            explode(x, y, ZT_MAGIC_MISSILE, d(6, 6), WAND_CLASS, EXPL_ACID);
             breaksink(x, y);
         } else if (IS_GRASS(lev->typ)) {
             lev->typ = ROOM;

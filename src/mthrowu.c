@@ -198,7 +198,6 @@ int x, y;
     }
     
     /* D: Detonate crossbow bolts from Hellfire if they hit */
-#define ZT_FIRE (10 + (AD_FIRE - 1))
     if (ohit && mwep && mwep->oartifact == ART_HELLFIRE
         && is_ammo(obj) && ammo_and_launcher(obj, mwep)) {
         if (cansee(bhitpos.x, bhitpos.y))
@@ -206,7 +205,7 @@ int x, y;
         else
             You_hear("an explosion");
 
-        explode(bhitpos.x, bhitpos.y, -ZT_FIRE, d(2, 6), WEAPON_CLASS,
+        explode(bhitpos.x, bhitpos.y, -ZT_SPELL(ZT_FIRE), d(2, 6), WEAPON_CLASS,
                 EXPL_FIERY);
 
         /* D: Exploding bolts will be destroyed */
@@ -1186,7 +1185,7 @@ struct attack  *mattk;
             if ((typ >= AD_MAGM) && (typ <= AD_WATR)) {
                 if (canseemon(mtmp))
                     pline("%s breathes %s!", Monnam(mtmp), breathwep[typ - 1]);
-                dobuzz((int) (-20 - (typ - 1)), (int) mattk->damn,
+                dobuzz((int) -ZT_BREATH(typ - 1), (int) mattk->damn,
                        mtmp->mx, mtmp->my, sgn(tbx), sgn(tby), FALSE);
                 nomul(0);
                 /* breath runs out sometimes. Also, give monster some
@@ -1423,7 +1422,7 @@ breamu(mtmp, mattk)
 struct monst *mtmp;
 struct attack *mattk;
 {
-    /* if new breath types are added, change AD_ACID to max type */
+    /* if new breath types are added, change max type */
     int typ = (mattk->adtyp == AD_RBRE) ? rnd(AD_WATR) : mattk->adtyp;
 
     if (lined_up(mtmp)) {
@@ -1441,7 +1440,7 @@ struct attack *mattk;
                 if (canseemon(mtmp))
                     pline("%s breathes %s!", Monnam(mtmp),
                           breathwep[typ - 1]);
-                buzz((int) (-20 - (typ - 1)), (int) mattk->damn, mtmp->mx,
+                buzz((int) -ZT_BREATH(typ - 1), (int) mattk->damn, mtmp->mx,
                      mtmp->my, sgn(tbx), sgn(tby));
                 nomul(0);
                 /* breath runs out sometimes. Also, give monster some

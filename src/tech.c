@@ -3018,7 +3018,7 @@ tech_liquidleap()
             Invulnerable = tmp_invul = 1;
          sx += dx;
          sy += dy;
-         tmp_at(DISP_BEAM, zapdir_to_glyph(dx, dy, AD_ACID - 1));
+         tmp_at(DISP_BEAM, zapdir_to_glyph(dx, dy, ZT_ACID));
          tmp_at(sx, sy);
          delay_output(); /* wait a little */
          if ((mtmp = m_at(sx, sy)) != 0) {
@@ -3042,7 +3042,7 @@ tech_liquidleap()
          }
 
          /* Interact with dungeon features */
-         zap_over_floor(sx, sy, (AD_ACID - 1), &shopdamage, 0, FALSE);
+         zap_over_floor(sx, sy, ZT_ACID, &shopdamage, 0, FALSE);
          
          /* A little Sokoban guilt... */
          if (In_sokoban(&u.uz)) {

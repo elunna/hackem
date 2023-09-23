@@ -1288,7 +1288,7 @@ boolean wiz_cast;
                         }
                     } else {
                         explode(u.dx, u.dy,
-                                otyp - SPE_MAGIC_MISSILE + 10,
+                                ZT_SPELL(otyp - FIRST_SPELLBOOK),
                                 spell_damage_bonus(u.ulevel / 2 + 1), 0,
                                 (otyp == SPE_CONE_OF_COLD) ?
                                    EXPL_FROSTY :
@@ -1308,6 +1308,7 @@ boolean wiz_cast;
                         u.dx = cc.x;
                         u.dy = cc.y;
                     }
+
                 }
             }
             break;
