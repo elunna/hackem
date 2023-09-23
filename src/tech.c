@@ -780,25 +780,35 @@ ma_break(VOID_ARGS)
 {
     struct obj *bobj, *obj;
     int prob;
-
+    boolean forcegloves = (uarmg && uarmg->otyp == GAUNTLETS_OF_FORCE);
+    
     if (distu(dpx, dpy) > 2) {
         Your("qi dissipates in all directions.");
         make_confused(6 + breakturns * P_SKILL(P_MARTIAL_ARTS), FALSE);
         return 0;
     }
 
-    if (breakturns < 40 / P_SKILL(P_MARTIAL_ARTS)) {
+    if (!forcegloves)
+        ; /* Go for it */
+    else if (breakturns < 40 / P_SKILL(P_MARTIAL_ARTS)) {
         breakturns++;
         return 1; /* still concentrating */
     }
-
-    if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0)
-        pline("Focusing your qi, you %s the boulder.",
-              rn2(2) ? "strike" : "hit");
-    else if ((obj = sobj_at(STATUE, dpx, dpy)) !=0)
-        pline("Focusing your qi, you %s the statue.",
-              rn2(2) ? "strike" : "hit");
-
+    
+    if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0) {
+        if (forcegloves)
+            pline("You smash the boulder!");
+        else
+            pline("Focusing your qi, you %s the boulder.",
+                  rn2(2) ? "strike" : "hit");
+    } else if ((obj = sobj_at(STATUE, dpx, dpy)) != 0) {
+        if (forcegloves)
+            pline("You smash the statue!");
+        else
+            pline("Focusing your qi, you %s the statue.",
+                  rn2(2) ? "strike" : "hit");
+    }
+    
     /* even while blind you can first feel and then image the boulder */
     if (Confusion || Hallucination || Stunned) {
         if ((obj = sobj_at(BOULDER, dpx, dpy)) != 0) {
@@ -842,6 +852,9 @@ ma_break(VOID_ARGS)
         case GAUNTLETS_OF_FUMBLING:
             prob *= 4;
             break;
+        case GAUNTLETS_OF_FORCE:
+            prob = 0;
+            break;
         default:
             break;
         }
@@ -878,6 +891,8 @@ ma_break(VOID_ARGS)
             use_skill(P_MARTIAL_ARTS, 1);
         }
     }
+    if (forcegloves)
+        makeknown_msg(uarmg->otyp);
     return 0; /* done */
 }
 
@@ -885,7 +900,9 @@ int
 do_breakrock(x, y)
 int x, y;
 {
-    if (P_SKILL(P_MARTIAL_ARTS) < P_SKILLED) {
+    boolean forcegloves = (uarmg && uarmg->otyp == GAUNTLETS_OF_FORCE);
+    
+    if (P_SKILL(P_MARTIAL_ARTS) < P_SKILLED && !forcegloves) {
         You("lack the necessary training to focus your qi.");
         return 0;
     } else {
