@@ -4271,7 +4271,7 @@ int how;
         spore_dies(mdef);
     }
     if (mdef->data == &mons[PM_SKUNK]) {
-        create_gas_cloud(mdef->mx, mdef->my, rn1(2, 2), rnd(8));
+        create_gas_cloud(mdef->mx, mdef->my, 1, rn1(8, 4));
     }
     if (be_sad && DEADMONSTER(mdef)) {
         if (kenny || (Hallucination && !rn2(4))) {
