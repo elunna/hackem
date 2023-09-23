@@ -1045,22 +1045,27 @@ STATIC_OVL void
 savelife(how)
 int how;
 {
-    int uhpmin;
+    int uhpmin = max(2 * u.ulevel, 10);
 
-    /* life-drain/level-loss to experience level 0 kills without actually
-       reducing ulevel below 1, but include this for bulletproofing */
-    if (u.ulevel < 1) {
-        u.ulevel = 1;
-        adjabil(0, 1); /* since level-draining would have lost them */
+    if (Upolyd) {
+        if (Unchanging) {
+            if (u.mhmax < uhpmin)
+                u.mhmax = uhpmin;
+            u.mh = u.mhmax;
+        } else {
+            rehumanize();
+        }
+    } else {
+        if (u.uhpmax < uhpmin)
+            u.uhpmax = uhpmin;
+        u.uhp = u.uhpmax;
     }
-    uhpmin = max(2 * u.ulevel, 10);
+
     if (u.uhpmax < uhpmin)
         u.uhpmax = uhpmin;
-    u.uhp = min(u.uhpmax, 150);
-
+    u.uhp = u.uhpmax;
     if (Upolyd) /* Unchanging, or death which bypasses losing hit points */
-        u.mh = min(u.mhmax, 150);
-
+        u.mh = u.mhmax;
     if (u.uhunger < 500 || how == CHOKING) {
         init_uhunger();
     }
