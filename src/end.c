@@ -475,7 +475,7 @@ int how;
         || (mon_nm == PM_REVENANT && !rn2(8))
         || (mon_nm == PM_SPECTRE && !rn2(16))
         || (mons[mon_nm].mlet == S_MUMMY && !rn2(8))
-        || (mons[mon_nm].mlet == S_ZOMBIE && !rn2(8))) {
+        || (mons[mon_nm].mlet == S_ZOMBIE && !rn2(6))) {
         u.ugrave_arise = NON_PM;
 
         if (mon_nm != PM_GREEN_SLIME) {
