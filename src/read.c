@@ -2238,16 +2238,18 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         break;
     case SCR_GOLD_DETECTION: {
         boolean failure;
+        if (!sobj)
+            break;
         if (confused || scursed) {
             failure = trap_detect(sobj, TRUE) != 0;
         } else {
             failure = gold_detect(sobj) != 0;
-            if (sobj->blessed && (object_detect(sobj, GEM_CLASS) == 0))
+            if (!failure && sobj && sobj->blessed 
+                  && (object_detect(sobj, GEM_CLASS) == 0))
                 failure = FALSE;
         }
         if (failure) {
             sobj = 0; /* failure: strange_feeling() -> useup() */
-            useup(sobj);
         }
         break;
     }
