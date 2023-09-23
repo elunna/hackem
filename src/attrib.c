@@ -211,6 +211,7 @@ static const struct innate {
                    { 0, 0, 0, 0 } },
   
   dop_abil[] = { /* {   1, &(HPolymorph), "", "" },*/
+                 { 1, &(HAcid_resistance), "", "" },
                  { 25, &(HPolymorph_control), "your choices improve", "choiceless" },
                  { 0, 0, 0, 0 } },
   
