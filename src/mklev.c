@@ -793,7 +793,7 @@ place_axe()
         }
     }
 
-    if (trees > 0) {
+    if (trees > 0 && !rn2(4)) {
         if (!rnf(ilog2(trees), trees)) {
             int trycount = 0;
             do {
