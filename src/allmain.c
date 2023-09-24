@@ -666,6 +666,9 @@ boolean resuming;
                        monsters that they are against hostile should they
                        be tame or peaceful */
                     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                        if (!(mtmp->mcansee && m_canseeu(mtmp)))
+                            continue;
+
                         if ((wielding_artifact(ART_DRAGONBANE)
                              && is_dragon(mtmp->data))
                             || (wielding_artifact(ART_DEATHSWORD)
@@ -699,8 +702,16 @@ boolean resuming;
                                 && is_angel(mtmp->data))
                             || (wielding_artifact(ART_VORPAL_BLADE)
                                 && is_jabberwock(mtmp->data))) {
-                            if (mtmp->mpeaceful || mtmp->mtame)
+
+                            boolean is_shkp = has_eshk(mtmp) && inhishop(mtmp);
+                            /* Shopkeepers will get angry but just ban you, to
+                             * avoid cheap early Sting deaths */
+                            if (is_shkp)
+                                ESHK(mtmp)->pbanned = TRUE;
+                            else if (mtmp->mpeaceful || mtmp->mtame) {
                                 mtmp->mpeaceful = mtmp->mtame = 0;
+                                setmangry(mtmp, FALSE);
+                            }
                         }
                     }
                 }
