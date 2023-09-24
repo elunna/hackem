@@ -2030,8 +2030,11 @@ register struct trobj *origtrop;
                        && (otyp == RIN_FIRE_RESISTANCE 
                            || otyp == RIN_COLD_RESISTANCE))
 
-                   /* Necromancers start with drain res */
-                   || (otyp == AMULET_OF_DRAIN_RESISTANCE && Role_if(PM_NECROMANCER))
+                   /* Necromancers/vampirics start with drain res */
+                   || (otyp == AMULET_OF_DRAIN_RESISTANCE
+                        && (Role_if(PM_NECROMANCER) || Race_if(PM_VAMPIRIC)))
+                   /* vampirics start with regeneration */
+                   || (otyp == RIN_REGENERATION && Race_if(PM_VAMPIRIC))
                    /* orcs start with poison resistance */
                    || (otyp == RIN_POISON_RESISTANCE && Race_if(PM_ORC))
                    /* Monks don't use weapons */
