@@ -1636,6 +1636,11 @@ char *usr_text;
                 OBJPUTSTR(buf);
             }
         }
+        /* Kludge for some eyewear. Otherwise we need to add a property field to TOOL which seems like overkill. */
+        if (otyp == LENSES)
+            OBJPUTSTR("Confers searching.");
+        else if (otyp == GOGGLES)
+            OBJPUTSTR("Confers underwater vision.");
     }
 
     /* MISC PROPERTIES */
