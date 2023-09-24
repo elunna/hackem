@@ -2037,7 +2037,8 @@ register struct trobj *origtrop;
                    /* vampirics start with regeneration */
                    || (otyp == RIN_REGENERATION && Race_if(PM_VAMPIRIC))
                    /* orcs start with poison resistance */
-                   || (otyp == RIN_POISON_RESISTANCE && Race_if(PM_ORC))
+                   || (otyp == RIN_POISON_RESISTANCE 
+                        && (Race_if(PM_ORC) || Race_if(PM_VAMPIRIC)))
                    /* Monks don't use weapons */
                    || (otyp == SCR_ENCHANT_WEAPON && Role_if(PM_MONK))
                    /* wizard patch -- they already have one */
