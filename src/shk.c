@@ -4626,7 +4626,7 @@ struct monst *shkp;
         return 0;
 
     if (not_fully_identified(uwep)) {
-        pline("%s examines %s.", mon_nam(shkp), doname(uwep));
+        pline("%s examines %s.", mon_nam(shkp), OBJ_DESCR(objects[uwep->otyp]));
         if (rnd(15) <= ACURR(A_INT)) {
             makeknown(uwep->otyp);
             uwep->known = TRUE;
@@ -4636,7 +4636,7 @@ struct monst *shkp;
             pline("Unfortunately, nothing new turns up.");
     }
     
-    pline("%s trains you intensely in the way of %s.", doname(uwep), mon_nam(shkp));
+    pline("%s trains you intensely in the way of firearms.", mon_nam(shkp));
     use_skill(weptype, required);
     return 1;
 }
