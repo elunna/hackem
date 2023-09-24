@@ -1570,12 +1570,6 @@ register struct obj *obj;
         if (obj->spe)
             find_ac(); /* updates botl */
         break;
-    case RIN_PSYCHIC_RESISTANCE:
-        if (Afraid) {
-            make_afraid(0L, TRUE);
-            context.botl = TRUE;
-        }
-        break;
     case RIN_DISPLACEMENT:
         toggle_displacement(obj, oldprop, TRUE);
         break;
@@ -1617,7 +1611,6 @@ boolean gone;
     case RIN_SLOW_DIGESTION:
     case RIN_SUSTAIN_ABILITY:
     case MEAT_RING:
-    case RIN_PSYCHIC_RESISTANCE:
     case RIN_SONIC_RESISTANCE:
         break;
     case RIN_SLEEPING:

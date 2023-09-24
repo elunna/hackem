@@ -815,7 +815,6 @@ boolean racialexception;
                     && obj->otyp != RIN_POISON_RESISTANCE
                     && obj->otyp != RIN_SHOCK_RESISTANCE
                     && obj->otyp != RIN_SONIC_RESISTANCE
-                    && obj->otyp != RIN_PSYCHIC_RESISTANCE
                     && obj->otyp != RIN_REGENERATION
                     && obj->otyp != RIN_TELEPORTATION
                     && obj->otyp != RIN_TELEPORT_CONTROL

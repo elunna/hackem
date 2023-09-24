@@ -745,9 +745,6 @@ register struct obj *obj;
             pline_The(
                   "sink momentarily looks like a regularly erupting geyser.");
             break;
-        case RIN_PSYCHIC_RESISTANCE:
-            pline_The("sink glows purple for a moment.");
-            break;
         case RIN_SONIC_RESISTANCE:
             pline_The("ring silently bounces down the drain.");
             break;

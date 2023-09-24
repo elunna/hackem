@@ -731,7 +731,6 @@ RING("warning", "diamond",                       WARNING,                  100, 
 RING("poison resistance", "pearl",               POISON_RES,               150, 1, 1, 0,  4, BONE, CLR_WHITE),
 RING("fire resistance", "iron",                  FIRE_RES,                 200, 1, 1, 0,  5, IRON, HI_METAL),
 RING("cold resistance", "brass",                 COLD_RES,                 150, 1, 1, 0,  4, COPPER, HI_COPPER),
-RING("psychic resistance", "crystal",            PSYCHIC_RES,              150, 1, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
 RING("sonic resistance",   "embossed",           SONIC_RES,                150, 1, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
 RING("shock resistance", "copper",               SHOCK_RES,                150, 1, 1, 0,  3, COPPER, HI_COPPER),
 RING("free action", "twisted",                   FREE_ACTION,              200, 1, 1, 0,  6, METAL, HI_METAL),
