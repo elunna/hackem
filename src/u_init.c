@@ -2019,6 +2019,7 @@ register struct trobj *origtrop;
                    || otyp == SCR_AMNESIA
                    || otyp == SCR_FLOOD
                    || otyp == SCR_FIRE
+                   || otyp == SCR_ICE
                    || otyp == SCR_BLANK_PAPER
                    || otyp == SPE_BLANK_PAPER
                    || otyp == RIN_AGGRAVATE_MONSTER
