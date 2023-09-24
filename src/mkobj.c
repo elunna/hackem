@@ -3743,6 +3743,8 @@ struct obj* obj;
         case BULLET:
         case SHOTGUN_SHELL:
             return sling_bullet_materials;
+        case SABER:
+            return shiny_materials;
         default:
             break;
     }

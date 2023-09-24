@@ -227,7 +227,7 @@ WEAPON("falchion", "heavy sword",                              /* SpliceHack */
 WEAPON("orcish scimitar", "crude curved sword",
        0, 0, 0, 0, 15,  40,  15,  6,  8, 0, S,   P_SABER, IRON, CLR_BLACK),
 WEAPON("saber", None,
-       1, 0, 0, 0,  6,  40,  75,  8,  8, 0, S,   P_SABER, IRON, HI_METAL),
+       1, 0, 0, 0,  6,  40,  75,  8,  8, 0, S,   P_SABER, SILVER, HI_METAL),
 WEAPON("rapier", None,                                           /* Slash'EM */
        1, 0, 0,  0, 10,  30,  40,  6,  8,  0, P,  P_SABER, METAL, CLR_BLACK),
 WEAPON("broadsword", None,
