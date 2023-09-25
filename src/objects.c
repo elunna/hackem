@@ -816,14 +816,13 @@ OBJECT(OBJ("Amulet of Yendor", /* note: description == name */
            BITS(kn, 0, chg, 1, mgc, chg, 0, 0, 0, 0, 0, P_NONE, mat),   \
            0, TOOL_CLASS, prob, 0, wt, cost, 0, 0, 0, 0, wt, color)
 
-           
 /* containers */
 CONTAINER("large box",        None, 1, 0, 0, 40, 350,   8, WOOD, HI_WOOD),
 CONTAINER("chest",            None, 1, 0, 0, 25, 600,  16, WOOD, HI_WOOD),
 CONTAINER("iron safe",        None, 1, 0, 0, 10, 900,  50, IRON, HI_METAL),  /* EvilHack/Un */
 CONTAINER("crystal chest",    None, 1, 1, 0,  1, 500,  20, GEMSTONE, CLR_WHITE), /* EvilHack */
 CONTAINER("ice box",          None, 1, 0, 0,  5, 900,  42, PLASTIC, CLR_WHITE),
-CONTAINER("medical kit","white bag",0, 0, 0, 10,  25, 500, LEATHER, HI_LEATHER),
+CONTAINER("medical kit",     "bag", 0, 0, 0, 10,   5, 500, LEATHER, HI_LEATHER),
 CONTAINER("sack",            "bag", 0, 0, 0, 35,  15,   2, CLOTH, HI_CLOTH),
 CONTAINER("oilskin sack",    "bag", 0, 0, 0,  5,  15, 100, CLOTH, HI_CLOTH),
 CONTAINER("bag of holding",  "bag", 0, 1, 0, 20,  15, 100, CLOTH, HI_CLOTH),

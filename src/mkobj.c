@@ -336,7 +336,15 @@ struct obj *box;
     for (n = tries; n > 0; n--) {
         if (box->otyp == MEDICAL_KIT) {
             int supplies[] = { PHIAL, BANDAGE, PILL };
-            if (!(otmp = mksobj(supplies[rn2(SIZE(supplies))], TRUE, TRUE)))
+            int newitem = supplies[rn2(SIZE(supplies))];
+            
+            /* Avoid giving players useless items */
+            if (Race_if(PM_VAMPIRIC) && newitem != PHIAL)
+                continue;
+            if (!Race_if(PM_VAMPIRIC) && newitem == PHIAL)
+                continue;
+            
+            if (!(otmp = mksobj(newitem, TRUE, TRUE)))
                 continue;
         } else if (box->otyp == ICE_BOX) {
             otmp = mksobj(CORPSE, TRUE, FALSE);

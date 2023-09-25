@@ -341,6 +341,8 @@ struct trobj Gem[] = { { UNDEF_TYP, 0, GEM_CLASS, 1, 0 },
                               { 0, 0, 0, 0, 0 } };
 struct trobj Tinningkit[] = { { TINNING_KIT, UNDEF_SPE, TOOL_CLASS, 1, 0 },
                                      { 0, 0, 0, 0, 0 } };
+struct trobj MedicalKit[] = { { MEDICAL_KIT, UNDEF_SPE, TOOL_CLASS, 1, 0 },
+                              { 0, 0, 0, 0, 0 } };
 struct trobj Pickaxe[] = { { PICK_AXE, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
 struct trobj Stake[] = { { STAKE, 0, WEAPON_CLASS, 1, 0 },
@@ -1614,6 +1616,9 @@ u_init()
         change_luck(-1);
         knows_object(POT_VAMPIRE_BLOOD);
         knows_object(POT_BLOOD);
+
+        if (!Role_if(PM_HEALER))
+            ini_inv(MedicalKit);
         break;
 
     case PM_DOPPELGANGER:
