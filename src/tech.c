@@ -1166,9 +1166,7 @@ int tech_no;
                 t_timeout = rn1(250, 250);
             break;
         case T_DRAW_BLOOD:
-            res = tech_drawblood();
-            if (res)
-                t_timeout = rn1(500, 500);
+            res = tech_drawblood(); /* No timeout */
             break;
         case T_JEDI_JUMP:
             res = tech_jedijump();
