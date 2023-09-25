@@ -1194,12 +1194,12 @@ unsigned trflags;
         seetrap(trap);
         if (isok(trap->launch.x, trap->launch.y)
             && IS_STWALL(levl[trap->launch.x][trap->launch.y].typ)) {
-            
+            trap->once = 1; /* Set before dobuzz because a fire ray can
+                             * destroy a magic beam trap on top of ice. */
             dobuzz(randomray(), 8,
                    trap->launch.x, trap->launch.y,
                    sgn(trap->tx - trap->launch.x),
                    sgn(trap->ty - trap->launch.y), FALSE);
-            trap->once = 1;
         } else {
             deltrap(trap);
             newsym(u.ux, u.uy);
