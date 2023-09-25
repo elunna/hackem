@@ -202,7 +202,6 @@ struct obj *otmp;
         learn_it = TRUE;
         break;
     case SPE_FIRE_BOLT:
-        /* New special spell just for Flame Mages */
         zap_type_text = "fire bolt";
         dmg = 0;
         reveal_invis = TRUE;
@@ -236,19 +235,22 @@ struct obj *otmp;
                 xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
             } else if (!resist(mtmp, otmp->oclass, dmg, NOTELL)
                      && !DEADMONSTER(mtmp)) {
-                /* Damage scales with level */
                 dmg = d(1, 10);      /* Level 1 = 1d10 fire damage */
-                if (u.ulevel >= 4)
-                    dmg += d(1, 8);  /* Level 4 = +1d8 */
-                if (u.ulevel >= 8)
-                    dmg += d(1, 8);  /* Level 8 = +1d8 */
-                if (u.ulevel >= 12) 
-                    dmg += d(1, 8);   /* Level 12 = +1d8 */
-                if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) {
-                    dmg += d(1, 4); /* Skilled = +1d4 */
-                }
-                if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) {
-                    dmg += d(1, 4); /* Expert = +1d4 */
+                
+                /* Flame mages are the true masters of this spell */
+                if (Role_if(PM_FLAME_MAGE)) {
+                    if (u.ulevel >= 4)
+                        dmg += d(1, 8);  /* Level 4 = +1d8 */
+                    if (u.ulevel >= 8)
+                        dmg += d(1, 8);  /* Level 8 = +1d8 */
+                    if (u.ulevel >= 12)
+                        dmg += d(1, 8);   /* Level 12 = +1d8 */
+                    if (P_SKILL(P_MATTER_SPELL) >= P_SKILLED) {
+                        dmg += d(1, 4); /* Skilled = +1d4 */
+                    }
+                    if (P_SKILL(P_MATTER_SPELL) >= P_EXPERT) {
+                        dmg += d(1, 4); /* Expert = +1d4 */
+                    }
                 }
                 if (dbldam)
                     dmg *= 2;
