@@ -217,6 +217,8 @@ struct monst *mtmp;
         || is_rider(mtmp->data)
         || mtmp->data->mlet == S_HUMAN
         || mtmp->data->mlet == S_ANGEL
+        || mtmp->data == &mons[PM_HONEY_BADGER]
+        || mtmp->data == &mons[PM_NEOTHELID]
         || unique_corpstat(mtmp->data)
         || (mtmp->isshk && inhishop(mtmp))
         || (mtmp->ispriest && inhistemple(mtmp))
@@ -261,6 +263,7 @@ struct monst *mtmp;
                  || mtmp->mpeaceful || mtmp->data->mlet == S_HUMAN
                  || mtmp->data == &mons[PM_MINOTAUR]
                  || mtmp->data == &mons[PM_ELDER_MINOTAUR]
+                 || mtmp->data == &mons[PM_GIANT_PRAYING_MANTIS]
                  || mtmp->data == &mons[PM_NEOTHELID]
                  || unique_corpstat(mtmp->data)
                  || Inhell || In_endgame(&u.uz)));
