@@ -229,7 +229,7 @@ WEAPON("orcish scimitar", "crude curved sword",
 WEAPON("saber", None,
        1, 0, 0, 0,  6,  40,  75,  8,  8, 0, S,   P_SABER, SILVER, HI_METAL),
 WEAPON("rapier", None,                                           /* Slash'EM */
-       1, 0, 0,  0, 10,  30,  40,  6,  8,  0, P,  P_SABER, METAL, CLR_BLACK),
+       1, 0, 0,  0, 10,  15,  40,  6,  8,  0, P,  P_SABER, METAL, CLR_BLACK),
 WEAPON("broadsword", None,
        1, 0, 0, 0,  8,  70,  10,  4,  6, 0, S,   P_BROAD_SWORD, IRON, HI_METAL),
         /* +d4 small, +1 large */
