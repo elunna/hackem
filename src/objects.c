@@ -306,6 +306,7 @@ WEAPON("scythe", "curved polearm",                             /* SpliceHack */
 /* bludgeons */
 WEAPON("mace", None,
        1, 0, 0, 0, 30,  30,   5,  6,  6, 0, B,   P_MACE, IRON, HI_METAL),
+        /* +1 small */
 WEAPON("heavy mace", None,                                     /* EvilHack */
        1, 0, 0, 0, 15,  50,  10, 10, 10, 0, B,   P_MACE, IRON, HI_METAL),
         /* +1 small */
