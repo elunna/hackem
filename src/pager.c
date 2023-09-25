@@ -936,9 +936,6 @@ struct permonst * pm;
         } else if (bigmonst(pm)) {
             APPENDC(TRUE, "big");
         }
-        if (has_blood(pm)) {
-            MONPUTSTR("May be drunk by vampiric monsters.");
-        }
     }
 
     /* inherent characteristics: "Monster is X." */
@@ -1024,6 +1021,9 @@ struct permonst * pm;
             MONPUTSTR("May be eaten by vegans.");
         else if (vegetarian(pm))
             MONPUTSTR("May be eaten by vegetarians.");
+    }
+    if (has_blood(pm)) {
+        MONPUTSTR("May be drunk by vampiric monsters.");
     }
     if (pm == &mons[PM_HECATONCHEIRE])
         MONPUTSTR("Attacks up to 100 times.");
