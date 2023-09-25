@@ -1850,7 +1850,7 @@ NEARDATA struct permonst mons[] = {
             | M1_NOTAKE,
         M2_HOSTILE, 0, 0, 0, 9, CLR_WHITE),
     MON("diamond piercer", S_PIERCER,                         /* SpliceHack */
-        LVL(8, 1, 0, 0, 0), (G_GENO | G_NOGEN),
+        LVL(8, 1, 0, 0, 0), (G_GENO),
         A(ATTK(AT_BITE, AD_PHYS, 8, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(400, 300, MS_SILENT, MZ_MEDIUM), MR_ACID | MR_FIRE | MR_SONIC, 0,
@@ -1858,7 +1858,7 @@ NEARDATA struct permonst mons[] = {
             | M1_NOTAKE,
         M2_HOSTILE, 0, 0, 0, 9, CLR_BLUE),
     MON("god piercer", S_PIERCER,                             /* SpliceHack */
-        LVL(20, 1, 0, 0, 3), (G_GENO | G_NOGEN),
+        LVL(20, 1, 0, 0, 3), (G_GENO),
         A(ATTK(AT_BITE, AD_PHYS, 16, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(400, 300, MS_SILENT, MZ_MEDIUM), 
