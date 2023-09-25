@@ -1856,7 +1856,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(400, 300, MS_SILENT, MZ_MEDIUM), MR_ACID | MR_FIRE | MR_SONIC, 0,
         M1_CLING | M1_HIDE | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_CARNIVORE
             | M1_NOTAKE,
-        M2_HOSTILE, 0, 0, 0, 9, CLR_BLUE),
+        M2_HOSTILE, 0, 0, 0, 12, CLR_BLUE),
     MON("god piercer", S_PIERCER,                             /* SpliceHack */
         LVL(20, 1, 0, 0, 3), (G_GENO),
         A(ATTK(AT_BITE, AD_PHYS, 16, 6), 
@@ -1865,7 +1865,7 @@ NEARDATA struct permonst mons[] = {
         MR_ACID | MR_ELEC | MR_FIRE | MR_COLD | MR_SONIC, 0,
         M1_CLING | M1_HIDE | M1_ANIMAL | M1_NOEYES | M1_NOLIMBS | M1_CARNIVORE
             | M1_NOTAKE,
-        M2_HOSTILE, 0, 0, 0, 17, CLR_BRIGHT_MAGENTA),
+        M2_HOSTILE, 0, 0, 0, 20, CLR_BRIGHT_MAGENTA),
     /*
      * quadrupeds
      */
