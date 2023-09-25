@@ -1471,6 +1471,8 @@ register struct monst *mon;
             /* already wielding it */
             if (is_lightsaber(obj))
                 mon_ignite_lightsaber(obj, mon);
+            if (obj->otyp == TORCH)
+                begin_burn(obj, FALSE);
             mon->weapon_check = NEED_WEAPON;
             return 0;
         }
