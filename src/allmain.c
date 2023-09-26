@@ -158,8 +158,8 @@ boolean resuming;
     boolean monscanmove = FALSE;
 
     /* don't make it obvious when monsters will start speeding up */
-    /*int timeout_start = rnd(10000) + 25000;*/
-    /*int past_clock;*/
+    int timeout_start = rnd(10000) + 25000;
+    int past_clock;
     boolean elf_regen = elf_can_regen();
     boolean orc_regen = orc_can_regen();
     boolean vamp_regen = vamp_can_regen();
@@ -290,10 +290,8 @@ boolean resuming;
                     monclock = MIN_MONGEN_RATE;
                     /* performing the invocation gets the entire dungeon riled up */
                     if (u.uevent.invoked) {
-                        monclock = MAX_MONGEN_RATE; /* Quadrupe normal */
-                    }
-#if 0 /* Simplified the spawn rates */
-                    else {
+                        monclock = MAX_MONGEN_RATE;
+                    } else {
                         past_clock = moves - timeout_start;
                         if (past_clock > 0)
                             monclock = MIN_MONGEN_RATE * 30000 / (past_clock + 30000);
@@ -314,7 +312,7 @@ boolean resuming;
                         monclock = MAX_MONGEN_RATE;
                     if (monclock > MIN_MONGEN_RATE)
                         monclock = MIN_MONGEN_RATE;
-#endif
+
                     if (!rn2(monclock)) {
                         if (u.uevent.invoked && xupstair && rn2(10))
                             (void) makemon((struct permonst *) 0,
