@@ -431,10 +431,10 @@ boolean allow_detrimental;
         && !is_weptool(otmp) && otmp->oclass != ARMOR_CLASS)
         return otmp;
 
-    /* it is rare to have an object spawn with more
-     * than one object property, but much better odds
-     * than EvilHack! */
-    while (!otmp->oprops || !rn2(3141)) {
+    /* it is possible to have an object spawn with more
+     * than one object property, but the odds are so low
+     * that if it happens, well good for you */
+    while (!otmp->oprops || !rn2(100000)) {
         i = rn2(MAX_ITEM_PROPS);
         j = 1 << i; /* pick an object property */
 
