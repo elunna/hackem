@@ -823,7 +823,9 @@ struct monst *mtmp;
         obj->known = 1;
     
     if (obj->oclass == WAND_CLASS) {
-        int lim = (objects[obj->otyp].oc_dir != NODIR) ? 8 : 15;
+        int lim = (obj->otyp == WAN_WISHING)
+                      ? 3
+                      : (objects[obj->otyp].oc_dir != NODIR) ? 8 : 15;
 
         /* undo any prior cancellation, even when is_cursed */
         if (obj->spe == -1)
@@ -844,8 +846,8 @@ struct monst *mtmp;
          *      7 : 100     100
          */
         n = (int) obj->recharged;
-        if (obj->otyp == WAN_WISHING
-            || (n > 0 && (n * n * n > rn2(7 * 7 * 7)))) { /* recharge_limit */
+        if (n > 0 && (obj->otyp == WAN_WISHING || obj->otyp == WAN_DEATH
+                      || (n * n * n > rn2(7 * 7 * 7)))) { /* recharge_limit */
             if (yours)
                 wand_explode(obj, rnd(lim));
             else
@@ -859,7 +861,7 @@ struct monst *mtmp;
         if (is_cursed) {
             stripspe(obj);
         } else {
-            n = rn1(5, lim + 1 - 5);
+            n = (lim == 3) ? 3 : rn1(5, lim + 1 - 5);
             if (!is_blessed)
                 n = rnd(n);
 
@@ -867,6 +869,13 @@ struct monst *mtmp;
                 obj->spe = n;
             else
                 obj->spe++;
+            if (obj->otyp == WAN_WISHING && obj->spe > 3) {
+                if (yours)
+                    wand_explode(obj, 1);
+                else
+                    mwand_explode(mtmp, obj);
+                return;
+            }
             if (yours) {
                 if (obj->spe >= lim)
                     p_glow2(obj, NH_BLUE);
