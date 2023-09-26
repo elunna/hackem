@@ -2270,7 +2270,8 @@ post_stone:
             /* greased objects are difficult to get a grip on, hence
                the odds that an attempt at stealing it may fail */
             if ((obj->greased || obj->otyp == OILSKIN_CLOAK
-                 || obj->otyp == OILSKIN_SACK)
+                 || obj->otyp == OILSKIN_SACK
+                 || (obj->oprops & ITEM_OILSKIN))
                 && (!obj->cursed || rn2(4))) {
                 if (vis && canseemon(mdef)) {
                     pline("%s %s slip off of %s's %s %s!", s_suffix(Monnam(magr)),

@@ -888,9 +888,11 @@ boolean artif;
             if (is_poisonable(otmp) && !rn2(100))
                 otmp->opoisoned = 1;
 
-            if (artif && !rn2((Role_if(PM_PIRATE) ? 5 : 30) 
+            if (artif && !rn2( (Role_if(PM_PIRATE) ? 5 : 30) 
                               + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
+            else if (rn2(175) < (level_difficulty() / 2))
+                otmp = create_oprop(otmp, TRUE);
 
             if (Is_medusa_level(&u.uz) && otmp->otyp == ORCISH_ARROW) {
                 bless(otmp);
@@ -1163,6 +1165,8 @@ boolean artif;
             if (artif && !rn2( (Role_if(PM_PIRATE) ? 10 : 40) 
                               + (5 * u.uconduct.wisharti)))
                 otmp = mk_artifact(otmp, (aligntyp) A_NONE);
+            else if (!rn2(150))
+                otmp = create_oprop(otmp, TRUE);
             /* simulate lacquered armor for samurai */
             if (Role_if(PM_SAMURAI) && otmp->otyp == SPLINT_MAIL
                 && (moves <= 1 || In_quest(&u.uz))) {
@@ -2131,6 +2135,9 @@ register struct obj *otmp;
         || otyp == FIRE_HORN)
         return FALSE;
     else if (attacks(AD_FIRE, otmp) || defends(AD_FIRE, otmp))
+        return FALSE;
+    /* weapons of fire are handled above; armor is not*/
+    else if (otmp->oprops  && otmp->oprops & ITEM_FIRE)
         return FALSE;
 
     if (otyp == SPE_BOOK_OF_THE_DEAD)

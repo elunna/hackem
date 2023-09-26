@@ -1006,6 +1006,7 @@ int shp_indx;
 
         otmp = mksobj(LONG_SWORD, FALSE, FALSE);
         if (otmp) {
+            create_oprop(otmp, FALSE);
             bless(otmp);
             otmp->spe = rn2(4) + 1;
             otmp->oerodeproof = TRUE;
@@ -1048,6 +1049,7 @@ int shp_indx;
         
         otmp = mksobj(LONG_SWORD, FALSE, FALSE);
         if (otmp) {
+            create_oprop(otmp, FALSE);
             if (otmp->spe < 5) 
                 otmp->spe += rnd(5);
             (void) mpickobj(shk, otmp);
@@ -1323,6 +1325,10 @@ struct monst *shk;
         /* 1 in 5 offer firearms training */
         if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
+        
+        /* 1 in 5 offer special property grafting */
+        if (!rn2(5))
+            maybe_add_svc(shk, SHK_PROP);
     }
     
     /* Armor shop services */
