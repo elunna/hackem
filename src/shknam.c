@@ -1236,28 +1236,24 @@ struct monst *shk;
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
         if (rnd(100) < 75)
             maybe_add_svc(shk, SHK_ID_WEAPON);
-        /* Weapon shops offer armor id 50% of the time */
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_ARMOR);
     } 
     else if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) {
         if (rnd(100) < 75)
             maybe_add_svc(shk, SHK_ID_ARMOR);
-        /* Armor shops offer weapon id 50% of the time */
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_WEAPON);
     } 
     else if (shk_class_match(SCROLL_CLASS, shk) == SHK_MATCH) {
         if (rnd(100) < 75)
             maybe_add_svc(shk, SHK_ID_SCROLL);
-        /* Scroll stores offer book ID 50% of the time. */
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_BOOK);
     } 
     else if (shk_class_match(SPBOOK_CLASS, shk) == SHK_MATCH) {
         if (rnd(100) < 75)
             maybe_add_svc(shk, SHK_ID_BOOK);
-        /* Book stores offer scroll ID 50% of the time. */
         if (!rn2(2))
             maybe_add_svc(shk, SHK_ID_SCROLL);
     } 
@@ -1280,7 +1276,6 @@ struct monst *shk;
     else if (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) {
         if (!rn2(2))
             maybe_add_svc(shk, SHK_ID_WAND);
-        /* Wand shops offer armor id 25% of the time */
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_ARMOR);
         /* Only wand shops offer premium charging */
@@ -1289,32 +1284,25 @@ struct monst *shk;
     } 
     else if (shk_class_match(FOOD_CLASS, shk) == SHK_MATCH) {
         maybe_add_svc(shk, SHK_ID_FOOD);
-        /* Deli shops offer potion id 50% of the time. */
         if (!rn2(10))
             maybe_add_svc(shk, SHK_ID_POTION);
     }
     
-    /* 1/3 of all shops have the uncursing service */
+    /* All shops */
     if (!rn2(3)) 
         maybe_add_svc(shk, SHK_UNCURSE);
     
     /* Weapon shop services */
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH
             || Is_blackmarket(&u.uz)) {
-        /* Weapon rust/erode-proofing */
         if (!rn2(4))
             maybe_add_svc(shk, SHK_WEP_FIX);
-        /* Weapon enchanting */
         if (!rn2(4))
             maybe_add_svc(shk, SHK_WEP_ENC);
-        /* Weapon poisoning */
         if (!rn2(4))
             maybe_add_svc(shk, SHK_WEP_POI);
-        /* 1 in 5 offer firearms training */
         if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
-        
-        /* 1 in 5 offer special property grafting */
         if (!rn2(5))
             maybe_add_svc(shk, SHK_PROP);
     }
@@ -1322,13 +1310,10 @@ struct monst *shk;
     /* Armor shop services */
     if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH
             || Is_blackmarket(&u.uz)) {
-        /* Armor rust/erode-proofing */
         if (!rn2(4)) 
             maybe_add_svc(shk, SHK_ARM_FIX);
-        /* Armor enchanting */
         if (!rn2(4)) 
             maybe_add_svc(shk, SHK_ARM_ENC);
-        /* 1 in 5 offer firearms training */
         if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
     }
@@ -1341,10 +1326,8 @@ struct monst *shk;
         if (!rn2(4)) 
             maybe_add_svc(shk, SHK_CHG_BAS);
     }
-    /* --hackem: Some misc shop details here - using really gross syntax... */
-    
+
     if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "pet store")) {
-        /* Pet shops offer tool/food id 50% of the time */
         if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
             maybe_add_svc(shk, SHK_ID_FOOD);
         if (!(ESHK(shk)->services & SHK_ID_TOOL) && !rn2(4))
@@ -1352,60 +1335,47 @@ struct monst *shk;
     }
     
     if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "lighting store")) {
-        /* Light shops can sometimes offer potion ID: 25% */
         if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(10))
             maybe_add_svc(shk,  SHK_ID_POTION);
     }
     if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "gun store")) {
-        /* Gun shops always offer firearms training */
+        /* Safety first! */
         maybe_add_svc(shk, SHK_FIREARMS);
     }
     
-    /* Racial based services:
-     * --hackem: We'll offer additional services occasionally that are
-     * related to the race of the shk.
-     */
+    /* Racial based services: */
     if (is_dwarf(shkdat)) {
-        /* Dwarves have some familiarity with weapons/armor */
         if (!(ESHK(shk)->services & SHK_ID_ARMOR) && !rn2(5))
            maybe_add_svc(shk, SHK_ID_ARMOR);
         if (!(ESHK(shk)->services & SHK_ID_WEAPON) && !rn2(5))
             maybe_add_svc(shk, SHK_ID_WEAPON);
-        /* Dwarves are also quite familiar with gems! */
         if (!(ESHK(shk)->services & SHK_ID_GEM) && !rn2(5))
             maybe_add_svc(shk, SHK_ID_GEM);
     }
     else if (is_orc(shkdat)) {
-        /* Orcs know how to use poison */
         if (!(ESHK(shk)->services & SHK_WEP_POI) && !rn2(4))
             maybe_add_svc(shk, SHK_WEP_POI);
     }
     else if (is_gnome(shkdat)) {
-        /* Gnomes are very familiar with tools */
         if (!(ESHK(shk)->services & SHK_ID_TOOL) && !rn2(4))
             maybe_add_svc(shk, SHK_ID_TOOL);
-        
         if (!rn2(4))
             maybe_add_svc(shk, SHK_TINKER);
     }
     else if (is_giant(shkdat)) {
-        /* Giants are familiar with gems. */
         if (!(ESHK(shk)->services & SHK_ID_GEM) && !rn2(5))
             maybe_add_svc(shk, SHK_ID_GEM);
     }
     else if (shkdat == &mons[PM_NYMPH]) {
         if (!(ESHK(shk)->services & SHK_ID_RING) && !rn2(10))
             maybe_add_svc(shk, SHK_ID_RING);
-        /* Nymphs always have potions so this makes sense. */
-
         if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(5))
             maybe_add_svc(shk, SHK_ID_POTION);
     }
     else if (shkdat == &mons[PM_HOBBIT]) {
-        /* Cheesy LOTR reference */
+        /* LOTR */
         if (!(ESHK(shk)->services & SHK_ID_RING) && !rn2(10))
             maybe_add_svc(shk, SHK_ID_RING);
-        /* Hobbits are food obsessed */
         if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
             maybe_add_svc(shk, SHK_ID_FOOD);
     }
@@ -1415,8 +1385,7 @@ struct monst *shk;
         if (!(ESHK(shk)->services & SHK_ID_SCROLL) && !rn2(4))
             maybe_add_svc(shk, SHK_ID_SCROLL);
     }
-    
-    /* Rumours: Each shk has a small chance of offering cheap rumors */
+
     if (!rn2(20) || Is_blackmarket(&u.uz))
         maybe_add_svc(shk, SHK_RUMOR);
     
