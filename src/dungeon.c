@@ -1681,6 +1681,8 @@ level_difficulty()
     if (uamul && uamul->otyp == AMULET_OF_DANGER) {
         res += 15;
     }
+    /* Wishes increase difficulty */
+    res += (int) u.uconduct.wishes * 5;
     return (xchar) res;
 }
 

@@ -271,7 +271,8 @@ boolean resuming;
                      * Vanilla generates a critter every 70-ish turns.
                      * The rate accelerates to every 50 or so below the Castle,
                      * and 'round every 25 turns once you've done the Invocation.
-                     *
+                     * 
+                     * (From EvilHack)
                      * We will push it even further.  Monsters post-Invocation
                      * will almost always appear on the stairs (if present), and
                      * much more frequently; this, along with the extra intervene()
@@ -286,6 +287,11 @@ boolean resuming;
                      * The rate increases linearly with turns.  The rule of thumb is that
                      * at turn x the rate is approximately (x / 30.0000) times the normal
                      * rate.  Maximal rate is 8x the normal rate.
+                     * -------------------------------------------------------------------
+                     * In Hack'EM - we are going to put Yet Another Twist on monster generation
+                     * and use it to "punish" wishes. For every wish the player makes, the 
+                     * rate will increase! This lets the player have their wishes at the cost
+                     * of a harder game later.
                      */
                     monclock = MIN_MONGEN_RATE;
                     /* performing the invocation gets the entire dungeon riled up */
@@ -295,19 +301,18 @@ boolean resuming;
                         past_clock = moves - timeout_start;
                         if (past_clock > 0)
                             monclock = MIN_MONGEN_RATE * 30000 / (past_clock + 30000);
-                        if (monclock > MIN_MONGEN_RATE / 2 && (depth(&u.uz) > depth(&stronghold_level)
-                                                               || u.uevent.uhand_of_elbereth
-                                                               || ((quest_status.got_quest || quest_status.got_thanks)
-                                                                   && u.ulevel < 14)))
+                        if (monclock > MIN_MONGEN_RATE / 2 && (u.uconduct.wishes >= 1L))
                             monclock = MIN_MONGEN_RATE / 2;
-                        if (monclock > MIN_MONGEN_RATE / 3 && depth(&u.uz) > depth(&hella_level))
-                            monclock = MIN_MONGEN_RATE / 3;
-                        if (monclock > MIN_MONGEN_RATE / 4 && depth(&u.uz) > depth(&wiz1_level))
+                        if (monclock > MIN_MONGEN_RATE / 4 && (u.uconduct.wishes >= 2L))
                             monclock = MIN_MONGEN_RATE / 4;
-                        if (monclock > MIN_MONGEN_RATE / 6 && u.uevent.udemigod)
+                        if (monclock > MIN_MONGEN_RATE / 6 && (u.uconduct.wishes >= 3L))
                             monclock = MIN_MONGEN_RATE / 6;
+                        if (monclock > MIN_MONGEN_RATE / 8 && (u.uconduct.wishes >= 4L))
+                            monclock = MIN_MONGEN_RATE / 8;
+                        if (monclock > MIN_MONGEN_RATE / 10 && (u.uconduct.wishes >= 5L))
+                            monclock = MIN_MONGEN_RATE / 10;
                     }
-		    /* make sure we don't fall off the bottom */
+		            /* make sure we don't fall off the bottom */
                     if (monclock < MAX_MONGEN_RATE)
                         monclock = MAX_MONGEN_RATE;
                     if (monclock > MIN_MONGEN_RATE)
