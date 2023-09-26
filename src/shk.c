@@ -93,6 +93,7 @@ static int FDECL(shk_identify, (const char *, struct monst *, long ident_type));
 static int FDECL(shk_uncurse, (const char *, struct monst *));
 static int FDECL(shk_weapon_works, (const char *, struct monst *, long svc_type));
 static int FDECL(shk_armor_works, (const char *, struct monst *, long svc_type));
+static int FDECL(shk_property, (const char *, struct monst *));
 static int FDECL(shk_charge, (const char *, struct monst *, char svc_type));
 static int FDECL(shk_rumor, (const char *, struct monst *));
 static int FDECL(shk_firearms, (const char *, struct monst *));
@@ -108,6 +109,15 @@ static const char *angrytexts[] = { "quite upset", "ticked off", "furious" };
 
 static const char *hatesrace[] = { "scum", "vermin", "peasant", "scalawag",
                                    "wretch", "miscreant", "maggot", "lowlife" };
+#if 0 /* TODO: Not using these until we grok getobj */
+static const char wand_types[] = { WAND_CLASS, 0 };
+static const char tool_types[] = { TOOL_CLASS, 0 };
+static const char ring_types[] = { RING_CLASS, 0 };
+static const char spbook_types[] = { SPBOOK_CLASS, 0 };
+#endif
+
+static const char all_count[] = { ALLOW_COUNT, ALL_CLASSES, 0 };
+
 /*
  *  Transfer money from inventory to monster when paying
  *  shopkeepers, priests, oracle, succubus, and other demons.
@@ -2027,7 +2037,7 @@ shk_other_services()
             result = shk_tinker(slang, shkp);
             break;
         case 23:
-            result = shk_weapon_works(slang, shkp, SHK_PROP);
+            result = shk_property(slang, shkp);
             break;
         default:
             pline("Unknown Service");
@@ -4248,15 +4258,73 @@ long svc_type;
     return 1;
 }
 
+static int
+shk_property(slang, shkp)
+const char *slang;
+struct monst *shkp;
+{
+    struct obj *obj;
+    int charge;
 
-#if 0 /* TODO: Not using these until we grok getobj */
-static const char wand_types[] = { WAND_CLASS, 0 };
-static const char tool_types[] = { TOOL_CLASS, 0 };
-static const char ring_types[] = { RING_CLASS, 0 };
-static const char spbook_types[] = { SPBOOK_CLASS, 0 };
-#endif
+    obj = getobj(all_count, "enhance");
+    if (!obj)
+        return 0;
 
-static const char all_count[] = { ALLOW_COUNT, ALL_CLASSES, 0 };
+    if (shk_class_match(WEAPON_CLASS, shkp) == SHK_MATCH
+        && obj->oclass != WEAPON_CLASS ) {
+        verbalize("I only can enhance weapons.");
+        return 0;
+    } else if (shk_class_match(ARMOR_CLASS, shkp) == SHK_MATCH
+               && obj->oclass != ARMOR_CLASS) {
+        verbalize("I only can enhance armor.");
+        return 0;
+    } else if (shk_class_match(RING_CLASS, shkp) == SHK_MATCH
+               && obj->oclass != RING_CLASS) {
+        verbalize("I only can enhance rings.");
+        return 0;
+    }
+
+    if (obj->oprops) {
+        verbalize("Your %s already has a property, remove it?", xname(obj));
+        if (shk_offer_price(slang, 25, shkp) == FALSE)
+            return 0;
+        obj->oprops = 0;
+    } else if (obj->oartifact) {
+        verbalize("That %s is already pretty special.", xname(obj));
+        return 0;
+    } else {
+        verbalize("Imbue your %s with special power!", xname(obj));
+        charge = 2000;
+        shk_smooth_charge(&charge, 50, NOBOUND);
+        if (shk_offer_price(slang, charge, shkp) == FALSE)
+            return 0;
+
+        if (Hallucination) {
+            Your("%s to dissemble into pieces!", aobjnam(obj, "seem"));
+        } else
+            create_oprop(obj, TRUE);
+    }
+    fully_identify_obj(obj);
+    update_inventory();
+
+    pline("%s", doname(obj));
+    return 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 static int
 shk_charge(const char *slang, struct monst *shkp, char svc_type)

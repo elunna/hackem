@@ -1316,6 +1316,8 @@ struct monst *shk;
             maybe_add_svc(shk, SHK_ARM_ENC);
         if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
+        if (!rn2(7))
+            maybe_add_svc(shk, SHK_PROP);
     }
     
     /* Charging services */
