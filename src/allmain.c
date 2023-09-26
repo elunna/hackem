@@ -666,7 +666,13 @@ boolean resuming;
                        monsters that they are against hostile should they
                        be tame or peaceful */
                     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                        boolean is_shkp = has_eshk(mtmp) && inhishop(mtmp);
+                        boolean is_prst = has_epri(mtmp) && inhistemple(mtmp);
+                        
                         if (!(mtmp->mcansee && m_canseeu(mtmp)))
+                            continue;
+                        /* coaligned temple priests will stay civil */
+                        if (is_prst && p_coaligned(mtmp))
                             continue;
 
                         if ((wielding_artifact(ART_DRAGONBANE)
@@ -703,7 +709,6 @@ boolean resuming;
                             || (wielding_artifact(ART_VORPAL_BLADE)
                                 && is_jabberwock(mtmp->data))) {
 
-                            boolean is_shkp = has_eshk(mtmp) && inhishop(mtmp);
                             /* Shopkeepers will get angry but just ban you, to
                              * avoid cheap early Sting deaths */
                             if (is_shkp)
