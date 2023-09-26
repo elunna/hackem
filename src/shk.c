@@ -4319,25 +4319,26 @@ long svc_type;
         break;
     case SHK_PROP:
         if (obj->oprops) {
-            verbalize("Your weapon already has a property.");
-            return 0;
+            verbalize("Your weapon already has a property, remove it?");
+            if (shk_offer_price(slang, 25, shkp) == FALSE)
+                return 0;
+            obj->oprops = 0;
         } else if (obj->oartifact) {
             verbalize("That weapon is already pretty special.");
-        }
-        verbalize("Imbue your weapon with special power!");
-        charge = 9 * 625;
-        
-        if (shk_offer_price(slang, charge, shkp) == FALSE) 
             return 0;
-        
-        /* Have some fun! */
-        if (Confusion) {
-            Your("%s weirdly!", aobjnam(obj, "vibrate"));
-            create_oprop(obj, TRUE);
-        } else if (Hallucination) {
-            Your("%s to dissemble into pieces!", aobjnam(obj, "seem"));
-        } else
-            create_oprop(obj, FALSE);
+        } else {
+            verbalize("Imbue your weapon with special power!");
+            charge = 2000;
+            shk_smooth_charge(&charge, 50, NOBOUND);
+            if (shk_offer_price(slang, charge, shkp) == FALSE)
+                return 0;
+
+            if (Hallucination) {
+                Your("%s to dissemble into pieces!", aobjnam(obj, "seem"));
+            } else
+                create_oprop(obj, TRUE);
+        }
+        fully_identify_obj(obj);
         update_inventory();
         break;
         

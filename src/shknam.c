@@ -1314,10 +1314,10 @@ struct monst *shk;
     /* Weapon shop services */
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
         /* Weapon rust/erode-proofing */
-        if (!rn2(4)) 
+        if (!rn2(4))
             maybe_add_svc(shk, SHK_WEP_FIX);
         /* Weapon enchanting */
-        if (!rn2(4)) 
+        if (!rn2(4))
             maybe_add_svc(shk, SHK_WEP_ENC);
         /* Weapon poisoning */
         if (!rn2(4))
