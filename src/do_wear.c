@@ -2382,8 +2382,10 @@ boolean noisy;
     if (which && cantweararm(&youmonst)
         /* same exception for cloaks as used in m_dowear() */
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
-        && otmp->otyp != MUMMY_WRAPPING /* Exception for giants */
+        && otmp->otyp != MUMMY_WRAPPING /* Exception for giants and tortles */
+        && !Is_dragon_scales(otmp)      /* Exception for giants and tortles */
         && (racial_exception(&youmonst, otmp) < 1)
+        && !(Race_if(PM_TORTLE) && otmp && (otmp->otyp != ROBE))
         && !(Race_if(PM_GIANT) && otmp && giant_sized(otmp))) {
         if (noisy)
             pline_The("%s will not fit on your body.", which);
