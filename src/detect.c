@@ -227,10 +227,12 @@ boolean magic;
     obj->dknown = 1;
     if (magic) {
         obj->oprops_known |= obj->oprops;
+#if 0 /* Just oprops */
         if ((objects[obj->otyp].oc_magic || obj->oartifact)
             && !is_soko_prize_flag(obj)) {
             makeknown(obj->otyp);
         }
+#endif
     }
     if (Has_contents(obj)) {
         for (otmp = obj->cobj; otmp; otmp = otmp->nobj)
@@ -1069,6 +1071,10 @@ struct obj *detector;   /* object doing the detecting */
             if (do_pknown)
                 do_dknown_of(obj, TRUE);
         }
+
+    /* Non-blessed only does inventory */
+    if (!do_pknown)
+        return 0;
 
     for (obj = fobj; obj; obj = obj->nobj) {
         if (!is_magic(obj))
