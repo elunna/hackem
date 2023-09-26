@@ -2384,7 +2384,7 @@ boolean noisy;
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
         && otmp->otyp != MUMMY_WRAPPING /* Exception for giants */
         && (racial_exception(&youmonst, otmp) < 1)
-        && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)) {
+        && !(Race_if(PM_GIANT) && otmp && giant_sized(otmp))) {
         if (noisy)
             pline_The("%s will not fit on your body.", which);
         return 0;
@@ -2531,13 +2531,13 @@ boolean noisy;
                 already_wearing("some armor");
             err++;
         } else if (youmonst.data->msize < MZ_HUGE
-                   && otmp && otmp->otyp == LARGE_SPLINT_MAIL) {
+                   && otmp && giant_sized(otmp)) {
             if (noisy)
                 You("are too small to wear such a suit of armor.");
             err++;
         } else
             *mask = W_ARM;
-        if (!Upolyd && Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
+        if (!Upolyd && Race_if(PM_GIANT) && otmp && giant_sized(otmp))
             *mask = W_ARM;
     } else {
         /* getobj can't do this after setting its allow_all flag; that
@@ -2577,7 +2577,7 @@ boolean noisy;
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
         && otmp->otyp != MUMMY_WRAPPING /* Exception for giants/tortles */
         && (racial_exception(&youmonst, otmp) < 1)
-        && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL);
+        && !(Race_if(PM_GIANT) && otmp && giant_sized(otmp));
 
     if (cantwear &&noisy)
         pline_The("%s will not fit on your body.", which);

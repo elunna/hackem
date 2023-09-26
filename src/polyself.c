@@ -1097,7 +1097,7 @@ break_armor()
             if (otmp->lamplit)
                 end_burn(otmp, FALSE);
             if (youmonst.data->msize >= MZ_HUGE
-                && otmp->otyp == LARGE_SPLINT_MAIL) {
+                && giant_sized(otmp)) {
                 if (humanoid(youmonst.data)) {
                     ; /* nothing bad happens, armor is still worn */
                 } else if (!humanoid(youmonst.data)) {
@@ -1106,7 +1106,7 @@ break_armor()
                     dropp(otmp);
                 }
             } else if (youmonst.data->msize <= MZ_LARGE
-                       && otmp->otyp == LARGE_SPLINT_MAIL) {
+                       && giant_sized(otmp)) {
                 Your("armor falls off!");
                 (void) Armor_gone();
                 dropx(otmp);
@@ -1177,7 +1177,7 @@ break_armor()
         }
     /* catch what breakarm() and sliparm() doesn't handle */
     } else if (youmonst.data->msize <= MZ_LARGE) {
-        if ((otmp = uarm) != 0 && otmp->otyp == LARGE_SPLINT_MAIL) {
+        if ((otmp = uarm) != 0 && giant_sized(otmp)) {
             if (donning(otmp))
                 cancel_don();
             Your("armor falls around you!");
