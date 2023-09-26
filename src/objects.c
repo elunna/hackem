@@ -1084,7 +1084,7 @@ SCROLL("knowledge",                   "POTESTAS",  1,  20,  50), /* SpliceHack *
 SCROLL("identify",                  "KERNOD WEL",  1, 180,  20),
 SCROLL("air",                        "TRATS ARL",  1,  35, 200), /* SpliceHack */
                                  /* LRA START */
-SCROLL("transmogrify",              "TLON UQBAR",  1,  20, 200), /* SpliceHack */
+SCROLL("transmogrify",              "TLON UQBAR",  1,  15, 300), /* SpliceHack */
                                 /* Tlon Uqbar */
 SCROLL("magic mapping",              "ELAM EBOW",  1,  45, 100),
 SCROLL("amnesia",                   "DUAM XNAHT",  1,  35, 200),

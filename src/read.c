@@ -2373,9 +2373,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         } else {
             otmp = getobj(all_count, "transmogrify");
         }
-        
 
-            
         if (!otmp) {
             strange_feeling(sobj, "Your skin crawls for a moment.");
             sobj = 0; /* useup() in strange_feeling() */
@@ -2387,7 +2385,15 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             break;
         }
 
-        if (confused || scursed) {
+        if (confused) {
+            pline("%s with a fluorescent blue light!", Yobjnam2(otmp, "glow"));
+            if (scursed) {
+                otmp->oprops = 0;
+            } else if (sblessed || otmp->oprops) {
+                otmp->oprops = 0;
+                create_oprop(otmp, TRUE);
+            }
+        } else if (scursed) {
             pline("%s with a sickly green light!", Yobjnam2(otmp, "glow"));
             curse(otmp);
             otmp->oerodeproof = 0;
@@ -2403,6 +2409,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline("%s with a strange yellow light!", Yobjnam2(otmp, "glow"));
             warp_material(otmp, TRUE);
         }
+        update_inventory();
         break;
     }
     case SCR_CHARGING:
