@@ -4286,7 +4286,9 @@ struct monst *shkp;
 
     if (obj->oprops) {
         verbalize("Your %s already has a property, remove it?", xname(obj));
-        if (shk_offer_price(slang, 25, shkp) == FALSE)
+        charge = 250;
+        shk_smooth_charge(&charge, 200, NOBOUND);
+        if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
         obj->oprops = 0;
     } else if (obj->oartifact) {
