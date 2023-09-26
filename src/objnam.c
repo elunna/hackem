@@ -5078,9 +5078,6 @@ struct obj *no_wish;
         curse(otmp);
     }
     otmp->oprops = 0;
-    if (magical && (!objpropcount || wizard)) {
-        create_oprop(otmp, TRUE);
-    }
 
     /* set otmp->recharged */
     if (oclass == WAND_CLASS) {
@@ -5510,7 +5507,8 @@ struct obj *no_wish;
         if (is_helmet(otmp))
             objprops &= ~ITEM_ESP;
 
-        otmp->oprops |= objprops;
+        if (wizard)
+            otmp->oprops |= objprops;
     }
 
     if (halfeaten && otmp->oclass == FOOD_CLASS) {
