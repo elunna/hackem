@@ -607,19 +607,23 @@ register struct monst *mtmp;
     struct attack *mattk, alt_attk;
     int i, j, k = 0, tmp, ftmp, sum[NATTK];
     struct permonst *mdat = mtmp->data;
+    /*
+     * ranged: Is it near you?  Affects your actions.
+     * ranged2: Does it think it's near you?  Affects its actions.
+     * foundyou: Is it attacking you or your image?
+     * youseeit: Can you observe the attack?  It might be attacking your
+     *     image around the corner, or invisible, or you might be blind.
+     * skipnonmagc: Are further physical attack attempts useless?  (After
+     *     a wild miss--usually due to attacking displaced image.  Avoids
+     *     excessively verbose miss feedback when monster can do multiple
+     *     attacks and would miss the same wrong spot each time.)
+     */
     struct obj * marmf = which_armor(mtmp, W_ARMF);
     boolean ranged = (distu(mtmp->mx, mtmp->my) > 3);
-    /* Is it near you?  Affects your actions */
     boolean range2 = !monnear(mtmp, mtmp->mux, mtmp->muy);
-    /* Does it think it's near you?  Affects its actions */
     boolean foundyou = (mtmp->mux == u.ux && mtmp->muy == u.uy);
-    /* Is it attacking you or your image? */
     boolean youseeit = canseemon(mtmp);
-    /* Might be attacking your image around the corner, or
-     * invisible, or you might be blind....
-     */
-    boolean skipnonmagc = FALSE;
-    /* Are further physical attack attempts useless? */
+    boolean firstfoundyou, skipnonmagc = FALSE;
 
     if (!ranged)
         nomul(0);
@@ -975,9 +979,14 @@ register struct monst *mtmp;
         k = 100;
     }
     
+    firstfoundyou = foundyou;
+    
     for (i = 0; i < NATTK; i++) {
         sum[i] = 0;
-        mon_currwep = (struct obj *)0;
+        if (i > 0 && firstfoundyou /* previous attack might have moved hero */
+            && (mtmp->mux != u.ux || mtmp->muy != u.uy))
+            continue; /* fill in sum[] with 'miss' but skip other actions */
+        mon_currwep = (struct obj *) 0;
         mattk = getmattk(mtmp, &youmonst, i, sum, &alt_attk);
         if ((u.uswallow && mattk->aatyp != AT_ENGL)
             || (skipnonmagc && mattk->aatyp != AT_MAGC))
