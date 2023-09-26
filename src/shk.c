@@ -1807,11 +1807,11 @@ shk_other_services()
     tmpwin = create_nhwindow(NHW_MENU);
 
     start_menu(tmpwin);
-    
+
     /* All shops can identify (some better than others) */
     if (ESHK(shkp)->services & SHK_ID_BASIC) {
         any.a_int = 1;
-        add_menu(tmpwin, NO_GLYPH, &any, 'i', 0, ATR_NONE, 
+        add_menu(tmpwin, NO_GLYPH, &any, 'i', 0, ATR_NONE,
                  "Basic Identify", MENU_ITEMFLAGS_NONE);
     }
     if (ESHK(shkp)->services & SHK_ID_PREMIUM) {
@@ -1819,7 +1819,7 @@ shk_other_services()
         add_menu(tmpwin, NO_GLYPH, &any , 'I', 0, ATR_NONE,
                  "Premier Identify", MENU_ITEMFLAGS_NONE);
     }
-    
+
     if (ESHK(shkp)->services & SHK_ID_WEAPON) {
         any.a_int = 3;
         add_menu(tmpwin, NO_GLYPH, &any , ')', 0, ATR_NONE,

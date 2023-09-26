@@ -1203,21 +1203,8 @@ struct monst *shk;
 {
     const struct permonst *shkdat = &mons[ERAC(shk)->rmnum];
     ESHK(shk)->services = 0L;
-    
-    /* KMH, balance patch 2 -- Increase probability of shopkeeper services.
-     * Requested by Dave <mitch45678@aol.com>
-     */
-    
-    /* Guarantee some form of identification (for black market only)
-     * 1/3 	both Basic and Premium ID
-     * 2/15 	Premium ID only
-     * 8/15 	Basic ID only
-     */
-    if (Is_blackmarket(&u.uz)) {
-        ESHK(shk)->services = 
-            SHK_ID_BASIC | SHK_ID_PREMIUM | SHK_UNCURSE;
-        return;
-    }
+
+
 
     /* --hackem: Instead of offering basic/premier identify services,
      * general stores will have a random selection of 2-5 item classes
@@ -1244,7 +1231,7 @@ struct monst *shk;
         if (!rn2(10) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
     }
-    
+
     /* Each shop type offers it's own identify service */
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
         if (rnd(100) < 75)
@@ -1312,7 +1299,8 @@ struct monst *shk;
         maybe_add_svc(shk, SHK_UNCURSE);
     
     /* Weapon shop services */
-    if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
+    if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH
+            || Is_blackmarket(&u.uz)) {
         /* Weapon rust/erode-proofing */
         if (!rn2(4))
             maybe_add_svc(shk, SHK_WEP_FIX);
@@ -1332,7 +1320,8 @@ struct monst *shk;
     }
     
     /* Armor shop services */
-    if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) {
+    if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH
+            || Is_blackmarket(&u.uz)) {
         /* Armor rust/erode-proofing */
         if (!rn2(4)) 
             maybe_add_svc(shk, SHK_ARM_FIX);
@@ -1428,7 +1417,7 @@ struct monst *shk;
     }
     
     /* Rumours: Each shk has a small chance of offering cheap rumors */
-    if (!rn2(20))
+    if (!rn2(20) || Is_blackmarket(&u.uz))
         maybe_add_svc(shk, SHK_RUMOR);
     
     return;
