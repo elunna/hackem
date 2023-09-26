@@ -558,6 +558,8 @@ ARMOR("jacket", None,
 /* Robes */
 ARMOR("robe", "red robe",
       0, 0, 0, 0,           1, 1, 40, 25, 9, 0, ARM_SUIT, LEATHER, CLR_RED),
+ARMOR("giant robe", None,
+      0, 0, 0, 0,           1, 1, 60, 25, 9, 0, ARM_SUIT, LEATHER, CLR_RED),
 ARMOR("robe of protection", "blue robe",                        /* Slash'EM */
       0, 1, 0, 0,           1, 1, 40, 50, 5, 1, ARM_SUIT, LEATHER, CLR_BLUE),
 ARMOR("robe of power", "orange robe",                           /* Slash'EM */
