@@ -522,106 +522,87 @@ boolean has_of;
 
     Strcpy(of, (has_of) ? " and" : " of");
     if (props & ITEM_FIRE) {
-        if ((props_known & ITEM_FIRE)
-            || dump_prop_flag) {
+        if ((props_known & ITEM_FIRE) || dump_prop_flag) {
             Strcat(buf, of),
             Strcat(buf, weapon ? " fire" : " fire resistance"),
             Strcpy(of, " and");
         }
     }
     if (props & ITEM_FROST) {
-        if ((props_known & ITEM_FROST)
-            || dump_prop_flag) {
+        if ((props_known & ITEM_FROST) || dump_prop_flag) {
             Strcat(buf, of),
             Strcat(buf, weapon ? " frost" : " cold resistance"),
             Strcpy(of, " and");
         }
     }
     if (props & ITEM_DRLI) {
-        if ((props_known & ITEM_DRLI)
-            || dump_prop_flag) {
+        if ((props_known & ITEM_DRLI) || dump_prop_flag) {
             Strcat(buf, of),
             Strcat(buf, weapon ? " decay" : " drain resistance"),
             Strcpy(of, " and");
         }
     }
     if (props & ITEM_SHOCK) {
-        if ((props_known & ITEM_SHOCK)
-            || dump_prop_flag) {
+        if ((props_known & ITEM_SHOCK) || dump_prop_flag) {
             Strcat(buf, of),
             Strcat(buf, weapon ? " lightning" : " shock resistance"),
             Strcpy(of, " and");
         }
     }
     if (props & ITEM_SCREAM) {
-        if ((props_known & ITEM_SCREAM)
-            || dump_prop_flag) {
+        if ((props_known & ITEM_SCREAM) || dump_prop_flag) {
             Strcat(buf, of),
                 Strcat(buf, weapon ? " scream" : " sonic resistance"),
                 Strcpy(of, " and");
         }
     }
     if (props & ITEM_VENOM) {
-        if ((props_known & ITEM_VENOM)
-            || dump_prop_flag) {
+        if ((props_known & ITEM_VENOM) || dump_prop_flag) {
             Strcat(buf, of),
             Strcat(buf, weapon ? " venom" : " poison resistance"),
             Strcpy(of, " and");
         }
     }
     if (props & ITEM_ACID) {
-        if ((props_known & ITEM_ACID)
-            || dump_prop_flag) {
+        if ((props_known & ITEM_ACID) || dump_prop_flag) {
             Strcat(buf, of),
                 Strcat(buf, weapon ? " sizzle" : " acid resistance"),
                 Strcpy(of, " and");
         }
     }
     if (props & ITEM_ESP) {
-        if ((props_known & ITEM_ESP)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " telepathy"),
+        if ((props_known & ITEM_ESP) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " telepathy"),
             Strcpy(of, " and");
         }
     }
     if (props & ITEM_SEARCHING) {
-        if ((props_known & ITEM_SEARCHING)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " searching"),
+        if ((props_known & ITEM_SEARCHING) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " searching"),
             Strcpy(of, " and");
         }
     }
     if (props & ITEM_WARNING) {
-        if ((props_known & ITEM_WARNING)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " warning"),
+        if ((props_known & ITEM_WARNING) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " warning"),
             Strcpy(of, " and");
         }
     }
     if (props & ITEM_FUMBLING) {
-        if ((props_known & ITEM_FUMBLING)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " fumbling"),
+        if ((props_known & ITEM_FUMBLING) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " fumbling"),
             Strcpy(of, " and");
         }
     }
     if (props & ITEM_HUNGER) {
-        if ((props_known & ITEM_HUNGER)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " hunger"),
+        if ((props_known & ITEM_HUNGER) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " hunger"),
             Strcpy(of, " and");
         }
     }
     if (props & ITEM_EXCEL) {
-        if ((props_known & ITEM_EXCEL)
-            || dump_prop_flag) {
-            Strcat(buf, of),
-            Strcat(buf, " excellence"),
+        if ((props_known & ITEM_EXCEL) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " excellence"),
             Strcpy(of, " and");
         }
     }
@@ -4208,7 +4189,7 @@ struct obj *no_wish;
                         objprops |= ITEM_SHOCK;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "sonic", l = 5)
-                           || !strncmpi((p + of), "scream", l = 9)) {
+                           || !strncmpi((p + of), "scream", l = 6)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SCREAM;
                     objpropcount++;
@@ -4217,8 +4198,8 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_VENOM;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "acid", l = 6)
-                           || !strncmpi((p + of), "sizzle", l = 5)) {
+                } else if (!strncmpi((p + of), "acid", l = 4)
+                           || !strncmpi((p + of), "sizzle", l = 6)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_ACID;
                     objpropcount++;
@@ -4386,7 +4367,8 @@ struct obj *no_wish;
 
     /* check for single character object class code ("/" for wand, &c) */
     if (strlen(bp) == 1 && (i = def_char_to_objclass(*bp)) < MAXOCLASSES
-        && i > ILLOBJ_CLASS && ((i != VENOM_CLASS && i != SPIRIT_CLASS)|| wizard)) {
+        && i > ILLOBJ_CLASS
+        && ((i != VENOM_CLASS && i != SPIRIT_CLASS)|| wizard)) {
         oclass = i;
         goto any;
     }
@@ -4916,12 +4898,8 @@ struct obj *no_wish;
     typ = otmp->otyp, oclass = otmp->oclass; /* what we actually got */
 
     if (islit && 
-          (typ == OIL_LAMP 
-        || typ == MAGIC_LAMP 
-        || typ == LANTERN
-        || typ == TORCH
-        || Is_candle(otmp) 
-        || typ == POT_OIL)) {
+          (typ == OIL_LAMP || typ == MAGIC_LAMP || typ == LANTERN
+        || typ == TORCH || Is_candle(otmp) || typ == POT_OIL)) {
 
         place_object(otmp, u.ux, u.uy); /* make it viable light source */
         begin_burn(otmp, FALSE);
@@ -5128,9 +5106,7 @@ struct obj *no_wish;
     if (isgreased)
         otmp->greased = 1;
 
-    if (isdiluted 
-        && otmp->oclass == POTION_CLASS 
-        && otmp->otyp != POT_WATER
+    if (isdiluted && otmp->oclass == POTION_CLASS && otmp->otyp != POT_WATER
         && otmp->otyp != POT_OIL)
         otmp->odiluted = 1;
 
@@ -5206,8 +5182,7 @@ struct obj *no_wish;
 
     /* set eroded and erodeproof */
     if (erosion_matters(otmp)) {
-        /* no wished-for item should be eroded if the wisher didn't specify it
-         * to be */
+        /* wished-for item shouldn't be eroded unless specified */
         otmp->oeroded = otmp->oeroded2 = 0;
         if (eroded && (is_flammable(otmp) || is_rustprone(otmp)))
             otmp->oeroded = eroded;
@@ -5232,27 +5207,22 @@ struct obj *no_wish;
     /* object property restrictions */
     if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp) 
           || otmp->oclass == ARMOR_CLASS) {
+
+        /* TODO: How about refactor to ~(ALL_WEP_PROPS | CHECKED_PROP)  ??? */
         if (objprops & ITEM_FROST)
-            objprops &= ~(ITEM_FIRE | ITEM_DRLI | ITEM_SHOCK 
-                    | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
+            objprops &= ~(ITEM_FIRE | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
         else if (objprops & ITEM_FIRE)
-            objprops &= ~(ITEM_FROST | ITEM_DRLI | ITEM_SHOCK 
-                    | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
+            objprops &= ~(ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
         else if (objprops & ITEM_DRLI)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_SHOCK 
-                    | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
         else if (objprops & ITEM_SHOCK)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI 
-                    | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
         else if (objprops & ITEM_VENOM)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI 
-                    | ITEM_SCREAM | ITEM_SHOCK | ITEM_ACID);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SCREAM | ITEM_SHOCK | ITEM_ACID);
         else if (objprops & ITEM_SCREAM)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI 
-                    | ITEM_SHOCK | ITEM_VENOM | ITEM_ACID);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_VENOM | ITEM_ACID);
         else if (objprops & ITEM_ACID)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI 
-                    | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM);
 
         if (objects[otmp->otyp].oc_unique || otmp->oartifact
             || Is_dragon_armor(otmp))
@@ -5260,20 +5230,18 @@ struct obj *no_wish;
 
         if (objects[otmp->otyp].oc_magic && !wizard)
             objprops &= ~ITEM_PROP_MASK;
-        
+
         if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
-            objprops &= ~(ITEM_DRLI | ITEM_ACID | ITEM_SCREAM 
-                    | ITEM_FUMBLING | ITEM_HUNGER);
+            objprops &= ~ITEM_OILSKIN;
 
         if (is_launcher(otmp))
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK 
-                    | ITEM_VENOM | ITEM_ACID | ITEM_SCREAM
-                    | ITEM_OILSKIN);
+            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM
+                          | ITEM_ACID | ITEM_SCREAM | ITEM_DRLI | ITEM_OILSKIN);
 
         if (is_ammo(otmp) || is_missile(otmp))
-            objprops &= ~(ITEM_DRLI | ITEM_ACID | ITEM_SCREAM | ITEM_OILSKIN
-                    | ITEM_ESP | ITEM_SEARCHING | ITEM_WARNING | ITEM_FUMBLING 
-                    | ITEM_HUNGER | ITEM_EXCEL);
+            objprops &= ~(ITEM_DRLI | ITEM_SCREAM | ITEM_OILSKIN | ITEM_ESP
+                          | ITEM_SEARCHING | ITEM_WARNING | ITEM_EXCEL
+                          | ITEM_FUMBLING | ITEM_HUNGER );
 
         if (otmp->material != CLOTH)
             objprops &= ~ITEM_OILSKIN;
@@ -5284,7 +5252,7 @@ struct obj *no_wish;
         if (is_helmet(otmp))
             objprops &= ~ITEM_ESP;
 
-        if (wizard)
+        /*if (wizard)*/
             otmp->oprops |= objprops;
     }
 

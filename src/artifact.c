@@ -416,10 +416,8 @@ boolean allow_detrimental;
         return otmp;
     else if (objects[otmp->otyp].oc_unique)
         return otmp;
-    /* already magical items obtain properties
-     * a tenth as often */
-    else if ((objects[otmp->otyp].oc_magic)
-        && rn2(10))
+    /* already magical items obtain properties a tenth as often */
+    else if ((objects[otmp->otyp].oc_magic) && rn2(10))
         return otmp;
     else if (otmp && Is_dragon_armor(otmp))
         return otmp;
@@ -427,8 +425,8 @@ boolean allow_detrimental;
         return otmp;
 
     /* properties only added to weapons and armor */
-    if (otmp->oclass != WEAPON_CLASS
-        && !is_weptool(otmp) && otmp->oclass != ARMOR_CLASS)
+    if (otmp->oclass != WEAPON_CLASS && !is_weptool(otmp)
+          && otmp->oclass != ARMOR_CLASS)
         return otmp;
 
     /* it is possible to have an object spawn with more
@@ -447,8 +445,7 @@ boolean allow_detrimental;
 
         /* check for restrictions */
         if ((otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
-            && (j & (ITEM_DRLI | ITEM_SCREAM | ITEM_ACID 
-                     | ITEM_FUMBLING | ITEM_HUNGER | ITEM_OILSKIN)))
+            && (j & ITEM_OILSKIN))
             continue;
 
         if (is_launcher(otmp)
@@ -457,9 +454,8 @@ boolean allow_detrimental;
             continue;
 
         if ((is_ammo(otmp) || is_missile(otmp))
-            && (j & (ITEM_DRLI | ITEM_OILSKIN | ITEM_ESP
-                     | ITEM_EXCEL | ITEM_SEARCHING | ITEM_WARNING
-                     | ITEM_FUMBLING | ITEM_HUNGER)))
+            && (j & (ITEM_OILSKIN | ITEM_ESP | ITEM_EXCEL | ITEM_SEARCHING
+                     | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER)))
             continue;
 
         if ((otmp->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM 
@@ -471,6 +467,7 @@ boolean allow_detrimental;
         if (otmp->material != CLOTH && (j & ITEM_OILSKIN))
             continue;
 
+        /* TODO: Add a macro to check an objects base property against the prop */
         if (otmp->otyp == OILSKIN_CLOAK && (j & ITEM_OILSKIN))
             continue;
         
@@ -478,8 +475,7 @@ boolean allow_detrimental;
             continue;
 
         /* helm of telepathy already exists */
-        if (is_helmet(otmp)
-            && (j & ITEM_ESP))
+        if (is_helmet(otmp) && (j & ITEM_ESP))
             continue;
 
         otmp->oprops |= j;
@@ -487,8 +483,7 @@ boolean allow_detrimental;
 
     /* Fix it up as necessary */
     if (otmp->oprops
-        && (otmp->oclass == WEAPON_CLASS
-            || otmp->oclass == ARMOR_CLASS)
+        && (otmp->oclass == WEAPON_CLASS || otmp->oclass == ARMOR_CLASS)
         && !(otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER))) {
         if (!rn2(8)) {
             blessorcurse(otmp, 8);
@@ -506,6 +501,7 @@ boolean allow_detrimental;
     }
     return otmp;
 }
+
 
 /*
  * Returns the full name (with articles and correct capitalization) of an
@@ -755,6 +751,8 @@ struct obj *otmp;
         if (adtyp == AD_DRST && (otmp->oprops & ITEM_VENOM))
             return TRUE;
         if (adtyp == AD_ACID && (otmp->oprops & ITEM_ACID))
+            return TRUE;
+        if (adtyp == AD_DRLI && (otmp->oprops & ITEM_DRLI))
             return TRUE;
     }
     return FALSE;
@@ -2982,9 +2980,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 else if (otmp->oartifact == ART_LIFESTEALER)
                     pline_The("massive sword draws the %s from %s!",
                               life, mon_nam(mdef));
-                /* 'thristy' weapons currently are not allowed
-                 * but we'll cover that base here just in case
-                 * they're added someday */
                 else if (otmp->oclass == WEAPON_CLASS
                          && (otmp->oprops & ITEM_DRLI))
                     pline_The("deadly %s draws the %s from %s!",
@@ -5198,4 +5193,5 @@ struct obj *otmp;
 
     return FALSE;
 }
+
 /*artifact.c*/

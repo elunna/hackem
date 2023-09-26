@@ -589,13 +589,13 @@ struct obj {
 #define ITEM_ESP       0x00000100L /* extrinsic telepathy */
 #define ITEM_SEARCHING 0x00000200L /* extrinsic searching */
 #define ITEM_WARNING   0x00000400L /* extrinsic warning */
-#define ITEM_EXCEL     0x00000800L  /* confers luck, charisma boost */
-#define ITEM_FUMBLING  0x00001000L/* extrinsic fumbling */
+#define ITEM_EXCEL     0x00000800L /* confers luck, charisma boost */
+#define ITEM_FUMBLING  0x00001000L /* extrinsic fumbling */
 #define ITEM_HUNGER    0x00002000L /* extrinsic hunger */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 
-#define ITEM_PROP_MASK 0x00000FFFL /* all current properties */
+#define ITEM_PROP_MASK 0x00003FFFL /* all current properties */
 #define MAX_ITEM_PROPS 14
 
 /*
