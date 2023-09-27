@@ -2850,11 +2850,13 @@ boolean *used;
 {
     boolean dummy = FALSE;
 
-    if (!used) used = &dummy;
-    if (!*used) Your("%s for a moment.", aobjnam(obj, "sparkle"));
-    if(obj->unpaid && costly_spot(u.ux, u.uy) && !*used) {
-	You("damage it, you pay for it.");
-	bill_dummy_object(obj);
+    if (!used)
+        used = &dummy;
+    if (!*used)
+        Your("%s for a moment.", aobjnam(obj, "sparkle"));
+    if (obj->unpaid && costly_spot(u.ux, u.uy) && !*used) {
+        You("damage it, you pay for it.");
+        bill_dummy_object(obj);
     }
     *used = TRUE;
 }
@@ -2881,7 +2883,8 @@ boolean *used;
     - It downgrades objects
     - It disenchants items
     - It removes properties
-    - It also removes fooproofing
+    - It strips blessed/cursed status
+    - It removes fooproofing
 */
 boolean
 amnesia_wet(potion, targobj, ourfault)
@@ -2935,8 +2938,6 @@ boolean ourfault;
             break;
         }
 
-        /*pline("%s%s completely.", Your_buf, aobjnam(targobj, "dilute"));*/
-
         if (targobj->unpaid && costly_spot(u.ux, u.uy)) {
             You("dilute it, you pay for it.");
             bill_dummy_object(targobj);
@@ -2982,7 +2983,7 @@ boolean ourfault;
                 You("erase it, you pay for it.");
                 bill_dummy_object(targobj);
             }
-            targobj->otyp = SPE_BLANK_PAPER;
+            cancel_item(targobj);
         }
         used = TRUE;
         break;
@@ -3015,8 +3016,12 @@ boolean ourfault;
             case MAGIC_HARP:
                 downgrade_obj(targobj, HARP, &used);
                 break;
+            case CRYSTAL_BALL:
+                downgrade_obj(targobj, EIGHT_BALL, &used);
+                break;
             case FIRE_HORN:
             case FROST_HORN:
+            case HORN_OF_BLASTING:
             case HORN_OF_PLENTY:
                 downgrade_obj(targobj, TOOLED_HORN, &used);
                 break;
@@ -3026,6 +3031,11 @@ boolean ourfault;
                     if ((targobj->spe -= (3 + rn2(10))) < 0)
                         targobj->spe = 0;
                 }
+                break;
+            case BAG_OF_RATS:
+            case BAG_OF_TRICKS:
+                /* Bags of holding - kept safe somehow */
+                downgrade_obj(targobj, SACK, &used);
                 break;
             }
         }
@@ -3050,7 +3060,6 @@ boolean ourfault;
         default:
             return TRUE;
         }
-        /* !ofAmnesia acts as a disenchanter... */
         if (targobj->spe > 0) {
             pre_downgrade_obj(targobj, &used);
             drain_item(targobj, ourfault);
@@ -3075,7 +3084,7 @@ boolean ourfault;
         targobj->oerodeproof = FALSE;
     }
 
-    /* !ofAmnesia also strips blessed/cursed status... */
+
     if (targobj->cursed || targobj->blessed) {
         if (targobj->blessed || targobj->otyp == POT_WATER)
             pre_downgrade_obj(targobj, &used);
