@@ -1713,7 +1713,13 @@ const char *objphrase; /* "Your widget glows" or "Steed's saddle/barding glows" 
     if (!potion || potion->otyp != POT_WATER)
         return FALSE;
 
-    if (potion->blessed) {
+    if (potion->otyp == POT_AMNESIA) {
+        /* Diluting a !ofAmnesia just gives water... */
+        Your("%s flat.", aobjnam(potion, "become"));
+        potion->odiluted = 0;
+        potion->otyp = POT_WATER;
+        costchange = COST_alter;
+    } else if (potion->blessed) {
         if (targobj->cursed) {
             func = uncurse;
             glowcolor = NH_AMBER;
@@ -2896,12 +2902,13 @@ boolean ourfault;
     boolean used = FALSE;
     if (!potion || potion->otyp != POT_AMNESIA)
         return FALSE;
+    if (snuff_lit(targobj))
+        return TRUE;
 
-    /* Don't dilute amnesia! */
-    if (carried(targobj) && targobj->otyp != POT_AMNESIA
-                         && targobj->otyp != SCR_AMNESIA) {
-        if (water_damage(targobj, 0, TRUE, u.ux, u.uy) == ER_DESTROYED)
-            return TRUE;
+    if (targobj->greased) {
+        /*TODO: Fix this so &youmonst is victim instead */
+        grease_protect(targobj, (char *)0, &youmonst);
+        return FALSE;
     }
 
     (void) Shk_Your(Your_buf, targobj);
@@ -2937,7 +2944,7 @@ boolean ourfault;
             used = TRUE;
             break;
         }
-
+        pline("%s%s completely.", Your_buf, aobjnam(targobj, "dilute"));
         if (targobj->unpaid && costly_spot(u.ux, u.uy)) {
             You("dilute it, you pay for it.");
             bill_dummy_object(targobj);
@@ -2954,9 +2961,8 @@ boolean ourfault;
     case SCROLL_CLASS:
         if (targobj->otyp != SCR_BLANK_PAPER && targobj->otyp != SCR_AMNESIA) {
             if (!Blind) {
-                boolean oq1 = targobj->quan == 1L;
-                pline_The("scroll%s %s.",
-                          oq1 ? "" : "s", otense(targobj, "fade"));
+                pline_The("scroll%s %s.", targobj->quan == 1L ? "" : "s",
+                          otense(targobj, "fade"));
             }
             if (targobj->unpaid && costly_spot(u.ux, u.uy)) {
                 You("erase it, you pay for it.");
@@ -3046,36 +3052,36 @@ boolean ourfault;
             break;
         /* Drop through for disenchantment and rusting... */
         /* fall through */
-    case ARMOR_CLASS:
-    case WEAPON_CLASS:
+
     case WAND_CLASS:
     case RING_CLASS:
-        
+    case ARMOR_CLASS:
+    case WEAPON_CLASS:
     /* Just "fall through" to generic rustprone check for now. */
     /* fall through */
     default:
-        switch (artifact_wet(targobj, FALSE)) {
-        case -1:
-            break;
-        default:
+        if (artifact_wet(targobj, FALSE) != -1)
             return TRUE;
-        }
+
         if (targobj->spe > 0) {
             pre_downgrade_obj(targobj, &used);
             drain_item(targobj, ourfault);
         }
 
-        if (!targobj->oerodeproof && is_rustprone(targobj) &&
-              (targobj->oeroded < MAX_ERODE) && !rn2(2)) {
-            pline("%s%s some%s.", Your_buf, aobjnam(targobj, "rust"),
-                  targobj->oeroded ? " more" : "what");
-            targobj->oeroded++;
+        /* We're able to use the water_damage function, but some things still
+         * need handling specifically. This has to come after most of the
+         * cancel effects, otherwise the messages and effects don't really
+         * make sense for this potion. */
+        int res = water_damage(targobj, 0, TRUE, u.ux, u.uy);
+
+        if (res == ER_DAMAGED) {
+            used = TRUE;
             if (targobj->unpaid && costly_spot(u.ux, u.uy) && !used) {
                 You("damage it, you pay for it.");
-                bill_dummy_object(targobj);
+                /*bill_dummy_object(targobj);*/
             }
-            used = TRUE;
-        }
+        } else if (res == ER_DESTROYED)
+            return TRUE;
         break;
     }
     /* !ofAmnesia might strip away fooproofing... */
@@ -3083,7 +3089,6 @@ boolean ourfault;
         pre_downgrade_obj(targobj, &used);
         targobj->oerodeproof = FALSE;
     }
-
 
     if (targobj->cursed || targobj->blessed) {
         if (targobj->blessed || targobj->otyp == POT_WATER)
@@ -3243,11 +3248,6 @@ dodip()
         if (H2Opotion_dip(potion, obj, useeit, obj_glows))
             goto poof;
     } else if (potion->otyp == POT_AMNESIA) {
-        if (potion == obj) {
-            obj->in_use = FALSE;
-            potion = splitobj(obj, 1L);
-            potion->in_use = TRUE;
-        }
         if (amnesia_wet(potion, obj, TRUE))
             goto poof;
     } else if (obj->otyp == POT_POLYMORPH || potion->otyp == POT_POLYMORPH) {
