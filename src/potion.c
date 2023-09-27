@@ -2935,7 +2935,7 @@ boolean ourfault;
             break;
         }
 
-        pline("%s%s completely.", Your_buf, aobjnam(targobj, "dilute"));
+        /*pline("%s%s completely.", Your_buf, aobjnam(targobj, "dilute"));*/
 
         if (targobj->unpaid && costly_spot(u.ux, u.uy)) {
             You("dilute it, you pay for it.");
