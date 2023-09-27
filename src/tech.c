@@ -1233,7 +1233,7 @@ int tech_no;
             return 0;
     }
 
-    if (res && !u.uconduct.techuse++)
+    if (res && !u.uconduct.techuse++ && moves > 10000)
         livelog_printf(LL_CONDUCT,
                        "performed a technique for the first time - %s",
                        techname(tech_no));

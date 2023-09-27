@@ -1202,7 +1202,7 @@ register struct monst *shkp;
         money2u(shkp, -balance);
     context.botl = 1;
     
-    if (!u.uconduct.shk++)
+    if (!u.uconduct.shk++ && moves > 10000)
         livelog_printf(LL_CONDUCT, "participated in the Yendorian economy for the first time");
     
     if (robbed) {
