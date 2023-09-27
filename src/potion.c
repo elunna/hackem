@@ -2891,30 +2891,16 @@ boolean ourfault;
 {
     char Your_buf[BUFSZ];
     boolean used = FALSE;
-    
     if (!potion || potion->otyp != POT_AMNESIA)
         return FALSE;
-    
-# if 0
-    boolean res;
-    /* dipping into uncursed water; carried() check skips steed saddle/barding */
-    if (carried(targobj)) {
-        if (water_damage(targobj, 0, TRUE, u.ux, u.uy) != ER_NOTHING)
-            res = TRUE;
-    }
-#endif
-    
-    if (snuff_lit(targobj))
-        return TRUE;
 
-    if (targobj->greased) {
-        grease_protect(targobj, (char *)0, &youmonst);
-        return FALSE;
+    if (carried(targobj)) {
+        if (water_damage(targobj, 0, TRUE, u.ux, u.uy) == ER_DESTROYED)
+            return TRUE;
     }
 
     (void) Shk_Your(Your_buf, targobj);
 
-    
     /* (Rusting shop goods ought to be charged for.) */
     switch (targobj->oclass) {
     case POTION_CLASS:
@@ -3256,7 +3242,7 @@ dodip()
             potion = splitobj(obj, 1L);
             potion->in_use = TRUE;
         }
-        if (amnesia_wet(obj, potion, TRUE)) 
+        if (amnesia_wet(potion, obj, TRUE))
             goto poof;
     } else if (obj->otyp == POT_POLYMORPH || potion->otyp == POT_POLYMORPH) {
         /* some objects can't be polymorphed */
