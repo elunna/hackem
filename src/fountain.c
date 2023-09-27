@@ -763,6 +763,28 @@ doforging(void)
                 output->material = obj1->material;
             }
 
+            /* any object properties, take secondary object property
+               over primary. if you know the object property of one
+               of the recipe objects, you'll know the object property
+               of the newly forged object */
+            if (obj2->oprops) {
+                if (!is_barding(output))
+                    output->oprops = obj2->oprops;
+                if (obj2->oprops_known)
+                    output->oprops_known |= output->oprops;
+            } else if (obj1->oprops) {
+                if (!is_barding(output))
+                    output->oprops = obj1->oprops;
+                if (obj1->oprops_known)
+                    output->oprops_known |= output->oprops;
+            }
+
+            /* if neither recipe object have an object property,
+               ensure that the newly forged object doesn't
+               randomly have a property added at creation */
+            if ((obj1->oprops & 0L) && (obj2->oprops & 0L))
+                output->oprops |= 0L;
+
             /* if objects are enchanted or have charges,
                carry that over, and use the greater of the two */
             if (output->oclass == obj2->oclass) {
@@ -818,7 +840,7 @@ doforging(void)
             output->owt = weight(output);
             You("have successfully forged %s.", doname(output));
             update_inventory();
-            if (!rn2(30)) {
+            if (output->oprops) {
                 /* forging magic can sometimes be too much stress */
                 if (!rn2(6))
                     coolforge(u.ux, u.uy);
@@ -1041,6 +1063,7 @@ register struct obj *obj;
             pline(
               "From the murky depths, a hand reaches up to bless the sword.");
             pline("As the hand retreats, the fountain disappears!");
+            obj->oprops = obj->oprops_known = 0L;
             obj = oname(obj, artiname(ART_EXCALIBUR));
             discover_artifact(ART_EXCALIBUR);
             bless(obj);

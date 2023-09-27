@@ -1084,7 +1084,7 @@ SCROLL("knowledge",                   "POTESTAS",  1,  20,  50), /* SpliceHack *
 SCROLL("identify",                  "KERNOD WEL",  1, 180,  20),
 SCROLL("air",                        "TRATS ARL",  1,  35, 200), /* SpliceHack */
                                  /* LRA START */
-SCROLL("transmogrify",              "TLON UQBAR",  1,  20, 200), /* SpliceHack */
+SCROLL("transmogrify",              "TLON UQBAR",  1,  15, 300), /* SpliceHack */
                                 /* Tlon Uqbar */
 SCROLL("magic mapping",              "ELAM EBOW",  1,  45, 100),
 SCROLL("amnesia",                   "DUAM XNAHT",  1,  35, 200),
@@ -1098,8 +1098,9 @@ SCROLL("cloning",               "TOYL ENT RUBLE",  1,   5, 300),  /* SpliceHack 
 SCROLL("stinking cloud",             "VELOX NEB",  1,  15, 300),
 SCROLL("acquirement",       "HZLRC KSTSBD MPFNG",  1,  10, 300),
 SCROLL("ice",		           "OOBID IBBOB",  1,  10, 200), /* SlashTHEM */
+SCROLL("magic detection",        "FOOBIE BLETCH",  1,  25, 300), /* EvilHack */
     /* Extra descriptions, shuffled into use at start of new game.
-     * Code in win/share/tilemap.c depends on SCR_ICE preceding
+     * Code in win/share/tilemap.c depends on SCR_MAGIC_DETECTION preceding
      * these and on how many of them there are.  If a real scroll gets added
      * after stinking cloud or the number of extra descriptions changes,
      * tilemap.c must be modified to match.

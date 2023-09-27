@@ -919,7 +919,7 @@ void
 addinv_core2(obj)
 struct obj *obj;
 {
-    if (confers_luck(obj)) {
+    if (confers_luck(obj) || (obj->oprops & ITEM_EXCEL)) {
         /* new luckstone must be in inventory by this point
          * for correct calculation */
         set_moreluck();
@@ -1247,7 +1247,7 @@ struct obj *obj;
 
     if (obj->otyp == LOADSTONE) {
         curse(obj);
-    } else if (confers_luck(obj)) {
+    } else if (confers_luck(obj) || (obj->oprops & ITEM_EXCEL)) {
         set_moreluck();
         context.botl = 1;
     }  else if (obj->otyp == HEALTHSTONE) {
@@ -2455,6 +2455,7 @@ struct obj *otmp;
     if (otmp->oartifact)
         discover_artifact((xchar) otmp->oartifact);
     otmp->known = otmp->dknown = otmp->bknown = otmp->rknown = 1;
+    otmp->oprops_known = ITEM_PROP_MASK;
     if (Is_container(otmp) || otmp->otyp == STATUE)
         otmp->cknown = otmp->lknown = 1;
     if (otmp->otyp == EGG && otmp->corpsenm != NON_PM)
@@ -4019,6 +4020,13 @@ register struct obj *otmp, *obj;
     /* for the moment, any additional information is incompatible */
     if (has_omonst(obj) || has_omid(obj) || has_olong(obj) || has_omonst(otmp)
         || has_omid(otmp) || has_olong(otmp))
+        return FALSE;
+
+    if (obj->oprops != otmp->oprops)
+        return FALSE;
+
+    if ((obj->oprops & (obj->oprops_known | ITEM_MAGICAL))
+        != (otmp->oprops & (otmp->oprops_known | ITEM_MAGICAL)))
         return FALSE;
 
     if (obj->oartifact != otmp->oartifact)

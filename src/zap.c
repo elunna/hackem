@@ -1971,7 +1971,7 @@ int id;
 
     case SCROLL_CLASS:
         while (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT)
-            otmp->otyp = rnd_class(SCR_ENCHANT_ARMOR, SCR_ICE);
+            otmp->otyp = rnd_class(SCR_ENCHANT_ARMOR, SCR_MAGIC_DETECTION);
         break;
         
     case SPBOOK_CLASS:

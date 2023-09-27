@@ -1104,6 +1104,7 @@ int dieroll;
     boolean lightobj = FALSE;
     boolean thievery = FALSE;
     boolean issecespita = FALSE;
+    boolean isvenom  = FALSE;
     boolean valid_weapon_attack = FALSE;
     boolean unarmed = !uwep && (!uarm || is_robe(uarm)) && !uarms;
     boolean actually_unarmed = !obj;
@@ -1304,6 +1305,8 @@ int dieroll;
             pline("There is a bright flash as %s hits %s.",
                   artiname(obj->oartifact), the(mon_nam(mon)));
         }
+        if (obj->oprops & ITEM_VENOM)
+            isvenom = TRUE;
         if (!(artifact_light(obj) && obj->lamplit))
             Strcpy(saved_oname, cxname(obj));
         else
@@ -1543,7 +1546,8 @@ int dieroll;
                 }
                 /* a minimal hit doesn't exercise proficiency */
                 valid_weapon_attack = (tmp > 0);
-                if ((obj->oartifact) && artifact_hit(&youmonst, mon, obj, &tmp, dieroll)) {
+                if (((obj->oclass == WEAPON_CLASS && obj->oprops) || obj->oartifact)
+                    && artifact_hit(&youmonst, mon, obj, &tmp, dieroll)) {
                     if (DEADMONSTER(mon)) /* artifact killed monster */
                         return FALSE;
                     if (tmp == 0)
@@ -2052,7 +2056,7 @@ int dieroll;
     }
 
     if (!ispotion && obj /* potion obj will have been freed by here */
-        && (ispoisoned)) {
+        && (ispoisoned || isvenom)) {
         int nopoison = (10 - (obj->owt / 10));
 
         if (nopoison < 2)
@@ -2064,7 +2068,7 @@ int dieroll;
             You_feel("like an evil coward for using a poisoned weapon.");
             adjalign(Role_if(PM_KNIGHT) ? -3 : -1);
         }
-        if (obj && !rn2(nopoison) && !is_bullet(obj)) {
+        if (obj && !rn2(nopoison) && !isvenom && !is_bullet(obj)) {
             /* remove poison now in case obj ends up in a bones file */
             obj->opoisoned = FALSE;
             /* defer "obj is no longer poisoned" until after hit message */
@@ -2333,12 +2337,20 @@ int dieroll;
 
     if (needpoismsg) {
         pline_The("poison doesn't seem to affect %s.", mon_nam(mon));
+        if (obj && (obj->oprops & ITEM_VENOM)) {
+            obj->oprops_known |= ITEM_VENOM;
+            update_inventory();
+        }
     }
     if (poiskilled) {
         pline_The("poison was deadly...");
         if (!already_killed)
             xkilled(mon, XKILL_NOMSG);
         destroyed = TRUE; /* return FALSE; */
+        if (obj && (obj->oprops & ITEM_VENOM)) {
+            obj->oprops_known |= ITEM_VENOM;
+            update_inventory();
+        }
     } else if (vapekilled) {
         if (cansee(mon->mx, mon->my))
             pline("%s%ss body vaporizes!", Monnam(mon),
@@ -2516,7 +2528,8 @@ struct attack *mattk;
        protection might fail (33% chance) when the armor is cursed.
        Grammar has been altered to accommodate both player vs monster
        and monster vs monster attacks */
-    if (obj && (obj->greased || obj->otyp == OILSKIN_CLOAK)
+    if (obj && (obj->greased || obj->otyp == OILSKIN_CLOAK
+                || (obj->oprops & ITEM_OILSKIN))
         && (!obj->cursed || rn2(3))) {
         pline_The("%s %s %s %s!",
                   ((mattk->adtyp == AD_WRAP
@@ -2700,7 +2713,8 @@ struct attack *mattk;
     /* greased objects are difficult to get a grip on, hence
     the odds that an attempt at stealing it may fail */
     if (otmp && (otmp->greased || otmp->otyp == OILSKIN_CLOAK
-        || otmp->otyp == OILSKIN_SACK)
+        || otmp->otyp == OILSKIN_SACK
+        || (otmp->oprops & ITEM_OILSKIN))
         && (!otmp->cursed || rn2(4))) {
         Your("%s slip off of %s %s %s!",
               makeplural(body_part(HAND)),
@@ -2887,7 +2901,8 @@ struct attack *mattk;
         failing to steal a greased object will stop you from stealing
         anything else to avoid infinite loop nastiness */
         if (otmp && (otmp->greased || otmp->otyp == OILSKIN_CLOAK
-            || otmp->otyp == OILSKIN_SACK)
+            || otmp->otyp == OILSKIN_SACK
+            || (otmp->oprops & ITEM_OILSKIN))
             && (!otmp->cursed || rn2(4))) {
             Your("%s slip off of %s %s %s!",
                 makeplural(body_part(HAND)),

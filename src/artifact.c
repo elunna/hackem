@@ -260,7 +260,13 @@ aligntyp alignment; /* target alignment, or A_NONE */
     short o_typ = by_align ? 0 : otmp->otyp;
     boolean unique = !by_align && otmp && objects[o_typ].oc_unique;
     short eligible[NROFARTIFACTS];
-    
+
+    /* don't add properties to special weapons */
+    if (otmp && otmp->oprops)
+        return otmp;
+    if (otmp && otmp->oartifact)
+        return otmp;
+
     n = altn = 0;    /* no candidates found yet */
     eligible[0] = 0; /* lint suppression */
     /* gather eligible artifacts */
@@ -348,9 +354,154 @@ aligntyp alignment; /* target alignment, or A_NONE */
             artiexist[m] = TRUE;
             fix_artifact(otmp);
         }
+    } else if (otmp) {
+        otmp = create_oprop(otmp, FALSE);
     }
     return otmp;
 }
+
+/* Create an item with special properties, or grant the item those properties */
+struct obj *
+create_oprop(obj, allow_detrimental)
+register struct obj *obj;
+boolean allow_detrimental;
+{
+    register struct obj *otmp = obj;
+    int i, j;
+
+    if (!otmp) {
+        int type = 0, skill = P_NONE,
+            candidates[128], ccount,
+            threshold = P_EXPERT;
+        /* This probably is only ever done for weapons, y'know?
+         * Find an appropriate type of weapon */
+        while (threshold > P_UNSKILLED) {
+            ccount = 0;
+            for (i = P_FIRST_WEAPON; i < P_LAST_WEAPON; i++) {
+                if (P_MAX_SKILL(i) >= max(threshold, P_BASIC)
+                    && P_SKILL(i) >= threshold)
+                    candidates[ccount++] = i;
+                if (ccount >= 128)
+                    break;
+            }
+            if (ccount == 0) {
+                threshold--;
+                continue;
+            }
+            skill = candidates[rn2(ccount)];
+            ccount = 0;
+            for (i = ARROW; i <= CROSSBOW; i++) {
+                if (abs(objects[i].oc_skill) == skill)
+                    candidates[ccount++] = i;
+                if (ccount == 128)
+                    break;
+            }
+            if (!ccount) {
+                impossible("found no weapons for skill %d?", skill);
+                threshold--;
+                continue;
+            }
+            type = candidates[rn2(ccount)];
+            break;
+        }
+        /* Now make one, if we can */
+        if (type != 0)
+            otmp = mksobj(type, TRUE, FALSE);
+        else
+            otmp = mkobj(WEAPON_CLASS, FALSE);
+    }
+
+    /* Don't spruce up certain objects */
+    if (otmp->oartifact)
+        return otmp;
+    else if (objects[otmp->otyp].oc_unique)
+        return otmp;
+    /* already magical items obtain properties a tenth as often */
+    else if ((objects[otmp->otyp].oc_magic) && rn2(10))
+        return otmp;
+    else if (otmp && Is_dragon_armor(otmp))
+        return otmp;
+    else if is_bomb(otmp)
+        return otmp;
+
+    /* properties only added to weapons and armor */
+    if (otmp->oclass != WEAPON_CLASS && !is_weptool(otmp)
+          && otmp->oclass != ARMOR_CLASS)
+        return otmp;
+
+    /* it is possible to have an object spawn with more
+     * than one object property, but the odds are so low
+     * that if it happens, well good for you */
+    while (!otmp->oprops || !rn2(100000)) {
+        i = rn2(MAX_ITEM_PROPS);
+        j = 1 << i; /* pick an object property */
+
+        if (otmp->oprops & j)
+            continue;
+
+        if ((j & (ITEM_FUMBLING | ITEM_HUNGER))
+            && !allow_detrimental)
+            continue;
+
+        /* check for restrictions */
+        if ((otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
+            && (j & ITEM_OILSKIN))
+            continue;
+
+        if (is_launcher(otmp)
+            &&  (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM
+                      | ITEM_VENOM | ITEM_ACID | ITEM_DRLI | ITEM_OILSKIN)))
+            continue;
+
+        if ((is_ammo(otmp) || is_missile(otmp))
+            && (j & (ITEM_OILSKIN | ITEM_ESP | ITEM_EXCEL | ITEM_SEARCHING
+                     | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER)))
+            continue;
+
+        if ((otmp->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM 
+                             | ITEM_VENOM | ITEM_ACID | ITEM_DRLI))
+                    && (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM 
+                             | ITEM_VENOM | ITEM_ACID | ITEM_DRLI)))
+            continue; /* these are mutually exclusive */
+
+        if (otmp->material != CLOTH && (j & ITEM_OILSKIN))
+            continue;
+
+        /* TODO: Add a macro to check an objects base property against the prop */
+        if (otmp->otyp == OILSKIN_CLOAK && (j & ITEM_OILSKIN))
+            continue;
+        
+        if (otmp->otyp == ROGUES_GLOVES && (j & ITEM_SEARCHING))
+            continue;
+
+        /* helm of telepathy already exists */
+        if (is_helmet(otmp) && (j & ITEM_ESP))
+            continue;
+
+        otmp->oprops |= j;
+    }
+
+    /* Fix it up as necessary */
+    if (otmp->oprops
+        && (otmp->oclass == WEAPON_CLASS || otmp->oclass == ARMOR_CLASS)
+        && !(otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER))) {
+        if (!rn2(8)) {
+            blessorcurse(otmp, 8);
+            if (otmp->cursed)
+                otmp->spe = -rne(3);
+            else
+                otmp->spe = rne(3);
+        }
+    }
+
+    if (otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER)) {
+        if (!otmp->cursed)
+            curse(otmp);
+        otmp->spe = -rne(3);
+    }
+    return otmp;
+}
+
 
 /*
  * Returns the full name (with articles and correct capitalization) of an
@@ -469,7 +620,11 @@ struct obj *obj;
     /* might as well check for this too */
     if (obj->otyp == LUCKSTONE)
         return TRUE;
-    
+
+    if (obj->oprops & ITEM_EXCEL
+        && obj->owornmask & (W_ARMOR | W_WEP | W_SWAPWEP))
+        return TRUE;
+
     return (boolean) (obj->oartifact && spec_ability(obj, SPFX_LUCK));
 }
 
@@ -582,6 +737,24 @@ struct obj *otmp;
 
     if (weap && adtyp == AD_DREN)
         return TRUE;
+
+    if (!weap && otmp->oprops
+        && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))) {
+        if (adtyp == AD_FIRE && (otmp->oprops & ITEM_FIRE))
+            return TRUE;
+        if (adtyp == AD_COLD && (otmp->oprops & ITEM_FROST))
+            return TRUE;
+        if (adtyp == AD_ELEC && (otmp->oprops & ITEM_SHOCK))
+            return TRUE;
+        if (adtyp == AD_LOUD && (otmp->oprops & ITEM_SCREAM))
+            return TRUE;
+        if (adtyp == AD_DRST && (otmp->oprops & ITEM_VENOM))
+            return TRUE;
+        if (adtyp == AD_ACID && (otmp->oprops & ITEM_ACID))
+            return TRUE;
+        if (adtyp == AD_DRLI && (otmp->oprops & ITEM_DRLI))
+            return TRUE;
+    }
     return FALSE;
 }
 
@@ -679,7 +852,7 @@ long wp_mask;
     register uchar dtyp;
     register long spfx;
 
-    if (!oart)
+    if (!oart && !otmp->oprops)
         return;
 
     /* effects from the defn field */
@@ -758,8 +931,16 @@ long wp_mask;
 
     /* intrinsics from the spfx field; there could be more than one */
     spfx = 0;
-    if (oart)
+    if (oart) {
         spfx = (wp_mask != W_ART) ? oart->spfx : oart->cspfx;
+    } else if (wp_mask == W_WEP || wp_mask == W_SWAPWEP) {
+        if (otmp->oprops & ITEM_SEARCHING)
+            spfx |= SPFX_SEARCH;
+        if (otmp->oprops & ITEM_WARNING)
+            spfx |= SPFX_WARN;
+        if (otmp->oprops & ITEM_ESP)
+            spfx |= SPFX_ESP;
+    }
 
     if (spfx && wp_mask == W_ART && !on) {
         /* don't change any spfx also conferred by other artifacts */
@@ -1186,12 +1367,60 @@ struct obj *otmp;
 struct monst *mon;
 int tmp;
 {
-    const struct artifact *weap = get_artifact(otmp);
-    int dbon = 0;
+    register const struct artifact *weap = get_artifact(otmp);
     boolean yours = (mon == &youmonst);
-    
-    if (!weap || (weap->attk.adtyp == AD_PHYS && /* check for `NO_ATTK' */
-                  weap->attk.damn == 0 && weap->attk.damd == 0))
+    int dbon = 0, adtype;
+    spec_dbon_applies = FALSE;
+
+    if (!weap && otmp->oprops
+        && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))) {
+        /* until we know otherwise... */
+        if ((attacks(adtype = AD_FIRE, otmp)
+            && ((yours) ? !(Fire_resistance || Underwater)
+                        : !(resists_fire(mon) || mon_underwater(mon))))
+                || (attacks(adtype = AD_COLD, otmp)
+                    && ((yours) ? (!Cold_resistance) : (!resists_cold(mon))))
+                        || (attacks(adtype = AD_ELEC, otmp)
+                            && ((yours) ? (!Shock_resistance) : (!resists_elec(mon))))
+                                || (attacks(adtype = AD_DRST, otmp)
+                                    && ((yours) ? (!Poison_resistance) : (!resists_poison(mon))))
+                                        || (attacks(adtype = AD_SLEE, otmp)
+                                            && ((yours) ? (!Sleep_resistance) : (!resists_sleep(mon))))
+                                                || (attacks(adtype = AD_ACID, otmp)
+                                                    && ((yours) ? !(Acid_resistance || Underwater)
+                                                    : !(resists_acid(mon) || mon_underwater(mon))))
+                                                        || (attacks(adtype = AD_LOUD, otmp)
+                                                            && ((yours) ? (!Sonic_resistance) : (!resists_sonic(mon))))
+                                                                || (attacks(adtype = AD_DISE, otmp)
+                                                                    && ((yours) ? (!Sick_resistance) : (!resists_sick(mon->data))))
+                                                                        || (attacks(adtype = AD_DETH, otmp)
+                                                                            && ((yours) ? (!Death_resistance) : (!immune_death_magic(mon->data))))
+                                                                                || (attacks(adtype = AD_DISN, otmp)
+                                                                                    && ((yours) ? (!Disint_resistance) : (!resists_disint(mon))))) {
+
+            spec_dbon_applies = TRUE;
+            /* majority of ITEM_VENOM damage
+             * handled in src/uhitm.c */
+            if (otmp->oprops & ITEM_VENOM)
+                /* don't worry about vulnerability (it doesn't exist for poison anyway) */
+                return rnd(2);
+            else {
+                dbon = rnd(5) + 3;
+                if (vulnerable_to(mon, adtype))
+                    dbon = ((3 * dbon) + 1) / 2;
+                return dbon;
+            }
+        }
+        if ((otmp->oprops & ITEM_DRLI)
+            && ((yours) ? (!Drain_resistance) : (!resists_drli(mon)))) {
+            spec_dbon_applies = TRUE;
+            return 0;
+        }
+        return 0;
+    }
+
+    if (!weap || (weap->attk.adtyp == AD_PHYS /* check for `NO_ATTK' */
+                  && weap->attk.damn == 0 && weap->attk.damd == 0))
         spec_dbon_applies = FALSE;
     else if ((otmp->oartifact == ART_GRIMTOOTH
               && !(yours ? Sick_resistance : resists_sick(mon->data)))
@@ -1600,9 +1829,21 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                           : can_vaporize(mdef->data) ? "vaporizes part of"
                                                      : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
+            } else if (otmp->oclass == WEAPON_CLASS
+                       && (otmp->oprops & ITEM_FIRE)) {
+                pline_The("%s %s %s%c", distant_name(otmp, xname),
+                          !spec_dbon_applies         ? "hits"
+                          : can_vaporize(mdef->data) ? "vaporizes part of"
+                          : mon_underwater(mdef)     ? "hits" : "burns",
+                          hittee, !spec_dbon_applies ? '.' : '!');
             }
         }
-        
+
+        if ((otmp->oprops & ITEM_FIRE) && spec_dbon_applies) {
+            otmp->oprops_known |= ITEM_FIRE;
+            update_inventory();
+        }
+
         if ((youdefend ? !Underwater : !mon_underwater(mdef))
             || otmp->oartifact == ART_ANGELSLAYER) {
             if (!rn2(4))
@@ -1664,7 +1905,22 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                   ? "freezes part of"
                                   : "freezes",
                           hittee,  !spec_dbon_applies ? '.' : '!');
+            } else if (otmp->oclass == WEAPON_CLASS
+                       && (otmp->oprops & ITEM_FROST)) {
+                pline_The("%s %s %s%c",
+                          distant_name(otmp, xname),
+                          !spec_dbon_applies
+                              ? "hits"
+                              : can_freeze(mdef->data)
+                                  ? "freezes part of"
+                                  : "freezes",
+                          hittee, !spec_dbon_applies ? '.' : '!');
             }
+        }
+
+        if ((otmp->oprops & ITEM_FROST) && spec_dbon_applies) {
+            otmp->oprops_known |= ITEM_FROST;
+            update_inventory();
         }
 
         if (!rn2(4))
@@ -1685,7 +1941,20 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               ? ""
                               : "!  Lightning strikes",
                           hittee, !spec_dbon_applies ? '.' : '!');
+            } else if (otmp->oclass == WEAPON_CLASS
+                       && (otmp->oprops & ITEM_SHOCK)) {
+                pline_The("%s %s %s%c",
+                          distant_name(otmp, xname),
+                          !spec_dbon_applies
+                              ? "hits"
+                              : rn2(2) ? "jolts" : "shocks",
+                          hittee, !spec_dbon_applies ? '.' : '!');
             }
+        }
+
+        if ((otmp->oprops & ITEM_SHOCK) && spec_dbon_applies) {
+            otmp->oprops_known |= ITEM_SHOCK;
+            update_inventory();
         }
 
         /* Mjollnir's thunderclap can wake up nearby
@@ -1717,8 +1986,31 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                magr->my, mdx, mdy, TRUE);
                     }
                 }
+            } else if (otmp->oclass == WEAPON_CLASS
+                       && (otmp->oprops & ITEM_SCREAM)) {
+                if (!youattack && magr && cansee(magr->mx, magr->my)) {
+                    if (!spec_dbon_applies) {
+                        if (!youdefend)
+                            ;
+                        else
+                            pline_The("%s hits %s.",
+                                      distant_name(otmp, xname), hittee);
+                    } else {
+                        pline_The("%s blasts %s%c",
+                                  distant_name(otmp, xname), hittee, 
+                                  !spec_dbon_applies ? '.' : '!');
+                    }
+                } else {
+                    pline_The("%s %s %s%c",
+                              distant_name(otmp, xname),
+                              !spec_dbon_applies ? "hits" : "blasts",
+                              hittee, !spec_dbon_applies ? '.' : '!');
+                }
             }
-            
+            if ((otmp->oprops & ITEM_SCREAM) && spec_dbon_applies) {
+                otmp->oprops_known |= ITEM_SCREAM;
+                update_inventory();
+            }
             if (spec_dbon_applies)
                 wake_nearto(mdef->mx, mdef->my, 4 * 4);
             if (!rn2(4))
@@ -1888,31 +2180,51 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     if (attacks(AD_ACID, otmp)) {
         if (realizes_damage) {
             if (otmp->oartifact == ART_DIRGE) {
-                pline_The("acidic blade %s %s%c", !spec_dbon_applies 
-                ? "hits" : can_corrode(mdef->data) 
-                ? "eats away part of" : mon_underwater(mdef) 
-                ? "hits" : "burns",
-                hittee, !spec_dbon_applies ? '.' : '!');
+                pline_The("acidic blade %s %s%c",
+                          !spec_dbon_applies        ? "hits"
+                          : can_corrode(mdef->data) ? "eats away part of"
+                          : mon_underwater(mdef)    ? "hits"
+                                                    : "burns",
+                          hittee, !spec_dbon_applies ? '.' : '!');
+            } else if (otmp->oclass == WEAPON_CLASS
+                       && (otmp->oprops & ITEM_ACID)) {
+                pline_The("acidic %s %s %s%c",
+                          distant_name(otmp, xname),
+                          !spec_dbon_applies        ? "hits"
+                          : can_corrode(mdef->data) ? "eats away part of"
+                          : mon_underwater(mdef)    ? "hits"
+                                                    : "burns",
+                          hittee, !spec_dbon_applies ? '.' : '!');
             }
         }
         if (youdefend ? !Underwater : !mon_underwater(mdef)) {
             if (!rn2(5))
                 erode_armor(mdef, ERODE_CORRODE);
         }
+        if ((otmp->oprops & ITEM_ACID) && spec_dbon_applies) {
+            otmp->oprops_known |= ITEM_ACID;
+            update_inventory();
+        }
         return realizes_damage;
-
     }
     /* Sixth basic attack - poison */
     if (attacks(AD_DRST, otmp)) {
         if (realizes_damage) {
-            pline_The("%s %s %s%c", distant_name(otmp, xname),
-                      (resists_poison(mdef) || defended(mdef, AD_DRST))
-                      ? "hits"
-                      : rn2(2) ? "infects"
-                               : "poisons",
-                      hittee, !spec_dbon_applies ? '.' : '!');
+            if (otmp->oclass == WEAPON_CLASS && (otmp->oprops & ITEM_VENOM)) {
+                pline_The("%s %s %s%c", distant_name(otmp, xname),
+                          (resists_poison(mdef) || defended(mdef, AD_DRST))
+                              ? "hits"
+                          : rn2(2) ? "infects"
+                                   : "poisons",
+                          hittee, !spec_dbon_applies ? '.' : '!');
+            }
         }
-        
+
+        if ((otmp->oprops & ITEM_VENOM) && spec_dbon_applies) {
+            otmp->oprops_known |= ITEM_VENOM;
+            update_inventory();
+        }
+
         if (youdefend) {
             if (spec_dbon_applies && !rn2(8))
                 poisoned("blade", A_STR, "poisoned blade", 30, FALSE);
@@ -2668,13 +2980,20 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 else if (otmp->oartifact == ART_LIFESTEALER)
                     pline_The("massive sword draws the %s from %s!",
                               life, mon_nam(mdef));
-                /* 'thristy' weapons currently are not allowed
-                 * but we'll cover that base here just in case
-                 * they're added someday */
-                else /* The Staff of Aesculapius */
+                else if (otmp->oclass == WEAPON_CLASS
+                         && (otmp->oprops & ITEM_DRLI))
+                    pline_The("deadly %s draws the %s from %s!",
+                          distant_name(otmp, xname), life,
+                          mon_nam(mdef));
+                /* The Staff of Aesculapius */
+                else
                     pline("%s draws the %s from %s!",
                           The(distant_name(otmp, xname)), life,
                           mon_nam(mdef));
+                if (otmp->oprops & ITEM_DRLI) {
+                    otmp->oprops_known |= ITEM_DRLI;
+                    update_inventory();
+                }
             }
             if (mdef->m_lev == 0) {
                 *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
@@ -2713,9 +3032,18 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 pline_The("%s blade drains your %s!", hcolor(NH_BLACK), life);
             else if (otmp->oartifact == ART_LIFESTEALER)
                 pline_The("massive sword drains your %s!", life);
-            else /* The Staff of Aesculapius */
+            else if (otmp->oclass == WEAPON_CLASS
+                     && (otmp->oprops & ITEM_DRLI))
+                pline_The("deadly %s drains your %s!",
+                          distant_name(otmp, xname), life);
+            /* The Staff of Aesculapius */
+            else
                 pline("%s drains your %s!", The(distant_name(otmp, xname)),
                       life);
+            if (otmp->oprops & ITEM_DRLI) {
+                otmp->oprops_known |= ITEM_DRLI;
+                update_inventory();
+            }
             losexp("life drainage");
             if (magr && magr->mhp < magr->mhpmax) {
                 magr->mhp += (abs(oldhpmax - u.uhpmax) + 1) / 2;
@@ -3299,6 +3627,8 @@ struct obj *obj;
                 if (otmp->spe < 0)
                     otmp->spe = 0;
                 otmp->quan += rnd(10);
+                if (!rn2(5))
+                    create_oprop(otmp, FALSE);
             } else if (obj->cursed) {
                 if (otmp->spe > 0)
                     otmp->spe = 0;
@@ -4863,4 +5193,5 @@ struct obj *otmp;
 
     return FALSE;
 }
+
 /*artifact.c*/

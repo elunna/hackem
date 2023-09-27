@@ -113,7 +113,20 @@ register struct obj *obj;
         && ((uwep && uwep->oartifact == ART_GIANTSLAYER)
             || (olduwep && olduwep->oartifact == ART_GIANTSLAYER)))
         context.botl = 1;
-    
+
+    if (uwep && uwep == obj && (uwep->oprops & ITEM_EXCEL)) {
+        uwep->oprops_known |= ITEM_EXCEL;
+        set_moreluck();
+        context.botl = 1;
+        update_inventory();
+    }
+
+    if (olduwep && (olduwep->oprops & ITEM_EXCEL)) {
+        olduwep->oprops_known |= ITEM_EXCEL;
+        set_moreluck();
+        context.botl = 1;
+        update_inventory();
+    }
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.
      * 3.2.2:  Wielding arbitrary objects will give bashing message too.
@@ -275,7 +288,7 @@ void
 setuswapwep(obj)
 register struct obj *obj;
 {
-    if (u.twoweap && obj && obj->oartifact)
+    if (u.twoweap && obj && (obj->oartifact || obj->oprops))
         set_artifact_intrinsic(obj, 1, W_SWAPWEP);
 
     if (obj != uswapwep && artifact_light(uswapwep) && uswapwep->lamplit) {
@@ -301,6 +314,14 @@ register struct obj *obj;
     if (uswapwep == obj
         && (u.twoweap && uswapwep->oartifact == ART_GIANTSLAYER))
         context.botl = 1;
+
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {
+        uswapwep->oprops_known |= ITEM_EXCEL;
+        set_moreluck();
+        context.botl = 1;
+        update_inventory();
+    }
     return;
 }
 

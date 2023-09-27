@@ -661,6 +661,8 @@ struct obj *obj;
             if (!obj) {
                 if (!rn2(5))
                     otmp = mk_artifact(otmp, A_NONE);
+                else
+                    otmp = create_oprop(otmp, FALSE);
             }
         }
         /* usually increase stack size if stackable weapon */

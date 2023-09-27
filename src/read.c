@@ -1445,6 +1445,12 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                             }
                         }
                         setnotworn(armor);
+                        /* don't allow a suit of armor with an object property
+                           to co-exist with merged dragon scales */
+                        if ((armor->oprops & ITEM_PROP_MASK) != 0) {
+                            oprops_off(armor, W_ARM);
+                            armor->oprops &= ~(ITEM_PROP_MASK);
+                        }
                         armor->dragonscales = scales->otyp;
                         armor->cursed = 0;
                         if (sblessed) {
@@ -1589,6 +1595,12 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     }
                 }
                 setnotworn(armor);
+                /* don't allow a suit of armor with an object property
+                   to co-exist with merged dragon scales */
+                if ((armor->oprops & ITEM_PROP_MASK) != 0L) {
+                    oprops_off(armor, W_ARM);
+                    armor->oprops &= ~(ITEM_PROP_MASK);
+                }
                 armor->dragonscales = scales->otyp;
                 armor->cursed = 0;
                 if (sblessed) {
@@ -2370,9 +2382,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         } else {
             otmp = getobj(all_count, "transmogrify");
         }
-        
 
-            
         if (!otmp) {
             strange_feeling(sobj, "Your skin crawls for a moment.");
             sobj = 0; /* useup() in strange_feeling() */
@@ -2384,7 +2394,15 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             break;
         }
 
-        if (confused || scursed) {
+        if (confused) {
+            pline("%s with a fluorescent blue light!", Yobjnam2(otmp, "glow"));
+            if (scursed) {
+                otmp->oprops = 0;
+            } else if (sblessed || otmp->oprops) {
+                otmp->oprops = 0;
+                create_oprop(otmp, TRUE);
+            }
+        } else if (scursed) {
             pline("%s with a sickly green light!", Yobjnam2(otmp, "glow"));
             curse(otmp);
             otmp->oerodeproof = 0;
@@ -2400,6 +2418,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline("%s with a strange yellow light!", Yobjnam2(otmp, "glow"));
             warp_material(otmp, TRUE);
         }
+        update_inventory();
         break;
     }
     case SCR_CHARGING:
@@ -2663,6 +2682,11 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     }
+    case SCR_MAGIC_DETECTION:
+        if (magic_detect(sobj))
+            return 1;
+        known = TRUE;
+        break;
     case SCR_FLOOD:
         cval = bcsign(sobj);
         useup(sobj);
@@ -3986,6 +4010,7 @@ struct obj **sobjp;
         otmp2->recharged = otmp->recharged;
         otmp2->opoisoned = otmp->opoisoned;
         otmp2->corpsenm = otmp->corpsenm;
+        otmp2->oprops = otmp->oprops;
 
         /* For slime mold names */
         if (otmp->oextra)

@@ -163,6 +163,114 @@ boolean on;
  * [Blindf_on() is an exception and calls setworn() itself.]
  */
 
+void
+oprops_on(otmp, mask)
+register struct obj *otmp;
+long mask;
+{
+    long props = otmp->oprops;
+
+    if (props & ITEM_FIRE)
+        EFire_resistance |= mask;
+    if (props & ITEM_FROST)
+        ECold_resistance |= mask;
+    if (props & ITEM_DRLI)
+        EDrain_resistance |= mask;
+    if (props & ITEM_SHOCK)
+        EShock_resistance |= mask;
+    if (props & ITEM_SCREAM)
+        ESonic_resistance |= mask;
+    if (props & ITEM_VENOM)
+        EPoison_resistance |= mask;
+    if (props & ITEM_ACID)
+        EAcid_resistance |= mask;
+    if (props & ITEM_OILSKIN) {
+        pline("%s very tightly.", Tobjnam(otmp, "fit"));
+        otmp->oprops_known |= ITEM_OILSKIN;
+    }
+    if (props & ITEM_ESP) {
+        ETelepat |= mask;
+        see_monsters();
+    }
+    if (props & ITEM_SEARCHING)
+        ESearching |= mask;
+    if (props & ITEM_WARNING) {
+        EWarning |= mask;
+        see_monsters();
+    }
+    if (props & ITEM_FUMBLING) {
+        if (!EFumbling && !(HFumbling & ~TIMEOUT))
+            incr_itimeout(&HFumbling, rnd(20));
+        EFumbling |= mask;
+    }
+    if (props & ITEM_HUNGER)
+        EHunger |= mask;
+    if (props & ITEM_EXCEL) {
+        int which = A_CHA, old_attrib = ACURR(which);
+        /* borrowing this from Ring_on() as I may want
+           to add other attributes in the future */
+        ABON(which) += otmp->spe;
+        if (old_attrib != ACURR(which))
+            otmp->oprops_known |= ITEM_EXCEL;
+        set_moreluck();
+        context.botl = 1;
+    }
+}
+
+void
+oprops_off(otmp, mask)
+register struct obj *otmp;
+long mask;
+{
+    long props = otmp->oprops;
+
+    if (props & ITEM_FIRE)
+        EFire_resistance &= ~mask;
+    if (props & ITEM_FROST)
+        ECold_resistance &= ~mask;
+    if (props & ITEM_DRLI)
+        EDrain_resistance &= ~mask;
+    if (props & ITEM_SHOCK)
+        EShock_resistance &= ~mask;
+    if (props & ITEM_SCREAM)
+        ESonic_resistance &= ~mask;
+    if (props & ITEM_VENOM)
+        EPoison_resistance &= ~mask;
+    if (props & ITEM_ACID)
+        EAcid_resistance &= ~mask;
+    if (props & ITEM_OILSKIN)
+        otmp->oprops_known |= ITEM_OILSKIN;
+    if (props & ITEM_ESP) {
+        ETelepat &= ~mask;
+        see_monsters();
+    }
+    if (props & ITEM_SEARCHING)
+        ESearching &= ~mask;
+    if (props & ITEM_WARNING) {
+        EWarning &= ~mask;
+        see_monsters();
+    }
+    if (props & ITEM_FUMBLING) {
+        EFumbling &= ~mask;
+        if (!EFumbling && !(HFumbling & ~TIMEOUT))
+           HFumbling = EFumbling = 0;
+    }
+    if (props & ITEM_HUNGER)
+        EHunger &= ~mask;
+    if (props & ITEM_EXCEL) {
+        int which = A_CHA, old_attrib = ACURR(which);
+        /* borrowing this from Ring_off() as I may want
+           to add other attributes in the future */
+        ABON(which) -= otmp->spe;
+        if (old_attrib != ACURR(which))
+            otmp->oprops_known |= ITEM_EXCEL;
+        otmp->oprops &= ~ITEM_EXCEL;
+        set_moreluck();
+        otmp->oprops |= ITEM_EXCEL;
+        context.botl = 1;
+    }
+}
+
 int
 Boots_on(VOID_ARGS)
 {
@@ -239,6 +347,7 @@ Boots_on(VOID_ARGS)
     }
     if (uarmf) { /* could be Null here (levitation boots put on over a sink) */
         uarmf->known = 1; /* boots' +/- evident because of status line AC */
+        oprops_on(uarmf, WORN_BOOTS);
     }
     return 0;
 }
@@ -249,7 +358,9 @@ Boots_off(VOID_ARGS)
     struct obj *otmp = uarmf;
     int otyp = otmp->otyp;
     long oldprop = u.uprops[objects[otyp].oc_oprop].extrinsic & ~WORN_BOOTS;
-    
+
+    oprops_off(uarmf, WORN_BOOTS);
+
     context.takeoff.mask &= ~W_ARMF;
     /* For levitation, float_down() returns if Levitation, so we
      * must do a setworn() _before_ the levitation case.
@@ -415,6 +526,7 @@ Cloak_on(VOID_ARGS)
     }
     if (uarmc) { /* no known instance of !uarmc here but play it safe */
         uarmc->known = 1; /* cloak's +/- evident because of status line AC */
+        oprops_on(uarmc, WORN_CLOAK);
     }
     toggle_armor_light(uarmc, TRUE);
     return 0;
@@ -433,7 +545,9 @@ Cloak_off(VOID_ARGS)
         /* most scales are handled the same in this function */
         otyp = GRAY_DRAGON_SCALES;
     }
-    
+
+    oprops_off(uarmc, WORN_CLOAK);
+
     context.takeoff.mask &= ~W_ARMC;
 
     switch (otyp) {
@@ -629,6 +743,7 @@ Helmet_on(VOID_ARGS)
     /* uarmh could be Null due to uchangealign() */
     if (uarmh) {
         uarmh->known = 1; /* helmet's +/- evident because of status line AC */
+        oprops_on(uarmh, WORN_HELMET);
     }
     return 0;
 }
@@ -636,6 +751,8 @@ Helmet_on(VOID_ARGS)
 int
 Helmet_off(VOID_ARGS)
 {
+    oprops_off(uarmh, WORN_HELMET);
+
     context.takeoff.mask &= ~W_ARMH;
 
     switch (uarmh->otyp) {
@@ -739,6 +856,7 @@ Gloves_on(VOID_ARGS)
     }
     if (uarmg) { /* no known instance of !uarmg here but play it safe */
         uarmg->known = 1; /* gloves' +/- evident because of status line AC */
+        oprops_on(uarmg, WORN_GLOVES);
     }
     return 0;
 }
@@ -771,7 +889,9 @@ int
 Gloves_off(VOID_ARGS)
 {
     boolean on_purpose = !context.mon_moving && !uarmg->in_use;
-    
+
+    oprops_off(uarmg, WORN_GLOVES);
+
     if (uarmg->greased)
         Glib &= ~FROMOUTSIDE;
 
@@ -861,6 +981,7 @@ Shield_on(VOID_ARGS)
     }
     if (uarms) { /* no known instance of !uarmgs here but play it safe */
         uarms->known = 1; /* shield's +/- evident because of status line AC */
+        oprops_on(uarms, WORN_SHIELD);
     }
     toggle_armor_light(uarms, TRUE);
     return 0;
@@ -871,7 +992,9 @@ Shield_off(VOID_ARGS)
 {
     struct obj *otmp = uarms;
     boolean was_arti_light = otmp && otmp->lamplit && artifact_light(otmp);
-    
+
+    if (otmp)
+        oprops_off(otmp, WORN_SHIELD);
     context.takeoff.mask &= ~W_ARMS;
     setworn((struct obj *) 0, W_ARMS);
 
@@ -920,6 +1043,7 @@ Shirt_on(VOID_ARGS)
     }
     if (uarmu) { /* no known instances of !uarmu here but play it safe */
         uarmu->known = 1; /* shirt's +/- evident because of status line AC */
+        oprops_on(uarmu, WORN_SHIRT);
     }
     return 0;
 }
@@ -927,6 +1051,8 @@ Shirt_on(VOID_ARGS)
 int
 Shirt_off(VOID_ARGS)
 {
+    oprops_off(uarmu, WORN_SHIRT);
+
     context.takeoff.mask &= ~W_ARMU;
 
     /* no shirt currently requires special handling when taken off, but we
@@ -1092,6 +1218,7 @@ Armor_on(VOID_ARGS)
     }
     uarm->known = 1; /* suit's +/- evident because of status line AC */
     check_wings(FALSE);
+    oprops_on(uarm, W_ARM);
     dragon_armor_handling(uarm, TRUE);
     toggle_armor_light(uarm, TRUE);
     return 0;
@@ -1105,6 +1232,9 @@ Armor_off(VOID_ARGS)
 
     if (Role_if(PM_MONK) && !is_robe(otmp))
         You_feel("much more comfortable and free now.");
+
+    if (otmp)
+        oprops_off(otmp, W_ARM);
 
     context.takeoff.mask &= ~W_ARM;
     context.takeoff.cancelled_don = FALSE;
@@ -1134,7 +1264,10 @@ Armor_gone()
 
     if (Role_if(PM_MONK) && !is_robe(otmp))
         You_feel("much more comfortable and free now.");
-    
+
+    if (otmp)
+        oprops_off(otmp, W_ARM);
+
     context.takeoff.mask &= ~W_ARM;
     setnotworn(otmp);
     context.takeoff.cancelled_don = FALSE;

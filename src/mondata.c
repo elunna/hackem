@@ -139,11 +139,20 @@ resists_drli(mon)
 struct monst *mon;
 {
     struct permonst *ptr = raceptr(mon); /* handle demonic race */
+    struct obj *armor;
+    long slotmask;
 
     if (resists_drain(ptr) || is_vampshifter(mon)
         || (mon == &youmonst && (u.ulycn >= LOW_PM || Invulnerable)))
         return TRUE;
-
+    armor = (mon == &youmonst) ? invent : mon->minvent;
+    slotmask = W_ARMOR | W_ACCESSORY;
+    /* check for drain res object property */
+    for (; armor; armor = armor->nobj) {
+        if ((armor->owornmask & slotmask) != 0L
+            && obj_has_prop(armor, DRAIN_RES))
+            return TRUE;
+    }
     return defended(mon, AD_DRLI);
 }
 
