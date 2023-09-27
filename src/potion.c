@@ -1926,7 +1926,7 @@ int how;
             /* Uh-oh! */
             if (uarmh && is_helmet(uarmh) && 
                 rn2(10 - (uarmh->cursed? 8 : 0)))
-                get_wet(uarmh, TRUE, your_fault);
+                amnesia_wet(uarmh, TRUE, your_fault);
             break;
         case POT_HALLUCINATION:
             if (!Halluc_resistance) {
@@ -2883,7 +2883,7 @@ boolean *used;
     - It also removes fooproofing
 */
 boolean
-get_wet(obj, amnesia, ourfault)
+amnesia_wet(obj, amnesia, ourfault)
 register struct obj *obj;
 boolean amnesia;
 boolean ourfault;
@@ -3247,7 +3247,7 @@ dodip()
             potion = splitobj(obj, 1L);
             potion->in_use = TRUE;
         }
-        if (get_wet(obj, TRUE, TRUE)) 
+        if (amnesia_wet(obj, TRUE, TRUE)) 
             goto poof;
     }
     else if (obj->otyp == POT_POLYMORPH || potion->otyp == POT_POLYMORPH) {

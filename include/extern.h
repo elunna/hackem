@@ -2237,7 +2237,7 @@ E void FDECL(strange_feeling, (struct obj *, const char *));
 E void FDECL(impact_arti_light, (struct obj *, BOOLEAN_P, BOOLEAN_P));
 E void FDECL(potionhit, (struct monst *, struct obj *, int));
 E void FDECL(potionbreathe, (struct obj *));
-E boolean FDECL(get_wet, (struct obj *, BOOLEAN_P, BOOLEAN_P));
+E boolean FDECL(amnesia_wet, (struct obj *, BOOLEAN_P, BOOLEAN_P));
 E int NDECL(dodip);
 E void FDECL(ferment, (ANY_P *, long));
 E void FDECL(mongrantswish, (struct monst **));
