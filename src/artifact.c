@@ -4036,40 +4036,29 @@ struct obj *obj;
  *      This only prints messages about the actual artifact.
  */
 
-int
-artifact_wet(obj, silent)
+boolean
+artifact_wet(obj)
 struct obj *obj;
-boolean silent;
 {
     if (!obj->oartifact)
-        return (-1);
+        return FALSE;
     switch (artilist[(int) (obj)->oartifact].attk.adtyp) {
-    case AD_FIRE:
-        if (!silent) {
+        case AD_FIRE:
             pline("A cloud of steam rises.");
-            pline("%s is untouched.", The(xname(obj)));
-        }
-        return (AD_FIRE);
-    case AD_COLD:
-        if (!silent) {
+            return TRUE;
+        case AD_COLD:
             pline("Icicles form and fall from the freezing %s.", xname(obj));
-        }
-        return (AD_COLD);
-    case AD_ELEC:
-        if (!silent) {
-            pline_The("humid air crackles with electricity from %s.",
-                      xname(obj));
-        }
-        return (AD_ELEC);
-    case AD_DRLI:
-        if (!silent) {
+            return TRUE;
+        case AD_ELEC:
+            pline_The("humid air crackles with electricity from %s.", xname(obj));
+            return TRUE;
+        case AD_DRLI:
             pline("%s absorbs the water!", The(xname(obj)));
-        }
-        return (AD_DRLI);
-    default:
-        break;
+            return TRUE;
+        default:
+            break;
     }
-    return (-1);
+    return FALSE;
 }
 
 /* WAC return TRUE if artifact is always lit */

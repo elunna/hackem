@@ -3068,7 +3068,7 @@ boolean ourfault;
     /* Just "fall through" to generic rustprone check for now. */
     /* fall through */
     default:
-        if (artifact_wet(targobj, FALSE) != -1)
+        if (artifact_wet(targobj))
             return TRUE;
 
         if (targobj->spe > 0) {

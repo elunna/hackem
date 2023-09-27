@@ -1092,7 +1092,7 @@ dip_end:
     }
 
     /* If it is an artifact, it might have a special effect. */
-    artifact_wet(obj, FALSE);
+    artifact_wet(obj);
 
     switch (rnd(30)) {
     case 16: /* Curse the item */

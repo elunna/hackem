@@ -103,7 +103,7 @@ E int NDECL(doinvoke);
 E boolean FDECL(finesse_ahriman, (struct obj *));
 E void FDECL(arti_speak, (struct obj *));
 E boolean FDECL(artifact_light, (struct obj *));
-E int FDECL(artifact_wet, (struct obj *, BOOLEAN_P));
+E boolean FDECL(artifact_wet, (struct obj *));
 E long FDECL(spec_mh, (struct obj *));
 E boolean FDECL(artifact_has_invprop, (struct obj *, UCHAR_P));
 E long FDECL(arti_cost, (struct obj *));
