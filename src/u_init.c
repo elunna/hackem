@@ -353,7 +353,7 @@ struct trobj AoUn[] = { { AMULET_OF_UNCHANGING, 0, AMULET_CLASS, 1, CURSED },
                                { 0, 0, 0, 0, 0 } };
 struct trobj Oilskin[] = { { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
-struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
+struct trobj Goggles[] = { { GOGGLES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
 struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
                           { 0, 0, 0, 0, 0 } };
@@ -1201,7 +1201,7 @@ u_init()
         }
         ini_inv(Ice_Mage);
         if (!rn2(2)) 
-            ini_inv(Lenses);
+            ini_inv(Goggles);
         skill_init(Skill_I);
         break;
     case PM_JEDI:

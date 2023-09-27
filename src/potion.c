@@ -4330,8 +4330,11 @@ obj2upgrade(int otyp)
     case TIN_OPENER: return TINNING_KIT;
     case TINNING_KIT: return TIN_OPENER;
         
-    case LENSES: return CRYSTAL_BALL;
-    case CRYSTAL_BALL: return LENSES;
+    case LENSES: return GOGGLES;
+    case GOGGLES: return LENSES;
+
+    case EIGHT_BALL: return CRYSTAL_BALL;
+    case CRYSTAL_BALL: return EIGHT_BALL;
         
     case LAND_MINE:
     case PINEAPPLE:
