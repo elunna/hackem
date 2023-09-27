@@ -1458,7 +1458,8 @@ register struct obj *obj;
             break;
         case POTION_CLASS:
             /* Potions of amnesia are uncancelable. */
-            if (obj->otyp == POT_AMNESIA) break;
+            if (obj->otyp == POT_AMNESIA)
+                break;
             
             costly_alteration(obj,
                               (otyp != POT_WATER)
@@ -1477,6 +1478,10 @@ register struct obj *obj;
                 obj->odiluted = 0; /* same as any other water */
             }
             break;
+        case TOOL_CLASS:
+            /* Masks are magical and therefore subject to cancellation. */
+            if (obj->otyp == MASK)
+                obj->corpsenm = -1;
         }
     }
     unbless(obj);
