@@ -3104,6 +3104,12 @@ boolean ourfault;
         targobj->oerodeproof = FALSE;
     }
 
+    /* !ofAmnesia might strip away properties... */
+    if (targobj->oprops && (!rn2(13) || ourfault)) {
+        pre_downgrade_obj(targobj, &used);
+        targobj->oprops = 0;
+    }
+
     if (targobj->cursed || targobj->blessed) {
         if (targobj->blessed || targobj->otyp == POT_WATER)
             pre_downgrade_obj(targobj, &used);
