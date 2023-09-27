@@ -1682,7 +1682,8 @@ level_difficulty()
         res += 15;
     }
     /* Wishes increase difficulty */
-    res += (int) u.uconduct.wishes * 5;
+    if (u.uconduct.wishes > 1)
+        res += (int) (u.uconduct.wishes - 1) * 4;
     return (xchar) res;
 }
 

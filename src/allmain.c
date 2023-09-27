@@ -301,16 +301,12 @@ boolean resuming;
                         past_clock = moves - timeout_start;
                         if (past_clock > 0)
                             monclock = MIN_MONGEN_RATE * 30000 / (past_clock + 30000);
-                        if (monclock > MIN_MONGEN_RATE / 2 && (u.uconduct.wishes >= 1L))
-                            monclock = MIN_MONGEN_RATE / 2;
                         if (monclock > MIN_MONGEN_RATE / 4 && (u.uconduct.wishes >= 2L))
                             monclock = MIN_MONGEN_RATE / 4;
                         if (monclock > MIN_MONGEN_RATE / 6 && (u.uconduct.wishes >= 3L))
                             monclock = MIN_MONGEN_RATE / 6;
                         if (monclock > MIN_MONGEN_RATE / 8 && (u.uconduct.wishes >= 4L))
                             monclock = MIN_MONGEN_RATE / 8;
-                        if (monclock > MIN_MONGEN_RATE / 10 && (u.uconduct.wishes >= 5L))
-                            monclock = MIN_MONGEN_RATE / 10;
                     }
 		            /* make sure we don't fall off the bottom */
                     if (monclock < MAX_MONGEN_RATE)
