@@ -484,7 +484,6 @@ static const struct def_skill Skill_B[] = {
     { P_MORNING_STAR, P_SKILLED },
     { P_FLAIL, P_BASIC },
     { P_HAMMER, P_EXPERT },
-    { P_QUARTERSTAFF, P_BASIC },
     { P_SPEAR, P_SKILLED },
     { P_TRIDENT, P_SKILLED },
     { P_BOW, P_BASIC },
@@ -547,9 +546,9 @@ static const struct def_skill Skill_F[] = {
     { P_SHORT_SWORD, P_SKILLED },           /* For access to fire-brand */
     { P_MACE, P_BASIC },                    /* No good reason, just variety.*/
 /*  { P_MORNING_STAR, P_BASIC },*/
-    { P_CLUB, P_EXPERT },              /* because clubs/torches can be lit.*/
+    { P_CLUB, P_EXPERT },                   /* because clubs/torches can be lit.*/
     { P_HAMMER, P_SKILLED },
-    { P_QUARTERSTAFF, P_EXPERT },   /* sac gift is Firewall, a quarterstaff */
+    { P_QUARTERSTAFF, P_EXPERT },           /* sac gift is Firewall, a quarterstaff */
     { P_BOW, P_BASIC },
     { P_SLING, P_SKILLED },                 /* Familiar with flint stones */
     { P_WHIP, P_SKILLED },                  /* Potentially for flaming whips */
@@ -596,7 +595,7 @@ static const struct def_skill Skill_I[] = {
     { P_BROAD_SWORD, P_BASIC },
     { P_LONG_SWORD, P_BASIC },
     { P_FLAIL, P_SKILLED },
-    { P_QUARTERSTAFF, P_BASIC },
+    { P_QUARTERSTAFF, P_EXPERT },
     { P_SPEAR, P_SKILLED },
     { P_TRIDENT, P_EXPERT },
 /*  { P_BOW, P_BASIC },*/
@@ -708,7 +707,8 @@ static const struct def_skill Skill_N[] = {
     { P_MACE, P_BASIC },                /* Executioner's mace, etc */
     { P_CROSSBOW, P_BASIC },
     { P_UNICORN_HORN, P_BASIC },        /* Using a dead animals horn is dark */
-
+    { P_QUARTERSTAFF, P_EXPERT },
+    
     { P_ATTACK_SPELL, P_SKILLED },
     { P_NECROMANCY_SPELL, P_EXPERT },
     { P_BARE_HANDED_COMBAT, P_BASIC },
@@ -797,7 +797,6 @@ static const struct def_skill Skill_Ran[] = {
     { P_MORNING_STAR, P_BASIC },
     { P_FLAIL, P_SKILLED },
     { P_HAMMER, P_BASIC },
-    { P_QUARTERSTAFF, P_BASIC },
     { P_POLEARMS, P_BASIC },
     { P_SPEAR, P_EXPERT },
     { P_TRIDENT, P_BASIC },
