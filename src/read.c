@@ -2278,7 +2278,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     case SPE_DETECT_FOOD: {
         boolean failure;
         failure = (food_detect(sobj) != 0);
-        if (!failure && sobj && sobj->blessed && monster_detect(sobj, S_BAD_FOOD))
+        if (!failure && sobj && sobj->blessed
+              && (monster_detect(sobj, S_BAD_FOOD)== 0))
             failure = FALSE;
         if (failure) {
             sobj = 0; /* failure: strange_feeling() -> useup() */
