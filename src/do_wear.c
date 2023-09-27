@@ -2669,6 +2669,7 @@ boolean noisy;
                    && otmp && giant_sized(otmp)) {
             if (noisy)
                 You("are too small to wear such a suit of armor.");
+            makeknown(otmp->otyp);
             err++;
         } else
             *mask = W_ARM;
