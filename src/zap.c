@@ -1480,6 +1480,10 @@ register struct obj *obj;
             break;
         case TOOL_CLASS:
             /* Masks are magical and therefore subject to cancellation. */
+            if (obj->where == OBJ_INVENT)
+                Your("%s transforms into something ordinary!", xname(obj));
+            else
+                pline_The("%s transforms into something ordinary!", xname(obj));
             if (obj->otyp == MASK)
                 obj->corpsenm = -1;
         }

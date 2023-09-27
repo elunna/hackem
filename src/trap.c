@@ -1719,8 +1719,14 @@ unsigned trflags;
             /* opposite of magical explosion */
             losehp(dmgval2, "anti-magic implosion", KILLED_BY_AN);
         }
-        break;
 
+        if (ublindf && ublindf->otyp == MASK) {
+            if ((Antimagic && rn2(13)) || (!Antimagic && !rn2(13))) {
+                Your("%s transforms into something ordinary!", xname(ublindf));
+                ublindf->corpsenm = -1;
+            }
+        }
+        break;
     case POLY_TRAP: {
         char verbbuf[BUFSZ];
 

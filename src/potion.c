@@ -3046,6 +3046,10 @@ boolean ourfault;
             case MASK:
                 /* Masks are magical and therefore subject to amnesia. */
                 pre_downgrade_obj(targobj, &used);
+                if (targobj->where == OBJ_INVENT)
+                    Your("%s transforms into something ordinary!", xname(targobj));
+                else
+                    pline_The("%s transforms into something ordinary!", xname(targobj));
                 targobj->corpsenm = -1;
             }
         }
