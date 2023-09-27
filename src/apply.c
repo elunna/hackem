@@ -2699,7 +2699,10 @@ struct obj **optr;
         verbalize("You wear it, you buy it!");
         bill_dummy_object(obj);
     }
-    
+
+    if (obj->corpsenm == -1) /* It's been cancelled */
+        return TRUE;
+
     if (!polyok(&mons[obj->corpsenm])) {
         pline("%s violently, then splits in two!", Tobjnam(obj, "shudder"));
         

@@ -3040,9 +3040,13 @@ boolean ourfault;
                 break;
             case BAG_OF_RATS:
             case BAG_OF_TRICKS:
-                /* Bags of holding - kept safe somehow */
+                /* Bags of holding are kept safe somehow... */
                 downgrade_obj(targobj, SACK, &used);
                 break;
+            case MASK:
+                /* Masks are magical and therefore subject to amnesia. */
+                pre_downgrade_obj(targobj, &used);
+                targobj->corpsenm = -1;
             }
         }
 
@@ -3066,8 +3070,14 @@ boolean ourfault;
         if (targobj->spe > 0) {
             pre_downgrade_obj(targobj, &used);
             drain_item(targobj, ourfault);
+            if (targobj->spe < 0)
+                targobj->spe = 0;
+        } else if (targobj->age > 0) {
+            if (is_lightsaber(targobj))
+                targobj->age -= rn1(450, 300);
+            if (targobj->age < 0)
+                targobj->age = 0;
         }
-
         /* We're able to use the water_damage function, but some things still
          * need handling specifically. This has to come after most of the
          * cancel effects, otherwise the messages and effects don't really

@@ -1962,7 +1962,9 @@ struct obj *otmp;
     }
 
     if (otmp && otmp->otyp == MASK) {
-        if (otmp->blessed) {
+        if (otmp->corpsenm == -1) {
+            ; /* It's been cancelled */
+        } else if (otmp->blessed) {
             otmp->blessed = 0;
             Your("mask seems more brittle.");
         } else if (!otmp->blessed && !otmp->cursed && !rn2(3)) {
