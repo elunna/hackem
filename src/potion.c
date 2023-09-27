@@ -2895,7 +2895,8 @@ boolean ourfault;
         return FALSE;
 
     /* Don't dilute amnesia! */
-    if (carried(targobj) && targobj->otyp != POT_AMNESIA) {
+    if (carried(targobj) && targobj->otyp != POT_AMNESIA
+                         && targobj->otyp != SCR_AMNESIA) {
         if (water_damage(targobj, 0, TRUE, u.ux, u.uy) == ER_DESTROYED)
             return TRUE;
     }
@@ -2941,16 +2942,16 @@ boolean ourfault;
             bill_dummy_object(targobj);
         }
 
-        /* Unlike cancel effect, amnesia can dilute anything */
+        /* Unlike cancelling, amnesia can dilute anything (except itself)
+         * That's why we are not using cancel_item() here */
         targobj->odiluted = 0;
         targobj->blessed = FALSE;
         targobj->cursed = FALSE;
         targobj->otyp = POT_WATER;
-
         used = TRUE;
         break;
     case SCROLL_CLASS:
-        if (targobj->otyp != SCR_BLANK_PAPER && targobj->otyp != SCR_FLOOD && targobj->otyp != SCR_ICE) {
+        if (targobj->otyp != SCR_BLANK_PAPER && targobj->otyp != SCR_AMNESIA) {
             if (!Blind) {
                 boolean oq1 = targobj->quan == 1L;
                 pline_The("scroll%s %s.",
@@ -2960,8 +2961,7 @@ boolean ourfault;
                 You("erase it, you pay for it.");
                 bill_dummy_object(targobj);
             }
-            targobj->otyp = SCR_BLANK_PAPER;
-            targobj->spe = 0;
+            cancel_item(targobj);
             used = TRUE;
         }
         break;
