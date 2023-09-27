@@ -1930,9 +1930,12 @@ int how;
             break;
         case POT_AMNESIA:
             /* Uh-oh! */
-            if (uarmh && is_helmet(uarmh) && 
-                rn2(10 - (uarmh->cursed? 8 : 0)))
-                amnesia_wet(obj, uarmh, your_fault);
+            if (uarmh && is_helmet(uarmh) && rn2(10 - (uarmh->cursed ? 8 : 0))) {
+                if (uarmh->oprops & ITEM_OILSKIN && !Blind)
+                    pline_The("sparkling water slides off %s", yobjnam(uarmh, (char *) 0));
+                else
+                    amnesia_wet(obj, uarmh, your_fault);
+            }
             break;
         case POT_HALLUCINATION:
             if (!Halluc_resistance) {
