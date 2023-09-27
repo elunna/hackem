@@ -2894,7 +2894,8 @@ boolean ourfault;
     if (!potion || potion->otyp != POT_AMNESIA)
         return FALSE;
 
-    if (carried(targobj)) {
+    /* Don't dilute amnesia! */
+    if (carried(targobj) && targobj->otyp != POT_AMNESIA) {
         if (water_damage(targobj, 0, TRUE, u.ux, u.uy) == ER_DESTROYED)
             return TRUE;
     }
@@ -2904,6 +2905,12 @@ boolean ourfault;
     /* (Rusting shop goods ought to be charged for.) */
     switch (targobj->oclass) {
     case POTION_CLASS:
+        if (targobj->otyp == POT_AMNESIA)
+            return FALSE;
+
+        /* Create more amnesia potions by dipping water into them.
+         * Curiously, the opposite is not true - dipping amnesia
+         * into water sources converts it to water! */
         if (targobj->otyp == POT_WATER) {
             Your("%s to sparkle.", aobjnam(targobj, "start"));
             targobj->odiluted = 0;
@@ -2913,16 +2920,6 @@ boolean ourfault;
             return FALSE;
         }
 
-        /* Diluting a !ofAmnesia just gives water... */
-        if (targobj->otyp == POT_AMNESIA) {
-            Your("%s flat.", aobjnam(targobj, "become"));
-            targobj->odiluted = 0;
-            targobj->otyp = POT_WATER;
-            used = TRUE;
-            break;
-        }
-
-        /* KMH -- Water into acid causes an explosion */
         if (targobj->otyp == POT_ACID) {
             pline("It boils vigorously!");
             You("are caught in the explosion!");
