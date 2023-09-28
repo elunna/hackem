@@ -1769,6 +1769,8 @@ char *usr_text;
         OBJPUTSTR(buf);
     }
 
+
+
     /* ARTIFACT PROPERTIES */
 
     if (obj && obj->oartifact) {

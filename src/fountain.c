@@ -432,13 +432,7 @@ lava:
    feels overpowered without needing some other
    component added to the mix, or maybe have the
    forge be used up, or both */
-static const struct forge_recipe {
-    short result_typ;
-    short typ1;
-    short typ2;
-    int quan_typ1;
-    int quan_typ2;
-} fusions[] = {
+const struct ForgeRecipe fusions[] = {
     /* ranged weapons */
     { DAGGER,               ARROW, KNIFE,               2, 1 },
     { ELVEN_DAGGER,         ELVEN_ARROW, KNIFE,         2, 1 },
@@ -591,7 +585,7 @@ static const struct forge_arti {
 int
 doforging(void)
 {
-    const struct forge_recipe *recipe;
+    const struct ForgeRecipe *recipe;
     const struct forge_arti *arti;
     struct obj* obj1;
     struct obj* obj2;
