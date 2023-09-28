@@ -104,7 +104,7 @@ struct objclass {
      || is_wood(otmp) || is_bone(otmp) || is_stone(otmp))
 
 #define giant_sized(otmp) \
-    (otmp->otyp == GREAT_ROBE || otmp->otyp == LARGE_SPLINT_MAIL)
+    (otmp->otyp == LARGE_ROBE || otmp->otyp == LARGE_SPLINT_MAIL)
     
 /* primary damage: fire/rust/--- */
 /* is_flammable(otmp), is_rottable(otmp) in mkobj.c */
