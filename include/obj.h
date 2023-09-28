@@ -595,7 +595,6 @@ struct obj {
 #define ITEM_HUNGER    0x00002000L /* extrinsic hunger */
 #define ITEM_AGGRO     0x00004000L /* extrinsic aggravate monster */
 
-
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 
 #define ITEM_PROP_MASK 0x00007FFFL /* all current properties */
