@@ -610,6 +610,7 @@ unsigned corpseflags;
     case PM_DEEP_DRAGON:
     case PM_RED_DRAGON:
     case PM_ORANGE_DRAGON:
+    case PM_VIOLET_DRAGON:
     case PM_WHITE_DRAGON:
     case PM_BLACK_DRAGON:
     case PM_BLUE_DRAGON:
