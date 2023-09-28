@@ -4165,215 +4165,238 @@ int *res;
 int
 obj2upgrade(int otyp)
 {
+    /* Guidelines:
+     * - Use an ascending upgrade path where items follow that trend,
+     *   and then wrap around from best to worst item.
+     * - If two items are appropriate - pair them up so they can be
+     *   upgraded back and forth. There should be no one-way upgrades,
+     *   each path can go both ways.
+     *   Ex: A junky item and a valuable item pair, or two like items.
+     *
+     * Not everything should be upgradable. Some items don't have good
+     * pairs or upgrade paths, and should stand alone. Some items are also
+     * quite powerful and some should stay unique because they have a
+     * thematical purpose.
+     * 
+     * Because we also have forges, we also have to watch the interplay
+     * between the two. 
+     * */
     switch (otyp) {
-    /* no upgradable weapons (except quarterstaves - use forges instead! */
-    case QUARTERSTAFF:
-        /* Staves are usually wood and magical in nature so we'll allow it */
-        switch (rn2(6)) {
-        case 0: return STAFF_OF_DIVINATION;
-        case 1: return STAFF_OF_HEALING; 
-        case 2: return STAFF_OF_NECROMANCY;
-        case 3: return STAFF_OF_MATTER;
-        case 4: return STAFF_OF_ESCAPE;
-        case 5: return STAFF_OF_WAR;
-        }
-        break;
-    case BOOMERANG:
-        return CHAKRAM;
-    /* robes */
-    case ROBE:
-        return !rn2(2) ? ROBE_OF_PROTECTION : ROBE_OF_POWER;
-    case ROBE_OF_PROTECTION:
-    case ROBE_OF_POWER:
-        return ROBE;
-        
-    /* Add value to junk */
-    case ROBE_OF_WEAKNESS: return ROBE;
-        
-    /* cloaks */
-    case DWARVISH_CLOAK:
-    case CLOAK_OF_PROTECTION:
-    case CLOAK_OF_INVISIBILITY:
-    case CLOAK_OF_MAGIC_RESISTANCE:
-    case CLOAK_OF_DISPLACEMENT:
-    case CLOAK_OF_FLIGHT: 
-        return !rn2(2) ? OILSKIN_CLOAK : ELVEN_CLOAK;
-        
-    case OILSKIN_CLOAK:
-    case ELVEN_CLOAK:
-        switch (rn2(5)) {
-        case 0: return CLOAK_OF_PROTECTION;
-        case 1: return CLOAK_OF_INVISIBILITY;
-        case 2: return CLOAK_OF_MAGIC_RESISTANCE;
-        case 3: return CLOAK_OF_DISPLACEMENT;
-        case 4: return CLOAK_OF_FLIGHT;
-        }
-        break;
-    /* For completeness */
-    case MUMMY_WRAPPING: return PLAIN_CLOAK;
-    case PLAIN_CLOAK: return ORCISH_CLOAK;
-    case ORCISH_CLOAK: return DWARVISH_CLOAK;
+    /* weapons */
+    
+    case ORCISH_ARROW: return ARROW;
+    case ARROW: return ELVEN_ARROW;
+    case ELVEN_ARROW: return ORCISH_ARROW;
+    
+    case YA: return LIGHT_ARROW;
+    case LIGHT_ARROW: return YA;
+    
+    case BOOMERANG: return CHAKRAM;
+    case CHAKRAM: return BOOMERANG;
+    
+    case ORCISH_SPEAR: return SPEAR;
+    case SPEAR: return ELVEN_SPEAR;
+    case ELVEN_SPEAR: return DWARVISH_SPEAR;
+    case DWARVISH_SPEAR: return ORCISH_SPEAR;
+    
+    case ORCISH_DAGGER: return DAGGER;
+    case DAGGER: return ELVEN_DAGGER;
+    case ELVEN_DAGGER: return STAKE;
+    case STAKE: return GREAT_DAGGER;
+    case GREAT_DAGGER: return ORCISH_DAGGER;
+    
+    case KNIFE: return STILETTO;
+    case STILETTO: return KNIFE;
+    
+    case AXE: return THROWING_AXE;
+    case THROWING_AXE: return AXE;
+    
+    case DWARVISH_BEARDED_AXE: return BATTLE_AXE;
+    case BATTLE_AXE: return DWARVISH_BEARDED_AXE;
 
-    /* Add value to junk */
-    case POISONOUS_CLOAK: return ALCHEMY_SMOCK;
+    case PICK_AXE: return DWARVISH_MATTOCK;
+    case DWARVISH_MATTOCK: return PICK_AXE;
+
+    case ORCISH_SHORT_SWORD: return SHORT_SWORD;
+    case SHORT_SWORD: return ELVEN_SHORT_SWORD;
+    case ELVEN_SHORT_SWORD: return DWARVISH_SHORT_SWORD;
+    case DWARVISH_SHORT_SWORD: return ORCISH_SHORT_SWORD;
+    
+    case ORCISH_SCIMITAR: return SCIMITAR;
+    case SCIMITAR: return ORCISH_SCIMITAR;
+
+    case SABER: return RAPIER;
+    case RAPIER: return SABER;
+
+    case BROADSWORD: return ELVEN_BROADSWORD;
+    case ELVEN_BROADSWORD: return BROADSWORD;
+
+    case ORCISH_LONG_SWORD: return LONG_SWORD;
+    case LONG_SWORD: return ELVEN_LONG_SWORD;
+    case ELVEN_LONG_SWORD: return ORCISH_LONG_SWORD;
+    
+    case MACE: return HEAVY_MACE;
+    case HEAVY_MACE: return MACE;
+
+    case MORNING_STAR: return ORCISH_MORNING_STAR;
+    case ORCISH_MORNING_STAR: return MORNING_STAR;
+
+    case WAR_HAMMER: return HEAVY_WAR_HAMMER;
+    case HEAVY_WAR_HAMMER: return WAR_HAMMER;
+    
+    case CLUB: return AKLYS;
+    case AKLYS: return CLUB;
+
+    case ORCISH_BOW: return BOW;
+    case BOW: return ELVEN_BOW;
+    case ELVEN_BOW: return ORCISH_BOW;
         
-    /* Shirts */
-    /* Add value to junk */
-    case STRIPED_SHIRT: return T_SHIRT;
-        
+    case QUARTERSTAFF: return SILVER_CAPPED_STAFF;
+    case SILVER_CAPPED_STAFF: return QUARTERSTAFF;
+    
+    /* Magical staves are split up into pairs */
+    case STAFF_OF_ESCAPE: return STAFF_OF_MATTER;
+    case STAFF_OF_MATTER: return STAFF_OF_ESCAPE;
+    
+    case STAFF_OF_WAR: return STAFF_OF_DIVINATION;
+    case STAFF_OF_DIVINATION: return STAFF_OF_WAR; 
+    
+    case STAFF_OF_NECROMANCY: return STAFF_OF_HEALING; 
+    case STAFF_OF_HEALING: return STAFF_OF_NECROMANCY;
+
     /* helms */
-    case TOQUE:
-    case HELM_OF_BRILLIANCE:
-    case HELM_OF_SPEED:
-    case HELM_OF_TELEPATHY:
-        return !rn2(2) ? DWARVISH_HELM : TINFOIL_HAT;
-        
-    case DWARVISH_HELM:
-    case TINFOIL_HAT:
-        switch (rn2(4)) {
-        case 0: return TOQUE;
-        case 1: return HELM_OF_BRILLIANCE;
-        case 2: return HELM_OF_SPEED;
-        case 3: return HELM_OF_TELEPATHY;
-        }
-        break;
-    /* Add value to junk */
-    case HELM_OF_MADNESS: return TINFOIL_HAT;
-        
-    case FEDORA: return ELVEN_HELM;
-    case ELVEN_HELM: return FEDORA;
-        
     case CORNUTHAUM: return DUNCE_CAP;
-    /* Add value to junk */
     case DUNCE_CAP: return CORNUTHAUM;
 
-    /* gloves */
-    case GLOVES:
-        switch (rn2(3)) {
-        case 0: return ROGUES_GLOVES;
-        case 1: return GAUNTLETS_OF_FORCE;
-        case 2: return GAUNTLETS;
-        }
-        break;
-            
-    case ROGUES_GLOVES:
-    case GAUNTLETS_OF_FORCE:
-        return GLOVES;
-        
-    case GAUNTLETS:
-        switch (rn2(4)) {
-        case 0: return GAUNTLETS_OF_SWIMMING;
-        case 1: return GAUNTLETS_OF_DEXTERITY;
-        case 2: return GAUNTLETS_OF_PROTECTION;
-        case 3: return GAUNTLETS_OF_POWER;
-        }
-        break;
-    case GAUNTLETS_OF_SWIMMING:
-    case GAUNTLETS_OF_DEXTERITY:
-    case GAUNTLETS_OF_PROTECTION:
-    case GAUNTLETS_OF_POWER:
-        return GAUNTLETS;
+    case FEDORA: return ELVEN_HELM;
+    case ELVEN_HELM: return FEDORA;
+    
+    case ORCISH_HELM: return DWARVISH_HELM;
+    case DWARVISH_HELM: return ORCISH_HELM;
 
-    /* Add value to junk */
-    case GAUNTLETS_OF_FUMBLING: return GAUNTLETS;
+    case HELM_OF_MADNESS: return HELM_OF_BRILLIANCE;
+    case HELM_OF_BRILLIANCE: return HELM_OF_MADNESS;
+
+    case HELM_OF_TELEPATHY: return TINFOIL_HAT;
+    case TINFOIL_HAT: return HELM_OF_TELEPATHY;
+    
+    /* armor */
+    case DWARVISH_CHAIN_MAIL: return ELVEN_CHAIN_MAIL;
+    case ELVEN_CHAIN_MAIL: return DWARVISH_CHAIN_MAIL;
+    
+    case CHAIN_MAIL: return ORCISH_CHAIN_MAIL;
+    case ORCISH_CHAIN_MAIL: return CHAIN_MAIL;
+    
+    case SPLINT_MAIL: return LARGE_SPLINT_MAIL;
+    case LARGE_SPLINT_MAIL: return SPLINT_MAIL;
+    
+    case RING_MAIL: return ORCISH_RING_MAIL;
+    case ORCISH_RING_MAIL: return RING_MAIL;
+    
+    case LIGHT_ARMOR: return JACKET;
+    case JACKET: return LIGHT_ARMOR;
+
+    /* robes */
+    /* TODO: Switch to ROBE<->GREAT_ROBE */
+    case ROBE: return LARGE_ROBE;
+    case LARGE_ROBE: return ROBE;
+    
+    /* TODO: Make circular when the above change is made */
+    case ROBE_OF_WEAKNESS: return ROBE_OF_POWER;
+    case ROBE_OF_POWER: return ROBE_OF_PROTECTION;
+    case ROBE_OF_PROTECTION: return ROBE_OF_WEAKNESS;
+
+    /* shirts */
+    case STRIPED_SHIRT: return T_SHIRT;
+    case T_SHIRT: return STRIPED_SHIRT;
         
+    /* cloaks */
+    case MUMMY_WRAPPING: return PLAIN_CLOAK;
+    case PLAIN_CLOAK: return MUMMY_WRAPPING;
+    
+    case ORCISH_CLOAK: return DWARVISH_CLOAK;
+    case DWARVISH_CLOAK: return ELVEN_CLOAK;
+    case ELVEN_CLOAK: return ORCISH_CLOAK;
+    
+    case POISONOUS_CLOAK: return ALCHEMY_SMOCK;
+    case ALCHEMY_SMOCK: return POISONOUS_CLOAK;
+    
     /* shields */
-    case DWARVISH_ROUNDSHIELD:
-        switch (rn2(4)) {
-        case 0: return SHIELD_OF_REFLECTION;
-        case 1: return SHIELD_OF_LIGHT;
-        case 2: return SHIELD_OF_MOBILITY;
-        case 3: return RESONANT_SHIELD;
-        }
-        break;
-    case SHIELD_OF_REFLECTION:
-    case SHIELD_OF_LIGHT:
-    case SHIELD_OF_MOBILITY:
-    case RESONANT_SHIELD:
-        return DWARVISH_ROUNDSHIELD;
-        
+    case ORCISH_SHIELD: return DWARVISH_ROUNDSHIELD;
+    case DWARVISH_ROUNDSHIELD: return ORCISH_SHIELD;
+    
+    case LARGE_SHIELD: return TOWER_SHIELD;
+    case TOWER_SHIELD: return LARGE_SHIELD;
+    
+    case SMALL_SHIELD: return ELVEN_SHIELD;
+    case ELVEN_SHIELD: return SMALL_SHIELD;
+    
+    /* gloves */
+    case GAUNTLETS_OF_FUMBLING: return GAUNTLETS_OF_DEXTERITY;
+    case GAUNTLETS_OF_DEXTERITY: return GAUNTLETS_OF_FUMBLING;
+    
     /* boots */
-    case DWARVISH_BOOTS:
-    case ELVEN_BOOTS:
-        switch (rn2(5)) {
-        case 0: return SPEED_BOOTS;
-        case 1: return WATER_WALKING_BOOTS;
-        case 2: return JUMPING_BOOTS;
-        case 3: return STOMPING_BOOTS;
-        case 4: return KICKING_BOOTS;
-        }
-        break;
-    case SPEED_BOOTS:
-    case WATER_WALKING_BOOTS:
-    case JUMPING_BOOTS:
-    case STOMPING_BOOTS:
-    case KICKING_BOOTS: return !rn2(2) ? DWARVISH_BOOTS : ELVEN_BOOTS;
-        
     case LOW_BOOTS: return HIGH_BOOTS;
     case HIGH_BOOTS: return DWARVISH_BOOTS;
+    
+    case FUMBLE_BOOTS: return ELVEN_BOOTS;
+    case ELVEN_BOOTS: return FUMBLE_BOOTS;
+    
+    case LEVITATION_BOOTS: return WATER_WALKING_BOOTS;
+    case WATER_WALKING_BOOTS: return LEVITATION_BOOTS;
+    
+    /* tools */
+    
+    case SACK: return OILSKIN_SACK;
+    case OILSKIN_SACK: return SACK;
+    
+    case BAG_OF_HOLDING: return BAG_OF_TRICKS;     
+    case BAG_OF_TRICKS: return BAG_OF_HOLDING;
 
-    /* Add value to junk */
-    case FUMBLE_BOOTS: return DWARVISH_BOOTS;
-
-    /* rings,  amulets */
-    case SACK:
-    case BAG_OF_RATS:
-        return rn2(5) ? OILSKIN_SACK : BAG_OF_HOLDING;
-        
-    case OILSKIN_SACK: return BAG_OF_HOLDING;
-    case BAG_OF_HOLDING: return OILSKIN_SACK;
-        
-    case TOWEL: return BLINDFOLD;
-    case BLINDFOLD: return TOWEL;        
-        
-    case LOCK_PICK: return SKELETON_KEY;
     case SKELETON_KEY: return LOCK_PICK;
+    case LOCK_PICK: return SKELETON_KEY;
         
+    case MIRROR: return EXPENSIVE_CAMERA;
+    case EXPENSIVE_CAMERA: return MIRROR;
+
+    case EIGHT_BALL: return CRYSTAL_BALL;
+    case CRYSTAL_BALL: return EIGHT_BALL;
+    
+    case LENSES: return GOGGLES;
+    case GOGGLES: return LENSES;
+
+    case TOWEL: return BLINDFOLD;
+    case BLINDFOLD: return TOWEL;
+
+    case LEASH: return SADDLE;
+    case SADDLE: return LEASH;
+
+    case TIN_OPENER: return TINNING_KIT;
+    case TINNING_KIT: return TIN_OPENER;
+    
     case PEA_WHISTLE: return MAGIC_WHISTLE;
     case MAGIC_WHISTLE: return PEA_WHISTLE;
         
     case FLUTE: return MAGIC_FLUTE;
     case MAGIC_FLUTE: return FLUTE;
         
-    case TOOLED_HORN:
-        return rn1(HORN_OF_PLENTY - TOOLED_HORN, FROST_HORN);
-    case HORN_OF_PLENTY:
-    case HORN_OF_BLASTING:
-    case FIRE_HORN:
-    case FROST_HORN:
-        return TOOLED_HORN;
-        break;
-        
+    case TOOLED_HORN: return HORN_OF_PLENTY;
+    case HORN_OF_PLENTY: return TOOLED_HORN;
+
+    case FIRE_HORN: return FROST_HORN;
+    case FROST_HORN: return FIRE_HORN;
+
     case HARP: return MAGIC_HARP;
     case MAGIC_HARP: return HARP;
-        
-    case LEASH: return SADDLE;
-    case SADDLE: return LEASH;
-        
-    case TIN_OPENER: return TINNING_KIT;
-    case TINNING_KIT: return TIN_OPENER;
-        
-    case LENSES: return GOGGLES;
-    case GOGGLES: return LENSES;
-
-    case EIGHT_BALL: return CRYSTAL_BALL;
-    case CRYSTAL_BALL: return EIGHT_BALL;
-        
-    case LAND_MINE:
-    case PINEAPPLE:
-        switch (rnd(3)) {
-        case 1: return FIRE_BOMB;
-        case 2: return GAS_BOMB;
-        case 3: return SONIC_BOMB;
-        }
-        break;
-    case FLINT: return !rn2(2) ? LUCKSTONE : WHETSTONE; 
-    case LUCKSTONE: return HEALTHSTONE;
-    case WHETSTONE: return HEALTHSTONE;
-    case HEALTHSTONE:
-        return !rn2(2) ? LUCKSTONE : WHETSTONE;
-    case LOADSTONE:
-        return WHETSTONE;
+    
+    case LEATHER_DRUM: return DRUM_OF_EARTHQUAKE;
+    case DRUM_OF_EARTHQUAKE: return LEATHER_DRUM;
+    
+    case WHETSTONE: return LUCKSTONE;
+    case LUCKSTONE: return WHETSTONE;
+    
+    case LOADSTONE: return HEALTHSTONE;
+    case HEALTHSTONE: return LOADSTONE;
     }
     /* This object is not upgradable */
     return 0;
