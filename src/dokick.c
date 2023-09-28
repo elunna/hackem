@@ -1147,7 +1147,7 @@ boolean need_dir;
                     i = 6;
                 while (i--)
                     (void) mksobj_at(
-                        rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1), x, y,
+                        rnd_class(FIRST_GEM, LAST_GLASS), x, y,
                         FALSE, TRUE);
                 if (Blind)
                     You("kick %s loose!", something);

@@ -222,7 +222,7 @@ dofindgem()
         You("spot a gem in the sparkling waters!");
     else
         You_feel("a gem here!");
-    (void) mksobj_at(rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1), u.ux, u.uy,
+    (void) mksobj_at(rnd_class(FIRST_GEM, LAST_GLASS), u.ux, u.uy,
                      FALSE, FALSE);
     SET_FOUNTAIN_LOOTED(u.ux, u.uy);
     newsym(u.ux, u.uy);

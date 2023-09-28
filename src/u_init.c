@@ -1532,7 +1532,7 @@ u_init()
         }
 
         /* Giants know valuable gems from glass, and may recognize a few types of valuable gem. */
-        for (i = DILITHIUM_CRYSTAL; i <= LUCKSTONE; i++) {
+        for (i = FIRST_GEM; i <= LUCKSTONE; i++) {
             if ((objects[i].oc_cost <= 1) || (rn2(100) < 5 + ACURR(A_INT)))
                 knows_object(i);
         }

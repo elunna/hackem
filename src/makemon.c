@@ -2602,7 +2602,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, WAN_DIGGING);
         } else if (is_giant(ptr)) {
             for (cnt = rn2(max(1, (int) (mtmp->m_lev / 2))); cnt; cnt--) {
-                otmp = mksobj(rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1),
+                otmp = mksobj(rnd_class(FIRST_GEM, LAST_GLASS),
                               FALSE, FALSE);
                 otmp->quan = (long) rn1(2, 3);
                 otmp->owt = weight(otmp);
@@ -2703,7 +2703,7 @@ register struct monst *mtmp;
         if (!In_mines(&u.uz)) {
             int ngems = rn2(1 + min(level_difficulty() / 5, 2));
             while (ngems > 0) {
-                (void) mongets(mtmp, rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1));
+                (void) mongets(mtmp, rnd_class(FIRST_GEM, LAST_GLASS));
                 ngems--;
             }
         }
@@ -2769,7 +2769,7 @@ register struct monst *mtmp;
 
             /* gems */
             for (cnt = rn2(max(1, (int) (mtmp->m_lev / 2))); cnt; cnt--) {
-                otmp = mksobj(rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1),
+                otmp = mksobj(rnd_class(FIRST_GEM, LAST_GLASS),
                               FALSE, FALSE);
                 otmp->quan = (long) rn1(2, 3);
                 otmp->owt = weight(otmp);

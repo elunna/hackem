@@ -725,7 +725,7 @@ struct obj *obj;
 
         quan = rn2(3) ? rn2(3) : rn2(16);
         while (quan--)
-            (void) mongets(mtmp, rnd_class(DILITHIUM_CRYSTAL, JADE));
+            (void) mongets(mtmp, rnd_class(FIRST_GEM, LAST_GEM));
         /* To get the gold "right" would mean a player can double his
            gold supply by killing one mplayer.  Not good. */
         mkmonmoney(mtmp, rn2(1000));
