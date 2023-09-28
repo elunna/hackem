@@ -2043,6 +2043,8 @@ register struct monst *mtmp;
             break;
         case PM_DRAUGR:
             mongets(mtmp, (rn2(4) ? WAR_HAMMER : RUNESWORD));
+            if (!rn2(4))
+                (void) mongets(mtmp, LIGHT_ARMOR);
             break;
         case PM_SKELETAL_PIRATE:
             otmp = rn2(2) ? mksobj(SCIMITAR, FALSE, FALSE) :

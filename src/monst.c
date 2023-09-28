@@ -5490,7 +5490,7 @@ struct permonst _mons2[] = {
     MON("draugr", S_ZOMBIE,                                   /* SpliceHack */
         LVL(5, 12, 8, 0, -3), (G_GENO | G_SGROUP | G_NOCORPSE | 2),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 8), 
-          ATTK(AT_BITE, AD_DRIN, 1, 4),
+          ATTK(AT_TUCH, AD_COLD, 1, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 200, MS_SILENT, MZ_HUMAN),
         MR_COLD | MR_SLEEP | MR_POISON, MR_COLD,

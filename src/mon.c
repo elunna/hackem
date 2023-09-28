@@ -411,7 +411,6 @@ int mndx;
     case PM_HUMAN_ZOMBIE:
     case PM_HUMAN_MUMMY:
     case PM_NOSFERATU:
-    case PM_DRAUGR:
         mndx = PM_HUMAN;
         break;
     case PM_GIANT_ZOMBIE:
@@ -701,7 +700,6 @@ unsigned corpseflags;
     case PM_GIANT_ZOMBIE:
     case PM_ETTIN_ZOMBIE:
     case PM_GNOLL_WITHERLING:
-    case PM_DRAUGR:
     case PM_ZOMBIE_DRAGON:
         corpstatflags |= CORPSTAT_ZOMBIE;
         /* FALLTHRU */
