@@ -16,7 +16,6 @@ STATIC_DCL long FDECL(itimeout_incr, (long, int));
 STATIC_DCL void NDECL(ghost_from_bottle);
 STATIC_DCL boolean
 FDECL(H2Opotion_dip, (struct obj *, struct obj *, BOOLEAN_P, const char *));
-STATIC_DCL const char *FDECL(gem_to_potion, (int));
 STATIC_DCL void FDECL(dipsink, (struct obj *));
 
 /* force `val' to be within valid range for intrinsic timeout value */
@@ -2780,79 +2779,97 @@ register struct obj *o1, *o2;
             return POT_WATER;
         }
         potion_descr = gem_to_potion(o1->otyp);
-
         if (potion_descr) {
-            int typ;
-
-            /* find a potion that matches the description */
-            for (typ = bases[POTION_CLASS]; 
-                 objects[typ].oc_class == POTION_CLASS; 
-                 typ++) {
-                if (strcmp(potion_descr, OBJ_DESCR(objects[typ])) == 0) {
-                    return typ;
-                }
-            }
+           return figure_out_potion(potion_descr);
         }
     }
     return STRANGE_OBJECT;
 }
 
-STATIC_OVL const char *
+const char *
 gem_to_potion(otyp)
 int otyp;
 {
     /* Note: you can't create smoky, milky or clear potions */
     switch (otyp) {
-    case OPAL:
-        return "cloudy";
-    case RUBY:
-        return "ruby"; /* red */
-    case GARNET:
-        return "pink";
-    case JASPER:
-        return "puce";
-    case JACINTH:
-        return "orange"; /* orange */
     case AGATE:
         return "swirly";
-    case CITRINE:
-        return "yellow"; /* yellow */
-    case CHRYSOBERYL:
-        return "golden";
     case AMBER:
         return "amber";  /* yellowish brown */
-    case TOPAZ:
-        return "brown";
-    case EMERALD:
-        return "emerald"; /* green */
-    case TURQUOISE:
-        return "sky blue";
-    case AQUAMARINE:
-        return "cyan";
-    case JADE:
-        return "dark green";
-    case SAPPHIRE:
-        return "indigo"; /* blue */
     case AMETHYST:
         return "magenta"; /* violet */
-    case FLUORITE:
-        return "white";
+    case AQUAMARINE:
+        return "cyan";
     case BLACK_OPAL:
         return "black"; /* black */
+    case CHRYSOBERYL:
+        return "golden";
+    case CITRINE:
+        return "yellow"; /* yellow */
+    case EMERALD:
+        return "emerald"; /* green */
+    case FLUORITE:
+        return "white";
+    case GARNET:
+        return "pink";
+    case JACINTH:
+        return "orange"; /* orange */
+    case JADE:
+        return "dark green";
+    case JASPER:
+        return "puce";
     case JET:
         return "dark";
     case OBSIDIAN:
         return "effervescent";
+    case OPAL:
+        return "cloudy";
+    case RUBY:
+        return "ruby"; /* red */
+    case SAPPHIRE:
+        return "indigo"; /* blue */
+    case TOPAZ:
+        return "brown";
+    case TURQUOISE:
+        return "sky blue";
     case DIAMOND: /* won't dissolve */
     default:
         return NULL;
     }
 }
 
+int
+potion_to_gem(potion_otyp)
+int potion_otyp;
+{
+    const char *result;
+    for (int i = bases[GEM_CLASS]; i <= LAST_GEM; i++) {
+        result = gem_to_potion(i);
+        if (result && !strcmp(result, OBJ_DESCR(objects[potion_otyp])))
+            return i;
+    }
+    return 0;
+}
+
+int
+figure_out_potion(pot_descr)
+const char *pot_descr;
+{
+    int typ;
+
+    /* find a potion that matches the description */
+    for (typ = bases[POTION_CLASS];
+         objects[typ].oc_class == POTION_CLASS; typ++) {
+        if (strcmp(pot_descr, OBJ_DESCR(objects[typ])) == 0) {
+            return typ;
+        }
+    }
+    return 0;
+}
+
 /* Bills an object that's about to be downgraded, assuming that's not already
  * been done */
-STATIC_OVL
-void
+STATIC_OVL void
 pre_downgrade_obj(obj, used)
 register struct obj *obj;
 boolean *used;
@@ -2871,8 +2888,7 @@ boolean *used;
 }
 
 /* Implements the downgrading effect of potions of amnesia and Lethe water */
-STATIC_OVL
-void
+STATIC_OVL void
 downgrade_obj(obj, nomagic, used)
 register struct obj *obj;
 int nomagic;	/* The non-magical object to downgrade to */

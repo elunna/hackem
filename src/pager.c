@@ -1097,7 +1097,7 @@ char *usr_text;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional" 
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
-    boolean wielded, carried, identified_potion;
+    boolean wielded, carried, potion_known;
     boolean weptool = (boolean) (oc.oc_class == TOOL_CLASS && oc.oc_skill != P_NONE);
     /* If it's an artifact, we always have it in obj. */
     boolean is_artifact = obj && obj->oartifact;
@@ -1508,25 +1508,6 @@ char *usr_text;
                 OBJPUTSTR("Is made of a hard material.");
             }
         }
-
-        if (obj && objects[obj->otyp].oc_name_known) {
-            struct obj *potion = mksobj(POT_ACID, FALSE, FALSE);
-            short mixture = mixtype(obj, potion);
-            obfree(potion, (struct obj *)0);
-
-            if (obj->otyp == DILITHIUM_CRYSTAL) {
-                OBJPUTSTR("Dipping into a potion of acid creates an explosion.");
-            } else if (mixture > 0) {
-                Sprintf(buf, "Dipping into a potion of acid creates %s potion.",
-                        an(OBJ_DESCR(objects[mixture])));
-                identified_potion_name = OBJ_NAME(objects[mixture]);
-                identified_potion = objects[mixture].oc_name_known;
-                if (identified_potion && identified_potion_name) {
-                    Sprintf(eos(buf)-1, " (%s).", identified_potion_name);
-                }
-                OBJPUTSTR(buf);
-            }
-        }
     }
 
     /* TOOL INFO */
@@ -1761,15 +1742,17 @@ char *usr_text;
     }
     OBJPUTSTR(buf);
     OBJPUTSTR("");
-    
-    /* TINKER/UPGRADES */
+
+    /* TRANSFORMATIONS */
+
+    /* tinker/upgrades */
     int newtyp = obj2upgrade(otyp);
     if (reveal_info && newtyp) {
         Sprintf(buf, "Can be tinkered into: %s", OBJ_NAME(objects[newtyp]));
         OBJPUTSTR(buf);
     }
 
-    /* FORGE RECIPES */
+    /* forge recipes */
     const struct ForgeRecipe *recipe;
     boolean has_recipes = FALSE;
     if (reveal_info) {
@@ -1787,6 +1770,53 @@ char *usr_text;
                 OBJPUTSTR(buf);
             }
         }
+    }
+    /* gem alchemy */
+    if (oc.oc_class == GEM_CLASS && reveal_info) {
+        struct obj *potion = mksobj(POT_ACID, FALSE, FALSE);
+        short mixture = mixtype(&dummy, potion);
+        obfree(potion, (struct obj *)0);
+
+        if (otyp == DILITHIUM_CRYSTAL) {
+            OBJPUTSTR( "Dipping into a potion of acid creates an explosion.");
+        } else if (mixture > 0) {
+            identified_potion_name = OBJ_NAME(objects[mixture]);
+            potion_known = objects[mixture].oc_name_known;
+            Sprintf(buf, "Dipping into %s creates %s potion.",
+                    flags.verbose ? "a potion of acid" : "acid",
+                    an(OBJ_DESCR(objects[mixture])));
+            if (potion_known && identified_potion_name) {
+                Sprintf(eos(buf) - 1, " (%s).", identified_potion_name);
+            }
+            OBJPUTSTR(buf);
+        }
+    }
+
+    if (reveal_info && otyp == POT_ACID) {
+        OBJPUTSTR("Gem alchemy recipes:");
+        OBJPUTSTR("(Dipping a gem into this can alchemize a new potion)");
+        for (int g = bases[GEM_CLASS]; g <= LAST_GEM; g++) {
+            const char *result = gem_to_potion(g);
+            if (g == DILITHIUM_CRYSTAL)
+                OBJPUTSTR("     acid + dilithium crystal = an explosion");
+            else if (result) {
+                struct obj *potion = mksobj(figure_out_potion(result), FALSE, FALSE);
+                Sprintf(buf, "     acid + %-12s = %s",
+                        OBJ_NAME(objects[g]), /* The gem */
+                        xname(potion)); /* The potion */
+                OBJPUTSTR(buf);
+                obfree(potion, (struct obj *)0);
+            }
+        }
+    } else if (oc.oc_class == POTION_CLASS) {
+        int gem = potion_to_gem(otyp);
+        /*if (gem && oc.oc_name_known) {*/
+        if (gem && (obj || oc.oc_name_known)) {
+            Sprintf(buf, "Dipping a %s into acid creates %s.",
+                OBJ_NAME(objects[gem]), an(singular(&dummy, xname)));
+            OBJPUTSTR(buf);
+        }
+
     }
 
     /* ARTIFACT PROPERTIES */

@@ -1022,7 +1022,7 @@ FOOD("tin",                  75,  0, 10, 1, METAL,   0, HI_METAL),
            power, POTION_CLASS, prob, 0, 20, cost, 0, 0, 0, 0, 10, color)
 POTION("gain ability",           "ruby",  1, 0, 42, 300, CLR_RED),
 POTION("reflection",         "metallic",  1, REFLECTING, 10, 300, CLR_GRAY), /* SpliceHack */
-POTION("regeneration",          "purple-red",  1, REGENERATION, 20, 150, CLR_MAGENTA), /* SpliceHack */
+POTION("regeneration",     "purple-red",  1, REGENERATION, 20, 150, CLR_MAGENTA), /* SpliceHack */
 POTION("restore ability",        "pink",  1, 0, 40, 100, CLR_BRIGHT_MAGENTA),
 POTION("confusion",            "orange",  1, CONFUSION, 42, 100, CLR_ORANGE),
 POTION("clairvoyance",    "luminescent",  1, 0, 20, 100, CLR_WHITE),         /* Slash'EM */
@@ -1032,7 +1032,7 @@ POTION("paralysis",           "emerald",  1, 0, 42, 300, CLR_BRIGHT_GREEN),
 POTION("speed",            "dark green",  1, FAST, 42, 200, CLR_GREEN),
 POTION("levitation",             "cyan",  1, LEVITATION, 42, 200, CLR_CYAN),
 POTION("hallucination",      "sky blue",  1, HALLUC, 40, 100, CLR_CYAN),
-POTION("invisibility", "brilliant blue",  1, INVIS, 40, 150, CLR_BRIGHT_BLUE),
+POTION("invisibility",         "indigo",  1, INVIS, 40, 150, CLR_BRIGHT_BLUE),
 POTION("see invisible",       "magenta",  1, SEE_INVIS, 42, 50, CLR_MAGENTA),
 POTION("healing",               "amber",  1, 0, 57, 100, CLR_BROWN),
 POTION("extra healing",          "puce",  1, 0, 47, 100, CLR_RED),
