@@ -1772,20 +1772,20 @@ char *usr_text;
     /* FORGE RECIPES */
     const struct ForgeRecipe *recipe;
     boolean has_recipes = FALSE;
-    for (recipe = fusions; recipe->result_typ; recipe++) {
-        if (otyp == recipe->typ1 || otyp == recipe->typ2
-              || otyp ==recipe->result_typ) {
-            if (!has_recipes) {
-                OBJPUTSTR("Forging recipes (#craft):");
-                has_recipes = TRUE;
+    if (reveal_info) {
+        for (recipe = fusions; recipe->result_typ; recipe++) {
+            if (otyp == recipe->typ1 || otyp == recipe->typ2
+                || otyp == recipe->result_typ) {
+                if (!has_recipes) {
+                    OBJPUTSTR("Forging recipes (#craft):");
+                    has_recipes = TRUE;
+                }
+                Sprintf(buf, "     %d %s + %d %s = %s", recipe->quan_typ1,
+                        OBJ_NAME(objects[recipe->typ1]), recipe->quan_typ1,
+                        OBJ_NAME(objects[recipe->typ2]),
+                        OBJ_NAME(objects[recipe->result_typ]));
+                OBJPUTSTR(buf);
             }
-            Sprintf(buf, "     %d %s + %d %s = %s",
-                    recipe->quan_typ1,
-                    OBJ_NAME(objects[recipe->typ1]),
-                    recipe->quan_typ1,
-                    OBJ_NAME(objects[recipe->typ2]),
-                    OBJ_NAME(objects[recipe->result_typ]));
-            OBJPUTSTR(buf);
         }
     }
 
