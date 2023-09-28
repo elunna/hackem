@@ -1760,6 +1760,14 @@ char *usr_text;
         }
     }
     OBJPUTSTR(buf);
+    OBJPUTSTR("");
+    
+    /* TINKER/UPGRADES */
+    int newtyp = obj2upgrade(otyp);
+    if (reveal_info && newtyp) {
+        Sprintf(buf, "Can be tinkered into: %s", OBJ_NAME(objects[newtyp]));
+        OBJPUTSTR(buf);
+    }
 
     /* ARTIFACT PROPERTIES */
 
