@@ -593,11 +593,13 @@ struct obj {
 #define ITEM_EXCEL     0x00000800L /* confers luck, charisma boost */
 #define ITEM_FUMBLING  0x00001000L /* extrinsic fumbling */
 #define ITEM_HUNGER    0x00002000L /* extrinsic hunger */
+#define ITEM_AGGRO     0x00004000L /* extrinsic aggravate monster */
+
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 
-#define ITEM_PROP_MASK 0x00003FFFL /* all current properties */
-#define MAX_ITEM_PROPS 14
+#define ITEM_PROP_MASK 0x00007FFFL /* all current properties */
+#define MAX_ITEM_PROPS 15
 
 /*
  *  Notes for adding new oextra structures:

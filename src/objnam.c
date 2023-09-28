@@ -600,6 +600,12 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
+    if (props & ITEM_AGGRO) {
+        if ((props_known & ITEM_AGGRO) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " aggravation"),
+                    Strcpy(of, " and");
+        }
+    }
     if (props & ITEM_EXCEL) {
         if ((props_known & ITEM_EXCEL) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " excellence"),
@@ -4229,6 +4235,10 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_HUNGER;
                     objpropcount++;
+                } else if (!strncmpi((p + of), "aggravation", l = 11)) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_AGGRO;
+                    objpropcount++;
                 } else if (!strncmpi((p + of), "excellence", l = 10)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_EXCEL;
@@ -5241,7 +5251,7 @@ struct obj *no_wish;
         if (is_ammo(otmp) || is_missile(otmp))
             objprops &= ~(ITEM_DRLI | ITEM_SCREAM | ITEM_OILSKIN | ITEM_ESP
                           | ITEM_SEARCHING | ITEM_WARNING | ITEM_EXCEL
-                          | ITEM_FUMBLING | ITEM_HUNGER );
+                          | ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO);
 
         if (otmp->material != CLOTH)
             objprops &= ~ITEM_OILSKIN;
