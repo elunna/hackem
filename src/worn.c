@@ -398,6 +398,8 @@ int which;
         return !!(obj->oprops & ITEM_HUNGER);
     case AGGRAVATE_MONSTER:
         return !!(obj->oprops & ITEM_AGGRO);
+    case TELEPORT:
+        return !!(obj->oprops & ITEM_TELE);
     case ADORNED:
         return !!(obj->oprops & ITEM_EXCEL);
     }
@@ -653,6 +655,9 @@ boolean on, silently;
                 break;
             case ITEM_AGGRO:
                 which = AGGRAVATE_MONSTER;
+                break;
+            case ITEM_TELE:
+                which = TELEPORT;
                 break;
             case ITEM_EXCEL:
                 which = ADORNED;

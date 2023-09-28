@@ -606,6 +606,12 @@ boolean has_of;
                     Strcpy(of, " and");
         }
     }
+    if (props & ITEM_TELE) {
+        if ((props_known & ITEM_TELE) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " teleportation"),
+                Strcpy(of, " and");
+        }
+    }
     if (props & ITEM_EXCEL) {
         if ((props_known & ITEM_EXCEL) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " excellence"),
@@ -4239,6 +4245,10 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_AGGRO;
                     objpropcount++;
+                } else if (!strncmpi((p + of), "teleportation", l = 13)) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_TELE;
+                    objpropcount++;
                 } else if (!strncmpi((p + of), "excellence", l = 10)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_EXCEL;
@@ -5251,7 +5261,7 @@ struct obj *no_wish;
         if (is_ammo(otmp) || is_missile(otmp))
             objprops &= ~(ITEM_DRLI | ITEM_SCREAM | ITEM_OILSKIN | ITEM_ESP
                           | ITEM_SEARCHING | ITEM_WARNING | ITEM_EXCEL
-                          | ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO);
+                          | ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE);
 
         if (otmp->material != CLOTH)
             objprops &= ~ITEM_OILSKIN;

@@ -168,7 +168,17 @@ register struct obj *obj;
         EAggravate_monster &= ~W_WEP;
         update_inventory();
     }
-
+    /* Teleportitis property */
+    if (uwep && uwep == obj && (uwep->oprops & ITEM_TELE)) {
+        uwep->oprops_known |= ITEM_TELE;
+        ETeleportation |= W_WEP;
+        update_inventory();
+    }
+    if (olduwep && (olduwep->oprops & ITEM_TELE)) {
+        olduwep->oprops_known |= ITEM_TELE;
+        ETeleportation &= ~W_WEP;
+        update_inventory();
+    }
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.
      * 3.2.2:  Wielding arbitrary objects will give bashing message too.
@@ -387,7 +397,13 @@ register struct obj *obj;
         EAggravate_monster |= W_WEP;
         update_inventory();
     }
-
+    /* Aggravate monster property */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_TELE))) {
+        uswapwep->oprops_known |= ITEM_TELE;
+        ETeleportation |= W_WEP;
+        update_inventory();
+    }
     return;
 }
 

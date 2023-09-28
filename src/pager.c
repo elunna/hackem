@@ -1298,6 +1298,7 @@ char *usr_text;
         if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/charisma adjustment");
         if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
         if (obj->oprops & ITEM_AGGRO) OBJPUTSTR("Grants aggravate monster");
+        if (obj->oprops & ITEM_TELE) OBJPUTSTR("Grants teleportation");
     }
 
     /* APPEARANCE BONUSES */

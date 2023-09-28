@@ -207,6 +207,8 @@ long mask;
         EHunger |= mask;
     if (props & ITEM_AGGRO)
         EAggravate_monster |= mask;
+    if (props & ITEM_TELE)
+        ETeleportation |= mask;
     if (props & ITEM_EXCEL) {
         int which = A_CHA, old_attrib = ACURR(which);
         /* borrowing this from Ring_on() as I may want
@@ -261,6 +263,8 @@ long mask;
         EHunger &= ~mask;
     if (props & ITEM_AGGRO)
         EAggravate_monster &= ~mask;
+    if (props & ITEM_TELE)
+        ETeleportation &= ~mask;
     if (props & ITEM_EXCEL) {
         int which = A_CHA, old_attrib = ACURR(which);
         /* borrowing this from Ring_off() as I may want

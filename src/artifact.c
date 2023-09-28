@@ -439,7 +439,7 @@ boolean allow_detrimental;
         if (otmp->oprops & j)
             continue;
 
-        if ((j & (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO))
+        if ((j & (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE))
             && !allow_detrimental)
             continue;
 
@@ -455,7 +455,7 @@ boolean allow_detrimental;
 
         if ((is_ammo(otmp) || is_missile(otmp))
             && (j & (ITEM_OILSKIN | ITEM_ESP | ITEM_EXCEL | ITEM_SEARCHING
-                     | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO)))
+                     | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE)))
             continue;
 
         if ((otmp->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM 
@@ -484,7 +484,7 @@ boolean allow_detrimental;
     /* Fix it up as necessary */
     if (otmp->oprops
         && (otmp->oclass == WEAPON_CLASS || otmp->oclass == ARMOR_CLASS)
-        && !(otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO))) {
+        && !(otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE))) {
         if (!rn2(8)) {
             blessorcurse(otmp, 8);
             if (otmp->cursed)
@@ -494,7 +494,7 @@ boolean allow_detrimental;
         }
     }
 
-    if (otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO)) {
+    if (otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE)) {
         if (!otmp->cursed)
             curse(otmp);
         otmp->spe = -rne(3);
