@@ -54,13 +54,6 @@ ac
 ~spellbook of repair armor
 suit or piece of armor
 ~*dragon*scale*
-~forging armor
-~forge armor
-~craft armor
-~crafting armor
-~armor craft*
-~armor forg*
-~armor recipe*
 *armor
 armour
 *mail
@@ -1908,8 +1901,10 @@ fusions
 
     1) Find a forge.
     2) Find a hammer, any will do.
-    3) Find two gemstone or metallic objects from the recipe
-       chapters.
+    3) Find two gemstone or metallic objects from recipe.
+       Use the object lookup (select the item from your
+       inventory) to see any forging recipes related to
+       your selected item.
     4) Put both of those objects into the forge whilst
        wielding your hammer (#craft).
     5) Start forging.  If successful, you'll forge a brand
@@ -1920,142 +1915,7 @@ fusions
     forged creation.
 
     Don't try to forge things you know you shouldn't.
-    Also see: "forging weapons", "forging armor"
 		[The Blacksmith's Cookbook]
-# forging weapons, weapon recipes, weapon fusions
-forging w*
-weapon r*
-weapon f*
-weapon c*
-forge weap*
-craft weap*
-    Forging Weapons         (See "craft" for instructions)
-
-    dagger                  = knife + 2 arrows
-    elven dagger            = knife + 2 elven arrows
-    orcish dagger           = knife + 2 orcish arrows
-    athame                  = dagger + stiletto
-    parazonium              = dagger + knife
-    great dagger            = parazonium + knife
-    knife                   = 2 arrows + 2 darts
-    stiletto                = knife + 2 crossbow bolts
-    scalpel                 = knife + stiletto
-    aklys                   = spear + flail
-    shuriken (3-4)          = dagger + 2 darts
-    chakram                 = boomerang + shuriken
-
-    spear                   = dagger + 2 arrows
-    elven spear             = elven dagger + 2 elven arrows
-    orcish spear            = orcish dagger + 2 orcish arrows
-    dwarvish spear          = spear + 2 arrows
-    javelin                 = spear + 2 crossbow bolts
-
-    axe                     = dagger + spear
-    throwing axe            = axe + dagger
-    dwarvish bearded axe    = axe + dwarvish short sword
-    battle-axe              = axe + broadsword
-    battle-axe              = axe + axe
-    dwarvish mattock        = pick-axe + dwarvish short sword
-
-    short sword             = dagger + 2 crossbow bolts
-    elven short sword       = elven dagger + 2 crossbow bolts
-    orcish short sword      = orcish dagger + 2 crossbow bolts
-    dwarvish short sword    = short sword + dwarvish spear
-    gladius                 = short sword + broadsword
-
-    scimitar                = knife + short sword
-    orcish scimitar         = knife + orcish short sword
-    saber                   = scimitar + long sword
-    falchion                = scimitar + scimitar
-    trident                 = scimitar + spear
-
-    broadsword              = scimitar + short sword
-    elven broadsword        = scimitar + elven short sword
-    runesword               = broadsword + dagger
-
-    long sword              = short sword + short sword
-    elven long sword        = elven short sword (x2)
-    orcish long sword       = orcish short sword (x2)
-    katana                  = long sword + long sword
-    two-handed sword        = long sword + broadsword
-    tsurugi                 = katana + two-handed sword
-
-    mace                    = war hammer + dagger
-    heavy mace              = mace + mace
-    rod                     = mace + 2 rubies
-    executioner's mace      = heavy mace + mace
-    morning star            = mace + dagger
-    orcish morning star     = mace + orcish dagger
-    war hammer              = mace + flail
-    heavy war hammer        = war hammer + war hammer
-    flail                   = mace + morning star
-    triple-headed flail     = flail + spiked chain
-    spiked chain            = iron chain + 2 shuriken
-
-    lance                   = glaive + javelin
-    partisan                = spear + broadsword
-    ranseur                 = spear + stiletto
-    spetum                  = spear + knife
-    glaive                  = spear + short sword
-    halberd                 = ranseur + axe
-    bardiche                = spear + battle-axe
-    voulge                  = spear + axe
-    fauchard                = spear + saber
-    guisarme                = spear + grappling hook
-    bill-guisarme           = spear + guisarme
-    lucern hammer           = spear + heavy war hammer
-    bec de corbin           = spear + war hammer
-
-    submachine gun          = pistol + iron chain
-    heavy machine gun       = submachine gun + iron chain
-    rifle                   = pistol + crossbow
-    sniper rifle            = rifle + iron chain
-    shotgun                 = pistol + broadsword
-    auto shotgun            = shotgun + iron chain
-
-    bullets                 = iron chain + 2 daggers/knives/darts
-    shotgun shells          = iron chain + 2 bullets
-# forging armor, armor recipes, armor fusions
-forging armor
-forge armor
-crafting armor
-craft armor
-armor craft*
-armor forg*
-armor recipe*
-    Forging Armor           (See "craft" for instructions)
-
-    plate mail              = splint mail + chain mail
-    crystal plate mail      = plate mail + 3 dilithium crystals
-    splint mail             = scale mail + chain mail
-    large splint mail       = plate mail + plate mail
-    banded mail             = scale mail + ring mail
-    chain mail              = ring mail + ring mail
-    dwarvish chain mail     = chain mail + dwarvish roundshield
-    elven chain mail        = chain mail + elven shield
-    orcish chain mail       = ring mail + orcish shield
-    scale mail              = ring mail + helmet
-    ring mail               = large shield + helmet
-    orcish ring mail        = orcish shield + orcish helm
-
-    orcish helm             = dented pot + orcish dagger
-    dwarvish helm           = helmet + dwarvish short sword
-    dented pot              = knife + war hammer
-    helmet                  = dented pot + dagger
-    small shield            = helmet + dagger
-    elven shield            = small shield + elven dagger
-    uruk-hai shield         = orcish shield + orcish shield
-    orcish shield           = orcish helm + orcish boots
-    large shield            = helmet + helmet
-    dwarvish roundshield    = large shield + dwarvish helm
-    tower shield            = large shield + small shield
-    gauntlets               = helmet + mace
-    dwarvish boots          = gauntlets + dwarvish short sword
-    orcish boots            = gauntlets + orcish short sword
-
-    barding                 = saddle + plate mail
-    spiked barding          = barding + morning star
-    barding of reflection   = barding + shield of reflection
 dungeon*
 	At once as far as Angels kenn he views
 	The dismal Situation waste and wilde,
