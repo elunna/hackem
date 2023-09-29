@@ -776,6 +776,8 @@ struct obj *otmp;
             return TRUE;
         if (adtyp == AD_DISE && (otmp->oprops & ITEM_SICK))
             return TRUE;
+        if (adtyp == AD_STUN && (otmp->oprops & ITEM_STUN))
+            return TRUE;
     }
     return FALSE;
 }

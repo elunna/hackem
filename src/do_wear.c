@@ -231,6 +231,8 @@ long mask;
         EStone_resistance |= mask;
     if (props & ITEM_SICK)
         ESick_resistance |= mask;
+    if (props & ITEM_STUN)
+        EStun_resistance |= mask;
     if (props & ITEM_OILSKIN) {
         pline("%s very tightly.", Tobjnam(otmp, "fit"));
         otmp->oprops_known |= ITEM_OILSKIN;
@@ -313,6 +315,8 @@ long mask;
         EStone_resistance &= ~mask;
     if (props & ITEM_SICK)
         ESick_resistance &= ~mask;
+    if (props & ITEM_STUN)
+        EStun_resistance &= ~mask;
     if (props & ITEM_OILSKIN)
         otmp->oprops_known |= ITEM_OILSKIN;
     if (props & ITEM_ESP) {
