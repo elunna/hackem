@@ -109,9 +109,9 @@ boolean on;
                 You("move very quietly.");
             else if (Levitation || Flying)
                 You("float imperceptibly.");
-            else
+            else if (Stealth)
                 You("walk very quietly.");
-        } else {
+        } else if (!Stealth){
             if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)))
                 You("are just as noisy as before.");
             else
@@ -270,7 +270,13 @@ long mask;
         Fixed_abil |= mask;
     if (props & ITEM_STEALTH) {
         EStealth |= mask;
-        toggle_stealth(otmp, (EStealth & ~mask), TRUE);
+        if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
+            pline("This %s will not silence someone %s.",
+                  xname(otmp), rn2(2) ? "as large as you" : "of your stature");
+            otmp->oprops_known |= ITEM_STEALTH;
+            EStealth &= ~mask;
+        } else
+            toggle_stealth(otmp, (EStealth & ~mask), TRUE);
     }
 }
 

@@ -99,107 +99,104 @@ register struct obj *obj;
         if (!Blind)
             pline("%s shining.", Tobjnam(olduwep, "stop"));
     }
-    if (uwep == obj
-        && ((uwep && uwep->oartifact == ART_OGRESMASHER)
-            || (olduwep && olduwep->oartifact == ART_OGRESMASHER)))
-        context.botl = 1;
+    if (uwep == obj) {
+        if ((uwep && uwep->oartifact == ART_OGRESMASHER)
+                || (olduwep && olduwep->oartifact == ART_OGRESMASHER))
+            context.botl = 1;
 
-    if (uwep == obj
-        && ((uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
-            || (olduwep && olduwep->oartifact == ART_CHAINS_OF_MALCANTHET)))
-        context.botl = 1;
+        if ((uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
+                || (olduwep && olduwep->oartifact == ART_CHAINS_OF_MALCANTHET))
+            context.botl = 1;
 
-    if (uwep == obj
-        && ((uwep && uwep->oartifact == ART_GIANTSLAYER)
-            || (olduwep && olduwep->oartifact == ART_GIANTSLAYER)))
-        context.botl = 1;
-
-    /* Excellence property */
-    if (uwep && uwep == obj && (uwep->oprops & ITEM_EXCEL)) {
-        uwep->oprops_known |= ITEM_EXCEL;
-        set_moreluck();
-        context.botl = 1;
-        update_inventory();
-    }
-    if (olduwep && (olduwep->oprops & ITEM_EXCEL)) {
-        olduwep->oprops_known |= ITEM_EXCEL;
-        set_moreluck();
-        context.botl = 1;
-        update_inventory();
-    }
-    /* See invisile property */
-    if (uwep && uwep == obj && (uwep->oprops & ITEM_SEEINV)) {
-        ESee_invisible |= W_WEP;
-        toggle_seeinv(uwep, (ESee_invisible & ~W_WEP), TRUE);
-    }
-    if (olduwep && (olduwep->oprops & ITEM_SEEINV)) {
-        ESee_invisible &= ~W_WEP;
-        toggle_seeinv(olduwep, (ESee_invisible & ~W_WEP), FALSE);
-    }
-    /* Fumbling property */
-    if (uwep && uwep == obj && (uwep->oprops & ITEM_FUMBLING)) {
-        if (!(HFumbling & ~TIMEOUT))
-            incr_itimeout(&HFumbling, rnd(20));
-        EFumbling |= W_WEP;
-    }
-    if (olduwep && (olduwep->oprops & ITEM_FUMBLING)) {
-        if (!(HFumbling & ~TIMEOUT))
-            HFumbling = EFumbling = 0;
-        EFumbling &= ~W_WEP;
+        if ((uwep && uwep->oartifact == ART_GIANTSLAYER)
+                || (olduwep && olduwep->oartifact == ART_GIANTSLAYER))
+            context.botl = 1;
     }
 
-    /* Hunger property */
-    if (uwep && uwep == obj && (uwep->oprops & ITEM_HUNGER)) {
-        EHunger |= W_WEP;
-    }
-    if (olduwep && (olduwep->oprops & ITEM_HUNGER)) {
-        EHunger &= ~W_WEP;
+    if (uwep && uwep == obj) {
+        if (uwep->oprops & ITEM_EXCEL) {
+            uwep->oprops_known |= ITEM_EXCEL;
+            set_moreluck();
+            context.botl = 1;
+            update_inventory();
+        }
+        if (uwep->oprops & ITEM_SEEINV) {
+            ESee_invisible |= W_WEP;
+            toggle_seeinv(uwep, (ESee_invisible & ~W_WEP), TRUE);
+        }
+        if (uwep->oprops & ITEM_FUMBLING) {
+            if (!(HFumbling & ~TIMEOUT))
+                incr_itimeout(&HFumbling, rnd(20));
+            EFumbling |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_HUNGER) {
+            EHunger |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_AGGRO) {
+            EAggravate_monster |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_TELE) {
+            ETeleportation |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_SLOW) {
+            ESlow |= W_WEP;
+            uwep->oprops_known |= ITEM_SLOW;
+            context.botl = 1;
+            update_inventory();
+        }
+        if (uwep->oprops & ITEM_SUSTAIN) {
+            Fixed_abil |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_STEALTH) {
+            EStealth |= W_WEP;
+            if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
+                pline("This %s will not silence someone %s.",
+                      xname(uwep), rn2(2) ? "as large as you" : "of your stature");
+                uwep->oprops_known |= ITEM_STEALTH;
+                EStealth &= ~W_WEP;
+            } else
+                toggle_stealth(uwep, (EStealth & ~W_WEP), TRUE);
+        }
     }
 
-    /* Aggravate monster property */
-    if (uwep && uwep == obj && (uwep->oprops & ITEM_AGGRO)) {
-        EAggravate_monster |= W_WEP;
-    }
-    if (olduwep && (olduwep->oprops & ITEM_AGGRO)) {
-        EAggravate_monster &= ~W_WEP;
-    }
-
-    /* Teleportitis property */
-    if (uwep && uwep == obj && (uwep->oprops & ITEM_TELE)) {
-        ETeleportation |= W_WEP;
-    }
-    if (olduwep && (olduwep->oprops & ITEM_TELE)) {
-        ETeleportation &= ~W_WEP;
-    }
-
-    /* Lethargy property */
-    if (uwep && uwep == obj && (uwep->oprops & ITEM_SLOW)) {
-        ESlow |= W_WEP;
-        uwep->oprops_known |= ITEM_SLOW;
-        context.botl = 1;
-        update_inventory();
-    }
-    if (olduwep && (olduwep->oprops & ITEM_SLOW)) {
-        ESlow &= ~W_WEP;
-        olduwep->oprops_known |= ITEM_SLOW;
-        context.botl = 1;
-        update_inventory();
-    }
-    /* Sustainability property */
-    if (uwep && uwep == obj && (uwep->oprops & ITEM_SUSTAIN)) {
-        Fixed_abil |= W_WEP;
-    }
-    if (olduwep && (olduwep->oprops & ITEM_SUSTAIN)) {
-        Fixed_abil &= ~W_WEP;
-    }
-    /* Stealth property */
-    if (uwep && uwep == obj && (uwep->oprops & ITEM_STEALTH)) {
-        EStealth |= W_WEP;
-        toggle_stealth(uwep, (EStealth & ~W_WEP), TRUE);
-    }
-    if (olduwep && (olduwep->oprops & ITEM_STEALTH)) {
-        EStealth &= ~W_WEP;
-        toggle_stealth(olduwep, (EStealth & ~W_WEP), FALSE);
+    if (olduwep) {
+        if (olduwep->oprops & ITEM_EXCEL) {
+            olduwep->oprops_known |= ITEM_EXCEL;
+            set_moreluck();
+            context.botl = 1;
+            update_inventory();
+        }
+        if (olduwep->oprops & ITEM_SEEINV) {
+            ESee_invisible &= ~W_WEP;
+            toggle_seeinv(olduwep, (ESee_invisible & ~W_WEP), FALSE);
+        }
+        if (olduwep->oprops & ITEM_FUMBLING) {
+            if (!(HFumbling & ~TIMEOUT))
+                HFumbling = EFumbling = 0;
+            EFumbling &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_HUNGER) {
+            EHunger &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_AGGRO) {
+            EAggravate_monster &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_TELE) {
+            ETeleportation &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_SLOW) {
+            ESlow &= ~W_WEP;
+            olduwep->oprops_known |= ITEM_SLOW;
+            context.botl = 1;
+            update_inventory();
+        }
+        if (olduwep->oprops & ITEM_SUSTAIN) {
+            Fixed_abil &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_STEALTH) {
+            EStealth &= ~W_WEP;
+            toggle_stealth(olduwep, (EStealth & ~W_WEP), FALSE);
+        }
     }
 
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
@@ -375,6 +372,7 @@ register struct obj *obj;
     }
 
     setworn(obj, W_SWAPWEP);
+    /* TODO: Is u.twoweap ever true after this point? */
 
     if (u.twoweap && uswapwep == obj && artifact_light(uswapwep)
         && !uswapwep->lamplit) {
@@ -392,6 +390,8 @@ register struct obj *obj;
         && (u.twoweap && uswapwep->oartifact == ART_GIANTSLAYER))
         context.botl = 1;
 
+    /* TODO: LOTS of code duplication in here, maybe there is a better way. */
+
     /* Excellence property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {
@@ -400,7 +400,7 @@ register struct obj *obj;
         context.botl = 1;
         update_inventory();
     }
-    if (olduswapwep && (olduswapwep->oprops & ITEM_EXCEL)) {
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_EXCEL)) {
         olduswapwep->oprops_known |= ITEM_EXCEL;
         set_moreluck();
         context.botl = 1;
@@ -413,43 +413,91 @@ register struct obj *obj;
         ESee_invisible |= W_SWAPWEP;
         toggle_seeinv(uswapwep, (ESee_invisible & ~W_SWAPWEP), TRUE);
     }
-    
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_SEEINV)) {
+        ESee_invisible &= ~W_SWAPWEP;
+        toggle_seeinv(olduswapwep, (ESee_invisible & ~W_SWAPWEP), FALSE);
+    }
+
     /* Fumbling property */
+
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_FUMBLING))) {
         if (!(HFumbling & ~TIMEOUT))
-            HFumbling = EFumbling = 0;
+            incr_itimeout(&HFumbling, rnd(20));
+        EFumbling |= W_SWAPWEP;
     }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_FUMBLING)) {
+        if (!(HFumbling & ~TIMEOUT))
+            HFumbling = EFumbling = 0;
+        EFumbling &= ~W_SWAPWEP;
+    }
+
     /* Hunger property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_HUNGER))) {
         EHunger |= W_SWAPWEP;
     }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_HUNGER)) {
+        EHunger &= ~W_SWAPWEP;
+    }
+
     /* Aggravate monster property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_AGGRO))) {
         EAggravate_monster |= W_SWAPWEP;
     }
-    /* Aggravate monster property */
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_AGGRO)) {
+        EAggravate_monster &= ~W_SWAPWEP;
+    }
+
+    /* Teleportitis monster property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_TELE))) {
         ETeleportation |= W_SWAPWEP;
     }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_TELE)) {
+        ETeleportation &= ~W_SWAPWEP;
+    }
+
     /* Lethargy property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_SLOW))) {
         ESlow |= W_SWAPWEP;
+        uwep->oprops_known |= ITEM_SLOW;
+        context.botl = 1;
+        update_inventory();
     }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_SLOW)) {
+        ESlow &= ~W_SWAPWEP;
+        olduswapwep->oprops_known |= ITEM_SLOW;
+        context.botl = 1;
+        update_inventory();
+    }
+
     /* Sustainability property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_SUSTAIN))) {
         Fixed_abil |= W_SWAPWEP;
     }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_SUSTAIN)) {
+        Fixed_abil &= ~W_SWAPWEP;
+    }
+
     /* Stealth property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_STEALTH))) {
         EStealth |= W_SWAPWEP;
-        toggle_stealth(uswapwep, (EStealth & ~W_SWAPWEP), TRUE);
+        if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
+            pline("This %s will not silence someone %s.",
+                  xname(uswapwep), rn2(2) ? "as large as you" : "of your stature");
+            uswapwep->oprops_known |= ITEM_STEALTH;
+            EStealth &= ~W_SWAPWEP;
+        } else
+            toggle_stealth(uswapwep, (EStealth & ~W_SWAPWEP), TRUE);
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_STEALTH)) {
+        EStealth &= ~W_SWAPWEP;
+        toggle_stealth(olduswapwep, (EStealth & ~W_SWAPWEP), TRUE);
     }
 }
 

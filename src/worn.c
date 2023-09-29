@@ -678,7 +678,12 @@ boolean on, silently;
                 which = STEALTH;
                 break;
             default:
+                ;
+#if 0 /* Don't throw an impossible yet, maybe after we've handled a lot of
+       * other cases.
+       **/
                 impossible("update_mon_intrinsics: unknown property [= %d]", i);
+#endif
             }
             if (which)
                 goto again;
