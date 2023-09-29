@@ -734,6 +734,7 @@ Helmet_on(VOID_ARGS)
             make_afraid(0L, TRUE);
             context.botl = TRUE;
         }
+        BClairvoyant |= W_ARM;
         break;
     case HELM_OF_BRILLIANCE:
         adj_abon(uarmh, uarmh->spe);
@@ -846,7 +847,7 @@ Helmet_off(VOID_ARGS)
     case ELVEN_HELM:
     case DWARVISH_HELM:
     case ORCISH_HELM:
-    case TINFOIL_HAT:
+
     case PLASTEEL_HELM:
         break;
     case DUNCE_CAP:
@@ -890,6 +891,9 @@ Helmet_off(VOID_ARGS)
            properties, including levitation; uarmh could get
            dropped or destroyed here */
         uchangealign(u.ualignbase[A_CURRENT], 2);
+        break;
+    case TINFOIL_HAT:
+        BClairvoyant &= ~W_ARM;
         break;
     default:
         impossible(unknown_type, c_helmet, uarmh->otyp);

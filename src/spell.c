@@ -1432,8 +1432,9 @@ boolean wiz_cast;
             if (role_skill >= P_SKILLED)
                 pseudo->blessed = 1; /* detect monsters as well as map */
             do_vicinity_map(pseudo);
-        /* at present, only one thing blocks clairvoyance */
-        } else if (uarmh && uarmh->otyp == CORNUTHAUM)
+        /* at present, only two things block clairvoyance */
+        } else if ((uarmh && uarmh->otyp == CORNUTHAUM)
+                   || (uarmh && uarmh->otyp == TINFOIL_HAT))
             You("sense a pointy hat on top of your %s.", body_part(HEAD));
         break;
     case SPE_PROTECTION:
