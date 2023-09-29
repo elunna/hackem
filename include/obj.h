@@ -608,16 +608,17 @@ struct obj {
 #define ITEM_SEEINV    0x00080000L /* extrinsic see invisible */
 #define ITEM_SLEEP     0x00100000L /* extrinsic sleep resistance */
 #define ITEM_STONE     0x00200000L /* extrinsic stoning resistance */
+#define ITEM_SICK      0x00400000L /* extrinsic sickness resistance */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 
-#define ITEM_PROP_MASK 0x003FFFFFL /* all current properties */
-#define MAX_ITEM_PROPS 22
+#define ITEM_PROP_MASK 0x007FFFFFL /* all current properties */
+#define MAX_ITEM_PROPS 23
 
 /* Properties that grant both a worn resistance and attack type */
 #define ITEM_RES_PROPS (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM \
                             | ITEM_ACID | ITEM_SCREAM | ITEM_DRLI        \
-                            | ITEM_SLEEP | ITEM_STONE)
+                            | ITEM_SLEEP | ITEM_STONE | ITEM_SICK)
 /* Positive properties */
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING \
                          | ITEM_WARNING | ITEM_EXCEL | ITEM_SUSTAIN \
@@ -626,7 +627,7 @@ struct obj {
 #define ITEM_BAD_PROPS (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO \
                         | ITEM_TELE | ITEM_SLOW)
 
-#define NON_WEP_PROPS (ITEM_SLEEP | ITEM_STONE)
+#define NON_WEP_PROPS (ITEM_SLEEP | ITEM_STONE | ITEM_SICK)
 
 /*
  *  Notes for adding new oextra structures:
