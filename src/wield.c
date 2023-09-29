@@ -157,6 +157,18 @@ register struct obj *obj;
             } else
                 toggle_stealth(uwep, (EStealth & ~W_WEP), TRUE);
         }
+        if (uwep->oprops & ITEM_SLEEP) {
+            ESleep_resistance |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_STONE) {
+            EStone_resistance |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_SICK) {
+            ESick_resistance |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_STUN) {
+            EStun_resistance |= W_WEP;
+        }
     }
 
     if (olduwep) {
@@ -196,6 +208,18 @@ register struct obj *obj;
         if (olduwep->oprops & ITEM_STEALTH) {
             EStealth &= ~W_WEP;
             toggle_stealth(olduwep, (EStealth & ~W_WEP), FALSE);
+        }
+        if (olduwep->oprops & ITEM_SLEEP) {
+            ESleep_resistance &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_STONE) {
+            EStone_resistance &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_SICK) {
+            ESick_resistance &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_STUN) {
+            EStun_resistance &= ~W_WEP;
         }
     }
 
@@ -498,6 +522,39 @@ register struct obj *obj;
     if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_STEALTH)) {
         EStealth &= ~W_SWAPWEP;
         toggle_stealth(olduswapwep, (EStealth & ~W_SWAPWEP), TRUE);
+    }
+    
+    /* Sleep resistance */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_SLEEP))) {
+        ESleep_resistance |= W_SWAPWEP;
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_SLEEP)) {
+        ESleep_resistance &= ~W_SWAPWEP;
+    }
+    /* Stone resistance */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_STONE))) {
+        EStone_resistance |= W_SWAPWEP;
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_STONE)) {
+        EStone_resistance &= ~W_SWAPWEP;
+    }
+    /* Sickness resistance */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_SICK))) {
+        ESick_resistance |= W_SWAPWEP;
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_SICK)) {
+        ESick_resistance &= ~W_SWAPWEP;
+    }
+    /* Stun resistance */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_STUN))) {
+        EStun_resistance |= W_SWAPWEP;
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_STUN)) {
+        EStun_resistance &= ~W_SWAPWEP;
     }
 }
 
