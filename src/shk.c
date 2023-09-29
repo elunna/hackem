@@ -4260,13 +4260,19 @@ struct monst *shkp;
     }
 
     if (obj->oprops) {
-        verbalize("Your %s already has a property, remove it?", xname(obj));
+        verbalize("Your %s already has a property, I could *try* to remove it...", xname(obj));
         charge = 250;
         shk_smooth_charge(&charge, 200, NOBOUND);
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
-        obj->oprops = 0;
-        obj->oprops_known = 0;
+        if (!rn2(4)) {
+            verbalize("Success!");
+            obj->oprops = 0;
+            obj->oprops_known = 0;
+        } else {
+            verbalize("Sorry.  I guess it's not your lucky day.");
+            return 1;
+        }
     } else if (obj->oartifact) {
         verbalize("That %s is already pretty special.", xname(obj));
         return 0;
@@ -4277,6 +4283,7 @@ struct monst *shkp;
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
 
+        verbalize("No refunds or exchanges!");
         if (Hallucination) {
             Your("%s to dissemble into pieces!", aobjnam(obj, "seem"));
         } else

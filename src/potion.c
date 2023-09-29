@@ -3124,7 +3124,7 @@ boolean ourfault;
     }
 
     /* !ofAmnesia might strip away properties... */
-    if (targobj->oprops && (!rn2(13) || ourfault)) {
+    if (targobj->oprops && !rn2(13)) {
         pre_downgrade_obj(targobj, &used);
         targobj->oprops = 0;
         targobj->oprops_known = 0;
