@@ -401,8 +401,8 @@ register struct obj *obj;
     /* Insight property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_SEEINV))) {
-        ESee_invisible |= W_WEP;
-        toggle_seeinv(uswapwep, (ESee_invisible & ~W_WEP), TRUE);
+        ESee_invisible |= W_SWAPWEP;
+        toggle_seeinv(uswapwep, (ESee_invisible & ~W_SWAPWEP), TRUE);
     }
     /* Fumbling property */
     if (uswapwep == obj
@@ -413,33 +413,33 @@ register struct obj *obj;
     /* Hunger property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_HUNGER))) {
-        EHunger |= W_WEP;
+        EHunger |= W_SWAPWEP;
     }
     /* Aggravate monster property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_AGGRO))) {
-        EAggravate_monster |= W_WEP;
+        EAggravate_monster |= W_SWAPWEP;
     }
     /* Aggravate monster property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_TELE))) {
-        ETeleportation |= W_WEP;
+        ETeleportation |= W_SWAPWEP;
     }
     /* Lethargy property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_SLOW))) {
-        ESlow |= W_WEP;
+        ESlow |= W_SWAPWEP;
     }
     /* Sustainability property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_SUSTAIN))) {
-        Fixed_abil |= W_WEP;
+        Fixed_abil |= W_SWAPWEP;
     }
     /* Stealth property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_STEALTH))) {
-        EStealth |= W_WEP;
-        toggle_stealth(uswapwep, (EStealth & ~W_WEP), TRUE);
+        EStealth |= W_SWAPWEP;
+        toggle_stealth(uswapwep, (EStealth & ~W_SWAPWEP), TRUE);
     }
 }
 
