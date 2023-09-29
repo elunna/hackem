@@ -589,6 +589,12 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
+    if (props & ITEM_SEEINV) {
+        if ((props_known & ITEM_SEEINV) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " insight"),
+                Strcpy(of, " and");
+        }
+    }
     if (props & ITEM_EXCEL) {
         if ((props_known & ITEM_EXCEL) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " excellence"),
@@ -4249,6 +4255,10 @@ struct obj *no_wish;
                 } else if (!strncmpi((p + of), "warning", l = strlen("warning"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_WARNING;
+                    objpropcount++;
+                } else if (!strncmpi((p + of), "insight", l = strlen("insight"))) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_SEEINV;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "excellence", l = strlen("excellence"))) {
                     if (!objpropcount || wizard)

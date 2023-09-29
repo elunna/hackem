@@ -120,6 +120,47 @@ boolean on;
     }
 }
 
+/* putting on or taking off an item which confers see inv;
+   give feedback and discover it iff see invisible state is changing */
+void
+toggle_seeinv(obj, oldprop, on)
+struct obj *obj;
+long oldprop; /* prop[].extrinsic, with obj->owornmask stripped by caller */
+boolean on;
+{
+    boolean discovered = FALSE;
+    if (on ? initial_don : context.takeoff.cancelled_don)
+        return;
+
+    if (!oldprop /* extrinsic stealth from something else */
+        && !HSee_invisible) {  /* intrinsic see invisible */
+
+        /* can now see invisible monsters */
+        set_mimic_blocking(); /* do special mimic handling */
+        see_monsters();
+
+        if (on) {
+            if (Invis && !oldprop && !HSee_invisible && !Blind) {
+               newsym(u.ux, u.uy);
+               pline("Suddenly you are transparent, but there!");
+               discovered = TRUE;
+            }
+        } else if (Invisible && !Blind) {
+            newsym(u.ux, u.uy);
+            pline("Suddenly you cannot see yourself.");
+            discovered = TRUE;
+        }
+    }
+    if (discovered) {
+        if (obj->otyp == RIN_SEE_INVISIBLE)
+            learnring(obj, TRUE);
+        else if (obj->oprops & ITEM_SEEINV)
+            obj->oprops_known |= ITEM_SEEINV;
+        else
+            makeknown(obj->otyp);
+    }
+}
+
 /* putting on or taking off an item which confers displacement, or gaining
    or losing timed displacement after eating a displacer beast corpse or tin;
    give feedback and discover it iff displacement state is changing *and*
@@ -198,6 +239,10 @@ long mask;
         EWarning |= mask;
         see_monsters();
     }
+    if (props & ITEM_SEEINV) {
+        ESee_invisible |= mask;
+        toggle_seeinv(otmp, (ESee_invisible & ~mask), TRUE);
+    }
     if (props & ITEM_EXCEL) {
         int which = A_CHA, old_attrib = ACURR(which);
         /* borrowing this from Ring_on() as I may want
@@ -261,6 +306,10 @@ long mask;
     if (props & ITEM_WARNING) {
         EWarning &= ~mask;
         see_monsters();
+    }
+    if (props & ITEM_SEEINV) {
+        ESee_invisible &= ~mask;
+        toggle_seeinv(otmp, (ESee_invisible & ~mask), FALSE);
     }
     if (props & ITEM_EXCEL) {
         int which = A_CHA, old_attrib = ACURR(which);
@@ -1651,15 +1700,7 @@ register struct obj *obj;
         see_monsters();
         break;
     case RIN_SEE_INVISIBLE:
-        /* can now see invisible monsters */
-        set_mimic_blocking(); /* do special mimic handling */
-        see_monsters();
-
-        if (Invis && !oldprop && !HSee_invisible && !Blind) {
-            newsym(u.ux, u.uy);
-            pline("Suddenly you are transparent, but there!");
-            learnring(obj, TRUE);
-        }
+        toggle_seeinv(obj, oldprop, TRUE);
         break;
     case RIN_INVISIBILITY:
         if (!oldprop && !HInvis && !BInvis && !Blind) {
@@ -1784,16 +1825,7 @@ boolean gone;
         break;
     case RIN_SEE_INVISIBLE:
         /* Make invisible monsters go away */
-        if (!See_invisible) {
-            set_mimic_blocking(); /* do special mimic handling */
-            see_monsters();
-        }
-
-        if (Invisible && !Blind) {
-            newsym(u.ux, u.uy);
-            pline("Suddenly you cannot see yourself.");
-            learnring(obj, TRUE);
-        }
+        toggle_seeinv(obj, (ESee_invisible& ~mask), FALSE);
         break;
     case RIN_INVISIBILITY:
         if (!Invis && !BInvis && !Blind) {

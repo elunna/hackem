@@ -1295,6 +1295,7 @@ char *usr_text;
         if (obj->oprops & ITEM_ESP) OBJPUTSTR("Grants telepathy");
         if (obj->oprops & ITEM_SEARCHING) OBJPUTSTR("Grants searching");
         if (obj->oprops & ITEM_WARNING) OBJPUTSTR("Grants warning");
+        if (obj->oprops & ITEM_SEEINV) OBJPUTSTR("Grants see invisible");
         if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/charisma adjustment");
         if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
         if (obj->oprops & ITEM_AGGRO) OBJPUTSTR("Grants aggravate monster");
