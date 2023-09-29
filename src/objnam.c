@@ -589,6 +589,12 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
+    if (props & ITEM_EXCEL) {
+        if ((props_known & ITEM_EXCEL) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " excellence"),
+                Strcpy(of, " and");
+        }
+    }
     if (props & ITEM_FUMBLING) {
         if ((props_known & ITEM_FUMBLING) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " fumbling"),
@@ -619,10 +625,10 @@ boolean has_of;
                 Strcpy(of, " and");
         }
     }
-    if (props & ITEM_EXCEL) {
-        if ((props_known & ITEM_EXCEL) || dump_prop_flag) {
-            Strcat(buf, of), Strcat(buf, " excellence"),
-            Strcpy(of, " and");
+    if (props & ITEM_SUSTAIN) {
+        if ((props_known & ITEM_SUSTAIN) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " sustainability"),
+                Strcpy(of, " and");
         }
     }
 }
@@ -4236,6 +4242,10 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_WARNING;
                     objpropcount++;
+                } else if (!strncmpi((p + of), "excellence", l = 10)) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_EXCEL;
+                    objpropcount++;
                 } else if (!strncmpi((p + of), "fumbling", l = 8)
                            && strncmpi(bp, "gauntlets", l = 9)) {
                     /* do not need to account for 'boots' here,
@@ -4260,9 +4270,9 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SLOW;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "excellence", l = 10)) {
+                } else if (!strncmpi((p + of), "sustainability", l = 13)) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_EXCEL;
+                        objprops |= ITEM_SUSTAIN;
                     objpropcount++;
                 } else
                     l = 0;

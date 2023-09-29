@@ -198,6 +198,16 @@ long mask;
         EWarning |= mask;
         see_monsters();
     }
+    if (props & ITEM_EXCEL) {
+        int which = A_CHA, old_attrib = ACURR(which);
+        /* borrowing this from Ring_on() as I may want
+           to add other attributes in the future */
+        ABON(which) += otmp->spe;
+        if (old_attrib != ACURR(which))
+            otmp->oprops_known |= ITEM_EXCEL;
+        set_moreluck();
+        context.botl = 1;
+    }
     if (props & ITEM_FUMBLING) {
         if (!EFumbling && !(HFumbling & ~TIMEOUT))
             incr_itimeout(&HFumbling, rnd(20));
@@ -211,16 +221,9 @@ long mask;
         ETeleportation |= mask;
     if (props & ITEM_SLOW)
         ESlow |= mask;
-    if (props & ITEM_EXCEL) {
-        int which = A_CHA, old_attrib = ACURR(which);
-        /* borrowing this from Ring_on() as I may want
-           to add other attributes in the future */
-        ABON(which) += otmp->spe;
-        if (old_attrib != ACURR(which))
-            otmp->oprops_known |= ITEM_EXCEL;
-        set_moreluck();
-        context.botl = 1;
-    }
+    if (props & ITEM_SUSTAIN)
+        Fixed_abil |= mask;
+
 }
 
 void
@@ -256,6 +259,18 @@ long mask;
         EWarning &= ~mask;
         see_monsters();
     }
+    if (props & ITEM_EXCEL) {
+        int which = A_CHA, old_attrib = ACURR(which);
+        /* borrowing this from Ring_off() as I may want
+           to add other attributes in the future */
+        ABON(which) -= otmp->spe;
+        if (old_attrib != ACURR(which))
+            otmp->oprops_known |= ITEM_EXCEL;
+        otmp->oprops &= ~ITEM_EXCEL;
+        set_moreluck();
+        otmp->oprops |= ITEM_EXCEL;
+        context.botl = 1;
+    }
     if (props & ITEM_FUMBLING) {
         EFumbling &= ~mask;
         if (!EFumbling && !(HFumbling & ~TIMEOUT))
@@ -269,18 +284,8 @@ long mask;
         ETeleportation &= ~mask;
     if (props & ITEM_SLOW)
         ESlow &= ~mask;
-    if (props & ITEM_EXCEL) {
-        int which = A_CHA, old_attrib = ACURR(which);
-        /* borrowing this from Ring_off() as I may want
-           to add other attributes in the future */
-        ABON(which) -= otmp->spe;
-        if (old_attrib != ACURR(which))
-            otmp->oprops_known |= ITEM_EXCEL;
-        otmp->oprops &= ~ITEM_EXCEL;
-        set_moreluck();
-        otmp->oprops |= ITEM_EXCEL;
-        context.botl = 1;
-    }
+    if (props & ITEM_SUSTAIN)
+        Fixed_abil &= ~mask;
 }
 
 int

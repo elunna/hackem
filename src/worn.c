@@ -404,6 +404,8 @@ int which;
         return !!(obj->oprops & ITEM_SLOW);
     case ADORNED:
         return !!(obj->oprops & ITEM_EXCEL);
+    case FIXED_ABIL:
+        return !!(obj->oprops & ITEM_SUSTAIN);
     }
     return FALSE;
 }
@@ -649,6 +651,9 @@ boolean on, silently;
             case ITEM_ESP:
                 which = TELEPAT;
                 break;
+            case ITEM_EXCEL:
+                which = ADORNED;
+                break;
             case ITEM_FUMBLING:
                 which = FUMBLING;
                 break;
@@ -664,9 +669,11 @@ boolean on, silently;
             case ITEM_SLOW:
                 which = SLOW;
                 break;
-            case ITEM_EXCEL:
-                which = ADORNED;
+            case ITEM_SUSTAIN:
+                which = FIXED_ABIL;
                 break;
+            default:
+                impossible("update_mon_intrinsics: unknown property [= %d]", i);
             }
             if (which)
                 goto again;

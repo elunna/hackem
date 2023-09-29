@@ -177,6 +177,13 @@ register struct obj *obj;
         context.botl = 1;
         update_inventory();
     }
+    /* Sustainability property */
+    if (uwep && uwep == obj && (uwep->oprops & ITEM_SUSTAIN)) {
+        Fixed_abil |= W_WEP;
+    }
+    if (olduwep && (olduwep->oprops & ITEM_SUSTAIN)) {
+        Fixed_abil &= ~W_WEP;
+    }
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.
      * 3.2.2:  Wielding arbitrary objects will give bashing message too.
@@ -393,6 +400,16 @@ register struct obj *obj;
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_TELE))) {
         ETeleportation |= W_WEP;
+    }
+    /* Lethargy property */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_SLOW))) {
+        ESlow |= W_WEP;
+    }
+    /* Sustainability property */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_SUSTAIN))) {
+        Fixed_abil |= W_WEP;
     }
     return;
 }

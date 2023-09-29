@@ -1300,6 +1300,7 @@ char *usr_text;
         if (obj->oprops & ITEM_AGGRO) OBJPUTSTR("Grants aggravate monster");
         if (obj->oprops & ITEM_TELE) OBJPUTSTR("Grants teleportation");
         if (obj->oprops & ITEM_SLOW) OBJPUTSTR("Grants lethargy");
+        if (obj->oprops & ITEM_SUSTAIN) OBJPUTSTR("Grants sustainability");
     }
 
     /* APPEARANCE BONUSES */
