@@ -3666,10 +3666,8 @@ struct obj *obj;
         }
         case OBJECT_DET:
             if (obj->oartifact == ART_MARAUDER_S_MAP) {
-                struct obj *pseudo = mksobj(SPE_DETECT_MONSTERS, FALSE, FALSE);
-                peffects(pseudo);
                 artifact_detect(obj);
-                obfree(pseudo, NULL);
+                magic_detect(obj);
             } else
                 object_detect(obj, 0);
             break;

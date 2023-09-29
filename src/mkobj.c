@@ -837,7 +837,7 @@ may_generate_eroded(struct obj* otmp) {
     return TRUE;
 }
 
-/* mksobj(): create a specific type of object; result it always non-Null */
+/* mksobj(): create a specific type of object; result is always non-Null */
 struct obj *
 mksobj(otyp, init, artif)
 int otyp;
