@@ -2208,6 +2208,7 @@ E int NDECL(polyatwill);
 
 /* ### potion.c ### */
 
+E void FDECL(toggle_stealth, (struct obj *, long, BOOLEAN_P));
 E void FDECL(set_itimeout, (long *, long));
 E void FDECL(incr_itimeout, (long *, int));
 E void FDECL(incr_resistance, (long *, int));

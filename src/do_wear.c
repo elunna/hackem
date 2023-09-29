@@ -21,7 +21,6 @@ static NEARDATA const long takeoff_order[] = {
 };
 
 STATIC_DCL void FDECL(on_msg, (struct obj *));
-STATIC_DCL void FDECL(toggle_stealth, (struct obj *, long, BOOLEAN_P));
 STATIC_PTR int NDECL(Armor_on);
 STATIC_PTR int NDECL(Cloak_on);
 STATIC_PTR int NDECL(Helmet_on);
@@ -86,7 +85,6 @@ static boolean initial_don = FALSE; /* manipulated in set_wear() */
 
 /* putting on or taking off an item which confers stealth;
    give feedback and discover it iff stealth state is changing */
-STATIC_OVL
 void
 toggle_stealth(obj, oldprop, on)
 struct obj *obj;
@@ -101,6 +99,8 @@ boolean on;
         && !BStealth) { /* stealth blocked by something */
         if (obj->otyp == RIN_STEALTH)
             learnring(obj, TRUE);
+        else if (obj->oprops & ITEM_STEALTH)
+            obj->oprops_known |= ITEM_STEALTH;
         else
             makeknown(obj->otyp);
 
@@ -223,7 +223,10 @@ long mask;
         ESlow |= mask;
     if (props & ITEM_SUSTAIN)
         Fixed_abil |= mask;
-
+    if (props & ITEM_STEALTH) {
+        EStealth |= mask;
+        toggle_stealth(otmp, (EStealth & ~mask), TRUE);
+    }
 }
 
 void
@@ -286,6 +289,10 @@ long mask;
         ESlow &= ~mask;
     if (props & ITEM_SUSTAIN)
         Fixed_abil &= ~mask;
+    if (props & ITEM_STEALTH) {
+        EStealth &= ~mask;
+        toggle_stealth(otmp, (EStealth & ~mask), FALSE);
+    }
 }
 
 int

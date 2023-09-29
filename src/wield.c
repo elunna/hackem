@@ -184,6 +184,15 @@ register struct obj *obj;
     if (olduwep && (olduwep->oprops & ITEM_SUSTAIN)) {
         Fixed_abil &= ~W_WEP;
     }
+    /* Stealth property */
+    if (uwep && uwep == obj && (uwep->oprops & ITEM_STEALTH)) {
+        EStealth |= W_WEP;
+        toggle_stealth(uwep, (EStealth & ~W_WEP), TRUE);
+    }
+    if (olduwep && (olduwep->oprops & ITEM_STEALTH)) {
+        EStealth &= ~W_WEP;
+        toggle_stealth(olduwep, (EStealth & ~W_WEP), FALSE);
+    }
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.
      * 3.2.2:  Wielding arbitrary objects will give bashing message too.
@@ -411,7 +420,12 @@ register struct obj *obj;
         && (u.twoweap && (uswapwep->oprops & ITEM_SUSTAIN))) {
         Fixed_abil |= W_WEP;
     }
-    return;
+    /* Stealth property */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_STEALTH))) {
+        EStealth |= W_WEP;
+        toggle_stealth(uswapwep, (EStealth & ~W_WEP), TRUE);
+    }
 }
 
 /*** Commands to change particular slot(s) ***/

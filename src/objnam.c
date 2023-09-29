@@ -631,6 +631,12 @@ boolean has_of;
                 Strcpy(of, " and");
         }
     }
+    if (props & ITEM_STEALTH) {
+        if ((props_known & ITEM_STEALTH) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " stealth"),
+                Strcpy(of, " and");
+        }
+    }
 }
 
 /* add "<pfx> called <sfx>" to end of buf, truncating if necessary */
@@ -4193,6 +4199,8 @@ struct obj *no_wish;
                 if ((mntmp = name_to_mon(p + of)) >= LOW_PM) {
                     *p = 0;
                     p = 0;
+
+                /* TODO: Can't we use a "string_length" function here??? */
                 } else if (!strncmpi((p + of), "fire", l = 4)
                            && strncmpi(bp, "scroll", l = 5)) {
                     if (!objpropcount || wizard)
@@ -4266,13 +4274,17 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_TELE;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "lethargy", l = 13)) {
+                } else if (!strncmpi((p + of), "lethargy", l = 8)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SLOW;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "sustainability", l = 13)) {
+                } else if (!strncmpi((p + of), "sustainability", l = 14)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SUSTAIN;
+                    objpropcount++;
+                } else if (!strncmpi((p + of), "stealth", l = 7)) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_STEALTH;
                     objpropcount++;
                 } else
                     l = 0;

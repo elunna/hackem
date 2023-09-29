@@ -406,6 +406,8 @@ int which;
         return !!(obj->oprops & ITEM_EXCEL);
     case FIXED_ABIL:
         return !!(obj->oprops & ITEM_SUSTAIN);
+    case STEALTH:
+        return !!(obj->oprops & ITEM_STEALTH);
     }
     return FALSE;
 }
@@ -671,6 +673,9 @@ boolean on, silently;
                 break;
             case ITEM_SUSTAIN:
                 which = FIXED_ABIL;
+                break;
+            case ITEM_STEALTH:
+                which = STEALTH;
                 break;
             default:
                 impossible("update_mon_intrinsics: unknown property [= %d]", i);

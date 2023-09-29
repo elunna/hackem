@@ -1301,6 +1301,7 @@ char *usr_text;
         if (obj->oprops & ITEM_TELE) OBJPUTSTR("Grants teleportation");
         if (obj->oprops & ITEM_SLOW) OBJPUTSTR("Grants lethargy");
         if (obj->oprops & ITEM_SUSTAIN) OBJPUTSTR("Grants sustainability");
+        if (obj->oprops & ITEM_STEALTH) OBJPUTSTR("Grants stealth");
     }
 
     /* APPEARANCE BONUSES */
