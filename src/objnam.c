@@ -3951,15 +3951,15 @@ struct obj *no_wish;
             /* "very large " had "very " peeled off on previous iteration */
             gsize = (very != 1) ? 3 : 4;
         } else if (!strncmpi(bp, "oilskin ", l = 8)
-                   && !!strncmpi(bp, "oilskin cloak", 13)
-                   && !!strncmpi(bp, "oilskin sack", 12)) {
+                   && !!strncmpi(bp, "oilskin cloak", strlen("oilskin cloak"))
+                   && !!strncmpi(bp, "oilskin sack", strlen("oilskin sack"))) {
             if (!objpropcount || wizard)
                 objprops |= ITEM_OILSKIN;
             objpropcount++;
         } else {
             /* check for materials */
-            if (!strncmpi(bp, "silver dragon", l = 13)
-                || !strncmpi(bp, "gold dragon", l = 11)) {
+            if (!strncmpi(bp, "silver dragon", l = strlen("silver dragon"))
+                || !strncmpi(bp, "gold dragon", l = strlen("gold dragon"))) {
                 /* hack so that gold/silver dragon scales doesn't get
                  * interpreted as silver, or a wish for just "gold" doesn't get
                  * interpreted as gold */
@@ -4201,88 +4201,88 @@ struct obj *no_wish;
                     p = 0;
 
                 /* TODO: Can't we use a "string_length" function here??? */
-                } else if (!strncmpi((p + of), "fire", l = 4)
-                           && strncmpi(bp, "scroll", l = 5)) {
+                } else if (!strncmpi((p + of), "fire", l = strlen("fire"))
+                           && strncmpi(bp, "scroll", l = strlen("scroll"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_FIRE;
                     objpropcount++;
-                } else if ((!strncmpi((p + of), "frost", l = 5)
-                           || !strncmpi((p + of), "cold", l = 4))) {
+                } else if ((!strncmpi((p + of), "frost", l = strlen("frost"))
+                           || !strncmpi((p + of), "cold", l = strlen("cold")))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_FROST;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "drain", l = 5)
-                           || !strncmpi((p + of), "decay", l = 5)) {
+                } else if (!strncmpi((p + of), "drain", l = strlen("drain"))
+                           || !strncmpi((p + of), "decay", l = strlen("decay"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_DRLI;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "shock", l = 5)
-                           || !strncmpi((p + of), "lightning", l = 9)) {
+                } else if (!strncmpi((p + of), "shock", l = strlen("shock"))
+                           || !strncmpi((p + of), "lightning", l = strlen("lightning"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SHOCK;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "sonic", l = 5)
-                           || !strncmpi((p + of), "scream", l = 6)) {
+                } else if (!strncmpi((p + of), "sonic", l = strlen("sonic"))
+                           || !strncmpi((p + of), "scream", l = strlen("scream"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SCREAM;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "poison", l = 6)
-                           || !strncmpi((p + of), "venom", l = 5)) {
+                } else if (!strncmpi((p + of), "poison", l = strlen("poison"))
+                           || !strncmpi((p + of), "venom", l = strlen("venom"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_VENOM;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "acid", l = 4)
-                           || !strncmpi((p + of), "sizzle", l = 6)) {
+                } else if (!strncmpi((p + of), "acid", l = strlen("acid"))
+                           || !strncmpi((p + of), "sizzle", l = strlen("sizzle"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_ACID;
                     objpropcount++;
-                } else if ((!strncmpi((p + of), "telepathy", l = 9)
-                            && strncmpi(bp, "helm", l = 4))
-                           || !strncmpi((p + 4), "ESP", l = 3)) {
+                } else if ((!strncmpi((p + of), "telepathy", l = strlen("telepathy"))
+                            && strncmpi(bp, "helm", l = strlen("helm")))
+                           || !strncmpi((p + 4), "ESP", l = strlen("ESP"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_ESP;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "searching", l = 9)) {
+                } else if (!strncmpi((p + of), "searching", l = strlen("searching"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SEARCHING;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "warning", l = 7)) {
+                } else if (!strncmpi((p + of), "warning", l = strlen("warning"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_WARNING;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "excellence", l = 10)) {
+                } else if (!strncmpi((p + of), "excellence", l = strlen("excellence"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_EXCEL;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "fumbling", l = 8)
-                           && strncmpi(bp, "gauntlets", l = 9)) {
+                } else if (!strncmpi((p + of), "fumbling", l = strlen("fumbling"))
+                           && strncmpi(bp, "gauntlets", l = strlen("gauntlets"))) {
                     /* do not need to account for 'boots' here,
                        as they don't exist, you'd wish for 'fumble
                        boots' instead */
                     if (!objpropcount || wizard)
                         objprops |= ITEM_FUMBLING;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "hunger", l = 6)) {
+                } else if (!strncmpi((p + of), "hunger", l = strlen("hunger"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_HUNGER;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "aggravation", l = 11)) {
+                } else if (!strncmpi((p + of), "aggravation", l = strlen("aggravation"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_AGGRO;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "teleportation", l = 13)) {
+                } else if (!strncmpi((p + of), "teleportation", l = strlen("teleportation"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_TELE;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "lethargy", l = 8)) {
+                } else if (!strncmpi((p + of), "lethargy", l = strlen("lethargy"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SLOW;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "sustainability", l = 14)) {
+                } else if (!strncmpi((p + of), "sustainability", l = strlen("sustainability"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SUSTAIN;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "stealth", l = 7)) {
+                } else if (!strncmpi((p + of), "stealth", l = strlen("stealth"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_STEALTH;
                     objpropcount++;
