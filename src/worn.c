@@ -423,6 +423,8 @@ int which;
         return !!(obj->oprops & ITEM_SUSTAIN);
     case STEALTH:
         return !!(obj->oprops & ITEM_STEALTH);
+    case STABLE:
+        return !!(obj->oprops & ITEM_STABLE);
     }
     return FALSE;
 }
@@ -703,6 +705,9 @@ boolean on, silently;
                 break;
             case ITEM_STEALTH:
                 which = STEALTH;
+                break;
+            case ITEM_STABLE:
+                which = STABLE;
                 break;
             default:
                 ;

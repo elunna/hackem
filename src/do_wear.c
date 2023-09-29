@@ -286,6 +286,8 @@ long mask;
         } else
             toggle_stealth(otmp, (EStealth & ~mask), TRUE);
     }
+    if (props & ITEM_STABLE)
+        EStable |= mask;
 }
 
 void
@@ -364,6 +366,8 @@ long mask;
         EStealth &= ~mask;
         toggle_stealth(otmp, (EStealth & ~mask), FALSE);
     }
+    if (props & ITEM_STABLE)
+        EStable &= ~mask;
 }
 
 int

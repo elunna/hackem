@@ -671,6 +671,12 @@ boolean has_of;
                 Strcpy(of, " and");
         }
     }
+    if (props & ITEM_STABLE) {
+        if ((props_known & ITEM_STABLE) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " stability"),
+                    Strcpy(of, " and");
+        }
+    }
 }
 
 /* add "<pfx> called <sfx>" to end of buf, truncating if necessary */
@@ -4338,6 +4344,10 @@ struct obj *no_wish;
                 } else if (!strncmpi((p + of), "stealth", l = strlen("stealth"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_STEALTH;
+                    objpropcount++;
+                } else if (!strncmpi((p + of), "stability", l = strlen("stability"))) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_STABLE;
                     objpropcount++;
                 } else
                     l = 0;

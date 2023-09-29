@@ -610,11 +610,12 @@ struct obj {
 #define ITEM_STONE     0x00200000L /* extrinsic stoning resistance */
 #define ITEM_SICK      0x00400000L /* extrinsic sickness resistance */
 #define ITEM_STUN      0x00800000L /* extrinsic stun resistance */
+#define ITEM_STABLE    0x01000000L /* extrinsic clobber resistance */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 
-#define ITEM_PROP_MASK 0x00FFFFFFL /* all current properties */
-#define MAX_ITEM_PROPS 24
+#define ITEM_PROP_MASK 0x01FFFFFFL /* all current properties */
+#define MAX_ITEM_PROPS 25
 
 /* Properties that grant both a worn resistance and attack type */
 #define ITEM_RES_PROPS (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM \
@@ -624,7 +625,7 @@ struct obj {
 /* Positive properties */
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING \
                          | ITEM_WARNING | ITEM_EXCEL | ITEM_SUSTAIN \
-                         | ITEM_STEALTH| ITEM_SEEINV)
+                         | ITEM_STEALTH | ITEM_SEEINV | ITEM_STABLE)
 /* Negative properties */
 #define ITEM_BAD_PROPS (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO \
                         | ITEM_TELE | ITEM_SLOW)

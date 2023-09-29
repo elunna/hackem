@@ -157,6 +157,9 @@ register struct obj *obj;
             } else
                 toggle_stealth(uwep, (EStealth & ~W_WEP), TRUE);
         }
+        if (uwep->oprops & ITEM_STABLE) {
+            EStable |= W_WEP;
+        }
         if (uwep->oprops & ITEM_SLEEP) {
             ESleep_resistance |= W_WEP;
         }
@@ -208,6 +211,9 @@ register struct obj *obj;
         if (olduwep->oprops & ITEM_STEALTH) {
             EStealth &= ~W_WEP;
             toggle_stealth(olduwep, (EStealth & ~W_WEP), FALSE);
+        }
+        if (olduwep->oprops & ITEM_STABLE) {
+            EStable &= ~W_WEP;
         }
         if (olduwep->oprops & ITEM_SLEEP) {
             ESleep_resistance &= ~W_WEP;
@@ -522,6 +528,15 @@ register struct obj *obj;
     if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_STEALTH)) {
         EStealth &= ~W_SWAPWEP;
         toggle_stealth(olduswapwep, (EStealth & ~W_SWAPWEP), TRUE);
+    }
+    
+    /* Stability property */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_STABLE))) {
+        HStable |= W_SWAPWEP;
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_STABLE)) {
+        HStable &= ~W_SWAPWEP;
     }
     
     /* Sleep resistance */
