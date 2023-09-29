@@ -131,53 +131,37 @@ register struct obj *obj;
 
     /* Fumbling property */
     if (uwep && uwep == obj && (uwep->oprops & ITEM_FUMBLING)) {
-        uwep->oprops_known |= ITEM_FUMBLING;
         if (!(HFumbling & ~TIMEOUT))
             incr_itimeout(&HFumbling, rnd(20));
         EFumbling |= W_WEP;
-        update_inventory();
     }
     if (olduwep && (olduwep->oprops & ITEM_FUMBLING)) {
-        olduwep->oprops_known |= ITEM_FUMBLING;
         if (!(HFumbling & ~TIMEOUT))
             HFumbling = EFumbling = 0;
         EFumbling &= ~W_WEP;
-        update_inventory();
     }
 
     /* Hunger property */
     if (uwep && uwep == obj && (uwep->oprops & ITEM_HUNGER)) {
-        uwep->oprops_known |= ITEM_HUNGER;
         EHunger |= W_WEP;
-        update_inventory();
     }
     if (olduwep && (olduwep->oprops & ITEM_HUNGER)) {
-        olduwep->oprops_known |= ITEM_HUNGER;
         EHunger &= ~W_WEP;
-        update_inventory();
     }
 
     /* Aggravate monster property */
     if (uwep && uwep == obj && (uwep->oprops & ITEM_AGGRO)) {
-        uwep->oprops_known |= ITEM_AGGRO;
         EAggravate_monster |= W_WEP;
-        update_inventory();
     }
     if (olduwep && (olduwep->oprops & ITEM_AGGRO)) {
-        olduwep->oprops_known |= ITEM_AGGRO;
         EAggravate_monster &= ~W_WEP;
-        update_inventory();
     }
     /* Teleportitis property */
     if (uwep && uwep == obj && (uwep->oprops & ITEM_TELE)) {
-        uwep->oprops_known |= ITEM_TELE;
         ETeleportation |= W_WEP;
-        update_inventory();
     }
     if (olduwep && (olduwep->oprops & ITEM_TELE)) {
-        olduwep->oprops_known |= ITEM_TELE;
         ETeleportation &= ~W_WEP;
-        update_inventory();
     }
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.
@@ -378,31 +362,23 @@ register struct obj *obj;
     /* Fumbling property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_FUMBLING))) {
-        uswapwep->oprops_known |= ITEM_FUMBLING;
         if (!(HFumbling & ~TIMEOUT))
             HFumbling = EFumbling = 0;
-        update_inventory();
     }
     /* Hunger property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_HUNGER))) {
-        uswapwep->oprops_known |= ITEM_HUNGER;
         EHunger |= W_WEP;
-        update_inventory();
     }
     /* Aggravate monster property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_AGGRO))) {
-        uswapwep->oprops_known |= ITEM_AGGRO;
         EAggravate_monster |= W_WEP;
-        update_inventory();
     }
     /* Aggravate monster property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_TELE))) {
-        uswapwep->oprops_known |= ITEM_TELE;
         ETeleportation |= W_WEP;
-        update_inventory();
     }
     return;
 }
