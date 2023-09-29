@@ -363,6 +363,8 @@ void
 setuswapwep(obj)
 register struct obj *obj;
 {
+    struct obj *olduswapwep = uswapwep;
+
     if (u.twoweap && obj && (obj->oartifact || obj->oprops))
         set_artifact_intrinsic(obj, 1, W_SWAPWEP);
 
@@ -382,10 +384,10 @@ register struct obj *obj;
                     arti_light_description(uswapwep));
     }
 
+    /* Stat changing weapons are handled elsewhere */
     if (uswapwep == obj
         && (u.twoweap && uswapwep->oartifact == ART_OGRESMASHER))
         context.botl = 1;
-
     if (uswapwep == obj
         && (u.twoweap && uswapwep->oartifact == ART_GIANTSLAYER))
         context.botl = 1;
@@ -398,12 +400,20 @@ register struct obj *obj;
         context.botl = 1;
         update_inventory();
     }
+    if (olduswapwep && (olduswapwep->oprops & ITEM_EXCEL)) {
+        olduswapwep->oprops_known |= ITEM_EXCEL;
+        set_moreluck();
+        context.botl = 1;
+        update_inventory();
+    }
+
     /* Insight property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_SEEINV))) {
         ESee_invisible |= W_SWAPWEP;
         toggle_seeinv(uswapwep, (ESee_invisible & ~W_SWAPWEP), TRUE);
     }
+    
     /* Fumbling property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_FUMBLING))) {
