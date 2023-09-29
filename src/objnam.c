@@ -31,6 +31,7 @@ STATIC_DCL char *FDECL(xname_flags, (struct obj *, unsigned));
 STATIC_DCL boolean FDECL(badman, (const char *, BOOLEAN_P));
 STATIC_DCL boolean FDECL(not_spec_material, (const char * const, int));
 STATIC_DCL char *FDECL(globwt, (struct obj *, char *, boolean *));
+STATIC_DCL long FDECL(rm_redundant_oprops, (struct obj *, long));
 
 struct Jitem {
     int item;
@@ -5228,21 +5229,21 @@ struct obj *no_wish;
     if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp) 
           || otmp->oclass == ARMOR_CLASS) {
 
-        /* TODO: How about refactor to ~(ALL_WEP_PROPS | CHECKED_PROP)  ??? */
+        /* TODO: This refactor is better but... can it be consolidated more? */
         if (objprops & ITEM_FROST)
-            objprops &= ~(ITEM_FIRE | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_FROST);
         else if (objprops & ITEM_FIRE)
-            objprops &= ~(ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_FIRE);
         else if (objprops & ITEM_DRLI)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_DRLI);
         else if (objprops & ITEM_SHOCK)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SCREAM | ITEM_VENOM | ITEM_ACID);
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_SHOCK);
         else if (objprops & ITEM_VENOM)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SCREAM | ITEM_SHOCK | ITEM_ACID);
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_VENOM);
         else if (objprops & ITEM_SCREAM)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_VENOM | ITEM_ACID);
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_SCREAM);
         else if (objprops & ITEM_ACID)
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_DRLI | ITEM_SHOCK | ITEM_SCREAM | ITEM_VENOM);
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_ACID);
 
         if (objects[otmp->otyp].oc_unique || otmp->oartifact
             || Is_dragon_armor(otmp))
@@ -5251,27 +5252,19 @@ struct obj *no_wish;
         if (objects[otmp->otyp].oc_magic && !wizard)
             objprops &= ~ITEM_PROP_MASK;
 
+        /* TODO: Maybe wooden weapons could have the oilskin prop?" */
         if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
             objprops &= ~ITEM_OILSKIN;
 
         if (is_launcher(otmp))
-            objprops &= ~(ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM
-                          | ITEM_ACID | ITEM_SCREAM | ITEM_DRLI | ITEM_OILSKIN);
+            objprops &= ~(ITEM_RES_PROPS | ITEM_OILSKIN);
 
         if (is_ammo(otmp) || is_missile(otmp))
-            objprops &= ~(ITEM_DRLI | ITEM_SCREAM | ITEM_OILSKIN | ITEM_ESP
-                          | ITEM_SEARCHING | ITEM_WARNING | ITEM_EXCEL
-                          | ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE);
+            objprops &= ~(ITEM_GOOD_PROPS | ITEM_BAD_PROPS);
 
-        if (otmp->material != CLOTH)
-            objprops &= ~ITEM_OILSKIN;
+        objprops = rm_redundant_oprops(otmp, objprops);
 
-        if (otmp->otyp == OILSKIN_CLOAK)
-            objprops &= ~ITEM_OILSKIN;
-
-        if (is_helmet(otmp))
-            objprops &= ~ITEM_ESP;
-
+        /* The player cannot wish for properties */
         /*if (wizard)*/
             otmp->oprops |= objprops;
     }
@@ -5294,6 +5287,7 @@ struct obj *no_wish;
 
     return otmp;
 }
+
 
 int
 rnd_class(first, last)
@@ -5552,4 +5546,38 @@ boolean *weightformatted_p;
     return buf;
 }
 
+
+/* Find properties the object has inherently and remove the
+ * redundant ones. Maybe we can even combine with is_redundant_prop... */
+STATIC_OVL long
+rm_redundant_oprops(otmp, objprops)
+struct obj *otmp;
+long objprops;
+{
+    if (is_helmet(otmp))
+        objprops &= ~ITEM_ESP;
+    if (otmp->material != CLOTH)
+        objprops &= ~ITEM_OILSKIN;
+    if (otmp->otyp == OILSKIN_CLOAK)
+        objprops &= ~ITEM_OILSKIN;
+    if (otmp->otyp == ROGUES_GLOVES)
+        objprops &= ~ITEM_SEARCHING;
+    if (otmp->otyp == ROGUES_GLOVES)
+        objprops &= ~ITEM_SEARCHING;
+    if (otmp->otyp == GAUNTLETS_OF_FUMBLING)
+        objprops &= ~ITEM_FUMBLING;
+    if (otmp->otyp == FUMBLE_BOOTS)
+        objprops &= ~ITEM_FUMBLING;
+    if (otmp->otyp == RESONANT_SHIELD)
+        objprops &= ~ITEM_SCREAM;
+#if 0 /* For future */
+    if (otmp->otyp == ELVEN_CLOAK)
+        objprops &= ~ITEM_STEALTH;
+    if (otmp->otyp == ELVEN_BOOTS)
+        objprops &= ~ITEM_STEALTH;
+#endif
+    if (otmp->otyp == ALCHEMY_SMOCK)
+        objprops &= ~(ITEM_ACID | ITEM_VENOM);
+    return objprops;
+}
 /*objnam.c*/

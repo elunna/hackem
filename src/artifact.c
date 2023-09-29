@@ -34,6 +34,7 @@ STATIC_DCL boolean FDECL(untouchable, (struct obj *, BOOLEAN_P));
 STATIC_DCL int FDECL(count_surround_traps, (int, int));
 STATIC_DCL boolean FDECL(can_we_zap, (int, int, int));
 STATIC_DCL boolean FDECL(forbidden_artifact, (struct obj *));
+STATIC_DCL boolean FDECL(is_redundant_prop, (struct obj *, int));
 
 /* The amount added to the victim's total hit points to insure that the
    victim will be killed even after damage bonus/penalty adjustments.
@@ -439,8 +440,7 @@ boolean allow_detrimental;
         if (otmp->oprops & j)
             continue;
 
-        if ((j & (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE))
-            && !allow_detrimental)
+        if ((j & ITEM_BAD_PROPS) && !allow_detrimental)
             continue;
 
         /* check for restrictions */
@@ -449,33 +449,17 @@ boolean allow_detrimental;
             continue;
 
         if (is_launcher(otmp)
-            &&  (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM
-                      | ITEM_VENOM | ITEM_ACID | ITEM_DRLI | ITEM_OILSKIN)))
+            &&  (j & (ITEM_RES_PROPS | ITEM_OILSKIN)))
             continue;
 
         if ((is_ammo(otmp) || is_missile(otmp))
-            && (j & (ITEM_OILSKIN | ITEM_ESP | ITEM_EXCEL | ITEM_SEARCHING
-                     | ITEM_WARNING | ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE)))
+            && (j & (ITEM_GOOD_PROPS | ITEM_BAD_PROPS)))
             continue;
 
-        if ((otmp->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM 
-                             | ITEM_VENOM | ITEM_ACID | ITEM_DRLI))
-                    && (j & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_SCREAM 
-                             | ITEM_VENOM | ITEM_ACID | ITEM_DRLI)))
+        if ((otmp->oprops & ITEM_RES_PROPS) && (j & ITEM_RES_PROPS))
             continue; /* these are mutually exclusive */
 
-        if (otmp->material != CLOTH && (j & ITEM_OILSKIN))
-            continue;
-
-        /* TODO: Add a macro to check an objects base property against the prop */
-        if (otmp->otyp == OILSKIN_CLOAK && (j & ITEM_OILSKIN))
-            continue;
-        
-        if (otmp->otyp == ROGUES_GLOVES && (j & ITEM_SEARCHING))
-            continue;
-
-        /* helm of telepathy already exists */
-        if (is_helmet(otmp) && (j & ITEM_ESP))
+        if (is_redundant_prop(otmp, j))
             continue;
 
         otmp->oprops |= j;
@@ -502,6 +486,39 @@ boolean allow_detrimental;
     return otmp;
 }
 
+boolean
+is_redundant_prop(otmp, prop)
+struct obj *otmp;
+int prop;
+{
+    /* helm of telepathy already exists */
+    if (is_helmet(otmp) && (prop & ITEM_ESP))
+        return TRUE;
+    if (otmp->material != CLOTH && (prop & ITEM_OILSKIN))
+        return TRUE;
+    if (otmp->otyp == OILSKIN_CLOAK && (prop & ITEM_OILSKIN))
+        return TRUE;
+    if (otmp->otyp == ROGUES_GLOVES && (prop & ITEM_SEARCHING))
+        return TRUE;
+    if (otmp->otyp == GAUNTLETS_OF_FUMBLING && (prop & ITEM_FUMBLING))
+        return TRUE;
+    if (otmp->otyp == FUMBLE_BOOTS && (prop & ITEM_FUMBLING))
+        return TRUE;
+    if (otmp->otyp == RESONANT_SHIELD && (prop & ITEM_SCREAM))
+        return TRUE;
+
+    if (otmp->otyp == ALCHEMY_SMOCK && (prop & (ITEM_ACID | ITEM_VENOM)))
+        return TRUE;
+
+#if 0 /* For future */
+    if (otmp->otyp == ELVEN_CLOAK && (prop & ITEM_STEALTH))
+        return TRUE;
+    if (otmp->otyp == ELVEN_BOOTS && (prop & ITEM_STEALTH))
+        return TRUE;
+#endif
+    
+    return FALSE;
+}
 
 /*
  * Returns the full name (with articles and correct capitalization) of an

@@ -579,6 +579,13 @@ struct obj {
 #define POTHIT_OTHER_THROW 3 /* propelled by some other means [scatter()] */
 
 /* object properties */
+
+/* When adding new properties:
+ * - IMPORTANT: Update the MAX_ITEM_PROPS and ITEM_PROP_MASK!
+ * - Also update ITEM_RES_PROPS, ITEM_GOOD_PROPS, and ITEM_BAD_PROPS below.
+ * - Also, check existing items for properties that would be redunant and add
+ *   them to is_redundant_prop and rm_redundant_oprops.
+ */
 #define ITEM_FIRE      0x00000001L /* fire damage or resistance */
 #define ITEM_FROST     0x00000002L /* frost damage or resistance */
 #define ITEM_SHOCK     0x00000004L /* shock damage or resistance */
@@ -600,6 +607,15 @@ struct obj {
 
 #define ITEM_PROP_MASK 0x0000FFFFL /* all current properties */
 #define MAX_ITEM_PROPS 16
+
+/* Properties that grant both a worn resistance and attack type */
+#define ITEM_RES_PROPS (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM \
+                            | ITEM_ACID | ITEM_SCREAM | ITEM_DRLI)
+/* Positive properties */
+#define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING \
+                         | ITEM_WARNING | ITEM_EXCEL)
+/* Negative properties */
+#define ITEM_BAD_PROPS (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE)
 
 /*
  *  Notes for adding new oextra structures:
