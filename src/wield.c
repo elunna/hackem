@@ -114,7 +114,6 @@ register struct obj *obj;
             || (olduwep && olduwep->oartifact == ART_GIANTSLAYER)))
         context.botl = 1;
 
-    /* TODO: Refactor this */
     /* Excellence property */
     if (uwep && uwep == obj && (uwep->oprops & ITEM_EXCEL)) {
         uwep->oprops_known |= ITEM_EXCEL;
@@ -156,12 +155,27 @@ register struct obj *obj;
     if (olduwep && (olduwep->oprops & ITEM_AGGRO)) {
         EAggravate_monster &= ~W_WEP;
     }
+
     /* Teleportitis property */
     if (uwep && uwep == obj && (uwep->oprops & ITEM_TELE)) {
         ETeleportation |= W_WEP;
     }
     if (olduwep && (olduwep->oprops & ITEM_TELE)) {
         ETeleportation &= ~W_WEP;
+    }
+
+    /* Lethargy property */
+    if (uwep && uwep == obj && (uwep->oprops & ITEM_SLOW)) {
+        ESlow |= W_WEP;
+        uwep->oprops_known |= ITEM_SLOW;
+        context.botl = 1;
+        update_inventory();
+    }
+    if (olduwep && (olduwep->oprops & ITEM_SLOW)) {
+        ESlow &= ~W_WEP;
+        olduwep->oprops_known |= ITEM_SLOW;
+        context.botl = 1;
+        update_inventory();
     }
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.

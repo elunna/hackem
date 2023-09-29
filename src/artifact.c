@@ -468,7 +468,7 @@ boolean allow_detrimental;
     /* Fix it up as necessary */
     if (otmp->oprops
         && (otmp->oclass == WEAPON_CLASS || otmp->oclass == ARMOR_CLASS)
-        && !(otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE))) {
+        && !(otmp->oprops & ITEM_BAD_PROPS)) {
         if (!rn2(8)) {
             blessorcurse(otmp, 8);
             if (otmp->cursed)
@@ -478,7 +478,7 @@ boolean allow_detrimental;
         }
     }
 
-    if (otmp->oprops & (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO | ITEM_TELE)) {
+    if (otmp->oprops & (ITEM_BAD_PROPS)) {
         if (!otmp->cursed)
             curse(otmp);
         otmp->spe = -rne(3);

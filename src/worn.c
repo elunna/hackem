@@ -400,6 +400,8 @@ int which;
         return !!(obj->oprops & ITEM_AGGRO);
     case TELEPORT:
         return !!(obj->oprops & ITEM_TELE);
+    case SLOW:
+        return !!(obj->oprops & ITEM_SLOW);
     case ADORNED:
         return !!(obj->oprops & ITEM_EXCEL);
     }
@@ -658,6 +660,9 @@ boolean on, silently;
                 break;
             case ITEM_TELE:
                 which = TELEPORT;
+                break;
+            case ITEM_SLOW:
+                which = SLOW;
                 break;
             case ITEM_EXCEL:
                 which = ADORNED;

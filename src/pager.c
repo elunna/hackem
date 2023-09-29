@@ -1299,6 +1299,7 @@ char *usr_text;
         if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
         if (obj->oprops & ITEM_AGGRO) OBJPUTSTR("Grants aggravate monster");
         if (obj->oprops & ITEM_TELE) OBJPUTSTR("Grants teleportation");
+        if (obj->oprops & ITEM_SLOW) OBJPUTSTR("Grants lethargy");
     }
 
     /* APPEARANCE BONUSES */

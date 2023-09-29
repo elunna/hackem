@@ -613,6 +613,12 @@ boolean has_of;
                 Strcpy(of, " and");
         }
     }
+    if (props & ITEM_SLOW) {
+        if ((props_known & ITEM_SLOW) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " lethargy"),
+                Strcpy(of, " and");
+        }
+    }
     if (props & ITEM_EXCEL) {
         if ((props_known & ITEM_EXCEL) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " excellence"),
@@ -4249,6 +4255,10 @@ struct obj *no_wish;
                 } else if (!strncmpi((p + of), "teleportation", l = 13)) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_TELE;
+                    objpropcount++;
+                } else if (!strncmpi((p + of), "lethargy", l = 13)) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_SLOW;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "excellence", l = 10)) {
                     if (!objpropcount || wizard)
