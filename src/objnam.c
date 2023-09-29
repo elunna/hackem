@@ -571,6 +571,13 @@ boolean has_of;
                 Strcpy(of, " and");
         }
     }
+    if (props & ITEM_SLEEP) {
+        if ((props_known & ITEM_SLEEP) || dump_prop_flag) {
+            Strcat(buf, of),
+                    Strcat(buf, of), Strcat(buf, " sleep resistance"),
+                    Strcpy(of, " and");
+        }
+    }
     if (props & ITEM_ESP) {
         if ((props_known & ITEM_ESP) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " telepathy"),
@@ -4206,7 +4213,6 @@ struct obj *no_wish;
                     *p = 0;
                     p = 0;
 
-                /* TODO: Can't we use a "string_length" function here??? */
                 } else if (!strncmpi((p + of), "fire", l = strlen("fire"))
                            && strncmpi(bp, "scroll", l = strlen("scroll"))) {
                     if (!objpropcount || wizard)
@@ -4241,6 +4247,10 @@ struct obj *no_wish;
                            || !strncmpi((p + of), "sizzle", l = strlen("sizzle"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_ACID;
+                    objpropcount++;
+                } else if (!strncmpi((p + of), "sleep", l = strlen("sleep"))) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_SLEEP;
                     objpropcount++;
                 } else if ((!strncmpi((p + of), "telepathy", l = strlen("telepathy"))
                             && strncmpi(bp, "helm", l = strlen("helm")))
@@ -5286,6 +5296,8 @@ struct obj *no_wish;
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_SCREAM);
         else if (objprops & ITEM_ACID)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_ACID);
+        else if (objprops & ITEM_SLEEP)
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_SLEEP);
 
         if (objects[otmp->otyp].oc_unique || otmp->oartifact
             || Is_dragon_armor(otmp))
@@ -5296,7 +5308,7 @@ struct obj *no_wish;
 
         /* TODO: Maybe wooden weapons could have the oilskin prop?" */
         if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
-            objprops &= ~ITEM_OILSKIN;
+            objprops &= ~(ITEM_OILSKIN | ITEM_SLEEP);
 
         if (is_launcher(otmp))
             objprops &= ~(ITEM_RES_PROPS | ITEM_OILSKIN);

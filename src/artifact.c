@@ -445,7 +445,7 @@ boolean allow_detrimental;
 
         /* check for restrictions */
         if ((otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
-            && (j & ITEM_OILSKIN))
+            && (j & (ITEM_OILSKIN | ITEM_SLEEP)))
             continue;
 
         if (is_launcher(otmp)

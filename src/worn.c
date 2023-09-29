@@ -389,6 +389,10 @@ int which;
         return !!(obj->oclass != WEAPON_CLASS
                   && !is_weptool(obj)
                   && (obj->oprops & ITEM_ACID));
+    case SLEEP_RES:
+        return !!(obj->oclass != WEAPON_CLASS
+                  && !is_weptool(obj)
+                  && (obj->oprops & ITEM_SLEEP));
     case TELEPAT:
         return !!(obj->oprops & ITEM_ESP);
     case FUMBLING:
@@ -648,6 +652,10 @@ boolean on, silently;
             case ITEM_ACID:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = ACID_RES;
+                break;
+            case ITEM_SLEEP:
+                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
+                    which = SLEEP_RES;
                 break;
             case ITEM_ESP:
                 which = TELEPAT;

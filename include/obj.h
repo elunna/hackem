@@ -606,15 +606,16 @@ struct obj {
 #define ITEM_SUSTAIN   0x00020000L /* extrinsic sustain ability */
 #define ITEM_STEALTH   0x00040000L /* extrinsic stealth */
 #define ITEM_SEEINV    0x00080000L /* extrinsic see invisible */
+#define ITEM_SLEEP     0x00100000L /* extrinsic sleep resistance */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 
-#define ITEM_PROP_MASK 0x000FFFFFL /* all current properties */
-#define MAX_ITEM_PROPS 20
+#define ITEM_PROP_MASK 0x001FFFFFL /* all current properties */
+#define MAX_ITEM_PROPS 21
 
 /* Properties that grant both a worn resistance and attack type */
 #define ITEM_RES_PROPS (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM \
-                            | ITEM_ACID | ITEM_SCREAM | ITEM_DRLI)
+                            | ITEM_ACID | ITEM_SCREAM | ITEM_DRLI | ITEM_SLEEP)
 /* Positive properties */
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING \
                          | ITEM_WARNING | ITEM_EXCEL | ITEM_SUSTAIN \

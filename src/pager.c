@@ -1229,6 +1229,7 @@ char *usr_text;
             if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("\t+1d5 + 3 sonic damage");
             if (obj->oprops & ITEM_ACID) OBJPUTSTR("\t+1d5 + 3 acid damage");
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("\tdoes 1d2 (+ 10% chance of 6-15 extra) poison damage; \n\t10% chance of instakill by poison");
+            /* - Sleep resistance is only defensive */
         }
         
         if (reveal_info || is_artifact) {
@@ -1283,6 +1284,7 @@ char *usr_text;
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("Grants poison resistance");
             if (obj->oprops & ITEM_ACID) OBJPUTSTR("Grants acid resistance");
             if (obj->oprops & ITEM_DRLI) OBJPUTSTR("Grants drain resistance");
+            if (obj->oprops & ITEM_SLEEP) OBJPUTSTR("Grants sleep resistance");
             if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
             if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
         }
