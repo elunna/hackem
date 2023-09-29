@@ -443,19 +443,18 @@ boolean allow_detrimental;
         if ((j & ITEM_BAD_PROPS) && !allow_detrimental)
             continue;
 
-        /* check for restrictions */
-        if ((otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
-            && (j & (ITEM_OILSKIN | ITEM_SLEEP)))
-            continue;
-
+        /* Launchers can have defensive properties */
         if (is_launcher(otmp)
             &&  (j & (ITEM_RES_PROPS | ITEM_OILSKIN)))
             continue;
-
-        if ((is_ammo(otmp) || is_missile(otmp))
-            && (j & (ITEM_GOOD_PROPS | ITEM_BAD_PROPS)))
+        else if ((is_ammo(otmp) || is_missile(otmp))
+            && (j & (ITEM_GOOD_PROPS | ITEM_BAD_PROPS | NON_WEP_PROPS)))
             continue;
-
+        /* check for restrictions */
+        else if ((otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
+            && (j & (NON_WEP_PROPS | ITEM_OILSKIN)))
+            continue;
+        
         if ((otmp->oprops & ITEM_RES_PROPS) && (j & ITEM_RES_PROPS))
             continue; /* these are mutually exclusive */
 
@@ -770,6 +769,10 @@ struct obj *otmp;
         if (adtyp == AD_ACID && (otmp->oprops & ITEM_ACID))
             return TRUE;
         if (adtyp == AD_DRLI && (otmp->oprops & ITEM_DRLI))
+            return TRUE;
+        if (adtyp == AD_SLEE && (otmp->oprops & ITEM_SLEEP))
+            return TRUE;
+        if (adtyp == AD_STON && (otmp->oprops & ITEM_STONE))
             return TRUE;
     }
     return FALSE;

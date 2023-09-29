@@ -1285,6 +1285,7 @@ char *usr_text;
             if (obj->oprops & ITEM_ACID) OBJPUTSTR("Grants acid resistance");
             if (obj->oprops & ITEM_DRLI) OBJPUTSTR("Grants drain resistance");
             if (obj->oprops & ITEM_SLEEP) OBJPUTSTR("Grants sleep resistance");
+            if (obj->oprops & ITEM_STONE) OBJPUTSTR("Grants petrification resistance");
             if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
             if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
         }

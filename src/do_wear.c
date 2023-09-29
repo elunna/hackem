@@ -227,6 +227,8 @@ long mask;
         EDrain_resistance |= mask;
     if (props & ITEM_SLEEP)
         ESleep_resistance |= mask;
+    if (props & ITEM_STONE)
+        EStone_resistance |= mask;
     if (props & ITEM_OILSKIN) {
         pline("%s very tightly.", Tobjnam(otmp, "fit"));
         otmp->oprops_known |= ITEM_OILSKIN;
@@ -305,6 +307,8 @@ long mask;
         EAcid_resistance &= ~mask;
     if (props & ITEM_SLEEP)
         ESleep_resistance &= ~mask;
+    if (props & ITEM_STONE)
+        EStone_resistance &= ~mask;
     if (props & ITEM_OILSKIN)
         otmp->oprops_known |= ITEM_OILSKIN;
     if (props & ITEM_ESP) {
