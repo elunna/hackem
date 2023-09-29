@@ -2399,8 +2399,10 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline("%s with a fluorescent blue light!", Yobjnam2(otmp, "glow"));
             if (scursed) {
                 otmp->oprops = 0;
+                otmp->oprops_known = 0;
             } else if (sblessed || otmp->oprops) {
                 otmp->oprops = 0;
+                otmp->oprops_known = 0;
                 create_oprop(otmp, TRUE);
             }
         } else if (scursed) {

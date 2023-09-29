@@ -3127,6 +3127,7 @@ boolean ourfault;
     if (targobj->oprops && (!rn2(13) || ourfault)) {
         pre_downgrade_obj(targobj, &used);
         targobj->oprops = 0;
+        targobj->oprops_known = 0;
     }
 
     if (targobj->cursed || targobj->blessed) {

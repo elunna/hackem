@@ -4150,6 +4150,7 @@ long svc_type;
             if (shk_offer_price(slang, 25, shkp) == FALSE)
                 return 0;
             obj->oprops = 0;
+            obj->oprops_known = 0;
         } else if (obj->oartifact) {
             verbalize("That weapon is already pretty special.");
             return 0;
@@ -4291,6 +4292,7 @@ struct monst *shkp;
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
         obj->oprops = 0;
+        obj->oprops_known = 0;
     } else if (obj->oartifact) {
         verbalize("That %s is already pretty special.", xname(obj));
         return 0;
