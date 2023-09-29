@@ -1503,6 +1503,12 @@ boolean by_you;
 {
     boolean u_ring;
 
+    /* Sustainable items are immune to draining. */
+    if (obj && obj->oprops & ITEM_SUSTAIN) {
+        obj->oprops_known |= ITEM_SUSTAIN;
+        return FALSE;
+    }
+        
     /* Is this a charged/enchanted object? */
     if (!obj
         || (!objects[obj->otyp].oc_charged && obj->oclass != WEAPON_CLASS

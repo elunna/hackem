@@ -2930,6 +2930,12 @@ boolean ourfault;
         return FALSE;
     }
 
+    /* Sustainable items are immune to draining. */
+    if (targobj && targobj->oprops & ITEM_SUSTAIN) {
+        targobj->oprops_known |= ITEM_SUSTAIN;
+        return FALSE;
+    }
+    
     (void) Shk_Your(Your_buf, targobj);
 
     /* (Rusting shop goods ought to be charged for.) */

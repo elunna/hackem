@@ -163,6 +163,11 @@ int ef_flags;
     if (!otmp)
         return ER_NOTHING;
 
+    /* Sustainable items are immune to erosion. */
+    if (otmp && otmp->oprops & ITEM_SUSTAIN) {
+        otmp->oprops_known |= ITEM_SUSTAIN;
+        return FALSE;
+    }
     victim = carried(otmp) ? &youmonst : mcarried(otmp) ? otmp->ocarry : NULL;
     uvictim = (victim == &youmonst);
     vismon = victim && (victim != &youmonst) && canseemon(victim);

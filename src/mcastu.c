@@ -555,6 +555,10 @@ struct monst *mattk, *mdef;
                       uattk ? "your" : s_suffix(mon_nam(mattk)));
             }
             return 0;
+        } else if (oatmp && oatmp->oprops & ITEM_SUSTAIN) {
+            oatmp->oprops_known |= ITEM_SUSTAIN;
+            pline("%s safely absorbs the magic.", Yname2(oatmp));
+            return 0;
         } else if (oatmp->oerodeproof) {
             if (!udefend && !canseemon(mdef)) {
                 You("smell something strange.");
