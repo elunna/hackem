@@ -1123,21 +1123,29 @@ register struct monst *mtmp;
         break;
     case S_HUMAN:
         if (mm == PM_SHOPKEEPER) {
-            mongets(mtmp, SHOTGUN);
-            m_initthrow(mtmp, SHOTGUN_SHELL, 20);
-            m_initthrow(mtmp, SHOTGUN_SHELL, 20);
-        }
-        else if (mm ==  PM_PEASANT) {
-            switch (rn2(5)) {
-            case 0: (void) mongets(mtmp, SCYTHE); break;
-            case 1: (void) mongets(mtmp, KNIFE); break;
-            case 2: (void) mongets(mtmp, CLUB); break;
-            case 3: (void) mongets(mtmp, AXE); break;
-            case 4: (void) mongets(mtmp, VOULGE); break;
+            if (rn2(20) < 13) {
+                mongets(mtmp, SHOTGUN);
+                m_initthrow(mtmp, SHOTGUN_SHELL, 20);
+                m_initthrow(mtmp, SHOTGUN_SHELL, 20);
+                
+            } else if (rn2(2)) {
+                mongets(mtmp, PISTOL);
+                m_initthrow(mtmp, BULLET, 20);
+                m_initthrow(mtmp, BULLET, 20);
+            } else {
+                mongets(mtmp, RIFLE);
+                m_initthrow(mtmp, BULLET, 20);
+                m_initthrow(mtmp, BULLET, 20);
             }
-
-        }
-        else if (mm == PM_GRIMLOCK || mm == PM_GIBBERLING) {
+        } else if (mm ==  PM_PEASANT) {
+            switch (rn2(5)) {
+            case 0: mongets(mtmp, SCYTHE); break;
+            case 1: mongets(mtmp, KNIFE); break;
+            case 2: mongets(mtmp, CLUB); break;
+            case 3: mongets(mtmp, AXE); break;
+            case 4: mongets(mtmp, VOULGE); break;
+            }
+        } else if (mm == PM_GRIMLOCK || mm == PM_GIBBERLING) {
             switch (rn2(3)) {
                 case 0:
                     w1 = rn2(2) ? CLUB : AKLYS; break;
@@ -1150,7 +1158,7 @@ register struct monst *mtmp;
                         set_material(received, STONE);
                     break;
             }
-            (void) mongets(mtmp, w1);
+            mongets(mtmp, w1);
             received = m_carrying(mtmp, w1);
             if (received && w1 == BATTLE_AXE) 
                 set_material(received, STONE);
