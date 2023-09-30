@@ -75,7 +75,7 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "blast of lightning",
         "blast of poison gas",
         "blast of acid",
-        "blast of sound",
+        "sonic blast",
         "blast of water",
     };
 
