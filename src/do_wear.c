@@ -672,7 +672,7 @@ Cloak_off(VOID_ARGS)
     case CLOAK_OF_FLIGHT: {
         boolean was_flying = !!Flying;
 
-        /* remove scales 'early' to determine whether Flying changes */
+        /* remove cloak 'early' to determine whether Flying changes */
         setworn((struct obj *) 0, W_ARMC);
         float_vs_flight(); /* probably not needed here */
         check_wings(TRUE); /* are we in a form that has wings and can already fly? */
@@ -1216,17 +1216,40 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
         }
         break;
     case VIOLET_DRAGON_SCALES:
-#if 0 /* Is this needed? */
+        /* Copied from EvilHack's CELESTIAL_DRAGON_SCALES code */
         if (puton) {
-            ESonic_resistance |= W_ARM;
+            /* setworn() has already set extrinisic flying */
+            float_vs_flight(); /* block flying if levitating */
+            check_wings(TRUE); /* are we in a form that has wings and can already fly? */
+            boolean already_flying;
+
+            /* to determine whether this flight is new we have to muck
+               about in the Flying intrinsic (actually extrinsic) */
+            EFlying &= ~W_ARM;
+            already_flying = !!Flying;
+            EFlying |= W_ARM;
+
+            if (!already_flying) {
+                context.botl = TRUE; /* status: 'Fly' On */
+                You("are now in flight.");
+            }
         } else {
-            ESonic_resistance &= ~W_ARM;
-        }
-#endif
-        if (puton) {
-            EStun_resistance |= W_ARM;
-        } else {
-            EStun_resistance &= ~W_ARM;
+            boolean was_flying = !!Flying;
+
+            /* remove scales 'early' to determine whether Flying changes */
+            /*setworn((struct obj *) 0, W_ARM);*/
+            EFlying &= ~W_ARM;
+
+            float_vs_flight(); /* probably not needed here */
+            check_wings(TRUE); /* are we in a form that has wings and can already fly? */
+            if (was_flying && !Flying) {
+                context.botl = TRUE; /* status: 'Fly' Off */
+                You("%s.", (is_pool_or_lava(u.ux, u.uy)
+                            || Is_waterlevel(&u.uz) || Is_airlevel(&u.uz))
+                               ? "stop flying"
+                               : "land");
+                spoteffects(TRUE);
+            }
         }
         break;
     case SILVER_DRAGON_SCALES:

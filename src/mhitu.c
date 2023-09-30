@@ -5214,8 +5214,6 @@ struct attack *mattk;
                 return 2;
             }
             break;
-
-
         case VIOLET_DRAGON_SCALES:
             if (resists_sonic(mtmp) || defended(mtmp, AD_LOUD)) {
                 if (canseemon(mtmp)) {
