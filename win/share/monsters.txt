@@ -6737,7 +6737,7 @@ Z = (195, 195, 195)
   .....LCAA..CCAA.
   ...........CAA..
 }
-# tile 353 (baby violet dragon,male)
+# tile 353 (baby violet dragon)
 {
   ................
   ................
