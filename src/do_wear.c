@@ -295,8 +295,16 @@ long mask;
             otmp->oprops_known |= ITEM_WWALK;
         }
     }
-    if (props & ITEM_SWIM)
+    if (props & ITEM_SWIM) {
         ESwimming |= mask;
+        if (u.uinwater) {
+            pline("Hey! %s helping you swim!",
+                  yobjnam(otmp, "are"));
+            otmp->oprops_known |= ITEM_SWIM;
+            spoteffects(TRUE);
+        }
+    }
+
 }
 
 void
@@ -387,9 +395,14 @@ long mask;
            spoteffects(TRUE);
         }
     }
-    if (props & ITEM_SWIM)
+    if (props & ITEM_SWIM) {
         ESwimming &= ~mask;
-
+        if (u.uinwater && !Swimming) {
+           You("begin to thrash about!");
+           otmp->oprops_known |= ITEM_SWIM;
+           spoteffects(TRUE);
+        }
+    }
 }
 
 int
@@ -961,11 +974,11 @@ Gloves_on(VOID_ARGS)
             incr_itimeout(&HFumbling, rnd(20));
         break;
     case GAUNTLETS_OF_SWIMMING:
-		if (u.uinwater) {
-		   pline("Hey! You can swim!");
-		   spoteffects(TRUE);
-		}
-		break;
+        if (u.uinwater) {
+           pline("Hey! You can swim!");
+           spoteffects(TRUE);
+        }
+        break;
     case GAUNTLETS_OF_POWER:
         makeknown(uarmg->otyp);
         context.botl = 1; /* taken care of in attrib.c */
@@ -1031,11 +1044,11 @@ Gloves_off(VOID_ARGS)
     case PLASTEEL_GLOVES:
         break;
     case GAUNTLETS_OF_SWIMMING:
-	    if (u.uinwater) {
-	       You("begin to thrash about!");
-	       spoteffects(TRUE);
-	    }
-	    break;
+        if (u.uinwater && !Swimming) {
+           You("begin to thrash about!");
+           spoteffects(TRUE);
+        }
+        break;
     case GAUNTLETS_OF_FUMBLING:
         if (!(HFumbling & ~TIMEOUT))
             HFumbling = EFumbling = 0;

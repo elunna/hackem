@@ -4668,6 +4668,24 @@ drown()
     }
 
     if (Amphibious || Swimming) {
+        /* Copied from the above for water walking boots */
+        if (uarmg
+            && uarmg->otyp == GAUNTLETS_OF_SWIMMING
+            && !objects[GAUNTLETS_OF_SWIMMING].oc_name_known
+            && !(Amphibious || HSwimming)) {
+            pline("Hey! You can swim!");
+            makeknown(GAUNTLETS_OF_SWIMMING);
+        } else if (!HSwimming) {
+            /* *Something* is making us swim! */
+            for (otmp = invent; otmp; otmp = otmp->nobj)
+                if (otmp->oprops & ITEM_SWIM && is_worn(otmp)
+                    && !(otmp->oprops_known & ITEM_SWIM)) {
+                    pline("Hey! You can swim!");
+                    otmp->oprops_known |= ITEM_SWIM;
+                    update_inventory();
+                }
+        }
+        
         if (Amphibious) {
             if (flags.verbose)
                 pline("But you aren't drowning.");

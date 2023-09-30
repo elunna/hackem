@@ -168,6 +168,11 @@ register struct obj *obj;
         }
         if (olduwep->oprops & ITEM_SWIM) {
             ESwimming &= ~W_WEP;
+            if (u.uinwater && !Swimming) {
+                You("begin to thrash about!");
+                olduwep->oprops_known |= ITEM_SWIM;
+                spoteffects(TRUE);
+            }
         }
         if (olduwep->oprops & ITEM_SLEEP) {
             ESleep_resistance &= ~W_WEP;
@@ -239,6 +244,12 @@ register struct obj *obj;
         }
         if (uwep->oprops & ITEM_SWIM) {
             ESwimming |= W_WEP;
+            if (u.uinwater) {
+                pline("Hey! %s helping you swim!",
+                      yobjnam(uwep, "are"));
+                uwep->oprops_known |= ITEM_SWIM;
+                spoteffects(TRUE);
+            }
         }
         if (uwep->oprops & ITEM_SLEEP) {
             ESleep_resistance |= W_WEP;
@@ -590,9 +601,20 @@ register struct obj *obj;
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_SWIM))) {
         HSwimming |= W_SWAPWEP;
+        if (u.uinwater) {
+            pline("Hey! %s helping you swim!",
+                  yobjnam(uswapwep, "are"));
+            uswapwep->oprops_known |= ITEM_SWIM;
+            spoteffects(TRUE);
+        }
     }
     if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_SWIM)) {
         HSwimming &= ~W_SWAPWEP;
+        if (u.uinwater && !Swimming) {
+            You("begin to thrash about!");
+            olduswapwep->oprops_known |= ITEM_SWIM;
+            spoteffects(TRUE);
+        }
     }
     /* Sleep resistance */
     if (uswapwep == obj
