@@ -173,6 +173,7 @@ OBJECT: ('%', "corpse"), $places[3], montype:"black dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"deep dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"red dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"orange dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"violet dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"yellow dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"green dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"blue dragon", 0
