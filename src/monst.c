@@ -3507,7 +3507,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
         M3_TRAITOR, 0, MH_DRAGON, 30, CLR_ORANGE),
-        
     MON("violet dragon", S_DRAGON, 
         LVL(15, 9, -1, 20, -5), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_LOUD, 4, 25),
@@ -3521,7 +3520,6 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
         M3_TRAITOR, 0, MH_DRAGON, 28, CLR_BRIGHT_MAGENTA),
-        
     MON("black dragon", S_DRAGON,
         LVL(18, 9, -1, 20, -6), (G_GENO | 1),
         A(ATTK(AT_BREA, AD_DISN, 12, 6),
