@@ -4670,11 +4670,10 @@ boolean wep_was_destroyed;
     boolean thievery = ((Role_if(PM_ROGUE) || Role_if(PM_CONVICT))
                         && context.forcefight && !Upolyd);
 
-    /* If carrying the Candle of Eternal Flame, deal passive fire damage */
     if (m_carrying_arti(mon, ART_CANDLE_OF_ETERNAL_FLAME)) {
-        tmp = d(2, 7);
+        tmp = d(2, 10);
         if (monnear(mon, u.ux, u.uy)) {
-            pline("Magic fire suddenly surrounds you!");
+            pline("Magical fire suddenly surrounds you!");
             if (how_resistant(FIRE_RES) == 100) {
                 shieldeff(u.ux, u.uy);
                 pline_The("fire doesn't feel hot.");
