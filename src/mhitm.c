@@ -3195,6 +3195,28 @@ struct obj *mwep;
                         return (mdead | mhit | MM_AGR_DIED);
                     }
                     break;
+                case VIOLET_DRAGON_SCALES:
+                    if (resists_sonic(magr) || defended(magr, AD_LOUD)
+                        || mon_underwater(magr))
+                        break;
+                    if (rn2(20)) {
+                        if (!rn2(3)) {
+                            if (canseemon(magr))
+                                pline("%s gets blasted by noise!", Monnam(magr));
+                            damage_mon(magr, rnd(6), AD_LOUD);
+                        }
+                    } else {
+                        if (canseemon(magr))
+                            pline("%s is sonically assaulted!", Monnam(magr));
+                        damage_mon(magr, d(2, 16), AD_LOUD);
+                    }
+                    if (magr->mhp < 1) {
+                        if (canseemon(magr))
+                            pline("%s dies!", Monnam(magr));
+                        monkilled(magr, "", AD_LOUD);
+                        return (mdead | mhit | MM_AGR_DIED);
+                    }
+                    break;
                 case GRAY_DRAGON_SCALES:
                     if (!rn2(6))
                         (void) cancel_monst(magr, (struct obj *) 0, TRUE, TRUE, FALSE);

@@ -4721,6 +4721,7 @@ boolean wep_was_destroyed;
                 (void) passive_obj(mon, weapon, &(mattk[i]));
         }
         break;
+
     case AD_QUIL:
         if (monnear(mon, u.ux, u.uy) && mhit) {
             if (Blind || !flags.verbose) {
@@ -4769,6 +4770,46 @@ boolean wep_was_destroyed;
             }
         }
         exercise(A_STR, FALSE);
+        break;
+    case AD_LOUD:
+        if (mhit && rn2(2)) {
+            if (Blind || !flags.verbose) {
+                if (mon->data == &mons[PM_VIOLET_DRAGON])
+                    You("are%s blasted by noise!",
+                        (Sonic_resistance || Underwater) ? " mildly" : "");
+                else
+                    You("are splashed!");
+            } else {
+                if (mon->data == &mons[PM_VIOLET_DRAGON])
+                    You("are%s blasted by %s screeching scales!",
+                        (Sonic_resistance || Underwater) ? " mildly" : "",
+                        s_suffix(mon_nam(mon)));
+                else
+                    You("are irritated by %s noise!", s_suffix(mon_nam(mon)));
+            }
+
+            if (!(Sonic_resistance || Underwater))
+                mdamageu(mon, tmp);
+            else
+                monstseesu(M_SEEN_LOUD);
+            if (!Underwater) {
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(POTION_CLASS, AD_LOUD);
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(RING_CLASS, AD_LOUD);
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(TOOL_CLASS, AD_LOUD);
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(WAND_CLASS, AD_LOUD);
+            }
+        }
+        if (mhit && !Underwater) {
+            if (aatyp == AT_WEAP || aatyp == AT_CLAW
+                       || aatyp == AT_MAGC || aatyp == AT_TUCH) {
+                (void) passive_obj(mon, weapon, &(mattk[i]));
+            }
+        }
+        exercise(A_CON, FALSE);
         break;
     case AD_SLEE:
         /* passive sleep attack for orange jelly */
@@ -5498,7 +5539,34 @@ boolean wep_was_destroyed;
                 if ((int) mon->m_lev > rn2(20))
                     destroy_item(RING_CLASS, AD_ELEC);
                 break;
+            case VIOLET_DRAGON_SCALES:
+                if (!defended(&youmonst, AD_LOUD)
+                      && !resists_sonic(&youmonst) && !rn2(3)) {
+                    shieldeff(u.ux, u.uy);
+                    monstseesu(M_SEEN_LOUD);
+                    You_feel("a mild vibration.");
+                    ugolemeffects(AD_LOUD, tmp);
+                    break;
+                }
 
+                if (rn2(20)) {
+                    You("get blasted by noise!");
+                    t = resist_reduce(t, SONIC_RES);
+                    mdamageu(mon, t);
+                } else {
+                    You("are sonically assaulted!");
+                    t = resist_reduce(t, SONIC_RES);
+                    mdamageu(mon, d(1, 24) + t);
+                }
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(POTION_CLASS, AD_LOUD);
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(RING_CLASS, AD_LOUD);
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(TOOL_CLASS, AD_LOUD);
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(WAND_CLASS, AD_LOUD);
+                break;
             case GRAY_DRAGON_SCALES:
                 if (!rn2(6)) {
                     (void) cancel_monst(&youmonst,

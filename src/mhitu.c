@@ -5214,6 +5214,50 @@ struct attack *mattk;
                 return 2;
             }
             break;
+
+
+        case VIOLET_DRAGON_SCALES:
+            if (resists_sonic(mtmp) || defended(mtmp, AD_LOUD)) {
+                if (canseemon(mtmp)) {
+                    pline("%s is mildly vexed.", Monnam(mtmp));
+                    shieldeff(mtmp->mx, mtmp->my);
+                    golemeffects(mtmp, AD_LOUD, tmp);
+                }
+                tmp = 0;
+                break;
+            }
+
+            if (!rn2(3)) {
+                if (rn2(20)) {
+                    if (canseemon(mtmp))
+                        pline("%s gets blasted by noise!", Monnam(mtmp));
+                    damage_mon(mtmp, rnd(6), AD_LOUD);
+                } else {
+                    if (canseemon(mtmp))
+                        pline("%s is sonically assaulted!", Monnam(mtmp));
+                    damage_mon(mtmp, d(2, 16), AD_LOUD);
+                }
+                tmp += destroy_mitem(mtmp, POTION_CLASS, AD_LOUD);
+                tmp += destroy_mitem(mtmp, RING_CLASS, AD_LOUD);
+                tmp += destroy_mitem(mtmp, TOOL_CLASS, AD_LOUD);
+                tmp += destroy_mitem(mtmp, WAND_CLASS, AD_LOUD);
+            }
+            if (mtmp->mhp < 1) {
+                if (canseemon(mtmp))
+                    pline("%s dies!", Monnam(mtmp));
+                xkilled(mtmp, XKILL_NOMSG);
+                if (!DEADMONSTER(mtmp))
+                    return 1;
+                return 2;
+            }
+            break;
+
+
+
+
+
+
+
         case YELLOW_DRAGON_SCALES:
             if (resists_acid(mtmp) || defended(mtmp, AD_ACID)
                 || mon_underwater(mtmp))
