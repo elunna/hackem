@@ -113,6 +113,76 @@ register struct obj *obj;
             context.botl = 1;
     }
 
+    /* This needs to come before setting properties in case we are
+     * switching between two weapons with properties. */
+    if (olduwep) {
+        if (olduwep->oprops & ITEM_EXCEL) {
+            olduwep->oprops_known |= ITEM_EXCEL;
+            set_moreluck();
+            context.botl = 1;
+            update_inventory();
+        }
+        if (olduwep->oprops & ITEM_SEEINV) {
+            ESee_invisible &= ~W_WEP;
+            toggle_seeinv(olduwep, (ESee_invisible & ~W_WEP), FALSE);
+        }
+        if (olduwep->oprops & ITEM_FUMBLING) {
+            if (!(HFumbling & ~TIMEOUT))
+                HFumbling = EFumbling = 0;
+            EFumbling &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_HUNGER) {
+            EHunger &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_AGGRO) {
+            EAggravate_monster &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_TELE) {
+            ETeleportation &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_SLOW) {
+            ESlow &= ~W_WEP;
+            olduwep->oprops_known |= ITEM_SLOW;
+            context.botl = 1;
+            update_inventory();
+        }
+        if (olduwep->oprops & ITEM_SUSTAIN) {
+            Fixed_abil &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_STEALTH) {
+            EStealth &= ~W_WEP;
+            toggle_stealth(olduwep, (EStealth & ~W_WEP), FALSE);
+        }
+        if (olduwep->oprops & ITEM_STABLE) {
+            EStable &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_WWALK) {
+            EWwalking &= ~W_WEP;
+            if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
+                && !Levitation && !Flying && !is_clinger(youmonst.data)
+                && !context.takeoff.cancelled_don
+                && !iflags.in_lava_effects) {
+                olduwep->oprops_known |= ITEM_WWALK;
+                spoteffects(TRUE);
+            }
+        }
+        if (olduwep->oprops & ITEM_SWIM) {
+            ESwimming &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_SLEEP) {
+            ESleep_resistance &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_STONE) {
+            EStone_resistance &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_SICK) {
+            ESick_resistance &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_STUN) {
+            EStun_resistance &= ~W_WEP;
+        }
+    }
+
     if (uwep && uwep == obj) {
         if (uwep->oprops & ITEM_EXCEL) {
             uwep->oprops_known |= ITEM_EXCEL;
@@ -184,73 +254,7 @@ register struct obj *obj;
         }
     }
 
-    if (olduwep) {
-        if (olduwep->oprops & ITEM_EXCEL) {
-            olduwep->oprops_known |= ITEM_EXCEL;
-            set_moreluck();
-            context.botl = 1;
-            update_inventory();
-        }
-        if (olduwep->oprops & ITEM_SEEINV) {
-            ESee_invisible &= ~W_WEP;
-            toggle_seeinv(olduwep, (ESee_invisible & ~W_WEP), FALSE);
-        }
-        if (olduwep->oprops & ITEM_FUMBLING) {
-            if (!(HFumbling & ~TIMEOUT))
-                HFumbling = EFumbling = 0;
-            EFumbling &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_HUNGER) {
-            EHunger &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_AGGRO) {
-            EAggravate_monster &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_TELE) {
-            ETeleportation &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_SLOW) {
-            ESlow &= ~W_WEP;
-            olduwep->oprops_known |= ITEM_SLOW;
-            context.botl = 1;
-            update_inventory();
-        }
-        if (olduwep->oprops & ITEM_SUSTAIN) {
-            Fixed_abil &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_STEALTH) {
-            EStealth &= ~W_WEP;
-            toggle_stealth(olduwep, (EStealth & ~W_WEP), FALSE);
-        }
-        if (olduwep->oprops & ITEM_STABLE) {
-            EStable &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_WWALK) {
-            EWwalking &= ~W_WEP;
-            if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
-                && !Levitation && !Flying && !is_clinger(youmonst.data)
-                && !context.takeoff.cancelled_don
-                && !iflags.in_lava_effects) {
-                olduwep->oprops_known |= ITEM_WWALK;
-                spoteffects(TRUE);
-            }
-        }
-        if (olduwep->oprops & ITEM_SWIM) {
-            ESwimming &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_SLEEP) {
-            ESleep_resistance &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_STONE) {
-            EStone_resistance &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_SICK) {
-            ESick_resistance &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_STUN) {
-            EStun_resistance &= ~W_WEP;
-        }
-    }
+
 
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.
