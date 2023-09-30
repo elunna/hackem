@@ -503,6 +503,8 @@ int prop;
         return TRUE;
     if (otmp->otyp == FUMBLE_BOOTS && (prop & ITEM_FUMBLING))
         return TRUE;
+    if (otmp->otyp == WATER_WALKING_BOOTS && (prop & ITEM_WWALK))
+        return TRUE;
     if (otmp->otyp == RESONANT_SHIELD && (prop & ITEM_SCREAM))
         return TRUE;
 

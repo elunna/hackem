@@ -4592,6 +4592,7 @@ uwatereffects()
 boolean
 drown()
 {
+    struct obj *otmp;
     const char *pool_of_water;
     boolean inpool_ok = FALSE, crawl_ok;
     int i, x, y;
@@ -4619,6 +4620,15 @@ drown()
             
             Your("boots don't sink into the water!");
             makeknown(WATER_WALKING_BOOTS);
+        } else if (!HWwalking) {
+            /* *Something* is keeping us afloat! */
+            for (otmp = invent; otmp; otmp = otmp->nobj)
+                if (otmp->oprops & ITEM_WWALK && is_worn(otmp)
+                      && !(otmp->oprops_known & ITEM_WWALK)) {
+                    Your("%s keeps you from falling in the water!", xname(otmp));
+                    otmp->oprops_known |= ITEM_WWALK;
+                    update_inventory();
+                }
         }
         return FALSE;
     }

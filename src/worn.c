@@ -425,6 +425,8 @@ int which;
         return !!(obj->oprops & ITEM_STEALTH);
     case STABLE:
         return !!(obj->oprops & ITEM_STABLE);
+    case WWALKING:
+        return !!(obj->oprops & ITEM_WWALK);
     }
     return FALSE;
 }
@@ -708,6 +710,9 @@ boolean on, silently;
                 break;
             case ITEM_STABLE:
                 which = STABLE;
+                break;
+            case ITEM_WWALK:
+                which = WWALKING;
                 break;
             default:
                 ;

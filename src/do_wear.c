@@ -288,6 +288,13 @@ long mask;
     }
     if (props & ITEM_STABLE)
         EStable |= mask;
+    if (props & ITEM_WWALK) {
+        EWwalking |= mask;
+        if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
+            spoteffects(TRUE);
+            otmp->oprops_known |= ITEM_WWALK;
+        }
+    }
 }
 
 void
@@ -368,6 +375,17 @@ long mask;
     }
     if (props & ITEM_STABLE)
         EStable &= ~mask;
+    if (props & ITEM_WWALK) {
+        EWwalking &= ~mask;
+        if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
+            && !Levitation && !Flying && !is_clinger(youmonst.data)
+            && !context.takeoff.cancelled_don
+            && !iflags.in_lava_effects) {
+           otmp->oprops_known |= ITEM_WWALK;
+           spoteffects(TRUE);
+        }
+    }
+
 }
 
 int

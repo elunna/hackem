@@ -160,6 +160,13 @@ register struct obj *obj;
         if (uwep->oprops & ITEM_STABLE) {
             EStable |= W_WEP;
         }
+        if (uwep->oprops & ITEM_WWALK) {
+            EWwalking |= W_WEP;
+            if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
+                spoteffects(TRUE);
+                uwep->oprops_known |= ITEM_WWALK;
+            }
+        }
         if (uwep->oprops & ITEM_SLEEP) {
             ESleep_resistance |= W_WEP;
         }
@@ -214,6 +221,16 @@ register struct obj *obj;
         }
         if (olduwep->oprops & ITEM_STABLE) {
             EStable &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_WWALK) {
+            EWwalking &= ~W_WEP;
+            if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
+                && !Levitation && !Flying && !is_clinger(youmonst.data)
+                && !context.takeoff.cancelled_don
+                && !iflags.in_lava_effects) {
+                olduwep->oprops_known |= ITEM_WWALK;
+                spoteffects(TRUE);
+            }
         }
         if (olduwep->oprops & ITEM_SLEEP) {
             ESleep_resistance &= ~W_WEP;
@@ -538,7 +555,28 @@ register struct obj *obj;
     if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_STABLE)) {
         HStable &= ~W_SWAPWEP;
     }
-    
+
+    /* Water walking */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_WWALK))) {
+        HWwalking |= W_SWAPWEP;
+        if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
+            spoteffects(TRUE);
+            uswapwep->oprops_known |= ITEM_WWALK;
+        }
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_WWALK)) {
+        HWwalking &= ~W_SWAPWEP;
+        if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
+            && !Levitation && !Flying && !is_clinger(youmonst.data)
+            && !context.takeoff.cancelled_don
+            && !iflags.in_lava_effects) {
+            olduswapwep->oprops_known |= ITEM_WWALK;
+            spoteffects(TRUE);
+        }
+
+    }
+
     /* Sleep resistance */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_SLEEP))) {

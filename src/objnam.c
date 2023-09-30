@@ -677,6 +677,12 @@ boolean has_of;
                     Strcpy(of, " and");
         }
     }
+    if (props & ITEM_WWALK) {
+        if ((props_known & ITEM_WWALK) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " water walking"),
+                Strcpy(of, " and");
+        }
+    }
 }
 
 /* add "<pfx> called <sfx>" to end of buf, truncating if necessary */
@@ -4349,6 +4355,10 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_STABLE;
                     objpropcount++;
+                } else if (!strncmpi((p + of), "water walking", l = strlen("water walking"))) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_WWALK;
+                    objpropcount++;
                 } else
                     l = 0;
 
@@ -5670,6 +5680,8 @@ long objprops;
         objprops &= ~ITEM_FUMBLING;
     if (otmp->otyp == FUMBLE_BOOTS)
         objprops &= ~ITEM_FUMBLING;
+    if (otmp->otyp == WATER_WALKING_BOOTS)
+        objprops &= ~ITEM_WWALK;
     if (otmp->otyp == RESONANT_SHIELD)
         objprops &= ~ITEM_SCREAM;
 #if 0 /* For future */
