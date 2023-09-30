@@ -811,6 +811,8 @@ struct obj *otmp;
             return (otyp == GREEN_DRAGON_SCALES);
         case AD_SLEE: /* sleep */
             return (otyp == ORANGE_DRAGON_SCALES);
+        case AD_LOUD: /* sonic */
+            return (otyp == VIOLET_DRAGON_SCALES);
         case AD_DISN: /* disintegration */
             return (otyp == BLACK_DRAGON_SCALES);
         case AD_ELEC: /* electricity == lightning */
@@ -819,8 +821,6 @@ struct obj *otmp;
         case AD_ACID:
         case AD_STON: /* petrification resistance */
             return (otyp == YELLOW_DRAGON_SCALES);
-        case AD_LOUD: /* sonic */
-            return (otyp == DEEP_DRAGON_SCALES);
         case AD_STUN: /* stun resistance */
             return (otyp == SHIMMERING_DRAGON_SCALES);
         default:

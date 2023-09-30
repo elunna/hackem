@@ -1215,6 +1215,20 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             Free_action &= ~W_ARM;
         }
         break;
+    case VIOLET_DRAGON_SCALES:
+#if 0 /* Is this needed? */
+        if (puton) {
+            ESonic_resistance |= W_ARM;
+        } else {
+            ESonic_resistance &= ~W_ARM;
+        }
+#endif
+        if (puton) {
+            EStun_resistance |= W_ARM;
+        } else {
+            EStun_resistance &= ~W_ARM;
+        }
+        break;
     case SILVER_DRAGON_SCALES:
         if (puton) {
             ECold_resistance |= W_ARM;
@@ -1268,9 +1282,9 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
         break;
     case DEEP_DRAGON_SCALES:
         if (puton) {
-            ESonic_resistance |= W_ARM;
+            ESlow_digestion |= W_ARM;
         } else {
-            ESonic_resistance &= ~W_ARM;
+            ESlow_digestion &= ~W_ARM;
         }
         break;
     case SEA_DRAGON_SCALES:
