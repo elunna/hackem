@@ -295,6 +295,8 @@ long mask;
             otmp->oprops_known |= ITEM_WWALK;
         }
     }
+    if (props & ITEM_SWIM)
+        ESwimming |= mask;
 }
 
 void
@@ -385,6 +387,8 @@ long mask;
            spoteffects(TRUE);
         }
     }
+    if (props & ITEM_SWIM)
+        ESwimming &= ~mask;
 
 }
 

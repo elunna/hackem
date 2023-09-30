@@ -612,11 +612,12 @@ struct obj {
 #define ITEM_STUN      0x00800000L /* extrinsic stun resistance */
 #define ITEM_STABLE    0x01000000L /* extrinsic clobber resistance */
 #define ITEM_WWALK     0x02000000L /* extrinsic water walking */
+#define ITEM_SWIM      0x04000000L /* extrinsic swimming */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 
-#define ITEM_PROP_MASK 0x03FFFFFFL /* all current properties */
-#define MAX_ITEM_PROPS 26
+#define ITEM_PROP_MASK 0x07FFFFFFL /* all current properties */
+#define MAX_ITEM_PROPS 27
 
 /* Properties that grant both a worn resistance and attack type */
 #define ITEM_RES_PROPS (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM \
@@ -627,7 +628,7 @@ struct obj {
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING \
                          | ITEM_WARNING | ITEM_EXCEL | ITEM_SUSTAIN \
                          | ITEM_STEALTH | ITEM_SEEINV | ITEM_STABLE \
-                         | ITEM_WWALK)
+                         | ITEM_WWALK | ITEM_SWIM)
 /* Negative properties */
 #define ITEM_BAD_PROPS (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO \
                         | ITEM_TELE | ITEM_SLOW)

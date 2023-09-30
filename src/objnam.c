@@ -683,6 +683,12 @@ boolean has_of;
                 Strcpy(of, " and");
         }
     }
+    if (props & ITEM_SWIM) {
+        if ((props_known & ITEM_SWIM) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " swimming"),
+                Strcpy(of, " and");
+        }
+    }
 }
 
 /* add "<pfx> called <sfx>" to end of buf, truncating if necessary */
@@ -4359,6 +4365,10 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_WWALK;
                     objpropcount++;
+                } else if (!strncmpi((p + of), "swimming", l = strlen("swimming"))) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_SWIM;
+                    objpropcount++;
                 } else
                     l = 0;
 
@@ -5678,6 +5688,8 @@ long objprops;
         objprops &= ~ITEM_SEARCHING;
     if (otmp->otyp == GAUNTLETS_OF_FUMBLING)
         objprops &= ~ITEM_FUMBLING;
+    if (otmp->otyp == GAUNTLETS_OF_SWIMMING)
+        objprops &= ~ITEM_SWIM;
     if (otmp->otyp == FUMBLE_BOOTS)
         objprops &= ~ITEM_FUMBLING;
     if (otmp->otyp == WATER_WALKING_BOOTS)

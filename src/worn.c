@@ -427,6 +427,8 @@ int which;
         return !!(obj->oprops & ITEM_STABLE);
     case WWALKING:
         return !!(obj->oprops & ITEM_WWALK);
+    case SWIMMING:
+        return !!(obj->oprops & ITEM_SWIM);
     }
     return FALSE;
 }
@@ -713,6 +715,9 @@ boolean on, silently;
                 break;
             case ITEM_WWALK:
                 which = WWALKING;
+                break;
+            case ITEM_SWIM:
+                which = SWIMMING;
                 break;
             default:
                 ;

@@ -167,6 +167,9 @@ register struct obj *obj;
                 uwep->oprops_known |= ITEM_WWALK;
             }
         }
+        if (uwep->oprops & ITEM_SWIM) {
+            ESwimming |= W_WEP;
+        }
         if (uwep->oprops & ITEM_SLEEP) {
             ESleep_resistance |= W_WEP;
         }
@@ -231,6 +234,9 @@ register struct obj *obj;
                 olduwep->oprops_known |= ITEM_WWALK;
                 spoteffects(TRUE);
             }
+        }
+        if (olduwep->oprops & ITEM_SWIM) {
+            ESwimming &= ~W_WEP;
         }
         if (olduwep->oprops & ITEM_SLEEP) {
             ESleep_resistance &= ~W_WEP;
@@ -574,9 +580,16 @@ register struct obj *obj;
             olduswapwep->oprops_known |= ITEM_WWALK;
             spoteffects(TRUE);
         }
-
     }
 
+    /* Swimming property */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_SWIM))) {
+        HSwimming |= W_SWAPWEP;
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_SWIM)) {
+        HSwimming &= ~W_SWAPWEP;
+    }
     /* Sleep resistance */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_SLEEP))) {

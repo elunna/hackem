@@ -1310,6 +1310,7 @@ char *usr_text;
         if (obj->oprops & ITEM_STEALTH) OBJPUTSTR("Grants stealth");
         if (obj->oprops & ITEM_STABLE) OBJPUTSTR("Grants stability");
         if (obj->oprops & ITEM_WWALK) OBJPUTSTR("Grants water walking");
+        if (obj->oprops & ITEM_SWIM) OBJPUTSTR("Grants swimming");
     }
 
     /* APPEARANCE BONUSES */
