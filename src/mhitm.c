@@ -503,7 +503,11 @@ register struct monst *magr, *mdef;
             pline("%s flanks %s [-%dAC].", Monnam(magr), mon_nam(mdef), ftmp);
         }
     }
-    
+
+    /* M3_ACCURATE monsters get a to-hit bonus */
+    if ((has_erac(magr) && (ERAC(magr)->mflags3 & M3_ACCURATE))
+        || is_accurate(pa))
+        tmp += 5;
     /* find rings of increase accuracy */
     {
 	struct obj *o;
