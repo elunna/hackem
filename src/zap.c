@@ -1585,6 +1585,7 @@ int ochance, achance; /* percent chance for ordinary objects, artifacts */
         || obj->otyp == CANDELABRUM_OF_INVOCATION
         || obj->otyp == BELL_OF_OPENING
         || (obj->otyp == CORPSE && is_rider(&mons[obj->corpsenm]))
+        || obj->oprops & ITEM_SUSTAIN
         || (obj->oartifact & (obj->oartifact == ART_BALMUNG
                               || obj->oartifact == ART_BRADAMANTE_S_FURY
                               || obj->oartifact == ART_DRAGONBANE
