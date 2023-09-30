@@ -3813,7 +3813,7 @@ struct obj *box; /* null for floor trap */
 STATIC_OVL void
 domagictrap()
 {
-    register int fate = rnd(20);
+    register int fate = rnd(21);
 
     /* What happened to the poor sucker? */
 
@@ -3969,6 +3969,9 @@ domagictrap()
             HConfusion = 0L;
             (void) seffects(&pseudo);
             HConfusion = save_conf;
+            break;
+        case 21: /* Scare the wits out of the player */
+            make_afraid((HAfraid & TIMEOUT) + (long) rn1(4, 1), TRUE);
             break;
         }
         default:

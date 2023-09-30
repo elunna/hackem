@@ -927,6 +927,8 @@ long wp_mask;
         mask = &Free_action;
     } else if (dtyp == AD_LOUD) {
         mask = &ESonic_resistance;
+    } else if (dtyp == AD_PSYC) {
+        mask = &EPsychic_resistance;
     } else if (dtyp == AD_STUN) {
         mask = &EStun_resistance;
         if (Stunned) {
@@ -4686,6 +4688,27 @@ int art;
     return ((uwep && uwep->oartifact == art)
             || (u.twoweap && uswapwep->oartifact == art));
 }
+
+boolean
+wearing_artifact(art)
+int art;
+{
+    if (!art)
+        return FALSE;
+
+    return ((uarm && uarm->oartifact == art)
+            || (uarmh && uarmh->oartifact == art)
+            || (uarmg && uarmg->oartifact == art)
+            || (uarmf && uarmf->oartifact == art)
+            || (uarms && uarms->oartifact == art)
+            || (uarmc && uarmc->oartifact == art)
+            || (uarmu && uarmu->oartifact == art)
+            || (uamul && uamul->oartifact == art)
+            || (ublindf && ublindf->oartifact == art)
+            || (uleft && uleft->oartifact == art)
+            || (uright && uright->oartifact == art));
+}
+
 
 boolean
 awaiting_guaranteed_gift()

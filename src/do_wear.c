@@ -233,6 +233,15 @@ long mask;
         ESick_resistance |= mask;
     if (props & ITEM_STUN)
         EStun_resistance |= mask;
+    if (props & ITEM_BRAVE) {
+        EFearless |= mask;
+        if (Afraid) {
+            make_afraid(0L, TRUE);
+            context.botl = 1;
+            otmp->oprops_known |= ITEM_BRAVE;
+        }
+    }
+
     if (props & ITEM_OILSKIN) {
         pline("%s very tightly.", Tobjnam(otmp, "fit"));
         otmp->oprops_known |= ITEM_OILSKIN;
@@ -336,6 +345,8 @@ long mask;
         ESick_resistance &= ~mask;
     if (props & ITEM_STUN)
         EStun_resistance &= ~mask;
+    if (props & ITEM_BRAVE)
+        EFearless &= ~mask;
     if (props & ITEM_OILSKIN)
         otmp->oprops_known |= ITEM_OILSKIN;
     if (props & ITEM_ESP) {
@@ -785,11 +796,12 @@ Helmet_on(VOID_ARGS)
         Your("thoughts feel much more secure.");
         uarmh->known = 1;
         makeknown(TINFOIL_HAT);
+        EFearless |= W_ARMH;
+        BClairvoyant |= W_ARMH;
         if (Afraid) {
             make_afraid(0L, TRUE);
             context.botl = TRUE;
         }
-        BClairvoyant |= W_ARM;
         break;
     case HELM_OF_BRILLIANCE:
         adj_abon(uarmh, uarmh->spe);
@@ -948,7 +960,8 @@ Helmet_off(VOID_ARGS)
         uchangealign(u.ualignbase[A_CURRENT], 2);
         break;
     case TINFOIL_HAT:
-        BClairvoyant &= ~W_ARM;
+        BClairvoyant &= ~W_ARMH;
+        EFearless &= ~W_ARMH;
         break;
     default:
         impossible(unknown_type, c_helmet, uarmh->otyp);
@@ -1122,6 +1135,14 @@ Shield_on(VOID_ARGS)
         oprops_on(uarms, WORN_SHIELD);
     }
     toggle_armor_light(uarms, TRUE);
+
+    if (uarms->oartifact == ART_PRIDWEN) {
+        EFearless |= W_ARMS;
+        if (Afraid) {
+            make_afraid(0L, TRUE);
+            context.botl = TRUE;
+        }
+    }
     return 0;
 }
 
@@ -1157,6 +1178,10 @@ Shield_off(VOID_ARGS)
     }
     if (was_arti_light)
         toggle_armor_light(otmp, FALSE);
+
+    if (uarms->oartifact == ART_PRIDWEN) {
+        EFearless &= ~W_ARMS;
+    }
     return 0;
 }
 

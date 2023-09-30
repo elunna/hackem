@@ -5091,18 +5091,16 @@ struct monst *mtmp;
         }
         wake_nearto(mtmp->mx, mtmp->my, 5 * 5);
         if ((canseemon(mtmp) || (!Deaf && !Sonic_resistance))
-            && !Underwater
-            && !Confusion
+            && !Underwater && !Confusion
             && !Role_if(PM_KNIGHT)
-            && !wielding_artifact(ART_DRAGONBANE)
-            && !(uarms && uarms->oartifact == ART_PRIDWEN)) {
+            && !wielding_artifact(ART_DRAGONBANE)) {
             i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
             
             if (u.usleep) {
                 unmul("What a awful nightmare! You wake up!");
             }
             
-            if (Psychic_resistance) {
+            if (Fearless) {
                 You("are not intimidated.");
             } else if (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)) {
                 make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5 * i), TRUE);

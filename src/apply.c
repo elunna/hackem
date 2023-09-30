@@ -4778,7 +4778,7 @@ struct obj *obj;
         affects_objects = FALSE;
         break;
     case WAN_FEAR:
-        if (!Role_if(PM_NECROMANCER)) {
+        if (!Fearless) {
             make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
         }
         wandfear(obj);

@@ -3377,6 +3377,8 @@ int final;
         you_are("petrification resistant", from_what(STONE_RES));
     if (Stun_resistance)
         you_are("stun resistant", from_what(STUN_RES));
+    if (Fearless)
+        you_are("fearless", from_what(FEARLESS));
     if (Death_resistance)
         you_are("immune to the effects of death magic", from_what(DEATH_RES));
     if (Halluc_resistance)

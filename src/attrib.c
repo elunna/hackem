@@ -92,6 +92,7 @@ static const struct innate {
 
   nec_abil[] = { /* 1, Fear Resistance - hardcoded elsewhere */
                  { 1, &(HDrain_resistance), "", "" },
+                 { 1, &(HFearless), "", "" },
                  { 1, &(HSick_resistance), "hale", "" },
                  { 3, &(HUndead_warning), "sensitive", "" },
                  { 0, 0, 0, 0 } },

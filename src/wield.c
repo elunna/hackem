@@ -111,6 +111,14 @@ register struct obj *obj;
         if ((uwep && uwep->oartifact == ART_GIANTSLAYER)
                 || (olduwep && olduwep->oartifact == ART_GIANTSLAYER))
             context.botl = 1;
+
+        /* Only the primary weapon */
+        if (Afraid && ((uwep && uwep->oartifact == ART_DRAGONBANE)
+            || (olduwep && olduwep->oartifact == ART_DRAGONBANE)))
+            if (is_dragon(u.fearedmon->data)) {
+                make_afraid(0L, TRUE);
+                context.botl = 1;
+            }
     }
 
     /* This needs to come before setting properties in case we are
@@ -185,6 +193,9 @@ register struct obj *obj;
         }
         if (olduwep->oprops & ITEM_STUN) {
             EStun_resistance &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_BRAVE) {
+            EFearless &= ~W_WEP;
         }
     }
 
@@ -262,6 +273,14 @@ register struct obj *obj;
         }
         if (uwep->oprops & ITEM_STUN) {
             EStun_resistance |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_BRAVE) {
+            EFearless |= W_WEP;
+            if (Afraid) {
+                make_afraid(0L, TRUE);
+                context.botl = 1;
+                uwep->oprops_known |= ITEM_BRAVE;
+            }
         }
     }
 
@@ -648,6 +667,21 @@ register struct obj *obj;
     if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_STUN)) {
         EStun_resistance &= ~W_SWAPWEP;
     }
+
+    /* Fearlessness */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_BRAVE))) {
+        EFearless |= W_SWAPWEP;
+        if (Afraid) {
+            make_afraid(0L, TRUE);
+            context.botl = 1;
+            uswapwep->oprops_known |= ITEM_BRAVE;
+        }
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_BRAVE)) {
+        EFearless &= ~W_SWAPWEP;
+    }
+
 }
 
 /*** Commands to change particular slot(s) ***/

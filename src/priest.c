@@ -576,9 +576,7 @@ struct monst* ghost;
 {
     ghost->mpeaceful = 0;
     set_malign(ghost);
-    if (Psychic_resistance 
-        || Role_if(PM_NECROMANCER) 
-        || Role_if(PM_UNDEAD_SLAYER)) {
+    if (Fearless) {
         You_see("a ghost try to frighten you.");
         return;
     }

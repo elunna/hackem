@@ -3436,8 +3436,7 @@ struct attack *mattk;
         }
         if (Sonic_resistance)
             break;
-        if (Psychic_resistance || Role_if(PM_NECROMANCER)
-            || Role_if(PM_UNDEAD_SLAYER)) {
+        if (Fearless) {
             You("are not afraid.");
             break;
         }
@@ -3939,9 +3938,7 @@ struct attack *mattk;
                 && mtmp->mcansee && !rn2(3)
                 && !mtmp->mspec_used 
                 && (ACURR(A_CHA) - mtmp->m_lev + u.ulevel < rn2(25))) {
-            if (Psychic_resistance 
-                || Role_if(PM_NECROMANCER) 
-                || Role_if(PM_UNDEAD_SLAYER)) {
+            if (Fearless) {
                 You("are not afraid of the %s!", mon_nam(mtmp));
                 break;
             } else if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD && rn2(3)) {
@@ -4203,7 +4200,7 @@ struct attack *mattk;
                     pline("%s protect you from %s frightening gaze.",
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
                 break;
-            } else if (Role_if(PM_NECROMANCER) || Role_if(PM_UNDEAD_SLAYER)) {
+            } else if (Fearless) {
                 You("are not afraid of the %s!", mon_nam(mtmp));
                 break;
             }
