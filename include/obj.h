@@ -583,7 +583,7 @@ struct obj {
 /* When adding new properties:
  * - IMPORTANT: Update the MAX_ITEM_PROPS and ITEM_PROP_MASK!
  * - Also update ITEM_RES_PROPS, ITEM_GOOD_PROPS, and ITEM_BAD_PROPS below.
- * - Also, check existing items for properties that would be redunant and add
+ * - Also, check existing items for properties that would be redundant and add
  *   them to is_redundant_prop and rm_redundant_oprops.
  */
 #define ITEM_FIRE      0x00000001L /* fire damage or resistance */

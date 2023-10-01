@@ -686,7 +686,7 @@ boolean has_of;
     }
     if (props & ITEM_WWALK) {
         if ((props_known & ITEM_WWALK) || dump_prop_flag) {
-            Strcat(buf, of), Strcat(buf, " water walking"),
+            Strcat(buf, of), Strcat(buf, " surfing"),
                 Strcpy(of, " and");
         }
     }
@@ -4372,7 +4372,8 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_STABLE;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "water walking", l = strlen("water walking"))) {
+                } else if  (!strncmpi((p + of), "water walking", l = strlen("water walking"))
+                            || !strncmpi((p + of), "surfing", l = strlen("surfing"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_WWALK;
                     objpropcount++;
