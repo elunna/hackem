@@ -1842,12 +1842,6 @@ register struct obj *obj;
     case RIN_GAIN_CONSTITUTION:
         which = A_CON;
         goto adjust_attrib;
-    case RIN_GAIN_INTELLIGENCE:
-        which = A_INT;
-        goto adjust_attrib;
-    case RIN_GAIN_DEXTERITY:
-        which = A_DEX;
-        goto adjust_attrib;
     case RIN_ADORNMENT:
         which = A_CHA;
     
@@ -1963,12 +1957,6 @@ boolean gone;
         goto adjust_attrib;
     case RIN_GAIN_CONSTITUTION:
         which = A_CON;
-        goto adjust_attrib;
-    case RIN_GAIN_INTELLIGENCE:
-        which = A_INT;
-        goto adjust_attrib;
-    case RIN_GAIN_DEXTERITY:
-        which = A_DEX;
         goto adjust_attrib;
     case RIN_ADORNMENT:
         which = A_CHA;

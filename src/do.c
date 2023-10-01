@@ -637,14 +637,6 @@ register struct obj *obj;
                   hliquid("water"),
                   (obj->spe < 0) ? "less" : "great");
         break;
-    case RIN_GAIN_INTELLIGENCE:
-        pline_The("water flow seems %ser now.",
-                (obj->spe<0) ? "dull" : "quick");
-        break;
-    case RIN_GAIN_DEXTERITY:
-        pline_The("water flow seems %ser now.",
-                (obj->spe<0) ? "slow" : "fast");
-        break;
     case RIN_INCREASE_ACCURACY: /* KMH */
         pline_The("%s flow %s the drain.",
                   hliquid("water"),
