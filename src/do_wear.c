@@ -277,7 +277,7 @@ long mask;
     }
     if (props & ITEM_HUNGER)
         EHunger |= mask;
-    if (props & ITEM_AGGRO)
+    if (props & ITEM_STENCH)
         EAggravate_monster |= mask;
     if (props & ITEM_TELE)
         ETeleportation |= mask;
@@ -382,7 +382,7 @@ long mask;
     }
     if (props & ITEM_HUNGER)
         EHunger &= ~mask;
-    if (props & ITEM_AGGRO)
+    if (props & ITEM_STENCH)
         EAggravate_monster &= ~mask;
     if (props & ITEM_TELE)
         ETeleportation &= ~mask;

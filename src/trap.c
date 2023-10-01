@@ -4679,14 +4679,12 @@ drown()
             pline("Hey! You can swim!");
             makeknown(GAUNTLETS_OF_SWIMMING);
         } else if (!HSwimming) {
-            /* *Something* is making us swim! */
-            for (otmp = invent; otmp; otmp = otmp->nobj)
-                if (otmp->oprops & ITEM_SWIM && is_worn(otmp)
-                    && !(otmp->oprops_known & ITEM_SWIM)) {
-                    pline("Hey! You can swim!");
-                    otmp->oprops_known |= ITEM_SWIM;
-                    update_inventory();
-                }
+            otmp = using_oprop(ITEM_SWIM);
+            if (otmp && otmp->oprops_known & ITEM_SWIM) {
+                pline("Hey! You can swim!");
+                otmp->oprops_known |= ITEM_SWIM;
+                update_inventory();
+            }
         }
         
         if (Amphibious) {

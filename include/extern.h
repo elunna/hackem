@@ -122,6 +122,7 @@ E boolean FDECL(is_magic_key, (struct monst *, struct obj *));
 E struct obj *FDECL(has_magic_key, (struct monst *));
 E boolean FDECL(wielding_artifact, (int));
 E boolean FDECL(wearing_artifact, (int));
+E struct obj *FDECL(using_oprop, (long));
 E boolean NDECL(awaiting_guaranteed_gift);
 E int FDECL(arti_align, (int));
 E boolean FDECL(non_wishable_artifact, (struct obj *));

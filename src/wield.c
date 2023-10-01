@@ -142,7 +142,7 @@ register struct obj *obj;
         if (olduwep->oprops & ITEM_HUNGER) {
             EHunger &= ~W_WEP;
         }
-        if (olduwep->oprops & ITEM_AGGRO) {
+        if (olduwep->oprops & ITEM_STENCH) {
             EAggravate_monster &= ~W_WEP;
         }
         if (olduwep->oprops & ITEM_TELE) {
@@ -218,7 +218,7 @@ register struct obj *obj;
         if (uwep->oprops & ITEM_HUNGER) {
             EHunger |= W_WEP;
         }
-        if (uwep->oprops & ITEM_AGGRO) {
+        if (uwep->oprops & ITEM_STENCH) {
             EAggravate_monster |= W_WEP;
         }
         if (uwep->oprops & ITEM_TELE) {
@@ -530,10 +530,10 @@ register struct obj *obj;
 
     /* Aggravate monster property */
     if (uswapwep == obj
-        && (u.twoweap && (uswapwep->oprops & ITEM_AGGRO))) {
+        && (u.twoweap && (uswapwep->oprops & ITEM_STENCH))) {
         EAggravate_monster |= W_SWAPWEP;
     }
-    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_AGGRO)) {
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_STENCH)) {
         EAggravate_monster &= ~W_SWAPWEP;
     }
 

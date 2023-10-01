@@ -600,7 +600,7 @@ struct obj {
 #define ITEM_EXCEL     0x00000800L /* confers luck, charisma boost */
 #define ITEM_FUMBLING  0x00001000L /* extrinsic fumbling */
 #define ITEM_HUNGER    0x00002000L /* extrinsic hunger */
-#define ITEM_AGGRO     0x00004000L /* extrinsic aggravate monster */
+#define ITEM_STENCH    0x00004000L /* extrinsic aggravate monster */
 #define ITEM_TELE      0x00008000L /* extrinsic teleportitis */
 #define ITEM_SLOW      0x00010000L /* extrinsic slowness */
 #define ITEM_SUSTAIN   0x00020000L /* extrinsic sustain ability */
@@ -631,7 +631,7 @@ struct obj {
                          | ITEM_STEALTH | ITEM_SEEINV | ITEM_STABLE \
                          | ITEM_WWALK | ITEM_SWIM | ITEM_BRAVE)
 /* Negative properties */
-#define ITEM_BAD_PROPS (ITEM_FUMBLING | ITEM_HUNGER | ITEM_AGGRO \
+#define ITEM_BAD_PROPS (ITEM_FUMBLING | ITEM_HUNGER | ITEM_STENCH \
                         | ITEM_TELE | ITEM_SLOW)
 
 #define NON_WEP_PROPS (ITEM_SLEEP | ITEM_STONE | ITEM_SICK | ITEM_STUN)

@@ -416,7 +416,7 @@ int which;
     case HUNGER:
         return !!(obj->oprops & ITEM_HUNGER);
     case AGGRAVATE_MONSTER:
-        return !!(obj->oprops & ITEM_AGGRO);
+        return !!(obj->oprops & ITEM_STENCH);
     case TELEPORT:
         return !!(obj->oprops & ITEM_TELE);
     case SLOW:
@@ -703,7 +703,7 @@ boolean on, silently;
             case ITEM_HUNGER:
                 which = HUNGER;
                 break;
-            case ITEM_AGGRO:
+            case ITEM_STENCH:
                 which = AGGRAVATE_MONSTER;
                 break;
             case ITEM_TELE:

@@ -648,9 +648,9 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
-    if (props & ITEM_AGGRO) {
-        if ((props_known & ITEM_AGGRO) || dump_prop_flag) {
-            Strcat(buf, of), Strcat(buf, " aggravation"),
+    if (props & ITEM_STENCH) {
+        if ((props_known & ITEM_STENCH) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " stench"),
                     Strcpy(of, " and");
         }
     }
@@ -4348,9 +4348,9 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_HUNGER;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "aggravation", l = strlen("aggravation"))) {
+                } else if (!strncmpi((p + of), "stench", l = strlen("stench"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_AGGRO;
+                        objprops |= ITEM_STENCH;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "teleportation", l = strlen("teleportation"))) {
                     if (!objpropcount || wizard)
@@ -4372,7 +4372,7 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_STABLE;
                     objpropcount++;
-                } else if  (!strncmpi((p + of), "water walking", l = strlen("water walking"))
+                } else if (!strncmpi((p + of), "water walking", l = strlen("water walking"))
                             || !strncmpi((p + of), "surfing", l = strlen("surfing"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_WWALK;

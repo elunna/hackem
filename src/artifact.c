@@ -4734,6 +4734,17 @@ int art;
             || (uright && uright->oartifact == art));
 }
 
+struct obj *
+using_oprop(oprop)
+long oprop;
+{
+    struct obj *otmp;
+    for (otmp = invent; otmp; otmp = otmp->nobj) {
+        if (otmp->oprops & oprop && is_worn(otmp))
+            return otmp;
+    }
+    return (struct obj *) 0;
+}
 
 boolean
 awaiting_guaranteed_gift()

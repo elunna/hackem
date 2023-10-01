@@ -2827,14 +2827,15 @@ struct monst *mtmp;
 struct attack *mattk;
 {
     struct trap *t = t_at(u.ux, u.uy);
-    struct obj *pseudo;
+    struct obj *pseudo, *otmp2;
+    struct obj *prevents_gulp = using_oprop(ITEM_STENCH);
     int tmp = d((int) mattk->damn, (int) mattk->damd);
-    int tim_tmp;
-    struct obj *otmp2;
-    int i;
+    int i, tim_tmp;
+    
     boolean physical_damage = FALSE;
     /* for tracking if this is the first engulf */
     boolean old_uswallow = u.uswallow;
+    
 
     if (!u.uswallow) { /* swallows you */
         int omx = mtmp->mx, omy = mtmp->my;
@@ -2946,7 +2947,7 @@ struct attack *mattk;
     switch (mattk->adtyp) {
     case AD_DGST:
         physical_damage = TRUE;
-        if (Slow_digestion) {
+        if (Slow_digestion || prevents_gulp) {
             /* Messages are handled below */
             u.uswldtim = 0;
             tmp = 0;
@@ -3228,8 +3229,14 @@ struct attack *mattk;
         expels(mtmp, mtmp->data, TRUE);
         if (flags.verbose
             && (is_swallower(mtmp->data)
-                || (dmgtype(mtmp->data, AD_DGST) && Slow_digestion)))
+                || (dmgtype(mtmp->data, AD_DGST) 
+                && (Slow_digestion || prevents_gulp)))) {
+            if (prevents_gulp && !(prevents_gulp->oprops_known & ITEM_STENCH)) {
+                prevents_gulp->oprops_known |= ITEM_STENCH;
+                /* Do we need a special message here? */
+            }
             pline("Obviously %s doesn't like your taste.", mon_nam(mtmp));
+        }
     }
     return 1;
 }

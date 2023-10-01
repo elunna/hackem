@@ -647,6 +647,7 @@ register struct monst *mtmp;
         *verbl_msg = 0,                 /* verbalize() */
         *verbl_msg_mcan = 0;            /* verbalize() if cancelled */
     struct permonst *ptr = mtmp->data;
+    struct obj *obj_stench = using_oprop(ITEM_STENCH);
     int msound = ptr->msound, gnomeplan = 0;
 
     /* presumably nearness and sleep checks have already been made */
@@ -655,6 +656,30 @@ register struct monst *mtmp;
     if (is_silent(ptr))
         return 0;
 
+    /* They'll notice your stenchy items */
+    if (obj_stench && olfaction(mtmp->data)) {
+        if (obj_stench->oprops_known & ITEM_STENCH) {
+            switch (rnd(3)) {
+                case 1:
+                    verbalize("Haven't you gotten rid of that smelly thing yet?");
+                    break;
+                case 2:
+                    verbalize("You don't smell that?");
+                    break;
+                case 3:
+                    verbalize("Please take your %s out of here!", xname(obj_stench));
+                    break;
+            }
+        } else {
+            if (rn2(2))
+                verbalize("Ugh, what is that smell?");
+            else
+                verbalize("Something really stinks... Is it you?");
+            obj_stench->oprops_known |= ITEM_STENCH;
+            
+        }
+    }
+    
     /* leader might be poly'd; if he can still speak, give leader speech */
     if (mtmp->m_id == quest_status.leader_m_id && msound > MS_ANIMAL)
         msound = MS_LEADER;
