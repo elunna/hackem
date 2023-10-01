@@ -404,7 +404,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     A("Dragonbane", BROADSWORD,
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_REFLECT), 0, MH_DRAGON,
-      PHYS(5, 0), DFNS(AD_FIRE), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
+      PHYS(5, 0), DFNS(AD_ACID), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
       NO_COLOR, IRON),
       
     A("Drowsing Rod", STAFF_OF_HEALING, (SPFX_RESTR), 0, 0,
