@@ -720,6 +720,7 @@ RING("protection", "black onyx",                 PROTECTION,               100, 
            regardless of ring's enchantment; wearing a second ring of
            protection (or even one ring of protection combined with
            cloak of protection) doesn't give a second MC boost */
+RING("carrying", "glittery",                     0,                        200, 1, 1, 1,  7, GEMSTONE, CLR_WHITE),
 RING("regeneration", "moonstone",                REGENERATION,             200, 1, 1, 0,  6, MINERAL, HI_MINERAL),
 RING("searching", "tiger eye",                   SEARCHING,                200, 1, 1, 0,  6, GEMSTONE, CLR_BROWN),
 RING("stealth", "jade",                          STEALTH,                  100, 1, 1, 0,  6, GEMSTONE, CLR_GREEN),
