@@ -739,6 +739,10 @@ register struct obj *obj;
         case RIN_SONIC_RESISTANCE:
             pline_The("ring silently bounces down the drain.");
             break;
+        case RIN_CARRYING:
+            pline_The("sink looks like it can hold %s water than before.",
+                      (obj->spe < 0 ? "less" : "more"));
+            break;
         default:
             break;
         }
