@@ -1721,7 +1721,7 @@ char *usr_text;
         if (obj && !obj->oartifact
               && oc.oc_material && obj->material != oc.oc_material)
             Sprintf(buf, "Material: %s (normally made of %s)", alt_mat, mat_str);
-        else if (obj && obj->oartifact)
+        else if (is_artifact)
             Sprintf(buf, "Material: %s ", alt_mat);
         else
             Sprintf(buf, "Material: %s ", mat_str);
@@ -1762,7 +1762,7 @@ char *usr_text;
 
     /* tinker/upgrades */
     int newtyp = obj2upgrade(otyp);
-    if (reveal_info && newtyp) {
+    if (reveal_info && newtyp && !is_artifact) {
         Sprintf(buf, "Can be tinkered into: %s", OBJ_NAME(objects[newtyp]));
         OBJPUTSTR(buf);
     }
@@ -1770,7 +1770,7 @@ char *usr_text;
     /* forge recipes */
     const struct ForgeRecipe *recipe;
     boolean has_recipes = FALSE;
-    if (reveal_info) {
+    if (reveal_info && !is_artifact) {
         for (recipe = fusions; recipe->result_typ; recipe++) {
             if (otyp == recipe->typ1 || otyp == recipe->typ2
                 || otyp == recipe->result_typ) {
@@ -1836,7 +1836,7 @@ char *usr_text;
 
     /* ARTIFACT PROPERTIES */
 
-    if (obj && obj->oartifact) {
+    if (is_artifact) {
         struct art_info_t a_info = artifact_info(obj->oartifact);
 
         /* Make it look like it fits with the first section */
