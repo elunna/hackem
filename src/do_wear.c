@@ -233,12 +233,12 @@ long mask;
         ESick_resistance |= mask;
     if (props & ITEM_STUN)
         EStun_resistance |= mask;
-    if (props & ITEM_BRAVE) {
+    if (props & ITEM_RAGE) {
         EFearless |= mask;
         if (Afraid) {
             make_afraid(0L, TRUE);
             context.botl = 1;
-            otmp->oprops_known |= ITEM_BRAVE;
+            otmp->oprops_known |= ITEM_RAGE;
         }
     }
     if (props & ITEM_OILSKIN) {
@@ -341,7 +341,7 @@ long mask;
         ESick_resistance &= ~mask;
     if (props & ITEM_STUN)
         EStun_resistance &= ~mask;
-    if (props & ITEM_BRAVE)
+    if (props & ITEM_RAGE)
         EFearless &= ~mask;
     if (props & ITEM_OILSKIN)
         otmp->oprops_known |= ITEM_OILSKIN;

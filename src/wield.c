@@ -198,7 +198,7 @@ register struct obj *obj;
         if (olduwep->oprops & ITEM_STUN) {
             EStun_resistance &= ~W_WEP;
         }
-        if (olduwep->oprops & ITEM_BRAVE) {
+        if (olduwep->oprops & ITEM_RAGE) {
             EFearless &= ~W_WEP;
         }
     }
@@ -282,12 +282,12 @@ register struct obj *obj;
         if (uwep->oprops & ITEM_STUN) {
             EStun_resistance |= W_WEP;
         }
-        if (uwep->oprops & ITEM_BRAVE) {
+        if (uwep->oprops & ITEM_RAGE) {
             EFearless |= W_WEP;
             if (Afraid) {
                 make_afraid(0L, TRUE);
                 context.botl = 1;
-                uwep->oprops_known |= ITEM_BRAVE;
+                uwep->oprops_known |= ITEM_RAGE;
             }
         }
     }
@@ -689,15 +689,15 @@ register struct obj *obj;
 
     /* Fearlessness */
     if (uswapwep == obj
-        && (u.twoweap && (uswapwep->oprops & ITEM_BRAVE))) {
+        && (u.twoweap && (uswapwep->oprops & ITEM_RAGE))) {
         EFearless |= W_SWAPWEP;
         if (Afraid) {
             make_afraid(0L, TRUE);
             context.botl = 1;
-            uswapwep->oprops_known |= ITEM_BRAVE;
+            uswapwep->oprops_known |= ITEM_RAGE;
         }
     }
-    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_BRAVE)) {
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_RAGE)) {
         EFearless &= ~W_SWAPWEP;
     }
 

@@ -1353,8 +1353,8 @@ mcalcdistress()
         mon_regen(mtmp, FALSE);
 
         if (is_berserker(mtmp->data) && !noattacks(mtmp->data)) {
-            if ((mtmp->mhp < (mtmp->mhpmax / 3)) && !mtmp->mberserk
-                && !rn2(15)) {
+            if ((mtmp->mhp < (mtmp->mhpmax / 2)) && !mtmp->mberserk
+                && !rn2(13)) {
                 if (canseemon(mtmp) && humanoid(mtmp->data)
                     && !mindless(mtmp->data)) {
                     pline("%s flies into a berserker rage!",

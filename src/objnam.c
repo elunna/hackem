@@ -599,10 +599,9 @@ boolean has_of;
                     Strcpy(of, " and");
         }
     }
-    if (props & ITEM_BRAVE) {
-        if ((props_known & ITEM_BRAVE) || dump_prop_flag) {
-            Strcat(buf, of),
-                Strcat(buf, of), Strcat(buf, " bravery"),
+    if (props & ITEM_RAGE) {
+        if ((props_known & ITEM_RAGE) || dump_prop_flag) {
+                Strcat(buf, of), Strcat(buf, " rage"),
                 Strcpy(of, " and");
         }
     }
@@ -4310,9 +4309,9 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_STUN;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "bravery", l = strlen("bravery"))) {
+                } else if (!strncmpi((p + of), "rage", l = strlen("rage"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_BRAVE;
+                        objprops |= ITEM_RAGE;
                     objpropcount++;
                 } else if ((!strncmpi((p + of), "telepathy", l = strlen("telepathy"))
                             && strncmpi(bp, "helm", l = strlen("helm")))
@@ -5379,8 +5378,8 @@ struct obj *no_wish;
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_SICK);
         else if (objprops & ITEM_STUN)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_STUN);
-        else if (objprops & ITEM_BRAVE)
-            objprops &= ~(ITEM_RES_PROPS & ~ITEM_BRAVE);
+        else if (objprops & ITEM_RAGE)
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_RAGE);
 
         if (objects[otmp->otyp].oc_unique || otmp->oartifact
             || Is_dragon_armor(otmp))
@@ -5391,12 +5390,15 @@ struct obj *no_wish;
 
         /* Launchers can have defensive properties */
         if (is_launcher(otmp))
-            objprops &= ~((ITEM_RES_PROPS & ~NON_WEP_PROPS) | ITEM_OILSKIN);
+            objprops &= ~((ITEM_RES_PROPS & ~NON_WEP_PROPS) 
+                    | ITEM_OILSKIN | ITEM_RAGE);
         else if (is_ammo(otmp) || is_missile(otmp))
             objprops &= ~(ITEM_GOOD_PROPS | ITEM_BAD_PROPS | NON_WEP_PROPS);
         else if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
             objprops &= ~(ITEM_OILSKIN | NON_WEP_PROPS);
 
+        if (otmp->oclass == ARMOR_CLASS)
+            objprops &= ~ONLY_WEP_PROPS;
 
         objprops = rm_redundant_oprops(otmp, objprops);
 

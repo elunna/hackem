@@ -448,11 +448,15 @@ boolean allow_detrimental;
             &&  (j & (ITEM_RES_PROPS | ITEM_OILSKIN)))
             continue;
         else if ((is_ammo(otmp) || is_missile(otmp))
-            && (j & (ITEM_GOOD_PROPS | ITEM_BAD_PROPS | NON_WEP_PROPS)))
+            && (j & (ITEM_GOOD_PROPS | ITEM_BAD_PROPS 
+                     | NON_WEP_PROPS | ONLY_WEP_PROPS)))
             continue;
         /* check for restrictions */
         else if ((otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
             && (j & (NON_WEP_PROPS | ITEM_OILSKIN)))
+            continue;
+
+        if ((otmp->oclass == ARMOR_CLASS) && (j & ONLY_WEP_PROPS))
             continue;
         
         if ((otmp->oprops & ITEM_RES_PROPS) && (j & ITEM_RES_PROPS))
@@ -4100,12 +4104,18 @@ struct obj *obj;
         return TRUE;
     }
     if (ad_type == AD_ACID || oprops & ITEM_ACID) {
-        pline("The %s bubbles from contact with %s!", hliquid("water"), The(xname(obj)));
+        pline("The %s bubbles from contact with your %s!", hliquid("water"), xname(obj));
         if (oprops)
             obj->oprops_known |= ITEM_ACID;
         return TRUE;
     }
-    if (ad_type == AD_DRLI || oprops & ITEM_VENOM) {
+    if (oprops & ITEM_RAGE) {
+        pline("The %s boils angrily from contact with your %s!", hliquid("water"), xname(obj));
+        if (oprops)
+            obj->oprops_known |= ITEM_RAGE;
+        return TRUE;
+    }
+    if (ad_type == AD_DRST || oprops & ITEM_VENOM) {
         pline("An inky darkness spreads in the %s!", hliquid("water"));
         if (oprops)
             obj->oprops_known |= ITEM_VENOM;

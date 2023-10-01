@@ -326,9 +326,7 @@ struct damage_info_t *damage_info)
     int tmp = 0, otyp = otmp->otyp;
     struct permonst *ptr = mon ? r_data(mon) : NULL;
     boolean Is_weapon = (otmp->oclass == WEAPON_CLASS || is_weptool(otmp));
-
-    /*if (!ptr) 
-        ptr = &mons[NUMMONS];*/
+    boolean rage = !!(otmp->oprops & ITEM_RAGE);
 
     if (otyp == CREAM_PIE 
         || otyp == APPLE_PIE 
@@ -341,7 +339,7 @@ struct damage_info_t *damage_info)
 
     if (ptr == NULL || bigmonst(ptr)) {
         if (objects[otyp].oc_wldam) {
-            tmp = rnd(objects[otyp].oc_wldam);
+            tmp = rage ? objects[otyp].oc_wldam : rnd(objects[otyp].oc_wldam);
             damage_info->damage_large = objects[otyp].oc_wldam;
         }
         switch (otyp) {
@@ -361,14 +359,14 @@ struct damage_info_t *damage_info)
         case RANSEUR:
         case SCYTHE:
         case VOULGE:
-            tmp += rnd(4);
+            tmp += rage ? 4 : rnd(4);
             damage_info->bonus_large = "+1d4";
             break;
 
         case ACID_VENOM:
         case HALBERD:
         case SPETUM:
-            tmp += rnd(6);
+            tmp += rage ? 6: rnd(6);
             damage_info->bonus_large = "+1d6";
             break;
 
@@ -376,19 +374,19 @@ struct damage_info_t *damage_info)
         case BARDICHE:
         case SPIKED_CHAIN:
         case TRIDENT:
-            tmp += d(2, 4);
+            tmp += rage ? 8 : d(2, 4);
             damage_info->bonus_large = "+2d4";
             break;
 
         case TSURUGI:
         case DWARVISH_MATTOCK:
         case TWO_HANDED_SWORD:
-            tmp += d(2, 6);
+            tmp += rage ? 12 : d(2, 6);
             damage_info->bonus_large = "+2d6";
             break;
             
         case TRIPLE_HEADED_FLAIL:
-            tmp += d(3, 6);
+            tmp += rage ? 18 : d(3, 6);
             damage_info->bonus_large = "+3d6";
             break;
         case GREEN_LIGHTSABER:  
@@ -401,7 +399,7 @@ struct damage_info_t *damage_info)
             break;
         case RED_DOUBLE_LIGHTSABER: 
             if (otmp->altmode) {
-                tmp += rnd(11) + 10;
+                tmp += rage ? 21 : (rnd(11) + 10);
                 damage_info->bonus_large = "+1d11 + 10";
                 break;
             } 
@@ -415,7 +413,7 @@ struct damage_info_t *damage_info)
 
     if (ptr == NULL || !bigmonst(ptr)) {
         if (objects[otyp].oc_wsdam) {
-            tmp = rnd(objects[otyp].oc_wsdam);
+            tmp = rage ? objects[otyp].oc_wsdam : rnd(objects[otyp].oc_wsdam);
             damage_info->damage_small = objects[otyp].oc_wsdam;
         }
         switch (otyp) {
@@ -449,7 +447,7 @@ struct damage_info_t *damage_info)
         case SCYTHE:
         case VOULGE:
         case ATGEIR:
-            tmp += rnd(4);
+            tmp += rage ? 4 : rnd(4);
             damage_info->bonus_small = "+1d4";
             break;
 
@@ -463,7 +461,7 @@ struct damage_info_t *damage_info)
             break;
         case RED_DOUBLE_LIGHTSABER:
             if (otmp->altmode) {
-                tmp += rnd(9);
+                tmp += rage ? 9 : rnd(9);
                 tmp += 6; 
                 damage_info->bonus_small = "+1d9 + 6";
                 break;
@@ -594,11 +592,11 @@ struct damage_info_t *damage_info)
         /* Undead Slayers are naturally gifted at dispatching undead. */
         if (Role_if(PM_UNDEAD_SLAYER) && ptr 
             && (is_undead(ptr) || is_demon(ptr) || is_vampshifter(mon)))
-            bonus += rnd(4);
+            bonus += rage ? 4 : rnd(4);
         
         if (otmp->blessed) {
             if (ptr && (is_undead(ptr) || is_demon(ptr) || is_vampshifter(mon)))
-                bonus += rnd(4);
+                bonus += rage ? 4 : rnd(4);
             if (otmp->bknown) {
                 damage_info->buc_damage = "\t+1d4 against undead, demons, or vampires (blessed bonus).";
             }
@@ -606,24 +604,25 @@ struct damage_info_t *damage_info)
         
         if (otmp->cursed) {
             if (ptr && is_angel(ptr))
-                bonus += rnd(4);
+                bonus += rage ? 4 : rnd(4);
             if (otmp->bknown) {
                 damage_info->buc_damage = "\t+1d4 against angels (cursed bonus).";
             }
         }
         if (otmp->cursed && Role_if(PM_INFIDEL) && ptr
             && (mon_aligntyp(mon) == A_LAWFUL || mon_aligntyp(mon) == A_NEUTRAL))
-            bonus += rnd(2);
+            bonus += rage ? 2 : rnd(2);
         
         if (is_axe(otmp)) {
             damage_info->axe_damage = "\t+1d4 against wood golems.";
             if (ptr && is_wooden(ptr)) {
-                bonus += rnd(4);
+                bonus += rage ? 4 : rnd(4);
             }
         }
         
         if (ptr && mon_hates_material(mon, otmp->material))
-            bonus += rnd(sear_damage(otmp->material));
+            bonus += rage ? sear_damage(otmp->material) 
+                    : rnd(sear_damage(otmp->material));
         
         /* Describe the materials that inflict sear damage */
         if (otmp->material == SILVER) {
@@ -643,7 +642,7 @@ struct damage_info_t *damage_info)
             damage_info->light_damage =
                 "\tAdditional 1d8 against light hating monsters.";
             if (otmp->lamplit && ptr && hates_light(r_data(mon))) {
-                bonus += rnd(8);
+                bonus += rage ? 8 : rnd(8);
             }
         }
 

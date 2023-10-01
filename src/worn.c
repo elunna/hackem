@@ -408,7 +408,7 @@ int which;
     case FEARLESS:
         return !!(obj->oclass != WEAPON_CLASS
                   && !is_weptool(obj)
-                  && (obj->oprops & ITEM_BRAVE));
+                  && (obj->oprops & ITEM_RAGE));
     case TELEPAT:
         return !!(obj->oprops & ITEM_ESP);
     case FUMBLING:
@@ -687,7 +687,7 @@ boolean on, silently;
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = STUN_RES;
                 break;
-            case ITEM_BRAVE:
+            case ITEM_RAGE:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = FEARLESS;
                 break;

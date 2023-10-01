@@ -23,6 +23,7 @@ STATIC_DCL int FDECL(gulpum, (struct monst *, struct attack *));
 STATIC_DCL boolean FDECL(hmonas, (struct monst *, int, BOOLEAN_P));
 STATIC_DCL void FDECL(nohandglow, (struct monst *));
 STATIC_DCL boolean FDECL(shade_aware, (struct obj *));
+STATIC_DCL boolean NDECL(u_bloodthirsty);
 
 extern boolean notonhead; /* for long worms */
 
@@ -221,8 +222,7 @@ struct obj *wep; /* uwep for attack(), null for kick_monster() */
     if (flags.confirm && mtmp->mpeaceful
         && !Confusion && !Hallucination && !Stunned) {
         /* Intelligent chaotic weapons (Stormbringer) want blood */
-        if (wep && (wep->oartifact == ART_STORMBRINGER
-                    || (u.twoweap && uswapwep->oartifact == ART_STORMBRINGER))) {
+        if (u_bloodthirsty()) {
             override_confirmation = TRUE;
             return FALSE;
         }
@@ -448,8 +448,7 @@ register struct monst *mtmp;
      */
     /* Intelligent chaotic weapons (Stormbringer) want blood */
     if (is_safepet(mtmp) && !context.forcefight) {
-        if (!uwep || !(uwep->oartifact == ART_STORMBRINGER
-                       || (u.twoweap && uswapwep->oartifact == ART_STORMBRINGER))) {
+        if (!uwep || !u_bloodthirsty()) {
             /* There are some additional considerations: this won't work
              * if in a shop or Punished or you miss a random roll or
              * if you can walk thru walls and your pet cannot (KAA) or
@@ -655,7 +654,7 @@ int dieroll;
             if (weapon->oartifact == ART_STORMBRINGER)
                 Your("bloodthirsty blade attacks!");
             else
-                Your("vicious blade attacks!");
+                Your("vicious weapon attacks!");
         }
     }
 
@@ -902,7 +901,7 @@ struct attack *uattk;
     /* if twoweaponing with stormbringer, don't force both
      * attacks -- only from the actual 'bloodthirsty' weapon(s) */
 #define forced_attack(w) ((w) && ((w)->oartifact == ART_STORMBRINGER))
-    if ((!override_confirmation || forced_attack(uwep))
+    if ((!override_confirmation || u_bloodthirsty())
         && !(multi < 0 || u.umortality > oldumort)) {
         /* bhitpos is set up by caller */
         malive = known_hitum(mon, uwep, &mhit, tmp, armorpenalty, uattk,
@@ -5828,4 +5827,19 @@ dbl_dmg()
     }
     return FALSE;
 }
+
+boolean
+u_bloodthirsty()
+{
+    if (uwep && (uwep->oartifact == ART_STORMBRINGER
+             || (u.twoweap && uswapwep->oartifact == ART_STORMBRINGER)))
+        return TRUE;
+    
+    if (uwep && (uwep->oprops & ITEM_RAGE
+                || (u.twoweap && uswapwep->oprops & ITEM_RAGE)))
+        return TRUE;
+    return FALSE;
+    
+}
+
 /*uhitm.c*/
