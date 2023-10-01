@@ -3166,7 +3166,7 @@ doeat()
             otmp->oprops_known |= ITEM_STENCH;
         }
         (void) rottenfood(otmp);
-        return;
+        return 1;
     }
     if (otmp->oclass != FOOD_CLASS) {
         int material;

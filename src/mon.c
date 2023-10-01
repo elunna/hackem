@@ -1702,6 +1702,7 @@ register struct monst *mtmp;
         if ((mtmp->data == &mons[PM_RUST_MONSTER] && !is_rustprone(otmp))
             || (otmp->otyp == AMULET_OF_STRANGULATION)
             || (otmp->otyp == RIN_SLOW_DIGESTION)
+            || (otmp->oprops & ITEM_STENCH)
             || (is_soko_prize_flag(otmp)))
             continue;
         if (is_metallic(otmp) && !obj_resists(otmp, 5, 95)
@@ -1912,6 +1913,7 @@ struct monst *mtmp;
                    /* redundant due to non-organic composition but
                       included for emphasis */
                    || (otmp->otyp == AMULET_OF_STRANGULATION
+                       || (otmp->oprops & ITEM_STENCH)
                        || otmp->otyp == RIN_SLOW_DIGESTION)
                    /* cockatrice corpses handled above; this
                       touch_petrifies() check catches eggs */

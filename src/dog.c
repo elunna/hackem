@@ -1091,7 +1091,8 @@ register struct obj *obj;
         }
     default:
         if (obj->otyp == AMULET_OF_STRANGULATION
-            || obj->otyp == RIN_SLOW_DIGESTION)
+            || obj->otyp == RIN_SLOW_DIGESTION
+            || obj->oprops & ITEM_STENCH)
             return TABU;
         if (mon_hates_material(mon, obj->material))
             return TABU;
