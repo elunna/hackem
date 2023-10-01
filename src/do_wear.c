@@ -1136,7 +1136,7 @@ Shield_on(VOID_ARGS)
     }
     toggle_armor_light(uarms, TRUE);
 
-    if (uarms->oartifact == ART_PRIDWEN) {
+    if (uarms && uarms->oartifact == ART_PRIDWEN) {
         EFearless |= W_ARMS;
         if (Afraid) {
             make_afraid(0L, TRUE);
@@ -1179,7 +1179,7 @@ Shield_off(VOID_ARGS)
     if (was_arti_light)
         toggle_armor_light(otmp, FALSE);
 
-    if (uarms->oartifact == ART_PRIDWEN) {
+    if (uarms && uarms->oartifact == ART_PRIDWEN) {
         EFearless &= ~W_ARMS;
     }
     return 0;
