@@ -478,6 +478,10 @@
 #define EStable u.uprops[STABLE].extrinsic
 #define Stable (EStable || HStable)
 
+#define HMagic_sense u.uprops[MAGIC_SENSE].intrinsic
+#define EMagic_sense u.uprops[MAGIC_SENSE].extrinsic
+#define Magic_sense (HMagic_sense || EMagic_sense)
+
 #define Free_action u.uprops[FREE_ACTION].extrinsic /* [Tom] */
 
 #define Fixed_abil u.uprops[FIXED_ABIL].extrinsic /* KMH */

@@ -3409,7 +3409,9 @@ int final;
         you_are("telepathic", from_what(TELEPAT));
     if (Warning)
         you_are("warned", from_what(WARNING));
-
+    if (Magic_sense)
+        enl_msg(You_, "sense", "sensed", " magic", from_what(MAGIC_SENSE));
+    
     /* Need to walk all potential in-use artifacts that glow on warning since
      * it is possible to have multiple artifacts that warn of the same monster type
      * as well as artifacts that warn of multiple monster types. */

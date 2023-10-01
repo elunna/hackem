@@ -605,7 +605,7 @@ struct obj {
 #define ITEM_SLOW      0x00010000L /* extrinsic slowness */
 #define ITEM_SUSTAIN   0x00020000L /* extrinsic sustain ability */
 #define ITEM_STEALTH   0x00040000L /* extrinsic stealth */
-#define ITEM_SEEINV    0x00080000L /* extrinsic see invisible */
+#define ITEM_INSIGHT   0x00080000L /* extrinsic see invisible */
 #define ITEM_SLEEP     0x00100000L /* extrinsic sleep resistance */
 #define ITEM_STONE     0x00200000L /* extrinsic stoning resistance */
 #define ITEM_SICK      0x00400000L /* extrinsic sickness resistance */
@@ -628,7 +628,7 @@ struct obj {
 /* Positive properties */
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING \
                          | ITEM_VIGIL | ITEM_EXCEL | ITEM_SUSTAIN \
-                         | ITEM_STEALTH | ITEM_SEEINV | ITEM_STABLE \
+                         | ITEM_STEALTH | ITEM_INSIGHT | ITEM_STABLE \
                          | ITEM_WWALK | ITEM_SWIM | ITEM_BRAVE)
 /* Negative properties */
 #define ITEM_BAD_PROPS (ITEM_FUMBLING | ITEM_HUNGER | ITEM_STENCH \

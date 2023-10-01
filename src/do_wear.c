@@ -154,8 +154,8 @@ boolean on;
     if (discovered) {
         if (obj->otyp == RIN_SEE_INVISIBLE)
             learnring(obj, TRUE);
-        else if (obj->oprops & ITEM_SEEINV)
-            obj->oprops_known |= ITEM_SEEINV;
+        else if (obj->oprops & ITEM_INSIGHT)
+            obj->oprops_known |= ITEM_INSIGHT;
         else
             makeknown(obj->otyp);
     }
@@ -252,8 +252,9 @@ long mask;
     if (props & ITEM_SEARCHING)
         ESearching |= mask;
 
-    if (props & ITEM_SEEINV) {
+    if (props & ITEM_INSIGHT) {
         ESee_invisible |= mask;
+        EMagic_sense |= mask;
         toggle_seeinv(otmp, (ESee_invisible & ~mask), TRUE);
     }
     if (props & ITEM_EXCEL) {
@@ -350,8 +351,9 @@ long mask;
     }
     if (props & ITEM_SEARCHING)
         ESearching &= ~mask;
-    if (props & ITEM_SEEINV) {
+    if (props & ITEM_INSIGHT) {
         ESee_invisible &= ~mask;
+        EMagic_sense &= ~mask;
         toggle_seeinv(otmp, (ESee_invisible & ~mask), FALSE);
     }
     if (props & ITEM_EXCEL) {

@@ -618,8 +618,8 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
-    if (props & ITEM_SEEINV) {
-        if ((props_known & ITEM_SEEINV) || dump_prop_flag) {
+    if (props & ITEM_INSIGHT) {
+        if ((props_known & ITEM_INSIGHT) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " insight"),
                 Strcpy(of, " and");
         }
@@ -779,7 +779,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         obj->dknown = 1;
     if (is_soko_prize_flag(obj))
         obj->dknown = 1;
-    if (Role_if(PM_WIZARD)
+    if (Magic_sense
         && ((obj->oprops & ITEM_PROP_MASK)
             || (objects[obj->otyp].oc_magic && !nn)
             || obj->oartifact))
@@ -4326,7 +4326,7 @@ struct obj *no_wish;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "insight", l = strlen("insight"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_SEEINV;
+                        objprops |= ITEM_INSIGHT;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "excellence", l = strlen("excellence"))) {
                     if (!objpropcount || wizard)

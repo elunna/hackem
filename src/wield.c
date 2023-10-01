@@ -133,8 +133,9 @@ register struct obj *obj;
             see_monsters();
             (void) changes_stat(olduwep, ITEM_VIGIL);
         }
-        if (olduwep->oprops & ITEM_SEEINV) {
+        if (olduwep->oprops & ITEM_INSIGHT) {
             ESee_invisible &= ~W_WEP;
+            EMagic_sense &= ~W_WEP;
             toggle_seeinv(olduwep, (ESee_invisible & ~W_WEP), FALSE);
         }
         if (olduwep->oprops & ITEM_FUMBLING) {
@@ -212,8 +213,9 @@ register struct obj *obj;
             see_monsters();
             (void) changes_stat(uwep, ITEM_VIGIL);
         }
-        if (uwep->oprops & ITEM_SEEINV) {
+        if (uwep->oprops & ITEM_INSIGHT) {
             ESee_invisible |= W_WEP;
+            EMagic_sense |= W_WEP;
             toggle_seeinv(uwep, (ESee_invisible & ~W_WEP), TRUE);
         }
         if (uwep->oprops & ITEM_FUMBLING) {
@@ -511,12 +513,14 @@ register struct obj *obj;
 
     /* Insight property */
     if (uswapwep == obj
-        && (u.twoweap && (uswapwep->oprops & ITEM_SEEINV))) {
+        && (u.twoweap && (uswapwep->oprops & ITEM_INSIGHT))) {
         ESee_invisible |= W_SWAPWEP;
+        EMagic_sense |= W_SWAPWEP;
         toggle_seeinv(uswapwep, (ESee_invisible & ~W_SWAPWEP), TRUE);
     }
-    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_SEEINV)) {
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_INSIGHT)) {
         ESee_invisible &= ~W_SWAPWEP;
+        EMagic_sense &= ~W_SWAPWEP;
         toggle_seeinv(olduswapwep, (ESee_invisible & ~W_SWAPWEP), FALSE);
     }
 

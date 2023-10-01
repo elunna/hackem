@@ -138,7 +138,8 @@ static const struct innate {
                  { 7, &(HFast), "quick", "slow" },
                  { 0, 0, 0, 0 } },
 
-  wiz_abil[] = { { 15, &(HWarning), "sensitive", "" },
+  wiz_abil[] = { { 1, &(HMagic_sense), "", "" },
+                 { 15, &(HWarning), "sensitive", "" },
                  { 17, &(HTeleport_control), "controlled", "uncontrolled" },
                  { 0, 0, 0, 0 } },
 
