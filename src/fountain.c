@@ -1021,6 +1021,9 @@ register struct obj *obj;
         return;
     }
 
+    /* If it is an artifact, it might have a special effect. */
+    artifact_wet(obj);
+
     /* Don't grant Excalibur when there's more than one object.  */
     /* (quantity could be > 1 if merged daggers got polymorphed) */
     if (obj->otyp == LONG_SWORD && obj->quan == 1L && u.ulevel >= 5 && !rn2(6)
@@ -1085,9 +1088,6 @@ dip_end:
             return; /* no further effect */
         }
     }
-
-    /* If it is an artifact, it might have a special effect. */
-    artifact_wet(obj);
 
     switch (rnd(30)) {
     case 16: /* Curse the item */
@@ -1192,6 +1192,9 @@ register struct obj *obj;
         floating_above("toilet");
         return;
     }
+
+    /* If it is an artifact, it might have a special effect. */
+    artifact_wet(obj);
     
     er = water_damage(obj, NULL, TRUE, u.ux, u.uy);
 

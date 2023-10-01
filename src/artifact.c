@@ -4050,36 +4050,66 @@ struct obj *obj;
 
 
 /*
- * Artifact is dipped into water
- * -1 not handled here (not used up here)
- *  0 no effect but used up
- *  else return
- *  AD_FIRE, etc.
- *  Note caller should handle what happens to the medium in these cases.
- *      This only prints messages about the actual artifact.
+ * Weapon is dipped into water. Return true if there was a reaction from
+ * interacting with the item's attack type (artifact adtype or property type)
  */
 
 boolean
 artifact_wet(obj)
 struct obj *obj;
 {
-    if (!obj->oartifact)
+    int ad_type, oprops;
+
+    /* Only weapons work this way ("attacking" the water) */
+    if (!((obj->oclass == WEAPON_CLASS) || is_weptool(obj)))
         return FALSE;
-    switch (artilist[(int) (obj)->oartifact].attk.adtyp) {
-        case AD_FIRE:
-            pline("A cloud of steam rises.");
-            return TRUE;
-        case AD_COLD:
-            pline("Icicles form and fall from the freezing %s.", xname(obj));
-            return TRUE;
-        case AD_ELEC:
-            pline_The("humid air crackles with electricity from %s.", xname(obj));
-            return TRUE;
-        case AD_DRLI:
-            pline("%s absorbs the water!", The(xname(obj)));
-            return TRUE;
-        default:
-            break;
+
+    if (obj->oartifact)
+        ad_type = artilist[(int) (obj)->oartifact].attk.adtyp;
+
+    oprops = obj->oprops;
+
+    if (ad_type == AD_FIRE || oprops & ITEM_FIRE) {
+        pline("A cloud of steam rises.");
+        if (oprops)
+            obj->oprops_known |= ITEM_FIRE;
+        return TRUE;
+    }
+    if (ad_type == AD_COLD || oprops & ITEM_FROST) {
+        pline("Icicles form and fall from the freezing %s.", xname(obj));
+        if (oprops)
+            obj->oprops_known |= ITEM_FROST;
+        return TRUE;
+    }
+    if (ad_type == AD_ELEC || oprops & ITEM_SHOCK) {
+        pline_The("humid air crackles with electricity from %s.", xname(obj));
+        if (oprops)
+            obj->oprops_known |= ITEM_SHOCK;
+        return TRUE;
+    }
+    if (ad_type == AD_DRLI || oprops & ITEM_DRLI) {
+        pline("%s thins the %s!", The(xname(obj)), hliquid("water"));
+        if (oprops)
+            obj->oprops_known |= ITEM_DRLI;
+        return TRUE;
+    }
+    if (ad_type == AD_LOUD || oprops & ITEM_SCREAM) {
+        pline("Capillary waves appear in the %s!", hliquid("water"));
+        if (oprops)
+            obj->oprops_known |= ITEM_SCREAM;
+        return TRUE;
+    }
+    if (ad_type == AD_ACID || oprops & ITEM_ACID) {
+        pline("The %s bubbles from contact with %s!", hliquid("water"), The(xname(obj)));
+        if (oprops)
+            obj->oprops_known |= ITEM_ACID;
+        return TRUE;
+    }
+    if (ad_type == AD_DRLI || oprops & ITEM_VENOM) {
+        pline("An inky darkness spreads in the %s!", hliquid("water"));
+        if (oprops)
+            obj->oprops_known |= ITEM_VENOM;
+        return TRUE;
     }
     return FALSE;
 }
