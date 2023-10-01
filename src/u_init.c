@@ -703,7 +703,7 @@ static const struct def_skill Skill_Mon[] = {
 static const struct def_skill Skill_N[] = {
     { P_DAGGER, P_EXPERT },             /* Sac gift and quest artifact */
     { P_AXE, P_BASIC },                 /* For choppin up bodies */
-    { P_PICK_AXE, P_BASIC },            /* For digging up graves */
+    { P_PICK_AXE, P_EXPERT },            /* For digging up graves */
     { P_POLEARMS, P_BASIC },            /* For scythes */
     { P_MACE, P_BASIC },                /* Executioner's mace, etc */
     { P_CROSSBOW, P_BASIC },
