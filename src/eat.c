@@ -2361,7 +2361,7 @@ struct obj *otmp;
 {
     int typ = otmp->otyp;
     long oldprop;
-
+       
     /* Note: rings are not so common that this is unbalancing. */
     /* (How often do you even _find_ 3 rings of polymorph in a game?) */
     oldprop = u.uprops[objects[typ].oc_oprop].intrinsic;
@@ -3158,6 +3158,15 @@ doeat()
             && !objects[otmp->otyp].oc_uname)
             docall(otmp);
         return 1;
+    }
+    if (otmp->oprops & ITEM_STENCH) {
+        pline("This %s %s odious, you can't eat it!",
+              xname(otmp), olfaction(youmonst.data) ? "smells" : "tastes");
+        if (!(otmp->oprops_known & ITEM_STENCH)) {
+            otmp->oprops_known |= ITEM_STENCH;
+        }
+        (void) rottenfood(otmp);
+        return;
     }
     if (otmp->oclass != FOOD_CLASS) {
         int material;
