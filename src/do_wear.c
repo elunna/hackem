@@ -241,7 +241,6 @@ long mask;
             otmp->oprops_known |= ITEM_BRAVE;
         }
     }
-
     if (props & ITEM_OILSKIN) {
         pline("%s very tightly.", Tobjnam(otmp, "fit"));
         otmp->oprops_known |= ITEM_OILSKIN;
@@ -252,23 +251,19 @@ long mask;
     }
     if (props & ITEM_SEARCHING)
         ESearching |= mask;
-    if (props & ITEM_WARNING) {
-        EWarning |= mask;
-        see_monsters();
-    }
+
     if (props & ITEM_SEEINV) {
         ESee_invisible |= mask;
         toggle_seeinv(otmp, (ESee_invisible & ~mask), TRUE);
     }
     if (props & ITEM_EXCEL) {
-        int which = A_CHA, old_attrib = ACURR(which);
-        /* borrowing this from Ring_on() as I may want
-           to add other attributes in the future */
-        ABON(which) += otmp->spe;
-        if (old_attrib != ACURR(which))
-            otmp->oprops_known |= ITEM_EXCEL;
         set_moreluck();
-        context.botl = 1;
+        (void) changes_stat(otmp, ITEM_EXCEL);
+    }
+    if (props & ITEM_VIGIL) {
+        EWarning |= mask;
+        see_monsters();
+        (void) changes_stat(otmp, ITEM_VIGIL);
     }
     if (props & ITEM_FUMBLING) {
         if (!EFumbling && !(HFumbling & ~TIMEOUT))
@@ -355,25 +350,18 @@ long mask;
     }
     if (props & ITEM_SEARCHING)
         ESearching &= ~mask;
-    if (props & ITEM_WARNING) {
-        EWarning &= ~mask;
-        see_monsters();
-    }
     if (props & ITEM_SEEINV) {
         ESee_invisible &= ~mask;
         toggle_seeinv(otmp, (ESee_invisible & ~mask), FALSE);
     }
     if (props & ITEM_EXCEL) {
-        int which = A_CHA, old_attrib = ACURR(which);
-        /* borrowing this from Ring_off() as I may want
-           to add other attributes in the future */
-        ABON(which) -= otmp->spe;
-        if (old_attrib != ACURR(which))
-            otmp->oprops_known |= ITEM_EXCEL;
-        otmp->oprops &= ~ITEM_EXCEL;
         set_moreluck();
-        otmp->oprops |= ITEM_EXCEL;
-        context.botl = 1;
+        (void) changes_stat(otmp, ITEM_EXCEL);
+    }
+    if (props & ITEM_VIGIL) {
+        EWarning &= ~mask;
+        see_monsters();
+        (void) changes_stat(otmp, ITEM_VIGIL);
     }
     if (props & ITEM_FUMBLING) {
         EFumbling &= ~mask;
@@ -1855,9 +1843,6 @@ register struct obj *obj;
     case RIN_GAIN_INTELLIGENCE:
         which = A_INT;
         goto adjust_attrib;
-    case RIN_GAIN_WISDOM:
-        which = A_WIS;
-        goto adjust_attrib;
     case RIN_GAIN_DEXTERITY:
         which = A_DEX;
         goto adjust_attrib;
@@ -1979,9 +1964,6 @@ boolean gone;
         goto adjust_attrib;
     case RIN_GAIN_INTELLIGENCE:
         which = A_INT;
-        goto adjust_attrib;
-    case RIN_GAIN_WISDOM:
-        which = A_WIS;
         goto adjust_attrib;
     case RIN_GAIN_DEXTERITY:
         which = A_DEX;
@@ -4204,5 +4186,6 @@ toggle_armor_light(struct obj *armor, boolean on)
         }
     }
 }
+
 
 /*do_wear.c*/

@@ -607,6 +607,7 @@ register struct monst *mtmp;
     struct attack *mattk, alt_attk;
     int i, j, k = 0, tmp, ftmp, sum[NATTK];
     struct permonst *mdat = mtmp->data;
+    struct obj *o;
     /*
      * ranged: Is it near you?  Affects your actions.
      * ranged2: Does it think it's near you?  Affects its actions.
@@ -864,17 +865,21 @@ register struct monst *mtmp;
     if (!u.uswallow && calculate_flankers(mtmp, &youmonst)) {
         /* Scale with monster difficulty */
         ftmp = (int) ((mtmp->m_lev - 4) / 2) + 4;
-        tmp += ftmp;
-        You("are being flanked! [-%dAC]", ftmp);
+        
+        if ((o = using_oprop(ITEM_VIGIL)) && !rn2(4)) {
+            You("evade their flanking attempt!");
+            o->oprops_known |= ITEM_VIGIL;
+        } else {
+            tmp += ftmp;
+            You("are being flanked! [-%dAC]", ftmp);
+        }
     }
 
     /* find rings of increase accuracy */
-    {
-        struct obj *o;
 	for (o = mtmp->minvent; o; o = o->nobj)
 	     if (o->owornmask && o->otyp == RIN_INCREASE_ACCURACY)
 	         tmp += o->spe;
-    }
+    
 
     /* make eels and leeches visible the moment they hit/miss us */
     if ((mdat->mlet == S_EEL || mdat == &mons[PM_GIANT_LEECH])

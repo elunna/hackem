@@ -638,7 +638,6 @@ register struct obj *obj;
                   (obj->spe < 0) ? "less" : "great");
         break;
     case RIN_GAIN_INTELLIGENCE:
-    case RIN_GAIN_WISDOM:
         pline_The("water flow seems %ser now.",
                 (obj->spe<0) ? "dull" : "quick");
         break;

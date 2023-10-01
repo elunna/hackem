@@ -224,6 +224,7 @@ STATIC_DCL const struct innate *FDECL(role_abil, (int));
 STATIC_DCL const struct innate *NDECL(get_rabil);
 STATIC_DCL const struct innate *FDECL(check_innate_abil, (long *, long));
 STATIC_DCL int FDECL(innately, (long *));
+STATIC_DCL schar FDECL(calc_prop_bonus, (int, long));
 
 /* adjust an attribute; return TRUE if change is made, FALSE otherwise */
 boolean
@@ -1355,7 +1356,7 @@ acurr(x)
 int x;
 {
     register int tmp = (u.abon.a[x] + u.atemp.a[x] + u.acurr.a[x]);
-
+    schar res;
     /* robe of weakness and gauntlets of power will cancel */
 
     if (x == A_STR) {
@@ -1388,26 +1389,25 @@ int x;
         if (uarmh && uarmh->otyp == FEDORA) 
             tmp += 1;        
         if (uarmh && uarmh->otyp == HELM_OF_MADNESS) 
-            tmp += 3; 
-        if ((uwep && (uwep->oprops & ITEM_EXCEL))
-            || (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {
-            if (tmp > 6 && (uwep->cursed || (u.twoweap && uswapwep->cursed)))
-                return (schar) 6;
-            else if (tmp < 18 && (!uwep->blessed || (u.twoweap && !uswapwep->blessed)))
-                return (schar) 18;
-            else if (uwep->blessed || (u.twoweap && uswapwep->blessed))
-                return (schar) 25;
-        }
+            tmp += 3;
+        if ((res = calc_prop_bonus(tmp, ITEM_EXCEL)))
+            return res;
     } else if (x == A_CON) {
         if (wielding_artifact(ART_OGRESMASHER))
             return (schar) 25;
-    } else if (x == A_INT || x == A_WIS) {
+    } else if (x == A_INT) {
         /* yes, this may raise int/wis if player is sufficiently
          * stupid.  there are lower levels of cognition than "dunce".
          */
         if (uarmh && uarmh->otyp == DUNCE_CAP)
             return (schar) 6;
+    } else if (x == A_WIS) {
+        if (uarmh && uarmh->otyp == DUNCE_CAP)
+            return (schar) 6;
+        if ((res = calc_prop_bonus(tmp, ITEM_VIGIL)))
+            return res;
     }
+    
 #ifdef WIN32_BUG
     return (x = ((tmp >= 25) ? 25 : (tmp <= 3) ? 3 : tmp));
 #else
@@ -1545,5 +1545,45 @@ uhpmax()
     return (Upolyd ? u.mhmax : u.uhpmax);
 }
 
+/** Returns the bonus available for wearing/wielding 
+  * items with the specified property
+  **/
+STATIC_OVL schar
+calc_prop_bonus(bonus, prop)
+int bonus;
+long prop;
+{
+    struct obj *otmp = using_oprop(prop);
+    /* TODO: Handle having 2 or more items with the same prop and different BUC... */
+    if (otmp && (otmp->oprops & prop)) {
+        if (bonus > 6 && otmp->cursed)
+            return (schar) 6;
+        else if (bonus < 18 && !otmp->blessed)
+            return (schar) 18;
+        else if (uwep->blessed)
+            return (schar) 25;
+    }
+    return (schar) 0;
+}
 
+
+/** Checks if an property will affect any stats.
+  * If it does, we'll identify item property and update the display.
+  **/
+boolean
+changes_stat(otmp, prop)
+long prop;
+register struct obj *otmp;
+{
+    for (int c = 0; c < A_MAX; c++) {
+        int old_attrib = ACURR(c);
+        if (calc_prop_bonus(old_attrib, prop) != old_attrib) {
+            otmp->oprops_known |= prop;
+            context.botl = 1;
+            update_inventory();
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
 /*attrib.c*/

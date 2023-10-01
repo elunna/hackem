@@ -961,7 +961,7 @@ long wp_mask;
     } else if (wp_mask == W_WEP || wp_mask == W_SWAPWEP) {
         if (otmp->oprops & ITEM_SEARCHING)
             spfx |= SPFX_SEARCH;
-        if (otmp->oprops & ITEM_WARNING)
+        if (otmp->oprops & ITEM_VIGIL)
             spfx |= SPFX_WARN;
         if (otmp->oprops & ITEM_ESP)
             spfx |= SPFX_ESP;

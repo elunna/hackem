@@ -618,12 +618,6 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
-    if (props & ITEM_WARNING) {
-        if ((props_known & ITEM_WARNING) || dump_prop_flag) {
-            Strcat(buf, of), Strcat(buf, " warning"),
-            Strcpy(of, " and");
-        }
-    }
     if (props & ITEM_SEEINV) {
         if ((props_known & ITEM_SEEINV) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " insight"),
@@ -634,6 +628,12 @@ boolean has_of;
         if ((props_known & ITEM_EXCEL) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " excellence"),
                 Strcpy(of, " and");
+        }
+    }
+    if (props & ITEM_VIGIL) {
+        if ((props_known & ITEM_VIGIL) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " vigilance"),
+                    Strcpy(of, " and");
         }
     }
     if (props & ITEM_FUMBLING) {
@@ -4324,10 +4324,6 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SEARCHING;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "warning", l = strlen("warning"))) {
-                    if (!objpropcount || wizard)
-                        objprops |= ITEM_WARNING;
-                    objpropcount++;
                 } else if (!strncmpi((p + of), "insight", l = strlen("insight"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SEEINV;
@@ -4335,6 +4331,10 @@ struct obj *no_wish;
                 } else if (!strncmpi((p + of), "excellence", l = strlen("excellence"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_EXCEL;
+                    objpropcount++;
+                } else if (!strncmpi((p + of), "vigilance", l = strlen("vigilance"))) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_VIGIL;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "fumbling", l = strlen("fumbling"))
                            && strncmpi(bp, "gauntlets", l = strlen("gauntlets"))) {

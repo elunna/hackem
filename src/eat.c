@@ -2437,11 +2437,6 @@ struct obj *otmp;
             if (adjattrib(A_INT, otmp->spe, -1))
                 makeknown(typ);
             break;
-	    case RIN_GAIN_WISDOM:
-            accessory_has_effect(otmp);
-            if (adjattrib(A_WIS, otmp->spe, -1))
-                makeknown(typ);
-            break;
 	    case RIN_GAIN_DEXTERITY:
             accessory_has_effect(otmp);
             if (adjattrib(A_DEX, otmp->spe, -1))

@@ -155,6 +155,7 @@ E void FDECL(adjalign, (int));
 E int FDECL(is_innate, (int));
 E char *FDECL(from_what, (int));
 E void FDECL(uchangealign, (int, int));
+E boolean FDECL(changes_stat, (struct obj *, long));
 
 /* ### ball.c ### */
 

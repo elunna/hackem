@@ -1300,9 +1300,9 @@ char *usr_text;
         && (oc.oc_class == WEAPON_CLASS || oc.oc_class == ARMOR_CLASS)) {
         if (obj->oprops & ITEM_ESP) OBJPUTSTR("Grants telepathy");
         if (obj->oprops & ITEM_SEARCHING) OBJPUTSTR("Grants searching");
-        if (obj->oprops & ITEM_WARNING) OBJPUTSTR("Grants warning");
         if (obj->oprops & ITEM_SEEINV) OBJPUTSTR("Grants see invisible");
-        if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/charisma adjustment");
+        if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/CHA adjustment");
+        if (obj->oprops & ITEM_VIGIL) OBJPUTSTR("Grants warning/DEX adjustment");
         if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
         if (obj->oprops & ITEM_STENCH) OBJPUTSTR("Grants aggravate monster");
         if (obj->oprops & ITEM_TELE) OBJPUTSTR("Grants teleportation");

@@ -125,10 +125,13 @@ register struct obj *obj;
      * switching between two weapons with properties. */
     if (olduwep) {
         if (olduwep->oprops & ITEM_EXCEL) {
-            olduwep->oprops_known |= ITEM_EXCEL;
             set_moreluck();
-            context.botl = 1;
-            update_inventory();
+            (void) changes_stat(olduwep, ITEM_EXCEL);
+        }
+        if (olduwep->oprops & ITEM_VIGIL) {
+            EWarning  &= ~W_WEP;
+            see_monsters();
+            (void) changes_stat(olduwep, ITEM_VIGIL);
         }
         if (olduwep->oprops & ITEM_SEEINV) {
             ESee_invisible &= ~W_WEP;
@@ -201,10 +204,13 @@ register struct obj *obj;
 
     if (uwep && uwep == obj) {
         if (uwep->oprops & ITEM_EXCEL) {
-            uwep->oprops_known |= ITEM_EXCEL;
             set_moreluck();
-            context.botl = 1;
-            update_inventory();
+            (void) changes_stat(uwep, ITEM_EXCEL);
+        }
+        if (uwep->oprops & ITEM_VIGIL) {
+            EWarning |= W_WEP;
+            see_monsters();
+            (void) changes_stat(uwep, ITEM_VIGIL);
         }
         if (uwep->oprops & ITEM_SEEINV) {
             ESee_invisible |= W_WEP;
@@ -482,16 +488,25 @@ register struct obj *obj;
     /* Excellence property */
     if (uswapwep == obj
         && (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {
-        uswapwep->oprops_known |= ITEM_EXCEL;
         set_moreluck();
-        context.botl = 1;
-        update_inventory();
+        (void) changes_stat(uswapwep, ITEM_EXCEL);
     }
     if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_EXCEL)) {
-        olduswapwep->oprops_known |= ITEM_EXCEL;
         set_moreluck();
-        context.botl = 1;
-        update_inventory();
+        (void) changes_stat(olduswapwep, ITEM_EXCEL);
+    }
+
+    /* Vigilance property */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_VIGIL))) {
+        EWarning |= W_WEP;
+        see_monsters();
+        (void) changes_stat(uswapwep, ITEM_VIGIL);
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_VIGIL)) {
+        EWarning  &= ~W_WEP;
+        see_monsters();
+        (void) changes_stat(olduswapwep, ITEM_VIGIL);
     }
 
     /* Insight property */

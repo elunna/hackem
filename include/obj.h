@@ -596,7 +596,7 @@ struct obj {
 #define ITEM_OILSKIN   0x00000080L /* permanently greased */
 #define ITEM_ESP       0x00000100L /* extrinsic telepathy */
 #define ITEM_SEARCHING 0x00000200L /* extrinsic searching */
-#define ITEM_WARNING   0x00000400L /* extrinsic warning */
+#define ITEM_VIGIL     0x00000400L /* extrinsic warning */
 #define ITEM_EXCEL     0x00000800L /* confers luck, charisma boost */
 #define ITEM_FUMBLING  0x00001000L /* extrinsic fumbling */
 #define ITEM_HUNGER    0x00002000L /* extrinsic hunger */
@@ -627,7 +627,7 @@ struct obj {
                             | ITEM_STUN)
 /* Positive properties */
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING \
-                         | ITEM_WARNING | ITEM_EXCEL | ITEM_SUSTAIN \
+                         | ITEM_VIGIL | ITEM_EXCEL | ITEM_SUSTAIN \
                          | ITEM_STEALTH | ITEM_SEEINV | ITEM_STABLE \
                          | ITEM_WWALK | ITEM_SWIM | ITEM_BRAVE)
 /* Negative properties */
