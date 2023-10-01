@@ -5709,12 +5709,10 @@ long objprops;
         objprops &= ~ITEM_WWALK;
     if (otmp->otyp == RESONANT_SHIELD)
         objprops &= ~ITEM_SCREAM;
-#if 0 /* For future */
     if (otmp->otyp == ELVEN_CLOAK)
         objprops &= ~ITEM_STEALTH;
     if (otmp->otyp == ELVEN_BOOTS)
         objprops &= ~ITEM_STEALTH;
-#endif
     if (otmp->otyp == ALCHEMY_SMOCK)
         objprops &= ~(ITEM_ACID | ITEM_VENOM);
     return objprops;

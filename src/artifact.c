@@ -509,17 +509,12 @@ int prop;
         return TRUE;
     if (otmp->otyp == RESONANT_SHIELD && (prop & ITEM_SCREAM))
         return TRUE;
-
     if (otmp->otyp == ALCHEMY_SMOCK && (prop & (ITEM_ACID | ITEM_VENOM)))
         return TRUE;
-
-#if 0 /* For future */
     if (otmp->otyp == ELVEN_CLOAK && (prop & ITEM_STEALTH))
         return TRUE;
     if (otmp->otyp == ELVEN_BOOTS && (prop & ITEM_STEALTH))
         return TRUE;
-#endif
-    
     return FALSE;
 }
 
