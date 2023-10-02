@@ -1423,10 +1423,21 @@ tech_timeout()
               pline("Your %s technique is ready to be used!", techname(i));
               stop_occupation();
         }
-        if (techtout(i) > 0)
-              techtout(i)--;
 
         if (techtout(i) > 0 && using_oprop(ITEM_PROWESS))
+              techtout(i)--;
+
+        /* Maintaining technical skill requires maintaining a healthy body and mind */
+        if ((Afraid || Confusion || Fumbling || Glib
+            || Hallucination || LarvaCarrier || Sick || Sleepy
+            || Slimed || Slow || Stoned || Strangled
+            || Stunned || Vomiting || Withering || Wounded_legs
+            || (u.uhunger > (Race_if(PM_HOBBIT) ? 3000 : 1000))
+            || (u.uhunger < 50))
+            && rn2(10))
+              return;
+
+        if (techtout(i) > 0)
               techtout(i)--;
     }
 }
