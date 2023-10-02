@@ -1425,6 +1425,9 @@ tech_timeout()
         }
         if (techtout(i) > 0)
               techtout(i)--;
+
+        if (techtout(i) > 0 && using_oprop(ITEM_PROWESS))
+              techtout(i)--;
     }
 }
 

@@ -133,6 +133,9 @@ register struct obj *obj;
             see_monsters();
             (void) changes_stat(olduwep, ITEM_VIGIL);
         }
+        if (olduwep->oprops & ITEM_PROWESS) {
+            (void) changes_stat(olduwep, ITEM_PROWESS);
+        }
         if (olduwep->oprops & ITEM_INSIGHT) {
             ESee_invisible &= ~W_WEP;
             EMagic_sense &= ~W_WEP;
@@ -215,6 +218,9 @@ register struct obj *obj;
             EWarning |= W_WEP;
             see_monsters();
             (void) changes_stat(uwep, ITEM_VIGIL);
+        }
+        if (uwep->oprops & ITEM_PROWESS) {
+            (void) changes_stat(uwep, ITEM_PROWESS);
         }
         if (uwep->oprops & ITEM_INSIGHT) {
             ESee_invisible |= W_WEP;
@@ -515,6 +521,15 @@ register struct obj *obj;
         EWarning  &= ~W_WEP;
         see_monsters();
         (void) changes_stat(olduswapwep, ITEM_VIGIL);
+    }
+
+    /* Prowess property */
+    if (uswapwep == obj
+        && (u.twoweap && (uswapwep->oprops & ITEM_PROWESS))) {
+        (void) changes_stat(uswapwep, ITEM_PROWESS);
+    }
+    if (!u.twoweap && olduswapwep && (olduswapwep->oprops & ITEM_PROWESS)) {
+        (void) changes_stat(olduswapwep, ITEM_PROWESS);
     }
 
     /* Insight property */

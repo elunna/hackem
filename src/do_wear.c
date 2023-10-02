@@ -268,6 +268,9 @@ long mask;
         see_monsters();
         (void) changes_stat(otmp, ITEM_VIGIL);
     }
+    if (props & ITEM_PROWESS) {
+        (void) changes_stat(otmp, ITEM_PROWESS);
+    }
     if (props & ITEM_FUMBLING) {
         if (!EFumbling && !(HFumbling & ~TIMEOUT))
             incr_itimeout(&HFumbling, rnd(20));
@@ -368,6 +371,9 @@ long mask;
         EWarning &= ~mask;
         see_monsters();
         (void) changes_stat(otmp, ITEM_VIGIL);
+    }
+    if (props & ITEM_PROWESS) {
+        (void) changes_stat(otmp, ITEM_PROWESS);
     }
     if (props & ITEM_FUMBLING) {
         EFumbling &= ~mask;

@@ -611,6 +611,12 @@ boolean has_of;
                     Strcpy(of, " and");
         }
     }
+    if (props & ITEM_PROWESS) {
+        if ((props_known & ITEM_PROWESS) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " prowess"),
+                Strcpy(of, " and");
+        }
+    }
     if (props & ITEM_ESP) {
         if ((props_known & ITEM_ESP) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " telepathy"),
@@ -4323,6 +4329,10 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_TOUGH;
                     objpropcount++;
+                } else if (!strncmpi((p + of), "prowess", l = strlen("prowess"))) {
+                    if (!objpropcount || wizard)
+                        objprops |= ITEM_PROWESS;
+                    objpropcount++;
                 } else if ((!strncmpi((p + of), "telepathy", l = strlen("telepathy"))
                             && strncmpi(bp, "helm", l = strlen("helm")))
                            || !strncmpi((p + 4), "ESP", l = strlen("ESP"))) {
@@ -5392,7 +5402,9 @@ struct obj *no_wish;
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_RAGE);
         else if (objprops & ITEM_TOUGH)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_TOUGH);
-        
+        else if (objprops & ITEM_PROWESS)
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_PROWESS);
+
         if (objects[otmp->otyp].oc_unique || otmp->oartifact
             || Is_dragon_armor(otmp))
             objprops &= ~ITEM_PROP_MASK;

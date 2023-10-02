@@ -2141,6 +2141,10 @@ int degree;
 
     if (skill != P_NONE && !P_RESTRICTED(skill)) {
         advance_before = can_advance(skill, FALSE);
+
+        if (using_oprop(ITEM_PROWESS))
+            degree *= 2;
+
         P_ADVANCE(skill) += degree;
         if (!advance_before && can_advance(skill, FALSE))
             give_may_advance_msg(skill);

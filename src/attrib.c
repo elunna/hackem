@@ -1387,11 +1387,14 @@ int x;
             && (youmonst.data->mlet == S_NYMPH || u.umonnum == PM_SUCCUBUS
                 || u.umonnum == PM_INCUBUS))
             return (schar) 18;
-        if (uarmh && uarmh->otyp == FEDORA) 
-            tmp += 1;        
-        if (uarmh && uarmh->otyp == HELM_OF_MADNESS) 
+        if (uarmh && uarmh->otyp == FEDORA)
+            tmp += 1;
+        if (uarmh && uarmh->otyp == HELM_OF_MADNESS)
             tmp += 3;
         if ((res = calc_prop_bonus(tmp, ITEM_EXCEL)))
+            return res;
+    } else if (x == A_DEX) {
+        if ((res = calc_prop_bonus(tmp, ITEM_PROWESS)))
             return res;
     } else if (x == A_CON) {
         if (wielding_artifact(ART_OGRESMASHER))

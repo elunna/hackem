@@ -615,11 +615,12 @@ struct obj {
 #define ITEM_SWIM      0x04000000L /* extrinsic swimming */
 #define ITEM_RAGE      0x08000000L /* extrinsic rage and fearlessness */
 #define ITEM_TOUGH     0x10000000L /* extrinsic withering res */
+#define ITEM_PROWESS   0x20000000L /* Speeds up tech cooldowns, skill bonuses */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 
-#define ITEM_PROP_MASK 0x1FFFFFFFL /* all current properties */
-#define MAX_ITEM_PROPS 29
+#define ITEM_PROP_MASK 0x3FFFFFFFL /* all current properties */
+#define MAX_ITEM_PROPS 30
 
 /* Properties that grant both a worn resistance and attack type */
 #define ITEM_RES_PROPS (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM \
@@ -636,7 +637,7 @@ struct obj {
                         | ITEM_TELE | ITEM_SLOW)
 
 #define NON_WEP_PROPS (ITEM_SLEEP | ITEM_STONE | ITEM_SICK | ITEM_STUN)
-#define ONLY_WEP_PROPS (ITEM_RAGE)
+#define ONLY_WEP_PROPS (ITEM_RAGE | ITEM_PROWESS)
 
 /*
  *  Notes for adding new oextra structures:
