@@ -39,6 +39,7 @@ BRANCH:		    "The Spider Caves" @ (26, 4)
 BRANCH:		    "The Sunless Sea" @ (28, 4)
 BRANCH: 	    "The Temple of Moloch" @ (32, 4)
 BRANCH: 	    "The Giant Caverns" @ (32, 4)
+LEVEL:		    "ozzy" "N" @ (25, 10) 45
 LEVEL:		    "nymph" "N" @ (8, 17) 45
 RNDLEVEL:	    "bigrm" "B" @ (10, 20) 50 20
 LEVEL:	        "stor" "S" @ (19, 8) 66

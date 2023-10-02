@@ -819,6 +819,7 @@ $(O)sp_lev.tag: $(O)utility.tag \
     $(DAT)/nkai.des \
     $(DAT)/nymph.des \
     $(DAT)/oracle.des \
+    $(DAT)/ozzy.des \
     $(DAT)/rats.des \
     $(DAT)/sokoban.des \
     $(DAT)/spiders.des \
@@ -871,6 +872,7 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(subst /,\,$(U)levcomp $(DAT)/mtemple.des
 	$(subst /,\,$(U)levcomp $(DAT)/nymph.des)
 	$(subst /,\,$(U)levcomp $(DAT)/oracle.des)
+	$(subst /,\,$(U)levcomp $(DAT)/ozzy.des)
 	$(subst /,\,$(U)levcomp $(DAT)/rats.des
 	$(subst /,\,$(U)levcomp $(DAT)/sokoban.des)
 	$(subst /,\,$(U)levcomp $(DAT)/spiders.des
@@ -1376,6 +1378,7 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\oracle-4.lev     del $(W_DAT)\oracle-4.lev
 	if exist $(W_DAT)\oracles          del $(W_DAT)\oracles
 	if exist $(W_DAT)\orcus.lev	   del $(W_DAT)\orcus.lev
+	if exist $(W_DAT)\ozzy.lev	   del $(W_DAT)\ozzy.lev
 	if exist $(W_DAT)\rumors           del $(W_DAT)\rumors
 	if exist $(W_DAT)\quest.dat	   del $(W_DAT)\quest.dat
 	if exist $(W_DAT)\qlawful.lev	   del $(W_DAT)\qlawful.lev
