@@ -1175,7 +1175,7 @@ ROOM:"rndvault", random, random, random, (5,5) {
 # Pacman
 LEVEL:"vlt-0069"
 FLAGS:rndvault
-MINDEPTH:25
+MINDEPTH:33
 GEOMETRY:random
 MAP
 --------------------
