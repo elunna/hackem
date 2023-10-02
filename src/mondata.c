@@ -355,6 +355,10 @@ int element;
             return (((mon->data->mflags4 & M4_VULNERABLE_ACID) != 0
                       || mon->vuln_acid)
                     && !resists_acid(mon));
+        case AD_LOUD:
+            return (((mon->data->mflags4 & M4_VULNERABLE_LOUD) != 0
+                     || mon->vuln_loud)
+                    && !resists_sonic(mon));
         default:
             break;
     }

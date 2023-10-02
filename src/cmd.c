@@ -3394,7 +3394,8 @@ int final;
         you_are("vulnerable to electricity", from_what(VULN_ELEC));
     if (Vulnerable_acid)
         you_are("vulnerable to acid", from_what(VULN_ACID));
-
+    if (Vulnerable_loud)
+        you_are("vulnerable to sonic", from_what(VULN_LOUD));
     /*** Vision and senses ***/
     if (!Blind && (Blinded || !haseyes(youmonst.data)))
         you_can("see", from_what(-BLINDED)); /* Eyes of the Overworld */

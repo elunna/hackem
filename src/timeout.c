@@ -818,6 +818,10 @@ nh_timeout()
                 if (!Vulnerable_acid)
                     You("are no longer vulnerable to acid.");
                 break;
+            case VULN_LOUD:
+                if (!Vulnerable_loud)
+                    You("are no longer vulnerable to sound.");
+                break;
             case CONFUSION:
                 /* So make_confused works properly */
                 set_itimeout(&HConfusion, 1L);

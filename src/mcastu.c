@@ -1179,7 +1179,7 @@ int spellnum;
         dmg = m_cure_self(mtmp, dmg);
         break;
     case CLC_VULN_YOU:
-        dmg = rnd(4);
+        dmg = rnd(5);
         pline("A %s film oozes over your %s!",
               Blind ? "slimy" : vulntext[dmg], body_part(SKIN));
         switch (dmg) {
@@ -1215,6 +1215,12 @@ int spellnum;
                 return;
             incr_itimeout(&HVulnerable_acid, rnd(100) + 150);
             You_feel("easily corrodable.");
+            break;
+        case 5:
+            if (Vulnerable_loud)
+                return;
+            incr_itimeout(&HVulnerable_loud, rnd(100) + 150);
+            You_feel("hyperacute.");
             break;
         default:
             break;
@@ -2618,7 +2624,7 @@ int spellnum;
         }
 
         if (yours || canseemon(mtmp)) {
-            dmg = rnd(4);
+            dmg = rnd(5);
             pline("A %s film oozes over %s exterior!",
                   Blind ? "slimy" : vulntext[dmg], mhis(mtmp));
             switch (dmg) {
@@ -2649,6 +2655,13 @@ int spellnum;
                     return;
                 mtmp->vuln_acid = rnd(100) + 150;
                 pline("%s is easily corrodable.", Monnam(mtmp));
+                break;
+            case 5:
+                if ((mtmp->data->mflags4 & M4_VULNERABLE_LOUD) != 0
+                    || mtmp->vuln_loud)
+                    return;
+                mtmp->vuln_loud = rnd(100) + 150;
+                pline("%s is hyperacute.", Monnam(mtmp));
                 break;
             default:
                 break;

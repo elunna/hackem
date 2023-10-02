@@ -84,6 +84,7 @@ set_uasmon()
     PROPSET(VULN_COLD, vulnerable_to(&youmonst, AD_COLD));
     PROPSET(VULN_ELEC, vulnerable_to(&youmonst, AD_ELEC));
     PROPSET(VULN_ACID, vulnerable_to(&youmonst, AD_ACID));
+    PROPSET(VULN_LOUD, vulnerable_to(&youmonst, AD_LOUD));
 
     PROPSET(ANTIMAGIC, resists_mgc(mdat));
     PROPSET(SICK_RES, resists_sick(mdat));

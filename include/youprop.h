@@ -87,6 +87,11 @@
 #define Vulnerable_acid	(HVulnerable_acid || EVulnerable_acid \
 		         || vulnerable_to(&youmonst, AD_ACID))
 
+#define HVulnerable_loud u.uprops[VULN_LOUD].intrinsic
+#define EVulnerable_loud u.uprops[VULN_LOUD].extrinsic
+#define Vulnerable_loud	(HVulnerable_loud || EVulnerable_loud \
+		         || vulnerable_to(&youmonst, AD_LOUD))
+
 /* Hxxx due to FROMFORM only */
 #define HAntimagic u.uprops[ANTIMAGIC].intrinsic
 #define EAntimagic u.uprops[ANTIMAGIC].extrinsic

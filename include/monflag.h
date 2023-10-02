@@ -182,7 +182,8 @@
 #define M4_VULNERABLE_COLD 0x0002
 #define M4_VULNERABLE_ELEC 0x0004
 #define M4_VULNERABLE_ACID 0x0008
-#define M4_STATIONARY      0x0010 /* does not move. */
+#define M4_VULNERABLE_LOUD 0x0010
+#define M4_STATIONARY      0x0020 /* does not move. */
 
 #define MZ_TINY         0 /* < 2' */
 #define MZ_SMALL        1 /* 2-4' */

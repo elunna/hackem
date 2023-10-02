@@ -100,9 +100,10 @@ enum prop_types {
     VULN_COLD         = 80,
     VULN_ELEC         = 81,
     VULN_ACID         = 82,
-    BREATHLESS        = 83,
-    STABLE            = 84,
-    MAGIC_SENSE       = 85,
+    VULN_LOUD         = 83,
+    BREATHLESS        = 84,
+    STABLE            = 85,
+    MAGIC_SENSE       = 86,
 };
 #define LAST_PROP (MAGIC_SENSE)
 

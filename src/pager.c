@@ -969,6 +969,7 @@ struct permonst * pm;
     APPENDC((mflag4 & M4_VULNERABLE_COLD) != 0, "vulnerable to cold");
     APPENDC((mflag4 & M4_VULNERABLE_ELEC) != 0, "vulnerable to electricity");
     APPENDC((mflag4 & M4_VULNERABLE_ACID) != 0, "vulnerable to acid");
+    APPENDC((mflag4 & M4_VULNERABLE_LOUD) != 0, "vulnerable to sonic");
     if (*buf) {
         Sprintf(buf2, "Is %s.", buf);
         MONPUTSTR(buf2);

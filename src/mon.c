@@ -1337,6 +1337,8 @@ mcalcdistress()
             mtmp->vuln_elec--;
         if (mtmp->vuln_acid > 0)
             mtmp->vuln_acid--;
+        if (mtmp->vuln_loud > 0)
+            mtmp->vuln_loud--;
 
         /* must check non-moving monsters once/turn in case they managed
            to end up in water or lava; note: when not in liquid they regen,

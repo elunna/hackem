@@ -282,6 +282,7 @@ FLAG_TO = {
     "M4_VULNERABLE_COLD": "vulnerable to cold",
     "M4_VULNERABLE_ELEC": "vulnerable to shock",
     "M4_VULNERABLE_ACID": "vulnerable to acid",
+    "M4_VULNERABLE_LOUD": "vulnerable to sonic",
     "M4_STATIONARY": "doesn't move",
     "MH_HUMAN": "human",
     "MH_ELF": "elvish",
