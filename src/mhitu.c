@@ -2618,9 +2618,9 @@ do_rust:
         uchar withertime = max(2, dmg);
         boolean no_effect =
             (nonliving(youmonst.data) || (!Upolyd && Race_if(PM_VAMPIRIC)) 
-              || !uncancelled);
-        boolean lose_maxhp = (withertime >= 8 && !BWithering); /* if already withering */
-
+              || !uncancelled || BWithering);
+        
+        boolean lose_maxhp = (withertime >= 8); /* if already withering */
         hitmsg(mtmp, mattk);
         
         if (!no_effect) {
@@ -2630,8 +2630,7 @@ do_rust:
                 Your("withering speeds up!");
             else if (!BWithering)
                 You("begin to wither away!");
-            else
-                You_feel("dessicated for a moment.");
+            
             incr_itimeout(&HWithering, withertime);
 
             if (lose_maxhp) {
@@ -2643,7 +2642,16 @@ do_rust:
                     u.uhp = min(u.uhp, u.uhpmax);
                 }
             }
+        } else if (BWithering) {
+            struct obj *o;
+            You_feel("dessicated for a moment.");
+            
+            if ((o = using_oprop(ITEM_TOUGH)) && !o->oprops_known) {
+                Your("%s absorbs the deathly withering!", xname(o));
+                o->oprops_known |= ITEM_VIGIL;
+            }
         }
+       
         break;
     }
     case AD_PITS:

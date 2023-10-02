@@ -555,8 +555,8 @@ struct monst *mattk, *mdef;
                       uattk ? "your" : s_suffix(mon_nam(mattk)));
             }
             return 0;
-        } else if (oatmp && oatmp->oprops & ITEM_SUSTAIN) {
-            oatmp->oprops_known |= ITEM_SUSTAIN;
+        } else if (oatmp && oatmp->oprops & ITEM_TOUGH) {
+            oatmp->oprops_known |= ITEM_TOUGH;
             pline("%s safely absorbs the magic.", Yname2(oatmp));
             return 0;
         } else if (oatmp->oerodeproof) {

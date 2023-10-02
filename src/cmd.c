@@ -3355,8 +3355,7 @@ int final;
         you_are(buf, "");
     /* End of partial intrinsic resistances */
 
-    if (Stable)
-        you_are("stable", from_what(STABLE));
+
     if (Acid_resistance)
         you_are("acid resistant", from_what(ACID_RES));
     if (EAcid_resistance)
@@ -3381,10 +3380,14 @@ int final;
         you_are("petrification resistant", from_what(STONE_RES));
     if (Stun_resistance)
         you_are("stun resistant", from_what(STUN_RES));
-    if (Fearless)
-        you_are("fearless", from_what(FEARLESS));
+    if (BWithering)
+        you_are("resistant to withering", ""); /* No WITHER_RES yet */
     if (Death_resistance)
         you_are("immune to the effects of death magic", from_what(DEATH_RES));
+    if (Fearless)
+        you_are("fearless", from_what(FEARLESS));
+    if (Stable)
+        you_are("stable", from_what(STABLE));
     if (Halluc_resistance)
         enl_msg(You_, "resist", "resisted", " hallucinations",
                 from_what(HALLUC_RES));
