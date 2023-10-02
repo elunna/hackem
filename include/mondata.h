@@ -28,7 +28,8 @@
 #define resists_elec(mon) ((mon_resistancebits(mon) & MR_ELEC) != 0)
 #define resists_poison(mon) ((mon_resistancebits(mon) & MR_POISON) != 0)
 #define resists_acid(mon) ((mon_resistancebits(mon) & MR_ACID) != 0)
-#define resists_sonic(mon) ((mon_resistancebits(mon) & MR_SONIC) != 0)
+#define resists_sonic(mon) ((mon_resistancebits(mon) & MR_SONIC) != 0 \
+                            || mon_underwater(mon))
 #define resists_ston(mon) ((mon_resistancebits(mon) & MR_STONE) != 0)
 #define resists_psychic(mon) ((mon_resistancebits(mon) & MR_PSYCHIC) != 0)
 #define resists_clob(mon) ((mon_resistancebits(mon) & MR_CLOB) != 0)

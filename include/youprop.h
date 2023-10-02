@@ -103,7 +103,9 @@
 
 #define HSonic_resistance u.uprops[SONIC_RES].intrinsic
 #define ESonic_resistance u.uprops[SONIC_RES].extrinsic
-#define Sonic_resistance (HSonic_resistance || ESonic_resistance)
+/* Anytime we are underwater we are effectively sonic resistant */
+#define WSonic_resistance Underwater
+#define Sonic_resistance (HSonic_resistance || ESonic_resistance || WSonic_resistance)
 
 #define HStone_resistance u.uprops[STONE_RES].intrinsic
 #define EStone_resistance u.uprops[STONE_RES].extrinsic

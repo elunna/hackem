@@ -3364,8 +3364,12 @@ int final;
                 from_what(AD_ACID));
     if (Psychic_resistance)
         you_are("psionic resistant", from_what(PSYCHIC_RES));
-    if (Sonic_resistance)
-        you_are("sonic resistant", from_what(SONIC_RES));
+    if (Sonic_resistance) {
+        if (!WSonic_resistance)
+            you_are("sonic resistant", from_what(SONIC_RES));
+        else
+            you_are("sonic resistant", " (from being underwater)");
+    }
     if (ESonic_resistance)
         enl_msg("Your items ", "are", "were", " protected from sonic",
                 from_what(AD_LOUD));
