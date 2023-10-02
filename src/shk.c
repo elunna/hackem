@@ -4109,13 +4109,21 @@ long svc_type;
         if (obj->oartifact)
             charge *= 2;
 
+        if (obj->spe + 1 > 5) {
+            verbalize("I can't enchant this any higher!");
+            charge = 0;
+            break;
+        }
         shk_smooth_charge(&charge, 50, NOBOUND);
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
 
-        if (obj->spe + 1 > 5) {
-            verbalize("I can't enchant this any higher!");
-            charge = 0;
+        /* Sustainable items can't have their stat changed, they are "fixed" */
+        if (obj && obj->oprops & ITEM_SUSTAIN) {
+            pline("%s vibrates and resists the change!", Yname2(obj));
+            verbalize("Oh... Um, sorry about that.");
+            obj->oprops_known |= ITEM_SUSTAIN;
+            update_inventory();
             break;
         }
 
@@ -4207,13 +4215,22 @@ long svc_type;
         if (obj->oartifact)
             charge *= 2;
 
+        if (obj->spe + 1 > 3) {
+            verbalize("I can't enchant this any higher!");
+            charge = 0;
+            break;
+        }
+
         shk_smooth_charge(&charge, 50, NOBOUND);
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
 
-        if (obj->spe + 1 > 3) {
-            verbalize("I can't enchant this any higher!");
-            charge = 0;
+        /* Sustainable items can't have their stat changed, they are "fixed" */
+        if (obj && obj->oprops & ITEM_SUSTAIN) {
+            pline("%s vibrates and resists the change!", Yname2(obj));
+            verbalize("Oh... Um, sorry about that.");
+            obj->oprops_known |= ITEM_SUSTAIN;
+            update_inventory();
             break;
         }
 
