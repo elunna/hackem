@@ -607,7 +607,7 @@ boolean has_of;
     }
     if (props & ITEM_TOUGH) {
         if ((props_known & ITEM_TOUGH) || dump_prop_flag) {
-            Strcat(buf, of), Strcat(buf, " toughness"),
+            Strcat(buf, of), Strcat(buf, " resilience"),
                     Strcpy(of, " and");
         }
     }
@@ -4319,7 +4319,7 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_RAGE;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "toughness", l = strlen("toughness"))) {
+                } else if (!strncmpi((p + of), "resilience", l = strlen("resilience"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_TOUGH;
                     objpropcount++;
