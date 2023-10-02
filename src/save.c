@@ -186,7 +186,7 @@ dosave0()
     if (flags.friday13)
         change_luck(1);
     if (flags.quest_boon)
-        change_luck(-3);
+        change_luck(-1);
     if (iflags.window_inited)
         HUP clear_nhwindow(WIN_MESSAGE);
 

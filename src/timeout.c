@@ -588,7 +588,7 @@ nh_timeout()
     if (quest_status.killed_leader)
         baseluck -= 4;
     if (flags.quest_boon)
-        baseluck += 3;
+        baseluck += 1;
     
     if (u.uluck != baseluck) {
 	int timeout = 600;

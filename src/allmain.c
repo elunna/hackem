@@ -191,7 +191,7 @@ boolean resuming;
         change_luck(-1);
     }
     if (flags.quest_boon) {
-        change_luck(3); /* silent */
+        change_luck(1); /* silent */
     }
     if (!resuming) { /* new game */
         context.rndencode = rnd(9000);
