@@ -66,7 +66,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     /* Balmung shreds the armor of opponents. */
     A("Balmung", BROADSWORD, (SPFX_RESTR), 0, 0, 
-      PHYS(4, 9), DFNS(AD_FIRE), NO_CARY,
+      PHYS(4, 10), DFNS(AD_FIRE), NO_CARY,
       0, A_LAWFUL, NON_PM, NON_PM, 1000L, CLR_BROWN, GOLD),
 
     /* Some "worse" sacrifice gifts are needed to avoid making #offer
@@ -94,7 +94,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       4000L, NO_COLOR, DEFAULT_MAT),
 
     A("Firewall", STAFF_OF_DIVINATION, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      FIRE(4, 4), DFNS(AD_FIRE), NO_CARY, SEFFECT, A_LAWFUL, 
+      FIRE(4, 8), DFNS(AD_FIRE), NO_CARY, SEFFECT, A_LAWFUL,
       PM_FLAME_MAGE, NON_PM, 400L, CLR_RED, DEFAULT_MAT),
 
     A("Grayswandir", SABER, (SPFX_RESTR | SPFX_HALRES), 0, 0,
@@ -289,13 +289,13 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       5000L, NO_COLOR, DEFAULT_MAT),
 
     A("Deep Freeze", ATHAME, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      COLD(5, 5), DFNS(AD_COLD), NO_CARY, SEFFECT, A_CHAOTIC, PM_ICE_MAGE, NON_PM, 
+      COLD(5, 8), DFNS(AD_COLD), NO_CARY, SEFFECT, A_CHAOTIC, PM_ICE_MAGE, NON_PM,
       400L, CLR_BLUE, METAL),
 
     /* From SporkHack, but with a twist. This is the anti-Excalibur. */
     A("Dirge", LONG_SWORD,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_DEFN | SPFX_INTEL), 0, 0,
-      ACID(5, 10), DFNS(AD_ACID), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
+      ACID(5, 12), DFNS(AD_ACID), NO_CARY, 0, A_CHAOTIC, NON_PM, NON_PM,
       4000L, NO_COLOR, MITHRIL),
 
     A("Doomblade", ORCISH_SHORT_SWORD, SPFX_RESTR, 0, 0, PHYS(0, 10), NO_DFNS, NO_CARY,
