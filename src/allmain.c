@@ -19,6 +19,7 @@ STATIC_DCL void FDECL(regen_hp, (int));
 STATIC_DCL void FDECL(interrupt_multi, (const char *));
 STATIC_DCL void FDECL(debug_fields, (const char *));
 
+
 #ifdef EXTRAINFO_FN
 static long prev_dgl_extrainfo = 0;
 #endif
@@ -193,6 +194,9 @@ boolean resuming;
     if (flags.quest_boon) {
         change_luck(1); /* silent */
     }
+    if (u.uconduct.wishes)
+        change_luck(wishluck());
+
     if (!resuming) { /* new game */
         context.rndencode = rnd(9000);
         set_wear((struct obj *) 0); /* for side-effects of starting gear */
@@ -1461,4 +1465,32 @@ const char *opts;
 #endif
     return;
 }
+
+/* Calculate the "wishing pain" luck penalty for wishes */
+int
+wishluck()
+{
+    /* Don't let this affect the fuzzer */
+    if (iflags.debug_fuzzer)
+        return 0;
+    switch (u.uconduct.wishes) {
+    case 2:
+        return -1;
+    case 3:
+        return -2;
+    case 5:
+        return -3;
+    case 7:
+        return -4;
+    case 11:
+        return -5;
+    }
+    /* Technically we can only get the player to -10
+     * unless they are carrying a cursed luckstone. But,
+     * it's the principle of the thing you see... */
+    if (u.uconduct.wishes >= 13)
+        return -13;
+    return 0;
+}
+
 /*allmain.c*/

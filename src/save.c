@@ -187,6 +187,8 @@ dosave0()
         change_luck(1);
     if (flags.quest_boon)
         change_luck(-1);
+    if (u.uconduct.wishes)
+        change_luck(-wishluck());
     if (iflags.window_inited)
         HUP clear_nhwindow(WIN_MESSAGE);
 

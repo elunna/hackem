@@ -7218,7 +7218,7 @@ makewish()
     char promptbuf[BUFSZ];
     char bufcpy[BUFSZ];
     struct obj *otmp, nothing;
-    int tries = 0;
+    int tries = 0, adjust = 0;
     int prev_artwish = u.uconduct.wisharti;
 
     promptbuf[0] = '\0';
@@ -7299,6 +7299,9 @@ makewish()
     else
         livelog_printf(LL_WISH | (prev_artwish < u.uconduct.wisharti ? LL_ARTIFACT : 0),
                        "wished for \"%s\"", bufcpy);
+
+    if ((adjust = wishluck()))
+        change_luck(adjust == -13 ? -13 : -1);
 
     if (otmp != &zeroobj) {
         const char

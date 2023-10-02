@@ -30,6 +30,7 @@ E boolean NDECL(orc_can_regen);
 E boolean NDECL(vamp_can_regen);
 E time_t NDECL(get_realtime);
 E int FDECL(argcheck, (int, char **, enum earlyarg));
+E int NDECL(wishluck);
 
 /* ### apply.c ### */
 
