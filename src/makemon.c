@@ -4779,8 +4779,7 @@ struct obj *bag;
             }
             break;
         case 3:
-            /* nomul(-1*(rnd(4)), "sucked by a bag"); */
-            nomul(-1 * (rnd(4)));
+            nomul(-1 * rnd(4));
             if (Hallucination) {
                 You("start climbing into the bag.");
                 nomovemsg = "You give up your attempt to climb into the bag.";
@@ -4788,6 +4787,7 @@ struct obj *bag;
                 pline("%s tries to pull you into the bag!", Something);
                 nomovemsg = "You manage to free yourself.";
             }
+            multi_reason = "stuck in a bag of tricks";
             break;
         case 4:
             if (Blind)
@@ -4795,8 +4795,7 @@ struct obj *bag;
             else
                 pline_The("bag belches out %s.",
                         Hallucination ? "the alphabet" : "a noxious cloud");
-            /* (void)create_gas_cloud(u.ux, u.uy, 2, 8, rn1(3, 2)); */
-            (void)create_gas_cloud(u.ux, u.uy, 2, 8);
+            (void) create_gas_cloud(u.ux, u.uy, 2, 8);
             break;
         case 5:
             if (Blind) {
@@ -4822,9 +4821,9 @@ struct obj *bag;
             }
             if ((ACURR(A_WIS) < rnd(20) && !bag->blessed) || bag->cursed) {
                 You("are startled into immobility.");
-                /* nomul(-1*rnd(3), "startled by a bag"); */
                 nomul(-1 * rnd(3));
                 nomovemsg = "You regain your composure.";
+                multi_reason = "startled by a bag";
             }
             break;
         case 7:
@@ -4878,7 +4877,6 @@ struct obj *bag;
             }
             return 1;
         }
-            
     }
     return 0;
 }
