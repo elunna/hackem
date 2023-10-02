@@ -1677,6 +1677,14 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                        : sblessed
                           ? rnd(3 - otmp->spe / 3)
                           : 1;
+
+        /* Sustainable items can't have their stat changed, they are "fixed" */
+        if (otmp && otmp->oprops & ITEM_SUSTAIN && s != 0) {
+            pline("%s vibrates and resists the change!", Yname2(otmp));
+            otmp->oprops_known |= ITEM_SUSTAIN;
+            break;
+        }
+
         pline("%s %s%s%s%s for a %s.", Yname2(otmp),
               s == 0 ? "violently " : "",
               otense(otmp, Blind ? "vibrate" : "glow"),
@@ -2136,6 +2144,12 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             }
             uwep->oerodeproof = new_erodeproof ? 1 : 0;
             break;
+        }
+        /* Sustainable items can't have their stat changed, they are "fixed" */
+        if (uwep && uwep->oprops & ITEM_SUSTAIN ) {
+            pline("%s vibrates and resists the change!", Yname2(uwep));
+            uwep->oprops_known |= ITEM_SUSTAIN;
+            break; /* use it up */
         }
         if (!chwepon(sobj, scursed ? -1
                              : !uwep ? 1
