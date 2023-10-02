@@ -1426,9 +1426,12 @@ register struct obj *obj;
         }
         switch (obj->oclass) {
         case SCROLL_CLASS:
-            costly_alteration(obj, COST_CANCEL);
-            obj->otyp = SCR_BLANK_PAPER;
-            obj->spe = 0;
+            /* Have to check because we have the Marauder's Map! */
+            if (!obj->oartifact) {
+                costly_alteration(obj, COST_CANCEL);
+                obj->otyp = SCR_BLANK_PAPER;
+                obj->spe = 0;
+            }
             break;
         case SPBOOK_CLASS:
             if (otyp != SPE_CANCELLATION && otyp != SPE_NOVEL
