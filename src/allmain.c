@@ -294,10 +294,12 @@ boolean resuming;
                      * of a harder game later.
                      */
                     monclock = MIN_MONGEN_RATE;
-                    /* performing the invocation gets the entire dungeon riled up */
+
                     if (u.uevent.invoked) {
+                        /* performing the invocation gets the entire dungeon riled up */
                         monclock = MAX_MONGEN_RATE;
-                    } else {
+                    } else if (!iflags.debug_fuzzer) {
+                        /* Don't let wishes influence the fuzzer */
                         past_clock = moves - timeout_start;
                         if (past_clock > 0)
                             monclock = MIN_MONGEN_RATE * 30000 / (past_clock + 30000);

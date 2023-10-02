@@ -1681,8 +1681,8 @@ level_difficulty()
     if (uamul && uamul->otyp == AMULET_OF_DANGER) {
         res += 15;
     }
-    /* Wishes increase difficulty */
-    else if (u.uconduct.wishes > 1) {
+    /* Wishes increase difficulty (unless fuzzing) */
+    else if (u.uconduct.wishes > 1 && !iflags.debug_fuzzer) {
         int bump = (u.uconduct.wishes - 1) * 4;
         res += (bump > 15) ? 15 : bump;
     }
