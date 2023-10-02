@@ -798,6 +798,8 @@ Helmet_on(VOID_ARGS)
         makeknown(TINFOIL_HAT);
         EFearless |= W_ARMH;
         BClairvoyant |= W_ARMH;
+        BTelepat |= W_ARMH;
+        see_monsters();
         if (Afraid) {
             make_afraid(0L, TRUE);
             context.botl = TRUE;
@@ -961,7 +963,9 @@ Helmet_off(VOID_ARGS)
         break;
     case TINFOIL_HAT:
         BClairvoyant &= ~W_ARMH;
+        BTelepat &= ~W_ARMH;
         EFearless &= ~W_ARMH;
+        see_monsters();
         break;
     default:
         impossible(unknown_type, c_helmet, uarmh->otyp);

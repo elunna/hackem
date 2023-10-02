@@ -3489,8 +3489,7 @@ do_rust:
 
         
         if ((helmet = which_armor(mdef, W_ARMH)) != 0 && (rn2(8) 
-              || (which_armor(mdef, W_ARMH)->otyp == TINFOIL_HAT 
-              || which_armor(mdef, W_ARMH)->otyp == PLASTEEL_HELM))) {
+              || (BTelepat || which_armor(mdef, W_ARMH)->otyp == PLASTEEL_HELM))) {
             pline("%s %s blocks your attack to %s head.",
                   s_suffix(Monnam(mdef)), helm_simple_name(helmet),
                   mhis(mdef));

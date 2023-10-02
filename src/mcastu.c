@@ -906,6 +906,10 @@ int spellnum;
             monstseesu(M_SEEN_MAGR);
             dmg = (dmg + 1) / 2;
         }
+        if (BTelepat) {
+            pline_The("spell is blocked%s", dmg > 5 ? "!" : ".");
+            return;
+        }
         if (dmg <= 5)
             You("get a slight %sache.", body_part(HEAD));
         else if (dmg <= 10)
