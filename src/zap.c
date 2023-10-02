@@ -722,13 +722,13 @@ struct obj *otmp;
                    && !DEADMONSTER(mtmp)) {
             damage_mon(mtmp, dmg, AD_DRIN);
             mtmp->mhpmax -= dmg;
+            mtmp->m_lev--;
             if (canseemon(mtmp))
                 learn_it = TRUE;
             /* die if already level 0, regardless of hit points */
-            if (DEADMONSTER(mtmp) || mtmp->mhpmax <= 0 || mtmp->m_lev < 1) {
+            if (DEADMONSTER(mtmp) || DRAINEDMONSTER(mtmp)) {
                 killed(mtmp);
             } else {
-                mtmp->m_lev--;
                 if (canseemon(mtmp))
                     pline("%s suddenly seems weaker!", Monnam(mtmp));
             }

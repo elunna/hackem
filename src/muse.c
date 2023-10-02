@@ -2346,10 +2346,10 @@ register struct obj *otmp;
             break;	/* skip makeknown */
         } else if (!resist(mtmp, otmp->oclass, tmp, NOTELL) && mtmp->mhp > 0) {
             mtmp->mhpmax -= tmp;
-            if (mtmp->mhpmax <= 0 || mtmp->m_lev <= 0)
+            mtmp->m_lev--;
+            if (DEADMONSTER(mtmp) || DRAINEDMONSTER(mtmp))
                 monkilled(mtmp, "", AD_DRLI);
             else {
-                mtmp->m_lev--;
                 if (canseemon(mtmp)) {
                     pline("%s suddenly seems weaker!", Monnam(mtmp));
                 }

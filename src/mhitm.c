@@ -2234,10 +2234,9 @@ post_stone:
                 if (vis && canspotmon(mdef))
                     pline("%s suddenly seems weaker!", Monnam(mdef));
                 mdef->mhpmax -= tmp;
-                if (mdef->m_lev == 0)
+                mdef->m_lev--;
+                if (DEADMONSTER(mdef) || DRAINEDMONSTER(mdef))
                     tmp = mdef->mhp;
-                else
-                    mdef->m_lev--;
                 /* Automatic kill if drained past level 0 */
             }
         }
@@ -3234,16 +3233,15 @@ struct obj *mwep;
                             pline("%s suddenly seems weaker!", Monnam(magr));
                         magr->mhpmax -= xtmp;
                         damage_mon(magr, xtmp, AD_DRLI);
-
+                        magr->m_lev--;
                         /* !m_lev: level 0 monster is killed regardless of hit points
                         rather than drop to level -1 */
-                        if (DEADMONSTER(magr) || !magr->m_lev) {
+                        if (DEADMONSTER(magr) || DRAINEDMONSTER(magr)) {
                             if (canseemon(magr))
                                 pline("%s dies!", Monnam(magr));
                             monkilled(magr, "", AD_DRLI);
                             return (mdead | mhit | MM_AGR_DIED);
-                        } else
-                            magr->m_lev--;
+                        }
                     }
                     break;
                 default: /* all other types of armor, just pass on through */
@@ -3398,10 +3396,9 @@ struct obj *mwep;
                 if (vis && canspotmon(magr))
                     pline("%s suddenly seems weaker!", Monnam(magr));
                 magr->mhpmax -= tmp;
-                if (magr->m_lev == 0)
+                magr->m_lev--;
+                if (DEADMONSTER(magr) || DRAINEDMONSTER(magr))
                     tmp = magr->mhp;
-                else
-                    magr->m_lev--;
                 /* Automatic kill if drained past level 0 */
             }
         }

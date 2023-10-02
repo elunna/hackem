@@ -3024,28 +3024,31 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     update_inventory();
                 }
             }
-            if (mdef->m_lev == 0) {
-                *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
-            } else {
-                int drain = monhp_per_lvl(mdef);
+            /* Monsters die as soon as they reach level 0 or below. */
 
-                *dmgptr += drain;
-                mdef->mhpmax -= drain;
-                mdef->m_lev--;
-                drain /= 2;
-                if (drain) {
-                    if (youattack)
-                        healup(drain, 0, FALSE, FALSE);
-                    else if (magr && magr->mhp < magr->mhpmax) {
-                        magr->mhp += drain;
-                        if (magr->mhp > magr->mhpmax)
-                            magr->mhp = magr->mhpmax;
-                    }
-                    if (mdef->data == &mons[PM_HYDRA])
-                        pline("One of %s heads swells up and explodes!", 
-                        s_suffix(mon_nam(mdef)));
+            int drain = monhp_per_lvl(mdef);
+
+            *dmgptr += drain;
+            mdef->mhpmax -= drain;
+            mdef->m_lev--;
+            drain /= 2;
+            if (drain) {
+                if (youattack)
+                    healup(drain, 0, FALSE, FALSE);
+                else if (magr && magr->mhp < magr->mhpmax) {
+                    magr->mhp += drain;
+                    if (magr->mhp > magr->mhpmax)
+                        magr->mhp = magr->mhpmax;
                 }
+                if (mdef->data == &mons[PM_HYDRA])
+                    pline("One of %s heads swells up and explodes!",
+                    s_suffix(mon_nam(mdef)));
             }
+            if (DEADMONSTER(mdef) || DRAINEDMONSTER(mdef)) {
+                pline("%s dies!", Monnam(mdef));
+                xkilled(mdef, XKILL_NOMSG);
+            }
+
             return vis;
         } else { /* youdefend */
             int oldhpmax = u.uhpmax;

@@ -1841,12 +1841,11 @@ dogaze()
                             dmg = mtmp->mhp;
                         mtmp->mhpmax -= dmg;
                         damage_mon(mtmp, dmg, AD_DRLI);
-
-                        if (DEADMONSTER(mtmp) || !mtmp->m_lev) {
+                        mtmp->m_lev--;
+                        if (DEADMONSTER(mtmp) || DRAINEDMONSTER(mtmp)) {
                             pline("%s dies!", Monnam(mtmp));
                             xkilled(mtmp, XKILL_NOMSG);
-                        } else
-                            mtmp->m_lev--;
+                        }
                     }
                 } else if (adtyp == AD_DRST) {
                     You("attack %s with a poison gaze!", mon_nam(mtmp));
@@ -1860,7 +1859,7 @@ dogaze()
                             dmg += rn1(10, 6);
                         
                         damage_mon(mtmp, dmg, AD_DRST);
-                        if (DEADMONSTER(mtmp) || !mtmp->m_lev) {
+                        if (DEADMONSTER(mtmp)) {
                             pline("%s dies!", Monnam(mtmp));
                             xkilled(mtmp, XKILL_NOMSG);
                         } 

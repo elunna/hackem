@@ -3369,13 +3369,15 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             if (maybe_polyd(is_vampiric(youmonst.data),
                 Race_if(PM_VAMPIRIC)) && u.uhunger <= 1420 &&
                 mattk->aatyp == AT_BITE && has_blood(pd)) {
-                /* For the life of a creature is in the blood (Lev 17:11) */
-                if (flags.verbose)
+                /* For the life of a creature is in the blood
+                   (Lev 17:11) */
+                if (flags.verbose) {
                     You("feed on the lifeblood.");
-                
-                /* [ALI] Biting monsters does not count against eating 
-                 * conducts. The draining of life is considered to be 
-                 * primarily a non-physical effect */
+                }
+                /* [ALI] Biting monsters does not count against
+                   eating conducts. The draining of life is
+                   considered to be primarily a non-physical
+                   effect */
                 lesshungry(xtmp * 6);
             }
             
@@ -3385,11 +3387,11 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             damage_mon(mdef, xtmp, AD_DRLI);
             /* !m_lev: level 0 monster is killed regardless of hit points
                rather than drop to level -1 */
-            if (DEADMONSTER(mdef) || !mdef->m_lev) {
+            mdef->m_lev--;
+            if (DEADMONSTER(mdef) || DRAINEDMONSTER(mdef)) {
                 pline("%s dies!", Monnam(mdef));
                 xkilled(mdef, XKILL_NOMSG);
-            } else
-                mdef->m_lev--;
+            }
             tmp = 0;
         }
         break;

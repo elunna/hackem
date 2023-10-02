@@ -4925,16 +4925,15 @@ struct attack *mattk;
                     pline("%s suddenly seems weaker!", Monnam(mtmp));
                 mtmp->mhpmax -= xtmp;
                 damage_mon(mtmp, xtmp, AD_DRLI);
-
+                mtmp->m_lev--;
                 /* !m_lev: level 0 monster is killed regardless of hit points
                 rather than drop to level -1 */
-                if (DEADMONSTER(mtmp) || !mtmp->m_lev) {
+                if (DEADMONSTER(mtmp) || DRAINEDMONSTER(mtmp)) {
                     if (canseemon(mtmp))
                         pline("%s dies!", Monnam(mtmp));
                     xkilled(mtmp, XKILL_NOMSG);
                     return 1;
-                } else
-                    mtmp->m_lev--;
+                }
             }
             break;
         case BLACK_DRAGON_SCALES:
