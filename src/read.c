@@ -1739,6 +1739,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             otmp->oerodeproof = new_erodeproof ? 1 : 0;
             break;
         }
+
         if (!scursed || !otmp || !otmp->cursed) {
             /* player is prompted to choose what to destroy only when the
              * scroll is blessed and they are actually wearing armor */
@@ -1747,8 +1748,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("This is a scroll of destroy armor.");
             }
             if (!destroy_arm(otmp, gets_choice)) {
-                strange_feeling(sobj, "Your skin itches.");
-                sobj = 0; /* useup() in strange_feeling() */
+                if (otmp && otmp->oprops & ITEM_TOUGH ) {
+                    pline("%s vibrates and resists the scroll's magic!", Yname2(otmp));
+                    otmp->oprops_known |= ITEM_TOUGH;
+                } else {
+                    strange_feeling(sobj, "Your skin itches.");
+                    sobj = 0; /* useup() in strange_feeling() */
+                }
                 exercise(A_STR, FALSE);
                 exercise(A_CON, FALSE);
                 break;
