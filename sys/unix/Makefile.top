@@ -93,7 +93,7 @@ SPEC_LEVS = bigrm-*.lev castle-?.lev fakewiz?.lev hellfill.lev \
 		rats-?.lev nymph.lev stor.lev cavepass.lev sea.lev \
         cavenest.lev cavefill.lev cavebegn.lev caveend.lev \
         tomb.lev mtemple.lev grund.lev blkmar.lev \
-        qlawful.lev qneutral.lev qchaos.lev \
+        ozzy.lev qlawful.lev qneutral.lev qchaos.lev \
         leth-*.lev nkai-*.lev ucastle.lev kobold-?.lev
 QUEST_LEVS = ???-goal.lev ???-fil?.lev ???-loca.lev ???-strt.lev
 

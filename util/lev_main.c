@@ -314,6 +314,7 @@ char **argv;
         ":dat:nkai.des",
         ":dat:nymph.des",
         ":dat:oracle.des",
+        ":dat:ozzy.des",
         ":dat:qchaos.des",
         ":dat:qlawful.des",
         ":dat:qneutral.des",

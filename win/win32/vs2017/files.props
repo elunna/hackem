@@ -69,6 +69,7 @@
     <Desfiles Include = "nkai.des"/>
     <Desfiles Include = "nymph.des"/>
     <Desfiles Include = "oracle.des"/>
+    <Desfiles Include = "ozzy.des"/>
     <Desfiles Include = "qchaos.des"/>
     <Desfiles Include = "qlawful.des"/>
     <Desfiles Include = "qneutral.des"/>
@@ -129,6 +130,7 @@
     <Levfiles Include = "hellc-3.lev"/>
     <Levfiles Include = "hellfill.lev"/>
     <Levfiles Include = "orcus.lev"/>
+    <Levfiles Include = "ozzy.lev"/>
     <Levfiles Include = "sanctum.lev"/>
     <Levfiles Include = "valley.lev"/>
     <Levfiles Include = "giants.lev"/>

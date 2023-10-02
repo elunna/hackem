@@ -1171,43 +1171,11 @@ ROOM:"rndvault", random, random, random, (5,5) {
   REPLACE_TERRAIN:(0,0, 4,4), '-', 'P', 100%
   REPLACE_TERRAIN:(0,0, 4,4), '|', 'P', 100%
 }
-                       
-# Ozymandias' Tomb
-LEVEL:"vlt-0069"
-FLAGS:rndvault
-MINDEPTH:17
-GEOMETRY:random
-MAP
----------
-|.......|
-|.......|
-|.......|
-|......\|
-|.......|
-|.......|
-|.......|
----------
-ENDMAP
-REGION:(1,1,7,7),lit,"rndvault",filled { }
-ENGRAVING: (6,4), burn, "Look on my works, ye mighty, and despair"
-[10%]: ENGRAVING: (5,4), burn, "My name is Ozymandias, king of kings"
-[50%]: TRAP: "hole", (3,2)
-[80%]: TRAP: "hole", (5,3)
-[30%]: TRAP: "hole", (3,6)
-[75%]: TRAP: "web", (1,1)
-[75%]: TRAP: "web", (1,6)
-TRAP: "web", (7,6)
-
-CONTAINER:"chest", (7,1), trapped { }
-TRAP: "statue", (7,3)
-TRAP: "statue", (7,7)
-OBJECT:('`',"statue"),(7,3),montype:('d', "werejackal")
-OBJECT:('`',"statue"),(7,7),montype:('@', "elven royal")
 
 # Pacman
-LEVEL:"vlt-0070"
+LEVEL:"vlt-0069"
 FLAGS:rndvault
-MINDEPTH:17
+MINDEPTH:25
 GEOMETRY:random
 MAP
 --------------------
@@ -1234,7 +1202,7 @@ MONSTER:"ghost",random,"Pinky"
 MONSTER:"ghost",random,"Clyde"
                                                                                                                   
 # Fern nursery
-LEVEL:"vlt-0071"
+LEVEL:"vlt-0070"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
@@ -1245,7 +1213,7 @@ ROOM:"rndvault", random, random, random, random {
 }
 
 # ice room
-LEVEL:"vlt-0072"
+LEVEL:"vlt-0071"
 FLAGS:rndvault
 MINDEPTH:8
 ROOM:"rndvault", random, random, random, random {
@@ -1254,7 +1222,7 @@ ROOM:"rndvault", random, random, random, random {
 }
                        
 # lava room
-LEVEL:"vlt-0073"
+LEVEL:"vlt-0072"
 FLAGS:rndvault
 MINDEPTH:11
 ROOM:"rndvault", random, random, random, random {
@@ -1263,7 +1231,7 @@ ROOM:"rndvault", random, random, random, random {
 }            
 
 #Perimeter room
-LEVEL:"vlt-0074"
+LEVEL:"vlt-0073"
 FLAGS:rndvault
 MINDEPTH:8
 $terr = TERRAIN:{ 'P', 's', 'C', 'I', 'T', 'w', ','}
@@ -1280,7 +1248,7 @@ ROOM:"rndvault", random, random, random, (5,5) {
 # (At least that's what some testing revealed.)
 # We'll make this room add some color to the dungeon but no dangerous 
 # lava or deep water pools.
-LEVEL:"vlt-0075"
+LEVEL:"vlt-0074"
 FLAGS:rndvault
 ROOM:"rndvault", random, random, random, (3,3) {
 $terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C', ',' }

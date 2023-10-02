@@ -146,6 +146,7 @@ spec_levs: ../util/lev_comp \
 	nkai.des \
 	nymph.des \
 	oracle.des \
+	ozzy.des \
 	qchaos.des \
 	qlawful.des \
 	qneutral.des \
@@ -179,6 +180,7 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp nkai.des
 	../util/lev_comp nymph.des
 	../util/lev_comp oracle.des
+	../util/lev_comp ozzy.des
 	../util/lev_comp qchaos.des
 	../util/lev_comp qlawful.des
 	../util/lev_comp qneutral.des
