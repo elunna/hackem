@@ -6787,7 +6787,7 @@ short mndx;
              | MH_ILLITHID | MH_ORC | MH_VAMPIRE );
         break;
     case PM_FLAME_MAGE:
-        permitted |= (MH_DWARF | MH_ELF | MH_GNOME);
+        permitted |= (MH_DWARF | MH_ELF | MH_GNOME | MH_GIANT);
         break;
     case PM_HEALER:
         permitted |=

@@ -188,7 +188,7 @@ const struct Role roles[] = {
       S_ELEMENTAL, 
       S_RUSTMONST,
       ART_CANDLE_OF_ETERNAL_FLAME,
-      MH_HUMAN | MH_DWARF | MH_ELF | MH_GNOME,
+      MH_HUMAN | MH_DWARF | MH_ELF | MH_GNOME | MH_GIANT,
       ROLE_MALE | ROLE_FEMALE | ROLE_LAWFUL | ROLE_NEUTRAL,
       /* Str Int Wis Dex Con Cha */
       {   7, 9,  11,  7,  7,  7 },
