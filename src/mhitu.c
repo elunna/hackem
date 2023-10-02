@@ -5523,7 +5523,14 @@ struct attack *mattk;
             break;
         case AD_DSRM: /* adherer */
             otmp = MON_WEP(mtmp);
-            if (otmp) {
+            if (otmp && otmp->greased && (!otmp->cursed || rn2(4)))  {
+                pline("%s %s off of your %s!", s_suffix(Monnam(mtmp)),
+                      aobjnam(otmp, "slip"), body_part(SKIN));
+                if (otmp->greased && !rn2(2)) {
+                    pline_The("grease wears off.");
+                    otmp->greased = 0;
+                }
+            } else if (otmp) {
                 pline("%s's %s sticks to you!", Monnam(mtmp), xname(otmp));
                 obj_extract_self(otmp);
                 possibly_unwield(mtmp, FALSE);

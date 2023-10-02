@@ -5025,10 +5025,20 @@ boolean wep_was_destroyed;
     if (malive && !mon->mcan && rn2(3)) {
         switch (mattk[i].adtyp) {
         case AD_DSRM: /* adherer */
-            if (uwep && uwep != uball) {
-                otmp = uwep;
-                Your("weapon sticks to %s!", mon_nam(mon));
-                dropx(uwep);
+            otmp = uwep;
+            if (otmp && otmp->greased && (!otmp->cursed || rn2(4)))  {
+                pline("%s off of %s %s!", Yobjnam2(otmp, "slip"),
+                      s_suffix(mon_nam(mon)),
+                      mbodypart(mon, SKIN));
+                if (otmp->greased && !rn2(2)) {
+                    pline_The("grease wears off.");
+                    otmp->greased = 0;
+                    update_inventory();
+                }
+            } else if (otmp && otmp != uball) {
+                /* Just the main weapon */
+                pline("%s to %s!", Yobjnam2(otmp, "stick"), mon_nam(mon));
+                dropx(otmp);
                 obj_extract_self(otmp);
                 add_to_minv(mon, otmp);
             } else {
