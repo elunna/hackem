@@ -2247,6 +2247,7 @@ E void FDECL(potionbreathe, (struct obj *));
 E const char *FDECL(gem_to_potion, (int));
 E int FDECL(potion_to_gem, (int));
 E int FDECL(figure_out_potion, (const char *));
+E short FDECL(mold_to_potion, (SHORT_P));
 E boolean FDECL(amnesia_wet, (struct obj *, struct obj *, BOOLEAN_P));
 E int NDECL(dodip);
 E void FDECL(ferment, (ANY_P *, long));

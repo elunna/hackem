@@ -1773,7 +1773,8 @@ char *usr_text;
     /* forge recipes */
     const struct ForgeRecipe *recipe;
     boolean has_recipes = FALSE;
-    if (reveal_info && !is_artifact) {
+    if (reveal_info && !is_artifact
+          && (oc.oc_class == WEAPON_CLASS || oc.oc_class == ARMOR_CLASS)) {
         for (recipe = fusions; recipe->result_typ; recipe++) {
             if (otyp == recipe->typ1 || otyp == recipe->typ2
                 || otyp == recipe->result_typ) {
@@ -1820,8 +1821,8 @@ char *usr_text;
             else if (result) {
                 struct obj *potion = mksobj(figure_out_potion(result), FALSE, FALSE);
                 Sprintf(buf, "     acid + %-12s = %s",
-                        OBJ_NAME(objects[g]), /* The gem */
-                        xname(potion)); /* The potion */
+                        OBJ_NAME(objects[g]),   /* The gem */
+                        xname(potion));         /* The potion */
                 OBJPUTSTR(buf);
                 obfree(potion, (struct obj *)0);
             }
@@ -1834,7 +1835,49 @@ char *usr_text;
                 OBJ_NAME(objects[gem]), an(singular(&dummy, xname)));
             OBJPUTSTR(buf);
         }
+    }
 
+    OBJPUTSTR("");
+
+    /* mold fermentation */
+    if (reveal_info && otyp == POT_FRUIT_JUICE) {
+        /* Display all fermenting recipes here */
+        OBJPUTSTR("Juice fermentation recipes:");
+        OBJPUTSTR("(#dipping a mold corpse can ferment a new potion)");
+        for (int g = PM_BROWN_MOLD; g < PM_VOLATILE_MUSHROOM; g++) {
+            short result = mold_to_potion(g);
+            /* Important: Display the actual potion result - NOT the
+             * appearance, otherwise we directly leak info. */
+            if (result) {
+                Sprintf(buf, "     fruit juice + %-15s = %s",
+                        mons[g].mname,              /* The mold */
+                        OBJ_NAME(objects[result]));  /* The potion */
+                OBJPUTSTR(buf);
+
+            }
+        }
+    } else if (reveal_info && oc.oc_class == POTION_CLASS) {
+        for (int g = PM_BROWN_MOLD; g < PM_VOLATILE_MUSHROOM; g++) {
+            if (mold_to_potion(g) == otyp) {
+                OBJPUTSTR("Fermentation recipes:");
+                Sprintf(buf, "#dipping a %s corpse into fruit juice ferments a potion of %s.",
+                        mons[g].mname,              /* The mold */
+                        OBJ_NAME(objects[otyp]));  /* The potion */
+                OBJPUTSTR(buf);
+                break;
+            }
+        }
+    }
+    if (otyp == CORPSE) {
+        int cnum = obj ? obj->corpsenm : 0;
+        short result = mold_to_potion(cnum);
+        if (result) {
+            OBJPUTSTR("Fermentation recipes:");
+            Sprintf(buf, "#dipping a %s corpse into fruit juice ferments a potion of %s.",
+                    mons[cnum].mname,          /* The mold */
+                    OBJ_NAME(objects[result]));  /* The potion */
+            OBJPUTSTR(buf);
+        }
     }
 
     /* ARTIFACT PROPERTIES */

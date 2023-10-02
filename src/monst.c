@@ -3848,7 +3848,8 @@ NEARDATA struct permonst mons[] = {
         M2_STALK | M2_NEUTER | M2_HOSTILE, 0, 0, 0, 7, CLR_GREEN),
     MON("red moldier", S_FUNGUS,                              /* SpliceHack */
         LVL(5, 12, 8, 0, 0), (G_GENO | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 1, 4), ATTK(AT_NONE, AD_FIRE, 0, 4),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 4),
+          ATTK(AT_NONE, AD_FIRE, 0, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 200, MS_SILENT, MZ_HUMAN),
         MR_SLEEP | MR_FIRE | MR_STONE, 0,

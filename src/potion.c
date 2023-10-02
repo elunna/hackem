@@ -2867,6 +2867,27 @@ const char *pot_descr;
     return 0;
 }
 
+short
+mold_to_potion(corpsenm)
+short corpsenm;
+{
+    if (corpsenm == PM_BROWN_MOLD)
+        return POT_SLEEPING;
+    else if (corpsenm == PM_GREEN_MOLD)
+        return POT_ACID;
+    else if (corpsenm == PM_YELLOW_MOLD)
+        return POT_CONFUSION;
+    else if (corpsenm == PM_RED_MOLD)
+        return POT_BOOZE; /* it "tastes like liquid fire" */
+    else if (corpsenm == PM_VIOLET_FUNGUS)
+        return POT_HALLUCINATION;
+    else if (corpsenm == PM_GRAY_FUNGUS)
+        return POT_AMNESIA;
+    else if (corpsenm == PM_DISGUSTING_MOLD || corpsenm == PM_BLACK_MOLD)
+        return POT_SICKNESS;
+    return 0;
+}
+
 /* Bills an object that's about to be downgraded, assuming that's not already
  * been done */
 STATIC_OVL void
@@ -3698,57 +3719,52 @@ dodip()
         return 1;
     }
 
-    if (obj->otyp == CORPSE) {
-        if (potion->otyp == POT_FRUIT_JUICE) {
-            switch(obj->corpsenm) {
-            case PM_BROWN_MOLD:
-            case PM_GREEN_MOLD:
-            case PM_YELLOW_MOLD:
-            case PM_RED_MOLD:
-            case PM_VIOLET_FUNGUS:
-                /* MRKR: Molds and fungi have various medicinal properties */
-                /* AOS: This code could possibly be merged into the stuff above,
+    if (obj->otyp == CORPSE && potion->otyp == POT_FRUIT_JUICE) {
+        short result = mold_to_potion(obj->corpsenm);
+        if (result) {
+            /* MRKR: Molds and fungi have various medicinal properties */
+            /* AOS: This code could possibly be merged into the stuff above,
                  * but ultimately I felt that there would be too much of the
                  * above code that we have to make an exception for in this
                  * case. The dipped potion isn't actually changing right now,
                  * and its dknown, beatitude etc aren't affected. */
-                pline("%s dissolves and the liquid begins fizzing %s.",
-                      The(cxname_singular(obj)),
-                      (objdescr_is(potion, "fizzy")
-                       || objdescr_is(potion, "effervescent")) ? "even more"
-                                                               : "slowly");
+            pline("%s dissolves and the liquid begins fizzing %s.",
+                  The(cxname_singular(obj)),
+                  (objdescr_is(potion, "fizzy")
+                   || objdescr_is(potion, "effervescent"))
+                      ? "even more"
+                      : "slowly");
 
-                /* order matters: split first, then start the timer, then try to
+            /* order matters: split first, then start the timer, then try to
                  * hold_another_object.  Previously this segfaulted when
                  * hold_another_object was called first, the hero dropped the
                  * potion, and then the timer tried to start on its NULL return
                  * value. */
-                if (potion->quan > 1)
-                    singlepotion = splitobj(potion, 1);
-                else
-                    singlepotion = potion;
+            if (potion->quan > 1)
+                singlepotion = splitobj(potion, 1);
+            else
+                singlepotion = potion;
 
-                singlepotion->corpsenm = obj->corpsenm;
+            singlepotion->corpsenm = obj->corpsenm;
 
-                if (obj->cursed)
-                    /* placeholder for "turn into sickness instead" */
-                    singlepotion->corpsenm = PM_PESTILENCE;
+            if (obj->cursed)
+                /* placeholder for "turn into sickness instead" */
+                singlepotion->corpsenm = PM_PESTILENCE;
 
-                useup(obj);
-                obj_extract_self(singlepotion);
-                start_timer(50 + rn2(50), TIMER_OBJECT, FERMENT,
-                            obj_to_any(singlepotion));
-                costly_alteration(singlepotion, COST_FERMENT);
-                singlepotion = hold_another_object(singlepotion,
-                                                   "You juggle and drop %s!",
-                                                   doname(singlepotion),
-                                                   NULL);
-                update_inventory();
-                return 1;
+            useup(obj);
+            obj_extract_self(singlepotion);
+            start_timer(50 + rn2(50), TIMER_OBJECT, FERMENT,
+                        obj_to_any(singlepotion));
+            costly_alteration(singlepotion, COST_FERMENT);
+            singlepotion =
+                hold_another_object(singlepotion, "You juggle and drop %s!",
+                                    doname(singlepotion), NULL);
+            update_inventory();
+            return 1;
 
-            /* no default case, other corpses won't do anything special and will
-             * just fall through to "Interesting..." below. */
-            }
+            /* other corpses won't do anything special and will
+             * just fall through to "Interesting..." below.
+             **/
         }
     }
 
@@ -3786,25 +3802,13 @@ long timeout;
     /* if it has been transformed in the meantime, silently do nothing */
     if (potion->otyp != POT_FRUIT_JUICE)
         return;
+    new_otyp = mold_to_potion(corpsenm);
 
-    if (corpsenm == PM_BROWN_MOLD)
-        new_otyp = POT_SLEEPING;
-    else if (corpsenm == PM_GREEN_MOLD)
-        new_otyp = POT_ACID;
-    else if (corpsenm == PM_YELLOW_MOLD)
-        new_otyp = POT_CONFUSION;
-    else if (corpsenm == PM_RED_MOLD)
-        new_otyp = POT_BOOZE; /* it "tastes like liquid fire" */
-    else if (corpsenm == PM_VIOLET_FUNGUS)
-        new_otyp = POT_HALLUCINATION;
-    else if (corpsenm == PM_PESTILENCE)
-        /* not actually fermenting Pestilence; just denotes that something went
-         * wrong in the mixing and the potion should turn into sickness instead
+    if (!new_otyp) {
+        /* Denotes that something went wrong in the mixing
+         * and the potion should turn into sickness instead
          * of whatever it was going to */
         new_otyp = POT_SICKNESS;
-    else {
-        impossible("Strange fermentation agent %d!", corpsenm);
-        return;
     }
 
     /* corpsenm = 0 actually means giant ant, but the default value of corpsenm
