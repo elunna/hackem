@@ -3146,6 +3146,15 @@ boolean ourfault;
         uncurse(targobj);
         unbless(targobj);
     }
+    if (targobj->otyp == EGG) {
+        /* sterilized */
+        kill_egg(targobj);
+        targobj->corpsenm = NON_PM;
+        if (!used) {
+            Your("%s for a moment.", aobjnam(targobj, "sparkle"));
+            used = TRUE;
+        }
+    }
 
     if (used)
         update_inventory();
