@@ -1564,7 +1564,7 @@ long prop;
             return (schar) 6;
         else if (bonus < 18 && !otmp->blessed)
             return (schar) 18;
-        else if (uwep->blessed)
+        else if (otmp->blessed)
             return (schar) 25;
     }
     return (schar) 0;
