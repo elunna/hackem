@@ -3768,7 +3768,7 @@ int final;
     #endif
 
     if (Role_if(PM_NECROMANCER)) { 
-        Sprintf(buf, "%d %s", u.uspirits, u.uspirits != 1 ? "spirits" : "spirit");
+        Sprintf(buf, "harvested %d %s", u.uspirits, u.uspirits != 1 ? "spirits" : "spirit");
         you_have(buf, "");
     } 
     
