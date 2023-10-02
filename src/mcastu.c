@@ -930,7 +930,8 @@ const char* vulntext[] = {
         "reddish-orange",
         "purplish-blue",
         "coppery-yellow",
-        "greenish-mottled"
+        "greenish-mottled",
+        "shimmering-stippled"
 };
 
 STATIC_OVL
