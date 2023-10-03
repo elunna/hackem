@@ -2858,8 +2858,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                       || (is_troll(mdef->data) && !mlifesaver(mdef))) {
                     mdef->mcan = 1; /* kinda hard to revive if you've lost your head... */
                         otmp->dknown = TRUE;
-                        return TRUE;
                 }
+                return TRUE;
             } else {
                 if (!has_head(youmonst.data)) {
                     pline("Somehow, %s misses you wildly.",
@@ -3308,27 +3308,30 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         return realizes_damage;
     }
     chance = 4;
-    /* Thiefbane gets a huge bonus for cancelling thiefs or covetous */
-    if (otmp->oartifact == ART_THIEFBANE && 
-        (is_covetous(mdef->data) 
-         || dmgtype(mdef->data, AD_SITM) 
-         || dmgtype(mdef->data, AD_SEDU)))
-        chance = 8;
-    
-    /* WAC -- 1/6 chance of cancellation with foobane weapons */
-    if (otmp->oartifact == ART_ORCRIST ||
-        otmp->oartifact == ART_DEMONBANE ||
-        otmp->oartifact == ART_THIEFBANE) {
-        if (!mdef->mcan && dieroll < chance) {
-            if (realizes_damage) {
-                pline("%s %s!", The(distant_name(otmp, xname)), Blind ?
-                      "roars deafeningly" : "shines brilliantly");
-                pline("It strikes %s!", hittee);
+    if (!DEADMONSTER(mdef)) {
+        /* Thiefbane gets a huge bonus for cancelling thiefs or covetous */
+        if (otmp->oartifact == ART_THIEFBANE &&
+            (is_covetous(mdef->data)
+             || dmgtype(mdef->data, AD_SITM)
+             || dmgtype(mdef->data, AD_SEDU)))
+            chance = 8;
+
+        /* WAC -- 1/6 chance of cancellation with foobane weapons */
+        if (otmp->oartifact == ART_ORCRIST ||
+            otmp->oartifact == ART_DEMONBANE ||
+            otmp->oartifact == ART_THIEFBANE) {
+            if (!mdef->mcan && dieroll < chance) {
+                if (realizes_damage) {
+                    pline("%s %s!", The(distant_name(otmp, xname)), Blind ?
+                                                                    "roars deafeningly" : "shines brilliantly");
+                    /*pline("It strikes %s!", hittee);*/
+                }
+                cancel_monst(mdef, otmp, youattack, TRUE, magr == mdef);
+                return TRUE;
             }
-            cancel_monst(mdef, otmp, youattack, TRUE, magr == mdef);
-            return TRUE;
         }
     }
+  
     return FALSE;
 }
 
