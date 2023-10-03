@@ -3194,6 +3194,27 @@ struct obj *mwep;
                         return (mdead | mhit | MM_AGR_DIED);
                     }
                     break;
+                case BLUE_DRAGON_SCALES:
+                    if (resists_elec(magr) || defended(magr, AD_ELEC))
+                        break;
+                    if (rn2(20)) {
+                        if (!rn2(3)) {
+                            if (canseemon(magr))
+                                pline("%s gets zapped!", Monnam(magr));
+                            damage_mon(magr, rnd(4), AD_ELEC);
+                        }
+                    } else {
+                        if (canseemon(magr))
+                            pline("%s is jolted with electricity!", Monnam(magr));
+                        damage_mon(magr, d(2, 24), AD_ELEC);
+                    }
+                    if (magr->mhp < 1) {
+                        if (canseemon(magr))
+                            pline("%s dies!", Monnam(magr));
+                        monkilled(magr, "", AD_ELEC);
+                        return (mdead | mhit | MM_AGR_DIED);
+                    }
+                    break;
                 case VIOLET_DRAGON_SCALES:
                     if (resists_sonic(magr) || defended(magr, AD_LOUD)
                         || mon_underwater(magr))

@@ -5184,14 +5184,12 @@ struct attack *mattk;
         case BLUE_DRAGON_SCALES:
             if (resists_elec(mtmp) || defended(mtmp, AD_ELEC)) {
                 if (canseemon(mtmp)) {
-                    pline("%s is mildly tingled.", Monnam(mtmp));
                     shieldeff(mtmp->mx, mtmp->my);
                     golemeffects(mtmp, AD_ELEC, tmp);
                 }
                 tmp = 0;
                 break;
             }
-
             if (!rn2(3)) {
                 if (rn2(20)) {
                     if (canseemon(mtmp))

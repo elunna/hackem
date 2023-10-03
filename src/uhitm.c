@@ -3213,9 +3213,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         }
         tmp += destroy_mitem(mdef, POTION_CLASS, AD_COLD);
         break;
-    /* currently the only monster that uses AD_LOUD are
-     * Nazgul, and are both M2_NOPOLY,
-     * but we'll put this here for completeness sake */
+
     case AD_LOUD:
         if (negated) {
             tmp = 0;
@@ -4770,24 +4768,52 @@ boolean wep_was_destroyed;
         }
         exercise(A_STR, FALSE);
         break;
+        case AD_ELEC:
+            if (mhit && rn2(2)) {
+                if (Blind || !flags.verbose) {
+                    if (mon->data == &mons[PM_BLUE_DRAGON])
+                        You("are%s zapped!",
+                            Shock_resistance ? " mildly" : "");
+                    else
+                        You("are zapped!");
+                } else {
+                    if (mon->data == &mons[PM_BLUE_DRAGON])
+                        You("are%s electrocuted by %s charged hide!",
+                            Shock_resistance ? " mildly" : "",
+                            s_suffix(mon_nam(mon)));
+                    else
+                        You("are zapped by %s!", mon_nam(mon));
+                }
+                if (!Shock_resistance)
+                    mdamageu(mon, tmp);
+                else
+                    monstseesu(M_SEEN_ELEC);
+                
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(WAND_CLASS, AD_ELEC);
+                if ((int) mon->m_lev > rn2(20))
+                    destroy_item(RING_CLASS, AD_ELEC);
+            }
+            exercise(A_STR, FALSE);
+            break;
     case AD_LOUD:
         if (mhit && rn2(2)) {
             if (Blind || !flags.verbose) {
                 if (mon->data == &mons[PM_VIOLET_DRAGON])
                     You("are%s blasted by noise!",
-                        (Sonic_resistance || Underwater) ? " mildly" : "");
+                        Sonic_resistance ? " mildly" : "");
                 else
-                    You("are splashed!");
+                    You("are hit with a blast of sound!");
             } else {
                 if (mon->data == &mons[PM_VIOLET_DRAGON])
                     You("are%s blasted by %s screeching scales!",
-                        (Sonic_resistance || Underwater) ? " mildly" : "",
+                        Sonic_resistance ? " mildly" : "",
                         s_suffix(mon_nam(mon)));
                 else
                     You("are irritated by %s noise!", s_suffix(mon_nam(mon)));
             }
 
-            if (!(Sonic_resistance || Underwater))
+            if (!Sonic_resistance)
                 mdamageu(mon, tmp);
             else
                 monstseesu(M_SEEN_LOUD);
@@ -4825,15 +4851,12 @@ boolean wep_was_destroyed;
         }
         break;
     case AD_DRLI:
-        /* hackem: passive drain life for baby and adult deep dragons */
         if (mhit && !mon->mcan) {
             if (Drain_resistance) {
                 shieldeff(u.ux, u.uy);
                 monstseesu(M_SEEN_DRAIN);
-                /* No msg if resisted */
             } else
                 losexp("life drainage");
-            
         }
         break;
     case AD_STON:
@@ -4882,7 +4905,7 @@ boolean wep_was_destroyed;
         }
         break;
     case AD_CORR:
-        if (mhit && !mon->mcan && !EAcid_resistance) {
+        if (mhit && !mon->mcan) {
             if (aatyp == AT_KICK) {
                 if (uarmf)
                     (void) erode_obj(uarmf, xname(uarmf), ERODE_CORRODE,
@@ -5164,11 +5187,10 @@ boolean wep_was_destroyed;
                 if (!Strangled && !Breathless) {
                     You("inhale a cloud of spores!");
                     poisoned("spores", A_STR, "spore cloud", 30, FALSE);
-                    break;
                 } else {
                     pline("A cloud of spores surrounds you!");
-                    break;
                 }
+                break;
             }
              /* specifically green dragons */
             if (how_resistant(POISON_RES) == 100) {
