@@ -3903,7 +3903,7 @@ struct obj *obj;
 
     chance = rn2(5);
     if (obj->blessed)
-        chance = (chance == 4) ? rnd(4) : 0;
+        chance = 0;
     else if (obj->cursed)
         chance = (chance == 0) ? rn2(4) : 4;
     /* 0,1,2,3,4:  b=80%,5,5,5,5; nc=20%,20,20,20,20; c=5%,5,5,5,80 */
