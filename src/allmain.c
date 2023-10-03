@@ -177,7 +177,7 @@ boolean resuming;
        to use up the save file and require confirmation for explore mode */
     if (resuming && iflags.deferred_X)
         (void) enter_explore_mode();
-
+    
     /* side-effects from the real world */
     flags.moonphase = phase_of_the_moon();
     if (flags.moonphase == FULL_MOON) {
@@ -1485,11 +1485,11 @@ wishluck()
     case 11:
         return -5;
     }
-    /* Technically we can only get the player to -10
-     * unless they are carrying a cursed luckstone. But,
-     * it's the principle of the thing you see... */
+    /* Technically we can only get the player to -10, 
+     * so we force them to carry a virtual cursed luckstone. */
     if (u.uconduct.wishes >= 13)
-        return -13;
+        return -10;
+
     return 0;
 }
 

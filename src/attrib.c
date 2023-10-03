@@ -473,6 +473,10 @@ void
 change_luck(n)
 register schar n;
 {
+    if (u.uconduct.wishes >= 13) {
+        u.uluck = LUCKMIN;
+        return;
+    }
     u.uluck += n;
     if (u.uluck < 0 && u.uluck < LUCKMIN)
         u.uluck = LUCKMIN;
@@ -501,12 +505,11 @@ boolean parameter; /* So I can't think up of a good name.  So sue me. --KAA */
 }
 
 boolean
-has_luckitem()
-{
+has_luckitem() {
     register struct obj *otmp;
 
     for (otmp = invent; otmp; otmp = otmp->nobj)
-	if (confers_luck(otmp)) return TRUE;
+        if (confers_luck(otmp)) return TRUE;
     return FALSE;
 }
 
@@ -519,6 +522,9 @@ set_moreluck()
     else if (stone_luck(TRUE) >= 0)
         u.moreluck = LUCKADD;
     else
+        u.moreluck = -LUCKADD;
+    
+    if (u.uconduct.wishes >= 13)
         u.moreluck = -LUCKADD;
 }
 

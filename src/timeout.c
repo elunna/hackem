@@ -580,7 +580,7 @@ nh_timeout()
     int sleeptime;
     int m_idx;
     int baseluck = (flags.moonphase == FULL_MOON) ? 1 : 0;
-
+    
     if (flags.friday13)
         baseluck -= 1;
     if (Role_if(PM_ARCHEOLOGIST) && uarmh && uarmh->otyp == FEDORA)

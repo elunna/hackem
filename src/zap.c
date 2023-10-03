@@ -7300,9 +7300,10 @@ makewish()
         livelog_printf(LL_WISH | (prev_artwish < u.uconduct.wisharti ? LL_ARTIFACT : 0),
                        "wished for \"%s\"", bufcpy);
 
-    if ((adjust = wishluck()))
-        change_luck(adjust == -13 ? -13 : -1);
-
+    if ((adjust = wishluck())) {
+        change_luck(adjust == -10 ? -10 : -1);
+        set_moreluck();
+    }
     if (otmp != &zeroobj) {
         const char
             *verb = ((Is_airlevel(&u.uz) || u.uinwater) ? "slip" : "drop"),
