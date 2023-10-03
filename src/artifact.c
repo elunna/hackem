@@ -4763,14 +4763,18 @@ int art;
 {
     if (!art)
         return FALSE;
-
-    return ((uarm && uarm->oartifact == art)
-            || (uarmh && uarmh->oartifact == art)
-            || (uarmg && uarmg->oartifact == art)
-            || (uarmf && uarmf->oartifact == art)
-            || (uarms && uarms->oartifact == art)
+    
+    return (
+            /* armor */
+            (uarm && uarm->oartifact == art)
             || (uarmc && uarmc->oartifact == art)
             || (uarmu && uarmu->oartifact == art)
+            || (uarmh && uarmh->oartifact == art)
+            || (uarmg && uarmg->oartifact == art)
+            || (uarms && uarms->oartifact == art)
+            || (uarmf && uarmf->oartifact == art)
+            
+            /* accessories */
             || (uamul && uamul->oartifact == art)
             || (ublindf && ublindf->oartifact == art)
             || (uleft && uleft->oartifact == art)

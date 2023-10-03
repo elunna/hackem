@@ -274,7 +274,7 @@ struct obj *otmp;
             dmg = 0;
             wake = FALSE;
         } else if (uarmh && is_heavy_metallic(uarmh)
-            && uarmh->oartifact != ART_MITRE_OF_HOLINESS) {
+            && !wearing_artifact(ART_MITRE_OF_HOLINESS)) {
             pline_The("%s of your %s blocks your psionic attack.",
                       materialnm[uarmh->material],
                       helm_simple_name(uarmh));
@@ -2996,7 +2996,7 @@ boolean ordinary;
             Race_if(PM_ILLITHID)))) {
             Your("mind is not capable of using psionic abilities.");
         } else if (uarmh && is_heavy_metallic(uarmh)
-            && uarmh->oartifact != ART_MITRE_OF_HOLINESS) {
+            && !wearing_artifact(ART_MITRE_OF_HOLINESS)) {
             pline_The("%s of your %s blocks your psionic attack.",
                       materialnm[uarmh->material],
                       helm_simple_name(uarmh));
@@ -3579,8 +3579,8 @@ boolean youattack, allow_cancel_kill, self_cancel;
                 shieldeff(u.ux, u.uy);
                 You_feel("a wave of energy dissipate around you.");
                 return FALSE;
-            } else if (rn2(3) && Role_if(PM_MONK)
-                && ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+            } else if (rn2(3) && Role_if(PM_MONK) 
+                       && wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                 shieldeff(u.ux, u.uy);
                 You_feel("a wave of energy dissipate around you.");
                 return FALSE;

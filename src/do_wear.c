@@ -2067,7 +2067,7 @@ struct obj *otmp;
         toggle_blindness(); /* potion.c */
     }
     
-    if (ublindf && ublindf->oartifact == ART_MYSTIC_EYES) {
+    if (wearing_artifact(ART_MYSTIC_EYES)) {
         if (!already_hallucinating && !EHalluc_resistance) {
             context.botl = TRUE; /* status: On */
             pline("With madness comes clarity.");
@@ -2911,8 +2911,6 @@ long mask;
     else if (mask == W_ARM && uarmu)
         return FALSE;
     else if ((mask & (W_WEP | W_SWAPWEP | W_ARMS)) && uarmg)
-        return FALSE;
-    else if ((mask & W_RINGL) && uarmg && uarmg->oartifact == ART_HAND_OF_VECNA)
         return FALSE;
     else if (mask == W_QUIVER)
         return FALSE;

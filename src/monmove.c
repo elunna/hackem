@@ -280,7 +280,7 @@ boolean digest_meal;
         && !mon->mwither
         && (!Is_valley(&u.uz) || is_undead(r_data(mon)))
         && (moves % 20 == 0 || mon_prop(mon, REGENERATION))
-        && !(uwep && uwep->oartifact && uwep->oartifact == ART_MORTALITY_DIAL))
+        && !wielding_artifact(ART_MORTALITY_DIAL))
         mon->mhp++;
 
     if (mon->mspec_used)

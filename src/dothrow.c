@@ -1421,7 +1421,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
          && P_SKILL(weapon_type(obj)) >= P_SKILLED);
     
     /* KMH -- Handle Plague here */
-    if (uwep && uwep->oartifact == ART_PLAGUE &&
+    if (wielding_artifact(ART_PLAGUE) &&
         ammo_and_launcher(obj, uwep) && is_poisonable(obj))
         obj->opoisoned = 1;
 
@@ -2038,7 +2038,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     register int disttmp; /* distance modifier */
     int otyp = obj->otyp, hmode;
     boolean guaranteed_hit = (u.uswallow && mon == u.ustuck);
-    boolean hellfiring = (uwep && uwep->oartifact == ART_HELLFIRE);
+    boolean hellfiring = wielding_artifact(ART_HELLFIRE);
     int dieroll;
 
     hmode = (obj == uwep) ? HMON_APPLIED

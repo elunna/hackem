@@ -7071,8 +7071,7 @@ doenshelling(VOID_ARGS)
              gloves_simple_name(uarmg));
         return 0;
     } else if (uarmh && is_hard(uarmh) && uarmh->cursed
-               && !(Role_if(PM_PRIEST)
-                    && uarmh->oartifact == ART_MITRE_OF_HOLINESS)) {
+               && !(Role_if(PM_PRIEST) && wearing_artifact(ART_MITRE_OF_HOLINESS))) {
         Your("cursed %s prevents you from retreating into your shell.",
              helm_simple_name(uarmh));
         return 0;

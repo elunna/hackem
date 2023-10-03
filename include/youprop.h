@@ -135,10 +135,8 @@
 
 #define Invulnerable u.uprops[INVULNERABLE].intrinsic /* [Tom] */
 
-#define DeathVision (ublindf \
-                     && ublindf->oartifact == ART_MYSTIC_EYES \
-                     && !Blind                                \
-                     && !Halluc_resistance)
+#define DeathVision (wearing_artifact(ART_MYSTIC_EYES) \
+                     && !Blind && !Halluc_resistance)
 
 /*** Troubles ***/
 /* Pseudo-property */
@@ -165,11 +163,11 @@
 #define Blind                                     \
     ((u.uroleplay.blind || Blinded || Blindfolded \
       || !haseyes(youmonst.data) || Hidinshell)   \
-     && !(ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD))
+     && !wearing_artifact(ART_EYES_OF_THE_OVERWORLD))
 /* ...the Eyes operate even when you really are blind
     or don't have any eyes */
 #define Blindfolded_only                                             \
-    (Blindfolded && ublindf->oartifact != ART_EYES_OF_THE_OVERWORLD \
+    (Blindfolded && !wearing_artifact(ART_EYES_OF_THE_OVERWORLD) \
      && !u.uroleplay.blind && !Blinded && haseyes(youmonst.data))
 /* ...blind because of a blindfold, and *only* that */
 
@@ -355,7 +353,7 @@
 #define See_underwater \
     ((HSwimming && (HMagical_breathing || amphibious(youmonst.data)  \
                     || racial_tortle(&youmonst)))                    \
-     || (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) \
+     || wearing_artifact(ART_EYES_OF_THE_OVERWORLD) \
      || (ublindf && ublindf->otyp == GOGGLES))
 
 #define HBreathless u.uprops[BREATHLESS].intrinsic

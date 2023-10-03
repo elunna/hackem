@@ -107,7 +107,7 @@ mitre_inhell(void)
 {
     if (!Inhell)
         return FALSE;
-    if (uarmh && uarmh->oartifact == ART_MITRE_OF_HOLINESS)
+    if (wearing_artifact(ART_MITRE_OF_HOLINESS))
         return FALSE;
     return TRUE;
 }
@@ -1000,7 +1000,7 @@ gcrownu()
     }
 
     if (Role_if(PM_PIRATE)) {
-        in_hand = (uwep && uwep->oartifact == ART_REAVER);
+        in_hand = wielding_artifact(ART_REAVER);
         already_exists = exist_artifact(SCIMITAR, artiname(ART_REAVER));
         obj = mksobj(SCIMITAR, FALSE, FALSE);
         obj = oname(obj, artiname(ART_REAVER));

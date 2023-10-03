@@ -1436,8 +1436,7 @@ register struct attack *mattk;
     boolean burnmsg = FALSE;
     long armask = attack_contact_slots(mtmp, mattk->aatyp);
     struct obj* hated_obj;
-    boolean vorpal_wield = ((uwep && uwep->oartifact == ART_VORPAL_BLADE)
-                            || (u.twoweap && uswapwep->oartifact == ART_VORPAL_BLADE));
+    boolean vorpal_wield = wielding_artifact(ART_VORPAL_BLADE);
 
     if (!canspotmon(mtmp) && mdat != &mons[PM_GHOST]) {
         /* Ghosts have an exception because if the hero can't spot it, their
@@ -2170,7 +2169,7 @@ register struct attack *mattk;
                       type, but when defending, it remains as-is */
                    || dmgtype(youmonst.data, AD_SSEX)) {
             
-            if (uwep && uwep->oartifact == ART_THIEFBANE) {
+            if (wielding_artifact(ART_THIEFBANE)) {
                 pline("Thiefbane distracts %s from their advances.", Monnam(mtmp));
             } else 
                 pline("%s %s.", Monnam(mtmp),
@@ -2186,7 +2185,7 @@ register struct attack *mattk;
              * themselves (like gnome thiefs or muggers) */
             if ((is_nymph(mtmp->data) || mtmp->data == &mons[PM_MERMAID]) && !type_is_pname(mtmp->data)) 
                 mintroduce(mtmp);
-            if (mtmp->mcan || Hidinshell || (uwep && uwep->oartifact == ART_THIEFBANE)) {
+            if (mtmp->mcan || Hidinshell || wielding_artifact(ART_THIEFBANE)) {
                 if (!Blind)
                     pline("%s tries to %s you, but you seem %s.",
                           Adjmonnam(mtmp, "plain"),
@@ -2200,7 +2199,7 @@ register struct attack *mattk;
                 break;
             }
         }
-        if (uwep && uwep->oartifact == ART_THIEFBANE) {
+        if (wielding_artifact(ART_THIEFBANE)) {
             pline("%s makes a move for your pack but Thiefbane blocks the theft!.", Monnam(mtmp));
             return 1;
         }
@@ -3706,8 +3705,7 @@ struct attack *mattk;
             if (mtmp->data == &mons[PM_BEHOLDER]) {
                 /* The EotO can afford the player some protection when worn */
                 int dmg;
-                if (ublindf
-                    && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+                if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                     pline("%s partially protect you from %s petrifying gaze.  That hurts!",
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
                     dmg = d(4, 6);
@@ -3730,8 +3728,7 @@ struct attack *mattk;
             } else if (mtmp->data == &mons[PM_MEDUSA]) {
                 if (poly_when_stoned(youmonst.data) && polymon(PM_STONE_GOLEM))
                     break;
-                if (ublindf
-                       && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD)
+                if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD))
                     pline("%s gaze is too powerful for %s to resist!",
                           s_suffix(Monnam(mtmp)), bare_artifactname(ublindf));
                 You("turn to stone...");
@@ -3752,7 +3749,7 @@ struct attack *mattk;
             
             int hunger = 20 + d(3, 4);
 
-            if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+            if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                 pline( "%s partially protect you from %s blightful gaze!",
                     An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
                 hunger = d(2, 4);
@@ -3770,8 +3767,7 @@ struct attack *mattk;
             if (cancelled) {
                 react = 0; /* "confused" */
                 already = (mtmp->mconf != 0);
-            } else if (ublindf
-                       && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+            } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                 if (!rn2(4))
                     pline("%s protect you from %s confusing gaze.",
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
@@ -3795,8 +3791,7 @@ struct attack *mattk;
             if (cancelled) {
                 react = 1; /* "stunned" */
                 already = (mtmp->mstun != 0);
-            } else if (ublindf
-                       && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+            } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                 if (!rn2(4))
                     pline("%s protect you from %s stunning gaze.",
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
@@ -3815,7 +3810,7 @@ struct attack *mattk;
         if (mtmp->data == &mons[PM_UMBRAL_HULK]){
             if (!mtmp->mspec_used && !Blind && couldsee(mtmp->mx, mtmp->my) &&
                     can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj*)0)) {
-                if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD && rn2(2)) {
+                if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD) && rn2(2)) {
                     pline("%s protect you from %s blinding gaze.",
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
                     break;
@@ -3956,7 +3951,7 @@ struct attack *mattk;
             if (Fearless) {
                 You("are not afraid of the %s!", mon_nam(mtmp));
                 break;
-            } else if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD && rn2(3)) {
+            } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD) && rn2(3)) {
                 pline_The("%s doesn't look so bad through %s.",
                       s_suffix(Monnam(mtmp)), An(bare_artifactname(ublindf)));
                 break;
@@ -3975,8 +3970,7 @@ struct attack *mattk;
             if (cancelled) {
                 react = 6;                      /* "tired" */
                 already = (mtmp->mfrozen != 0); /* can't happen... */
-            } else if (ublindf
-                       && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+            } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                 if (!rn2(4))
                     pline("%s protect you from %s slumbering gaze.",
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
@@ -4000,8 +3994,7 @@ struct attack *mattk;
                 react = 7; /* "dulled" */
                 already = (mtmp->mspeed == MSLOW);
             /* The EotO can afford the player some protection when worn */
-            } else if (ublindf
-                       && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+            } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                 if (!rn2(4))
                     pline("%s protect you from %s lethargic gaze.",
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
@@ -4035,15 +4028,13 @@ struct attack *mattk;
             } else if (how_resistant(DISINT_RES) > 0) {
                 You("aren't disintegrated, but that really hurts!");
                 dmg = resist_reduce(dmg, DISINT_RES);
-                if (ublindf
-                    && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD)
+                if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD))
                     dmg /= 2;
                 if (dmg)
                     mdamageu(mtmp, dmg);
                 break;
             /* The EotO can afford the player some protection when worn */
-            } else if (ublindf
-                       && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+            } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                 pline("%s partially protect you.  That stings!",
                       An(bare_artifactname(ublindf)));
                 if (dmg)
@@ -4084,8 +4075,7 @@ struct attack *mattk;
                 react = 9; /* "lackluster" */
                 already = (mtmp->mcan != 0);
             /* The EotO can afford the player some protection when worn */
-            } else if (ublindf
-                && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+            } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                 pline("%s partially protect you from %s strange gaze.  Ouch!",
                       An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
                 dmg = d(2, 4);
@@ -4210,7 +4200,7 @@ struct attack *mattk;
             && !((is_undead(youmonst.data)
                 || is_demon(youmonst.data)) && is_undead(mtmp->data))) {
             
-            if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+            if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                 if (!rn2(4))
                     pline("%s protect you from %s frightening gaze.",
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
@@ -4262,7 +4252,7 @@ struct attack *mattk;
               && !mtmp->mspec_used
               && rn2(5)) {
             pline("%s stares into your eyes...", Monnam(mtmp));
-            if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+            if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                 if (!rn2(4))
                     pline("%s protect you from %s poison gaze.",
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
@@ -4274,7 +4264,7 @@ struct attack *mattk;
     case AD_DRLI:
         if (!mtmp->mcan && canseemon(mtmp) && mtmp->mcansee && !mtmp->mspec_used && !rn2(3)) {
             if (!Drain_resistance) {
-                if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+                if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                     if (!rn2(4))
                         pline("%s protect you from %s draining gaze.",
                               An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
@@ -4787,7 +4777,7 @@ struct attack *mattk;
     char mlet;
     boolean vis, monable;
     
-    if (uwep && uwep->oartifact == ART_STAFF_OF_ROT && !rn2(3))  {
+    if (wielding_artifact(ART_STAFF_OF_ROT) && !rn2(3))  {
         /* Duplicated from uhitm.c */
         boolean no_effect = nonliving(mtmp->data) || is_vampshifter(mtmp);
         uchar withertime = max(2, tmp);

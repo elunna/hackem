@@ -1026,7 +1026,7 @@ boolean wiz_cast;
     energy = wiz_cast ? 0 : (spellev(spell) * 5); /* 5 <= energy <= 35 */
     
     /* Origin gives us a discount on spellcasting. */
-    if (uwep && uwep->oartifact == ART_ORIGIN && energy >= 10)
+    if (wielding_artifact(ART_ORIGIN) && energy >= 10)
         energy -= 5;
         
     /*
@@ -2140,7 +2140,7 @@ int spell;
         || spellid(spell) == SPE_REMOVE_CURSE)
         splcaster += special;
 
-    if (uwep && uwep->oartifact == ART_ORIGIN)
+    if (wielding_artifact(ART_ORIGIN))
         splcaster -= 3;
     
     if (splcaster > 20)

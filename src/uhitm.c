@@ -891,7 +891,7 @@ struct attack *uattk;
     /* Cleaver attacks three spots, 'mon' and one on either side of 'mon';
        it can't be part of dual-wielding but we guard against that anyway;
        cleave return value reflects status of primary target ('mon') */
-    if (uwep && uwep->oartifact == ART_CLEAVER && !u.twoweap
+    if (wielding_artifact(ART_CLEAVER) && !u.twoweap
         && !u.uswallow && !u.ustuck && !NODIAG(u.umonnum) && should_cleave())
         return hitum_cleave(mon, uattk);
 
@@ -5074,8 +5074,7 @@ boolean wep_was_destroyed;
                     } else if (Free_action) {
                         You("momentarily stiffen under %s gaze!",
                             s_suffix(mon_nam(mon)));
-                    } else if (ublindf
-                               && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+                    } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                         pline("%s protect you from %s paralyzing gaze.",
                               An(bare_artifactname(ublindf)), s_suffix(mon_nam(mon)));
                         break;
@@ -5354,7 +5353,7 @@ boolean wep_was_destroyed;
             case SHIMMERING_DRAGON_SCALES:
                 /* These can have a few random effects: confuse, stun */
                 if (!rn2(3)) {
-                    if (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) {
+                    if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
                         pline("%s protect you from %s shimmering armor!",
                               An(bare_artifactname(ublindf)),
                               s_suffix(mon_nam(mon)));

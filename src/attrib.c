@@ -489,8 +489,7 @@ boolean parameter; /* So I can't think up of a good name.  So sue me. --KAA */
 
     for (otmp = invent; otmp; otmp = otmp->nobj)
         if (confers_luck(otmp)) {
-            if (otmp->cursed ||
-            (otmp->oartifact && otmp->oartifact == ART_LUCKLESS_FOLLY))
+            if (otmp->cursed || wielding_artifact(ART_LUCKLESS_FOLLY))
                 bonchance -= otmp->quan;
             else if (otmp->blessed)
                 bonchance += otmp->quan;
@@ -1092,8 +1091,7 @@ int propidx; /* special cases can have negative values */
                replace this with what_blocks() comparable to what_gives() */
             switch (-propidx) {
             case BLINDED:
-                if (ublindf
-                    && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD)
+                if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD))
                     Sprintf(buf, because_of, bare_artifactname(ublindf));
                 break;
             case INVIS:
@@ -1383,7 +1381,7 @@ int x;
 #endif
 
     } else if (x == A_CHA) {
-        if (uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
+        if (wielding_artifact(ART_CHAINS_OF_MALCANTHET))
             return (schar) 25;
         if (tmp < 18
             && (youmonst.data->mlet == S_NYMPH || u.umonnum == PM_SUCCUBUS
@@ -1457,7 +1455,7 @@ int attrindx;
         if (wielding_artifact(ART_OGRESMASHER))
             lolimit = hilimit;
     }  else if (attrindx == A_CHA) {
-        if (uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
+        if (wielding_artifact(ART_CHAINS_OF_MALCANTHET))
             lolimit = hilimit;
     }
     /* this exception is hypothetical; the only other worn item affecting
