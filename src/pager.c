@@ -1276,27 +1276,26 @@ char *usr_text;
                 oc.oc_delay == 0 ? 1 : oc.oc_delay, 
                 (oc.oc_delay == 1 ? "" : "s"));
         OBJPUTSTR(buf);
-        
-        if (dummy.oprops_known) {
-            if (obj->oprops & ITEM_FIRE) OBJPUTSTR("Grants fire resistance");
-            if (obj->oprops & ITEM_FROST) OBJPUTSTR("Grants cold resistance");
-            if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("Grants shock resistance");
-            if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("Grants sonic resistance");
-            if (obj->oprops & ITEM_VENOM) OBJPUTSTR("Grants poison resistance");
-            if (obj->oprops & ITEM_ACID) OBJPUTSTR("Grants acid resistance");
-            if (obj->oprops & ITEM_DRLI) OBJPUTSTR("Grants drain resistance");
-            if (obj->oprops & ITEM_SLEEP) OBJPUTSTR("Grants sleep resistance");
-            if (obj->oprops & ITEM_STONE) OBJPUTSTR("Grants petrification resistance");
-            if (obj->oprops & ITEM_SICK) OBJPUTSTR("Grants sickness resistance");
-            if (obj->oprops & ITEM_STUN) OBJPUTSTR("Grants stun resistance");
-            if (obj->oprops & ITEM_RAGE) OBJPUTSTR("Grants rage and fearlessness");
-            if (obj->oprops & ITEM_PROWESS) OBJPUTSTR("Grants prowess in technical skills");
-            if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Grants withering resistance");
-            if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
-            if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
-        }
     }
-
+    if (dummy.oprops_known && 
+          (oc.oc_class == ARMOR_CLASS || oc.oc_class == RING_CLASS)) {
+        if (obj->oprops & ITEM_FIRE) OBJPUTSTR("Grants fire resistance");
+        if (obj->oprops & ITEM_FROST) OBJPUTSTR("Grants cold resistance");
+        if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("Grants shock resistance");
+        if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("Grants sonic resistance");
+        if (obj->oprops & ITEM_VENOM) OBJPUTSTR("Grants poison resistance");
+        if (obj->oprops & ITEM_ACID) OBJPUTSTR("Grants acid resistance");
+        if (obj->oprops & ITEM_DRLI) OBJPUTSTR("Grants drain resistance");
+        if (obj->oprops & ITEM_SLEEP) OBJPUTSTR("Grants sleep resistance");
+        if (obj->oprops & ITEM_STONE) OBJPUTSTR("Grants petrification resistance");
+        if (obj->oprops & ITEM_SICK) OBJPUTSTR("Grants sickness resistance");
+        if (obj->oprops & ITEM_STUN) OBJPUTSTR("Grants stun resistance");
+        if (obj->oprops & ITEM_RAGE) OBJPUTSTR("Grants rage and fearlessness");
+        if (obj->oprops & ITEM_PROWESS) OBJPUTSTR("Grants prowess in technical skills");
+        if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Grants withering resistance");
+        if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
+        if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
+    }
     /* PROPERTY INFO */
 
     if (dummy.oprops_known

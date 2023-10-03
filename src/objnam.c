@@ -1124,6 +1124,9 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                 Sprintf(buf, "%s ring", actualn);
             else
                 Sprintf(eos(buf), "ring of %s", actualn);
+
+            propnames(buf, obj->oprops, obj->oprops_known,
+                      FALSE, FALSE);
         }
         else if (un)
             xcalled(buf, BUFSZ - PREFIX, "ring", un);
@@ -5373,7 +5376,8 @@ struct obj *no_wish;
 
     /* object property restrictions */
     if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp) 
-          || otmp->oclass == ARMOR_CLASS) {
+          || otmp->oclass == ARMOR_CLASS
+             || otmp->oclass == RING_CLASS) {
 
         /* TODO: This refactor is better but... can it be consolidated more? */
         if (objprops & ITEM_FROST)
@@ -5421,13 +5425,13 @@ struct obj *no_wish;
         else if (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
             objprops &= ~(ITEM_OILSKIN | NON_WEP_PROPS);
 
-        if (otmp->oclass == ARMOR_CLASS)
+        if (otmp->oclass == ARMOR_CLASS || otmp->oclass == RING_CLASS)
             objprops &= ~ONLY_WEP_PROPS;
 
         objprops = rm_redundant_oprops(otmp, objprops);
 
         /* The player cannot wish for properties */
-        /*if (wizard)*/
+        if (wizard)
             otmp->oprops |= objprops;
     }
 
@@ -5742,6 +5746,38 @@ long objprops;
         objprops &= ~ITEM_STEALTH;
     if (otmp->otyp == ALCHEMY_SMOCK)
         objprops &= ~(ITEM_ACID | ITEM_VENOM);
+    
+    if (otmp->oclass == RING_CLASS) {
+        /* TODO: Figure out how to loop over the props 
+         * and use obj_has_prop(obj, which) */
+        if (otmp->otyp == RIN_SEARCHING)
+            objprops &= ~ITEM_SEARCHING;
+        if (otmp->otyp == RIN_STEALTH)
+            objprops &= ~ITEM_STEALTH;
+        if (otmp->otyp == RIN_SUSTAIN_ABILITY)
+            objprops &= ~ITEM_SUSTAIN;
+        if (otmp->otyp == RIN_HUNGER)
+            objprops &= ~ITEM_HUNGER;
+        if (otmp->otyp == RIN_AGGRAVATE_MONSTER)
+            objprops &= ~ITEM_STENCH;
+        if (otmp->otyp == RIN_WARNING)
+            objprops &= ~ITEM_VIGIL;
+        if (otmp->otyp == RIN_POISON_RESISTANCE)
+            objprops &= ~ITEM_VENOM;
+        if (otmp->otyp == RIN_FIRE_RESISTANCE)
+            objprops &= ~ITEM_FIRE;
+        if (otmp->otyp == RIN_COLD_RESISTANCE)
+            objprops &= ~ITEM_FROST;
+        if (otmp->otyp == RIN_SONIC_RESISTANCE)
+            objprops &= ~ITEM_SCREAM;
+        if (otmp->otyp == RIN_SHOCK_RESISTANCE)
+            objprops &= ~ITEM_SHOCK;
+        if (otmp->otyp == RIN_TELEPORTATION)
+            objprops &= ~ITEM_TELE;
+        if (otmp->otyp == RIN_SEE_INVISIBLE)
+            objprops &= ~ITEM_INSIGHT;
+    }
+    
     return objprops;
 }
 /*objnam.c*/

@@ -425,9 +425,10 @@ boolean allow_detrimental;
     else if is_bomb(otmp)
         return otmp;
 
-    /* properties only added to weapons and armor */
+    /* properties only added to weapons, armor, and rings */
     if (otmp->oclass != WEAPON_CLASS && !is_weptool(otmp)
-          && otmp->oclass != ARMOR_CLASS)
+          && otmp->oclass != ARMOR_CLASS
+             && otmp->oclass != RING_CLASS)
         return otmp;
 
     /* it is possible to have an object spawn with more
@@ -456,7 +457,8 @@ boolean allow_detrimental;
             && (j & (NON_WEP_PROPS | ITEM_OILSKIN)))
             continue;
 
-        if ((otmp->oclass == ARMOR_CLASS) && (j & ONLY_WEP_PROPS))
+        if ((otmp->oclass == ARMOR_CLASS && otmp->oclass == RING_CLASS)
+              && (j & ONLY_WEP_PROPS))
             continue;
         
         if ((otmp->oprops & ITEM_RES_PROPS) && (j & ITEM_RES_PROPS))
@@ -519,6 +521,38 @@ int prop;
         return TRUE;
     if (otmp->otyp == ELVEN_BOOTS && (prop & ITEM_STEALTH))
         return TRUE;
+
+    if (otmp->oclass == RING_CLASS) {
+        /* TODO: Figure out how to loop over the props 
+         * and use obj_has_prop(obj, which) */
+        if (otmp->otyp == RIN_SEARCHING && (prop & ITEM_SEARCHING))
+        return TRUE;
+        if (otmp->otyp == RIN_STEALTH && (prop & ITEM_STEALTH))
+        return TRUE;
+        if (otmp->otyp == RIN_SUSTAIN_ABILITY && (prop & ITEM_SUSTAIN))
+            return TRUE;;
+        if (otmp->otyp == RIN_HUNGER && (prop & ITEM_HUNGER))
+            return TRUE;
+        if (otmp->otyp == RIN_AGGRAVATE_MONSTER && (prop & ITEM_STENCH))
+            return TRUE;
+        if (otmp->otyp == RIN_WARNING && (prop & ITEM_VIGIL))
+            return TRUE;
+        if (otmp->otyp == RIN_POISON_RESISTANCE && (prop & ITEM_VENOM))
+            return TRUE;
+        if (otmp->otyp == RIN_FIRE_RESISTANCE && (prop & ITEM_FIRE))
+            return TRUE;
+        if (otmp->otyp == RIN_COLD_RESISTANCE && (prop & ITEM_FROST))
+            return TRUE;
+        if (otmp->otyp == RIN_SONIC_RESISTANCE && (prop & ITEM_SCREAM))
+            return TRUE;
+        if (otmp->otyp == RIN_SHOCK_RESISTANCE && (prop & ITEM_SHOCK))
+            return TRUE;
+        if (otmp->otyp == RIN_TELEPORTATION && (prop & ITEM_TELE))
+            return TRUE;
+        if (otmp->otyp == RIN_SEE_INVISIBLE && (prop & ITEM_INSIGHT))
+            return TRUE;
+    }
+    
     return FALSE;
 }
 
