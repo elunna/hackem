@@ -1292,7 +1292,7 @@ char *usr_text;
         if (obj->oprops & ITEM_STUN) OBJPUTSTR("Grants stun resistance");
         if (obj->oprops & ITEM_RAGE) OBJPUTSTR("Grants rage and fearlessness");
         if (obj->oprops & ITEM_PROWESS) OBJPUTSTR("Grants prowess in technical skills");
-        if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Grants withering resistance");
+        if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Grants disintegration resistance");
         if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
         if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
     }

@@ -614,7 +614,7 @@ struct obj {
 #define ITEM_WWALK     0x02000000L /* extrinsic water walking */
 #define ITEM_SWIM      0x04000000L /* extrinsic swimming */
 #define ITEM_RAGE      0x08000000L /* extrinsic rage and fearlessness */
-#define ITEM_TOUGH     0x10000000L /* extrinsic withering res */
+#define ITEM_TOUGH     0x10000000L /* extrinsic disintegration res */
 #define ITEM_PROWESS   0x20000000L /* Speeds up tech cooldowns, skill bonuses */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */

@@ -205,7 +205,7 @@ register struct obj *obj;
             EFearless &= ~W_WEP;
         }
         if (olduwep->oprops & ITEM_TOUGH) {
-            BWithering &= ~W_WEP;
+            EDisint_resistance &= ~W_WEP;
         }
     }
 
@@ -300,7 +300,7 @@ register struct obj *obj;
             }
         }
         if (uwep->oprops & ITEM_TOUGH) {
-            BWithering |= W_WEP;
+            EDisint_resistance |= W_WEP;
         }
     }
 
@@ -601,7 +601,7 @@ register struct obj *obj;
         }
         /* Toughness */
         if (olduswapwep->oprops & ITEM_TOUGH) {
-            BWithering &= ~W_SWAPWEP;
+            EDisint_resistance &= ~W_SWAPWEP;
         }
     }
 
@@ -696,7 +696,7 @@ register struct obj *obj;
             }
         }
         if (uswapwep->oprops & ITEM_TOUGH) {
-            BWithering |= W_SWAPWEP;
+            EDisint_resistance |= W_SWAPWEP;
         }
     }
 

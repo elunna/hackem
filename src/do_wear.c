@@ -242,7 +242,7 @@ long mask;
         }
     }
     if (props & ITEM_TOUGH)
-        BWithering |= mask;
+        EDisint_resistance |= mask;
     if (props & ITEM_OILSKIN) {
         pline("%s very tightly.", Tobjnam(otmp, "fit"));
         otmp->oprops_known |= ITEM_OILSKIN;
@@ -349,7 +349,7 @@ long mask;
     if (props & ITEM_RAGE)
         EFearless &= ~mask;
     if (props & ITEM_TOUGH)
-        BWithering &= ~mask;
+        EDisint_resistance &= ~mask;
     if (props & ITEM_OILSKIN)
         otmp->oprops_known |= ITEM_OILSKIN;
     if (props & ITEM_ESP) {

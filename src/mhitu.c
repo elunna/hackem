@@ -2645,11 +2645,6 @@ do_rust:
         } else if (BWithering) {
             struct obj *o;
             You_feel("dessicated for a moment.");
-            
-            if ((o = using_oprop(ITEM_TOUGH)) && !o->oprops_known) {
-                Your("%s absorbs the deathly withering!", xname(o));
-                o->oprops_known |= ITEM_VIGIL;
-            }
         }
        
         break;

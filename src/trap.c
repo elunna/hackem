@@ -163,7 +163,7 @@ int ef_flags;
     if (!otmp)
         return ER_NOTHING;
 
-    /* Tough items are immune to erosion. */
+    /* Resiliant items are immune to erosion. */
     if (otmp && otmp->oprops & ITEM_TOUGH) {
         otmp->oprops_known |= ITEM_TOUGH;
         return FALSE;
