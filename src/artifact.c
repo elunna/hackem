@@ -1835,7 +1835,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     char hittee[BUFSZ];
     struct artifact* atmp;
     struct obj *target;
-    int j, k, mdx, mdy, permdmg = 0, chance;
+    int j, k, mdx, mdy, permdmg = 0;
     int time = 1; /* For Mouser's Scalpel */
     int hurtle_distance = 0; /* For Ogresmasher */
 
@@ -3307,24 +3307,17 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
         return realizes_damage;
     }
-    chance = 4;
-    if (!DEADMONSTER(mdef)) {
-        /* Thiefbane gets a huge bonus for cancelling thiefs or covetous */
-        if (otmp->oartifact == ART_THIEFBANE &&
-            (is_covetous(mdef->data)
-             || dmgtype(mdef->data, AD_SITM)
-             || dmgtype(mdef->data, AD_SEDU)))
-            chance = 8;
 
-        /* WAC -- 1/6 chance of cancellation with foobane weapons */
-        if (otmp->oartifact == ART_ORCRIST ||
-            otmp->oartifact == ART_DEMONBANE ||
-            otmp->oartifact == ART_THIEFBANE) {
-            if (!mdef->mcan && dieroll < chance) {
+    if (!DEADMONSTER(mdef)) {
+        /* Thiefbane gets a huge bonus for cancelling thieves or covetous */
+        if (otmp->oartifact == ART_THIEFBANE
+            && (is_covetous(mdef->data) || dmgtype(mdef->data, AD_SITM)
+                || dmgtype(mdef->data, AD_SEDU))) {
+
+            if (!mdef->mcan && dieroll < 8) {
                 if (realizes_damage) {
-                    pline("%s %s!", The(distant_name(otmp, xname)), Blind ?
-                                                                    "roars deafeningly" : "shines brilliantly");
-                    /*pline("It strikes %s!", hittee);*/
+                    pline("%s %s!", The(distant_name(otmp, xname)),
+                          Blind ? "roars deafeningly" : "shines brilliantly");
                 }
                 cancel_monst(mdef, otmp, youattack, TRUE, magr == mdef);
                 return TRUE;
