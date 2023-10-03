@@ -4260,10 +4260,7 @@ boolean autohit;
         max_range = 5;
     else
         max_range = 8; /* (P_SKILL(typ) >= P_EXPERT) */
-
-    if (obj->oartifact == ART_GLEIPNIR)
-        max_range = max_range * 3;
-
+        
     polearm_range_min = min_range;
     polearm_range_max = max_range;
 
@@ -4507,8 +4504,15 @@ struct obj *obj;
         max_range = 5;
     else
         max_range = 8;
+    
+    if (obj->oartifact == ART_GLEIPNIR)
+        max_range = max_range * 5;
+    
     if (distu(cc.x, cc.y) > max_range) {
-        pline("Too far!");
+        if (wizard)
+            pline("Too far! [%d]", distu(cc.x, cc.y));
+        else
+            pline("Too far!");
         return res;
     } else if (!cansee(cc.x, cc.y)) {
         You(cant_see_spot);

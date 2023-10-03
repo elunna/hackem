@@ -5073,7 +5073,7 @@ artifact_info(int anum)
         art_info.xattack = "sleep attack";
         break;
     case ART_GLEIPNIR: 
-        art_info.xinfo = "extended and stronger grapple";
+        art_info.xinfo = "extended range and stronger than regular grappling hook";
         break;
     case ART_MYSTIC_EYES: 
         art_info.wielded[16] = "confers Death Vision";

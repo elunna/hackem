@@ -190,11 +190,11 @@ struct obj {
     ((otmp->oclass == WEAPON_CLASS || otmp->oclass == TOOL_CLASS) \
      && objects[otmp->otyp].oc_skill == P_HAMMER)
 #define is_pole(otmp)                                             \
-    ((otmp->oclass == WEAPON_CLASS                                \
-     || otmp->oclass == TOOL_CLASS)                               \
+    ((otmp->oclass == WEAPON_CLASS || otmp->oclass == TOOL_CLASS) \
      && (objects[otmp->otyp].oc_skill == P_POLEARMS               \
          || objects[otmp->otyp].oc_skill == P_LANCE               \
-         || otmp->otyp == SPIKED_CHAIN))
+         || otmp->otyp == SPIKED_CHAIN)                           \
+     && (otmp->oartifact != ART_GLEIPNIR))
 #define is_spear(otmp) \
     (otmp->oclass == WEAPON_CLASS && objects[otmp->otyp].oc_skill == P_SPEAR)
 #define is_launcher(otmp)                                                  \
