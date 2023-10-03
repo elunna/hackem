@@ -790,6 +790,11 @@ doforging(void)
                 output->spe = obj1->spe;
             }
 
+            /* Output gets erodeproofing if either ingredient has it  */
+            if (obj1->oerodeproof || obj2->oerodeproof) {
+                output->oerodeproof = 1;
+            }
+            
             /* transfer curses and blessings from secondary object */
             output->cursed = obj2->cursed;
             output->blessed = obj2->blessed;
