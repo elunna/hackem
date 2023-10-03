@@ -299,10 +299,7 @@ boolean resuming;
                      */
                     monclock = MIN_MONGEN_RATE;
 
-                    if (u.uevent.invoked) {
-                        /* performing the invocation gets the entire dungeon riled up */
-                        monclock = MAX_MONGEN_RATE;
-                    } else if (!iflags.debug_fuzzer) {
+                    if (!iflags.debug_fuzzer) {
                         /* Don't let wishes influence the fuzzer */
                         past_clock = moves - timeout_start;
                         if (past_clock > 0)
@@ -313,6 +310,8 @@ boolean resuming;
                             monclock = MIN_MONGEN_RATE / 6;
                         if (monclock > MIN_MONGEN_RATE / 8 && (u.uconduct.wishes >= 4L))
                             monclock = MIN_MONGEN_RATE / 8;
+                        if (monclock > MIN_MONGEN_RATE / 8 && (u.uconduct.wishes >= 5L))
+                            monclock = MAX_MONGEN_RATE;
                     }
 		            /* make sure we don't fall off the bottom */
                     if (monclock < MAX_MONGEN_RATE)
@@ -333,6 +332,7 @@ boolean resuming;
                             (void) makemon((struct permonst *) 0, 0, 0,
                                            MM_MPLAYEROK);
                     }
+                    
                     /* calculate how much time passed. */
                     if (u.usteed && u.umoved) {
                         /* your speed doesn't augment steed's speed */
