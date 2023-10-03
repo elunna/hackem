@@ -3212,7 +3212,6 @@ doeat()
             nodelicious = TRUE;
         else if (otmp->otyp == EYEBALL || otmp->otyp == SEVERED_HAND)
             nodelicious = TRUE;
-        
         if (otmp->oclass == WEAPON_CLASS && otmp->opoisoned) {
             pline("Ecch - that must have been poisonous!");
             if (how_resistant(POISON_RES) < 100) {
@@ -3826,7 +3825,7 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
     /* Is there some food (probably a heavy corpse) here on the ground? */
     for (otmp = level.objects[u.ux][u.uy]; otmp; otmp = otmp->nexthere) {
         if (corpsecheck
-                ? (otmp->otyp == CORPSE
+                ? (can_sacrifice(otmp->otyp)
                    && (corpsecheck == 1 || tinnable(otmp)))
                 : feeding ? (otmp->oclass != COIN_CLASS && is_edible(otmp))
                           : otmp->oclass == FOOD_CLASS) {
@@ -3863,11 +3862,19 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
     otmp = getobj(feeding ? allobj : offering ? offerfodder : comestibles,
                   verb);
     if (corpsecheck && otmp && !(offering && otmp->oclass == AMULET_CLASS))
-        if (otmp->otyp != CORPSE || (corpsecheck == 2 && !tinnable(otmp))) {
+        if (!can_sacrifice(otmp->otyp)
+             || (corpsecheck == 2 && !tinnable(otmp))) {
             You_cant("%s that!", verb);
             return (struct obj *) 0;
         }
     return otmp;
+}
+
+boolean
+can_sacrifice(otyp)
+int otyp;
+{
+    return (otyp == CORPSE || otyp != EYEBALL || otyp != SEVERED_HAND);
 }
 
 /* Side effects of vomiting */
