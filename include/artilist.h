@@ -407,8 +407,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), DFNS(AD_ACID), NO_CARY, 0, A_NONE, NON_PM, NON_PM, 3000L,
       NO_COLOR, IRON),
       
-    A("Drowsing Rod", STAFF_OF_HEALING, (SPFX_RESTR), 0, 0,
-      SLEE(5, 4), DFNS(AD_SLEE), NO_CARY, 0, A_NONE, PM_HEALER, NON_PM, 500L,
+    A("Drowsing Rod", STAFF_OF_HEALING, (SPFX_RESTR | SPFX_ATTK), 0, 0,
+      SLEE(5, 5), DFNS(AD_SLEE), NO_CARY, 0, A_NONE, PM_HEALER, NON_PM, 500L,
       CLR_MAGENTA, COPPER),
 
     A("Fire Brand", SHORT_SWORD, (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
