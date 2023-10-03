@@ -243,7 +243,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       - Does not affect big monsters.
     */
     A("Imhullu", GLAIVE, 
-      (SPFX_RESTR | SPFX_DEFN), 0, 0, 
+      (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0, 
       WIND(4, 5), DFNS(AD_CLOB), NO_CARY, SEFFECT, 
       A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
 
