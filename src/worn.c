@@ -1511,6 +1511,10 @@ struct obj *obj;
                   || wielding_artifact(ART_FIREWALL)
                   || wielding_artifact(ART_ITLACHIAYAQUE)
                   || wielding_artifact(ART_ANGELSLAYER)
+                  || wielding_artifact(ART_BALMUNG)
+                  || wielding_artifact(ART_HELLFIRE)
+                  || wearing_artifact(ART_MITRE_OF_HOLINESS)
+                  || carrying_arti(ART_CANDLE_OF_ETERNAL_FLAME)
                   || (u.twoweap && uswapwep->oprops & ITEM_FIRE)
                   || (uwep && uwep->oprops & ITEM_FIRE)) ? 25 : 5;
         break;
@@ -1519,6 +1523,7 @@ struct obj *obj;
             rc = (dmgtype(youmonst.data, AD_COLD)
                   || wielding_artifact(ART_FROST_BRAND)
                   || wielding_artifact(ART_DEEP_FREEZE)
+                  || carrying_arti(ART_HAND_OF_VECNA)
                   || (u.twoweap && uswapwep->oprops & ITEM_FROST)
                   || (uwep && uwep->oprops & ITEM_FROST)) ? 25 : 5;
         break;
@@ -1527,6 +1532,8 @@ struct obj *obj;
             rc = (dmgtype(youmonst.data, AD_DRST)
                   || dmgtype(youmonst.data, AD_DRCO)
                   || dmgtype(youmonst.data, AD_DRDX)
+                  || wielding_artifact(ART_PLAGUE)
+                  || wielding_artifact(ART_SECESPITA)
                   || (u.twoweap && uswapwep->oprops & ITEM_VENOM)
                   || (uwep && uwep->oprops & ITEM_VENOM)) ? 25 : 5;
         break;
@@ -1535,13 +1542,16 @@ struct obj *obj;
             rc = (dmgtype(youmonst.data, AD_ELEC)
                   || wielding_artifact(ART_MJOLLNIR)
                   || wielding_artifact(ART_KEOLEWA)
+                  || carrying_arti(ART_STORM_WHISTLE)
                   || (u.twoweap && uswapwep->oprops & ITEM_SHOCK)
                   || (uwep && uwep->oprops & ITEM_SHOCK)) ? 25 : 5;
         break;
     case RIN_SONIC_RESISTANCE:
         if (!(resists_sonic(mon) || defended(mon, AD_LOUD)))
             rc = (dmgtype(youmonst.data, AD_LOUD)
-                  || wielding_artifact(ART_THUNDERSTRUCK)) ? 25 : 5;
+                  || wielding_artifact(ART_THUNDERSTRUCK)
+                  || (u.twoweap && uswapwep->oprops & ITEM_SCREAM)
+                  || (uwep && uwep->oprops & ITEM_SCREAM)) ? 25 : 5;
         break;
     case RIN_REGENERATION:
         rc = !mon_prop(mon, REGENERATION) ? 25 : 5;
