@@ -757,6 +757,11 @@ doforging(void)
                 output->material = obj1->material;
             }
 
+            /* ensure that the newly forged object doesn't
+               randomly have a property added at creation */
+            output->oprops |= 0L;
+            output->oprops_known |= 0L;
+            
             /* any object properties, take secondary object property
                over primary. if you know the object property of one
                of the recipe objects, you'll know the object property
@@ -772,14 +777,7 @@ doforging(void)
                 if (obj1->oprops_known)
                     output->oprops_known |= output->oprops;
             }
-
-            /* if neither recipe object have an object property,
-               ensure that the newly forged object doesn't
-               randomly have a property added at creation */
-            if ((obj1->oprops & 0L) && (obj2->oprops & 0L)) {
-                output->oprops |= 0L;
-                output->oprops_known |= 0L;
-            }
+            
             /* if objects are enchanted or have charges,
                carry that over, and use the greater of the two */
             if (output->oclass == obj2->oclass) {
