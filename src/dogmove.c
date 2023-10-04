@@ -1341,7 +1341,8 @@ boolean ranged;
            && mtmp2->mpeaceful && !grudge && !Conflict)
        || (!ranged && touch_petrifies(mtmp2->data)
            && !(resists_ston(mtmp) || defended(mtmp, AD_STON)))
-       || (!ranged && mtmp2->data == &mons[PM_GRAY_FUNGUS]
+       || (!ranged && (mtmp2->data == &mons[PM_GRAY_FUNGUS] 
+                       || mtmp2->data == &mons[PM_GRAY_MOLDIER])
            && !(resists_sick(mtmp->data) || defended(mtmp, AD_DISE))));
 }
 
