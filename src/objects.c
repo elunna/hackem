@@ -326,10 +326,10 @@ WEAPON("war hammer", None,
         /* +1 small */
 WEAPON("heavy war hammer", None,                               /* EvilHack */
        1, 0, 0, 0, 10,  60,  10,  8, 10, 0, B,   P_HAMMER, IRON, HI_METAL),
-WEAPON("club", None,
-       1, 0, 0, 0, 12,  30,   3,  6,  3, 0, B,   P_CLUB, WOOD, HI_WOOD),
 WEAPON("rubber hose", None,
        1, 0, 0, 0,  0,  20,   3,  4,  3, 0, B,   P_WHIP, PLASTIC, CLR_BROWN),
+WEAPON("club", None,
+       1, 0, 0, 0, 12,  30,   3,  6,  3, 0, B,   P_CLUB, WOOD, HI_WOOD),
 WEAPON("quarterstaff", "staff",
        0, 0, 0, 1, 11,  40,   5,  6,  6, 0, B,   P_QUARTERSTAFF, WOOD, HI_WOOD),
 WEAPON("silver capped staff", None,
