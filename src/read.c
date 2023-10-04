@@ -1161,6 +1161,30 @@ forget_traps()
             trap->tseen = 0;
 }
 
+
+/* Forget some or all of map (depends on parameters). */
+void
+forget_map()
+{
+    register int zx, zy;
+    if (Sokoban)
+        return;
+
+    known = TRUE;
+    for (zx = 0; zx < COLNO; zx++)
+        for (zy = 0; zy < ROWNO; zy++)
+            if ( rn2(7)) {
+                /* Zonk all memory of this location. */
+                levl[zx][zy].seenv = 0;
+                levl[zx][zy].waslit = 0;
+                levl[zx][zy].glyph = cmap_to_glyph(S_stone);;
+                lastseentyp[zx][zy] = 0;
+            }
+    /* forget overview data for this level */
+    forget_mapseen(ledger_no(&u.uz));
+}
+
+
 /*
  * Forget some things (e.g. after reading a scroll of amnesia).  When called,
  * the following are always forgotten:

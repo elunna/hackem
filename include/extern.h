@@ -754,6 +754,7 @@ E void FDECL(recbranch_mapseen, (d_level *, d_level *));
 E void FDECL(overview_stats, (winid, const char *, long *, long *));
 E void FDECL(remdun_mapseen, (int));
 E const char *FDECL(endgamelevelname, (char *, int));
+E void forget_mapseen(int);
 
 /* ### eat.c ### */
 
@@ -2367,6 +2368,7 @@ E int NDECL(doread);
 E boolean FDECL(is_chargeable, (struct obj *));
 E void FDECL(recharge, (struct obj *, int, struct monst *));
 E void NDECL(forget_traps);
+E void forget_map();
 E void FDECL(forget, (int));
 E int FDECL(seffects, (struct obj *));
 E void FDECL(drop_boulder_on_player,

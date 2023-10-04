@@ -2237,29 +2237,42 @@ register struct attack *mattk;
         }
         break;
 
+    case AD_LOST:
+        hitmsg(mtmp, mattk);
+        if (uncancelled) {
+            if (flags.verbose)
+                You("suddenly have no idea where you are!");
+            forget_map();
+            forget_traps();
+            docrt();
+            /* Fallthrough to AD_TLPT instead of calling tele(), 
+             * better handling */
+        } else
+            break;
+            /* FALLTHROUGH */
     case AD_TLPT:
         hitmsg(mtmp, mattk);
-	if (uncancelled || mtmp->mnum == PM_BOOJUM) {
-	    /* "But oh, beamish nephew, beware of the day
-	     * if your Snark be a Boojum!  For then
-	     * You will softly and suddenly vanish away,
-	     * And never be met with again!" */
-	    if (mtmp->mnum == PM_BOOJUM) {
-		/* depending on what we are or if we can't teleport,
-		 * display appropriate messages */
-		if (!level.flags.noteleport) {
-		    You("suddenly vanish!");
+        if (uncancelled || mtmp->mnum == PM_BOOJUM) {
+            /* "But oh, beamish nephew, beware of the day
+             * if your Snark be a Boojum!  For then
+             * You will softly and suddenly vanish away,
+             * And never be met with again!" */
+            if (mtmp->mnum == PM_BOOJUM) {
+                /* depending on what we are or if we can't teleport,
+                 * display appropriate messages */
+                if (!level.flags.noteleport) {
+                    You("suddenly vanish!");
                 } else {
                     if (!Invis) {
                         You("suddenly %s!", See_invisible ? "become transparent" : "vanish");
                     }
                 }
-		incr_itimeout(&HInvis, d(6, 100));	  /* In multiple senses of 'vanish' :) */
-	    } else {
+                incr_itimeout(&HInvis, d(6, 100));      /* In multiple senses of 'vanish' :) */
+            } else {
                 if (flags.verbose)
                     Your("position suddenly seems %suncertain!",
                          (Teleport_control && !Stunned && !Afraid && !unconscious()) ? ""
-                         : "very ");
+                                                                                     : "very ");
             }
             tele();
             /* As of 3.6.2:  make sure damage isn't fatal; previously, it

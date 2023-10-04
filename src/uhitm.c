@@ -3639,6 +3639,7 @@ do_rust:
         }
         break;
     case AD_CONF:
+    case AD_LOST:
         if (!mdef->mconf) {
             if (canseemon(mdef))
                 pline("%s looks confused.", Monnam(mdef));

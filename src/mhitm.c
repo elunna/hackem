@@ -2066,6 +2066,8 @@ post_stone:
         break;
     case AD_LUCK:
         /* Monsters don't have luck, so fall through */
+    case AD_LOST:
+        /* Monsters don't have memory, so fall through */
     case AD_CONF:
         /* Since confusing another monster doesn't have a real time
          * limit, setting spec_used would not really be right (though
