@@ -496,63 +496,14 @@ is_redundant_prop(otmp, prop)
 struct obj *otmp;
 int prop;
 {
-    /* helm of telepathy already exists */
-    if (is_helmet(otmp) && (prop & ITEM_ESP))
-        return TRUE;
-    if (otmp->material != CLOTH && (prop & ITEM_OILSKIN))
-        return TRUE;
-    if (otmp->otyp == OILSKIN_CLOAK && (prop & ITEM_OILSKIN))
-        return TRUE;
-    if (otmp->otyp == ROGUES_GLOVES && (prop & ITEM_SEARCHING))
-        return TRUE;
-    if (otmp->otyp == GAUNTLETS_OF_FUMBLING && (prop & ITEM_FUMBLING))
-        return TRUE;
-    if (otmp->otyp == GAUNTLETS_OF_SWIMMING && (prop & ITEM_SWIM))
-        return TRUE;
-    if (otmp->otyp == FUMBLE_BOOTS && (prop & ITEM_FUMBLING))
-        return TRUE;
-    if (otmp->otyp == WATER_WALKING_BOOTS && (prop & ITEM_WWALK))
-        return TRUE;
-    if (otmp->otyp == RESONANT_SHIELD && (prop & ITEM_SCREAM))
-        return TRUE;
+    /* Alchemy smock is the king of exceptions */
     if (otmp->otyp == ALCHEMY_SMOCK && (prop & (ITEM_ACID | ITEM_VENOM)))
         return TRUE;
-    if (otmp->otyp == ELVEN_CLOAK && (prop & ITEM_STEALTH))
-        return TRUE;
-    if (otmp->otyp == ELVEN_BOOTS && (prop & ITEM_STEALTH))
-        return TRUE;
 
-    if (otmp->oclass == RING_CLASS) {
-        /* TODO: Figure out how to loop over the props 
-         * and use obj_has_prop(obj, which) */
-        if (otmp->otyp == RIN_SEARCHING && (prop & ITEM_SEARCHING))
-        return TRUE;
-        if (otmp->otyp == RIN_STEALTH && (prop & ITEM_STEALTH))
-        return TRUE;
-        if (otmp->otyp == RIN_SUSTAIN_ABILITY && (prop & ITEM_SUSTAIN))
-            return TRUE;;
-        if (otmp->otyp == RIN_HUNGER && (prop & ITEM_HUNGER))
-            return TRUE;
-        if (otmp->otyp == RIN_AGGRAVATE_MONSTER && (prop & ITEM_STENCH))
-            return TRUE;
-        if (otmp->otyp == RIN_WARNING && (prop & ITEM_VIGIL))
-            return TRUE;
-        if (otmp->otyp == RIN_POISON_RESISTANCE && (prop & ITEM_VENOM))
-            return TRUE;
-        if (otmp->otyp == RIN_FIRE_RESISTANCE && (prop & ITEM_FIRE))
-            return TRUE;
-        if (otmp->otyp == RIN_COLD_RESISTANCE && (prop & ITEM_FROST))
-            return TRUE;
-        if (otmp->otyp == RIN_SONIC_RESISTANCE && (prop & ITEM_SCREAM))
-            return TRUE;
-        if (otmp->otyp == RIN_SHOCK_RESISTANCE && (prop & ITEM_SHOCK))
-            return TRUE;
-        if (otmp->otyp == RIN_TELEPORTATION && (prop & ITEM_TELE))
-            return TRUE;
-        if (otmp->otyp == RIN_SEE_INVISIBLE && (prop & ITEM_INSIGHT))
+    for (int i = 0; i < NUM_PROPERTIES; i++) {
+        if (otmp->otyp == prop_lookup[i].prop && (prop & prop_lookup[i].flag))
             return TRUE;
     }
-    
     return FALSE;
 }
 

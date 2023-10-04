@@ -349,93 +349,52 @@ struct obj *obj; /* item to make known if effect can be seen */
     }
 }
 
-boolean
-obj_has_prop(obj, which)
-struct obj *obj;
-int which;
-{
+
+const struct PropTypes prop_lookup[NUM_PROPERTIES] = {
+        { FIRE_RES,          ITEM_FIRE },
+        { COLD_RES,          ITEM_FROST },
+        { DRAIN_RES,         ITEM_DRLI },
+        { SHOCK_RES,         ITEM_SHOCK },
+        { SONIC_RES,         ITEM_SCREAM },
+        { POISON_RES,        ITEM_VENOM },
+        { ACID_RES,          ITEM_ACID },
+        { SLEEP_RES,         ITEM_SLEEP },
+        { STONE_RES,         ITEM_STONE },
+        { SICK_RES,          ITEM_SICK },
+        { STUN_RES,          ITEM_STUN },
+        { FEARLESS,          ITEM_RAGE },
+        { TELEPAT,           ITEM_ESP },
+        { FUMBLING,          ITEM_FUMBLING },
+        { HUNGER,            ITEM_HUNGER },
+        { AGGRAVATE_MONSTER, ITEM_STENCH },
+        { TELEPORT,          ITEM_TELE },
+        { SLOW,              ITEM_SLOW },
+        { ADORNED,           ITEM_EXCEL },
+        { FIXED_ABIL,        ITEM_SUSTAIN },
+        { STEALTH,           ITEM_STEALTH },
+        { STABLE,            ITEM_STABLE },
+        { WWALKING,          ITEM_WWALK },
+        { SWIMMING,          ITEM_SWIM }
+};
+
+boolean obj_has_prop(struct obj *obj, int which) {
+    boolean is_non_weapon = (obj->oclass != WEAPON_CLASS && !is_weptool(obj));
+
     if (objects[obj->otyp].oc_oprop == which)
         return TRUE;
 
     if (!obj->oprops)
         return FALSE;
 
-    switch (which) {
-    case FIRE_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_FIRE));
-    case COLD_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_FROST));
-    case DRAIN_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_DRLI));
-    case SHOCK_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_SHOCK));
-    case SONIC_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_SCREAM));
-    case POISON_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_VENOM));
-    case ACID_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_ACID));
-    case SLEEP_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_SLEEP));
-    case STONE_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_STONE));
-    case SICK_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_SICK));
-    case STUN_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_STUN));
-    case FEARLESS:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_RAGE));
-    case TELEPAT:
-        return !!(obj->oprops & ITEM_ESP);
-    case FUMBLING:
-        return !!(obj->oprops & ITEM_FUMBLING);
-    case HUNGER:
-        return !!(obj->oprops & ITEM_HUNGER);
-    case AGGRAVATE_MONSTER:
-        return !!(obj->oprops & ITEM_STENCH);
-    case TELEPORT:
-        return !!(obj->oprops & ITEM_TELE);
-    case SLOW:
-        return !!(obj->oprops & ITEM_SLOW);
-    case ADORNED:
-        return !!(obj->oprops & ITEM_EXCEL);
-    case FIXED_ABIL:
-        return !!(obj->oprops & ITEM_SUSTAIN);
-    case STEALTH:
-        return !!(obj->oprops & ITEM_STEALTH);
-    case STABLE:
-        return !!(obj->oprops & ITEM_STABLE);
-    case WWALKING:
-        return !!(obj->oprops & ITEM_WWALK);
-    case SWIMMING:
-        return !!(obj->oprops & ITEM_SWIM);
+    for (int i = 0; i < NUM_PROPERTIES; i++) {
+        if (prop_lookup[i].prop == which) {
+            return !!(is_non_weapon && (obj->oprops & prop_lookup[i].flag));
+        }
     }
+
     return FALSE;
 }
+
 
 /* alchemy smock confers two properites, poison and acid resistance
    but objects[ALCHEMY_SMOCK].oc_oprop can only describe one of them;

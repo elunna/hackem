@@ -266,6 +266,17 @@ typedef struct {
     const char id_type;
 } svc_id_type;
 
+#define NUM_PROPERTIES 24
+
+/* Property and otyp property lookup table */
+struct PropTypes{
+    int prop;
+    int flag;
+};
+
+extern const struct PropTypes prop_lookup[]; /* table of properties */
+
+
 #if 0 /* moved to decl.h so that makedefs.c won't see them */
 extern const struct class_sym
         def_oc_syms[MAXOCLASSES];       /* default class symbols */
