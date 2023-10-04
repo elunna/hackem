@@ -483,7 +483,7 @@ struct mkroom *sroom;
                         (sx == tx && sy == ty ? &mons[PM_QUEEN_BEE] : 
                         &mons[PM_KILLER_BEE]) : 
                     (type == LEPREHALL) ?
-                        (rn2(9) ? &mons[PM_LEPRECHAUN] 
+                        (rn2(14) ? &mons[PM_LEPRECHAUN] 
                           : &mons[PM_LEPRECHAUN_WIZARD]) : 
                     (type == COCKNEST) 
                         ? rn2(4) ? &mons[PM_COCKATRICE] : &mons[PM_CHICKATRICE] : 
