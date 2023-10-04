@@ -425,10 +425,10 @@ boolean foundyou;
         else if (!Underwater)
             pline("You're enveloped in flames.");
         else {
-                pline("The flames are quenched by the water around you.");
-                dmg = 0;
-                break;
-            }
+            pline("The flames are quenched by the water around you.");
+            dmg = 0;
+            break;
+        }
 
         if (how_resistant(FIRE_RES) == 100) {
             shieldeff(u.ux, u.uy);
@@ -1568,7 +1568,7 @@ register struct attack *mattk;
         cursetxt(mtmp, FALSE);
         return 0;
     }
-    if (lined_up(mtmp) && !rn2(3)) {
+    if (lined_up(mtmp) && !rn2(7)) {
         nomul(0);
         if (mattk->adtyp && (mattk->adtyp <= MAX_ZT)) { /* no cf unsigned > 0 */
             if (canseemon(mtmp))

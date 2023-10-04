@@ -5803,7 +5803,8 @@ boolean say; /* Announce out of sight hit/miss events if true */
                 : ((In_mines(&u.uz) || In_caves(&u.uz)) && IS_WALL(levl[sx][sy].typ)) ? 20
                 : 75;
             bounce = 0;
-            fireball = (type == ZT_SPELL(ZT_FIRE));
+            fireball = (type == ZT_SPELL(ZT_FIRE) 
+                    || type == ZT_MONSPELL(ZT_FIRE));
             if ((--range > 0 && isok(lsx, lsy) && cansee(lsx, lsy))
                 || fireball) {
                 if (Is_airlevel(&u.uz)) { /* nothing to bounce off of */
@@ -5854,7 +5855,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
         }
     }
     tmp_at(DISP_END, 0);
-    if (type == ZT_SPELL(ZT_FIRE))
+    if (type == ZT_SPELL(ZT_FIRE) || type == ZT_MONSPELL(ZT_FIRE))
         explode(sx, sy, type, d(12, 6), 0, EXPL_FIERY);
     if (shopdamage)
         pay_for_damage(abstype == ZT_FIRE

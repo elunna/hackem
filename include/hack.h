@@ -222,7 +222,8 @@ enum bhit_call_types {
 #define ZT_WAND(x) (x)
 #define ZT_SPELL(x) (MAX_ZT + (x))
 #define ZT_BREATH(x) (MAX_ZT + MAX_ZT + (x))
-#define ZT_MONSPELL(x) (-((MAX_ZT*2) + x))
+#define ZT_MONSPELL(x) (-(MAX_ZT + x))
+#define ZT_MONBREATH(x) (-((MAX_ZT*2) + x))
 #define ZT_MONWAND(x) (-((MAX_ZT*3) + x))
 
 #define FIRST_WAND (WAN_MAGIC_MISSILE)
