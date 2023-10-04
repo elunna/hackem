@@ -2565,7 +2565,8 @@ long timeout UNUSED;
 
     /* Also, don't let the mold become named. */
     if (has_oname(body)) {
-        ONAME(body) = NULL;
+       /* ONAME(body) = NULL;*/
+        free_oname(body);
     }
 
     /* oeaten isn't used for hp calc here, and zeroing it
