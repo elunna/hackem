@@ -264,10 +264,9 @@ gottype:
          * - so make them general stores
          */
         if (isbig(sroom) && 
-            (shtypes[i].symb == WAND_CLASS
-             || shtypes[i].symb == SPBOOK_CLASS
-             || sroom->rtype == CLINIC
-             || !strcmp(shtypes[i].name, "mask shop"))) {
+            (shtypes[i].symb == WAND_CLASS || shtypes[i].symb == SPBOOK_CLASS
+             || sroom->rtype == CLINIC || sroom->rtype == MINIGUILD
+             || sroom->rtype == MASKSHOP)) {
             i = 0;
         } 
         /* Prevent archery emporiums or gun shops if our player doesn't have
