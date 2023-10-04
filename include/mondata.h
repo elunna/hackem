@@ -62,6 +62,8 @@
      || (ptr) == &mons[PM_GIANT_LEECH] \
      || (ptr) == &mons[PM_GIANT_COCKROACH]\
      || (ptr) == &mons[PM_GOLD_DRAGON] \
+     || (ptr) == &mons[PM_GRAY_FUNGUS] \
+     || (ptr) == &mons[PM_GRAY_MOLDIER] \
      || (ptr) == &mons[PM_JUGGERNAUT] \
      || (ptr) == &mons[PM_LOCUST] \
      || (ptr) == &mons[PM_GRUND_THE_ORC_KING] \
