@@ -1273,18 +1273,20 @@ boolean
 diseasemu(mdat)
 struct permonst *mdat;
 {
+    boolean res;
+    if (Sick_resistance) {
+        You_feel("a slight illness.");
+        res = FALSE;
+    } else {
+        make_sick(Sick ? Sick / 3L + 1L : (long) rn1(ACURR(A_CON), 20),
+                  mdat->mname, TRUE, is_zombie(mdat) ? SICK_ZOMBIE : SICK_NONVOMITABLE);
+        res = TRUE;
+    }
     if (LarvaCarrier) {
         You_feel("as if your body is your own again.");
         make_carrier(0L, FALSE);
     }
-    if (Sick_resistance) {
-        You_feel("a slight illness.");
-        return FALSE;
-    } else {
-        make_sick(Sick ? Sick / 3L + 1L : (long) rn1(ACURR(A_CON), 20),
-                  mdat->mname, TRUE, is_zombie(mdat) ? SICK_ZOMBIE : SICK_NONVOMITABLE);
-        return TRUE;
-    }
+    return res;
 }
 
 /* check whether slippery clothing protects from hug or wrap attack */

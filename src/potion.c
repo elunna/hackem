@@ -1580,7 +1580,7 @@ no_rise:
             if (!otmp->cursed)
                 lesshungry((otmp->odiluted ? 1 : 2) *
                            (otmp->otyp == POT_VAMPIRE_BLOOD ? 400 :
-                            otmp->blessed ? 15 : 10));
+                            otmp->blessed ? 100 : 30));
             if (otmp->otyp == POT_VAMPIRE_BLOOD && otmp->blessed) {
                 int num = newhp();
                 if (Upolyd) {
@@ -2872,7 +2872,7 @@ mold_to_potion(corpsenm)
 short corpsenm;
 {
     if (corpsenm == PM_BROWN_MOLD)
-        return POT_SLEEPING;
+        return POT_BLOOD;
     else if (corpsenm == PM_GREEN_MOLD)
         return POT_ACID;
     else if (corpsenm == PM_YELLOW_MOLD)
@@ -2883,7 +2883,9 @@ short corpsenm;
         return POT_HALLUCINATION;
     else if (corpsenm == PM_GRAY_FUNGUS)
         return POT_AMNESIA;
-    else if (corpsenm == PM_DISGUSTING_MOLD || corpsenm == PM_BLACK_MOLD)
+    else if (corpsenm == PM_ORANGE_MOLD)
+        return POT_SLEEPING;
+    else if (corpsenm == PM_BLACK_MOLD)
         return POT_SICKNESS;
     return 0;
 }

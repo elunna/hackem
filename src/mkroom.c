@@ -893,6 +893,9 @@ guildmon()
                                              : &mons[mtyp]);
 }
 
+#define FIRST_MOLD PM_LICHEN
+#define FIRST_MOLDIER PM_BROWN_MOLDIER
+#define LAST_MOLDIER PM_BLACK_MOLDIER
 
 STATIC_OVL struct permonst *
 fungus()
@@ -902,27 +905,30 @@ fungus()
     i = rn2(hd > 20 ? 19 : hd > 12 ? 15 : 12);
 
     switch (i) {
-    case 0:
-    case 1: mtyp = PM_LICHEN; break;	
-    case 2: mtyp = PM_BROWN_MOLD; break;
-    case 3: mtyp = PM_YELLOW_MOLD; break;
-    case 4: mtyp = PM_GREEN_MOLD; break;
-    case 5: mtyp = PM_RED_MOLD;	break;
-    case 6: mtyp = PM_SHRIEKER;	break;
-    case 7: mtyp = PM_VIOLET_FUNGUS; break;
-    case 8: mtyp = PM_BLUE_JELLY; break;
-    case 9: mtyp = PM_MOLDY_PUDDING; break;
-    case 10: mtyp = PM_DISGUSTING_MOLD; break;
-    case 11: mtyp = PM_GRAY_OOZE; break;
-    /* Following only after level 12... */
-    case 12: mtyp = PM_SPOTTED_JELLY; break;
-    case 13: mtyp = PM_BROWN_PUDDING; break;
-    case 14: mtyp = PM_GRAY_FUNGUS; break;
-    /* Following only after level 20... */
-    case 15: mtyp = PM_GREEN_SLIME; break;
-    case 16: mtyp = PM_BLACK_PUDDING; break;
-    case 17: mtyp = PM_OCHRE_JELLY; break;
-    case 18: mtyp = PM_SHOGGOTH; break;
+        case 7:  case 8:
+            mtyp = (rn2(2) ? PM_BLUE_JELLY : PM_SPOTTED_JELLY);
+            break;
+        case 9: case 10:
+            mtyp = FIRST_MOLDIER + rn2(LAST_MOLDIER - FIRST_MOLDIER);
+            break;
+        case 11: case 12:
+            mtyp = (rn2(2) ? PM_CLEAR_JELLY : PM_OCHRE_JELLY);
+            break;
+        case 13: case 14:
+            mtyp = (rn2(2) ? PM_YELLOW_JELLY : PM_ORANGE_JELLY);
+            break;
+        case 15: case 16:
+            mtyp = PM_GRAY_OOZE + rn2(PM_BLACK_PUDDING - PM_GRAY_OOZE);
+            break;
+        case 17:
+            mtyp = PM_RANCID_JELLY;
+            break;
+        case 18:
+            mtyp = PM_SHOGGOTH;
+            break;
+        default:
+            /* All the weaker F */
+            mtyp = PM_LICHEN + rn2(FIRST_MOLDIER - FIRST_MOLD);
     }
 
     return ((mvitals[mtyp].mvflags & G_GONE) ?

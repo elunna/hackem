@@ -4838,20 +4838,6 @@ boolean wep_was_destroyed;
         }
         exercise(A_CON, FALSE);
         break;
-    case AD_SLEE:
-        /* passive sleep attack for orange jelly */
-        if (mhit && !mon->mcan) {
-            if (Sleep_resistance) {
-                You("yawn.");
-                break;
-            }
-            fall_asleep(-rnd(tmp), TRUE);
-            if (Blind) 
-                You("are put to sleep!");
-            else 
-                You("are put to sleep by %s!", mon_nam(mon));
-        }
-        break;
     case AD_DRLI:
         if (mhit && !mon->mcan) {
             if (Drain_resistance) {
@@ -5048,180 +5034,211 @@ boolean wep_was_destroyed;
      */
     if (malive && !mon->mcan && rn2(3)) {
         switch (mattk[i].adtyp) {
-        case AD_DSRM: /* adherer */
-            otmp = uwep;
-            if (otmp && otmp->greased && (!otmp->cursed || rn2(4)))  {
-                pline("%s off of %s %s!", Yobjnam2(otmp, "slip"),
-                      s_suffix(mon_nam(mon)),
-                      mbodypart(mon, SKIN));
-                if (otmp->greased && !rn2(2)) {
-                    pline_The("grease wears off.");
-                    otmp->greased = 0;
-                    update_inventory();
+            case AD_DSRM: /* adherer */
+                otmp = uwep;
+                if (otmp && otmp->greased && (!otmp->cursed || rn2(4))) {
+                    pline("%s off of %s %s!", Yobjnam2(otmp, "slip"),
+                          s_suffix(mon_nam(mon)),
+                          mbodypart(mon, SKIN));
+                    if (otmp->greased && !rn2(2)) {
+                        pline_The("grease wears off.");
+                        otmp->greased = 0;
+                        update_inventory();
+                    }
+                } else if (otmp && otmp != uball) {
+                    /* Just the main weapon */
+                    pline("%s to %s!", Yobjnam2(otmp, "stick"), mon_nam(mon));
+                    dropx(otmp);
+                    obj_extract_self(otmp);
+                    add_to_minv(mon, otmp);
+                } else {
+                    u.ustuck = mon;
+                    You("stick to %s!", mon_nam(mon));
                 }
-            } else if (otmp && otmp != uball) {
-                /* Just the main weapon */
-                pline("%s to %s!", Yobjnam2(otmp, "stick"), mon_nam(mon));
-                dropx(otmp);
-                obj_extract_self(otmp);
-                add_to_minv(mon, otmp);
-            } else {
-                u.ustuck = mon;
-                You("stick to %s!", mon_nam(mon));
-            }
-            break;
-        case AD_HYDR: /* grow additional heads (hydra) */
-            if (mhit && !mon->mcan && weapon && rn2(3)) {
-                if ((is_blade(weapon) || is_axe(weapon))
-                      && weapon->oartifact != ART_FIRE_BRAND) {
-                    You("decapitate %s, but two more heads spring forth!",
-                        mon_nam(mon));
-                    grow_up(mon, (struct monst *) 0);
+                break;
+            case AD_HYDR: /* grow additional heads (hydra) */
+                if (mhit && !mon->mcan && weapon && rn2(3)) {
+                    if ((is_blade(weapon) || is_axe(weapon))
+                        && weapon->oartifact != ART_FIRE_BRAND) {
+                        You("decapitate %s, but two more heads spring forth!",
+                            mon_nam(mon));
+                        grow_up(mon, (struct monst *) 0);
+                    }
                 }
-            }
-            break;
-        case AD_PLYS:
-            if (ptr == &mons[PM_FLOATING_EYE]) {
-                if (!canseemon(mon)) {
-                    break;
-                }
-                if (mon->mcansee) {
-                    if (ureflects("%s gaze is reflected by your %s.",
-                                  s_suffix(Monnam(mon)))) {
-                        ;
-                    } else if (Hallucination && rn2(4)) {
-                        /* [it's the hero who should be getting paralyzed
-                           and isn't; this message describes the monster's
-                           reaction rather than the hero's escape] */
-                        pline("%s looks %s%s.", Monnam(mon),
-                              !rn2(2) ? "" : "rather ",
-                              !rn2(2) ? "numb" : "stupefied");
-                    } else if (Free_action) {
-                        You("momentarily stiffen under %s gaze!",
-                            s_suffix(mon_nam(mon)));
-                    } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
-                        pline("%s protect you from %s paralyzing gaze.",
-                              An(bare_artifactname(ublindf)), s_suffix(mon_nam(mon)));
+                break;
+            case AD_PLYS:
+                if (ptr == &mons[PM_FLOATING_EYE]) {
+                    if (!canseemon(mon)) {
                         break;
+                    }
+                    if (mon->mcansee) {
+                        if (ureflects("%s gaze is reflected by your %s.",
+                                      s_suffix(Monnam(mon)))) { ;
+                        } else if (Hallucination && rn2(4)) {
+                            /* [it's the hero who should be getting paralyzed
+                               and isn't; this message describes the monster's
+                               reaction rather than the hero's escape] */
+                            pline("%s looks %s%s.", Monnam(mon),
+                                  !rn2(2) ? "" : "rather ",
+                                  !rn2(2) ? "numb" : "stupefied");
+                        } else if (Free_action) {
+                            You("momentarily stiffen under %s gaze!",
+                                s_suffix(mon_nam(mon)));
+                        } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD)) {
+                            pline("%s protect you from %s paralyzing gaze.",
+                                  An(bare_artifactname(ublindf)), s_suffix(mon_nam(mon)));
+                            break;
+                        } else {
+                            You("are frozen by %s gaze!", s_suffix(mon_nam(mon)));
+                            nomul((ACURR(A_WIS) > 12 || rn2(4)) ? -tmp : -127);
+                            multi_reason = "frozen by a monster's gaze";
+                            nomovemsg = 0;
+                        }
                     } else {
-                        You("are frozen by %s gaze!", s_suffix(mon_nam(mon)));
-                        nomul((ACURR(A_WIS) > 12 || rn2(4)) ? -tmp : -127);
-                        multi_reason = "frozen by a monster's gaze";
-                        nomovemsg = 0;
+                        pline("%s cannot defend itself.",
+                              Adjmonnam(mon, "blind"));
+                        if (!rn2(500))
+                            change_luck(-1);
                     }
-                } else {
-                    pline("%s cannot defend itself.",
-                          Adjmonnam(mon, "blind"));
-                    if (!rn2(500))
-                        change_luck(-1);
-                }
-            } else if (Free_action) {
-                You("momentarily stiffen.");
-            } else { /* gelatinous cube */
-                You("are frozen by %s!", mon_nam(mon));
-                nomovemsg = You_can_move_again;
-                nomul(-tmp);
-                multi_reason = "frozen by a monster";
-                exercise(A_DEX, FALSE);
-            }
-            break;
-        case AD_COLD: /* brown mold, blue jelly, white dragon */
-            if (monnear(mon, u.ux, u.uy)) {
-                if (how_resistant(COLD_RES) == 100) {
-                    shieldeff(u.ux, u.uy);
-                    monstseesu(M_SEEN_COLD);
-                    You_feel("a mild chill.");
-                    ugolemeffects(AD_COLD, tmp);
-                    break;
-                }
-                You("are suddenly very cold!");
-                tmp = resist_reduce(tmp, COLD_RES);
-                mdamageu(mon, tmp); /* cold damage */
-                /* monster gets stronger with your heat! */
-                if (ptr == &mons[PM_BLUE_JELLY]
-                    || ptr == &mons[PM_BROWN_MOLD]) {
-                    mon->mhp += tmp / 2;
-                    if (mon->mhpmax < mon->mhp)
-                        mon->mhpmax = mon->mhp;
-                /* at a certain point, the monster will reproduce! */
-                    if (mon->mhpmax > ((int) (mon->m_lev + 1) * 8))
-                        (void) split_mon(mon, &youmonst);
-                }
-            }
-            break;
-        case AD_STUN: /* specifically yellow mold */
-            if (!Stunned)
-                make_stunned((long) tmp, TRUE);
-            break;
-        case AD_FIRE:
-            if (monnear(mon, u.ux, u.uy)) {
-                if (how_resistant(FIRE_RES) == 100
-                    || Underwater) {
-                    shieldeff(u.ux, u.uy);
-                    monstseesu(M_SEEN_FIRE);
-                    You_feel("mildly warm.");
-                    ugolemeffects(AD_FIRE, tmp);
-                    break;
-                }
-                You("are suddenly very hot!");
-                tmp = resist_reduce(tmp, FIRE_RES);
-                mdamageu(mon, tmp); /* fire damage */
-            }
-            break;
-        case AD_ELEC:
-            if (how_resistant(SHOCK_RES) == 100) {
-                shieldeff(u.ux, u.uy);
-                monstseesu(M_SEEN_ELEC);
-                You_feel("a mild tingle.");
-                ugolemeffects(AD_ELEC, tmp);
-                break;
-            }
-            You("are jolted with electricity!");
-            tmp = resist_reduce(tmp, SHOCK_RES);
-            mdamageu(mon, tmp);
-	    break;
-	case AD_DISE: /* specifically gray fungus */
-            diseasemu(ptr);
-            break;
-        case AD_DRST:
-             /* specifically molds */
-            if (ptr == &mons[PM_DISGUSTING_MOLD]) {
-                if (!Strangled && !Breathless) {
-                    You("inhale a cloud of spores!");
-                    poisoned("spores", A_STR, "spore cloud", 30, FALSE);
-                } else {
-                    pline("A cloud of spores surrounds you!");
+                } else if (Free_action) {
+                    You("momentarily stiffen.");
+                } else { /* gelatinous cube */
+                    You("are frozen by %s!", mon_nam(mon));
+                    nomovemsg = You_can_move_again;
+                    nomul(-tmp);
+                    multi_reason = "frozen by a monster";
+                    exercise(A_DEX, FALSE);
                 }
                 break;
-            }
-             /* specifically green dragons */
-            if (how_resistant(POISON_RES) == 100) {
-                if (!rn2(5))
-                    You("are immune to %s poisonous hide.", s_suffix(mon_nam(mon)));
-                monstseesu(M_SEEN_POISON);
-            } else {
-                i = rn2(20);
-                if (i) {
-                    You("have been poisoned!");
-                    tmp = resist_reduce(tmp, POISON_RES);
-                    mdamageu(mon, tmp);
-                } else {
-                    if (how_resistant(POISON_RES) <= 34) {
-                        pline("%s poisonous hide was deadly...",
-                              s_suffix(Monnam(mon)));
-                        done_in_by(mon, DIED);
-                        return 2;
+            case AD_COLD: /* brown mold, blue jelly, white dragon */
+                if (monnear(mon, u.ux, u.uy)) {
+                    if (how_resistant(COLD_RES) == 100) {
+                        shieldeff(u.ux, u.uy);
+                        monstseesu(M_SEEN_COLD);
+                        You_feel("a mild chill.");
+                        ugolemeffects(AD_COLD, tmp);
+                        break;
+                    }
+                    You("are suddenly very cold!");
+                    tmp = resist_reduce(tmp, COLD_RES);
+                    mdamageu(mon, tmp); /* cold damage */
+                    /* monster gets stronger with your heat! */
+                    if (ptr == &mons[PM_BLUE_JELLY]
+                        || ptr == &mons[PM_BROWN_MOLD]) {
+                        mon->mhp += tmp / 2;
+                        if (mon->mhpmax < mon->mhp)
+                            mon->mhpmax = mon->mhp;
+                        /* at a certain point, the monster will reproduce! */
+                        if (mon->mhpmax > ((int) (mon->m_lev + 1) * 8))
+                            (void) split_mon(mon, &youmonst);
                     }
                 }
-            }
-            break;
-        case AD_SLOW: /* specifically orange dragons */
-            if (!Slow && !defended(&youmonst, AD_SLOW)
-                && !resists_slow(youmonst.data) && !rn2(3))
-                u_slow_down();
-            break;
-        default:
-            break;
+                break;
+            case AD_STUN: /* specifically yellow mold */
+                if (!Stunned)
+                    make_stunned((long) tmp, TRUE);
+                break;
+            case AD_FIRE:
+                if (monnear(mon, u.ux, u.uy)) {
+                    if (how_resistant(FIRE_RES) == 100
+                        || Underwater) {
+                        shieldeff(u.ux, u.uy);
+                        monstseesu(M_SEEN_FIRE);
+                        You_feel("mildly warm.");
+                        ugolemeffects(AD_FIRE, tmp);
+                        break;
+                    }
+                    You("are suddenly very hot!");
+                    tmp = resist_reduce(tmp, FIRE_RES);
+                    mdamageu(mon, tmp); /* fire damage */
+                }
+                break;
+            case AD_ELEC:
+                if (how_resistant(SHOCK_RES) == 100) {
+                    shieldeff(u.ux, u.uy);
+                    monstseesu(M_SEEN_ELEC);
+                    You_feel("a mild tingle.");
+                    ugolemeffects(AD_ELEC, tmp);
+                    break;
+                }
+                You("are jolted with electricity!");
+                tmp = resist_reduce(tmp, SHOCK_RES);
+                mdamageu(mon, tmp);
+                break;
+            case AD_SLEE:
+                /* passive sleep attack for orange jelly/mold */
+                if (mhit && !mon->mcan) {
+                    if (ptr == &mons[PM_ORANGE_MOLD]
+                        || ptr == &mons[PM_ORANGE_MOLDIER]) {
+                        if (!Strangled && !Breathless) {
+                            You("inhale a cloud of spores!");
+                        } else {
+                            pline("A cloud of spores surrounds you!");
+                            break;
+                        }
+                    }
+                    if (how_resistant(SLEEP_RES) > 50) {
+                        You("yawn.");
+                        break;
+                    }
+                    fall_asleep(-rnd(tmp), TRUE);
+                    if (Blind)
+                        You("are put to sleep!");
+                    else
+                        You("are put to sleep by %s!", mon_nam(mon));
+                }
+                break;
+            case AD_DISE:
+                if (ptr == &mons[PM_GRAY_FUNGUS] 
+                      || ptr == &mons[PM_GRAY_MOLDIER]) {
+                    if (!Strangled && !Breathless) {
+                        You("inhale a cloud of spores!");
+                    } else {
+                        pline("A cloud of spores surrounds you!");
+                        break;
+                    }
+                }
+                diseasemu(ptr);
+                break;
+            case AD_DRST:
+                if (ptr == &mons[PM_BLACK_MOLD]
+                      || ptr == &mons[PM_BLACK_MOLDIER]) {
+                    if (!Strangled && !Breathless) {
+                        You("inhale a cloud of spores!");
+                        poisoned("spores", A_STR, "spore cloud", 30, FALSE);
+                    } else {
+                        pline("A cloud of spores surrounds you!");
+                    }
+                    break;
+                }
+                /* specifically green dragons */
+                if (how_resistant(POISON_RES) == 100) {
+                    if (!rn2(5))
+                        You("are immune to %s poisonous hide.", s_suffix(mon_nam(mon)));
+                    monstseesu(M_SEEN_POISON);
+                } else {
+                    i = rn2(20);
+                    if (i) {
+                        You("have been poisoned!");
+                        tmp = resist_reduce(tmp, POISON_RES);
+                        mdamageu(mon, tmp);
+                    } else {
+                        if (how_resistant(POISON_RES) <= 34) {
+                            pline("%s poisonous hide was deadly...",
+                                  s_suffix(Monnam(mon)));
+                            done_in_by(mon, DIED);
+                            return 2;
+                        }
+                    }
+                }
+                break;
+            case AD_SLOW: /* specifically orange dragons */
+                if (!Slow && !defended(&youmonst, AD_SLOW)
+                    && !resists_slow(youmonst.data) && !rn2(3))
+                    u_slow_down();
+                break;
+            default:
+                break;
         }
     }
 

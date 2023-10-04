@@ -1055,7 +1055,7 @@ POTION("oil",                   "murky",  0, 0, 30, 250, CLR_BROWN),
 /* fixed description */
 POTION("water",                 "clear",  0, 0, 92, 100, CLR_CYAN),
 POTION("amnesia",          "sparkling",   1, 0, 16, 100, CLR_CYAN),          /* Slash'EM */
-POTION("blood",             "blood-red",  0, 0,  0,  50, CLR_RED),           /* Slash'EM */
+POTION("blood",             "blood-red",  0, 0,  0, 100, CLR_RED),           /* Slash'EM */
 POTION("vampire blood",     "blood-red",  1, 0,  0, 300, CLR_RED),           /* Slash'EM */
 #undef POTION
 
