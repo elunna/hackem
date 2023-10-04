@@ -1180,7 +1180,7 @@ SPELL("finger of death", "stained",       P_ATTACK_SPELL,       5, 10, 7, 1, RAY
 SPELL("lightning",       "electric blue", P_ATTACK_SPELL,      10,  8, 4, 1, RAY, CLR_BRIGHT_BLUE),  /* Slash'EM */
 SPELL("poison blast",    "olive green",   P_ATTACK_SPELL,      10,  2, 4, 1, RAY, CLR_GREEN),        /* Slash'EM */
 SPELL("acid blast",      "acid green",    P_ATTACK_SPELL,       5,  9, 6, 1, RAY, CLR_BRIGHT_GREEN), /* Slash'EM */
-SPELL("sonicboom",       "ghostly",       P_MATTER_SPELL,       5,  7, 6, 1, RAY, CLR_BLACK),        /* SpliceHack */
+SPELL("sonic boom",       "ghostly",       P_MATTER_SPELL,       5,  7, 6, 1, RAY, CLR_BLACK),        /* SpliceHack */
 /* Water spell here? */
 SPELL("psionic wave",    "worn",          P_ATTACK_SPELL,       0,  1, 1, 1, IMMEDIATE, CLR_MAGENTA), /* EvilHack */
     /* Don't disturb the order of the spells above. zap.c depends on it. */

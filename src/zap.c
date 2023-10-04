@@ -2914,7 +2914,7 @@ boolean ordinary;
     case HORN_OF_BLASTING:
         learn_it = TRUE;
         /* FALLTHRU */
-    case SPE_SONICBOOM:
+    case SPE_SONIC_BOOM:
         if (!Deaf) {
             pline("KABOOM! You deafen yourself!");
             incr_itimeout(&HDeaf, rn1(300, 100));

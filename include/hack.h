@@ -229,7 +229,7 @@ enum bhit_call_types {
 #define FIRST_WAND (WAN_MAGIC_MISSILE)
 #define LAST_WAND (WAN_DELUGE)
 #define FIRST_SPELLBOOK (SPE_MAGIC_MISSILE)
-#define LAST_SPELLBOOK (SPE_SONICBOOM)
+#define LAST_SPELLBOOK (SPE_SONIC_BOOM)
 
 /* attack mode for hmon() */
 enum hmon_atkmode_types {

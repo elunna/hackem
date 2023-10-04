@@ -1276,7 +1276,7 @@ boolean wiz_cast;
     case SPE_CONE_OF_COLD:
     case SPE_POISON_BLAST:
     case SPE_ACID_BLAST:
-    case SPE_SONICBOOM:
+    case SPE_SONIC_BOOM:
         if (role_skill >= P_SKILLED && yn("Cast advanced spell?") == 'y') {
             if (throwspell()) {
                 cc.x = u.dx;
@@ -1300,7 +1300,7 @@ boolean wiz_cast;
                                       EXPL_NOXIOUS :
                                       (otyp == SPE_ACID_BLAST) ?
                                          EXPL_ACID :
-                                           (otyp == SPE_SONICBOOM) ?
+                                           (otyp == SPE_SONIC_BOOM) ?
                                             EXPL_DARK :
                                                 EXPL_FIERY);
                     }

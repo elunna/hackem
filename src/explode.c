@@ -184,7 +184,7 @@ int expltype;
             adtyp = AD_ACID;
             break;
         case 8:
-            adstr = "sonicboom";
+            adstr = "sonic boom";
             adtyp = AD_LOUD;
             break;
         default:
