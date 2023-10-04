@@ -371,7 +371,8 @@ ranged_attk(mtmp)
 struct monst *mtmp;
 {
     register int i, atyp;
-    long atk_mask = (1L << AT_BREA) | (1L << AT_SPIT) | (1L << AT_VOLY) | (1L << AT_GAZE);
+    long atk_mask = (1L << AT_BREA) | (1L << AT_SPIT) 
+            | (1L << AT_VOLY) | (1L << AT_GAZE);
     struct attack *mattk;
     mattk = has_erac(mtmp) ? ERAC(mtmp)->mattk : mtmp->data->mattk;
 

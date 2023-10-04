@@ -921,7 +921,12 @@ toofar:
             if (res & MM_AGR_DIED)
                 return 1; /* Oops. */
 
-            return 0; /* that was our move for the round */
+            /* Prevent fire vampires and other ranged monsters from 
+             * always staying at a distance. Otherwise they will just
+             * camp at a few squares away. */
+            if (rn2(3))
+                return 0; /* that was our move for the round */
+
         }
     }
 
@@ -971,6 +976,7 @@ toofar:
         || (is_wanderer(mdat) && !rn2(4)) || (Conflict && !mtmp->iswiz) || is_skittish(mdat)
         || (!mtmp->mcansee && !rn2(4)) || mtmp->mpeaceful
         || (nearby && !mtmp->mpeaceful && is_outflanker(mtmp->data) && !rn2(2))) {
+        
         /* Possibly cast an undirected spell if not attacking you */
         /* note that most of the time castmu() will pick a directed
            spell and do nothing, so the monster moves normally */
