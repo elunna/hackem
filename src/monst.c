@@ -108,13 +108,6 @@ NEARDATA struct permonst mons[] = {
     /*
      * ants (Team a!)
      */
-    MON("giant fly", S_ANT,                                   /* SpliceHack */
-        LVL(1, 12, 3, 0, 0), (G_GENO | G_SGROUP | 3),
-        A(ATTK(AT_BITE, AD_PHYS, 1, 4), 
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(10, 10, MS_BUZZ, MZ_TINY), 0, 0,
-        M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_CARNIVORE | M1_FLY,
-        M2_HOSTILE, 0, M4_VULNERABLE_ACID, 0, 3, CLR_ORANGE),
     MON("giant ant", S_ANT,
         LVL(2, 18, 3, 0, 0), (G_GENO | G_SGROUP | 3),
         A(ATTK(AT_BITE, AD_PHYS, 1, 4),

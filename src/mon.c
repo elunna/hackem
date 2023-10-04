@@ -1844,8 +1844,8 @@ minfestcorpse(struct monst *mtmp)
             dog_givit(mtmp, &mons[otmp->corpsenm]);
             
             if (mtmp->data == &mons[PM_MAGGOT]) {
-                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_GIANT_FLY]))
-                    makemon(&mons[PM_GIANT_FLY ], cc.x, cc.y, NO_MINVENT);
+                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_GIANT_MOSQUITO]))
+                    makemon(&mons[PM_GIANT_MOSQUITO ], cc.x, cc.y, NO_MINVENT);
             } 
             else if (mtmp->data == &mons[PM_HELLMINTH]) {
                 if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_WORM_THAT_WALKS]))
