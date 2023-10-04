@@ -1661,8 +1661,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         }
         if ((mattk->adtyp == AD_CLOB) && tmp > 0 
               && !unsolid(mdef->data)&& !rn2(6)) {
-            if (defended(mdef, AD_CLOB)) {
-                pline("%s clobbers %s, but its armor holds firm!",
+            if (resists_clob(mdef) || defended(mdef, AD_CLOB)) {
+                pline("%s clobbers %s, but it holds firm!",
                     Monnam(magr), mon_nam(mdef));
             }
             else if (tmp < mdef->mhp) {

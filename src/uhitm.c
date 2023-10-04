@@ -2425,9 +2425,10 @@ struct obj *obj;
     return FALSE;
 }
 
-/* joust or martial arts punch is knocking the target back; that might
-   kill 'mon' (via trap) before known_hitum() has a chance to do so;
-   return True if we kill mon, False otherwise */
+/* joust, martial arts punch, or giant clobber is knocking the 
+ * target back; that might kill 'mon' (via trap) before 
+ * known_hitum() has a chance to do so; return True if we kill 
+ * mon, False otherwise */
 boolean
 mhurtle_to_doom(mon, tmp, mptr, by_wielded_weapon)
 struct monst *mon;
