@@ -2642,7 +2642,6 @@ do_rust:
                 }
             }
         } else if (BWithering) {
-            struct obj *o;
             You_feel("dessicated for a moment.");
         }
        
