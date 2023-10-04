@@ -482,7 +482,7 @@ int expltype;
                     (void) burnarmor(mtmp);
                 }
                 if (mon_underwater(mtmp)
-                    && (adtyp == AD_FIRE || adtyp == AD_ACID)) {
+                    && (adtyp == AD_FIRE || adtyp == AD_ACID || adtyp == AD_LOUD)) {
                     ; /* nothing happens */
                 } else {
                     idamres += destroy_mitem(mtmp, SCROLL_CLASS, (int) adtyp);
@@ -518,7 +518,7 @@ int expltype;
                     if (grabbed && mtmp == u.ustuck && distu(x, y) <= 2)
                         mdam *= 2;
                     if (mon_underwater(mtmp)
-                        && (adtyp == AD_FIRE || adtyp == AD_ACID))
+                        && (adtyp == AD_FIRE || adtyp == AD_ACID || adtyp == AD_LOUD))
                         mdam = rnd(3); /* physical damage only */
                     /* dungeon ferns are immune to explosions */
                     if (is_vegetation(mtmp->data))
@@ -593,6 +593,9 @@ int expltype;
             if (!Underwater)
                 (void) burnarmor(&youmonst);
         }
+        if (adtyp == AD_LOUD && Underwater) {
+            damu =  Maybe_Half_Phys(damu);
+        }
         if (adtyp == AD_ACID && !EAcid_resistance) {
             if (!Underwater) {
                 if (rn2(u.twoweap ? 2 : 3))
@@ -603,11 +606,11 @@ int expltype;
                     erode_armor(&youmonst, ERODE_CORRODE);
             }
             if (Underwater)
-                damu =  Maybe_Half_Phys(damu);
+                damu = Maybe_Half_Phys(damu);
         }
 
         if (Underwater
-            && (adtyp == AD_FIRE || adtyp == AD_ACID)) {
+            && (adtyp == AD_FIRE || adtyp == AD_ACID || adtyp == AD_LOUD)) {
             ; /* nothing happens */
         } else {
             destroy_item(SCROLL_CLASS, (int) adtyp);
