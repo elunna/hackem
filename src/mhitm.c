@@ -2786,6 +2786,8 @@ msickness:
                 if (!create_pit_under(mdef, magr))
                     tmp = 0;
             }
+            if (DEADMONSTER(mdef))
+                res |= MM_DEF_DIED; /* not lifesaved */
         }
         break;
     case AD_WEBS:
