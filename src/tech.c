@@ -1456,6 +1456,7 @@ tech_timeout()
             || Hallucination || LarvaCarrier || Sick || Sleepy
             || Slimed || Slow || Stoned || Strangled
             || Stunned || Vomiting || Withering || Wounded_legs
+            || u.usleep || u.uswallow || u.ustuck || u.utrap || u.uinshell
             || (u.uhunger > (Race_if(PM_HOBBIT) ? 3000 : 1000))
             || (u.uhunger < 50))
             && rn2(10))
