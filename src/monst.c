@@ -1654,12 +1654,12 @@ NEARDATA struct permonst mons[] = {
         SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), 0, 0, 
         M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_FEMALE | M2_COLLECT, 
         M3_INFRAVISIBLE, 0, 0, 22, CLR_BLACK),
-    /* The AD_PSYC and AD_MEMR attacks were not ported from Splice, so we 
-     * replaced them with spellcasting and more stealing instead. */ 
+    /* The AD_MEMR attack was not ported from Splice, so we 
+     * replaced it with stealing. */ 
     MON("dream thief", S_NYMPH,                               /* SpliceHack */
         LVL(14, 15, 4, 40, 0), (G_NOHELL | 1),
         A(ATTK(AT_CLAW, AD_CURS, 0, 0), 
-          ATTK(AT_MAGC, AD_SPEL, 5, 5),
+          ATTK(AT_MAGC, AD_PSYC, 5, 5),
           ATTK(AT_CLAW, AD_SITM, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), 0, 0,
@@ -2767,6 +2767,16 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS
             | M1_NOHEAD | M1_MINDLESS | M1_UNSOLID | M1_SEE_INVIS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, 0, 0, 0, 7, CLR_BLACK),
+    MON("ethereal light", S_LIGHT,
+        LVL(5, 15, 0, 35, 0), (G_NOCORPSE | G_GENO | G_LGROUP | 2),
+        A(ATTK(AT_EXPL, AD_PSYC, 2, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(0, 0, MS_SILENT, MZ_SMALL),
+        MR_FIRE | MR_COLD | MR_ELEC | MR_DISINT | MR_SLEEP | MR_POISON
+        | MR_ACID | MR_STONE | MR_SONIC,
+        0, M1_FLY | M1_BREATHLESS | M1_AMORPHOUS | M1_NOEYES | M1_NOLIMBS
+           | M1_NOHEAD | M1_MINDLESS | M1_UNSOLID | M1_NOTAKE,
+        M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE, 0, 0, 9, CLR_BRIGHT_MAGENTA),
     MON("will-o'-the-wisp", S_LIGHT,                          /* SpliceHack */
         LVL(2, 9, 2, 0, 0), (G_NOCORPSE | G_SGROUP | G_GENO | 2),
         A(ATTK(AT_TUCH, AD_BLND, 1, 2), 
@@ -4033,6 +4043,13 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(700, 120, MS_HUMANOID, MZ_SMALL), 0, 0, M1_HUMANOID | M1_OMNIVORE,
         M2_MAGIC, M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_GNOME, 5, HI_ZAP),
+    MON("gnomish psyker", S_GNOME, 
+         LVL(3, 10, 4, 10, 0), (G_GENO | 1),
+         A(ATTK(AT_MAGC, AD_PSYC, 3, 2), 
+           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+         SIZ(700, 120, MS_ORC, MZ_SMALL), MR_PSYCHIC, 0,
+         M1_HUMANOID | M1_OMNIVORE, M2_MAGIC, 
+         M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_GNOME, 5, CLR_BRIGHT_MAGENTA),
     MON("deep gnome", S_GNOME,                                  /* Slash'EM */
         LVL(5, 10, 10, 20, 0), (G_HELL | G_GENO | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 6), 

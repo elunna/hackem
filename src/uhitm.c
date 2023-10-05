@@ -3771,6 +3771,33 @@ register struct attack *mattk;
             mdef->mconf = 1;
         }
         break;
+    case AD_PSYC:
+        if (mdef && !resists_psychic(mdef) && !defended(mdef, AD_PSYC)) {
+            if (mindless(mdef->data)) {
+                shieldeff(mdef->mx, mdef->my);
+                tmp = 0;
+                pline("%s has no mind to break.", Monnam(mdef));
+                break;
+            }
+            You("haunt the %s in an explosion of energy!", mon_nam(mdef));
+            if (has_telepathy(mdef)) {
+                tmp *= 2;
+                if (!Deaf)
+                    pline("%s cries out in anguish!", Monnam(mdef));
+            }
+            
+            mdef->mhp -= tmp;
+            if (mdef->mhp <= 0)
+                xkilled(mdef, XKILL_GIVEMSG);
+            if (mdef && DEADMONSTER(mdef)) {
+                /* Other monsters may have died too, but return 2 if the actual
+                 * target died. */
+                return 2;
+            }
+            if (tmp > 6)
+                mdef->mconf = 1;
+        }
+        break;
     case AD_WIND:
         if (mdef) {
             pline("%s is blasted by wind!", Monnam(mdef));

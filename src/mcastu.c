@@ -286,7 +286,7 @@ boolean foundyou;
     int dmg, ml = min(mtmp->m_lev, 50);
     int ret;
     int spellnum = 0;
-
+    struct obj *marm;
     /* Three cases:
      * -- monster is attacking you.  Search for a useful spell.
      * -- monster thinks it's attacking you.  Search for a useful spell,
@@ -491,6 +491,34 @@ boolean foundyou;
             pline("Some missiles bounce off!");
             monstseesu(M_SEEN_MAGR);
             dmg = (dmg + 1) / 2;
+        }
+        break;
+    case AD_PSYC:
+        marm = which_armor(mtmp, W_ARMH);
+        pline("Your mind is being attacked!");
+        
+        if (Psychic_resistance ) {
+            shieldeff(u.ux, u.uy);
+            pline("You fend off the mental attack!");
+            dmg = 0;
+        } else if (mindless(youmonst.data)) {
+            shieldeff(mtmp->mx, mtmp->my);
+            You("are unaffected by the psionic energy!");
+            dmg = 0;
+        } else {
+            /* Mon wearing helm of telepathy gets bonus */
+            if (marm && marm->otyp == HELM_OF_TELEPATHY)
+                dmg += rnd(6) + 2;
+            if (marm && marm->otyp == TINFOIL_HAT)
+                dmg = 0;
+        }
+        if (Blind_telepat || Unblind_telepat) {
+            dmg *= 2; /* You are more sensitive */
+            pline("%s locks on to your telepathic mind!", Monnam(mtmp));
+        }
+            
+        if (dmg && !rn2(4)) {
+            make_confused(HConfusion + d(3, 4), FALSE);
         }
         break;
     case AD_SPEL:   /* wizard spell */
@@ -1561,7 +1589,7 @@ register struct attack *mattk;
 {
     /* don't print constant stream of curse messages for 'normal'
        spellcasting monsters at range */
-    if (mattk->adtyp > AD_PSYC)
+    if (mattk->adtyp >= AD_PSYC)
         return 0;
 
     if (mtmp->mcan) {
@@ -1999,6 +2027,12 @@ struct attack *mattk;
             dmg = (dmg + 1) / 2;
         }
         break;
+    case AD_PSYC: {
+        struct obj *pseudo = mksobj(SPE_PSIONIC_WAVE, FALSE, FALSE);
+        bhitm(mtmp, pseudo);
+        obfree(pseudo, NULL);
+        break;
+    }
     case AD_SPEL:   /* wizard spell */
     case AD_CLRC: { /* clerical spell */
         if (mattk->adtyp == AD_SPEL)

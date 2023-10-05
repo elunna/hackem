@@ -3328,7 +3328,6 @@ boolean ufound;
             mdamageu(mtmp, tmp);
         }
         break;
-
     case AD_HALU:
         not_affected |= Blind || (u.umonnum == PM_BLACK_LIGHT
                                   || u.umonnum == PM_VIOLET_FUNGUS
@@ -3344,6 +3343,25 @@ boolean ufound;
                 make_hallucinated(HHallucination + (long) tmp, FALSE, 0L);
             You("%s.", chg ? "are freaked out" : "seem unaffected");
         }
+        break;
+    case AD_PSYC:
+        if (ufound && Psychic_resistance) {
+            tmp = 0;
+        } else if (defends(AD_PSYC, uarm)) {
+            Your("armor absorbs the psionic blast!");
+            tmp = 0;
+        } else if (mindless(youmonst.data)) {
+            shieldeff(u.ux, u.uy);
+            You("are unaffected by the psionic energy!");
+            tmp = 0;
+        }
+
+        if (Blind_telepat || Unblind_telepat)
+            tmp *= 2; /* You are more sensitive */
+        mdamageu(mtmp, tmp);
+        
+        if (tmp > 6)
+            make_afraid((HAfraid & TIMEOUT) + (long) d(2, 4), TRUE);
         break;
     case AD_WIND:
         You("are blasted by hurricane force winds!");
