@@ -3016,8 +3016,7 @@ struct attack *mattk;
         /* Eliminate healing effects */
         if (i == POT_GAIN_LEVEL || i == POT_GAIN_ABILITY
             || i == POT_GAIN_ENERGY || i == POT_HEALING 
-            || i == POT_EXTRA_HEALING || i == POT_FULL_HEALING 
-            || i == POT_REGENERATION || i == POT_INVULNERABILITY) {
+            || i == POT_EXTRA_HEALING || i == POT_FULL_HEALING) {
             i = POT_ACID;
         }
         pseudo = mksobj(i, FALSE, FALSE);
