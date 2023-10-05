@@ -1098,6 +1098,7 @@ char *usr_text;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional" 
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
+    const struct ForgeRecipe *recipe;
     boolean wielded, carried, potion_known;
     boolean weptool = (boolean) (oc.oc_class == TOOL_CLASS && oc.oc_skill != P_NONE);
     /* If it's an artifact, we always have it in obj. */
@@ -1770,7 +1771,6 @@ char *usr_text;
     }
 
     /* forge recipes */
-    const struct ForgeRecipe *recipe;
     boolean has_recipes = FALSE;
     if (reveal_info && !is_artifact
           && (oc.oc_class == WEAPON_CLASS || oc.oc_class == ARMOR_CLASS)) {

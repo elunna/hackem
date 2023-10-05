@@ -3834,7 +3834,7 @@ boolean *cancelled;
     anything any;
     char buf[BUFSZ];
     menu_item *pick_list = (menu_item *) 0;
-    struct obj dummyobj, *otmp, *obj2;;
+    struct obj dummyobj, *otmp, *obj2;
     boolean hands_available = TRUE, exclude_it;
 
 #if 0   /* [skip potential early return so that menu response is needed

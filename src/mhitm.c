@@ -2245,10 +2245,11 @@ post_stone:
     case AD_SSEX:
     case AD_SITM: /* for now these are the same */
     case AD_SEDU: {
+        int inv_tmp = 0;
         if (magr->mcan)
             break;
+        
         /* find an object to steal, non-cursed if magr is tame */
-        int inv_tmp = 0;
         for (obj = mdef->minvent; obj; obj = obj->nobj) {
             if (!magr->mtame || !obj->cursed)
                 ++inv_tmp;

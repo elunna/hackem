@@ -3460,7 +3460,6 @@ long mmflags;
         if (context.no_of_wizards == 1 && Is_earthlevel(&u.uz))
             mitem = SPE_DIG;
     } else if (mndx == PM_NIGHTMARE) {
-        struct obj *otmp;
         otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
                      artiname(ART_KEY_OF_LAW));
         if (otmp) {
@@ -3468,7 +3467,6 @@ long mmflags;
             mpickobj(mtmp, otmp);
         }
     } else if (mndx == PM_BEHOLDER) {
-        struct obj *otmp;
         otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
                      artiname(ART_KEY_OF_NEUTRALITY));
         if (otmp) {
@@ -3476,7 +3474,6 @@ long mmflags;
             mpickobj(mtmp, otmp);
         }
     } else if (mndx == PM_VECNA) {
-        struct obj *otmp;
         otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
                      artiname(ART_KEY_OF_CHAOS));
         if (otmp) {
@@ -3585,7 +3582,7 @@ long mmflags;
 
         if (!rn2(100) && is_domestic(ptr)
             && can_saddle(mtmp) && !which_armor(mtmp, W_SADDLE)) {
-            struct obj *otmp = mksobj(SADDLE, TRUE, FALSE);
+            otmp = mksobj(SADDLE, TRUE, FALSE);
 
             put_saddle_on_mon(otmp, mtmp);
         }
@@ -3593,7 +3590,7 @@ long mmflags;
         if (mtmp && which_armor(mtmp, W_SADDLE)) {
             if (!rn2(100) && is_domestic(ptr)
                 && can_wear_barding(mtmp) && !which_armor(mtmp, W_BARDING)) {
-                struct obj *otmp = mksobj(rn2(4) ? BARDING
+                otmp = mksobj(rn2(4) ? BARDING
                                                  : rn2(3) ? SPIKED_BARDING
                                                           : BARDING_OF_REFLECTION, TRUE, FALSE);
 

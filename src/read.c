@@ -4228,6 +4228,7 @@ static void do_acquirement() {
     int i;
     char ch = 'q';
     char item_chars[] = { 'r', '"', ')', '[', '%', '?', '+', '!', '=', '/', '(', '*' };
+    menu_item *pick_list = NULL;
     const char *item_names[] = {
             "Random item",  "Amulet", "Weapon", "Armor", "Comestible", "Scroll",
             "Spellbook", "Potion", "Ring", "Wand", "Tool", "Gem"
@@ -4243,7 +4244,7 @@ static void do_acquirement() {
 
     end_menu(win, "Select a type of item to create:");
 
-    menu_item *pick_list = NULL;
+    
     if (select_menu(win, PICK_ONE, &pick_list) > 0) {
         ch = pick_list->item.a_char;
         free(pick_list);

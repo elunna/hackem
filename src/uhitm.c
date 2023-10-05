@@ -4011,10 +4011,11 @@ register struct attack *mattk;
                 break;
                 case AD_POTN: {
                     struct obj *pseudo;
+                    int i;
                     if (pd == &mons[PM_GEL])
                         break;
                     
-                    int i = POT_GAIN_ABILITY +
+                    i = POT_GAIN_ABILITY +
                             (mdef->m_id % (POT_VAMPIRE_BLOOD - POT_GAIN_ABILITY));
                     You("splash the %s!", mon_nam(mdef));
                     /* Eliminate healing effects */
