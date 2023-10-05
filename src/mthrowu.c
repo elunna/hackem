@@ -115,7 +115,7 @@ const char *name; /* if null, then format `*objp' */
             pline("You block it with your shield");
 		else 
             You("block %s with your shield", onm);
-		shield_block(dam);
+		shield_block(0, dam);
 		return (0);
     } else if (Role_if(PM_JEDI) 
             && uwep 

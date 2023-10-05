@@ -2748,7 +2748,7 @@ E boolean FDECL(stucksteed, (BOOLEAN_P));
 E void FDECL(adjtech, (int,int));
 E int NDECL(dotech);
 E void NDECL(docalm);
-E void FDECL(shield_block, (int));
+E int FDECL(shield_block, (struct monst *, int));
 E boolean FDECL(shield_blockable, (struct monst *, struct attack *));
 E int FDECL(tech_inuse, (int));
 E void NDECL(tech_timeout);
