@@ -18,6 +18,7 @@ STATIC_DCL void NDECL(do_positionbar);
 STATIC_DCL void FDECL(regen_hp, (int));
 STATIC_DCL void FDECL(interrupt_multi, (const char *));
 STATIC_DCL void FDECL(debug_fields, (const char *));
+STATIC_DCL void NDECL(pickup_spirits);
 
 
 #ifdef EXTRAINFO_FN
@@ -156,11 +157,10 @@ boolean resuming;
 #endif
     struct obj *pobj;
     int moveamt = 0, wtcap = 0, change = 0;
-    boolean monscanmove = FALSE;
-
     /* don't make it obvious when monsters will start speeding up */
     int timeout_start = rnd(10000) + 25000;
     int past_clock;
+    boolean monscanmove = FALSE;
     boolean elf_regen = elf_can_regen();
     boolean orc_regen = orc_can_regen();
     boolean vamp_regen = vamp_can_regen();
@@ -557,36 +557,7 @@ boolean resuming;
                         }
                     }
 
-                    char *p;
-                    /* Autopickup spirits for Necromancer */
-                    if (Role_if(PM_NECROMANCER)) {
-                        struct obj *obj;
-                        /* Carrying the necro quest arti triples the range */
-                        int off = carrying_arti(ART_GREAT_DAGGER_OF_GLAURGNAA) ? 3 : 1;
-                        /* Loop through the surrounding squares */
-                        int x, y;
-                        for (x = u.ux - off; x <= u.ux + off; x++) {
-                            for (y = u.uy - off; y <= u.uy + off; y++) {
-                                if (!isok(x, y) || !OBJ_AT(x, y))
-                                    continue;
-
-                                /* count the objects here */
-                                for (obj = level.objects[x][y]; obj; obj = obj->nexthere) {
-                                    if (obj->otyp == SPIRIT) {
-                                        /* Don't allow auto-pickup of spirits in shops unless
-                                         * the shop is abandoned. */
-                                        if (inside_shop(x, y) && *(p = in_rooms(x, y, SHOPBASE))
-                                              && tended_shop(&rooms[*p - ROOMOFFSET]))
-                                            continue;
-
-                                        pickup_object(obj, obj->quan, TRUE);
-                                        newsym_force(x, y);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    pickup_spirits();
                     
                     if (!u.uinvulnerable) {
                         if (Teleportation && !rn2(85)) {
@@ -1493,4 +1464,39 @@ wishluck()
     return 0;
 }
 
+STATIC_OVL void
+pickup_spirits()
+{
+    char *p;
+    /* Autopickup spirits for Necromancer */
+    if (Role_if(PM_NECROMANCER)) {
+        struct obj *obj;
+        /* Carrying the necro quest arti triples the range */
+        int off = carrying_arti(ART_GREAT_DAGGER_OF_GLAURGNAA) ? 3 : 1;
+        /* Loop through the surrounding squares */
+        int x, y;
+        for (x = u.ux - off; x <= u.ux + off; x++) {
+            for (y = u.uy - off; y <= u.uy + off; y++) {
+                if (!isok(x, y) || !OBJ_AT(x, y))
+                    continue;
+
+                /* count the objects here */
+                for (obj = level.objects[x][y]; obj; obj = obj->nexthere) {
+                    if (obj->otyp == SPIRIT) {
+                        /* Don't allow auto-pickup of spirits in shops unless
+                         * the shop is abandoned. */
+                        if (inside_shop(x, y) && *(p = in_rooms(x, y, SHOPBASE))
+                            && tended_shop(&rooms[*p - ROOMOFFSET]))
+                            continue;
+
+                        pickup_object(obj, obj->quan, TRUE);
+                        newsym_force(x, y);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+}
 /*allmain.c*/

@@ -457,7 +457,7 @@ boolean allow_detrimental;
             && (j & (NON_WEP_PROPS | ITEM_OILSKIN)))
             continue;
 
-        if ((otmp->oclass == ARMOR_CLASS && otmp->oclass == RING_CLASS)
+        if ((otmp->oclass == ARMOR_CLASS || otmp->oclass == RING_CLASS)
               && (j & ONLY_WEP_PROPS))
             continue;
         
@@ -496,11 +496,12 @@ is_redundant_prop(otmp, prop)
 struct obj *otmp;
 int prop;
 {
+    int i;
     /* Alchemy smock is the king of exceptions */
     if (otmp->otyp == ALCHEMY_SMOCK && (prop & (ITEM_ACID | ITEM_VENOM)))
         return TRUE;
 
-    for (int i = 0; i < NUM_PROPERTIES; i++) {
+    for (i = 0; i < NUM_PROPERTIES; i++) {
         if (otmp->otyp == prop_lookup[i].prop && (prop & prop_lookup[i].flag))
             return TRUE;
     }
@@ -3089,40 +3090,43 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     }
     
     /* Origin can teleport/confuse enemies */
-    if (otmp->oartifact == ART_ORIGIN) {
-        if (realizes_damage) {
-            if (youdefend && !Antimagic && !rn2(5)) {
-                tele();
-                if (!rn2(3))
-                    make_confused(HConfusion + d(3, 4), FALSE);
-                return TRUE;
-            } else if (!rn2(5) && !resists_magm(mdef) 
-                  && !defended(mdef, AD_MAGM)) {
-                if (*dmgptr <= 0)
-                    *dmgptr = 1;
-                
-                char nambuf[BUFSZ];
-                boolean u_saw_mon = (canseemon(mdef)
-                                     || (u.uswallow && u.ustuck == mdef));
+    {
+        char nambuf[BUFSZ];
 
-                /* record the name before losing sight of monster */
-                Strcpy(nambuf, Monnam(mdef));
-                if (u_teleport_mon(mdef, FALSE) && u_saw_mon
-                    && !(canseemon(mdef) || (u.uswallow && u.ustuck == mdef)))
-                    pline("%s suddenly disappears!", nambuf);
-                if (*dmgptr >= mdef->mhp) { /* see hitmu(mhitu.c) */
-                    if (mdef->mhp == 1)
-                        ++mdef->mhp;
-                    *dmgptr = mdef->mhp - 1;
+        if (otmp->oartifact == ART_ORIGIN) {
+            if (realizes_damage) {
+                if (youdefend && !Antimagic && !rn2(5)) {
+                    tele();
+                    if (!rn2(3))
+                        make_confused(HConfusion + d(3, 4), FALSE);
+                    return TRUE;
+                } else if (!rn2(5) && !resists_magm(mdef)
+                           && !defended(mdef, AD_MAGM)) {
+                    if (*dmgptr <= 0)
+                        *dmgptr = 1;
+
+
+                    boolean u_saw_mon = (canseemon(mdef)
+                                         || (u.uswallow && u.ustuck == mdef));
+
+                    /* record the name before losing sight of monster */
+                    Strcpy(nambuf, Monnam(mdef));
+                    if (u_teleport_mon(mdef, FALSE) && u_saw_mon
+                        && !(canseemon(mdef) || (u.uswallow && u.ustuck == mdef)))
+                        pline("%s suddenly disappears!", nambuf);
+                    if (*dmgptr >= mdef->mhp) { /* see hitmu(mhitu.c) */
+                        if (mdef->mhp == 1)
+                            ++mdef->mhp;
+                        *dmgptr = mdef->mhp - 1;
+                    }
+
+                    if (!rn2(3))
+                        mdef->mconf = 1;
+                    return TRUE;
                 }
-            
-                if (!rn2(3))
-                    mdef->mconf = 1;
-                return TRUE;
             }
         }
     }
-    
     /* Bradamante's Fury forces dismounts */
     if (otmp->oartifact == ART_BRADAMANTE_S_FURY) {
         if (youdefend) {
@@ -4081,7 +4085,7 @@ boolean
 artifact_wet(obj)
 struct obj *obj;
 {
-    int ad_type, oprops;
+    int ad_type = 0, oprops;
 
     /* Only weapons work this way ("attacking" the water) */
     if (!((obj->oclass == WEAPON_CLASS) || is_weptool(obj)))

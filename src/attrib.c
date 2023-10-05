@@ -1585,7 +1585,8 @@ changes_stat(otmp, prop)
 long prop;
 register struct obj *otmp;
 {
-    for (int c = 0; c < A_MAX; c++) {
+    int c;
+    for (c = 0; c < A_MAX; c++) {
         int old_attrib = ACURR(c);
         if (calc_prop_bonus(old_attrib, prop) != old_attrib) {
             otmp->oprops_known |= prop;
