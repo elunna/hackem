@@ -1279,14 +1279,13 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             Free_action &= ~W_ARM;
         }
         break;
-    case VIOLET_DRAGON_SCALES:
-        /* Copied from EvilHack's CELESTIAL_DRAGON_SCALES code */
+    case VIOLET_DRAGON_SCALES: {
+        boolean already_flying;
         if (puton) {
             /* setworn() has already set extrinisic flying */
             float_vs_flight(); /* block flying if levitating */
             check_wings(TRUE); /* are we in a form that has wings and can already fly? */
-            boolean already_flying;
-
+            
             /* to determine whether this flight is new we have to muck
                about in the Flying intrinsic (actually extrinsic) */
             EFlying &= ~W_ARM;
@@ -1299,7 +1298,6 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             }
         } else {
             boolean was_flying = !!Flying;
-
             /* remove scales 'early' to determine whether Flying changes */
             /*setworn((struct obj *) 0, W_ARM);*/
             EFlying &= ~W_ARM;
@@ -1310,12 +1308,13 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
                 context.botl = TRUE; /* status: 'Fly' Off */
                 You("%s.", (is_pool_or_lava(u.ux, u.uy)
                             || Is_waterlevel(&u.uz) || Is_airlevel(&u.uz))
-                               ? "stop flying"
-                               : "land");
+                           ? "stop flying"
+                           : "land");
                 spoteffects(TRUE);
             }
         }
         break;
+    }
     case SILVER_DRAGON_SCALES:
         if (puton) {
             ECold_resistance |= W_ARM;

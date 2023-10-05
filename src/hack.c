@@ -3625,6 +3625,7 @@ weight_cap()
 {
     long carrcap, save_ELev = ELevitation, save_BLev = BLevitation;
     long maxcarrcap = MAX_CARR_CAP;
+    int pct_increase;
     struct obj *boots = uarmf;
     
     /* boots take multiple turns to wear but any properties they
@@ -3699,7 +3700,7 @@ weight_cap()
 
     /* final adjustment: ring of carrying lets you carry more than usual and go
      * over the normal carrycap */
-    int pct_increase = ringbon(RIN_CARRYING) * 10;
+    pct_increase = ringbon(RIN_CARRYING) * 10;
     carrcap = (carrcap * (100 + pct_increase)) / 100;
 
     return (int) carrcap;

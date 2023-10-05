@@ -2616,7 +2616,7 @@ struct monst *mtmp;
     case MUSE_HORN_OF_BLASTING:
         mplayhorn(mtmp, otmp, FALSE);
         m_using = TRUE;
-        buzz(ZT_MONWAND((otmp->otyp == FROST_HORN) ? ZT_COLD : ZT_FIRE),
+        buzz(ZT_MONWAND(otmp->otyp == FROST_HORN ? ZT_COLD : ZT_FIRE),
              rn1(6, 6), mtmp->mx, mtmp->my, sgn(tbx),
              sgn(tby));
         m_using = FALSE;

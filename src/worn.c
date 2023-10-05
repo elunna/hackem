@@ -377,16 +377,20 @@ const struct PropTypes prop_lookup[NUM_PROPERTIES] = {
         { SWIMMING,          ITEM_SWIM }
 };
 
-boolean obj_has_prop(struct obj *obj, int which) {
+boolean obj_has_prop(obj, which)
+struct obj *obj;
+int which;
+{
     boolean is_non_weapon = (obj->oclass != WEAPON_CLASS && !is_weptool(obj));
-
+    int i;
+    
     if (objects[obj->otyp].oc_oprop == which)
         return TRUE;
 
     if (!obj->oprops)
         return FALSE;
 
-    for (int i = 0; i < NUM_PROPERTIES; i++) {
+    for (i = 0; i < NUM_PROPERTIES; i++) {
         if (prop_lookup[i].prop == which) {
             return !!(is_non_weapon && (obj->oprops & prop_lookup[i].flag));
         }

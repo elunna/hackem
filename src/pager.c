@@ -1763,9 +1763,9 @@ char *usr_text;
     /* TRANSFORMATIONS */
 
     /* tinker/upgrades */
-    int newtyp = obj2upgrade(otyp);
-    if (reveal_info && newtyp && !is_artifact) {
-        Sprintf(buf, "Can be tinkered into: %s", OBJ_NAME(objects[newtyp]));
+    i = obj2upgrade(otyp);
+    if (reveal_info && i && !is_artifact) {
+        Sprintf(buf, "Can be tinkered into: %s", OBJ_NAME(objects[i]));
         OBJPUTSTR(buf);
     }
 
@@ -1813,14 +1813,14 @@ char *usr_text;
     if (reveal_info && otyp == POT_ACID) {
         OBJPUTSTR("Gem alchemy recipes:");
         OBJPUTSTR("(Dipping a gem into this can alchemize a new potion)");
-        for (int g = bases[GEM_CLASS]; g <= LAST_GEM; g++) {
-            const char *result = gem_to_potion(g);
-            if (g == DILITHIUM_CRYSTAL)
+        for (i = bases[GEM_CLASS]; i <= LAST_GEM; i++) {
+            const char *result = gem_to_potion(i);
+            if (i == DILITHIUM_CRYSTAL)
                 OBJPUTSTR("     acid + dilithium crystal = an explosion");
             else if (result) {
                 struct obj *potion = mksobj(figure_out_potion(result), FALSE, FALSE);
                 Sprintf(buf, "     acid + %-12s = %s",
-                        OBJ_NAME(objects[g]),   /* The gem */
+                        OBJ_NAME(objects[i]),   /* The gem */
                         xname(potion));         /* The potion */
                 OBJPUTSTR(buf);
                 obfree(potion, (struct obj *)0);
@@ -1843,24 +1843,24 @@ char *usr_text;
         /* Display all fermenting recipes here */
         OBJPUTSTR("Juice fermentation recipes:");
         OBJPUTSTR("(#dipping a mold corpse can ferment a new potion)");
-        for (int g = PM_BROWN_MOLD; g < PM_VOLATILE_MUSHROOM; g++) {
-            short result = mold_to_potion(g);
+        for (i = PM_BROWN_MOLD; i < PM_VOLATILE_MUSHROOM; i++) {
+            short result = mold_to_potion(i);
             /* Important: Display the actual potion result - NOT the
              * appearance, otherwise we directly leak info. */
             if (result) {
                 Sprintf(buf, "     fruit juice + %-15s = %s",
-                        mons[g].mname,              /* The mold */
+                        mons[i].mname,              /* The mold */
                         OBJ_NAME(objects[result]));  /* The potion */
                 OBJPUTSTR(buf);
 
             }
         }
     } else if (reveal_info && oc.oc_class == POTION_CLASS) {
-        for (int g = PM_BROWN_MOLD; g < PM_VOLATILE_MUSHROOM; g++) {
-            if (mold_to_potion(g) == otyp) {
+        for (i = PM_BROWN_MOLD; i < PM_VOLATILE_MUSHROOM; i++) {
+            if (mold_to_potion(i) == otyp) {
                 OBJPUTSTR("Fermentation recipes:");
                 Sprintf(buf, "#dipping a %s corpse into fruit juice ferments a potion of %s.",
-                        mons[g].mname,              /* The mold */
+                        mons[i].mname,              /* The mold */
                         OBJ_NAME(objects[otyp]));  /* The potion */
                 OBJPUTSTR(buf);
                 break;

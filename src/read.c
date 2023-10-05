@@ -4223,20 +4223,19 @@ int class_type;
 }
 
 static void do_acquirement() {
-    winid win;
+    winid win = create_nhwindow(NHW_MENU);
     anything any;
+    int i;
     char ch = 'q';
-
-    win = create_nhwindow(NHW_MENU);
-    start_menu(win);
-
     char item_chars[] = { 'r', '"', ')', '[', '%', '?', '+', '!', '=', '/', '(', '*' };
     const char *item_names[] = {
             "Random item",  "Amulet", "Weapon", "Armor", "Comestible", "Scroll",
             "Spellbook", "Potion", "Ring", "Wand", "Tool", "Gem"
     };
-
-    for (int i = 0; i < (int) sizeof(item_chars); i++) {
+    
+    start_menu(win);
+    
+    for (i = 0; i < (int) sizeof(item_chars); i++) {
         any.a_void = 0;
         any.a_char = item_chars[i];
         add_menu(win, NO_GLYPH, &any, item_chars[i], 0, ATR_NONE, item_names[i], MENU_UNSELECTED);

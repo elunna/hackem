@@ -4010,9 +4010,10 @@ register struct attack *mattk;
                     pline("%s is pummeled with your debris!", Monnam(mdef));
                 break;
                 case AD_POTN: {
+                    struct obj *pseudo;
                     if (pd == &mons[PM_GEL])
                         break;
-                    struct obj *pseudo;
+                    
                     int i = POT_GAIN_ABILITY +
                             (mdef->m_id % (POT_VAMPIRE_BLOOD - POT_GAIN_ABILITY));
                     You("splash the %s!", mon_nam(mdef));
@@ -4709,12 +4710,12 @@ boolean wep_was_destroyed;
 {
     register int i, t, tmp;
     register struct permonst *ptr = mon->data;
-    struct obj *otmp;
+    struct obj *otmp, *passive_armor;
     register struct attack *mattk = has_erac(mon) 
                                         ? ERAC(mon)->mattk : ptr->mattk;
     boolean thievery = ((Role_if(PM_ROGUE) || Role_if(PM_CONVICT))
                         && context.forcefight && !Upolyd);
-
+    
     if (m_carrying_arti(mon, ART_CANDLE_OF_ETERNAL_FLAME)) {
         tmp = d(2, 10);
         if (monnear(mon, u.ux, u.uy)) {
@@ -5286,8 +5287,7 @@ boolean wep_was_destroyed;
                 break;
         }
     }
-
-    struct obj *passive_armor;
+        
     /* Humanoid monsters wearing various dragon-scaled armor */
     if ((passive_armor = which_armor(mon, W_ARM))) {
         t = rnd(6) + 1;

@@ -2851,7 +2851,8 @@ potion_to_gem(potion_otyp)
 int potion_otyp;
 {
     const char *result;
-    for (int i = bases[GEM_CLASS]; i <= LAST_GEM; i++) {
+    int i;
+    for (i = bases[GEM_CLASS]; i <= LAST_GEM; i++) {
         result = gem_to_potion(i);
         if (result && !strcmp(result, OBJ_DESCR(objects[potion_otyp])))
             return i;
@@ -2950,6 +2951,8 @@ boolean ourfault;
 {
     char Your_buf[BUFSZ];
     boolean used = FALSE;
+    int res;
+    
     if (!potion || potion->otyp != POT_AMNESIA)
         return FALSE;
     if (snuff_lit(targobj))
@@ -3142,7 +3145,7 @@ boolean ourfault;
          * need handling specifically. This has to come after most of the
          * cancel effects, otherwise the messages and effects don't really
          * make sense for this potion. */
-        int res = water_damage(targobj, 0, TRUE, u.ux, u.uy);
+        res = water_damage(targobj, 0, TRUE, u.ux, u.uy);
 
         if (res == ER_DAMAGED) {
             used = TRUE;

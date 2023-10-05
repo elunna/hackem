@@ -3011,30 +3011,30 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 }
             }
             /* Monsters die as soon as they reach level 0 or below. */
+            {
+                int drain = monhp_per_lvl(mdef);
 
-            int drain = monhp_per_lvl(mdef);
-
-            *dmgptr += drain;
-            mdef->mhpmax -= drain;
-            mdef->m_lev--;
-            drain /= 2;
-            if (drain) {
-                if (youattack)
-                    healup(drain, 0, FALSE, FALSE);
-                else if (magr && magr->mhp < magr->mhpmax) {
-                    magr->mhp += drain;
-                    if (magr->mhp > magr->mhpmax)
-                        magr->mhp = magr->mhpmax;
+                *dmgptr += drain;
+                mdef->mhpmax -= drain;
+                mdef->m_lev--;
+                drain /= 2;
+                if (drain) {
+                    if (youattack)
+                        healup(drain, 0, FALSE, FALSE);
+                    else if (magr && magr->mhp < magr->mhpmax) {
+                        magr->mhp += drain;
+                        if (magr->mhp > magr->mhpmax)
+                            magr->mhp = magr->mhpmax;
+                    }
+                    if (mdef->data == &mons[PM_HYDRA])
+                        pline("One of %s heads swells up and explodes!",
+                              s_suffix(mon_nam(mdef)));
                 }
-                if (mdef->data == &mons[PM_HYDRA])
-                    pline("One of %s heads swells up and explodes!",
-                    s_suffix(mon_nam(mdef)));
+                if (DEADMONSTER(mdef) || DRAINEDMONSTER(mdef)) {
+                    pline("%s dies!", Monnam(mdef));
+                    xkilled(mdef, XKILL_NOMSG);
+                }
             }
-            if (DEADMONSTER(mdef) || DRAINEDMONSTER(mdef)) {
-                pline("%s dies!", Monnam(mdef));
-                xkilled(mdef, XKILL_NOMSG);
-            }
-
             return vis;
         } else { /* youdefend */
             int oldhpmax = u.uhpmax;
@@ -3092,7 +3092,9 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* Origin can teleport/confuse enemies */
     {
         char nambuf[BUFSZ];
-
+        boolean u_saw_mon = (canseemon(mdef)
+                             || (u.uswallow && u.ustuck == mdef));
+        
         if (otmp->oartifact == ART_ORIGIN) {
             if (realizes_damage) {
                 if (youdefend && !Antimagic && !rn2(5)) {
@@ -3104,11 +3106,6 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                            && !defended(mdef, AD_MAGM)) {
                     if (*dmgptr <= 0)
                         *dmgptr = 1;
-
-
-                    boolean u_saw_mon = (canseemon(mdef)
-                                         || (u.uswallow && u.ustuck == mdef));
-
                     /* record the name before losing sight of monster */
                     Strcpy(nambuf, Monnam(mdef));
                     if (u_teleport_mon(mdef, FALSE) && u_saw_mon

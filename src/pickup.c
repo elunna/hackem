@@ -3834,7 +3834,7 @@ boolean *cancelled;
     anything any;
     char buf[BUFSZ];
     menu_item *pick_list = (menu_item *) 0;
-    struct obj dummyobj, *otmp;
+    struct obj dummyobj, *otmp, *obj2;;
     boolean hands_available = TRUE, exclude_it;
 
 #if 0   /* [skip potential early return so that menu response is needed
@@ -3883,7 +3883,7 @@ boolean *cancelled;
         add_menu(win, NO_GLYPH, &any, !exclude_it ? otmp->invlet : 0, 0,
                  ATR_NONE, buf, MENU_UNSELECTED);
     }
-    struct obj *obj2;
+    
     /* TODO: This is just duplicated from above for containers on the floor. 
      * Maybe refactor to not be copy/paste */
     for (otmp = level.objects[u.ux][u.uy]; otmp; otmp = obj2) {

@@ -1400,12 +1400,13 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
 {
     register struct monst *mon;
     int range, urange;
-    boolean crossbowing, gunning, boomeranging, clear_thrownobj,
-            impaired = (Confusion || Stunned || Blind
-                        || Hallucination || Fumbling || Afraid),
-            tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
-    
-    crossbowing = gunning = boomeranging = clear_thrownobj = FALSE;
+    boolean crossbowing = FALSE;
+    boolean gunning = FALSE;
+    boolean boomeranging = FALSE;
+    boolean clear_thrownobj = FALSE;
+    boolean impaired = (Confusion || Stunned || Blind
+                        || Hallucination || Fumbling || Afraid);
+    boolean tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
     
     /* 5lo: This gets used a lot, so put it here
      * hackem: Updated so that the lightsaber only auto-returns if thrown from

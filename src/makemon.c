@@ -3186,6 +3186,7 @@ long mmflags;
 {
     register struct monst *mtmp;
     struct monst fakemon;
+    struct obj *otmp;
     coord cc;
     int mndx, mcham, ct, mitem;
     boolean anymon = (!ptr);
@@ -3440,7 +3441,6 @@ long mmflags;
         mtmp->iscerberus = TRUE;
     } else if (mndx == PM_VECNA) {
         mtmp->isvecna = TRUE;
-        struct obj *otmp;
         otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
                      artiname(ART_KEY_OF_CHAOS));
         if (otmp) {

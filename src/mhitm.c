@@ -460,6 +460,7 @@ register struct monst *magr, *mdef;
     struct attack *mattk, alt_attk;
     struct obj *mwep;
     struct obj * marmf = which_armor(magr, W_ARMF);
+    struct obj *helmet = which_armor(magr, W_ARMH);
     struct permonst *pa; /* *pd no longer used (for now) */
 
     if (!magr || !mdef)
@@ -634,7 +635,6 @@ register struct monst *magr, *mdef;
                 strike = FALSE;
             }
             /* Impossible to bite with this on */
-            struct obj *helmet = which_armor(magr, W_ARMH);
             if (mattk->aatyp == AT_BITE
                   && helmet && helmet->otyp == PLASTEEL_HELM)
                 strike = FALSE;
@@ -2244,7 +2244,7 @@ post_stone:
         break;
     case AD_SSEX:
     case AD_SITM: /* for now these are the same */
-    case AD_SEDU:
+    case AD_SEDU: {
         if (magr->mcan)
             break;
         /* find an object to steal, non-cursed if magr is tame */
@@ -2283,8 +2283,8 @@ post_stone:
                           mdefnambuf,
                           obj->greased ? "greased" : "slippery",
                           (obj->greased || objects[obj->otyp].oc_name_known)
-                              ? xname(obj)
-                              : cloak_simple_name(obj));
+                          ? xname(obj)
+                          : cloak_simple_name(obj));
                 }
                 if (obj->greased && !rn2(2)) {
                     if (vis && canseemon(mdef))
@@ -2332,6 +2332,7 @@ post_stone:
         }
         tmp = 0;
         break;
+    }
     case AD_DREN:
         if (!cancelled && !rn2(4))
             xdrainenergym(mdef, (boolean) (vis && canspotmon(mdef)
@@ -3063,11 +3064,9 @@ struct obj *mwep;
     register struct permonst *madat = magr->data;
     char buf[BUFSZ];
     int i, tmp;
-    struct attack *mdattk;
-    struct obj *otmp;
-    mdattk = has_erac(mdef) ? ERAC(mdef)->mattk : mddat->mattk;
-
-    struct obj *passive_armor;
+    struct attack *mdattk = has_erac(mdef) ? ERAC(mdef)->mattk : mddat->mattk;
+    struct obj *otmp, *passive_armor;
+    
     if ((passive_armor = which_armor(mdef, W_ARM))) {
         if (mhit && !rn2(3)
             && Is_dragon_scaled_armor(passive_armor)) {
