@@ -2637,12 +2637,12 @@ struct monst *mtmp;
         if (!Deaf) {
             /* No effects on you if you can't hear the music, but the monster
              * doesn't know that so it won't be prevented from trying. */
-            if (Sleep_resistance)
+            if (how_resistant(SLEEP_RES) > 90)
                 You("yawn.");
             else {
                 You("fall asleep.");
                 /* sleep time is same as put_monsters_to_sleep */
-                fall_asleep(-d(10, 10), TRUE);
+                fall_asleep(-resist_reduce(d(10, 10), SLEEP_RES), TRUE);
             }
         }
         otmp->spe--;

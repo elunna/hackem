@@ -2567,11 +2567,12 @@ eatpill()
         exercise(A_WIS, TRUE);
         break;
     case 5:
-        if (Sleep_resistance) {
+        if (how_resistant(SLEEP_RES) == 100) {
             pline("Hmm. Nothing happens.");
         } else {
             You_feel("drowsy...");
-            nomul(-rn2(50));
+            
+            nomul(-resist_reduce(rnd(50), SLEEP_RES));
             u.usleep = 1;
             nomovemsg = "You wake up.";
         }
