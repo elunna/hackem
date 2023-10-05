@@ -923,10 +923,14 @@ toofar:
 
             /* Prevent fire vampires and other ranged monsters from 
              * always staying at a distance. Otherwise they will just
-             * camp at a few squares away. */
+             * camp at a few squares away. We have to check if it died as a
+             * result of the attack. Otherwise they might die from something
+             * like a reflected wand zap and continue moving, causing a
+             * "placing defunct monster onto map" panic. */
             if (rn2(3))
                 return 0; /* that was our move for the round */
-
+            if (DEADMONSTER(mtmp))
+                return 0;
         }
     }
 
