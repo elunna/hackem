@@ -4392,7 +4392,7 @@ boolean autohit;
     /* Attack the monster there */
     bhitpos = cc;
     if ((mtmp = m_at(bhitpos.x, bhitpos.y)) != (struct monst *) 0) {
-        if (attack_checks(mtmp, uwep))
+        if (attack_checks(mtmp))
             return res;
         if (overexertion())
             return 1; /* burn nutrition; maybe pass out */
@@ -4582,7 +4582,7 @@ struct obj *obj;
             (obj->oartifact == ART_GLEIPNIR))
             && enexto(&cc, u.ux, u.uy, (struct permonst *) 0)) {
             flags.confirm = FALSE;
-            (void) attack_checks(mtmp, uwep);
+            (void) attack_checks(mtmp);
             flags.confirm = save_confirm;
             check_caitiff(mtmp); /* despite fact there's no damage */
             You("pull in %s!", mon_nam(mtmp));
@@ -4592,7 +4592,7 @@ struct obj *obj;
         } else if ((!r_bigmonst(mtmp) && !strongmonst(mtmp->data))
                    || rn2(4)) {
             flags.confirm = FALSE;
-            (void) attack_checks(mtmp, uwep);
+            (void) attack_checks(mtmp);
             flags.confirm = save_confirm;
             check_caitiff(mtmp);
             (void) thitmonst(mtmp, uwep);

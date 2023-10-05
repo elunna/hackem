@@ -102,9 +102,8 @@ int hurt;
 
 /* FALSE means it's OK to attack */
 boolean
-attack_checks(mtmp, wep)
+attack_checks(mtmp)
 register struct monst *mtmp;
-struct obj *wep; /* uwep for attack(), null for kick_monster() */
 {
     int glyph;
 
@@ -511,7 +510,7 @@ register struct monst *mtmp;
     bhitpos.x = u.ux + u.dx;
     bhitpos.y = u.uy + u.dy;
     notonhead = (bhitpos.x != mtmp->mx || bhitpos.y != mtmp->my);
-    if (attack_checks(mtmp, uwep))
+    if (attack_checks(mtmp))
         return TRUE;
 
     if (Upolyd && noattacks(youmonst.data)) {
