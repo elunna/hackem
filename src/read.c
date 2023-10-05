@@ -2302,31 +2302,36 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     case SCR_GOLD_DETECTION: {
-        boolean failure;
+        /* The detect functions are tricky because they are capable of using
+         * up the object if nothing was detected in the strange_feeling result.
+         * They return 1 if they failed (nothing detected)
+         * They return 0 if they succeeded (detected something)
+         * */
+        boolean success;
         if (!sobj)
             break;
         if (confused || scursed) {
-            failure = trap_detect(sobj, TRUE) != 0;
+            success = trap_detect(sobj, TRUE) == 0;
         } else {
-            failure = gold_detect(sobj) != 0;
-            if (!failure && sobj && sobj->blessed 
-                  && (object_detect(sobj, GEM_CLASS) == 0))
-                failure = FALSE;
+            success = gold_detect(sobj) == 0;
+            if (success && sblessed)
+               success = object_detect(sobj, GEM_CLASS) == 0;
         }
-        if (failure) {
-            sobj = 0; /* failure: strange_feeling() -> useup() */
+        if (!success) {
+            sobj = 0; /* success: strange_feeling() -> useup() */
         }
         break;
     }
     case SCR_FOOD_DETECTION:
     case SPE_DETECT_FOOD: {
-        boolean failure;
-        failure = (food_detect(sobj) != 0);
-        if (!failure && sobj && sobj->blessed
-              && (monster_detect(sobj, S_BAD_FOOD)== 0))
-            failure = FALSE;
-        if (failure) {
-            sobj = 0; /* failure: strange_feeling() -> useup() */
+        boolean success;
+        if (!sobj)
+            break;
+        success = food_detect(sobj) == 0;
+        if (success && sblessed)
+            success = monster_detect(sobj, S_BAD_FOOD) == 0;
+        if (!success) {
+            sobj = 0; /* success: strange_feeling() -> useup() */
         }
         break;
     }
