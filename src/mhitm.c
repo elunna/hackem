@@ -1776,8 +1776,7 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         if (!mdef->mstun)
             if (!(resists_stun(mdef->data) || defended(mdef, AD_STUN)))
                 mdef->mstun = 1;
-
-
+        
         if (!rn2(6))
             erode_armor(mdef, ERODE_FRACTURE);
         tmp += destroy_mitem(mdef, RING_CLASS, AD_LOUD);
@@ -2777,6 +2776,19 @@ msickness:
             }
         }
         break;
+    case AD_PSYC:
+        if (vis && canseemon(mdef)) {
+            pline("%s appears to be struggling with something!",
+                  Monnam(mdef));
+            if (resists_psychic(mdef)) {
+                shieldeff(mdef->mx, mdef->my);
+                tmp = 0;
+                pline("%s fights it off!", Monnam(mdef));
+            } else {
+                mdef->mconf = 1;
+                mdef->mstrategy &= ~STRAT_WAITFORU;
+            }
+        }
     default:
         /* necessary change to make pets more viable --Amy */
         /* tmp = 0; */
