@@ -3087,7 +3087,42 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
         return realizes_damage;
     }
+    
+    /* Origin can teleport/confuse enemies */
+    if (otmp->oartifact == ART_ORIGIN) {
+        if (realizes_damage) {
+            if (youdefend && !Antimagic && !rn2(5)) {
+                tele();
+                if (!rn2(3))
+                    make_confused(HConfusion + d(3, 4), FALSE);
+                return TRUE;
+            } else if (!rn2(5) && !resists_magm(mdef) 
+                  && !defended(mdef, AD_MAGM)) {
+                if (*dmgptr <= 0)
+                    *dmgptr = 1;
+                
+                char nambuf[BUFSZ];
+                boolean u_saw_mon = (canseemon(mdef)
+                                     || (u.uswallow && u.ustuck == mdef));
 
+                /* record the name before losing sight of monster */
+                Strcpy(nambuf, Monnam(mdef));
+                if (u_teleport_mon(mdef, FALSE) && u_saw_mon
+                    && !(canseemon(mdef) || (u.uswallow && u.ustuck == mdef)))
+                    pline("%s suddenly disappears!", nambuf);
+                if (*dmgptr >= mdef->mhp) { /* see hitmu(mhitu.c) */
+                    if (mdef->mhp == 1)
+                        ++mdef->mhp;
+                    *dmgptr = mdef->mhp - 1;
+                }
+            
+                if (!rn2(3))
+                    mdef->mconf = 1;
+                return TRUE;
+            }
+        }
+    }
+    
     /* Bradamante's Fury forces dismounts */
     if (otmp->oartifact == ART_BRADAMANTE_S_FURY) {
         if (youdefend) {
