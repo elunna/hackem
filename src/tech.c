@@ -2935,10 +2935,12 @@ tech_primalroar()
          for (j = -5; j <= 5; j++) {
             if (isok(u.ux + i, u.uy + j)
                 && (mtmp = m_at(u.ux + i, u.uy + j))) {
-                if (mtmp->mtame != 0 && !mtmp->msummoned) {
+                if (mtmp->mtame && !mtmp->msummoned) {
                     /* Change from SLASH'EM: Instead of the temporary poly,
-                     * we fully heal your close pets. */
-                    mtmp->mhp = mtmp->mhpmax;
+                     * it's permanent. */
+                    struct permonst *ptr = mtmp->data;
+                    int type = little_to_big(monsndx(ptr));
+                    newcham(mtmp, &mons[type], FALSE, TRUE);
                 }
             }
          }
