@@ -3007,15 +3007,17 @@ struct attack *mattk;
         }
         break;
     case AD_POTN:
+        if (Upolyd && u.umonnum == PM_GEL)
+            break;
         You("get some of %s in your mouth!", mon_nam(mtmp));
         i = POT_GAIN_ABILITY +
             (mtmp->m_id % (POT_VAMPIRE_BLOOD - POT_GAIN_ABILITY));
-        if (i == POT_GAIN_LEVEL ||
-             i == POT_EXTRA_HEALING ||
-             i == POT_HEALING ||
-             i == POT_FULL_HEALING ||
-             i == POT_GAIN_ABILITY ||
-             i == POT_GAIN_ENERGY) {
+        
+        /* Eliminate healing effects */
+        if (i == POT_GAIN_LEVEL || i == POT_GAIN_ABILITY
+            || i == POT_GAIN_ENERGY || i == POT_HEALING 
+            || i == POT_EXTRA_HEALING || i == POT_FULL_HEALING 
+            || i == POT_REGENERATION || i == POT_INVULNERABILITY) {
             i = POT_ACID;
         }
         pseudo = mksobj(i, FALSE, FALSE);

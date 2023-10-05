@@ -577,6 +577,8 @@ struct obj {
 #define POTHIT_HERO_THROW  1 /* thrown by hero */
 #define POTHIT_MONST_THROW 2 /* thrown by a monster */
 #define POTHIT_OTHER_THROW 3 /* propelled by some other means [scatter()] */
+#define POTHIT_HERO_ENGULF 4 /* engulf effect from a gel */
+#define POTHIT_MON_ENGULF  5 /* engulf effect from a gel */
 
 /* object properties */
 

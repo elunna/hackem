@@ -2537,6 +2537,29 @@ msickness:
         if (cancelled)
             tmp = 0;
         break;
+    case AD_POTN:
+        if (magr->mnum == PM_GEL && mdef->mnum == PM_GEL)
+            break;
+    {
+        struct obj *pseudo;
+        int i = POT_GAIN_ABILITY +
+                (mdef->m_id % (POT_VAMPIRE_BLOOD - POT_GAIN_ABILITY));
+        if (canseemon(mdef)) {
+            pline("%s splashes the %s!", Monnam(magr), mon_nam(mdef));
+        }
+        /* Eliminate healing effects */
+        if (i == POT_GAIN_LEVEL || i == POT_GAIN_ABILITY
+            || i == POT_GAIN_ENERGY || i == POT_HEALING
+            || i == POT_EXTRA_HEALING || i == POT_FULL_HEALING
+            || i == POT_REGENERATION || i == POT_INVULNERABILITY) {
+            i = POT_ACID;
+        }
+        pseudo = mksobj(i, FALSE, FALSE);
+        pseudo->blessed = 0;
+        pseudo->cursed = rn2(2);
+        potionhit(mdef, pseudo, POTHIT_MON_ENGULF);
+    }
+        /*FALLTHRU*/
     case AD_WRAP: /* monsters cannot grab one another, it's too hard */
         /* suffocation attack: negate damage for breathless. This isn't
          * affected by cancellation. */

@@ -3183,7 +3183,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             break;
         }
         if (!Blind) {
-            You("mentally assault %s!", mon_nam(mdef));
+            You("mentally assault the %s!", mon_nam(mdef));
             if (mindless(mdef->data)) {
                 shieldeff(mdef->mx, mdef->my);
                 tmp = 0;
@@ -4010,7 +4010,27 @@ register struct attack *mattk;
                 } else
                     pline("%s is pummeled with your debris!", Monnam(mdef));
                 break;
-            case AD_WRAP:
+                case AD_POTN: {
+                    if (pd == &mons[PM_GEL])
+                        break;
+                    struct obj *pseudo;
+                    int i = POT_GAIN_ABILITY +
+                            (mdef->m_id % (POT_VAMPIRE_BLOOD - POT_GAIN_ABILITY));
+                    You("splash the %s!", mon_nam(mdef));
+                    /* Eliminate healing effects */
+                    if (i == POT_GAIN_LEVEL || i == POT_GAIN_ABILITY
+                        || i == POT_GAIN_ENERGY || i == POT_HEALING
+                        || i == POT_EXTRA_HEALING || i == POT_FULL_HEALING
+                        || i == POT_REGENERATION || i == POT_INVULNERABILITY) {
+                        i = POT_ACID;
+                    }
+                    pseudo = mksobj(i, FALSE, FALSE);
+                    pseudo->blessed = 0;
+                    pseudo->cursed = rn2(2);
+                    potionhit(mdef, pseudo, POTHIT_HERO_ENGULF);
+                }
+                    /*FALLTHRU*/
+                case AD_WRAP:
                 /* suffocation attack; negate damage if breathless */
                 if (breathless(mdef->data)) {
                     pline("%s doesn't appear to need air to breathe.",

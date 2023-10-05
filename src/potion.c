@@ -1822,7 +1822,13 @@ boolean seeit;   /* True: give "<obj> glows <color>" message */
     return;
 }
 
-/* potion obj hits monster mon, which might be youmonst; obj always used up */
+/* potion obj hits monster mon, which might be youmonst; obj always used up 
+ * how: How the potion was delivered:
+ *      POTHIT_HERO_BASH
+ *      POTHIT_HERO_THROW
+ *      POTHIT_OTHER_THROW
+ *      POTHIT_MONST_THROW
+ * */
 void
 potionhit(mon, obj, how)
 struct monst *mon;
@@ -1835,7 +1841,9 @@ int how;
     struct obj *saddle = (struct obj *) 0;
     struct obj *barding = (struct obj *) 0;
     boolean hit_saddle = FALSE, hit_barding = FALSE,
-            your_fault = (how <= POTHIT_HERO_THROW);
+            your_fault = (how <= POTHIT_HERO_THROW 
+                    || how == POTHIT_HERO_ENGULF);
+    boolean from_engulf = how >= POTHIT_HERO_ENGULF;
 
     if (isyou) {
         tx = u.ux, ty = u.uy;
@@ -1865,7 +1873,9 @@ int how;
                         || (rnl(10) < 4 && obj->blessed) || !rn2(3)))))
             hit_barding = TRUE;
         distance = distu(tx, ty);
-        if (!cansee(tx, ty)) {
+        if (from_engulf) {
+            ; /* No message */
+        } else if (!cansee(tx, ty)) {
             pline("Crash!");
         } else {
             char *mnam = mon_nam(mon);
@@ -2156,7 +2166,6 @@ int how;
                     killed(mon);
             }
             break;
-
         case POT_AMNESIA:
             switch (monsndx(mon->data)) {
                 case PM_GREMLIN:
@@ -2235,7 +2244,6 @@ int how;
             if (DEADMONSTER(mon))
                 killed(mon);
             break;
-
         case POT_OIL:
             if (obj->lamplit)
                 explode_oil(obj, tx, ty);
