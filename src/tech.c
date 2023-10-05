@@ -1244,34 +1244,64 @@ int tech_no;
     return res;
 }
 
-void
-shield_block(dam)
+/* Return 1 if the aggressing monster died as a result.
+ * Otherwise return 0 */
+int
+shield_block(mtmp, dam)
+struct monst *mtmp;
 int dam;
 {
-    int i;
-    for (i = 0; i < MAXTECH; ++i) {
-        if (techid(i) == T_POWER_SHIELD)
-            break;
+    int res = 0, cost = dam;
+    int tech_no = get_tech_no(T_POWER_SHIELD);
+    int skillpoints = P_SKILL(P_SHIELD) + techlev(tech_no);
+
+    if (!uarms) {
+        impossible("no worn shield for power shield tech!");
+        return 0;
     }
-    if (i == MAXTECH) {
-        impossible("no power shield tech");
-        return;
+    if (!tech_inuse(T_POWER_SHIELD))
+        return 0;
+    
+    /* Counter attacks */
+    /* Does the shield have a property? */
+    if (!rn2(skillpoints))
+        You("%s the attack with your shield.", 
+            rn2(2) ? "block" : "deflect");
+    else {
+        if (rn2(2))
+            You("force your shield into the %s attack!",
+                s_suffix(mon_nam(mtmp)));
+        else
+            You("smash the %s with your shield!", mon_nam(mtmp));
+            
+        res = damage_mon(mtmp, dam, AD_PHYS);
     }
-    if (tech_inuse(T_POWER_SHIELD)) {
-        u.uen -= dam;
-        if (u.uen <= 0) {
-              u.uen = 0;
-              You("can no longer block damage with %s.", 
-                  uarms ? yname(uarms) : "a shield");
-              for (i = 0; i < MAXTECH; ++i) {
-                    if (techid(i) == T_POWER_SHIELD) {
-                        techt_inuse(i) = 0;
-                        break;
-                    }
-              }
-        }
-        context.botl = 1;
+    
+    if (res)
+        xkilled(mtmp, XKILL_GIVEMSG);
+    else if (!mtmp->mconf) {
+        if (canseemon(mtmp))
+            pline("%s looks dazed.", Monnam(mtmp));
+        mtmp->mconf = 1;
     }
+    
+    /* We should reward shield skill, so blocking will 
+     * cost less the higher our ability */
+    if (P_SKILL(P_SHIELD) == P_SKILLED)
+        cost = cost - (cost / 5); /* 20% less */
+    else if (P_SKILL(P_SHIELD) == P_EXPERT)
+        cost /= 2; /* 50% less */
+
+    u.uen -= cost;
+    if (u.uen <= 0) {
+        u.uen = 0;
+        You("can no longer power shield with %s.",
+            uarms ? yname(uarms) : "a shield");
+        techt_inuse(tech_no) = 0;
+
+    }
+    context.botl = 1;
+    return res;
 }
 
 boolean
@@ -1279,16 +1309,10 @@ shield_blockable(mtmp, mattk)
 struct monst *mtmp;
 struct attack *mattk;
 {
-    if (!tech_inuse(T_POWER_SHIELD) ||
-          /* Additional restrictions: */
-          !canspotmon(mtmp) 
-          || u.uhs >= 3 
-          || u.uswallow
-          || u.usleep
-          || Fumbling
-          || Stunned
-          || Confusion
-          || Blind)
+    if (!tech_inuse(T_POWER_SHIELD) || !canspotmon(mtmp) 
+        || u.uhs >= 3 /* Weak, fainting, or worse */
+        || u.uswallow || u.usleep || Fumbling
+          || Stunned || Confusion || Blind)
         return FALSE;
     /* Assuming you took it off or had it stolen while tech is active */
     if (!uarms)

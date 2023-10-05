@@ -2692,18 +2692,7 @@ do_rust:
         make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
         dmg /= 2;
     }
-
-    if ((Upolyd ? u.mh : u.uhp) < 1) {
-        if (shield_blockable(mtmp, mattk)) {
-            You("block the attack with your shield.");
-            shield_block(dmg);
-        } else {
-            /* already dead? call rehumanize() or done_in_by() as appropriate */
-            mdamageu(mtmp, 1);
-        }
-        dmg = 0;
-    }
-
+    
     /*  Negative armor class reduces damage done instead of fully protecting
      *  against hits.
      */
@@ -2753,6 +2742,15 @@ do_rust:
         if (mon_currwep && mon_currwep->otyp == TORCH)
             burn_faster(mon_currwep);
     }
+    
+    if (shield_blockable(mtmp, mattk)) {
+        res = shield_block(mtmp, dmg);
+    } else {
+        /* already dead? call rehumanize() or done_in_by() as appropriate */
+        mdamageu(mtmp, 1);
+    }
+    dmg = 0;
+
 
     if (dmg) {
         if (Half_physical_damage
