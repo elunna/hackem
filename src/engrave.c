@@ -327,6 +327,10 @@ int x, y;
     register struct engr *ep = engr_at(x, y);
     int sensed = 0;
 
+    /* We're running, we don't want to look at engravings. */
+    if (context.run)
+        return;
+        
     /* Sensing an engraving does not require sight,
      * nor does it necessarily imply comprehension (literacy).
      */

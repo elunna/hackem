@@ -2236,7 +2236,7 @@ do_nothing:
     if (context.run) {
         if (context.run < 8)
             if (IS_DOOR(tmpr->typ) || IS_ROCK(tmpr->typ)
-                || IS_FURNITURE(tmpr->typ))
+                || (IS_FURNITURE(tmpr->typ) && tmpr->typ != GRAVE))
                 nomul(0);
     }
 
@@ -3290,6 +3290,7 @@ lookaround()
             if (IS_ROCK(levl[x][y].typ) 
                 || levl[x][y].typ == ROOM
                 || levl[x][y].typ == ICE
+                || levl[x][y].typ == GRAVE
                 || IS_GRASS(levl[x][y].typ)
                 || (IS_AIR(levl[x][y].typ)
                     && !In_V_tower(&u.uz))) {
