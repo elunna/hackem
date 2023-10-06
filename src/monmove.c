@@ -1304,7 +1304,7 @@ register int after;
     can_open = !(nohands(ptr) || r_verysmall(mtmp));
     can_unlock = ((can_open && monhaskey(mtmp, TRUE))
                   || mtmp->iswiz || is_rider(ptr));
-    doorbuster = racial_giant(mtmp);
+    doorbuster = racial_giant(mtmp) || mtmp->data == &mons[PM_CTHULHU];
     if (mtmp->wormno)
         goto not_special;
     /* my dog gets special treatment */
