@@ -264,18 +264,16 @@ struct trobj UndeadSlayer[] = {
 #define U_RANGE 2       /* silver daggers or crossbow bolts */
 #define U_MISC  3       /* +1 boots [Buffy can kick] or helmet */
 #define U_ARMOR 4       /* Tshirt/leather +1 or chain mail */
-#define U_WOLFSBANE 6   /* sprig of wolfsbane that gets replaced with medkit or lenses for vampires*/
-#define U_HOLY_WAFER 7  /* holy wafer that gets replaced with gloves for vampires */
 	{ STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
-        { SPEAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
-        { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
+    { SPEAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
 	{ HELMET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
 	{ CHAIN_MAIL, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
-	{ CLOVE_OF_GARLIC, 0, FOOD_CLASS, 5, 1 },
+    { CLOVE_OF_GARLIC, 0, FOOD_CLASS, 5, 1 },
 	{ SPRIG_OF_WOLFSBANE, 0, FOOD_CLASS, 5, 1 },
 	{ HOLY_WAFER, 0, FOOD_CLASS, 4, 0 },
 	{ POT_WATER, 0, POTION_CLASS, 4, 1 },        /* holy water */
-        { TORCH, 0, TOOL_CLASS, 1, 0 },
+    { TORCH, 0, TOOL_CLASS, 1, 0 },
 	{ 0, 0, 0, 0, 0 }
 };
 struct trobj Valkyrie[] = {
@@ -360,8 +358,6 @@ struct trobj Goggles[] = { { GOGGLES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
 struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
-struct trobj VampireBloodPotions[] = { { POT_VAMPIRE_BLOOD, 0, POTION_CLASS, 2, 0 },
-                           { 0, 0, 0, 0, 0 } };
 struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
                           { 0, 0, 0, 0, 0 } };
 struct trobj GreenSaber[] = { { GREEN_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
@@ -412,9 +408,11 @@ struct inv_sub {
     { PM_DWARF, LONG_SWORD, DWARVISH_BEARDED_AXE },
     { PM_GNOME, BOW, CROSSBOW },
     { PM_GNOME, ARROW, CROSSBOW_BOLT },
-    { PM_VAMPIRIC, POT_FRUIT_JUICE, POT_BLOOD	      },
-    { PM_VAMPIRIC, FOOD_RATION, POT_VAMPIRE_BLOOD     },
-    { PM_VAMPIRIC, CRAM_RATION, POT_VAMPIRE_BLOOD     },
+    { PM_VAMPIRIC, POT_FRUIT_JUICE, POT_BLOOD },
+    { PM_VAMPIRIC, FOOD_RATION, POT_VAMPIRE_BLOOD },
+    { PM_VAMPIRIC, CRAM_RATION, POT_VAMPIRE_BLOOD },
+    { PM_VAMPIRIC, HOLY_WAFER, POT_VAMPIRE_BLOOD },
+    { PM_VAMPIRIC, HELMET, GAUNTLETS },
     /* Giants have special considerations */
     { PM_GIANT, ROBE, LARGE_ROBE },
     { PM_GIANT, ROBE_OF_POWER, LARGE_ROBE },
@@ -447,7 +445,6 @@ struct inv_sub {
     { PM_TORTLE, HELMET, TOQUE }, /* Undead Slayer */
     { PM_TORTLE, CHAIN_MAIL, GLOVES }, /* Undead Slayer */
     { PM_TORTLE, CLOAK_OF_MAGIC_RESISTANCE, GLOVES },
-    /* Blade style Undead Slayer */
     { PM_VAMPIRIC, CHAIN_MAIL, TRENCH_COAT }, /* Undead Slayer */
     /* Centaurs */
     { PM_CENTAUR, HIGH_BOOTS, HELMET },
@@ -1418,25 +1415,13 @@ u_init()
         if (Race_if(PM_VAMPIRIC)) {
             UndeadSlayer[U_MAJOR].trotyp = LONG_SWORD;
             UndeadSlayer[U_ARMOR].trotyp = TRENCH_COAT;
-            UndeadSlayer[U_ARMOR].trspe = 2;
-
-            /* Replace the holy wafer with gloves for vampires */
-            UndeadSlayer[U_HOLY_WAFER].trclass = ARMOR_CLASS;
-            UndeadSlayer[U_HOLY_WAFER].trotyp = GLOVES;
-            UndeadSlayer[U_HOLY_WAFER].trquan = 1;
-            UndeadSlayer[U_HOLY_WAFER].trspe = 0;
-            UndeadSlayer[U_HOLY_WAFER].trbless = UNDEF_BLESS;
-
+            UndeadSlayer[U_ARMOR].trspe = 0;
+            
             /* Init first so weapon gets index a */
             ini_inv(UndeadSlayer);
-
-            /* Blade wears glasses, lenses are "close enough" */
             ini_inv(Lenses);
-            ini_inv(VampireBloodPotions);
-        }
-        else {
+        } else 
             ini_inv(UndeadSlayer);
-        }
 
         knows_class(WEAPON_CLASS);
         knows_class(ARMOR_CLASS);
@@ -2234,16 +2219,7 @@ register struct trobj *origtrop;
             /* Undead Slayers get special silver weapons.
              * Before the object materials patch this was easy, but 
              * looks like we'll just do it here. */
-            if (Role_if(PM_UNDEAD_SLAYER)) { 
-                /* no food for vampires except garlic */
-                if (urace.malenum == PM_VAMPIRIC
-                        && obj->oclass == FOOD_CLASS
-                        && obj->otyp != CLOVE_OF_GARLIC) {
-                    dealloc_obj(obj);
-                    origtrop++;
-                    memcpy(&temptrop, origtrop, sizeof(struct trobj));
-                    continue;
-                }
+            if (Role_if(PM_UNDEAD_SLAYER)) {
                 if (is_spear(obj)
                       || obj->otyp == DAGGER 
                       || obj->otyp == ELVEN_DAGGER
@@ -2316,6 +2292,10 @@ register struct trobj *origtrop;
         if (obj->oclass == AMULET_CLASS)
             setworn(obj, W_AMUL);
 
+        if (obj->oclass == TOOL_CLASS &&
+            obj->otyp == LENSES && !ublindf)
+            setworn(obj, W_TOOL);
+        
         /* Don't allow gear with object properties
          * to be start scummed for */
         obj->oprops = obj->oprops_known = 0L;

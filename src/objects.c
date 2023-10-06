@@ -598,7 +598,7 @@ CLOAK("green coat", None,
 CLOAK("plain cloak", None,
       1, 0,          0,  8, 0, 15, 40,  9, 1,  LEATHER, CLR_BROWN),
 CLOAK("trench coat", "black cloak",
-      0, 0,          0,  8, 0, 15, 40,  9, 1,  LEATHER, CLR_BLACK),
+      0, 0,FIRE_RES, 8, 0, 15, 40,  10, 1,  LEATHER, CLR_BLACK),
 /* with shuffled appearances... */
 CLOAK("cloak of protection", "tattered cape",                  /* EvilHack */
       0, 1, PROTECTION,  9, 0, 10, 50,  7, 3,  CLOTH, HI_CLOTH),

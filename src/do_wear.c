@@ -2042,7 +2042,8 @@ struct obj *otmp;
     if (otmp->owornmask & W_WEAPONS)
         remove_worn_item(otmp, FALSE);
     setworn(otmp, W_TOOL);
-    on_msg(otmp);
+    if (moves > 1) /* Avoid turn 1 spam */
+        on_msg(otmp);
 
     if (Blind && !already_blind) {
         changed = TRUE;
