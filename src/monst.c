@@ -6849,9 +6849,6 @@ struct permonst _mons2[] = {
     /* Cthulhu MUST be placed after Demogorgon so he will not be summoned as a 
      * random demon lord or demon prince.  See minion.c */
 
-    /* Original Slash'EM/SlashTHEM Cthulu. */
-    /* --hackem: Matched Un's -8AC, 
-     * added regen, omnivore, rockthrow, flying, M2_MAGIC*/
     MON("Cthulhu", S_HUMANOID,
         LVL(106, 18, -8, 95, 0), 
         (G_HELL | G_NOCORPSE | G_NOGEN | G_UNIQ),
@@ -6863,7 +6860,7 @@ struct permonst _mons2[] = {
           ATTK(AT_GAZE, AD_CONF, 0, 0)),
         SIZ(3000, 500, MS_ROAR, MZ_GIGANTIC), 
         MR_POISON | MR_STONE | MR_DISINT | MR_SLEEP | MR_ACID, 0,
-        M1_FLY | M1_SWIM | M1_AMPHIBIOUS | M1_BREATHLESS | M1_THICK_HIDE 
+        M1_FLY | M1_AMPHIBIOUS | M1_BREATHLESS | M1_THICK_HIDE 
           | M1_SEE_INVIS | M1_NOHANDS | M1_POIS | M1_REGEN | M1_OMNIVORE,
         M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_STRONG 
             | M2_PRINCE | M2_NEUTER | M2_ROCKTHROW | M2_MAGIC,

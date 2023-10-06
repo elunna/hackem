@@ -94,6 +94,7 @@ struct monst *mtmp;
                     && (mtmp->isshk
                         || mtmp->ispriest
                         || mtmp->isqldr
+                        || mtmp->data == &mons[PM_CTHULHU]
                         || mtmp->data == &mons[PM_ORACLE]))));
 }
 

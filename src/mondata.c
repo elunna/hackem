@@ -501,6 +501,7 @@ struct permonst *mptr;
      || verysmall(mptr) \
      || dmgtype(mptr, AD_CORR) \
      || dmgtype(mptr, AD_RUST) \
+     || mptr == &mons[PM_CTHULHU] \
      || (slithy(mptr) && !bigmonst(mptr)));
 }
 

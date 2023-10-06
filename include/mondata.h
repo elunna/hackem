@@ -265,6 +265,7 @@
      || (ptr) == &mons[PM_MIND_FLAYER] \
      || (ptr) == &mons[PM_MASTER_MIND_FLAYER] \
      || (ptr) == &mons[PM_NEOTHELID] \
+     || (ptr) == &mons[PM_CTHULHU] \
      || (ptr) == &mons[PM_ORC_SHAMAN])
      
 #define has_claws(ptr) \
