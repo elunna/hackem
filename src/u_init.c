@@ -413,6 +413,7 @@ struct inv_sub {
     { PM_VAMPIRIC, CRAM_RATION, POT_VAMPIRE_BLOOD },
     { PM_VAMPIRIC, HOLY_WAFER, POT_VAMPIRE_BLOOD },
     { PM_VAMPIRIC, HELMET, GAUNTLETS },
+    { PM_VAMPIRIC, CHAIN_MAIL, JACKET },
     /* Giants have special considerations */
     { PM_GIANT, ROBE, LARGE_ROBE },
     { PM_GIANT, ROBE_OF_POWER, LARGE_ROBE },
@@ -1413,7 +1414,7 @@ u_init()
         /* Vampires get a longsword and a trench coat just like Blade */
         if (Race_if(PM_VAMPIRIC)) {
             UndeadSlayer[U_MAJOR].trotyp = LONG_SWORD;
-
+            UndeadSlayer[U_ARMOR].trspe = 0;
             /* Init first so weapon gets index a */
             ini_inv(UndeadSlayer);
             ini_inv(Lenses);
@@ -2294,8 +2295,14 @@ register struct trobj *origtrop;
             setworn(obj, W_TOOL);
         
         /* Don't allow gear with object properties
-         * to be start scummed for */
-        obj->oprops = obj->oprops_known = 0L;
+         * to be start scummed for. One exception! */
+        if (Role_if(PM_UNDEAD_SLAYER) && Race_if(PM_VAMPIRIC) 
+                && is_suit(obj)) {
+            obj->oprops |= ITEM_FIRE;
+            obj->oprops_known |= ITEM_FIRE;
+        }
+        else
+            obj->oprops = obj->oprops_known = 0L;
 
 #if !defined(PYRAMID_BUG) && !defined(MAC)
         if (--trop->trquan)
