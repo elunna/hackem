@@ -3770,7 +3770,8 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
     char qbuf[QBUFSZ];
     char c;
     boolean feeding = !strcmp(verb, "eat"),    /* corpsecheck==0 */
-        offering = (!strcmp(verb, "sacrifice")); /* corpsecheck==1 */
+        offering = (!strcmp(verb, "sacrifice")), /* corpsecheck==1 */
+        reviving = (!strcmp(verb, "revive")); /* corpsecheck==1 */
 
     if (feeding && (is_vampire(youmonst.data) || Race_if(PM_VAMPIRIC))) {
         You("can't eat.");
@@ -3825,11 +3826,11 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
 
     /* Is there some food (probably a heavy corpse) here on the ground? */
     for (otmp = level.objects[u.ux][u.uy]; otmp; otmp = otmp->nexthere) {
-        if (corpsecheck
-                ? (can_sacrifice(otmp->otyp)
-                   && (corpsecheck == 1 || tinnable(otmp)))
-                : feeding ? (otmp->oclass != COIN_CLASS && is_edible(otmp))
-                          : otmp->oclass == FOOD_CLASS) {
+        boolean is_corpse = (corpsecheck && can_sacrifice(otmp->otyp) && (corpsecheck == 1 || tinnable(otmp)));
+        boolean is_feeding = (feeding && otmp->oclass != COIN_CLASS && is_edible(otmp));
+        boolean is_food = (!corpsecheck && !feeding && otmp->oclass == FOOD_CLASS);
+
+        if (is_corpse || is_feeding || is_food) {
             char qsfx[QBUFSZ];
             boolean one = (otmp->quan == 1L);
 
@@ -3843,6 +3844,9 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
                    attempt to eat off floor */
                 return (struct obj *) 0;
             }
+            if (reviving && (!is_corpse
+                  || otmp->otyp == SEVERED_HAND || otmp->otyp == EYEBALL))
+                continue;
             /* "There is <an object> here; <verb> it?" or
                "There are <N objects> here; <verb> one?" */
             Sprintf(qbuf, "There %s ", otense(otmp, "are"));
@@ -3864,7 +3868,8 @@ int corpsecheck; /* 0, no check, 1, corpses, 2, tinnable corpses */
                   verb);
     if (corpsecheck && otmp && !(offering && otmp->oclass == AMULET_CLASS))
         if (!can_sacrifice(otmp->otyp)
-             || (corpsecheck == 2 && !tinnable(otmp))) {
+             || (corpsecheck == 2 && !tinnable(otmp))
+             || (reviving && (otmp->otyp == SEVERED_HAND || otmp->otyp == EYEBALL))) {
             You_cant("%s that!", verb);
             return (struct obj *) 0;
         }
@@ -3875,7 +3880,7 @@ boolean
 can_sacrifice(otyp)
 int otyp;
 {
-    return (otyp == CORPSE || otyp != EYEBALL || otyp != SEVERED_HAND);
+    return (otyp == CORPSE || otyp == EYEBALL || otyp == SEVERED_HAND);
 }
 
 /* Side effects of vomiting */
