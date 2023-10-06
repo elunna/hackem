@@ -683,7 +683,12 @@ struct obj *obj;
     if (ascending) {
         if (!rn2(10))
             (void) mongets(mtmp, rn2(3) ? LUCKSTONE : LOADSTONE);
-        if (!racial_giant(mtmp)) {
+        if (racial_giant(mtmp)) {
+            if (is_spellcaster(mtmp)) 
+                mk_mplayer_armor(mtmp, LARGE_ROBE);
+            else
+                mk_mplayer_armor(mtmp, MUMMY_WRAPPING);
+        } else {
             mk_mplayer_armor(mtmp, armor);
             mk_mplayer_armor(mtmp, cloak);
         }
