@@ -7087,6 +7087,7 @@ struct monst *mtmp;
         Your("mind reels from the noise!");
         make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
         stop_occupation();
+        dmg = resist_reduce(dmg, SONIC_RES);
         mdamageu(mtmp, dmg);
     }
     /* being deaf won't protect objects in inventory, or being made of glass */

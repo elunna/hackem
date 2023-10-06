@@ -4862,9 +4862,10 @@ boolean wep_was_destroyed;
                     You("are irritated by %s noise!", s_suffix(mon_nam(mon)));
             }
 
-            if (how_resistant(SONIC_RES) < 50)
+            if (how_resistant(SONIC_RES) < 50) {
+                tmp = resist_reduce(tmp, SONIC_RES);
                 mdamageu(mon, tmp);
-            else
+            } else
                 monstseesu(M_SEEN_LOUD);
             if (!Underwater) {
                 if ((int) mon->m_lev > rn2(20))

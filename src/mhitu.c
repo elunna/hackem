@@ -3642,6 +3642,7 @@ struct attack *mattk;
         return FALSE;
     } else if (can_hear) {
         /* We still get damage from the noise */
+        dmg = resist_reduce(dmg, SONIC_RES);
         mdamageu(mtmp, dmg);
     }
 
