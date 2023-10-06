@@ -1540,7 +1540,7 @@ no_rise:
         break;
     }
     case POT_ACID:
-        if (Acid_resistance) {
+        if (how_resistant(ACID_RES) > 50) {
             /* Not necessarily a creature who _likes_ acid */
             pline("This tastes %s.", Hallucination ? "tangy" : "sour");
             monstseesu(M_SEEN_ACID);
@@ -1925,7 +1925,7 @@ int how;
                 polyself(0);
             break;
         case POT_ACID:
-            if (!Acid_resistance) {
+            if (how_resistant(ACID_RES) < 50) {
                 int dmg;
 
                 pline("This burns%s!",
@@ -2334,7 +2334,7 @@ register struct obj *obj;
 
     if (!breathe) {
         /* currently only acid affects eyes */
-        if (eyes && obj->otyp == POT_ACID && !Acid_resistance) {
+        if (eyes && obj->otyp == POT_ACID && how_resistant(ACID_RES) < 50) {
             pline_The("fumes sting your %s.", eyestr);
         }
         else {
@@ -2598,7 +2598,7 @@ register struct obj *obj;
         unambiguous = TRUE;
         break;
     case POT_ACID:
-        if (Acid_resistance) {
+        if (how_resistant(ACID_RES) > 50) {
             if (cansmell) {
                 pline("It smells %s.", Hallucination ? "tangy" : "sour");
                 unambiguous = TRUE;
@@ -2993,7 +2993,7 @@ boolean ourfault;
         if (targobj->otyp == POT_ACID) {
             pline("It boils vigorously!");
             You("are caught in the explosion!");
-            losehp(Acid_resistance ? rnd(5) : rnd(10),
+            losehp(how_resistant(ACID_RES) > 50 ? rnd(5) : rnd(10),
                    "elementary chemistry", KILLED_BY);
 
             You_feel("a momentary lapse of reason!");
@@ -3677,7 +3677,7 @@ dodip()
                 useup(singlepotion);
                 /* MRKR: an alchemy smock ought to be */
                 /* some protection against this: */
-                losehp(Acid_resistance ? rnd(5) : rnd(10), "alchemic blast", KILLED_BY_AN);
+                losehp(how_resistant(ACID_RES) > 50 ? rnd(5) : rnd(10), "alchemic blast", KILLED_BY_AN);
 
                 return 1;
             }

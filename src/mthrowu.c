@@ -140,7 +140,7 @@ const char *name; /* if null, then format `*objp' */
         if (ammo_stack)
             ammo_stack->oprops_known |= obj->oprops_known;
 
-        if (is_acid && Acid_resistance) {
+        if (is_acid && how_resistant(ACID_RES) > 50) {
             pline("It doesn't seem to hurt you.");
             monstseesu(M_SEEN_ACID);
         } else if (obj && obj->oclass == POTION_CLASS) {

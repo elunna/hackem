@@ -3332,24 +3332,28 @@ int final;
     if (EFire_resistance)
         enl_msg("Your items ", "are", "were", " protected from fire",
                 from_what(AD_FIRE));
+    
     Sprintf(buf, "%d%% cold resistant", how_resistant(COLD_RES));
     if (Cold_resistance)
         you_are(buf, "");
     if (ECold_resistance)
         enl_msg("Your items ", "are", "were", " protected from cold",
                 from_what(AD_COLD));
+    
     Sprintf(buf, "%d%% sleep resistant", how_resistant(SLEEP_RES));
     if (Sleep_resistance)
         you_are(buf, "");
     Sprintf(buf, "%d%% disintegration resistant", how_resistant(DISINT_RES));
     if (Disint_resistance)
         you_are(buf, "");
+    
     Sprintf(buf, "%d%% shock resistant", how_resistant(SHOCK_RES));
     if (Shock_resistance)
         you_are(buf, "");
     if (EShock_resistance)
         enl_msg("Your items ", "are", "were", " protected from shock",
                 from_what(AD_ELEC));
+    
     Sprintf(buf, "%d%% poison resistant", how_resistant(POISON_RES));
     if (Poison_resistance)
         you_are(buf, "");

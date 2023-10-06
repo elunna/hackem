@@ -4389,7 +4389,7 @@ xchar x, y;
             delobj(obj);
             
             /* Deals damage similar to an alchemy blast */
-            dmg = (6 + rnd(10)) * (Acid_resistance ? 1 : 2);
+            dmg = (6 + rnd(10)) * (how_resistant(ACID_RES) > 50 ? 1 : 2);
             exercise(A_STR, FALSE);
             losehp(dmg, /* not physical damage */
                    "alchemic blast", KILLED_BY_AN);
@@ -6510,7 +6510,7 @@ in_hell_effects()
     usurvive = how_resistant(FIRE_RES) == 100 || (dmg < u.uhp);
 
     if (how_resistant(FIRE_RES) < 100) {
-        if (how_resistant(FIRE_RES) >= 50) {
+        if (how_resistant(FIRE_RES) > 50) {
             if (rn2(3))
                 pline_The("flames of hell are slowly %s you alive!",
                           rn2(2) ? "roasting" : "burning");

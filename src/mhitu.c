@@ -2435,7 +2435,7 @@ do_rust:
     case AD_ACID:
         hitmsg(mtmp, mattk);
         if (!mtmp->mcan && !rn2(3))
-            if (Acid_resistance || Underwater) {
+            if (how_resistant(ACID_RES) > 50 || Underwater) {
                 pline("You're covered in %s, but it seems harmless.",
                       hliquid("acid"));
                 monstseesu(M_SEEN_ACID);
@@ -3061,7 +3061,7 @@ struct attack *mattk;
             water_damage_chain(invent, FALSE, rnd(3), FALSE, u.ux, u.uy);
         break;
     case AD_ACID:
-        if (Acid_resistance) {
+        if (how_resistant(ACID_RES) > 50) {
             You("are covered with a seemingly harmless goo.");
             monstseesu(M_SEEN_ACID);
             tmp = 0;
@@ -3173,7 +3173,7 @@ struct attack *mattk;
                 You_feel("mildly tickled.");
                 tmp = 0;
                 break;
-            } else if (how_resistant(DISINT_RES) >= 50) {
+            } else if (how_resistant(DISINT_RES) > 50) {
                 You("aren't disintegrated, but that hurts!");
                 tmp = resist_reduce(tmp, DISINT_RES);
                 if (tmp)
@@ -3431,7 +3431,7 @@ struct attack *mattk;
                 if (u.usleep)
                     unmul("You are frightened awake!");
             }
-            if (Sonic_resistance)
+            if (how_resistant(SONIC_RES) > 50)
                 break; /* No inventory damage! */
             if (!Stun_resistance) {
                 if (!Stunned)
@@ -3445,6 +3445,8 @@ struct attack *mattk;
 
         /* being deaf won't protect objects in inventory,
            or being made of glass */
+        if (ESonic_resistance)
+            break;
         if (!rn2(6))
             erode_armor(&youmonst, ERODE_FRACTURE);
         if (!rn2(5))
@@ -3479,7 +3481,7 @@ struct attack *mattk;
         if (u.usleep && m_canseeu(mtmp)) {
             unmul("What a horrible nightmare! You wake up!");
         }
-        if (Sonic_resistance)
+        if (how_resistant(SONIC_RES) > 50)
             break;
         if (Fearless) {
             You("are not afraid.");
@@ -3501,7 +3503,7 @@ struct attack *mattk;
             if (u.usleep)
                 unmul("You are frightened awake!");
         }
-        if (Sonic_resistance)
+        if (how_resistant(SONIC_RES) > 50)
             break; /* No inventory damage! */
         Your("mind reels from the noise!");
         make_stunned((HStun & TIMEOUT) + (long) (dmg / 2), TRUE);
@@ -3516,7 +3518,7 @@ struct attack *mattk;
         else
             You("dream of singing angels...");
 
-        if (Sonic_resistance)
+        if (how_resistant(SONIC_RES) > 50)
             break; /* No inventory damage! */
         /* Copied from AD_PLYS code */
         if (multi >= 0 && !rn2(3)) {
@@ -3553,7 +3555,7 @@ struct attack *mattk;
             if (m_canseeu(mtmp))
                 pline("%s utters a ghastly howl!", Monnam(mtmp));
             wakeup = TRUE;
-            if (Sonic_resistance)
+            if (how_resistant(SONIC_RES) > 50)
                 break;
             if (!Confusion)
                 You("suddenly feel %s.",
@@ -3566,7 +3568,7 @@ struct attack *mattk;
         case 16: /* Cause Stunning */
             if (m_canseeu(mtmp))
                 pline("%s emits a series of clicks!", Monnam(mtmp));
-            if (Sonic_resistance)
+            if (how_resistant(SONIC_RES) > 50)
                 break;
             make_stunned((HStun & TIMEOUT) + lcount, TRUE);
             break;
@@ -3576,7 +3578,7 @@ struct attack *mattk;
         case 20: /* Cause hallucination */
             if (m_canseeu(mtmp))
                 pline("%s bays insane chattering noises!", Monnam(mtmp));
-            if (Sonic_resistance)
+            if (how_resistant(SONIC_RES) > 50)
                 break;
             (void) make_hallucinated((HHallucination & TIMEOUT) + lcount,
                                      TRUE, 0L);
@@ -3588,7 +3590,7 @@ struct attack *mattk;
             if (m_canseeu(mtmp))
                 pline("%s ululates in your direction!", Monnam(mtmp));
             wakeup = TRUE;
-            if (Sonic_resistance)
+            if (how_resistant(SONIC_RES) > 50)
                 break;
             HFumbling |= FROMOUTSIDE;
             HFumbling &= ~TIMEOUT;
@@ -3601,7 +3603,7 @@ struct attack *mattk;
             if (m_canseeu(mtmp))
                 pline("%s shrieks wildly!", Monnam(mtmp));
             wakeup = TRUE;
-            if (Sonic_resistance)
+            if (how_resistant(SONIC_RES) > 50)
                 break;
             make_blinded((Blinded & TIMEOUT) + lcount, TRUE);
             break;
@@ -3609,7 +3611,7 @@ struct attack *mattk;
             if (m_canseeu(mtmp))
                 pline("%s shrills a resonant tone!", Monnam(mtmp));
             wakeup = TRUE;
-            if (Sonic_resistance)
+            if (how_resistant(SONIC_RES) > 50)
                 break;
             if (Vomiting)
                 vomit();
@@ -3620,7 +3622,7 @@ struct attack *mattk;
             if (m_canseeu(mtmp))
                 pline("%s beats it's chest and howls!", Monnam(mtmp));
             wakeup = TRUE;
-            if (Sonic_resistance)
+            if (how_resistant(SONIC_RES) > 50)
                 break;
 
             make_deaf((HDeaf & TIMEOUT) + lcount, TRUE);
@@ -3634,7 +3636,7 @@ struct attack *mattk;
         break;
     }
 
-    if (Sonic_resistance && can_hear) {
+    if (how_resistant(SONIC_RES) > 50 && can_hear) {
         pline_The("noise doesn't seem to bother you.");
         monstseesu(M_SEEN_LOUD);
         return FALSE;

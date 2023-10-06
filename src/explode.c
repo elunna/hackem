@@ -232,11 +232,11 @@ int expltype;
                     explmask[i][j] = (how_resistant(POISON_RES) > 50);
                     break;
                 case AD_ACID:
-                    explmask[i][j] = !!Acid_resistance;
+                    explmask[i][j] = (how_resistant(ACID_RES) > 50);
                     physical_dmg = TRUE;
                     break;
                 case AD_LOUD:
-                    explmask[i][j] = !!Sonic_resistance;
+                    explmask[i][j] = (how_resistant(SONIC_RES) > 50);
                     physical_dmg = TRUE;
                     break;
                 default:

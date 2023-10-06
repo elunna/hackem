@@ -2308,7 +2308,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     }
     /* Eighth basic attack - disintegration */
     if (attacks(AD_DISN, otmp)) {
-        boolean resistant = youdefend ? how_resistant(DISINT_RES) >= 50
+        boolean resistant = youdefend ? how_resistant(DISINT_RES) > 50
                                       : (resists_disint(mdef)
                                          || defended(mdef, AD_DISN));
         if (!rn2(12) && !resistant) {

@@ -281,7 +281,7 @@ xchar x, y;
     if (Role_if(PM_MONK)
         && (Race_if(PM_CENTAUR) || Race_if(PM_TORTLE))
         && (touch_petrifies(mon->data)
-            || (how_resistant(DISINT_RES) <= 49
+            || (how_resistant(DISINT_RES) < 50
                 && (mon->data == &mons[PM_BLACK_DRAGON]
                     || mon->data == &mons[PM_ANTIMATTER_VORTEX]))))
         return;

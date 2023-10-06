@@ -2920,7 +2920,7 @@ boolean ordinary;
             incr_itimeout(&HDeaf, rn1(300, 100));
             damage = d(6, 6);
         }
-        if (Sonic_resistance) {
+        if (how_resistant(SONIC_RES) > 50) {
             shieldeff(u.ux, u.uy);
             pline("KABOOM! Well that was loud.");
             monstseesu(M_SEEN_LOUD);
@@ -2972,7 +2972,7 @@ boolean ordinary;
         /* FALLTHROUGH */
     case SPE_ACID_BLAST:
         learn_it = TRUE;
-        if (Acid_resistance) {
+        if (how_resistant(ACID_RES) > 50) {
             shieldeff(u.ux, u.uy);
             You("coat yourself in a seemingly harmless substance.");
             monstseesu(M_SEEN_ACID);
@@ -5142,7 +5142,7 @@ xchar sx, sy;
                 You("aren't disintegrated, but that hurts!");
                 dam = resist_reduce(d(6, 6), DISINT_RES);
                 break;
-            } else if (!Reflecting && (how_resistant(DISINT_RES) >= 50)) {
+            } else if (!Reflecting && (how_resistant(DISINT_RES) > 50)) {
                 You("aren't disintegrated, but that really hurts!");
                 dam = resist_reduce(d(12, 6), DISINT_RES);
                 break;
@@ -5235,7 +5235,7 @@ xchar sx, sy;
         }
         break;
     case ZT_ACID:
-        if (Acid_resistance || Underwater) {
+        if (how_resistant(ACID_RES) > 50 || Underwater) {
             pline_The("%s doesn't hurt.", hliquid("acid"));
             monstseesu(M_SEEN_ACID);
             dam = 0;
@@ -5255,7 +5255,7 @@ xchar sx, sy;
         }
         break;
     case ZT_SONIC:
-        if (Sonic_resistance) {
+        if (how_resistant(SONIC_RES) > 50) {
             shieldeff(sx, sy);
             pline("That was rather loud.");
             monstseesu(M_SEEN_LOUD);

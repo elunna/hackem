@@ -1968,7 +1968,7 @@ struct obj *otmp;
     } else if (youmonst.data == &mons[PM_GHOUL] || youmonst.data == &mons[PM_GHAST]) {
 		pline ("This corpse is too fresh!");
 		return 3;
-    } else if (acidic(&mons[mnum]) && !Acid_resistance) {
+    } else if (acidic(&mons[mnum]) && how_resistant(ACID_RES) < 50) {
         tp++;
         You("have a very bad case of stomach acid.");   /* not body_part() */
         losehp(rnd(15), !glob ? "acidic corpse" : "acidic glob",
@@ -2986,7 +2986,7 @@ struct obj *otmp;
         else
             return 2;
     }
-    if (cadaver && acidic(&mons[mnum]) && !Acid_resistance) {
+    if (cadaver && acidic(&mons[mnum]) && how_resistant(ACID_RES) < 50) {
         Sprintf(buf, "%s rather acidic.  %s", foodsmell, eat_it_anyway);
         if (yn_function(buf, ynchars, 'n') == 'n')
             return 1;

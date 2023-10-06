@@ -5094,7 +5094,7 @@ struct monst *mtmp;
             pline("%s bellows soundlessly!", Monnam(mtmp));
         }
         wake_nearto(mtmp->mx, mtmp->my, 5 * 5);
-        if ((canseemon(mtmp) || (!Deaf && !Sonic_resistance))
+        if ((canseemon(mtmp) || (!Deaf && how_resistant(SONIC_RES) < 50))
             && !Underwater && !Confusion
             && !Role_if(PM_KNIGHT)
             && !wielding_artifact(ART_DRAGONBANE)) {
@@ -7073,7 +7073,7 @@ struct monst *mtmp;
             unmul("You are frightened awake!");
     }
 
-    if (Sonic_resistance) {
+    if (how_resistant(SONIC_RES) > 50) {
         You("are unaffected by the noise.");
         monstseesu(M_SEEN_LOUD);
         return;

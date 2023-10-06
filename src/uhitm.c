@@ -4367,7 +4367,7 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                     || (u.ulycn >= LOW_PM
                         && were_beastie(mon->mnum) == u.ulycn
                         && !Role_if(PM_CAVEMAN) && !Race_if(PM_ORC))
-                    || (how_resistant(DISINT_RES) <= 49
+                    || (how_resistant(DISINT_RES) < 50
                         && (mon->data == &mons[PM_BLACK_DRAGON]
                             || mon->data == &mons[PM_ANTIMATTER_VORTEX]))))
                 break;
@@ -4382,7 +4382,7 @@ boolean weapon_attacks; /* skip weapon attacks if false */
             /* [ALI] Vampires are also smart. They avoid biting
                monsters if doing so would be fatal */
             if ((i > 0 && is_vampire(youmonst.data))
-                && ((how_resistant(DISINT_RES) <= 49
+                && ((how_resistant(DISINT_RES) < 50
                         && (mon->data == &mons[PM_BLACK_DRAGON]
                             || mon->data == &mons[PM_ANTIMATTER_VORTEX]))
                     || is_rider(mon->data) 
@@ -4406,7 +4406,7 @@ boolean weapon_attacks; /* skip weapon attacks if false */
                 && (maybe_polyd(is_demon(youmonst.data),
                     Race_if(PM_DEMON)))
                 && (touch_petrifies(mon->data)
-                    || (how_resistant(DISINT_RES) <= 49
+                    || (how_resistant(DISINT_RES) < 50
                         && (mon->data == &mons[PM_BLACK_DRAGON]
                             || mon->data == &mons[PM_ANTIMATTER_VORTEX]))))
                 break;
@@ -4783,20 +4783,20 @@ boolean wep_was_destroyed;
             if (Blind || !flags.verbose) {
                 if (mon->data == &mons[PM_YELLOW_DRAGON])
                     You("are%s seared!",
-                        (Acid_resistance || Underwater) ? " mildly" : "");
+                        (how_resistant(ACID_RES) > 50 || Underwater) ? " mildly" : "");
                 else
                     You("are splashed!");
             } else {
                 if (mon->data == &mons[PM_YELLOW_DRAGON])
                     You("are%s seared by %s acidic hide!",
-                        (Acid_resistance || Underwater) ? " mildly" : "",
+                        (how_resistant(ACID_RES) > 50 || Underwater) ? " mildly" : "",
                         s_suffix(mon_nam(mon)));
                 else
                     You("are splashed by %s %s!", s_suffix(mon_nam(mon)),
                         hliquid("acid"));
             }
 
-            if (!(Acid_resistance || Underwater))
+            if (!(how_resistant(ACID_RES) > 50 || Underwater))
                 mdamageu(mon, tmp);
             else
                 monstseesu(M_SEEN_ACID);
@@ -4850,19 +4850,19 @@ boolean wep_was_destroyed;
             if (Blind || !flags.verbose) {
                 if (mon->data == &mons[PM_VIOLET_DRAGON])
                     You("are%s blasted by noise!",
-                        Sonic_resistance ? " mildly" : "");
+                        how_resistant(SONIC_RES) > 50 ? " mildly" : "");
                 else
                     You("are hit with a blast of sound!");
             } else {
                 if (mon->data == &mons[PM_VIOLET_DRAGON])
                     You("are%s blasted by %s screeching scales!",
-                        Sonic_resistance ? " mildly" : "",
+                        how_resistant(SONIC_RES) > 50 ? " mildly" : "",
                         s_suffix(mon_nam(mon)));
                 else
                     You("are irritated by %s noise!", s_suffix(mon_nam(mon)));
             }
 
-            if (!Sonic_resistance)
+            if (how_resistant(SONIC_RES) < 50)
                 mdamageu(mon, tmp);
             else
                 monstseesu(M_SEEN_LOUD);
@@ -5270,7 +5270,7 @@ boolean wep_was_destroyed;
                         tmp = resist_reduce(tmp, POISON_RES);
                         mdamageu(mon, tmp);
                     } else {
-                        if (how_resistant(POISON_RES) <= 34) {
+                        if (how_resistant(POISON_RES) < 35) {
                             pline("%s poisonous hide was deadly...",
                                   s_suffix(Monnam(mon)));
                             done_in_by(mon, DIED);
@@ -5309,7 +5309,7 @@ boolean wep_was_destroyed;
                         t = resist_reduce(t, POISON_RES);
                         mdamageu(mon, t);
                     } else {
-                        if (how_resistant(POISON_RES) <= 34) {
+                        if (how_resistant(POISON_RES) < 35) {
                             pline("%s poisonous armor was deadly...",
                                   s_suffix(Monnam(mon)));
                             done_in_by(mon, DIED);
