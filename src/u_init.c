@@ -445,7 +445,6 @@ struct inv_sub {
     { PM_TORTLE, HELMET, TOQUE }, /* Undead Slayer */
     { PM_TORTLE, CHAIN_MAIL, GLOVES }, /* Undead Slayer */
     { PM_TORTLE, CLOAK_OF_MAGIC_RESISTANCE, GLOVES },
-    { PM_VAMPIRIC, CHAIN_MAIL, TRENCH_COAT }, /* Undead Slayer */
     /* Centaurs */
     { PM_CENTAUR, HIGH_BOOTS, HELMET },
     { NON_PM, STRANGE_OBJECT, STRANGE_OBJECT }
@@ -1414,9 +1413,7 @@ u_init()
         /* Vampires get a longsword and a trench coat just like Blade */
         if (Race_if(PM_VAMPIRIC)) {
             UndeadSlayer[U_MAJOR].trotyp = LONG_SWORD;
-            UndeadSlayer[U_ARMOR].trotyp = TRENCH_COAT;
-            UndeadSlayer[U_ARMOR].trspe = 0;
-            
+
             /* Init first so weapon gets index a */
             ini_inv(UndeadSlayer);
             ini_inv(Lenses);
