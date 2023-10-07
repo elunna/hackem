@@ -1456,12 +1456,16 @@ tech_timeout()
         if (techtout(i) > 0 && using_oprop(ITEM_PROWESS))
               techtout(i)--;
 
-        /* Maintaining technical skill requires maintaining a healthy body and mind */
-        if ((Afraid || Confusion || Fumbling || Glib
-            || Hallucination || LarvaCarrier || Sick || Sleepy
-            || Slimed || Slow || Stoned || Strangled
-            || Stunned || Vomiting || Withering || Wounded_legs
-            || u.usleep || u.uswallow || u.ustuck || u.utrap || u.uinshell
+        /* Maintaining technical skill requires maintaining a healthy body and mind.
+         * u.usleep - Left out because sleep is great for recovery.
+         * u.uinshell - Left out because this is a tortle's comfort zone.
+         * */
+        
+        if ((Afraid || Confusion || Hallucination || Stunned
+            || Fumbling || Glib || LarvaCarrier || Sick || Sleepy
+            || Slimed || Slow || Stoned || Strangled || Vomiting 
+            || Withering || Wounded_legs || u.uswallow || u.ustuck
+            || u.utrap
             || (u.uhunger > (Race_if(PM_HOBBIT) ? 3000 : 1000))
             || (u.uhunger < 50))
             && rn2(10))
