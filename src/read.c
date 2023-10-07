@@ -3414,7 +3414,8 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
             /* Although "genus" is Latin for race, the hero benefits
              * from both race and role; thus genocide affects either.
              */
-            if (Your_Own_Role(mndx) || Your_Own_Race(mndx)) {
+            if (Your_Own_Role(mndx) || Your_Own_Race(mndx)
+                || (Race_if(PM_VAMPIRIC) && mndx == PM_VAMPIRE)) {
                 killplayer++;
                 break;
             }
@@ -3484,7 +3485,13 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
         }
         
         /* setting no-corpse affects wishing and random tin generation */
-        if (!only_on_level) { 
+        if (!only_on_level) {
+            /* Because these are intertwined */
+            if (mndx == PM_VAMPIRE)
+                mvitals[PM_VAMPIRIC].mvflags |= (G_GENOD | G_NOCORPSE);
+            else if (mndx == PM_VAMPIRIC)
+                mvitals[PM_VAMPIRE].mvflags |= (G_GENOD | G_NOCORPSE);
+            
             mvitals[mndx].mvflags |= (G_GENOD | G_NOCORPSE); 
         }
         pline("Wiped out %s%s%s.", which,
