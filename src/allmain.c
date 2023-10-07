@@ -212,6 +212,9 @@ boolean resuming;
     if (resuming) { /* restoring old game */
         read_engr_at(u.ux, u.uy); /* subset of pickup() */
     }
+    if (halloween()) {
+        pline("Beware the Undead, for they roam the Dungeons of Doom on All Hallows' Eve!");
+    }
 
     (void) encumber_msg(); /* in case they auto-picked up something */
     if (defer_see_monsters) {

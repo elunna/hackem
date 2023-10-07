@@ -3536,7 +3536,6 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
         if (only_on_level) {
             kill_monster_on_level(mndx);
         } else {
-            reset_rndmonst(mndx);
             kill_genocided_monsters();
             update_inventory();	/* in case identified eggs were affected */
         }
