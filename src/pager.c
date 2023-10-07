@@ -1781,9 +1781,9 @@ char *usr_text;
                     OBJPUTSTR("Forging recipes (#craft):");
                     has_recipes = TRUE;
                 }
-                Sprintf(buf, "     %d %s + %d %s = %s", recipe->quan_typ1,
-                        OBJ_NAME(objects[recipe->typ1]), recipe->quan_typ1,
-                        OBJ_NAME(objects[recipe->typ2]),
+                Sprintf(buf, "     %d %s + %d %s = %s", 
+                        recipe->quan_typ1, OBJ_NAME(objects[recipe->typ1]), 
+                        recipe->quan_typ2, OBJ_NAME(objects[recipe->typ2]),
                         OBJ_NAME(objects[recipe->result_typ]));
                 OBJPUTSTR(buf);
             }
