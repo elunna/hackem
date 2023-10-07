@@ -2103,8 +2103,9 @@ struct obj *box;	/* at the moment only for floor traps */
         You("are uninjured.");
     else
         losehp(num, "freezing cloud", KILLED_BY_AN);
-
+    
     destroy_item(POTION_CLASS, AD_COLD);
+    u_slow_down();
 }
 
 STATIC_OVL void
