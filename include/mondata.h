@@ -562,6 +562,7 @@
     (is_rider(ptr) \
      || (ptr)->mlet == S_TROLL \
      || (ptr) == &mons[PM_TROLL_MUMMY] \
+     || (ptr) == &mons[PM_CTHULHU] \
      || is_zombie(ptr))
                     
 /* monsters whose corpses and statues need special handling;
