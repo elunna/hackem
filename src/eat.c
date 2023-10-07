@@ -1352,6 +1352,9 @@ int pm;
             toggle_displacement((struct obj *) 0, 0L, TRUE);
         incr_itimeout(&HDisplaced, d(6, 6));
         break;
+    case PM_PHASE_SPIDER:
+        set_itimeout(&HPasses_walls, (long) (d(4, 4) + 4)); /* 8..20 */
+        break;
     case PM_DISENCHANTER:
         /* picks an intrinsic at random and removes it; there's
            no feedback if hero already lacks the chosen ability */
