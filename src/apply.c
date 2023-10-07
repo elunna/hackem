@@ -4700,7 +4700,7 @@ struct obj *obj;
     case WAN_ENLIGHTENMENT:
         pline(nothing_else_happens);
         goto discard_broken_wand;
-    case WAN_SECRET_DOOR_DETECTION:
+    case WAN_DETECTION:
         /* Detects portals: We'll use the same odds UnNetHack has for 
          * creating traps for breaking the other wands. */
         if ((obj->spe > 2) && rn2(obj->spe - 2)) {

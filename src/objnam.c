@@ -3519,6 +3519,7 @@ static const struct alt_spellings {
     { "WoUT",  WAN_UNDEAD_TURNING},
     { "wand of teleport", WAN_TELEPORTATION },
     { "wand of poison", WAN_POISON_GAS },
+    { "wand of secret door detection", WAN_DETECTION },
 
     /* tools */
     { "iron ball", HEAVY_IRON_BALL },

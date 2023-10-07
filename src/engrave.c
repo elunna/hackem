@@ -751,7 +751,7 @@ doengrave()
                 /* pre/postknown not needed; these will make it known if
                  * applicable */
                 break;
-            case WAN_SECRET_DOOR_DETECTION:
+            case WAN_DETECTION:
                 if (!Blind) {
                     Strcpy(post_engr_text,
                         "You find many hidden bugs on the floor.");

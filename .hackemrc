@@ -523,7 +523,7 @@ AUTOPICKUP_EXCEPTION="<.*magic whistle"
 
 # #Identified wands
 AUTOPICKUP_EXCEPTION="<.*wand of light"
-AUTOPICKUP_EXCEPTION="<.*wand of secret door detection"
+AUTOPICKUP_EXCEPTION="<.*wand of detection"
 AUTOPICKUP_EXCEPTION="<.*wand of enlightenment"
 AUTOPICKUP_EXCEPTION="<.*wand of healing"
 AUTOPICKUP_EXCEPTION="<.*wand of create monster"

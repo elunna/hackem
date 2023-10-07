@@ -143,7 +143,7 @@ OBJECT: ('%', "egg"), $places[1], montype:"giant louse", 2
 [40%]: OBJECT: ('/', "draining"), $places[2], cursed, 0
 [60%]: OBJECT: ('/', "opening"), $places[2], cursed, 0
 [80%]: OBJECT: ('/', "nothing"), $places[2], cursed, 0
-[60%]: OBJECT: ('/', "secret door detection"), $places[2], cursed, 0
+[60%]: OBJECT: ('/', "detection"), $places[2], cursed, 0
 [40%]: OBJECT: ('[', "fumble boots"), $places[2], cursed, -2
 [40%]: OBJECT: ('[', "gauntlets of fumbling"), $places[2], cursed, -4
 [40%]: OBJECT: ('[', "poisonous cloak"), $places[2], cursed, -1

@@ -2651,7 +2651,7 @@ register struct obj *obj;
     if (obj->otyp == WAN_WONDER) {
         switch (rn2(6)) {
         case 0: obj->otyp = WAN_LIGHT; break;
-        case 1: obj->otyp = WAN_SECRET_DOOR_DETECTION; break;
+        case 1: obj->otyp = WAN_DETECTION; break;
         case 2: obj->otyp = WAN_CREATE_MONSTER; break;
         case 3: obj->otyp = WAN_CREATE_HORDE; break;
         case 4: obj->otyp = WAN_ENLIGHTENMENT; break;
@@ -2674,7 +2674,7 @@ register struct obj *obj;
                 known = TRUE;
         }
         break;
-    case WAN_SECRET_DOOR_DETECTION:
+    case WAN_DETECTION:
     case SPE_DETECT_UNSEEN:
         if (!findit())
             return;
