@@ -261,14 +261,14 @@ struct obj *food;
 
     exercise(A_CON, FALSE);
 
-    if (Breathless || (!Strangled && !rn2(20))) {
+    if (Breathless || Hunger || (!Strangled && !rn2(20))) {
         /* choking by eating AoS doesn't involve stuffing yourself */
         if (food && food->otyp == AMULET_OF_STRANGULATION) {
             You("choke, but recover your composure.");
             return;
         }
         You("stuff yourself and then vomit voluminously.");
-        morehungry(1000); /* you just got *very* sick! */
+        morehungry(Hunger ? (u.uhunger - 60) : 1000); /* you just got *very* sick! */
         vomit();
     } else {
         killer.format = KILLED_BY_AN;
@@ -3554,7 +3554,7 @@ int num;
         /* Have lesshungry() report when you're nearly full so all eating
          * warns when you're about to choke.
          */
-        if (u.uhunger >= (Race_if(PM_HOBBIT) ? 3500 : 1500)
+        if (u.uhunger >= (Race_if(PM_HOBBIT) ? 3500 : 1500) && !Hunger
             && (!context.victual.eating
                 || (context.victual.eating && !context.victual.fullwarn))) {
             pline("%sou're having a hard time getting all of it down.",
