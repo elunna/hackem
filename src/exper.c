@@ -228,7 +228,7 @@ const char *drainer; /* cause of death, if drain should be fatal */
         drainer = 0;
     else if (drainer && !strcmp(drainer, "drawing blood"))
         ; /* Process normally */
-    else if (resists_drli(&youmonst))
+    else if (resists_drli(&youmonst) && !is_vampiric(youmonst.data))
         return;
 
     if (u.ulevel > 1) {

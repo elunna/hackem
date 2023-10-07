@@ -1937,27 +1937,28 @@ register struct attack *mattk;
         break;
     case AD_DRLI:
         hitmsg(mtmp, mattk);
+        boolean resists_drain = Drain_resistance || defended(&youmonst, AD_DRLI);
+        boolean V2V = maybe_polyd(is_vampiric(youmonst.data), Race_if(PM_VAMPIRIC))
+                && (is_vampiric(mtmp->data) || mtmp->data == &mons[PM_BLOOD_IMP]);
+            
         if (!shield_blockable(mtmp, mattk) && uncancelled && !rn2(3)) {
-            if (!Drain_resistance) {
-                /* Shadow ogre has a life-drain touch attack */
-                if (mtmp->data == &mons[PM_SHADOW_OGRE]) {
-                    Your("life-force is dwindling!");
-                }
+            if (mattk->aatyp == AT_BITE && (!resists_drain || V2V)) {
                 /* if vampire biting (and also a pet) */
-                if (is_vampire(mtmp->data) && mattk->aatyp == AT_BITE &&
-                    has_blood(youmonst.data)) {
-                    Your("blood is being drained!");
-                    /* Get 1/20th of full corpse value
-                 * Therefore 4 bites == 1 drink
-                     */
-                    if (mtmp->mtame && !mtmp->isminion)
-                        EDOG(mtmp)->hungrytime += 
-                            ((int)((youmonst.data)->cnutrit / 20) + 1);
-                }
+                Your("blood is being drained!");
+                if (mtmp->mtame && !mtmp->isminion)
+                    EDOG(mtmp)->hungrytime +=
+                            ((int) ((youmonst.data)->cnutrit / 20) + 1);
                 losexp("life drainage");
             } else {
                 monstseesu(M_SEEN_DRAIN);
             }
+            break;
+
+            /* Shadow ogre has a life-drain touch attack */
+            if (mtmp->data == &mons[PM_SHADOW_OGRE]) {
+                Your("life-force is dwindling!");
+            }
+            losexp("life drainage");
         }
         break;
     case AD_LEGS: {

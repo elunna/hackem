@@ -3033,7 +3033,6 @@ int specialdmg; /* blessed and/or silver bonus against various things */
     case AD_LARV: {
         struct monst* mtmp;
         /* since hero can't be cancelled, only defender's armor applies */
-        negated = !(rn2(10) >= 3 * armpro);
         if (!negated 
               && !thick_skinned(mdef->data) 
               && mdef->mhp < 5 
@@ -3354,19 +3353,21 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         }
         tmp = 0;
         break;
-    case AD_DRLI:
-        if (!negated && !rn2(3)
-            && !(resists_drli(mdef) || defended(mdef, AD_DRLI))) {
+    case AD_DRLI: {
+        boolean resists_drain = (resists_drli(mdef) || defended(mdef, AD_DRLI));
+        boolean V2V = maybe_polyd(is_vampiric(youmonst.data), Race_if(PM_VAMPIRIC))
+            && is_vampiric(mdef->data);
+        
+        if (!negated && !rn2(3) && (!resists_drain || V2V)) {
             int xtmp = d(2, 6);
-            if (mdef->mhp < xtmp) 
+            if (mdef->mhp < xtmp)
                 xtmp = mdef->mhp;
-            
+
             /* Player vampires are smart enough not to feed while
              * biting if they might have trouble getting it down 
              */
-            if (maybe_polyd(is_vampiric(youmonst.data),
-                Race_if(PM_VAMPIRIC)) && u.uhunger <= 1420 &&
-                mattk->aatyp == AT_BITE && has_blood(pd)) {
+            if (maybe_polyd(is_vampiric(youmonst.data), Race_if(PM_VAMPIRIC))
+                && u.uhunger <= 1420 && mattk->aatyp == AT_BITE && has_blood(pd)) {
                 /* For the life of a creature is in the blood
                    (Lev 17:11) */
                 if (flags.verbose) {
@@ -3378,7 +3379,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
                    effect */
                 lesshungry(xtmp * 6);
             }
-            
+
             if (canseemon(mdef))
                 pline("%s suddenly seems weaker!", Monnam(mdef));
             mdef->mhpmax -= xtmp;
@@ -3393,6 +3394,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
             tmp = 0;
         }
         break;
+    }
     case AD_RUST:
 do_rust:
         if (pd == &mons[PM_IRON_GOLEM]) {

@@ -2212,7 +2212,10 @@ post_stone:
             }
         }
         break;
-    case AD_DRLI:
+    case AD_DRLI: {
+        boolean resists_drain = (resists_drli(mdef) || defended(mdef, AD_DRLI));
+        boolean V2V = is_vampiric(mdef->data) && is_vampiric(magr->data);
+        
         if (!cancelled) {
             if (mattk->aatyp == AT_GAZE) {
                 if (vis) {
@@ -2224,13 +2227,12 @@ post_stone:
                           canspotmon(mdef) ? mon_nam(mdef) : "something");
                 }
             }
-            if (magr->mtame && !magr->isminion &&
-                is_vampire(pa) && mattk->aatyp == AT_BITE &&
-                has_blood(pd)) {
+            if (magr->mtame && !magr->isminion && is_vampire(pa) 
+                  && mattk->aatyp == AT_BITE && has_blood(pd)) {
                 EDOG(magr)->hungrytime +=
-                    ((int) ((mdef->data)->cnutrit / 20) + 1);
+                        ((int) ((mdef->data)->cnutrit / 20) + 1);
             }
-            if (!rn2(3) && !(resists_drli(mdef) || defended(mdef, AD_DRLI))) {
+            if (!rn2(3) && (!resists_drain || V2V)) {
                 tmp = d(2, 6);
                 if (vis && canspotmon(mdef))
                     pline("%s suddenly seems weaker!", Monnam(mdef));
@@ -2242,6 +2244,7 @@ post_stone:
             }
         }
         break;
+    }
     case AD_SSEX:
     case AD_SITM: /* for now these are the same */
     case AD_SEDU: {
@@ -3448,9 +3451,10 @@ struct obj *mwep;
             }
         }
         break;
-    case AD_DRLI:
+    case AD_DRLI: {
+        boolean resists_drain = (resists_drli(magr) || defended(magr, AD_DRLI));
         if (mhit && !magr->mcan && !rn2(3)) {
-            if (!(resists_drli(magr) || defended(magr, AD_DRLI))) {
+            if ((!resists_drain)) {                
                 tmp = d(2, 6);
                 if (vis && canspotmon(magr))
                     pline("%s suddenly seems weaker!", Monnam(magr));
@@ -3462,6 +3466,7 @@ struct obj *mwep;
             }
         }
         break;
+    }
     case AD_QUIL:
         if (mhit && !rn2(2)) {
             Strcpy(buf, Monnam(magr));
