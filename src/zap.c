@@ -1873,6 +1873,36 @@ int id;
     }
 #endif
 
+    /* things that affect what otyp will be created by polymorph */
+    switch(obj->otyp) {
+        case SCR_BLANK_PAPER:
+        case SCR_AMNESIA:
+            if (rn2(100))
+                otmp->otyp = SCR_BLANK_PAPER;
+            break;
+        case SPE_BLANK_PAPER:
+            if (rn2(100))
+                otmp->otyp = SPE_BLANK_PAPER;
+            break;
+        case POT_WATER:
+        case POT_AMNESIA:
+            if (rn2(100))
+                otmp->otyp = POT_WATER;
+            break;
+        case POT_BLOOD:
+            if (rn2(100))
+                otmp->otyp = POT_BLOOD;
+            break;
+        case WAN_NOTHING:
+            if (rn2(100))
+                otmp->otyp = WAN_NOTHING;
+            break;
+        case WAN_WONDER:
+            if (rn2(100))
+                otmp->otyp = WAN_WONDER;
+            break;
+    }
+    
     /* avoid abusing eggs laid by you */
     if (obj->otyp == EGG && obj->spe) {
         int mnum, tryct = 100;
