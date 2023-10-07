@@ -1591,7 +1591,11 @@ struct obj *obj;
 
     if (context.bypasses && obj->bypass)
         return FALSE;
-
+    
+    /* Sustainable or resilient items will not shudder. */
+    if (obj->oprops & ITEM_SUSTAIN)
+        return FALSE;
+    
     if (obj->oclass == WAND_CLASS)
         zap_odds = 3; /* half-life = 2 zaps */
     else if (obj->cursed)
