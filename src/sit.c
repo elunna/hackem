@@ -81,7 +81,13 @@ dosit()
                                                                   : "");
         } else {
             You("sit on %s.", the(xname(obj)));
-            if (!(Is_box(obj) || obj->material == CLOTH))
+            if (obj->otyp == CORPSE && amorphous(&mons[obj->corpsenm]))
+                pline("It's squishy...");
+            else if (obj->otyp == CREAM_PIE) {
+                if (!Deaf)
+                    pline("Squelch!");
+                useupf(obj, obj->quan);
+            } else if (!(Is_box(obj) || obj->material == CLOTH))
                 pline("It's not very comfortable...");
         }
     } else if (trap != 0 || (u.utrap && (u.utraptype >= TT_LAVA))) {
