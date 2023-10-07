@@ -4464,6 +4464,22 @@ struct obj **pobj; /* object tossed/used, set to NULL
             
             if (learn_it)
                 learnwand(obj);
+        } else if (weapon == ZAPPED_WAND) {
+            boolean learn_it = FALSE;
+
+            if (obj->otyp == WAN_PROBING) {
+                if (!cansee(x, y)) {
+                    int oldglyph = glyph_at(x, y);
+
+                    show_map_spot(x, y, FALSE);
+                    if (oldglyph != glyph_at(x, y)) {
+                        /* TODO: need to give some message */
+                        learn_it = TRUE;
+                    }
+                }
+            }
+            if (learn_it)
+                learnwand(obj);
         }
 
         if (weapon == ZAPPED_WAND)
