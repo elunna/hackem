@@ -1194,6 +1194,13 @@ int pm;
     if (eatmbuf)
         (void) eatmdone();
 
+    /* put anything not based on specific species here */
+    if (mons[pm].mlet == S_TROLL) {
+        if (!Regeneration)
+            You_feel("invigorated!");
+        incr_itimeout(&HRegeneration, d(2, 6));
+    }
+
     switch (pm) {
     case PM_NEWT:
         /* MRKR: "eye of newt" may give small magical energy boost */
