@@ -3593,8 +3593,19 @@ dodip()
             update_inventory();
             return 1;
         }
-        /* no return here, go for Interesting... message */
     }
+    /* removing erosion from items */
+    else if (potion->otyp == POT_RESTORE_ABILITY && !potion->cursed
+             && erosion_matters(obj) && (obj->oeroded || obj->oeroded2)) {
+        obj->oeroded = obj->oeroded2 = 0;
+        pline("%s as good as new!", Yobjnam2(obj, Blind ? "feel" : "look"));
+        if (potion->dknown)
+            makeknown(POT_RESTORE_ABILITY);
+        useup(potion);
+        update_inventory();
+        return 1;
+    }
+    /* no return here, go for Interesting... message */
  more_dips:
         
     /* Allow filling of MAGIC_LAMPs to prevent identification by player */
