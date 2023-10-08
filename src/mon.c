@@ -5096,13 +5096,15 @@ struct monst *mtmp;
             }
     }
     /* Frightful presence! */
-    /* Cut the number of eligible roaring dragons by half.*/
-    if (mtmp->data->msound == MS_ROAR 
-        && !mtmp->mpeaceful
-        && is_dragon(mtmp->data) 
-        && monsndx(mtmp->data) >= PM_GRAY_DRAGON
-        && (monsndx(mtmp->data) % 2 == 0 
-            || mtmp->data == &mons[PM_DRAGON_ZOMBIE])) {
+    boolean roaring_dragon = mtmp->data->msound == MS_ROAR
+                             && !mtmp->mpeaceful
+                             && is_dragon(mtmp->data)
+                             && monsndx(mtmp->data) >= PM_GRAY_DRAGON
+                             /* Cut the number of eligible roaring dragons by half.*/
+                             && (monsndx(mtmp->data) % 2 == 0
+                                 || mtmp->data == &mons[PM_DRAGON_ZOMBIE]);
+    
+    if (roaring_dragon && canseemon(mtmp) && distu(mtmp->mx, mtmp->my) > 2) {
         if (!Deaf && Underwater) {
             You("hear a muffled roar.");
         } else if (!Deaf && canseemon(mtmp)) {
