@@ -138,7 +138,6 @@ boolean
 resists_drli(mon)
 struct monst *mon;
 {
-    struct permonst *ptr = raceptr(mon); /* handle demonic race */
     struct obj *armor;
     long slotmask;
 
