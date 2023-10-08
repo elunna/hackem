@@ -2760,12 +2760,8 @@ do_rust:
     
     if (shield_blockable(mtmp, mattk)) {
         res = shield_block(mtmp, dmg);
-    } else {
-        /* already dead? call rehumanize() or done_in_by() as appropriate */
-        mdamageu(mtmp, 1);
+        dmg = 0;
     }
-    dmg = 0;
-
 
     if (dmg) {
         if (Half_physical_damage
