@@ -4186,5 +4186,4 @@ struct monst *mon;
     }
 #undef oresist_disintegration
 }
-
 /*hack.c*/

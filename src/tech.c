@@ -3836,6 +3836,11 @@ tech_tumble()
          You("don't see anyone to tumble past in that direction.");
          return 0;
     }
+    /* TODO: Handle tumbling with peaceful or tame monsters. */
+    if (mtmp->mpeaceful) {
+        pline("That would be very rude.");
+        return 0;
+    }
     if (is_pool(mtmp->mx, mtmp->my) && ParanoidSwim) {
          if (!paranoid_query(ParanoidHit, "Really tumble into the water?")) {
             return 0;
@@ -3854,11 +3859,26 @@ tech_tumble()
     remove_monster(mtmp->mx, mtmp->my);
     place_monster(mtmp, tx, ty);
     trtmp = t_at(u.ux, u.uy);
-    if (trtmp)
-         dotrap(trtmp, FORCETRAP);
-
     newsym(u.ux, u.uy);
     newsym(mtmp->mx, mtmp->my);
+    
+    /* TODO: This should grant experience to the player. */
+    if (minliquid(mtmp) || mintrap(mtmp))
+        ; /* They died */
+    else {
+        /* They lived... Discombobulate them! */
+        if (trtmp) {
+            dotrap(trtmp, FORCETRAP);
+            /* Avoid any post death references */
+            if (DEADMONSTER(mtmp))
+
+                mtmp->mconf = 1;
+        } else if (is_outflanker(mtmp->data) && !rn2(5))
+            mtmp->mconf = 1;
+        else if (!is_outflanker(mtmp->data) && rn2(5))
+            mtmp->mconf = 1;
+    }
+    
     spoteffects(FALSE);
 
     if (roll > tumbleskill) {
