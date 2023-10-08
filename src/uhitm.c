@@ -314,7 +314,10 @@ int *attk_count, *role_roll_penalty;
         /* Scale with monster difficulty */
         ftmp = (int) ((u.ulevel - 4) / 2) + 4;
         tmp += ftmp;
-        You("flank %s. [-%dAC]", mon_nam(mtmp), ftmp);
+        if (iflags.showdmg)
+            You("flank %s. [-%dAC]", mon_nam(mtmp), ftmp);
+        else
+            You("flank %s.", mon_nam(mtmp));
     }
     
     /* level adjustment. maxing out has some benefits */

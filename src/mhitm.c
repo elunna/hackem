@@ -501,7 +501,10 @@ register struct monst *magr, *mdef;
         tmp += ftmp;
         
         if (canseemon(magr)) {
-            pline("%s flanks %s [-%dAC].", Monnam(magr), mon_nam(mdef), ftmp);
+            if (iflags.showdmg)
+                pline("%s flanks %s. [-%dAC]", Monnam(magr), mon_nam(mdef), ftmp);
+            else
+                pline("%s flanks %s.", Monnam(magr), mon_nam(mdef));
         }
     }
 

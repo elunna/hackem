@@ -871,7 +871,10 @@ register struct monst *mtmp;
             o->oprops_known |= ITEM_VIGIL;
         } else {
             tmp += ftmp;
-            You("are being flanked! [-%dAC]", ftmp);
+            if (iflags.showdmg)
+                You("are being flanked! [-%dAC]", ftmp);
+            else
+                You("are being flanked!");
         }
     }
 
