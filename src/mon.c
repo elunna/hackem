@@ -5129,7 +5129,7 @@ struct monst *mtmp;
             } else if (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)) {
                 make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5 * i), TRUE);
                 u.fearedmon = mtmp;
-            } else {
+            } else if (!Afraid) {
                 You("hold firm.");
             }
         }

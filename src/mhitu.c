@@ -3488,7 +3488,8 @@ struct attack *mattk;
             You("are not afraid.");
             break;
         }
-        You("are struck with a sudden, terrible fear.");
+        if (!Afraid)
+            You("are struck with a sudden, terrible fear.");
         make_afraid((HAfraid & TIMEOUT) + (long) dmg, TRUE);
         u.fearedmon = mtmp;
         aggravate();
@@ -3991,7 +3992,8 @@ struct attack *mattk;
                       s_suffix(Monnam(mtmp)), An(bare_artifactname(ublindf)));
                 break;
             }
-            You("are struck with a terrible fear of %s!", mon_nam(mtmp));
+            if (!Afraid)
+                You("are struck with a terrible fear of %s!", mon_nam(mtmp));
             make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
             u.fearedmon = mtmp;
             if (mtmp->data == &mons[PM_BODAK]) 
@@ -4244,7 +4246,8 @@ struct attack *mattk;
                 You("are not afraid of the %s!", mon_nam(mtmp));
                 break;
             }
-            pline("%s aberrant stare frightens you to the core!",
+            if (!Afraid)
+                pline("%s aberrant stare frightens you to the core!",
                 s_suffix(Monnam(mtmp)));
             if (Free_action){
                 pline("But you quickly regain composure.");
