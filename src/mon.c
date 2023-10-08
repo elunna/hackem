@@ -294,7 +294,7 @@ struct permonst *pm;
     case S_CENTAUR:
         return PM_CENTAUR_ZOMBIE;
     case S_DRAGON:
-        return PM_ZOMBIE_DRAGON;
+        return PM_DRAGON_ZOMBIE;
     }
     return NON_PM;
 }
@@ -427,7 +427,7 @@ int mndx;
     case PM_TROLL_MUMMY:    
         mndx = PM_TROLL;
         break;
-    case PM_ZOMBIE_DRAGON:
+    case PM_DRAGON_ZOMBIE:
         mndx = PM_RED_DRAGON;
         break;
     case PM_CENTAUR_ZOMBIE:
@@ -701,7 +701,7 @@ unsigned corpseflags;
     case PM_GIANT_ZOMBIE:
     case PM_ETTIN_ZOMBIE:
     case PM_GNOLL_WITHERLING:
-    case PM_ZOMBIE_DRAGON:
+    case PM_DRAGON_ZOMBIE:
         corpstatflags |= CORPSTAT_ZOMBIE;
         /* FALLTHRU */
     case PM_KOBOLD_MUMMY:
@@ -5101,7 +5101,8 @@ struct monst *mtmp;
         && !mtmp->mpeaceful
         && is_dragon(mtmp->data) 
         && monsndx(mtmp->data) >= PM_GRAY_DRAGON
-        && monsndx(mtmp->data) % 2 == 0) {
+        && (monsndx(mtmp->data) % 2 == 0 
+            || mtmp->data == &mons[PM_DRAGON_ZOMBIE])) {
         if (!Deaf && Underwater) {
             You("hear a muffled roar.");
         } else if (!Deaf && canseemon(mtmp)) {

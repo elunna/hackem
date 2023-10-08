@@ -395,7 +395,8 @@
      || (ptr) == &mons[PM_REVENANT])
 #define is_domestic(ptr) (((ptr)->mflags2 & M2_DOMESTIC) != 0L)
 #define is_demon(ptr) (((ptr)->mhflags & MH_DEMON) != 0L)
-#define is_dragon(ptr) (((ptr)->mhflags & MH_DRAGON) != 0L)
+#define is_dragon(ptr) ((((ptr)->mhflags & MH_DRAGON) != 0L) \
+            || (ptr) == &mons[PM_DRAGON_ZOMBIE])
 #define is_feline(ptr) ((ptr)->mlet == S_FELINE)
 #define is_pseudodragon(ptr) \
     ((ptr) == &mons[PM_PSEUDODRAGON] \

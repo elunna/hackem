@@ -3495,9 +3495,10 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_CLAW, AD_PHYS, 4, 5),
           ATTK(AT_ENGL, AD_DGST, 2, 10), 
           ATTK(AT_NONE, AD_FIRE, 0, 1)),
-        SIZ(WT_DRAGON, NUT_DRAGON, MS_ROAR, MZ_GIGANTIC), MR_FIRE | MR_SONIC, MR_FIRE,
-        M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
-            | M1_CARNIVORE,
+        SIZ(WT_DRAGON, NUT_DRAGON, MS_ROAR, MZ_GIGANTIC), 
+        MR_FIRE | MR_SONIC, MR_FIRE,
+        M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS
+            | M1_OVIPAROUS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG | M2_NASTY | M2_GREEDY | M2_JEWELS | M2_MAGIC,
         M3_INFRAVISIBLE | M3_TRAITOR, M4_VULNERABLE_COLD, MH_DRAGON, 30, CLR_RED),
     MON("white dragon", S_DRAGON,
@@ -5779,18 +5780,20 @@ struct permonst _mons2[] = {
         M2_WANDER | M2_HOSTILE | M2_FEMALE | M2_COLLECT | M2_MAGIC,
         M3_INFRAVISION | M3_TRAITOR,  
         M4_VULNERABLE_FIRE, MH_UNDEAD, 20, CLR_BLACK),
-    MON("zombie dragon", S_ZOMBIE,                            /* SpliceHack */
-        LVL(14, 8, -1, 20, -4), (G_GENO | 1),
-        A(ATTK(AT_BITE, AD_PHYS, 3, 8), 
-          ATTK(AT_CLAW, AD_PHYS, 1, 4),
-          ATTK(AT_CLAW, AD_PHYS, 1, 4), 
-          NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_DRAGON, 1500, MS_SILENT, MZ_GIGANTIC),
-        MR_FIRE | MR_DRAIN | MR_SICK, 0,
-        M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_BREATHLESS |
-        M1_MINDLESS,
-        M2_HOSTILE | M2_STRONG | M2_NASTY | M2_MAGIC,
-        M3_INFRAVISIBLE, 0, MH_DRAGON | MH_UNDEAD, 17, CLR_ORANGE),
+    MON("dragon zombie", S_ZOMBIE,                            /* SpliceHack */
+        LVL(18, 8, -3, 20, -4), (G_GENO | 1),
+        A(ATTK(AT_BREA, AD_COLD, 4, 6),
+          ATTK(AT_BITE, AD_DRIN, 4, 8), 
+          ATTK(AT_CLAW, AD_DRCO, 4, 4),
+          ATTK(AT_CLAW, AD_DRCO, 4, 4),
+          NO_ATTK, NO_ATTK),
+        SIZ(WT_DRAGON, NUT_DRAGON, MS_ROAR, MZ_GIGANTIC),
+        MR_SLEEP | MR_COLD | MR_FIRE | MR_POISON | MR_DRAIN | MR_SICK, 0,
+        M1_BREATHLESS | M1_MINDLESS | M1_POIS | M1_SEE_INVIS
+            | M1_FLY | M1_THICK_HIDE | M1_NOHANDS,
+        M2_STALK | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_MAGIC,
+        M3_INFRAVISIBLE | M3_INFRAVISION, 0, 
+        MH_DRAGON | MH_UNDEAD, 20, CLR_BRIGHT_MAGENTA),
 
     /*
      * golems
