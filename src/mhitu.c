@@ -2806,7 +2806,6 @@ do_rust:
              * already at or below minimum threshold; do nothing */
             context.botl = 1;
         }
-
         mdamageu(mtmp, dmg);
     }
 
@@ -4368,7 +4367,6 @@ mdamageu(mtmp, n)
 struct monst *mtmp;
 int n;
 {
-    context.botl = 1;
     if (Invulnerable) 
         n = 0;
     if (n == 0) {
@@ -4380,6 +4378,8 @@ int n;
 		n *= 2; /* Double Damage! */
 	}
     showdmg(n, TRUE);
+    context.botl = 1;
+    
     if (Upolyd) {
         u.mh -= n;
         if (u.mh < 1)

@@ -3572,7 +3572,7 @@ maybe_wail()
  * */
 void
 showdmg(n, yours)
-register int n;
+int n;
 boolean yours;
 {
     if (!iflags.showdmg)
