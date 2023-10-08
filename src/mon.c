@@ -2525,6 +2525,10 @@ struct obj *otmp;
     if (mdat->mlet == S_NYMPH)
         return (otmp->oclass == ROCK_CLASS) ? 0 : iquan;
 
+    /* monster is already over capacity, somehow (rock mole? leprechaun?)*/
+    if (curr_mon_load(mtmp) > max_mon_load(mtmp))
+        return 0;
+    
     /* maybe can't take whole stack */
     if (curr_mon_load(mtmp) + newload > max_mon_load(mtmp)) {
         int weightper;
@@ -2537,7 +2541,7 @@ struct obj *otmp;
          * By someone else.
          */
         if (otmp->owt == LARGEST_INT)
-            /* the 24 = 120 / 5 is ratio of densest to lightest material, in case
+            /* the 24 = 120 / 5 is ratio of densest-to-lightest material, in case
              * otmp isn't its base material. We can't access actual densities, so
              * just assume worst case.
              */
@@ -2545,7 +2549,22 @@ struct obj *otmp;
         /* the normal case: divide stack weight by quantity, rounding up */
         else
             weightper = (int) ((((long) otmp->owt) - 1 + otmp->quan) / otmp->quan);
-        return (max_mon_load(mtmp) - curr_mon_load(mtmp)) / weightper;
+        /* maybe possible if something manages to have 0 weight */
+        if (weightper < 1)
+            weightper = 1;
+        
+        iquan = (max_mon_load(mtmp) - curr_mon_load(mtmp)) / weightper;
+        /* to catch splitobj crash. hopefully can be properly fixed in time */
+        if (iquan < 0) {
+            impossible("can_carry tried to take %d objects, each weighing %d",
+                       iquan, weightper);
+            iquan = 0;
+        } else if (iquan > otmp->quan) {
+            impossible("can_carry tried to take %d objects, each weighing %d",
+                       iquan, weightper);
+            iquan = otmp->quan;
+        }
+        return iquan;
     }
 
     return iquan;
