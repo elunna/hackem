@@ -147,6 +147,8 @@ OPTIONS=news
 # For debugging (non-devs can just turn this off)
 OPTIONS=sanity_check
 
+# Show damage being dealt
+OPTIONS=showdmg
 # -----------------------------------------------------------------------------
 # C) Gameplay settings
 # These settings directly affect how you interact with the dungeon or the game.

@@ -1363,10 +1363,10 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
 
     /* find rings of increase damage */
     if (magr->minvent) {
-	struct obj *o;
-	for (o = magr->minvent; o; o = o->nobj)
-	    if (o->owornmask && o->otyp == RIN_INCREASE_DAMAGE)
-	        tmp += o->spe;
+        struct obj *o;
+        for (o = magr->minvent; o; o = o->nobj)
+            if (o->owornmask && o->otyp == RIN_INCREASE_DAMAGE)
+                tmp += o->spe;
     }
 
     /* cancellation factor is the same as when attacking the hero */

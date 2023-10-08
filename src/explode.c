@@ -634,6 +634,8 @@ int expltype;
                 u.mh -= damu;
             else
                 u.uhp -= damu;
+            
+            showdmg(damu, TRUE);
 
             /* Some fears are realized... */
             if (rn2(3) && ((adtyp == AD_FIRE && Vulnerable_fire)
@@ -646,10 +648,10 @@ int expltype;
             context.botl = 1;
         }
 
-	/* You resisted the damage, lets not keep that to ourselves */
-	if (uhurt == 1) {
-	    monstseesu(1 << (adtyp-1));
-	}
+        /* You resisted the damage, lets not keep that to ourselves */
+        if (uhurt == 1) {
+            monstseesu(1 << (adtyp-1));
+        }
 
         if (u.uhp <= 0 || (Upolyd && u.mh <= 0)) {
             if (Upolyd) {

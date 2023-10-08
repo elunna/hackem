@@ -2755,8 +2755,7 @@ int spellnum;
 }
 
 /* Figure out how far a spellcaster can reach with a spell based on their level */
-STATIC_OVL
-int
+STATIC_OVL int
 mcastrange(ml) 
 int ml;
 {
@@ -2770,4 +2769,5 @@ int ml;
         return 49;  /* ~7 spaces */
     return 192;     /* ~13 spaces */
 }
+
 /*mcastu.c*/

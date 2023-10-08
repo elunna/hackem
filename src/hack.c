@@ -3566,13 +3566,21 @@ maybe_wail()
 
              
 /* Print the amount of damage inflicted */
-/* KMH -- Centralized to one function */
+/* KMH -- Centralized to one function 
+ * Damage to the player will be in parentheses "(3)"
+ * Damage to the monster will be brackets "[3]" 
+ * */
 void
-showdmg(n)
-	register int n;
+showdmg(n, yours)
+register int n;
+boolean yours;
 {
-    if (wizard)
-        pline("(%d pts.)", n);
+    if (!iflags.showdmg)
+        return;
+    if (yours)
+        pline("(%d pt%s)", n, (n > 1 ? "s" : ""));
+    else
+        pline("[%d pt%s]", n, (n > 1 ? "s" : ""));
     return;
 }
 
@@ -3593,6 +3601,7 @@ boolean k_format;
     }        
     if (Upolyd) {
         u.mh -= n;
+        showdmg(n, TRUE);
         if (u.mhmax < u.mh)
             u.mhmax = u.mh;
         context.botl = 1;
@@ -3604,6 +3613,8 @@ boolean k_format;
     }
 
     u.uhp -= n;
+    showdmg(n, TRUE);
+    
     if (u.uhp > u.uhpmax)
         u.uhpmax = u.uhp; /* perhaps n was negative */
     else

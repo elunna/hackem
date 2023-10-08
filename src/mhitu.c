@@ -4383,7 +4383,7 @@ int n;
 	if (mtmp->mtame != 0 && tech_inuse(T_PRIMAL_ROAR)) {
 		n *= 2; /* Double Damage! */
 	}
-
+    showdmg(n, TRUE);
     if (Upolyd) {
         u.mh -= n;
         if (u.mh < 1)
@@ -4890,8 +4890,7 @@ struct attack *mattk;
             if (!rn2(3))
                 tmp += destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
             
-            if (wizard)
-                showdmg(tmp);
+            showdmg(tmp, FALSE);
             if ((mtmp->mhp -= tmp) <= 0) {
                 xkilled(mtmp, 0);
                 if (mtmp->mhp > 0)
@@ -5286,13 +5285,6 @@ struct attack *mattk;
                 return 2;
             }
             break;
-
-
-
-
-
-
-
         case YELLOW_DRAGON_SCALES:
             if (resists_acid(mtmp) || defended(mtmp, AD_ACID)
                 || mon_underwater(mtmp))
