@@ -4034,8 +4034,9 @@ register struct attack *mattk;
                     dam = 0;
                     return 2;
                 }
+                break;
             }
-                case AD_WRAP:
+            case AD_WRAP:
                 /* suffocation attack; negate damage if breathless */
                 if (breathless(mdef->data)) {
                     pline("%s doesn't appear to need air to breathe.",
