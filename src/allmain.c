@@ -287,7 +287,7 @@ boolean resuming;
                      * through the teeming hordes.
                      *
                      * Aside from that, a more general clock should be put on things;
-                     * after about 30,000 turns, the frequency rate of appearance
+                     * after about 50,000 turns, the frequency rate of appearance
                      * and difficulty of monsters generated will slowly increase until
                      * it reaches the point it will be at as if you were post-Invocation.
                      *
@@ -306,7 +306,7 @@ boolean resuming;
                         /* Don't let wishes influence the fuzzer */
                         past_clock = moves - timeout_start;
                         if (past_clock > 0)
-                            monclock = MIN_MONGEN_RATE * 30000 / (past_clock + 30000);
+                            monclock = MIN_MONGEN_RATE * TURN_THRESHOLD / (past_clock + TURN_THRESHOLD);
                         if (monclock > MIN_MONGEN_RATE / 4 && (u.uconduct.wishes >= 2L))
                             monclock = MIN_MONGEN_RATE / 4;
                         if (monclock > MIN_MONGEN_RATE / 6 && (u.uconduct.wishes >= 3L))
