@@ -3023,7 +3023,7 @@ struct attack *mattk;
         pseudo->cursed = rn2(2);
         (void) peffects(pseudo);
         obfree(pseudo, (struct obj *) 0); /* now, get rid of it */
-        /*FALLTHRU*/
+        break;
     case AD_WRAP:
         /* Initially pulled from GruntHack, and then improved upon by
          * aosdict for xNetHack (see git commit ee808b): AD_WRAP is used because

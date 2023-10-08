@@ -4767,9 +4767,10 @@ struct permonst _mons2[] = {
             | M1_MINDLESS | M1_OMNIVORE | M1_ACID,
         M2_HOSTILE | M2_NEUTER | M2_NASTY, 0, 0, 0, 9, CLR_RED),
     MON("gel", S_PUDDING,                                     /* SpliceHack */
-        LVL(7, 5, 4, 0, 0), (G_GENO | G_NOCORPSE | 2), 
+        LVL(7, 5, 4, 0, 0), (G_GENO | G_NOCORPSE | 2),
         A(ATTK(AT_ENGL, AD_POTN, 3, 6),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+          ATTK(AT_ENGL, AD_WRAP, 1, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(500, 250, MS_SILENT, MZ_LARGE),
         MR_COLD | MR_ELEC | MR_POISON | MR_ACID | MR_STONE,
         MR_COLD | MR_ELEC | MR_POISON,

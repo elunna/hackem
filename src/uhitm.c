@@ -4011,27 +4011,30 @@ register struct attack *mattk;
                 } else
                     pline("%s is pummeled with your debris!", Monnam(mdef));
                 break;
-                case AD_POTN: {
-                    struct obj *pseudo;
-                    int i;
-                    if (pd == &mons[PM_GEL])
-                        break;
-                    
-                    i = POT_GAIN_ABILITY +
-                            (mdef->m_id % (POT_VAMPIRE_BLOOD - POT_GAIN_ABILITY));
-                    You("splash the %s!", mon_nam(mdef));
-                    /* Eliminate healing effects */
-                    if (i == POT_GAIN_LEVEL || i == POT_GAIN_ABILITY
-                        || i == POT_GAIN_ENERGY || i == POT_HEALING
-                        || i == POT_EXTRA_HEALING || i == POT_FULL_HEALING) {
-                        i = POT_ACID;
-                    }
-                    pseudo = mksobj(i, FALSE, FALSE);
-                    pseudo->blessed = 0;
-                    pseudo->cursed = rn2(2);
-                    potionhit(mdef, pseudo, POTHIT_HERO_ENGULF);
+            case AD_POTN: {
+                struct obj *pseudo;
+                int i;
+                if (pd == &mons[PM_GEL])
+                    break;
+                
+                i = POT_GAIN_ABILITY +
+                        (mdef->m_id % (POT_VAMPIRE_BLOOD - POT_GAIN_ABILITY));
+                You("splash the %s!", mon_nam(mdef));
+                /* Eliminate healing effects */
+                if (i == POT_GAIN_LEVEL || i == POT_GAIN_ABILITY
+                    || i == POT_GAIN_ENERGY || i == POT_HEALING
+                    || i == POT_EXTRA_HEALING || i == POT_FULL_HEALING) {
+                    i = POT_ACID;
                 }
-                    /*FALLTHRU*/
+                pseudo = mksobj(i, FALSE, FALSE);
+                pseudo->blessed = 0;
+                pseudo->cursed = rn2(2);
+                potionhit(mdef, pseudo, POTHIT_HERO_ENGULF);
+                if (DEADMONSTER(mdef)) {
+                    dam = 0;
+                    return 2;
+                }
+            }
                 case AD_WRAP:
                 /* suffocation attack; negate damage if breathless */
                 if (breathless(mdef->data)) {
@@ -4105,6 +4108,8 @@ register struct attack *mattk;
             }
             end_engulf();
             damage_mon(mdef, dam, mattk->adtyp);
+
+
             if (DEADMONSTER(mdef)) {
                 killed(mdef);
                 if (DEADMONSTER(mdef)) /* not lifesaved */

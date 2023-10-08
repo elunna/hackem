@@ -1903,7 +1903,8 @@ int how;
     }
 
     /* oil doesn't instantly evaporate; Neither does a saddle/barding hit */
-    if (obj->otyp != POT_OIL && !hit_saddle && !hit_barding && cansee(tx, ty))
+    if (obj->otyp != POT_OIL && !hit_saddle && !hit_barding 
+          && !from_engulf && cansee(tx, ty))
         pline("%s.", Tobjnam(obj, "evaporate"));
 
     if (isyou) {

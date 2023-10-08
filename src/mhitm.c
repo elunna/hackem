@@ -2562,8 +2562,13 @@ msickness:
         pseudo->blessed = 0;
         pseudo->cursed = rn2(2);
         potionhit(mdef, pseudo, POTHIT_MON_ENGULF);
+        if (DEADMONSTER(mdef)) {
+            tmp = 0;
+            res |= MM_DEF_DIED; /* not lifesaved */
+            return res;
+        }
+        break;
     }
-        /*FALLTHRU*/
     case AD_WRAP: /* monsters cannot grab one another, it's too hard */
         /* suffocation attack: negate damage for breathless. This isn't
          * affected by cancellation. */
