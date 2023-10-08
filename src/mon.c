@@ -5096,13 +5096,10 @@ struct monst *mtmp;
             }
     }
     /* Frightful presence! */
-    boolean roaring_dragon = mtmp->data->msound == MS_ROAR
+    boolean roaring_dragon = mtmp->data->msound == MS_MEGAROAR
                              && !mtmp->mpeaceful
                              && is_dragon(mtmp->data)
-                             && monsndx(mtmp->data) >= PM_GRAY_DRAGON
-                             /* Cut the number of eligible roaring dragons by half.*/
-                             && (monsndx(mtmp->data) % 2 == 0
-                                 || mtmp->data == &mons[PM_DRAGON_ZOMBIE]);
+                             && monsndx(mtmp->data) >= PM_GRAY_DRAGON;
     
     if (roaring_dragon && canseemon(mtmp) && distu(mtmp->mx, mtmp->my) > 2) {
         if (!Deaf && Underwater) {

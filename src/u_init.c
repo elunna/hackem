@@ -1920,6 +1920,21 @@ shambler_init()
     return;
 }
 
+/* Initialize random elements of dragons. */
+void
+dragon_init()
+{
+    /* Which dragons will have the frightful roar? */
+    struct permonst* dragon;
+    int i;
+    for (i = PM_GRAY_DRAGON; i <= PM_YELLOW_DRAGON; i++) {
+        if (!rn2(3)) {
+            dragon = &mons[i];
+            dragon->msound = MS_MEGAROAR;
+        }
+    }
+        
+}
 /* skills aren't initialized, so we use the role-specific skill lists */
 STATIC_OVL boolean
 restricted_spell_discipline(otyp)

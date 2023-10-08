@@ -458,6 +458,7 @@ register struct monst *mtmp;
         ret = "growl";
         break;
     case MS_ROAR:
+    case MS_MEGAROAR:
         ret = "roar";
         break;
     case MS_BUZZ:
@@ -542,6 +543,7 @@ register struct monst *mtmp;
             yelp_verb = (!Deaf) ? "yelp" : "recoil";
             break;
         case MS_ROAR:
+        case MS_MEGAROAR:
             yelp_verb = (!Deaf) ? "snarl" : "bluff";
             break;
         case MS_SQEEK:
@@ -859,6 +861,7 @@ register struct monst *mtmp;
             pline_msg = "chitters.";
         break;
     case MS_ROAR:
+    case MS_MEGAROAR:
         pline_msg = mtmp->mpeaceful ? "snarls." : "roars!";
         break;
     case MS_SQEEK:

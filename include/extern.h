@@ -2923,6 +2923,7 @@ E boolean FDECL(tele_disarm, (struct trap *, int, int));
 
 E void NDECL(u_init);
 E void NDECL(shambler_init);
+E void NDECL(dragon_init);
 
 /* ### uhitm.c ### */
 

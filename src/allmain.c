@@ -1099,6 +1099,7 @@ newgame()
     u_init();
 
     shambler_init();
+    dragon_init();
 
 #ifndef NO_SIGNAL
     (void) signal(SIGINT, (SIG_RET_TYPE) done1);

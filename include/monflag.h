@@ -46,16 +46,17 @@
 #define MS_SPELL        38 /* spellcaster not matching any of the above */
 #define MS_WERE         39 /* lycanthrope in human form */
 #define MS_BOAST        40 /* giants */
-#define MS_CHICKEN	41 /* chicken */
-#define MS_PARROT	42 /* parrots */
-#define MS_SHEEP	43 /* sheep */
-#define MS_COW		44 /* cows and bulls */
-#define MS_ATHOL	45 /* athols; howls like a shrieker */
+#define MS_CHICKEN	    41 /* chicken */
+#define MS_PARROT	    42 /* parrots */
+#define MS_SHEEP	    43 /* sheep */
+#define MS_COW		    44 /* cows and bulls */
+#define MS_ATHOL	    45 /* athols; howls like a shrieker */
 #define MS_ONEEYEDSAM   46 /* One-eyed Sam */
 #define MS_PIG          47 /* Pigs, hogs */
 #define MS_YAWN         48 /* hippos yawn when angry */
 #define MS_ANT          49 /* ants */
 #define MS_PIRATE       50 /* pirates */
+#define MS_MEGAROAR     51 /* capable of frightful dragon roars */
 
 #define MR_FIRE         0x00000001L /* resists fire */
 #define MR_COLD         0x00000002L /* resists cold */
