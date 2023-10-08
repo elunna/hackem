@@ -87,7 +87,7 @@ set_uasmon()
     PROPSET(VULN_LOUD, vulnerable_to(&youmonst, AD_LOUD));
 
     PROPSET(ANTIMAGIC, resists_mgc(mdat));
-    PROPSET(SICK_RES, resists_sick(mdat));
+    PROPSET(SICK_RES, resists_sick(&youmonst));
     PROPSET(DEATH_RES, immune_death_magic(mdat));
 
     /* Monster vampire bats are not stunned so neither should the player be */

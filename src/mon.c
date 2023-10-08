@@ -1378,7 +1378,7 @@ mcalcdistress()
 
         /* sick monsters can die from their illness */
         if (mtmp->msick && mtmp->msicktime <= 1) {
-            if (resists_sick(mtmp->data) || defended(mtmp, AD_DISE)) {
+            if (resists_sick(mtmp) || defended(mtmp, AD_DISE)) {
                 mtmp->msick = 0;
             } else {
                 if (canseemon(mtmp))
@@ -1408,7 +1408,7 @@ mcalcdistress()
 
         /* diseased monsters can die as well... */
         if (mtmp->mdiseased && mtmp->mdiseasetime <= 1) {
-            if (resists_sick(mtmp->data) || defended(mtmp, AD_DISE)) {
+            if (resists_sick(mtmp) || defended(mtmp, AD_DISE)) {
                 mtmp->mdiseased = 0;
             } else {
                 if (canseemon(mtmp))

@@ -877,7 +877,7 @@ struct permonst * pm;
     ADDRESIST(pm_resistance(pm, MR_PSYCHIC), "psionic attacks");
     ADDRESIST(pm_resistance(pm, MR_CLOB), "hurtle");
     ADDRESIST(pm_resistance(pm, MR_DRAIN), "life-drain");
-    ADDRESIST(resists_sick(pm), "sickness");
+    ADDRESIST(pm_resistance(pm, MR_SICK), "sickness");
     ADDRESIST(resists_mgc(pm), "magic");
     ADDRESIST(resists_stun(pm), "stun");
     ADDRESIST(resists_slow(pm), "slow");

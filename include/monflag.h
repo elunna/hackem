@@ -69,22 +69,23 @@
 #define MR_CLOB         0x00000200L /* resists knockback */
 #define MR_SONIC        0x00000400L /* resists sonic */
 #define MR_DRAIN        0x00000800L /* resists life-drain */
+#define MR_SICK         0x00001000L /* resists sickness */
 
 /* other resistances: magic, sickness */
 /* other conveyances: teleport, teleport control, telepathy */
 
 /* individual resistances */
-#define MR2_SEE_INVIS   0x00001000L /* see invisible */
-#define MR2_LEVITATE    0x00002000L /* levitation */
-#define MR2_WATERWALK   0x00004000L /* water walking */
-#define MR2_MAGBREATH   0x00008000L /* magical breathing */
-#define MR2_DISPLACED   0x00010000L /* displaced */
-#define MR2_STRENGTH    0x00020000L /* gauntlets of power */
-#define MR2_FUMBLING    0x00040000L /* clumsy */
-#define MR2_TELEPATHY   0x00080000L /* telepathic */
-#define MR2_JUMPING     0x00100000L /* can jump */
-#define MR2_REFLECTION  0x00200000L /* has reflection */
-#define MR2_FREE_ACTION 0x00400000L /* has free action */
+#define MR2_SEE_INVIS   0x00002000L/* see invisible */
+#define MR2_LEVITATE    0x00004000L /* levitation */
+#define MR2_WATERWALK   0x00008000L /* water walking */
+#define MR2_MAGBREATH   0x00010000L /* magical breathing */
+#define MR2_DISPLACED   0x00020000L /* displaced */
+#define MR2_STRENGTH    0x00040000L /* gauntlets of power */
+#define MR2_FUMBLING    0x00080000L /* clumsy */
+#define MR2_TELEPATHY   0x00100000L /* telepathic */
+#define MR2_JUMPING     0x00200000L /* can jump */
+#define MR2_REFLECTION  0x00400000L /* has reflection */
+#define MR2_FREE_ACTION 0x00800000L /* has free action */
 
 #define M1_FLY          0x00000001L /* can fly or float */
 #define M1_SWIM         0x00000002L /* can traverse water */

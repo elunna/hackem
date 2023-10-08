@@ -2366,7 +2366,7 @@ post_stone:
         }
         break;
     case AD_DISE:
-        if (resists_sick(pd) || defended(mdef, AD_DISE)) {
+        if (resists_sick(mdef) || defended(mdef, AD_DISE)) {
             if (vis && canseemon(mdef))
                 pline("%s resists infection.", Monnam(mdef));
             tmp = 0;
@@ -2405,7 +2405,7 @@ post_stone:
             break;
         }
         if (is_zombie(pa) && rn2(5)) {
-            if (!(resists_sick(pd) || defended(mdef, AD_DISE))) {
+            if (!(resists_sick(mdef) || defended(mdef, AD_DISE))) {
                 if (vis && canspotmon(mdef))
                     pline("%s looks %s.", Monnam(mdef),
                           mdef->msick ? "much worse" : "rather ill");
@@ -2479,7 +2479,7 @@ post_stone:
     case AD_PEST:
         Strcpy(buf, mon_nam(mdef));
         if (vis) {
-            if (resists_sick(pd) || defended(mdef, AD_DISE)) {
+            if (resists_sick(mdef) || defended(mdef, AD_DISE)) {
                 if (canseemon(mdef))
                     pline("%s reaches out, but %s looks unaffected.",
                           Monnam(magr), buf);
@@ -2495,7 +2495,7 @@ post_stone:
         if (mdef->mhp > mdef->mhpmax)
             mdef->mhp = mdef->mhpmax;
 msickness:
-        if (resists_sick(pd) || defended(mdef, AD_DISE))
+        if (resists_sick(mdef) || defended(mdef, AD_DISE))
             break;
         if (mdef->msicktime)
             mdef->msicktime -= rnd(3);
@@ -3661,7 +3661,7 @@ struct obj *mwep;
                 pline("%s is suddenly very hot!", Monnam(magr));
             break;
 	case AD_DISE:
-	    if (resists_sick(madat) || defended(magr, AD_DISE)) {
+	    if (resists_sick(magr) || defended(magr, AD_DISE)) {
                 if (canseemon(magr))
                     pline("%s resists infection.", Monnam(magr));
                 tmp = 0;

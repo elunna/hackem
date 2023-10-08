@@ -34,6 +34,7 @@
 #define resists_psychic(mon) ((mon_resistancebits(mon) & MR_PSYCHIC) != 0)
 #define resists_clob(mon) ((mon_resistancebits(mon) & MR_CLOB) != 0)
 #define resists_drain(mon) ((mon_resistancebits(mon) & MR_DRAIN) != 0)
+#define resists_sick(mon) ((mon_resistancebits(mon) & MR_SICK) != 0)
 
 #define has_telepathy(mon) \
     (telepathic(r_data(mon)) \
@@ -50,25 +51,6 @@
     ((mon_resistancebits(mon) & MR2_LEVITATE) != 0)
 #define has_free_action(mon) \
     ((mon_resistancebits(mon) & MR2_FREE_ACTION) != 0)
-
-#define resists_sick(ptr) \
-    ((ptr)->mlet == S_FUNGUS \
-     || nonliving(ptr) \
-     || is_angel(ptr) \
-     || is_demon(ptr) \
-     || is_rider(ptr) \
-     || is_elemental(ptr) \
-     || (ptr) == &mons[PM_BABY_GOLD_DRAGON] \
-     || (ptr) == &mons[PM_CONVICT] \
-     || (ptr) == &mons[PM_GIANT_LEECH] \
-     || (ptr) == &mons[PM_GIANT_COCKROACH]\
-     || (ptr) == &mons[PM_GOLD_DRAGON] \
-     || (ptr) == &mons[PM_GRAY_FUNGUS] \
-     || (ptr) == &mons[PM_GRAY_MOLDIER] \
-     || (ptr) == &mons[PM_JUGGERNAUT] \
-     || (ptr) == &mons[PM_LOCUST] \
-     || (ptr) == &mons[PM_GRUND_THE_ORC_KING] \
-     || (ptr) == &mons[PM_MARRASHI])
 
 #define resists_slow(ptr) \
     ((ptr) == &mons[PM_BABY_BLUE_DRAGON] \

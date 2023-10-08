@@ -1327,7 +1327,7 @@ struct monst *mtmp;
         case AD_WIND:
             return !(yours ? (Stable && bigmonst(youmonst.data) ) : !bigmonst(mtmp->data));
         case AD_DISE:
-            return !(yours ? Sick_resistance : resists_sick(ptr));
+            return !(yours ? Sick_resistance : resists_sick(mtmp));
         case AD_DETH:
             return !(yours ? Death_resistance : immune_death_magic(ptr));
         case AD_DISN:
@@ -1407,7 +1407,7 @@ int tmp;
                                                         || (attacks(adtype = AD_LOUD, otmp)
                                                             && ((yours) ? (!Sonic_resistance) : (!resists_sonic(mon))))
                                                                 || (attacks(adtype = AD_DISE, otmp)
-                                                                    && ((yours) ? (!Sick_resistance) : (!resists_sick(mon->data))))
+                                                                    && ((yours) ? (!Sick_resistance) : (!resists_sick(mon))))
                                                                         || (attacks(adtype = AD_DETH, otmp)
                                                                             && ((yours) ? (!Death_resistance) : (!immune_death_magic(mon->data))))
                                                                                 || (attacks(adtype = AD_DISN, otmp)
@@ -1438,7 +1438,7 @@ int tmp;
                   && weap->attk.damn == 0 && weap->attk.damd == 0))
         spec_dbon_applies = FALSE;
     else if ((otmp->oartifact == ART_GRIMTOOTH
-              && !(yours ? Sick_resistance : resists_sick(mon->data)))
+              && !(yours ? Sick_resistance : resists_sick(mon)))
              || otmp->oartifact == ART_VORPAL_BLADE
              || otmp->oartifact == ART_MASTER_SWORD
              || otmp->oartifact == ART_STAKE_OF_VAN_HELSING
@@ -2252,7 +2252,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                               Race_if(PM_ELF))
                                 : racial_elf(mdef);
         boolean no_sick = youdefend ? Sick_resistance
-                                    : (resists_sick(mdef->data)
+                                    : (resists_sick(mdef)
                                        || defended(mdef, AD_DISE));
 
         if (Role_if(PM_SAMURAI)) {
