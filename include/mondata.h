@@ -33,6 +33,7 @@
 #define resists_ston(mon) ((mon_resistancebits(mon) & MR_STONE) != 0)
 #define resists_psychic(mon) ((mon_resistancebits(mon) & MR_PSYCHIC) != 0)
 #define resists_clob(mon) ((mon_resistancebits(mon) & MR_CLOB) != 0)
+#define resists_drain(mon) ((mon_resistancebits(mon) & MR_DRAIN) != 0)
 
 #define has_telepathy(mon) \
     (telepathic(r_data(mon)) \
@@ -85,21 +86,6 @@
      || (ptr) == &mons[PM_ARCHANGEL] \
      || dmgtype((ptr), AD_RBRE)) /* Tiamat */
 
-#define resists_drain(ptr) \
-    (   is_undead(ptr) \
-     || is_demon(ptr) \
-     || is_were(ptr) \
-     || (ptr) == &mons[PM_DEATH] \
-     || (ptr) == &mons[PM_BABY_DEEP_DRAGON] \
-     || (ptr) == &mons[PM_DEEP_DRAGON] \
-     || (ptr) == &mons[PM_CERBERUS] \
-     || (ptr) == &mons[PM_JUGGERNAUT] \
-     || (ptr) == &mons[PM_SHADOW_OGRE] \
-     || (ptr) == &mons[PM_SHADOW_WOLF] \
-     || (ptr) == &mons[PM_UNDEAD_SLAYER] \
-     || (ptr) == &mons[PM_VAMPIRIC] \
-     || (ptr) == &mons[PM_WATER_MAGE]       \
-     || (ptr) == &mons[PM_NIGHTMARE])
 /* is_were() doesn't handle hero in human form */
 
 /* is_vampshifter(mon) in handled explicitly in zap.c */

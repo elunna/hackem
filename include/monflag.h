@@ -68,6 +68,7 @@
 #define MR_PSYCHIC      0x00000100L /* resists psychic */
 #define MR_CLOB         0x00000200L /* resists knockback */
 #define MR_SONIC        0x00000400L /* resists sonic */
+#define MR_DRAIN        0x00000800L /* resists life-drain */
 
 /* other resistances: magic, sickness */
 /* other conveyances: teleport, teleport control, telepathy */

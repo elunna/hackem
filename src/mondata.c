@@ -142,11 +142,12 @@ struct monst *mon;
     struct obj *armor;
     long slotmask;
 
-    if (resists_drain(ptr) || is_vampshifter(mon)
+    if (resists_drain(mon) || is_vampshifter(mon)
         || (mon == &youmonst && (u.ulycn >= LOW_PM || Invulnerable)))
         return TRUE;
     armor = (mon == &youmonst) ? invent : mon->minvent;
     slotmask = W_ARMOR | W_ACCESSORY;
+    
     /* check for drain res object property */
     for (; armor; armor = armor->nobj) {
         if ((armor->owornmask & slotmask) != 0L

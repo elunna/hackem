@@ -190,6 +190,7 @@ FLAG_TO = {
     "MR_POISON": "resists poison",
     "MR_ACID": "resists acid",
     "MR_STONE": "resists petrification",
+    "MR_DRAIN": "resists drain-life",
     "MR_PSYCHIC": "resists psychic",
     "MR_CLOB": "resists clobber",
     "MR_SONIC": "resists sonic",

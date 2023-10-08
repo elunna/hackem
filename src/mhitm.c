@@ -2213,7 +2213,7 @@ post_stone:
         }
         break;
     case AD_DRLI: {
-        boolean resists_drain = (resists_drli(mdef) || defended(mdef, AD_DRLI));
+        boolean unaffected = (resists_drli(mdef) || defended(mdef, AD_DRLI));
         boolean V2V = is_vampiric(mdef->data) && is_vampiric(magr->data);
         
         if (!cancelled) {
@@ -2232,7 +2232,7 @@ post_stone:
                 EDOG(magr)->hungrytime +=
                         ((int) ((mdef->data)->cnutrit / 20) + 1);
             }
-            if (!rn2(3) && (!resists_drain || V2V)) {
+            if (!rn2(3) && (!unaffected || V2V)) {
                 tmp = d(2, 6);
                 if (vis && canspotmon(mdef))
                     pline("%s suddenly seems weaker!", Monnam(mdef));
@@ -3457,9 +3457,9 @@ struct obj *mwep;
         }
         break;
     case AD_DRLI: {
-        boolean resists_drain = (resists_drli(magr) || defended(magr, AD_DRLI));
+        boolean unaffected = (resists_drli(magr) || defended(magr, AD_DRLI));
         if (mhit && !magr->mcan && !rn2(3)) {
-            if ((!resists_drain)) {                
+            if ((!unaffected)) {                
                 tmp = d(2, 6);
                 if (vis && canspotmon(magr))
                     pline("%s suddenly seems weaker!", Monnam(magr));

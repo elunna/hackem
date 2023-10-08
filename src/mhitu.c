@@ -1937,12 +1937,12 @@ register struct attack *mattk;
         break;
     case AD_DRLI:
         hitmsg(mtmp, mattk);
-        boolean resists_drain = Drain_resistance || defended(&youmonst, AD_DRLI);
+        boolean unaffected = Drain_resistance || defended(&youmonst, AD_DRLI);
         boolean V2V = maybe_polyd(is_vampiric(youmonst.data), Race_if(PM_VAMPIRIC))
                 && (is_vampiric(mtmp->data) || mtmp->data == &mons[PM_BLOOD_IMP]);
             
         if (!shield_blockable(mtmp, mattk) && uncancelled && !rn2(3)) {
-            if (mattk->aatyp == AT_BITE && (!resists_drain || V2V)) {
+            if (mattk->aatyp == AT_BITE && (!unaffected || V2V)) {
                 /* if vampire biting (and also a pet) */
                 Your("blood is being drained!");
                 if (mtmp->mtame && !mtmp->isminion)

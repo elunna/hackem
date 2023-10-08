@@ -3354,11 +3354,11 @@ int specialdmg; /* blessed and/or silver bonus against various things */
         tmp = 0;
         break;
     case AD_DRLI: {
-        boolean resists_drain = (resists_drli(mdef) || defended(mdef, AD_DRLI));
+        boolean unaffected = (resists_drli(mdef) || defended(mdef, AD_DRLI));
         boolean V2V = maybe_polyd(is_vampiric(youmonst.data), Race_if(PM_VAMPIRIC))
             && is_vampiric(mdef->data);
         
-        if (!negated && !rn2(3) && (!resists_drain || V2V)) {
+        if (!negated && !rn2(3) && (!unaffected || V2V)) {
             int xtmp = d(2, 6);
             if (mdef->mhp < xtmp)
                 xtmp = mdef->mhp;
