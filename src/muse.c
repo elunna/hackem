@@ -2345,15 +2345,7 @@ register struct obj *otmp;
             shieldeff(mtmp->mx, mtmp->my);
             break;	/* skip makeknown */
         } else if (!resist(mtmp, otmp->oclass, tmp, NOTELL) && mtmp->mhp > 0) {
-            mtmp->mhpmax -= tmp;
-            mtmp->m_lev--;
-            if (DEADMONSTER(mtmp) || DRAINEDMONSTER(mtmp))
-                monkilled(mtmp, "", AD_DRLI);
-            else {
-                if (canseemon(mtmp)) {
-                    pline("%s suddenly seems weaker!", Monnam(mtmp));
-                }
-            }
+            mon_losexp(mtmp, tmp, FALSE);
         }
         if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
                 makeknown(WAN_DRAINING);

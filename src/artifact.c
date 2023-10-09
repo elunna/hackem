@@ -3010,32 +3010,19 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     update_inventory();
                 }
             }
-            /* Monsters die as soon as they reach level 0 or below. */
-            {
-                int drain = monhp_per_lvl(mdef);
-
-                *dmgptr += drain;
-                mdef->mhpmax -= drain;
-                mdef->m_lev--;
-                drain /= 2;
-                if (drain) {
-                    if (youattack)
-                        healup(drain, 0, FALSE, FALSE);
-                    else if (magr && magr->mhp < magr->mhpmax) {
-                        magr->mhp += drain;
-                        if (magr->mhp > magr->mhpmax)
-                            magr->mhp = magr->mhpmax;
-                    }
-                    if (mdef->data == &mons[PM_HYDRA]) {
-                        pline("One of %s heads swells up and explodes!",
-                              s_suffix(mon_nam(mdef)));
-                        if (num_heads(mdef) == 0)
-                            mdef->m_lev = 0;
-                    }
-                }
-                if (DEADMONSTER(mdef) || DRAINEDMONSTER(mdef)) {
-                    pline("%s dies!", Monnam(mdef));
-                    xkilled(mdef, XKILL_NOMSG);
+            
+            int drain = monhp_per_lvl(mdef);
+            *dmgptr += drain;
+            mon_losexp(mdef, drain, youattack);
+            
+            drain /= 2;
+            if (drain) {
+                if (youattack)
+                    healup(drain, 0, FALSE, FALSE);
+                else if (magr && magr->mhp < magr->mhpmax) {
+                    magr->mhp += drain;
+                    if (magr->mhp > magr->mhpmax)
+                        magr->mhp = magr->mhpmax;
                 }
             }
             return vis;

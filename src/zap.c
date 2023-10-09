@@ -720,18 +720,9 @@ struct obj *otmp;
             pline("Boing!");
         } else if (!resist(mtmp, otmp->oclass, dmg, NOTELL)
                    && !DEADMONSTER(mtmp)) {
-            damage_mon(mtmp, dmg, AD_DRIN);
-            mtmp->mhpmax -= dmg;
-            mtmp->m_lev--;
+            mon_losexp(mtmp, dmg, TRUE);
             if (canseemon(mtmp))
                 learn_it = TRUE;
-            /* die if already level 0, regardless of hit points */
-            if (DEADMONSTER(mtmp) || DRAINEDMONSTER(mtmp)) {
-                killed(mtmp);
-            } else {
-                if (canseemon(mtmp))
-                    pline("%s suddenly seems weaker!", Monnam(mtmp));
-            }
         }
         break;
     case WAN_NOTHING:

@@ -1831,20 +1831,11 @@ dogaze()
                 } else if (adtyp == AD_DRLI) { 
                     dmg = d(2, 6);
                     You("attack %s with a deathly gaze!", mon_nam(mtmp));
-                    
                     if (resists_drli(mtmp) || defended(mtmp, AD_DRLI)) {
                         pline_The("gaze doesn't affect %s!", mon_nam(mtmp));
                         dmg = 0;
                     } else {
-                        if (mtmp->mhp < dmg) 
-                            dmg = mtmp->mhp;
-                        mtmp->mhpmax -= dmg;
-                        damage_mon(mtmp, dmg, AD_DRLI);
-                        mtmp->m_lev--;
-                        if (DEADMONSTER(mtmp) || DRAINEDMONSTER(mtmp)) {
-                            pline("%s dies!", Monnam(mtmp));
-                            xkilled(mtmp, XKILL_NOMSG);
-                        }
+                        mon_losexp(mtmp, dmg, TRUE);
                     }
                 } else if (adtyp == AD_DRST) {
                     You("attack %s with a poison gaze!", mon_nam(mtmp));

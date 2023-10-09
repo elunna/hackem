@@ -3382,17 +3382,10 @@ int specialdmg; /* blessed and/or silver bonus against various things */
                    effect */
                 lesshungry(xtmp * 6);
             }
-
-            if (canseemon(mdef))
-                pline("%s suddenly seems weaker!", Monnam(mdef));
-            mdef->mhpmax -= xtmp;
-            damage_mon(mdef, xtmp, AD_DRLI);
-            /* !m_lev: level 0 monster is killed regardless of hit points
-               rather than drop to level -1 */
-            mdef->m_lev--;
-            if (DEADMONSTER(mdef) || DRAINEDMONSTER(mdef)) {
-                pline("%s dies!", Monnam(mdef));
-                xkilled(mdef, XKILL_NOMSG);
+            if (xtmp) {
+                damage_mon(mdef, xtmp, AD_DRLI);
+                (void) mon_losexp(mdef, xtmp, TRUE);
+                healup(xtmp, 0, FALSE, FALSE);
             }
             tmp = 0;
         }

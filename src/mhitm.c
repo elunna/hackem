@@ -2237,13 +2237,8 @@ post_stone:
             }
             if (!rn2(3) && (!unaffected || V2V)) {
                 tmp = d(2, 6);
-                if (vis && canspotmon(mdef))
-                    pline("%s suddenly seems weaker!", Monnam(mdef));
-                mdef->mhpmax -= tmp;
-                mdef->m_lev--;
-                if (DEADMONSTER(mdef) || DRAINEDMONSTER(mdef))
+                if (DEADMONSTER(mdef) ||  mon_losexp(mdef, tmp, FALSE))
                     tmp = mdef->mhp;
-                /* Automatic kill if drained past level 0 */
             }
         }
         break;
@@ -3291,26 +3286,16 @@ struct obj *mwep;
                         (void) cancel_monst(magr, (struct obj *) 0, TRUE, TRUE, FALSE);
                     break;
                 case DEEP_DRAGON_SCALES:
-                    if (resists_drli(magr) || defended(magr, AD_DRLI)) {
-                        if (canseemon(magr) && !rn2(3)) {
-                            shieldeff(magr->mx, magr->my);
-                            pline("%s seems unaffected.", mon_nam(magr));
-                        }
-                    } else if (!rn2(3)) {
-                        int xtmp = d(2, 6);
-
-                        if (canseemon(magr))
-                            pline("%s suddenly seems weaker!", Monnam(magr));
-                        magr->mhpmax -= xtmp;
-                        damage_mon(magr, xtmp, AD_DRLI);
-                        magr->m_lev--;
-                        /* !m_lev: level 0 monster is killed regardless of hit points
-                        rather than drop to level -1 */
-                        if (DEADMONSTER(magr) || DRAINEDMONSTER(magr)) {
-                            if (canseemon(magr))
-                                pline("%s dies!", Monnam(magr));
-                            monkilled(magr, "", AD_DRLI);
-                            return (mdead | mhit | MM_AGR_DIED);
+                    if (!rn2(3)) {
+                        if (resists_drli(magr) || defended(magr, AD_DRLI)) {
+                            if (canseemon(magr)) {
+                                shieldeff(magr->mx, magr->my);
+                                pline("%s seems unaffected.", mon_nam(magr));
+                            }
+                        } else {
+                            int xtmp = d(2, 6);
+                            damage_mon(magr, xtmp, AD_DRLI);
+                            mon_losexp(magr, xtmp, FALSE);
                         }
                     }
                     break;
@@ -3318,7 +3303,6 @@ struct obj *mwep;
                     break;
             }
         }
-
     }
     
     for (i = 0;; i++) {
@@ -3464,13 +3448,7 @@ struct obj *mwep;
         if (mhit && !magr->mcan && !rn2(3)) {
             if ((!unaffected)) {                
                 tmp = d(2, 6);
-                if (vis && canspotmon(magr))
-                    pline("%s suddenly seems weaker!", Monnam(magr));
-                magr->mhpmax -= tmp;
-                magr->m_lev--;
-                if (DEADMONSTER(magr) || DRAINEDMONSTER(magr))
-                    tmp = magr->mhp;
-                /* Automatic kill if drained past level 0 */
+                mon_losexp(magr, tmp, FALSE);
             }
         }
         break;

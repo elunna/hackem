@@ -6480,6 +6480,41 @@ int type;
     return (mon->mhp < 1);
 }
 
+/* Monster sustains a drain-life attack. 
+ * Returns whether mon should have died or not.
+ */
+boolean 
+mon_losexp(mon, amount, yourfault)
+struct monst* mon;
+int amount;
+boolean yourfault;
+{
+    if (canseemon(mon))
+        pline("%s suddenly seems weaker!", Monnam(mon));
+    
+    mon->mhpmax -= amount;
+    /* !m_lev: level 0 monster is killed regardless of hit points
+       rather than drop to level -1 */
+    mon->m_lev--;
+
+    if (mon->data == &mons[PM_HYDRA]) {
+        pline("One of %s heads swells up and explodes!",
+              s_suffix(mon_nam(mon)));
+        if (num_heads(mon) == 0)
+            mon->m_lev = 0;
+    }
+    
+    if (DEADMONSTER(mon) || DRAINEDMONSTER(mon)) {
+        pline("%s dies!", Monnam(mon));
+        if (yourfault)
+            xkilled(mon, XKILL_NOMSG);
+        else
+            monkilled(mon, "", AD_DRLI);
+        return TRUE;
+    }
+    return FALSE;
+}
+    
 boolean
 angry_guards(silent)
 boolean silent;

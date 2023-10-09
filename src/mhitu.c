@@ -4932,28 +4932,17 @@ struct attack *mattk;
             break;
 
         case DEEP_DRAGON_SCALES:
-            Your("armor radiates with dark energy!");
-            if (resists_drli(mtmp) || defended(mtmp, AD_DRLI)) {
-                if (canseemon(mtmp) && !rn2(3)) {
-                    shieldeff(mtmp->mx, mtmp->my);
-                    pline("%s seems unaffected.", mon_nam(mtmp));
-                }
-
-            } else if (!rn2(3)) {
-                int xtmp = d(2, 6);
-
-                if (canseemon(mtmp))
-                    pline("%s suddenly seems weaker!", Monnam(mtmp));
-                mtmp->mhpmax -= xtmp;
-                damage_mon(mtmp, xtmp, AD_DRLI);
-                mtmp->m_lev--;
-                /* !m_lev: level 0 monster is killed regardless of hit points
-                rather than drop to level -1 */
-                if (DEADMONSTER(mtmp) || DRAINEDMONSTER(mtmp)) {
-                    if (canseemon(mtmp))
-                        pline("%s dies!", Monnam(mtmp));
-                    xkilled(mtmp, XKILL_NOMSG);
-                    return 1;
+            if (!rn2(3)) {
+                Your("armor radiates with dark energy!");
+                if (resists_drli(mtmp) || defended(mtmp, AD_DRLI)) {
+                    if (canseemon(mtmp) && !rn2(3)) {
+                        shieldeff(mtmp->mx, mtmp->my);
+                        pline("%s seems unaffected.", mon_nam(mtmp));
+                    }
+                } else {
+                    int xtmp = d(2, 6);
+                    damage_mon(mtmp, xtmp, AD_DRLI);
+                    mon_losexp(mtmp, xtmp, TRUE);
                 }
             }
             break;
