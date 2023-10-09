@@ -638,11 +638,12 @@ int expltype;
             showdmg(damu, TRUE);
 
             /* Some fears are realized... */
-            if (rn2(3) && ((adtyp == AD_FIRE && Vulnerable_fire)
-                || (adtyp == AD_COLD && Vulnerable_cold)
-                || (adtyp == AD_ELEC && Vulnerable_elec)
-                || (adtyp == AD_ACID && Vulnerable_acid)
-                || (adtyp == AD_LOUD && Vulnerable_loud)))
+            if (!rn2(3) && damu > d(3, 6) 
+                && ((adtyp == AD_FIRE && Vulnerable_fire)
+                  || (adtyp == AD_COLD && Vulnerable_cold)
+                  || (adtyp == AD_ELEC && Vulnerable_elec)
+                  || (adtyp == AD_ACID && Vulnerable_acid)
+                  || (adtyp == AD_LOUD && Vulnerable_loud)))
                 make_afraid((HAfraid & TIMEOUT) + (long) rn1(7, 4), TRUE);
 
             context.botl = 1;
