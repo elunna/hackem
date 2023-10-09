@@ -3026,9 +3026,12 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                         if (magr->mhp > magr->mhpmax)
                             magr->mhp = magr->mhpmax;
                     }
-                    if (mdef->data == &mons[PM_HYDRA])
+                    if (mdef->data == &mons[PM_HYDRA]) {
                         pline("One of %s heads swells up and explodes!",
                               s_suffix(mon_nam(mdef)));
+                        if (num_heads(mdef) == 0)
+                            mdef->m_lev = 0;
+                    }
                 }
                 if (DEADMONSTER(mdef) || DRAINEDMONSTER(mdef)) {
                     pline("%s dies!", Monnam(mdef));

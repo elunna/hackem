@@ -5117,8 +5117,11 @@ boolean wep_was_destroyed;
                 break;
             case AD_HYDR: /* grow additional heads (hydra) */
                 if (mhit && !mon->mcan && weapon && rn2(3)) {
-                    if ((is_blade(weapon) || is_axe(weapon))
-                        && weapon->oartifact != ART_FIRE_BRAND) {
+                    boolean grows_heads = is_blade(weapon) || is_axe(weapon);
+                    boolean kills_heads = weapon->oartifact == ART_FIRE_BRAND 
+                            || attacks(AD_DRLI, weapon);
+                    
+                    if (grows_heads && !kills_heads) {
                         You("decapitate %s, but two more heads spring forth!",
                             mon_nam(mon));
                         grow_up(mon, (struct monst *) 0);

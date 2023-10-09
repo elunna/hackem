@@ -3684,7 +3684,7 @@ register struct monst *mtmp;
         }
         if (mtmp->data == &mons[PM_HYDRA]) {
             int x;
-            for (x = 0; x < (mtmp->m_lev - mtmp->data->mlevel + 2); x++) {
+            for (x = 0; x < num_heads(mtmp); x++) {
                 drop_spirit(monsndx(mtmp->data), mtmp->mx, mtmp->my);
             }
         }
@@ -7143,5 +7143,26 @@ int mindex, x, y;
     place_object(otmp, x, y);
     newsym(x, y);
 }
+
+/* Figure out how many heads a hydra has */
+int
+num_heads(mtmp)
+struct monst *mtmp;
+{
+    if (mtmp->data != &mons[PM_HYDRA])
+        return 0;
+    return (mtmp->m_lev - mtmp->data->mlevel + 2);
+}
+
+/* Figure out how many attacks a hydra has */
+int
+hydra_attacks(mtmp)
+struct monst *mtmp;
+{
+    if (mtmp->data != &mons[PM_HYDRA])
+        return 0;
+    return num_heads(mtmp) - 1;
+}
+
 
 /*mon.c*/

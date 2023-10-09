@@ -1900,10 +1900,8 @@ boolean called;
             Strcat(buf, name);
             name_at_start = TRUE;
         }
-    } else if (mdat == &mons[PM_HYDRA] 
-          && (mtmp->m_lev - mtmp->data->mlevel) > -1) {
-        Sprintf(eos(buf), "%d-headed hydra",
-            (mtmp->m_lev - mtmp->data->mlevel + 2));
+    } else if (mdat == &mons[PM_HYDRA] && num_heads(mtmp) > 1) {
+        Sprintf(eos(buf), "%d-headed hydra", num_heads(mtmp));
         name_at_start = FALSE;
     } else if ((is_mplayer(mdat) || mdat == &mons[PM_RONIN])
                && !In_endgame(&u.uz)) {

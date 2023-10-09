@@ -1676,6 +1676,8 @@ E short FDECL(align_randrace, (ALIGNTYP_P));
 E short FDECL(m_randrace, (SHORT_P));
 E void FDECL(apply_race, (struct monst *, SHORT_P));
 E void FDECL(drop_spirit, (int, int, int));
+E int FDECL(num_heads, (struct monst *));
+E int FDECL(hydra_attacks, (struct monst *));
 
 /* ### mondata.c ### */
 

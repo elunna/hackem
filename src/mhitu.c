@@ -981,7 +981,7 @@ register struct monst *mtmp;
 
     /* handle multiple hydra attacks */
     if (mtmp->data == &mons[PM_HYDRA]) {
-        k = min(mtmp->m_lev - mtmp->data->mlevel + 1, 10);
+        k = min(hydra_attacks(mtmp), 10);
     }
     if (mtmp->data == &mons[PM_HECATONCHEIRE]) {
         k = 100;

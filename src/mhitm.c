@@ -556,7 +556,7 @@ register struct monst *magr, *mdef;
 
     /* handle multiple hydra attacks */
     if (pa == &mons[PM_HYDRA]) {
-        k = min(magr->m_lev - magr->data->mlevel + 1, 10);
+        k = min(hydra_attacks(magr), 10);
     } else if (pa == &mons[PM_HECATONCHEIRE]) {
         k = 100;
     } else {
