@@ -2605,8 +2605,15 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 return TRUE;
             case ART_STING:
                 if (youattack && racial_orc(mdef) && j) {
-                    You("stab deep into %s heart!", s_suffix(mon_nam(mdef)));
-                    *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
+                    if (mdef->isgrund) {
+                        pline("%s flares brightly, severely wounding %s!",
+                              artiname(otmp->oartifact), mon_nam(mdef));
+                        *dmgptr *= 3;
+                        return TRUE;
+                    } else {
+                        You("stab deep into %s heart!", s_suffix(mon_nam(mdef)));
+                        *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
+                    }
                 } else if (!youattack && !youdefend
                            && magr && racial_orc(mdef) && j) {
                     if (show_instakill)
