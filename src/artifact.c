@@ -3408,7 +3408,8 @@ struct obj *obj;
 
             if (Upolyd)
                 healamt = (u.mhmax + 1 - u.mh) / 2;
-            if (healamt || Sick || Slimed || Withering || Blinded > creamed)
+            if (healamt || Sick || Slimed || Withering 
+                  || LarvaCarrier || Afraid || Blinded > creamed)
                 You_feel("better.");
             else
                 goto nothing_special;
