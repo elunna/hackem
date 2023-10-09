@@ -1470,7 +1470,7 @@ int tmp;
             dbon = ((3 * dbon) + 1) / 2;
         /* hellfire is mitigated by fire resistance */
         if (otmp->oartifact == ART_ANGELSLAYER
-            && (yours ? Fire_resistance : resists_fire(mon)))
+            && (yours ? (how_resistant(FIRE_RES) > 50) : resists_fire(mon)))
             dbon = (dbon + 1) / 2;
         return dbon;
     }
@@ -2963,7 +2963,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         otmp->dknown = TRUE;
         pline_The("twisted blade poisons %s!",
                 youdefend ? "you" : mon_nam(mdef));
-        if (youdefend ? Poison_resistance : resists_poison(mdef)) {
+        if (youdefend ? how_resistant(POISON_RES) < 25 : resists_poison(mdef)) {
             if (youdefend)
                 You("are not affected by the poison.");
             else
@@ -2994,6 +2994,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                         ? u.mh : u.uhp : mdef->mhp) + FATAL_DAMAGE_MODIFIER;
             break;
         }
+        if (youdefend)
+            *dmgptr = resist_reduce(*dmgptr, POISON_RES);
         return TRUE;
     }
     if (attacks(AD_DRLI, otmp)

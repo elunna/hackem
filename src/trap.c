@@ -2094,11 +2094,12 @@ struct obj *box;	/* at the moment only for floor traps */
     }
 
     pline("A freezing cloud shoots up from the %s!", surface(u.ux, u.uy));
-    if (Cold_resistance) {
+    if (how_resistant(SONIC_RES) > 90) {
         shieldeff(u.ux, u.uy);
         num = 0;
     }
 
+    num = resist_reduce(num, COLD_RES);
     if (!num)
         You("are uninjured.");
     else

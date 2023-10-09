@@ -1128,7 +1128,7 @@ region_danger()
                 continue;
             /* minor inconvenience if you're poison resistant;
                not harmful enough to be a prayer-level trouble */
-            if (Poison_resistance)
+            if (how_resistant(POISON_RES) > 35)
                 continue;
             ++n;
         }

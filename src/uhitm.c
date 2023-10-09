@@ -4826,20 +4826,21 @@ boolean wep_was_destroyed;
                 if (Blind || !flags.verbose) {
                     if (mon->data == &mons[PM_BLUE_DRAGON])
                         You("are%s zapped!",
-                            Shock_resistance ? " mildly" : "");
+                            how_resistant(SONIC_RES) > 50 ? " mildly" : "");
                     else
                         You("are zapped!");
                 } else {
                     if (mon->data == &mons[PM_BLUE_DRAGON])
                         You("are%s electrocuted by %s charged hide!",
-                            Shock_resistance ? " mildly" : "",
+                            how_resistant(SONIC_RES) > 50 ? " mildly" : "",
                             s_suffix(mon_nam(mon)));
                     else
                         You("are zapped by %s!", mon_nam(mon));
                 }
-                if (!Shock_resistance)
+                if (how_resistant(SONIC_RES) < 100) {
+                    tmp = resist_reduce (tmp, SHOCK_RES);
                     mdamageu(mon, tmp);
-                else
+                } else
                     monstseesu(M_SEEN_ELEC);
                 
                 if ((int) mon->m_lev > rn2(20))

@@ -2738,7 +2738,7 @@ do_rust:
         } else {
             You("are on fire!");
             dmg += rnd(6);
-            if (Cold_resistance)
+            if (how_resistant(COLD_RES) > 50)
                 dmg *= 2;
 
             dmg = resist_reduce(dmg, FIRE_RES);

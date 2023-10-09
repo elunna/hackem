@@ -2547,11 +2547,13 @@ eatpill()
             pline1(nothing_happens);
         break;
     case 1:
-        if(!Poison_resistance) {
+        if (how_resistant(POISON_RES) < 55) {
             You_feel("your stomach twinge.");
-            losestr(rnd(4));
-            losehp(rnd(15), "poisonous pill", KILLED_BY_AN);
-        } else  You("seem unaffected by the poison.");
+            losestr(resist_reduce(rnd(4), POISON_RES));
+            losehp(resist_reduce(rnd(15), POISON_RES), 
+                   "poisonous pill", KILLED_BY_AN);
+        } else
+            You("seem unaffected by the poison.");
         break;
     case 2:
         pline ("Everything begins to get blurry.");
@@ -2617,10 +2619,11 @@ struct obj *otmp;
     switch (rn2(10)) {
     case 0:
     case 1:
-        if (!Poison_resistance) {
+        if (how_resistant(SONIC_RES) < 55) {
             You_feel("rather ill....");
-            losestr(rnd(4));
-            losehp(rnd(15), "poisonous mushroom", KILLED_BY_AN);
+            losestr(resist_reduce(rnd(4), POISON_RES));
+            losehp(resist_reduce(rnd(15), POISON_RES), 
+                   "poisonous mushroom", KILLED_BY_AN);
         } else
             You("burp loudly.");
         break;
