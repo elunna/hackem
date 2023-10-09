@@ -3602,7 +3602,6 @@ register struct monst *mtmp;
 
         otmp = mksobj(SEVERED_HAND, FALSE, FALSE);
         otmp = oname(otmp, artiname(ART_HAND_OF_VECNA));
-        
         curse(otmp);
         place_object(otmp, mtmp->mx, mtmp->my);
     }

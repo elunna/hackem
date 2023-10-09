@@ -91,6 +91,14 @@ hack_artifacts()
         artilist[urole.questarti].alignment = alignmnt;
         artilist[urole.questarti].role = Role_switch;
     }
+
+    /* It's a heavy hand... */
+    if (Role_if(PM_NECROMANCER))
+        objects[SEVERED_HAND].oc_weight = 1;
+    else if (Race_if(PM_GIANT) || Race_if(PM_CENTAUR)
+             || Race_if(PM_TORTLE))
+        objects[SEVERED_HAND].oc_weight = 300;
+    
     return;
 }
 
