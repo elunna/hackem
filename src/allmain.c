@@ -155,7 +155,7 @@ boolean resuming;
     char ch;
     int abort_lev;
 #endif
-    struct obj *pobj;
+    struct obj *pobj, *aobj;
     int moveamt = 0, wtcap = 0, change = 0;
     /* don't make it obvious when monsters will start speeding up */
     int timeout_start = rnd(10000) + 25000;
@@ -562,6 +562,11 @@ boolean resuming;
 
                     pickup_spirits();
                     
+                    if ((aobj = carrying_arti(ART_NIGHTHORN))) {
+                        if (aobj->cursed && !rn2(100))
+                            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+                    }
+                        
                     if (!u.uinvulnerable) {
                         if (Teleportation && !rn2(85)) {
                             xchar old_ux = u.ux, old_uy = u.uy;
