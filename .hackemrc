@@ -112,6 +112,7 @@ OPTIONS=ghoulname:Discord
 OPTIONS=birdname:Polly
 OPTIONS=monkeyname:Unga-Unga
 OPTIONS=wolfname:Apache
+OPTIONS=droidname:R2
 
 # The nameable fruit is always vegan
 # If you change this, update the MENUCOLOR below so it matches.

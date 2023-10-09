@@ -340,6 +340,8 @@ static struct Comp_Opt {
       PL_PSIZ, DISP_IN_GAME },
     { "ghoulname",  "the name of your (first) ghoul (e.g., ghoulname:Casper)",
       PL_PSIZ, DISP_IN_GAME },
+    { "droidname",  "the name of your droid (e.g., droidname:ZL21)",
+      PL_PSIZ, DISP_IN_GAME },
     { "birdname",  "the name of your (first) bird (e.g., birdname:Squawks)",
       PL_PSIZ, DISP_IN_GAME },
     { "monkeyname",  "the name of your (first) monkey (e.g., monkeyname:Ugga-Ugga)",
@@ -2360,6 +2362,22 @@ boolean tinitial, tfrom_file;
         } else
             return FALSE;
         sanitize_name(ghoulname);
+        return retval;
+    }
+
+    fullname = "droidname";
+    if (match_optname(opts, fullname, 3, TRUE)) {
+        if (duplicate)
+            complain_about_duplicate(opts, 1);
+        if (negated) {
+            bad_negation(fullname, FALSE);
+            return FALSE;
+        } else if ((op = string_for_env_opt(fullname, opts, FALSE))
+                   != empty_optstr) {
+            nmcpy(droidname, op, PL_PSIZ);
+        } else
+            return FALSE;
+        sanitize_name(droidname);
         return retval;
     }
     
@@ -5997,6 +6015,8 @@ char *buf;
         Sprintf(buf, "%s", horsename[0] ? horsename : none);
     else if (!strcmp(optname, "ghoulname"))
         Sprintf(buf, "%s", ghoulname[0] ? ghoulname : none);
+    else if (!strcmp(optname, "droidname"))
+        Sprintf(buf, "%s", droidname[0] ? droidname : none);
     else if (!strcmp(optname, "birdname"))
         Sprintf(buf, "%s", birdname[0] ? birdname : none);
     else if (!strcmp(optname, "monkeyname"))

@@ -314,7 +314,7 @@ const struct Role roles[] = {
       "the Outer Rim",
       PM_JEDI, 
       NON_PM, 
-      PM_LITTLE_DOG,
+      PM_DROID,
       PM_JEDI_MASTER, 
       PM_PADAWAN, 
       PM_LORD_SIDIOUS,

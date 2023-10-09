@@ -5798,6 +5798,18 @@ struct permonst _mons2[] = {
     /*
      * golems
      */
+    MON("droid", S_GOLEM,
+        LVL(3, 4, 0, 30, 0), (G_GENO | G_NOCORPSE | G_NOGEN),
+        A(ATTK(AT_TUCH, AD_ELEC, 3, 4),
+          ATTK(AT_MAGC, AD_ELEC, 2, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(1000, 1000, MS_SILENT, MZ_MEDIUM),
+        MR_FIRE | MR_COLD | MR_SLEEP | MR_POISON | MR_STONE
+            | MR_PSYCHIC | MR_SONIC | MR_DRAIN | MR_SICK, 0,
+        M1_FLY | M1_BREATHLESS | M1_MINDLESS | M1_NOLIMBS 
+            | M1_NOHANDS | M1_NOTAKE | M1_REGEN,
+        M2_STRONG | M2_NEUTER | M2_NOPOLY,
+        M3_INFRAVISION, 0, 0, 10, CLR_BLUE),
     MON("straw golem", S_GOLEM,
         LVL(3, 12, 10, 0, 0), (G_NOHELL | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 1, 2), 

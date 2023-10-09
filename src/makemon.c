@@ -4293,23 +4293,18 @@ int type;
 {
     switch (type) {
     case PM_STRAW_GOLEM:
-        return 20;
     case PM_PAPER_GOLEM:
+    case PM_DROID:
         return 20;
-    case PM_WAX_GOLEM:
-        return 40;
-    case PM_PLASTIC_GOLEM:
-        return 40;
     case PM_ROPE_GOLEM:
         return 30;
+    case PM_WAX_GOLEM:
+    case PM_PLASTIC_GOLEM:
     case PM_LEATHER_GOLEM:
-        return 40;
     case PM_GOLD_GOLEM:
-        return 40;
-    case PM_WOOD_GOLEM:
-        return 50;
     case PM_FLESH_GOLEM:
         return 40;
+    case PM_WOOD_GOLEM:
     case PM_CLAY_GOLEM:
         return 50;
     case PM_STONE_GOLEM:

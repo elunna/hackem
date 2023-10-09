@@ -57,6 +57,7 @@
 #define MS_ANT          49 /* ants */
 #define MS_PIRATE       50 /* pirates */
 #define MS_MEGAROAR     51 /* capable of frightful dragon roars */
+#define MS_BOT          52 /* droid sounds */
 
 #define MR_FIRE         0x00000001L /* resists fire */
 #define MR_COLD         0x00000002L /* resists cold */

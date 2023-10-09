@@ -989,12 +989,12 @@ struct trap *trap;
 {
     boolean isyou = (mtmp == &youmonst);
     struct permonst *mptr = mtmp->data;
-
+    xchar x = trap->tx;
+    xchar y = trap->ty;
+    
     if (amorphous(mptr) || is_whirly(mptr) || flaming(mptr)
         || unsolid(mptr) || mptr == &mons[PM_GELATINOUS_CUBE]) {
-        xchar x = trap->tx;
-        xchar y = trap->ty;
-
+        
         if (flaming(mptr) || acidic(mptr)) {
             if (domsg) {
                 if (isyou)
@@ -1020,7 +1020,16 @@ struct trap *trap;
             }
         }
         return TRUE;
+    } else if (mptr == &mons[PM_DROID]) {
+        if (domsg) {
+            pline("%s cuts %s spider web!", Monnam(mtmp),
+                  a_your[trap->madeby_u]);
+        }
+        deltrap(trap);
+        newsym(x, y);
+        return TRUE;
     }
+        
     return FALSE;
 }
 

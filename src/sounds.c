@@ -1113,6 +1113,9 @@ register struct monst *mtmp;
                 pline_msg =
                     "tells you their aspirations to become great Jedi.";
                 break;
+            case MS_BOT:
+                pline_msg = "beep boops.";
+                break;
             default:
                 pline_msg = "discusses dungeon exploration.";
                 break;

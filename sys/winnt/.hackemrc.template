@@ -42,6 +42,7 @@ OPTIONS=symset:IBMGraphics,roguesymset:RogueEpyx
 #OPTIONS=dogname:Fido,catname:Morris,fruit:guava
 #OPTIONS=horsename:Silver
 #OPTIONS=ghoulname:Igor
+#OPTIONS=droidname:ZL21
 #OPTIONS=birdname:Squawks
 #OPTIONS=monkeyname:Ugga-Ugga
 

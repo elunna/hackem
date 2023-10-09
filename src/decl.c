@@ -225,6 +225,7 @@ NEARDATA char catname[PL_PSIZ] = DUMMY;
 NEARDATA char horsename[PL_PSIZ] = DUMMY;
 NEARDATA char wolfname[PL_PSIZ] = DUMMY;
 NEARDATA char ghoulname[PL_PSIZ] = DUMMY;
+NEARDATA char droidname[PL_PSIZ] = DUMMY;
 NEARDATA char monkeyname[PL_PSIZ] = DUMMY;
 NEARDATA char pseudoname[PL_PSIZ] = DUMMY;
 NEARDATA char ratname[PL_PSIZ] = DUMMY;

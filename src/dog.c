@@ -266,6 +266,8 @@ makedog()
         petname = pseudoname;
     else if (pettype == PM_GHOUL)
         petname = ghoulname;
+    else if (pettype == PM_DROID)
+        petname = droidname;
     else if (pettype == PM_PARROT)
         petname = birdname;
     else if (pettype == PM_MONKEY)
@@ -689,8 +691,11 @@ long nmv; /* number of moves */
     else
         mtmp->mspec_used -= imv;
 
-    /* reduce tameness for every 150 moves you are separated */
-    if (mtmp->mtame) {
+    /* reduce tameness for every 150 moves you are separated
+     * The droid never loses tameness because it cannot be 
+     * revived.
+     * */
+    if (mtmp->mtame && mtmp->data != &mons[PM_DROID]) {
         int wilder = (imv + 75) / 150;
         if (mtmp->mtame > wilder)
             mtmp->mtame -= wilder; /* less tame */

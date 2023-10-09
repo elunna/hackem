@@ -1078,7 +1078,7 @@ int maxdist;
             if ((!targ->minvis || mon_prop(mtmp, SEE_INVIS))
                 && !targ->mundetected)
                 break;
-            /* If the pet can't see it, it assumes it aint there */
+            /* If the pet can't see it, it assumes it ain't there */
             targ = 0;
         }
     }
@@ -1773,7 +1773,21 @@ int after; /* this is extra fast monster movement */
         wasseen = canseemon(mtmp);
         remove_monster(omx, omy);
         place_monster(mtmp, nix, niy);
-        if (cursemsg[chi] && (wasseen || canseemon(mtmp))) {
+
+        struct obj *floor_obj;
+        struct obj *obj2;
+        
+        if (mtmp->data == &mons[PM_DROID]) {
+            /* Scan all the items at the location */
+            for (floor_obj = level.objects[mtmp->mx][mtmp->my]; 
+                    floor_obj; floor_obj = obj2) {
+                obj2 = floor_obj->nexthere;
+                /* Reveal BUC */
+                set_bknown(floor_obj, 1);
+                /* Reveal properties */
+                floor_obj->oprops_known |= floor_obj->oprops;
+            }
+        } else if (cursemsg[chi] && (wasseen || canseemon(mtmp))) {
             /* describe top item of pile, not necessarily cursed item itself;
                don't use glyph_at() here--it would return the pet but we want
                to know whether an object is remembered at this map location */

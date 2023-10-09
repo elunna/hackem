@@ -1656,6 +1656,10 @@ struct attack *mattk;
     if (mdef->mhp <= 0)
         return 0;
 
+    /* Currently the droid's ranged attack - not melee. */
+    if (mattk->adtyp == AD_ELEC)
+        return 0; 
+    
     if ((mattk->adtyp == AD_SPEL || mattk->adtyp == AD_CLRC) && ml) {
         int cnt = 40;
 
