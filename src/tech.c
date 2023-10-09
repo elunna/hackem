@@ -2502,11 +2502,14 @@ tech_surgery()
          You("are in no condition to perform surgery!");
          return 0;
     }
-    if (Sick || Slimed) {
-         if (carrying(SCALPEL)) {
-            pline("Using %s (ow!), you cure your infection!", 
+    if (Sick || Slimed || LarvaCarrier) {
+        if (carrying(SCALPEL)) {
+            pline("Using %s (ow!), you cure your infection!",
                   yname(carrying(SCALPEL)));
-            make_sick(0L, (char *)0, TRUE, SICK_ALL);
+            make_sick(0L, (char *) 0, TRUE, SICK_ALL);
+            if (LarvaCarrier) {
+                make_carrier(0L, FALSE);
+            }
             Slimed = 0;
             if (Upolyd) {
                 u.mh -= 5;
@@ -2518,7 +2521,7 @@ tech_surgery()
                 u.uhp = 1;
             context.botl = TRUE;
             return 1;
-         } else 
+        } else
             pline("If only you had a scalpel...");
     }
     
