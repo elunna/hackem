@@ -1947,9 +1947,21 @@ int id;
     if (obj->opoisoned && is_poisonable(otmp))
         otmp->opoisoned = TRUE;
 
-    /* Copy properties over */
+    /* Maybe copy properties over. Blessed object depends on 
+     * luck, the percent is chance of success:
+     *   −11      −8      −5      −2       0      +2      +5      +8     +11
+     * 	0.3%	0.4%	0.4%	0.4%	14.3%	28.2%	42.1%	56.1%	70.0%
+     * 
+     * A cursed object always has it's properties wiped.
+     * An uncursed object has a 5% chance of property transfer.
+     * */
     if (obj->oprops) {
-        otmp->oprops = obj->oprops;
+        if ((obj->blessed && rnl(7) == 0) 
+                || (!obj->cursed && !rn2(20)))
+            otmp->oprops = obj->oprops;
+        else
+            otmp->oprops = 0L;
+        otmp->oprops_known = 0L;
     }
     
     if (id == STRANGE_OBJECT && obj->otyp == CORPSE) {
