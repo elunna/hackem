@@ -816,8 +816,7 @@ register struct obj *obj;
     case AMULET_OF_ESP:
         if (Blind) {
             ideed = FALSE;
-        }
-        else
+        } else
             You("think you saw a %s in the toilet!",
                 Hallucination ? rndmonnam(NULL) : "rat");
         break;
@@ -831,12 +830,10 @@ register struct obj *obj;
                     orcname);
             else
                 You("suddenly notice an extended warranty on the toilet.");
-            /* pline_The("toilet gains an extra life!"); */
         }
         break;
     case AMULET_OF_STRANGULATION:
         pline_The("toilet can't flush anymore!");
-        /* pline_The("toilet seems to scream in agony silently."); */
         break;
     case AMULET_OF_RESTFUL_SLEEP:
         pline_The("toilet water stops running.");
@@ -852,11 +849,9 @@ register struct obj *obj;
             pline_The("toilet feels rubbery.");
         } else
             pline_The("toilet looks very limber.");
-            /* pline_The("toilet doesn't turn to stone."); */
         break;
     case AMULET_OF_CHANGE:
         polymorph_toilet();
-
         /* Never get this one back - lost in the pipes... */
         getitback = FALSE;
         break;
@@ -865,18 +860,15 @@ register struct obj *obj;
             ideed = FALSE;
         } else
             pline_The("toilet looks nothing like a sink.");
-            /* pline_The("toilet seems indestructible."); */
         break;
     case AMULET_OF_REFLECTION:
         if (Blind) {
             ideed = FALSE;
         } else
             You_see("yourself in the toilet %s.", hliquid("water"));
-            /* pline_The("toilet water seems to come back out of the drain!"); */
         break;
     case AMULET_OF_MAGICAL_BREATHING:
         pline_The("toilet won't stop flushing!");
-        /* pline_The("toilet water flows down the drain without requiring the flushing to be operated!"); */
         break;
     case AMULET_OF_MAGIC_RESISTANCE:
         pline_The("toilet is surrounded by a magical shield!");
@@ -886,12 +878,9 @@ register struct obj *obj;
             ideed = FALSE;
         } else
             pline_The("toilet looks very sturdy!");
-            /* pline_The("toilet is definitely not a feature from the variant that calls itself 3.7!"); */
         break;
     case AMULET_OF_FLYING:
         pline_The("toilet %s erupts in a geyser!", hliquid("water"));
-        /* pline_The("toilet soars to the %s, then lands again.", ceiling(u.ux, u.uy)); */
-
         /* We should always get this one back if the effect would push it out */
         getitback = TRUE;
         break;
@@ -909,8 +898,7 @@ register struct obj *obj;
     } else if (getitback) {
         pline_The("toilet flushes, and %s reappears!", doname(obj));
         obj->in_use = FALSE;
-
-        /* 1 in 3 chance of cursing */
+        
         if (!rn2(3))
             curse(obj);
         dropx(obj);

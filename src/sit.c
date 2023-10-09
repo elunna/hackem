@@ -147,7 +147,9 @@ dosit()
 
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             breaktoilet(u.ux, u.uy);
-        } else if (!Sick && u.uhs > 0)
+        } else if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC)))
+            pline("Vampires have no use of such things.");
+        else if (!Sick && u.uhs > 0)
             You("don't have to go...");
         else {
             if (Role_if(PM_BARBARIAN) || Role_if(PM_CAVEMAN))
