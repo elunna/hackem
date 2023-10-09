@@ -622,7 +622,7 @@ exerper()
         switch (hs) {
         case SATIATED:
             /* Don't punish vampires for eating too much */
-            if (maybe_polyd(!is_vampire(youmonst.data), !Race_if(PM_VAMPIRE)))
+            if (!maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC)))
                 exercise(A_DEX, FALSE);
             if (Role_if(PM_MONK))
                 exercise(A_WIS, FALSE);
