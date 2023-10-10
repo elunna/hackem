@@ -1933,7 +1933,7 @@ static struct qmchoices {
     { PM_HOUSECAT, 0, PM_DOG, M_AP_MONSTER },
     { PM_LARGE_CAT, 0, PM_LARGE_DOG, M_AP_MONSTER },
     { PM_HOUSECAT, 0, PM_GIANT_RAT, M_AP_MONSTER },
-    { 0, S_DOG, SINK,
+    { 0, S_DOG, TOILET,
       M_AP_FURNITURE }, /* sorry, no fire hydrants in NetHack */
     { 0, 0, TRIPE_RATION, M_AP_OBJECT }, /* leave this at end */
 };
