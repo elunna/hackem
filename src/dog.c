@@ -693,9 +693,10 @@ long nmv; /* number of moves */
 
     /* reduce tameness for every 150 moves you are separated
      * The droid never loses tameness because it cannot be 
-     * revived.
+     * revived. Minions don't lose tameness because they are divine.
      * */
-    if (mtmp->mtame && mtmp->data != &mons[PM_DROID]) {
+    if (mtmp->mtame && mtmp->data != &mons[PM_DROID] 
+          && !mtmp->isminion) {
         int wilder = (imv + 75) / 150;
         if (mtmp->mtame > wilder)
             mtmp->mtame -= wilder; /* less tame */
