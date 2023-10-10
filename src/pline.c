@@ -162,7 +162,7 @@ piratesay(const char *orig)
     orig = replace(orig, "Oh no!", "avast ye!");
     orig = replace(orig, "Oh no", "avast ya");
     orig = replace(orig, "services rendered", "crackin' Jenny's tea up");
-    orig = replace(orig, "suffocate", "dance with Jack Ketch");
+    orig = replace(orig, "being suffocated", "dancing with Jack Ketch");
     orig = replace(orig, "fall asleep", "take a chalk");
     orig = replace(orig, "falls asleep", "takes a chalk");
     orig = replace(orig, "wakes up", "shows a leg");
