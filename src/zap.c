@@ -2430,6 +2430,8 @@ struct obj *obj, *otmp;
                 res = 1;
             }  else if (obj->otyp == TIN && !obj->known) {
                 obj->known = res = 1;
+            } else if (obj->oprops) {
+                obj->oprops_known = obj->oprops;
             }
             if (res)
                 learn_it = TRUE;
