@@ -1633,13 +1633,15 @@ NEARDATA struct permonst mons[] = {
         M3_INFRAVISIBLE | M3_TRAITOR, 0, 0, 8, CLR_BLUE),
     /* The AD_LOST attack makes you forget maps */
     MON("yuki-onna", S_NYMPH,                                 /* SpliceHack */
-        LVL(5, 12, 9, 20, 5), (G_GENO | 2),
-        A(ATTK(AT_TUCH, AD_COLD, 2, 6),
-          ATTK(AT_TUCH, AD_LOST, 0, 0),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), MR_COLD, 0, 
+        LVL(9, 12, 70, 20, -10), (G_GENO | G_NOHELL | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 1, 8), 
+          ATTK(AT_TUCH, AD_COLD, 1, 10),
+          ATTK(AT_CLAW, AD_SEDU, 0, 0), 
+          ATTK(AT_NONE, AD_COLD, 0, 6),
+          NO_ATTK, NO_ATTK),
+        SIZ(600, 300, MS_SEDUCE, MZ_HUMAN), MR_COLD, MR_COLD, 
         M1_HUMANOID | M1_TPORT, M2_HOSTILE | M2_FEMALE | M2_COLLECT, 
-        M3_INFRAVISIBLE, 0, 0, 14, CLR_WHITE),
+        M3_INFRAVISIBLE | M3_INFRAVISION, 0, 0, 14, CLR_WHITE),
     MON("brownie", S_NYMPH,                                     /* Slash'EM */
         LVL(8, 15, 3, 20, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_MAGC, AD_SPEL, 0, 0),
