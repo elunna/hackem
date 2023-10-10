@@ -6484,7 +6484,7 @@ int type;
  */
 boolean 
 mon_losexp(mon, amount, yourfault)
-struct monst* mon;
+register struct monst* mon;
 int amount;
 boolean yourfault;
 {
@@ -6494,7 +6494,8 @@ boolean yourfault;
     mon->mhpmax -= amount;
     /* !m_lev: level 0 monster is killed regardless of hit points
        rather than drop to level -1 */
-    mon->m_lev--;
+    if (mon->m_lev > 0)
+        mon->m_lev--;
 
     if (mon->data == &mons[PM_HYDRA]) {
         pline("One of %s heads swells up and explodes!",
