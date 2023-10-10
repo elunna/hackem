@@ -1943,11 +1943,19 @@ register struct attack *mattk;
         boolean unaffected = Drain_resistance || defended(&youmonst, AD_DRLI);
         boolean V2V = maybe_polyd(is_vampiric(youmonst.data), Race_if(PM_VAMPIRIC))
                 && (is_vampiric(mtmp->data) || mtmp->data == &mons[PM_BLOOD_IMP]);
-            
-        if (!shield_blockable(mtmp, mattk) && uncancelled && !rn2(3)) {
+        /* Bonus for attacking susceptible victims */
+        boolean uvulnerable = u.usleep || multi || Confusion 
+                || u.utrap || u.ustuck || Slow;
+        boolean success = uvulnerable ? rn2(3) : !rn2(3);
+
+        if (!shield_blockable(mtmp, mattk) && uncancelled && success) {
             if (mattk->aatyp == AT_BITE && (!unaffected || V2V)) {
                 /* if vampire biting (and also a pet) */
-                Your("blood is being drained!");
+                if (uvulnerable)
+                    pline("%s gorges itself on your %s!",
+                              Monnam(mtmp), hliquid("blood"));
+                else
+                    Your("blood is being drained!");
                 if (mtmp->mtame && !mtmp->isminion)
                     EDOG(mtmp)->hungrytime +=
                             ((int) ((youmonst.data)->cnutrit / 20) + 1);
