@@ -366,7 +366,7 @@ WEAPON("spiked chain", None, /* Originally P|S */              /* SpliceHack */
 
 /* misc */
 WEAPON("bullwhip", None,
-       1, 0, 0, 0,  2,  20,   4,  2,  1, 0, 0,   P_WHIP, LEATHER, CLR_BROWN),
+       1, 0, 0, 0,  2,  7,   4,  2,  1, 0, 0,   P_WHIP, LEATHER, CLR_BROWN),
 WEAPON("flaming lash", None,                                   /* SpliceHack */
        1, 0, 0, 0,  0, 180,   4, 12, 12, 0, 0,   P_WHIP, DRAGON_HIDE, CLR_RED),
 /* Good to-hit and small damage, but low large damage */
