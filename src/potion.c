@@ -2295,7 +2295,7 @@ int how;
 
     /* Note: potionbreathe() does its own docall() */
     if ((distance == 0 || (distance < 3 && !rn2((1 + ACURR(A_DEX)) / 2)))
-        && (!breathless(youmonst.data) || haseyes(youmonst.data)))
+        && (!Breathless || haseyes(youmonst.data)))
         potionbreathe(obj);
     else if (obj->dknown && !objects[obj->otyp].oc_name_known
              && !objects[obj->otyp].oc_uname && cansee(tx, ty))
@@ -2326,7 +2326,7 @@ register struct obj *obj;
     int i, ii, isdone;
     boolean cureblind = FALSE;
     boolean unambiguous = FALSE; /* if effect is unambiguous, call makeknown */
-    boolean breathe = !breathless(youmonst.data);
+    boolean breathe = !Breathless;
     boolean cansmell = breathe && olfaction(youmonst.data);
     boolean eyes = eyecount(youmonst.data);
     const char * eyestr =
@@ -3420,7 +3420,7 @@ dodip()
             pline("%sThey explode!", !Deaf ? "BOOM!  " : "");
             wake_nearto(u.ux, u.uy, (BOLT_LIM + 1) * (BOLT_LIM + 1));
             exercise(A_STR, FALSE);
-            if (!breathless(youmonst.data) || haseyes(youmonst.data))
+            if (!Breathless || haseyes(youmonst.data))
                 potionbreathe(obj);
             useupall(obj);
             losehp(dmg, /* not physical damage */
@@ -3682,7 +3682,7 @@ dodip()
                     tele();
                 }
                 exercise(A_STR, FALSE);
-                if (!breathless(youmonst.data) || haseyes(youmonst.data)) {
+                if (!Breathless || haseyes(youmonst.data)) {
                     potionbreathe(singlepotion);
                 }
                 useup(singlegem);

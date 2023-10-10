@@ -1482,7 +1482,7 @@ struct obj *otmp;
 
     if (otmp->oclass == POTION_CLASS) {
         You("%s %s shatter!", Blind ? "hear" : "see", an(bottlename()));
-        if (!breathless(youmonst.data) || haseyes(youmonst.data))
+        if (!Breathless || haseyes(youmonst.data))
             potionbreathe(otmp);
         return;
     }

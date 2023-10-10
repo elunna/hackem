@@ -4764,14 +4764,14 @@ struct obj *bag;
             break;
         case 5:
             if (Blind) {
-                if (breathless(youmonst.data))
+                if (Breathless)
                     You_feel("a puff of air.");
                 else
                     You("smell a musty odor.");
             } else {
                 pline_The("bag exhales a puff of spores.");
             }
-            if (!breathless(youmonst.data))
+            if (!Breathless)
                 (void) make_hallucinated(HHallucination + rn1(35, 10), TRUE, 0L);
             break;
         case 6:

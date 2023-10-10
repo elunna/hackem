@@ -1384,7 +1384,7 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             ESwimming &= ~W_ARM;
             if (Underwater) {
                 setworn((struct obj *) 0, W_ARM);
-                if (!breathless(youmonst.data) && !Amphibious && !Swimming) {
+                if (!Breathless && !Amphibious && !Swimming) {
                     You("suddenly inhale an unhealthy amount of %s!",
                         hliquid("water"));
                     (void) drown();
@@ -1665,7 +1665,7 @@ Amulet_off()
             /* HMagical_breathing must be set off
                 before calling drown() */
             setworn((struct obj *) 0, W_AMUL);
-            if (!breathless(youmonst.data) && !Amphibious && !Swimming) {
+            if (!Breathless && !Amphibious && !Swimming) {
                 You("suddenly inhale an unhealthy amount of %s!",
                     hliquid("water"));
                 (void) drown();

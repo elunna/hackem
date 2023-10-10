@@ -2637,9 +2637,9 @@ boolean from_invent;
                 levl[x][y].altarmask = AM_CHAOTIC;
             angry_priest();
         } else if (distu(x, y) <= 2) {
-            if (!breathless(youmonst.data) || haseyes(youmonst.data)) {
+            if (!Breathless || haseyes(youmonst.data)) {
                 if (obj->otyp != POT_WATER) {
-                    if (!breathless(youmonst.data)) {
+                    if (Breathless) {
                         /* [what about "familiar odor" when known?] */
                         You("smell a peculiar odor...");
                     } else {
