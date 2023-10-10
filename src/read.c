@@ -2535,7 +2535,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             cval = (scursed && !confused);
             if (cval)
                 HConfusion = 1; /* to screw up map */
-            do_mapping();
+            do_mapping(cval);
             if (cval) {
                 HConfusion = 0; /* restore */
                 pline("Unfortunately, you can't grasp the details.");
@@ -2549,7 +2549,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             } else if (sobj->blessed && rnl(8) == 0) {
                 sobj->age = monstermoves + (long) d(3, 10);
                 pline_The("map is clear as day!");
-                do_mapping();
+                do_mapping(FALSE);
             } else {
                 sobj->age = monstermoves + (long) d(3, 10);
                 do_vicinity_map(sobj);

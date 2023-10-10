@@ -1650,7 +1650,8 @@ boolean cnf;
 }
 
 void
-do_mapping()
+do_mapping(partial)
+boolean partial;
 {
     register int zx, zy;
     boolean unconstrained;
@@ -1658,7 +1659,7 @@ do_mapping()
     unconstrained = unconstrain_map();
     for (zx = 1; zx < COLNO; zx++)
         for (zy = 0; zy < ROWNO; zy++)
-            show_map_spot(zx, zy, Confusion);
+            show_map_spot(zx, zy, partial);
 
     if (!level.flags.hero_memory || unconstrained) {
         flush_screen(1);                 /* flush temp screen */

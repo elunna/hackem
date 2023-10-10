@@ -972,7 +972,7 @@ wiz_map(VOID_ARGS)
             t->tseen = 1;
             map_trap(t, TRUE);
         }
-        do_mapping();
+        do_mapping(FALSE);
         HConfusion = save_Hconf;
         HHallucination = save_Hhallu;
     } else

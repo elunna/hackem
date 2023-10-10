@@ -2687,7 +2687,7 @@ register struct obj *obj;
 {
     boolean known = FALSE;
     /* This code for wonder seems redundant, but is actually necessary
-       in order to catch various cases for engraving and keeping Wands
+       in order to catch various cases for engraving and keeping wands
        from being identified erroneously. */
     boolean wonder = FALSE;
     if (obj->otyp == WAN_WONDER) {
@@ -2718,6 +2718,7 @@ register struct obj *obj;
         break;
     case WAN_DETECTION:
     case SPE_DETECT_UNSEEN:
+
         if (!findit())
             return;
         if (!Blind)
@@ -2747,7 +2748,6 @@ register struct obj *obj;
         pline_The("feeling subsides.");
         exercise(A_WIS, TRUE);
         break;
-
     case WAN_FEAR:
         wandfear(obj);
         known = TRUE;
@@ -4078,12 +4078,26 @@ struct obj *obj;
     if (otyp == WAN_WONDER) {
         wondertemp = WAN_LIGHT + rn2(WAN_DELUGE - WAN_LIGHT);
         /* Significantly reduced the chances of wishes */
-        if (wondertemp == WAN_WISHING && rn2(100))
+        if (wondertemp == WAN_WISHING && rn2(100)) {
             wondertemp = WAN_POISON_GAS;
-        if (wondertemp == WAN_WONDER)
+            /* Mighty morphing magic... */
+            do_mapping(TRUE);
+        }
+        if (wondertemp == WAN_WONDER) {
             wondertemp = WAN_POLYMORPH;
-        if (wondertemp == WAN_NOTHING)
+            do_mapping(TRUE);
+        }
+        if (wondertemp == WAN_NOTHING) {
             wondertemp = WAN_DEATH;
+            do_mapping(TRUE);
+        }
+        /* Give a little mapping for divination related effects */
+        if (wondertemp == WAN_DETECTION
+            || wondertemp == WAN_ENLIGHTENMENT
+            || wondertemp == WAN_PROBING) {
+            do_mapping(TRUE);
+        }
+        
         obj->otyp = wondertemp;
         otyp = wondertemp;
         wonder = TRUE;

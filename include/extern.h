@@ -341,7 +341,7 @@ E int FDECL(trap_detect, (struct obj *, BOOLEAN_P detect_portals));
 E const char *FDECL(level_distance, (d_level *));
 E void FDECL(use_crystal_ball, (struct obj **));
 E void FDECL(show_map_spot, (int, int, BOOLEAN_P));
-E void NDECL(do_mapping);
+E void FDECL(do_mapping, (BOOLEAN_P));
 E void FDECL(do_vicinity_map, (struct obj *));
 E void FDECL(cvt_sdoor_to_door, (struct rm *));
 #ifdef USE_TRAMPOLI

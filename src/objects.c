@@ -1282,7 +1282,6 @@ WAND("wonder",        "plastic",  5, 100, 0, IMMEDIATE, PLASTIC, CLR_RED),      
 WAND("wind",            "green", 15, 175, 1, IMMEDIATE, PLASTIC,                    /* SpliceHack */
                                                             CLR_BRIGHT_GREEN),
 WAND("striking",        "ebony", 225, 150, 1, IMMEDIATE, WOOD, HI_WOOD),
-
 WAND("make invisible", "marble", 135, 150, 1, IMMEDIATE, MINERAL, HI_MINERAL),
 WAND("slow monster",      "tin", 150, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("speed monster",   "brass", 150, 150, 1, IMMEDIATE, COPPER, HI_COPPER),

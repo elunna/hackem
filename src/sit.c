@@ -256,7 +256,7 @@ dosit()
                                               FALSE);
                             } else {
                                 pline("A clear image forms in your mind.");
-                                do_mapping();
+                                do_mapping(Confusion);
                             }
                         } else {
                             /* permanent see invisible in this instance */
@@ -306,7 +306,7 @@ dosit()
                                       FALSE);
                     } else {
                         pline("An image forms in your mind.");
-                        do_mapping();
+                        do_mapping(Confusion);
                     }
                 } else {
                     Your("vision becomes clear.");
