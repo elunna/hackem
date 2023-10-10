@@ -5801,8 +5801,8 @@ struct permonst _mons2[] = {
     MON("droid", S_GOLEM,
         LVL(3, 4, 0, 30, 0), (G_GENO | G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_TUCH, AD_ELEC, 3, 4),
-          ATTK(AT_MAGC, AD_ELEC, 2, 6),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+          /*ATTK(AT_MAGC, AD_ELEC, 2, 6),*/
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1000, 1000, MS_SILENT, MZ_MEDIUM),
         MR_FIRE | MR_COLD | MR_SLEEP | MR_POISON | MR_STONE
             | MR_PSYCHIC | MR_SONIC | MR_DRAIN | MR_SICK, 0,
