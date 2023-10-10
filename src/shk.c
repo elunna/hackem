@@ -5909,6 +5909,9 @@ struct monst *shkp;
               Shknam(shkp),
               (!Deaf && !muteshk(shkp)) ? "reminds you" : "indicates",
               noit_mhim(shkp), eshk->debit, currency(eshk->debit));
+    } else if (eshk->pbanned) {
+        verbalize("I don't service your kind here.");
+        return;
     } else if (eshk->credit) {
         pline("%s encourages you to use your %ld %s of credit.",
               Shknam(shkp), eshk->credit, currency(eshk->credit));
@@ -5931,6 +5934,8 @@ struct monst *shkp;
         if (!Deaf && !muteshk(shkp))
             pline("%s talks about the problem of shoplifters.", Shknam(shkp));
     }
+
+    shk_other_services();
 }
 
 STATIC_OVL void
@@ -6570,8 +6575,10 @@ struct monst* shkp;
     if (distu(shkp->mx, shkp->my) > 12)
         return;
         
-    /* You're either banned from the store or you're going to be banned because of the shirt */
-    if (ESHK(shkp)->shoptype != BLACKSHOP && (ESHK(shkp)->pbanned || visible_bad_shirt)) {
+    /* You're either banned from the store or you're going 
+     * to be banned because of the shirt */
+    if (ESHK(shkp)->shoptype != BLACKSHOP 
+          && (ESHK(shkp)->pbanned || visible_bad_shirt)) {
         verbalize("Bugger off, you filthy little %s. Don't come begging around here!", urace.noun);
         return;
     }
