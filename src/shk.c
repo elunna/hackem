@@ -4051,8 +4051,7 @@ long svc_type;
     struct obj *obj;
     int charge;
 
-    if (svc_type == SHK_WEP_FIX || svc_type == SHK_WEP_ENC
-          || svc_type == SHK_PROP)
+    if (svc_type == SHK_WEP_FIX || svc_type == SHK_WEP_ENC)
         obj = getobj(weapon_types, "improve");
     else
         obj = getobj(weapon_types, "poison");

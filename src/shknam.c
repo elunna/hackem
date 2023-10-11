@@ -1268,6 +1268,8 @@ struct monst *shk;
             maybe_add_svc(shk, SHK_ID_AMULET);
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_GEM);
+        if (!rn2(5))
+            maybe_add_svc(shk, SHK_PROP);
     }
     else if (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH) {
         if (!rn2(2))
