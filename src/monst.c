@@ -199,7 +199,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_POIS, 
         M2_HOSTILE | M2_NOPOLY, 0, M4_VULNERABLE_ACID, 0, 6, CLR_GRAY),
     MON("giant tick", S_ANT,                                    /* Slash'EM */
-        LVL(1, 12, 9, 0, 0), (G_GENO | G_SGROUP),
+        LVL(1, 12, 9, 0, 0), (G_GENO | G_SGROUP | G_NOCORPSE),
         A(ATTK(AT_BITE, AD_PHYS, 1, 1),
           ATTK(AT_MULTIPLY, 0, 0, 0),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -215,7 +215,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_POIS | M1_CARNIVORE,
         M2_HOSTILE | M2_FLANK, 0, M4_VULNERABLE_ACID, 0, 9, CLR_GREEN),
     MON("giant flea", S_ANT,                                    /* Slash'EM */
-        LVL(3, 14, 8, 0, 0), (G_GENO | G_SGROUP),
+        LVL(3, 14, 8, 0, 0), (G_GENO | G_SGROUP | G_NOCORPSE),
         A(ATTK(AT_BITE, AD_PHYS, 1, 2),
           ATTK(AT_BITE, AD_PHYS, 1, 2),
           ATTK(AT_MULTIPLY, 0, 0, 0),
@@ -263,7 +263,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_FLY | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_HERBIVORE,
         M2_HOSTILE, 0, M4_VULNERABLE_ACID, 0, 11, CLR_GRAY),
     MON("giant louse", S_ANT,                                   /* Slash'EM */
-        LVL(5, 16, 6, 0, 0), (G_GENO | G_SGROUP),
+        LVL(5, 16, 6, 0, 0), (G_GENO | G_SGROUP | G_NOCORPSE),
         A(ATTK(AT_BITE, AD_PHYS, 1, 4),
           ATTK(AT_BITE, AD_PHYS, 1, 4),
           ATTK(AT_MULTIPLY, 0, 0, 0),
