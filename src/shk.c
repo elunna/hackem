@@ -750,12 +750,9 @@ char *enterstring;
     }
 
     /* Visible striped prison shirt */
-    if (!Is_blackmarket(&u.uz) &&
-        (uarmu && (uarmu->otyp == STRIPED_SHIRT))
-        && !uarm
-        && !uarmc) {
+    if (!Is_blackmarket(&u.uz) && (uarmu && (uarmu->otyp == STRIPED_SHIRT))
+        && !uarm && !uarmc) 
         eshkp->pbanned = TRUE;
-    }
 
     rt = rooms[*enterstring - ROOMOFFSET].rtype;
 

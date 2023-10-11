@@ -1251,10 +1251,10 @@ struct obj *sobj;
     unsigned was_peaceful = mtmp->mpeaceful;
 
     /* No taming in the Black Market! */
-    if (sobj->cursed || Is_blackmarket(&u.uz)) {
-        setmangry(mtmp, FALSE);
-        if (was_peaceful && !mtmp->mpeaceful)
-            return -1;
+    if (Is_blackmarket(&u.uz)) {
+        return 0;
+    } else if (sobj->cursed) {
+        return -1;
     } else {
         if (mtmp->isshk)
             make_happy_shk(mtmp, FALSE);

@@ -1155,6 +1155,10 @@ struct obj *obj;
     /* Taming is much harder on the Astral Plane! */
     if (Is_astralevel(&u.uz) && rn2(10))
         return FALSE;
+
+    /* No taming in the Black Market! */
+    if (Is_blackmarket(&u.uz))
+        return FALSE;
     
     /* Knights can never tame dragons of differing alignment */
     if (Role_if(PM_KNIGHT) && is_dragon(mtmp->data)
