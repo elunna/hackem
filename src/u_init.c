@@ -102,7 +102,7 @@ struct trobj Healer[] = {
 };
 struct trobj Ice_Mage[] = {
 #define I_BOOK          10
-    { STILETTO, 2, WEAPON_CLASS, 1, 1 },
+    { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },
     { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
     { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
