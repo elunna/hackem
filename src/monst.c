@@ -2342,7 +2342,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
         M2_HOSTILE | M2_STRONG, 0, 0, MH_SPIDER, 15, CLR_ORANGE),
     MON("werespider", S_SPIDER,                                 /* Slash'EM */
-        LVL(11, 15, 3, 0, 0), (G_GENO | G_NOGEN | 1),
+        LVL(11, 15, 3, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_WERE, 4, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(100, 100, MS_BARK, MZ_LARGE), 
@@ -5052,7 +5052,7 @@ struct permonst _mons2[] = {
             | M1_POIS | M1_CARNIVORE | M1_OVIPAROUS | M1_NOTAKE, 
         M2_HOSTILE, M3_ACCURATE, 0, 0,  12, CLR_GRAY),
     MON("weresnake", S_SNAKE,                                   /* Slash'EM */
-        LVL(9, 12, 2, 20, -7), G_NOGEN | G_NOCORPSE,
+        LVL(9, 12, 2, 20, -7), G_NOCORPSE,
         A(ATTK(AT_BITE, AD_WERE, 3, 6), 
           ATTK(AT_BITE, AD_DRST, 2, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
@@ -6183,7 +6183,7 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_COLLECT | M2_PEACEFUL,
         M3_INFRAVISIBLE | M3_BERSERK, 0, MH_HUMAN | MH_WERE, 14, CLR_BLUE),
     MON("weresnake", S_HUMAN,                                   /* Slash'EM */
-        LVL(9, 12, 10, 20, -7), (0),
+        LVL(9, 12, 10, 20, -7), (1),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_HISS, MZ_HUMAN), 
@@ -6192,7 +6192,7 @@ struct permonst _mons2[] = {
         M2_NOPOLY | M2_HOSTILE | M2_COLLECT,
         M3_INFRAVISIBLE, 0, MH_HUMAN | MH_WERE, 10, CLR_BROWN),
     MON("werespider", S_HUMAN,                                  /* Slash'EM */
-        LVL(9, 12, 10, 20, -7), (0),
+        LVL(9, 12, 10, 20, -7), (1),
         A(ATTK(AT_WEAP, AD_PHYS, 3, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_HISS, MZ_HUMAN), 
