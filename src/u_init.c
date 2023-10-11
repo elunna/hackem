@@ -360,11 +360,11 @@ struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
 struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
                           { 0, 0, 0, 0, 0 } };
-struct trobj GreenSaber[] = { { GREEN_LIGHTSABER, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+struct trobj GreenSaber[] = { { GREEN_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
                               { 0, 0, 0, 0, 0, } };
-struct trobj BlueSaber[] = { { BLUE_LIGHTSABER, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+struct trobj BlueSaber[] = { { BLUE_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
                              { 0, 0, 0, 0, 0, } };
-struct trobj RedSaber[] = { { RED_LIGHTSABER, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+struct trobj RedSaber[] = { { RED_LIGHTSABER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
                             { 0, 0, 0, 0, 0, } };
 
 /* race-based substitutions for initial inventory;
