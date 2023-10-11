@@ -1319,31 +1319,31 @@ boolean ranged;
         balk = mtmp2->m_lev + 1;
     }
 
-    return
-    !((!ranged && (int) mtmp2->m_lev >= balk
-       && !attacktype(mtmp->data, AT_EXPL))
-       || (!ranged && mtmp2->data == &mons[PM_FLOATING_EYE] && rn2(10)
-           && mtmp->mcansee && haseyes(mtmp->data) && mtmp2->mcansee
-           && (mon_prop(mtmp, SEE_INVIS) || !mtmp2->minvis))
-       /* Monsters with dangerous passive attacks */
-       || (!ranged && (mtmp2->data == &mons[PM_GELATINOUS_CUBE] 
-                          || mtmp2->data == &mons[PM_HEDGEHOG]
-                          || mtmp2->data == &mons[PM_MANTICORE]
-                          || mtmp2->data == &mons[PM_GREEN_SLIME]) 
-              && rn2(10))
-       /* Disintegrators */
-       || (!ranged && (mtmp2->data == &mons[PM_BLACK_DRAGON] 
-                      || mtmp2->data == &mons[PM_ANTIMATTER_VORTEX]) 
-          && !(resists_disint(mtmp) || defended(mtmp, AD_DISN)))
-       || (!ranged && max_passive_dmg(mtmp2, mtmp) >= mtmp->mhp)
-       || ((mtmp->mhp * 4 < mtmp->mhpmax || mtmp2->data->msound == MS_GUARDIAN
-           || mtmp2->data->msound == MS_LEADER)
-           && mtmp2->mpeaceful && !grudge && !Conflict)
-       || (!ranged && touch_petrifies(mtmp2->data)
-           && !(resists_ston(mtmp) || defended(mtmp, AD_STON)))
-       || (!ranged && (mtmp2->data == &mons[PM_GRAY_FUNGUS] 
-                       || mtmp2->data == &mons[PM_GRAY_MOLDIER])
-           && !(resists_sick(mtmp) || defended(mtmp, AD_DISE))));
+    boolean scared = (!ranged && (int)mtmp2->m_lev >= balk 
+            && !attacktype(mtmp->data, AT_EXPL));
+    boolean bad_eye = (!ranged && mtmp2->data == &mons[PM_FLOATING_EYE] && rn2(10)
+                       && mtmp->mcansee && haseyes(mtmp->data) && mtmp2->mcansee
+                       && (mon_prop(mtmp, SEE_INVIS) || !mtmp2->minvis));
+    boolean vs_passive = (!ranged && (mtmp2->data == &mons[PM_GELATINOUS_CUBE]
+                                   || mtmp2->data == &mons[PM_HEDGEHOG]
+                                   || mtmp2->data == &mons[PM_MANTICORE]
+                                   || mtmp2->data == &mons[PM_GREEN_SLIME]) && rn2(10));
+    boolean vs_disint = (!ranged 
+            && (mtmp2->data == &mons[PM_BLACK_DRAGON]
+                || mtmp2->data == &mons[PM_ANTIMATTER_VORTEX]) 
+            && !(resists_disint(mtmp) || defended(mtmp, AD_DISN)));
+    boolean passive_kill = (!ranged && max_passive_dmg(mtmp2, mtmp) >= mtmp->mhp);
+    boolean vs_peaceful = (mtmp->mhp * 4 < mtmp->mhpmax 
+            || mtmp2->data->msound == MS_GUARDIAN || mtmp2->data->msound == MS_LEADER)
+                    && mtmp2->mpeaceful && !grudge && !Conflict;
+    boolean vs_stoner = (!ranged && touch_petrifies(mtmp2->data) 
+            && !(resists_ston(mtmp) || defended(mtmp, AD_STON)));
+    boolean vs_dise = (!ranged 
+            && (mtmp2->data == &mons[PM_GRAY_FUNGUS] || mtmp2->data == &mons[PM_GRAY_MOLDIER]) 
+            && !(resists_sick(mtmp) || defended(mtmp, AD_DISE)));
+
+    return !(scared || bad_eye || vs_passive || vs_disint 
+             || passive_kill || vs_peaceful || vs_stoner || vs_dise);
 }
 
 
