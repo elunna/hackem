@@ -205,69 +205,66 @@ char *genbuf;
         return 0;
     for (i = rnd(5); i > 0; i--) {
         switch (pm) {
-        case PM_WERERAT:
-        case PM_HUMAN_WERERAT:
-        case PM_RAT_KING:
-            typ = rn2(3) ? PM_SEWER_RAT
-                         : rn2(3) ? PM_GIANT_RAT
-                                  : rn2(2) ? PM_RABID_RAT : PM_ENORMOUS_RAT;
-            if (genbuf)
-                Strcpy(genbuf, "rat");
-            break;
-        case PM_WEREJACKAL:
-        case PM_HUMAN_WEREJACKAL:
-            typ = rn2(7) ? PM_JACKAL
-                         : rn2(3) ? PM_COYOTE
-                                  : rn2(2) ? PM_FOX : PM_RABID_DOG;
-            if (genbuf)
-                Strcpy(genbuf, "jackal");
-            break;
-        case PM_WEREWOLF:
-        case PM_HUMAN_WEREWOLF:
-        case PM_NOSFERATU:
-            typ = rn2(3) ? PM_WOLF : rn2(2) ? PM_WINTER_WOLF : rn2(2) ? PM_RABID_WOLF : PM_WARG ;
-            if (genbuf)
-                Strcpy(genbuf, "wolf");
-            break;
-        case PM_WEREDEMON:
-        case PM_DEMON_WEREDEMON:
-            typ = PM_HELL_HOUND;
-            if (genbuf)
-                Strcpy(genbuf, "hell hound");
-            break;
-        case PM_WEREPANTHER:
-		case PM_HUMAN_WEREPANTHER:
-			/* typ = rn2(5) ? PM_JAGUAR : PM_PANTHER ; */
-            typ = rn2(3) ? PM_JAGUAR : rn2(2) ? PM_PANTHER : rn2(3) ? PM_CATERWAUL : PM_LYNX ;
-			if (genbuf) Strcpy(genbuf, "large cat");
-			break;
-		case PM_WERETIGER:
-		case PM_HUMAN_WERETIGER:
-			/* typ = rn2(5) ? PM_JAGUAR : PM_TIGER ; */
-            typ = rn2(3) ? PM_TIGER : rn2(2) ? PM_PANTHER : rn2(3) ? PM_SABER_TOOTHED_CAT : PM_SABER_TOOTHED_TIGER ;
-
-			if (genbuf) Strcpy(genbuf, "large cat");
-			break;
-		case PM_WERESNAKE:
-		case PM_HUMAN_WERESNAKE:
-			/* typ = rn2(5) ? PM_SNAKE : PM_PIT_VIPER ; */
-            typ = rn2(3) ? PM_PIT_VIPER : rn2(2) ? PM_COBRA : rn2(3) ? PM_PYTHON : PM_ASPHYNX ;
-			if (genbuf) Strcpy(genbuf, "snake");
-			break;
-		case PM_WERESPIDER:
-		case PM_HUMAN_WERESPIDER:
-			/* typ = rn2(5) ? PM_CAVE_SPIDER : PM_RECLUSE_SPIDER ; */
-            typ = rn2(3) ? PM_RECLUSE_SPIDER : rn2(2) ? PM_GIANT_SPIDER : rn2(2) ? PM_JUMPING_SPIDER : PM_PHASE_SPIDER ;
-			if (genbuf) Strcpy(genbuf, "spider");
-			break;
-        case PM_HUMAN_WEREBEAR:
-        case PM_WEREBEAR:
-            typ = rn2(15) ? PM_BLACK_BEAR : PM_GRIZZLY_BEAR;
-            if (genbuf)
-                Strcpy(genbuf, "bear");
-            break;
-        default:
-            continue;
+            case PM_WERERAT:
+            case PM_HUMAN_WERERAT:
+                typ = rn2(3) ? PM_SEWER_RAT : rn2(3) ? PM_GIANT_RAT : PM_RABID_RAT;
+                if (genbuf) Strcpy(genbuf, "rat");
+                break;
+            case PM_RAT_KING:
+                typ = rn2(3) ? PM_SEWER_RAT
+                             : rn2(3) ? PM_GIANT_RAT
+                                      : rn2(2) ? PM_RABID_RAT : PM_ENORMOUS_RAT;
+                if (genbuf)
+                    Strcpy(genbuf, "rat");
+                break;
+            case PM_WEREJACKAL:
+            case PM_HUMAN_WEREJACKAL:
+                typ = PM_JACKAL;
+                if (genbuf)
+                    Strcpy(genbuf, "jackal");
+                break;
+            case PM_WEREWOLF:
+            case PM_HUMAN_WEREWOLF:
+            case PM_NOSFERATU:
+                typ = rn2(5) ? PM_WOLF : rn2(2) ? PM_WINTER_WOLF : PM_RABID_WOLF;
+                if (genbuf)
+                    Strcpy(genbuf, "wolf");
+                break;
+            case PM_WEREDEMON:
+            case PM_DEMON_WEREDEMON:
+                typ = PM_HELL_HOUND;
+                if (genbuf)
+                    Strcpy(genbuf, "hell hound");
+                break;
+            case PM_WEREPANTHER:
+            case PM_HUMAN_WEREPANTHER:
+                typ = rn2(5) ? PM_JAGUAR : PM_PANTHER;
+                if (genbuf) Strcpy(genbuf, "large cat");
+                break;
+            case PM_WERETIGER:
+            case PM_HUMAN_WERETIGER:
+                typ = rn2(5) ? PM_JAGUAR : PM_TIGER;
+                if (genbuf) Strcpy(genbuf, "large cat");
+                break;
+            case PM_WERESNAKE:
+            case PM_HUMAN_WERESNAKE:
+                typ = rn2(5) ? PM_SNAKE : (rn2(3) ? PM_PIT_VIPER : PM_COBRA);
+                if (genbuf) Strcpy(genbuf, "snake");
+                break;
+            case PM_WERESPIDER:
+            case PM_HUMAN_WERESPIDER:
+                typ = rn2(5) ? PM_SNAKE : PM_PIT_VIPER;
+                if (genbuf) Strcpy(genbuf, "spider");
+                break;
+            case PM_HUMAN_WEREBEAR:
+            case PM_WEREBEAR:
+                typ = rn2(5) ? PM_BABY_OWLBEAR :
+                      (rn2(3) ? PM_BLACK_BEAR : PM_GRIZZLY_BEAR);
+                if (genbuf)
+                    Strcpy(genbuf, "bear");
+                break;
+            default:
+                continue;
         }
         mtmp = makemon(&mons[typ], u.ux, u.uy, NO_MM_FLAGS);
         if (mtmp) {
