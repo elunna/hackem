@@ -5412,7 +5412,7 @@ struct permonst _mons2[] = {
         M2_STALK | M2_HOSTILE, 0,
         M4_VULNERABLE_FIRE, MH_UNDEAD, 8, CLR_BLACK),
     MON("bodak", S_WRAITH,                                    /* SpliceHack */
-        LVL(8, 12, 6, 10, 0), (G_GENO | 1),
+        LVL(8, 12, 6, 10, -6), (G_GENO | 1),
         A(ATTK(AT_CLAW, AD_DRLI, 1, 6), 
           ATTK(AT_GAZE, AD_FEAR, 0, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
