@@ -4840,7 +4840,6 @@ artifact_info(int anum)
 
         for (i = 0; i < 32; i++) {
             if (artilist[anum].mtype & (1 << i)) {
-                /* art_info.hates = makeplural(mon_race_name(i)); */
                 strcat(buf, makeplural(mon_race_name(i)));
                 Strcat(buf, " ");
             }

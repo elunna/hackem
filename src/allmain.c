@@ -649,56 +649,35 @@ boolean resuming;
                     /* If wielding/wearing any of the 'banes, make those
                        monsters that they are against hostile should they
                        be tame or peaceful */
-                    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-                        boolean is_shkp = has_eshk(mtmp) && inhishop(mtmp);
-                        boolean is_prst = has_epri(mtmp) && inhistemple(mtmp);
-                        
-                        if (!(mtmp->mcansee && m_canseeu(mtmp)))
-                            continue;
-                        /* coaligned temple priests will stay civil */
-                        if (is_prst && p_coaligned(mtmp))
-                            continue;
-
-                        if ((wielding_artifact(ART_DRAGONBANE)
-                             && is_dragon(mtmp->data))
-                            || (wielding_artifact(ART_DEATHSWORD)
-                                && racial_human(mtmp))
-                            || (wielding_artifact(ART_STING)
-                                && (racial_orc(mtmp)
-                                    || is_spider(mtmp->data)))
-                            || (wielding_artifact(ART_ORCRIST)
-                                && racial_orc(mtmp))
-                            || (wielding_artifact(ART_ELFRIST)
-                                && racial_elf(mtmp))
-                            || (wielding_artifact(ART_GRIMTOOTH)
-                                && racial_elf(mtmp))
-                            || (wielding_artifact(ART_GIANTSLAYER)
-                                && racial_giant(mtmp))
-                            || (wielding_artifact(ART_TROLLSBANE)
-                                && is_troll(mtmp->data))
-                            || (wielding_artifact(ART_OGRESMASHER)
-                                && is_ogre(mtmp->data))
-                            || (wielding_artifact(ART_SUNSWORD)
-                                && is_undead(mtmp->data))
-                            || (wielding_artifact(ART_DISRUPTER)
-                                && is_undead(mtmp->data))
-                            || (wielding_artifact(ART_SPEAR_OF_LIGHT)
-                                && is_undead(mtmp->data))
-                            || (wielding_artifact(ART_WEREBANE)
-                                && is_were(mtmp->data))
-                            || (wielding_artifact(ART_DEMONBANE)
-                                && is_demon(mtmp->data))
-                            || (wielding_artifact(ART_ANGELSLAYER)
-                                && is_angel(mtmp->data))
-                            || (wielding_artifact(ART_VORPAL_BLADE)
-                                && is_jabberwock(mtmp->data))) {
-
-                            /* Shopkeepers will get angry but just ban you, to
-                             * avoid cheap early Sting deaths */
+     
+                    if (uwep || u.twoweap) {
+                        for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                            s_level *slev = Is_special(&u.uz);
+                            boolean is_shkp = has_eshk(mtmp) && inhishop(mtmp);
+                            boolean is_prst = has_epri(mtmp) && inhistemple(mtmp);
+                            boolean town_peace = (slev && slev->flags.town);
+                            boolean uwep_hates = mon_has_race(mtmp, spec_mh(uwep));
+                            boolean uswap_hates = mon_has_race(mtmp, spec_mh(uswapwep));
+                            if (!uwep_hates && !uswap_hates)
+                                continue;
+                            if (!(mtmp->mcansee && m_canseeu(mtmp)))
+                                continue;
+                            /* Towns are fairly safe zones - keep them that way. */
+                            if (town_peace)
+                                continue;
+                            /* coaligned temple priests will stay civil */
+                            if (is_prst && p_coaligned(mtmp))
+                                continue;
+                            
                             if (is_shkp)
                                 ESHK(mtmp)->pbanned = TRUE;
+                            
                             else if (mtmp->mpeaceful || mtmp->mtame) {
                                 mtmp->mpeaceful = mtmp->mtame = 0;
+                                pline("%s %s the %s in your %s...", Monnam(mtmp),
+                                       rn2(2) ? "strongly reacts to" : "is aggravated by",
+                                       uwep_hates ? xname(uwep) : xname(uswapwep),
+                                       body_part(HAND));
                                 setmangry(mtmp, FALSE);
                             }
                         }
