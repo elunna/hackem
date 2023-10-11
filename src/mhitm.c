@@ -2237,8 +2237,15 @@ post_stone:
             }
             if (!rn2(3) && (!unaffected || V2V)) {
                 tmp = d(2, 6);
-                if (DEADMONSTER(mdef) ||  mon_losexp(mdef, tmp, FALSE))
-                    tmp = mdef->mhp;
+                mon_losexp(mdef, tmp, FALSE);
+                if (DEADMONSTER(mdef)) {
+                    tmp = 0;
+                    if (DEADMONSTER(mdef))
+                        res |= MM_DEF_DIED; /* not lifesaved */
+                    if (!grow_up(magr, mdef))
+                        res |= MM_AGR_DIED;
+                    return res;
+                }
             }
         }
         break;

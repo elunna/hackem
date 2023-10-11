@@ -4026,7 +4026,7 @@ void
 spore_dies(mon)
 struct monst *mon;
 {
-    if (mon->mhp <= 0) {
+    if (DEADMONSTER(mon) || DRAINEDMONSTER(mon)) {
         int sporetype;
         coord mm; 
         schar ltyp;
@@ -4124,7 +4124,6 @@ struct monst *mon;
             pline("Unknown spore type: (%d)", sporetype);
             break;
         }
-        
     }
 }
 
@@ -6505,7 +6504,7 @@ boolean yourfault;
     }
     
     if (DEADMONSTER(mon) || DRAINEDMONSTER(mon)) {
-        pline("%s dies!", Monnam(mon));
+        /*pline("%s dies!", Monnam(mon));*/
         if (yourfault)
             xkilled(mon, XKILL_NOMSG);
         else
