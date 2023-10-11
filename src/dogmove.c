@@ -1327,6 +1327,7 @@ boolean ranged;
     boolean vs_passive = (!ranged && (mtmp2->data == &mons[PM_GELATINOUS_CUBE]
                                    || mtmp2->data == &mons[PM_HEDGEHOG]
                                    || mtmp2->data == &mons[PM_MANTICORE]
+                                   || mtmp2->data == &mons[PM_ADHERER]
                                    || mtmp2->data == &mons[PM_GREEN_SLIME]) && rn2(10));
     boolean vs_disint = (!ranged 
             && (mtmp2->data == &mons[PM_BLACK_DRAGON]
@@ -1339,7 +1340,9 @@ boolean ranged;
     boolean vs_stoner = (!ranged && touch_petrifies(mtmp2->data) 
             && !(resists_ston(mtmp) || defended(mtmp, AD_STON)));
     boolean vs_dise = (!ranged 
-            && (mtmp2->data == &mons[PM_GRAY_FUNGUS] || mtmp2->data == &mons[PM_GRAY_MOLDIER]) 
+            && (mtmp2->data == &mons[PM_GRAY_FUNGUS]
+                || mtmp2->data == &mons[PM_SWAMP_FERN]
+                || mtmp2->data == &mons[PM_GRAY_MOLDIER]) 
             && !(resists_sick(mtmp) || defended(mtmp, AD_DISE)));
 
     return !(scared || bad_eye || vs_passive || vs_disint 
