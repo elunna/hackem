@@ -746,7 +746,9 @@ struct monst *mon;
         return 1;
     
     /* Greased cloaks let us pass through tight spots */
-    if (!Sokoban && uarmc && (uarmc->otyp == OILSKIN_CLOAK || uarmc->greased))
+    if (!Sokoban && uarmc 
+        && (uarmc->otyp == OILSKIN_CLOAK || uarmc->oprops & ITEM_OILSKIN
+            || uarmc->greased))
         return 0;
     
     /* lugging too much junk? */
