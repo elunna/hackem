@@ -265,7 +265,7 @@ struct obj *obj; /* quest artifact; possibly null if carrying Amulet */
         /* leader IDs the real amulet but ignores any fakes */
         if ((otmp = carrying(AMULET_OF_YENDOR)) != 0)
             fully_identify_obj(otmp);
-    } else if (u.ualign.abuse != 0) { /* player has abused their alignment */
+    } else if (u.ualign.abuse <= -13) { /* player has abused their alignment */
         /* the more often the player abuses their alignment,
            the greater the odds of their quest leader demanding
            that they forfeit the quest artifact */
@@ -370,7 +370,7 @@ struct obj *obj; /* quest artifact; possibly null if carrying Amulet */
         /* Since the player is punished for abusing alignment, let's reward them
          * for "walking the line", with a permanent +1 luck bonus (credit to
          * mobileuser for this idea). */
-        if (!alignabuse && u.ualign.abuse >= -13) {
+        if (!alignabuse && u.ualign.abuse > -13) {
             flags.quest_boon = TRUE;
             change_luck(10);
             pline("Before departing, you hear some strange whispering. You feel your luck changing!");
