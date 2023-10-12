@@ -1793,7 +1793,10 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
     } break;
     case SCR_CONFUSE_MONSTER:
-    case SPE_CONFUSE_MONSTER:
+    case SPE_CONFUSE_MONSTER: {
+        /* scroll vs spell */
+        int incr = (sobj->oclass == SCROLL_CLASS) ? 3 : 0;
+        
         /* Unfortunate kludge for vampiric race here
          * TODO: Find the root cause of this */
         if ((youmonst.data->mlet != S_HUMAN && !Race_if(PM_VAMPIRIC)) || scursed) {
@@ -1818,7 +1821,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                      Blind ? "" : " begin to glow",
                      Blind ? (const char *) "tingle" : hcolor(NH_RED),
                      u.umconf ? " even more" : "");
-                u.umconf++;
+                incr += rnd(2);
             } else {
                 if (Blind)
                     Your("%s tingle %s sharply.", makeplural(body_part(HAND)),
@@ -1827,14 +1830,16 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     Your("%s glow a%s brilliant %s.",
                          makeplural(body_part(HAND)),
                          u.umconf ? "n even more" : "", hcolor(NH_RED));
+                incr += rn1(8, 2);
                 /* after a while, repeated uses become less effective */
                 if (u.umconf >= 40)
-                    u.umconf++;
-                else
-                    u.umconf += rn1(8, 2);
+                    incr = 1;
+                    
             }
+            u.umconf += (unsigned) incr;
         }
         break;
+    }
     case SCR_SCARE_MONSTER:
     case SPE_CAUSE_FEAR: {
         register int ct = 0;
