@@ -3100,11 +3100,8 @@ struct attack *mattk;
         break;
     case AD_BLND:
         if (can_blnd(mtmp, &youmonst, mattk->aatyp, (struct obj *) 0)) {
-            if (defends(AD_BLND, uarm)) {
-                Your("armor reflects the light!");
-            } else if (!Blind) {
+            if (!Blind) {
                 long was_blinded = Blinded;
-
                 if (!Blinded)
                     You_cant("see in here!");
                 make_blinded((long) tmp, FALSE);

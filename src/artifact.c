@@ -819,6 +819,8 @@ struct obj *otmp;
             return (otyp == YELLOW_DRAGON_SCALES);
         case AD_STUN: /* stun resistance */
             return (otyp == SHIMMERING_DRAGON_SCALES);
+        case AD_BLND: /* Blinding light resistance */
+            return (otyp == SILVER_DRAGON_SCALES);
         default:
             break;
         }
