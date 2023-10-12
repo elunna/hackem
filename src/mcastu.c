@@ -1389,11 +1389,9 @@ int spellnum;
         if ((!mtmp->iswiz || context.no_of_wizards > 1)
             && (spellnum == MGC_CLONE_WIZ || spellnum == MGC_CALL_UNDEAD))
             return TRUE;
-        /* only lichs can cast call undead */
-        /* [BarclayII] so can necromancers */
+        /* only lichs and necromancers can cast call undead */
         if (spellnum == MGC_CALL_UNDEAD
-            && mtmp->data->mlet != S_LICH 
-            && mtmp->data != &mons[PM_NECROMANCER])
+            && mtmp->data->mlet != S_LICH && mtmp->data != &mons[PM_NECROMANCER])
             return TRUE;
         /* pools can only be created in certain locations and then only
         * rarely unless you're carrying the amulet.
@@ -1523,6 +1521,10 @@ int spellnum;
                  || spellnum == MGC_SUMMON_MONS
                  || spellnum == MGC_CALL_UNDEAD)
             || (!mtmp->iswiz && spellnum == MGC_CLONE_WIZ)))
+            return TRUE;
+        /* only lichs and necromancers can cast call undead */
+        if (spellnum == MGC_CALL_UNDEAD 
+            && mtmp->data->mlet != S_LICH && mtmp->data != &mons[PM_NECROMANCER])
             return TRUE;
         if ((!mtmp->iswiz || context.no_of_wizards > 1)
             && spellnum == MGC_CLONE_WIZ)
