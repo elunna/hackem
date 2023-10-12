@@ -1477,7 +1477,6 @@ struct obj *obj;
                   || wielding_artifact(ART_BALMUNG)
                   || wielding_artifact(ART_HELLFIRE)
                   || wearing_artifact(ART_MITRE_OF_HOLINESS)
-                  || carrying_arti(ART_CANDLE_OF_ETERNAL_FLAME)
                   || (u.twoweap && uswapwep->oprops & ITEM_FIRE)
                   || (uwep && uwep->oprops & ITEM_FIRE)) ? 25 : 5;
         break;
@@ -1487,6 +1486,7 @@ struct obj *obj;
                   || wielding_artifact(ART_FROST_BRAND)
                   || wielding_artifact(ART_DEEP_FREEZE)
                   || carrying_arti(ART_HAND_OF_VECNA)
+                  || carrying_arti(ART_CANDLE_OF_ETERNAL_FLAME)
                   || (u.twoweap && uswapwep->oprops & ITEM_FROST)
                   || (uwep && uwep->oprops & ITEM_FROST)) ? 25 : 5;
         break;
