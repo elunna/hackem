@@ -1215,12 +1215,12 @@ int tech_no;
         case T_TUMBLE:
             res = tech_tumble();
             if (res)
-                t_timeout = rn1(10, 5);
+                t_timeout = rn1(50, 25);
             break;
         case T_SUNDER:
             res = tech_sunder();
             if (res)
-                t_timeout = rn1(10, 5);
+                t_timeout = rn1(50, 25);
             break;
         case T_BLOOD_MAGIC:
             res = tech_bloodmagic();
@@ -3930,14 +3930,16 @@ tech_sunder()
             Sprintf(killer.name, "sundering %s with an unarmed strike",
                     killer_xname(otmp));
             instapetrify(killer.name);
-         } else if (!uwep) {
-            uwep->material = STONE;
          }
-         update_inventory();
          context.botl = 1;
     }
     setmangry(mtmp, TRUE);
     m_useup(mtmp, otmp);
+    if (rn2(3)) {
+        pline("%s is %s!", Monnam(mtmp), 
+              rn2(2) ? "shocked" : "bewildered");
+        mtmp->mconf = 1;
+    }
     return 1;
 }
 

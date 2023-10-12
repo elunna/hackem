@@ -4228,9 +4228,7 @@ struct obj *no_wish;
               && !strstri(bp, "hand grenade ")
               && !strstri(bp, "stake ")
               && !strstri(bp, "eye ")
-              && !strstri(bp, "hand ")
-              /* && !strstri(bp, "master sword") */
-              && !strstri(bp, "sword of kas")) {
+              && !strstri(bp, "hand ")) {
             l = 0, of = 4;
 
             if ((p = strstri(bp, "tin of ")) != 0) {
@@ -4445,6 +4443,7 @@ struct obj *no_wish;
         && strncmpi(bp, "ninja-to", 8)      /* not the "ninja" rank */
         && strncmpi(bp, "master key", 10)   /* not the "master" rank */
         && strncmpi(bp, "master sword", 12)   /* not the "master" rank */
+        && strncmpi(bp, "pit viper", 9)   /* not the "pit" trap */
         && strncmpi(bp, "rogues gloves", 13)   /* not the "master" rank */
         && strncmpi(bp, "magenta", 7)       /* not the "mage" rank */
         && strncmpi(bp, "Bat from Hell", 13)
