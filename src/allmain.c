@@ -301,19 +301,22 @@ boolean resuming;
                      * of a harder game later.
                      */
                     monclock = MIN_MONGEN_RATE;
-
+                    /* Don't let wishes influence the fuzzer */
                     if (!iflags.debug_fuzzer) {
-                        /* Don't let wishes influence the fuzzer */
                         past_clock = moves - timeout_start;
                         if (past_clock > 0)
                             monclock = MIN_MONGEN_RATE * TURN_THRESHOLD / (past_clock + TURN_THRESHOLD);
-                        if (monclock > MIN_MONGEN_RATE / 4 && (u.uconduct.wishes >= 2L))
+                        if (monclock > MIN_MONGEN_RATE / 2 && (u.uconduct.wishes >= 2L))
+                            monclock = MIN_MONGEN_RATE / 2;
+                        if (monclock > MIN_MONGEN_RATE / 3 && (u.uconduct.wishes >= 3L))
+                            monclock = MIN_MONGEN_RATE / 3;
+                        if (monclock > MIN_MONGEN_RATE / 4 && (u.uconduct.wishes >= 4L))
                             monclock = MIN_MONGEN_RATE / 4;
-                        if (monclock > MIN_MONGEN_RATE / 6 && (u.uconduct.wishes >= 3L))
+                        if (monclock > MIN_MONGEN_RATE / 5 && (u.uconduct.wishes >= 5L))
+                            monclock = MIN_MONGEN_RATE / 5;
+                        if (monclock > MIN_MONGEN_RATE / 6 && (u.uconduct.wishes >= 6L))
                             monclock = MIN_MONGEN_RATE / 6;
-                        if (monclock > MIN_MONGEN_RATE / 8 && (u.uconduct.wishes >= 4L))
-                            monclock = MIN_MONGEN_RATE / 8;
-                        if (monclock > MIN_MONGEN_RATE / 8 && (u.uconduct.wishes >= 5L))
+                        if (u.uconduct.wishes >= 7L)
                             monclock = MAX_MONGEN_RATE;
                     }
 		            /* make sure we don't fall off the bottom */

@@ -1683,7 +1683,7 @@ level_difficulty()
     }
     /* Wishes increase difficulty (unless fuzzing) */
     else if (u.uconduct.wishes > 1 && !iflags.debug_fuzzer) {
-        int bump = (u.uconduct.wishes - 1) * 4;
+        int bump = (u.uconduct.wishes - 1) * 2;
         res += (bump > 15) ? 15 : bump;
     }
     return (xchar) res;
