@@ -2353,7 +2353,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (!already_known)
             (void) learnscrolltyp(SCR_KNOWLEDGE);
         break;
-        /* TODO: Should this return 1 since it is used up here? */
     }
     case SCR_IDENTIFY:
         /* known = TRUE; -- handled inline here */
@@ -3444,10 +3443,6 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
             
             if (!(ptr->geno & G_GENO)) {
                 if (!Deaf) {
-                    /* FIXME: unconditional "caverns" will be silly in some
-                     * circumstances.  Who's speaking?  Divine pronouncements
-                     * aren't supposed to be hampered by deafness....
-                     */
                     if (flags.verbose)
                         pline("A thunderous voice booms through the caverns:");
                     verbalize("No, mortal!  That will not be done.");

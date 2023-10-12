@@ -753,7 +753,7 @@ register struct monst *magr, *mdef;
                 break;
             }
             if (is_fern_spore(mdef->data)) {
-                /* --hackem: Fix to prevent nasty placement bugs */
+                /* Fix to prevent nasty placement bugs */
                 strike = 0;
                 break;
             }
@@ -1115,7 +1115,7 @@ struct monst *magr, *mdef;
         || (r_data(magr)->msize < r_data(mdef)->msize && !is_whirly(magr->data)))
         return FALSE;
 
-    /* can't swallow trapped monsters. TODO: could do some? */
+    /* can't swallow trapped monsters. */
     if (mdef->mtrapped)
         return FALSE;
 

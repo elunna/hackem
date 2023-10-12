@@ -1890,12 +1890,10 @@ doblitz()
         }
         if (u.dz == -1) {
              *(bp) = '<';
-             /* TODO: Why do these have to be reversed? */
              strcat(cmdlist, "<"); 
              bp++;
         } else if (u.dz == 1) {
              *(bp) = '>';
-             /* TODO: Why do these have to be reversed? */
              strcat(cmdlist, ">");
              bp++;
         }
@@ -2346,8 +2344,6 @@ blitz_spirit_bomb()
         pline("But it fizzles out.");
         u.uen = 0;
     }
-
-    /* hackem: Boosted damage potential */
     num = 10 + d(5, ((techlev(tech_no) / 2) + 1));
     num = (u.uen < num ? u.uen : num);
 
@@ -2367,7 +2363,7 @@ blitz_spirit_bomb()
         sx += u.dx;
         sy += u.dy;
     }
-    num = spell_damage_bonus(num); /* hackem bonus */
+    num = spell_damage_bonus(num);
                                    
     /* Magical Explosion */
     explode(sx, sy, 10, (d(3, 6) + num), SPIRIT_CLASS, EXPL_MAGICAL);
@@ -2376,13 +2372,10 @@ blitz_spirit_bomb()
 
 static int
 tech_spirittempest()
-
 {
     int num, failcheck, blasts = (u.ulevel > 20) ? (3 + rn2(4)) : 1;
     int tech_no = get_tech_no(T_SPIRIT_TEMPEST);
     boolean didblast = FALSE;
-    
-    /* TODO: Restrictions: Must not be impaired */
     
     if (Hallucination && flags.female)
         pline("There is a tempest in me!");
@@ -2395,14 +2388,13 @@ tech_spirittempest()
         return 0;
     }
     
-    /* hackem: Boosted damage potential */
     num = 20 + d(10, (techlev(tech_no) / 3) + 1);
     
     /* Bonus damage can't go over our available energy */
     num = (u.uen < num ? u.uen : num);
     
     u.uen -= num;
-    num = spell_damage_bonus(num); /* hackem bonus */
+    num = spell_damage_bonus(num);
    
     /* Throwback to the sigil of tempest in SLASH'EM. 
      * Becomes available when we are XP level 21.

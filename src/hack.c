@@ -1798,8 +1798,6 @@ domove_core()
             You_cant("cut a web with %s!", ansimpleoname(uwep));
             return;
         }
-        /* TODO: if failing to cut the web is going to be a thing, it should
-         * really be an occupation... */
         else if (rn2(20) > ACURR(A_DEX)) {
             You("hack ineffectually at some of the strands.");
             return;
@@ -1981,7 +1979,7 @@ do_nothing:
                                && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES)
                            || HWwalking)
                           && !u.usteed);
-        /* FIXME: This can be exploited to identify the ring of fire resistance
+        /* This can be exploited to identify the ring of fire resistance
          * if the player is wearing it unidentified and has identified
          * fireproof boots of water walking and is walking over lava. However,
          * this is such a marginal case that it may not be worth fixing. */

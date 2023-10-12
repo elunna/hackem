@@ -149,7 +149,6 @@ struct attack *mattk;
 
 /* monster missed you */
 /* verbose miss descriptions taken from Slash'EM */
-/* slightly edited for HackEM */
 STATIC_OVL void
 missmu(mtmp, target, roll, mattk)
 struct monst *mtmp;
@@ -3083,8 +3082,9 @@ struct attack *mattk;
             if (mtmp->data == &mons[PM_SHOGGOTH] || mtmp->data == &mons[PM_GIANT_SHOGGOTH]) {
                 for (otmp2 = invent; otmp2; otmp2 = otmp2->nobj) {
                     if (is_corrodeable(otmp2)) {
-                        /* --hackem: I'm disabling the EF_DESTROY flag because it requires
-                     * a more complicated loop and it's a bit unfair. */
+                        /* Disabling the EF_DESTROY flag because it requires
+                         * a more complicated loop and shoggoths are already 
+                         * nasty enough. */
                         erode_obj(otmp2, xname(otmp2), ERODE_CORRODE, EF_VERBOSE);
                         break;
                     }
@@ -3556,7 +3556,6 @@ struct attack *mattk;
         }
 
         switch (fate) {
-            /* TODO: Reorganize, make sure this attack wakes up sleeping players */
         case 10:
         case 11:
         case 12: /* Cause confusion */

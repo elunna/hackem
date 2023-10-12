@@ -1821,7 +1821,6 @@ register struct obj *obj;
         if (newnap < oldnap || oldnap == 0L)
             HSleepy = (HSleepy & ~TIMEOUT) | newnap;
         break;
-        /* hackem: copied from Amulet of Restful Sleep */
     }
     case RIN_STEALTH:
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
@@ -3351,7 +3350,7 @@ find_ac()
      */
     else if (Role_if(PM_MONK) && !uwep
           && (!uarm || is_robe(uarm)) && !uarms) {
-        /* hackemslashem: cap off the Monk's ac bonus to -10 */
+        /* Cap off the Monk's ac bonus to -10 */
         if (u.ulevel > 18) 
             uac -= 10;
         else

@@ -479,7 +479,6 @@ register struct obj *obj;
     }
 
     setworn(obj, W_SWAPWEP);
-    /* TODO: Is u.twoweap ever true after this point? */
 
     if (u.twoweap && uswapwep == obj && artifact_light(uswapwep)
         && !uswapwep->lamplit) {

@@ -1206,13 +1206,11 @@ struct monst *shk;
 
 
 
-    /* --hackem: Instead of offering basic/premier identify services,
-     * general stores will have a random selection of 2-5 item classes
-     * they can identify (at premier level). 
+    /* Instead of offering basic/premier identify services, general
+     * stores will have a random selection of item classes they can 
+     * identify (at premier level). 
      */
     if (shk_class_match(RANDOM_CLASS, shk) == SHK_GENERAL) {
-        /* General stores run through a loop, each time there is a 1 in 10 
-         * chance of adding 1 extra. */
         while (!rn2(6)) {
             switch (rn2(10)) {
             case 0: maybe_add_svc(shk, SHK_ID_WEAPON); break; 

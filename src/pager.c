@@ -1334,7 +1334,6 @@ char *usr_text;
             OBJPUTSTR("Increases carrying capacity (hiking boots");
         else if (objdescr_is(&dummy, "jungle boots"))
             OBJPUTSTR("Reduces the severity of leg wounds (jungle boots)");
-        /* TODO: Add buckled boots */
         else if (objdescr_is(&dummy, "old gloves"))
             OBJPUTSTR("Erosion resistant (old gloves)");
         else if (objdescr_is(&dummy, "padded gloves"))

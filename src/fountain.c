@@ -357,9 +357,7 @@ result:
     case 18:
         if (!is_metallic(obj))
             goto lava;
-
-        /* TODO: perhaps our hero needs to wield some sort of tool to
-           successfully reforge an object? */
+        
         if (is_metallic(obj) && Luck >= 0) {
             if (greatest_erosion(obj) > 0) {
                 if (!Blind)
@@ -426,12 +424,7 @@ lava:
 }
 
 /* forging recipes - first object is the end result
-   of combining objects two and three
-   TODO: could easily allow all sorts of magical
-   objects (or even artifacts) to be forged, but that
-   feels overpowered without needing some other
-   component added to the mix, or maybe have the
-   forge be used up, or both */
+   of combining objects two and three */
 const struct ForgeRecipe fusions[] = {
     /* ranged weapons */
     { DAGGER,               ARROW, KNIFE,               2, 1 },

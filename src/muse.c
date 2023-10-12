@@ -1606,7 +1606,6 @@ struct monst *mtmp;
     /*NOTREACHED*/
     return 0;
 }
-/* --hackem: Starting from 50 so we don't conflict with the defensive items */
 
 #define MUSE_WAN_DEATH          50
 #define MUSE_WAN_SLEEP          51

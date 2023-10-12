@@ -674,8 +674,6 @@ int how;
     if (u.ugrave_arise >= LOW_PM
         && (mvitals[u.ugrave_arise].mvflags & G_GENOD))
         u.ugrave_arise = NON_PM;
-
-    /* --hackem: Not sure if this goes here */
     else if (mtmp->mtraitor)
         done(BETRAYED);
 
@@ -1654,7 +1652,6 @@ int how;
         }
     }
 
-    /* TODO: Add the skeletal pirate here (from splice) */
     if (u.ugrave_arise >= LOW_PM && u.ugrave_arise != PM_GREEN_SLIME
         && u.ugrave_arise != PM_SKELETAL_PIRATE && !done_stopprint) {
         /* give this feedback even if bones aren't going to be created,

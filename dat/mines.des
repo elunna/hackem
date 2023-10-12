@@ -1317,7 +1317,7 @@ MONSTER: ('h', "dwarf thief"), random
 MONSTER: (';', "giant eel"), (29,7), hostile
 
 # White dragon is a bit too sadistic...let's do a bugbear chieftain instead
-# (--hackem: We don't have bugbear chieftains... baby white dragon instead?)
+# (hackemslashem: We don't have bugbear chieftains... baby white dragon instead?)
 MONSTER: ('D', "baby white dragon"), (29,2), hostile
 
 NOMAP

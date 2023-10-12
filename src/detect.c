@@ -1023,7 +1023,6 @@ int mclass;                /* monster class, 0 for all */
     return 0;
 }
 
-/* TODO: other magical types of creature? */
 #define MAGICMONSTER(mon) (attacktype(mon->data, AT_MAGC))
 
 /*

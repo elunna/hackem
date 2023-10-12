@@ -261,7 +261,6 @@ AUTOPICKUP_EXCEPTION="> tin.*troll"
 
 
 # #storytelling items
-# todo: The cheap stuff is covered in the junk section
 #AUTOPICKUP_EXCEPTION=">.*cheap plastic imitation of the Amulet of Yendor"
 #AUTOPICKUP_EXCEPTION=">.*cheap plastic imitation of the Amulet of Yendor named ?*"
 AUTOPICKUP_EXCEPTION=">.*Amulet of Yendor"
@@ -1193,7 +1192,6 @@ MSGTYPE=hide ".* is fooled by water reflections and misses!"
 
 #	-End-Game Spam
 # If you have conflict, these messages will overrun the history...
-# TODO: Find more spam to cut.
 #MSGTYPE=hide ".*sears the.*"
 MSGTYPE=hide "The .* touches the .*"
 MSGTYPE=hide "The .* (butts|squeezes|stings|swallows) (the|it)"
@@ -1456,16 +1454,6 @@ OPTIONS=tombstone
 # FIQ: https://www.hardfought.org/userdata/F/FIQ/nethack/FIQ.nhrc
 # 
 # There are many others I copied/stole settings from over the years, can't remember them all but thanks!
-
-
-
-# Todo:
-# TODO: Settings for death - scores/top ten etc
-# TODO: Settings for mouse usage
-# TODO: Test in Windows
-# TODO: Test TTY settings
-# TODO: Test in different terminals
-
 
 # Version history
 # 1.0: ~Beginnig of 2022

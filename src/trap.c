@@ -517,9 +517,6 @@ int x, y, typ;
                 if (isok(lx, ly) && IS_STWALL(levl[lx][ly].typ)) {
                     ttmp->launch.x = lx;
                     ttmp->launch.y = ly;
-                    /* --hackem: Moved ray generation to where the trap is
-                     * triggered so we can have a random beam type on every
-                     * triggering. */
                     ok = 1;
                 }
             }
@@ -6785,8 +6782,6 @@ maybe_finish_sokoban()
                things like breaking boulders or jumping will no longer
                be given, and restrictions on diagonal moves are lifted */
             Sokoban = 0; /* clear level.flags.sokoban_rules */
-            /* TODO: give some feedback about solving the sokoban puzzle
-               (perhaps say "congratulations" in Japanese?) */
         }
     }
 }

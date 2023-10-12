@@ -301,7 +301,6 @@ aligntyp alignment; /* target alignment, or A_NONE */
             && (a->race == NON_PM || !race_hostile(&mons[a->race]))
             && !Hate_material(artifact_material(m))
             && !(is_cloak(otmp) && !can_wear_arm(otmp, FALSE))
-            /* TODO: Do this better. */
             && !(is_boots(otmp) && (Race_if(PM_CENTAUR) || Race_if(PM_TORTLE)))
             /* TODO: Check any bane */
             && !(Race_if(PM_GIANT) && (a->mtype & MH_GIANT))
@@ -1204,7 +1203,7 @@ struct monst *mon;
     }
     
     /* can pick it up unless you're totally non-synch'd with the artifact */
-    /* --hackem: Elemental mages have special restrictions */
+    /* Elemental mages have special restrictions */
     if ((badclass && badalign && self_willed)
         || (yours && forbidden_artifact(obj))) {
 
@@ -2593,7 +2592,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 } else
                     return FALSE;
                 return TRUE;
-            case ART_ELFRIST: /* --hackem: Blatant copy-paste of Orcrist */
+            case ART_ELFRIST:
                 if (youattack && racial_elf(mdef) && j) {
                     You("slice open %s throat!", s_suffix(mon_nam(mdef)));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
@@ -2729,7 +2728,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* We really want "on a natural 20" but Nethack does it in */
     /* reverse from AD&D. */
     if (spec_ability(otmp, SPFX_BEHEAD)) {
-        /* --hackem: Sexy 15% beheading chance (inspired by Slash'EM) */
+        /* 15% beheading chance */
         if (otmp->oartifact == ART_TSURUGI_OF_MURAMASA && dieroll < 4) {
             wepdesc = "The razor-sharp blade";
             /* not really beheading, but so close, why add another SPFX */
@@ -2778,7 +2777,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 otmp->dknown = TRUE;
                 return TRUE;
             }
-        /* --hackem: Sexy 10% beheading chance from Slash'EM */
+        /* 10% beheading chance from SLASH'EM */
         } else if (dieroll < 3 || (otmp->oartifact == ART_VORPAL_BLADE &&
                                    is_jabberwock(mdef->data))) {
             
@@ -3607,7 +3606,6 @@ struct obj *obj;
             mtmp->msleeping = 0;
             break;
         case SUMMON_WATER_ELEMENTAL:
-            /* --hackem: Added more variety for "stormy" pets here */
             switch (rnd(10)) {
             case 1: pm = &mons[PM_WATER_ELEMENTAL]; break;
             case 2: pm = &mons[PM_AIR_ELEMENTAL]; break;

@@ -106,16 +106,8 @@ static void FDECL(shk_smooth_charge, (int *, int, int));
  */
 
 static const char *angrytexts[] = { "quite upset", "ticked off", "furious" };
-
 static const char *hatesrace[] = { "scum", "vermin", "peasant", "scalawag",
                                    "wretch", "miscreant", "maggot", "lowlife" };
-#if 0 /* TODO: Not using these until we grok getobj */
-static const char wand_types[] = { WAND_CLASS, 0 };
-static const char tool_types[] = { TOOL_CLASS, 0 };
-static const char ring_types[] = { RING_CLASS, 0 };
-static const char spbook_types[] = { SPBOOK_CLASS, 0 };
-#endif
-
 static const char all_count[] = { ALLOW_COUNT, ALL_CLASSES, 0 };
 
 /*

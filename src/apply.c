@@ -2992,9 +2992,7 @@ set_whetstone(VOID_ARGS)
         return 1;
     }
 
-    /* --hackem: Removed artifact "resist" penalty 
-        (Most artifacts are fixed anyway)
-    */
+    /* No artifact "resist" penalty (Most artifacts are fixed anyway) */
     chance = 4 - (ows->blessed) + (ows->cursed*2);
 
     if (!rn2(chance) && (ows->otyp == WHETSTONE)) {
@@ -3040,9 +3038,8 @@ set_whetstone(VOID_ARGS)
             uncurse(otmp);
 
         } else if (ows->blessed && otmp->spe == 0) {
-            /* --hackem: If the weapon is otherwise fine and our whetstone is blessed, 
-                I'll boost it up to +1... But they have to pass another coin flip.
-                Leo Tolstoy: “The two most powerful warriors are patience and time.”
+            /* “The two most powerful warriors are patience and time.”
+             * --Leo Tolstoy
             */
             if (!rn2(1)) {
                 otmp->spe++;
@@ -3080,8 +3077,6 @@ struct obj *stone, *obj;
     int tmptime = (15 + (rnl(13) * 5)) * obj->quan;
     register struct obj *potion;
     boolean fail_use = TRUE;
-
-    /* --hackem: For allowing use with rust traps. */
     register struct trap *trap = t_at(u.ux, u.uy);
     boolean is_rusttrap = trap != 0 && trap->ttyp == RUST_TRAP;
 
@@ -3106,8 +3101,7 @@ struct obj *stone, *obj;
                && (!is_rusttrap)
                && !IS_TOILET(levl[u.ux][u.uy].typ)
                && !IS_SINK(levl[u.ux][u.uy].typ)) {
-        /* --hackem: We test if we are NOT on a water source above.
-             A player can use a potion of water if on hand. */
+        /* A player can use a potion of water if on hand. */
         if (carrying(POT_WATER)) {
             char buf[QBUFSZ];
             Sprintf(buf, "wet the %s with", xname(stone));

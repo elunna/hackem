@@ -566,10 +566,6 @@ struct obj *otmp;
             boolean already_max = (mtmp->mhp == mtmp->mhpmax);
             wake = FALSE; /* wakeup() makes the target angry */
             mtmp->mhp += amt;
-            /* [ALI] FIXME: Makes no sense that cursed wands are more
-            * effective than uncursed wands. This behaviour dates
-            * right back to Slash v3 (and probably to v1).
-             */
             if (mtmp->mhp > mtmp->mhpmax) {
                 if (otmp->oclass == WAND_CLASS)
                     mtmp->mhpmax++;
@@ -7490,7 +7486,7 @@ register struct obj *obj;
 {
     struct monst *mtmp;
     int ct = 0;
-    /* --hackem: Copied from read.c SPE_CAUSE_FEAR effect
+    /* Copied from read.c SPE_CAUSE_FEAR effect
     * It might be possible to avoid code duplication by wiring it
     * differently, but it may be of benefit to have a separate
     * method here if we want to fine tune it. */

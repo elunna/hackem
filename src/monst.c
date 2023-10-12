@@ -4336,8 +4336,6 @@ struct permonst _mons2[] = {
         M1_HUMANOID | M1_OMNIVORE,
         M2_STRONG | M2_ROCKTHROW | M2_NASTY | M2_COLLECT | M2_JEWELS | M2_FLANK,
         M3_INFRAVISIBLE | M3_INFRAVISION, 0, 0, 27, CLR_MAGENTA),
-    /* --hackem: Could not find difficulty for Father Dagon -
-     *           temporarily same as level. */
     MON("Father Dagon", S_GIANT,                                /* Slash'EM */
         LVL(100, 15, -10, 90, -10), (G_UNIQ | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 8, 10), 
@@ -4353,8 +4351,6 @@ struct permonst _mons2[] = {
             | M2_PNAME | M2_MALE,
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR | M3_NOTAME,
         0, 0, 100, CLR_GREEN),
-      /* --hackem: Could not find difficulty for Mother Hydra -
-       *           temporarily same as level. */
     MON("Mother Hydra", S_GIANT,                                /* Slash'EM */
         LVL(102, 18, -12, 90, -10), (G_UNIQ | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 8, 12), 

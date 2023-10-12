@@ -592,7 +592,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
      */
 
  /* For now HackEM does not have any forged artifacts. This one from
-       * EvilHack will serve as a template for the future. */
+  * EvilHack will serve as a template for the future. */
 #if 0
     /* The Sword of Annihilation can only be created by forging the
        artifacts Fire Brand and Frost Brand together. Their combined
@@ -783,7 +783,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       NO_ATTK, DFNS(AD_MAGM), CARY(AD_DISE), 0, 
       A_CHAOTIC, PM_BARBARIAN, NON_PM, 5000L, NO_COLOR, GEMSTONE),
 
-#if 0 /* --hackem: Disabled */
+#if 0
     /* Convict role quest artifact. Provides magic resistance when carried,
      * invoke to phase through walls like a xorn.
      */

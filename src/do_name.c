@@ -1204,9 +1204,6 @@ do_mname()
      *
      * Don't say the name is being rejected if it happens to match
      * the existing name.
-     *
-     * TODO: should have an alternate message when the attempt is to
-     * remove existing name without assigning a new one.
      */
     if ((mtmp->data->geno & G_UNIQ) && !mtmp->ispriest) {
         if (!alreadynamed(mtmp, monnambuf, buf))

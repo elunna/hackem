@@ -1222,7 +1222,6 @@ register struct obj *otmp;
             }
             HTelepat = 0;
         } else if (otmp->blessed) {
-            /* --hackem: Granting full telepathy is too good, nerfed from SlashEM */
             mod = "more ";
             incr_itimeout(&HTelepat, rn1(500, 500));
         } else {
@@ -4051,7 +4050,6 @@ int *res;
 
         if (carried(obj)) {
             freeinv(obj);
-            /* TODO: Use hold_another_object here */
             if (inv_cnt(FALSE) >= 52) {
                 sellobj_state(SELL_DONTSELL);
                 dropy(obj);
@@ -4358,11 +4356,9 @@ obj2upgrade(int otyp)
     case JACKET: return LIGHT_ARMOR;
 
     /* robes */
-    /* TODO: Switch to ROBE<->GREAT_ROBE */
     case ROBE: return LARGE_ROBE;
     case LARGE_ROBE: return ROBE;
     
-    /* TODO: Make circular when the above change is made */
     case ROBE_OF_WEAKNESS: return ROBE_OF_POWER;
     case ROBE_OF_POWER: return ROBE_OF_PROTECTION;
     case ROBE_OF_PROTECTION: return ROBE_OF_WEAKNESS;

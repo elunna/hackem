@@ -1946,7 +1946,6 @@ struct obj *otmp;
                 make_sick(sick_time, corpse_xname(otmp, "rotted", CXN_NORMAL),
                         TRUE, SICK_VOMITABLE);
 
-                /* --hackem: Rot worms are always rotted */
                 if (mnum != PM_ROT_WORM)
                     pline("(It must have died too long ago to be safe to eat.)");
 
