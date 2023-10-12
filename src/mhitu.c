@@ -1633,7 +1633,7 @@ register struct attack *mattk;
 
                 /* Stakes vs vampires */
                 if (otmp && otmp->otyp == STAKE && is_vampire(youmonst.data)) {
-                    if (!rn2(5)) {
+                    if (!rn2(20)) {
                         pline("%s plunges the stake into your heart.", Monnam(mtmp));
                         killer.format = NO_KILLER_PREFIX;
                         Sprintf(killer.name, "staked by %s",
