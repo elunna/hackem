@@ -2448,14 +2448,24 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
 
         if (confused) {
-            pline("%s with a fluorescent blue light!", Yobjnam2(otmp, "glow"));
             if (scursed) {
+                pline("%s with a fluorescent red light!", Yobjnam2(otmp, "glow"));
                 otmp->oprops = 0;
                 otmp->oprops_known = 0;
-            } else if (sblessed || otmp->oprops) {
+            }
+            /* Maybe change or add a property. Depends on luck.
+             * (This matches the behavior for polymorphing objects with properties)
+             * The percent is chance of success:
+             *  LUCK:    −11    −8   −5    −2      0     +2     +5     +8    +11
+             * 	SUCCESS: 0.3%  0.4%	0.4%  0.4%  14.3%  28.2%  42.1%	 56.1%  70.0%
+             */
+            else if ((sblessed || otmp->oprops) && rnl(7) == 0) {
+                pline("%s with a fluorescent blue light!", Yobjnam2(otmp, "glow"));
                 otmp->oprops = 0;
                 otmp->oprops_known = 0;
                 create_oprop(otmp, TRUE);
+            } else {
+                pline1(nothing_happens);
             }
         } else if (scursed) {
             pline("%s with a sickly green light!", Yobjnam2(otmp, "glow"));

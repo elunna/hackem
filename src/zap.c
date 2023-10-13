@@ -1945,8 +1945,8 @@ int id;
 
     /* Maybe copy properties over. Blessed object depends on 
      * luck, the percent is chance of success:
-     *   −11      −8      −5      −2       0      +2      +5      +8     +11
-     * 	0.3%	0.4%	0.4%	0.4%	14.3%	28.2%	42.1%	56.1%	70.0%
+     *  LUCK:    −11    −8   −5    −2      0     +2     +5     +8    +11
+     * 	SUCCESS: 0.3%  0.4%	0.4%  0.4%  14.3%  28.2%  42.1%	 56.1%  70.0%
      * 
      * A cursed object always has it's properties wiped.
      * An uncursed object has a 5% chance of property transfer.
