@@ -655,8 +655,10 @@ int dieroll;
         if (flags.verbose) {
             if (weapon->oartifact == ART_STORMBRINGER)
                 Your("bloodthirsty blade attacks!");
-            else
+            else {
                 Your("vicious weapon attacks!");
+                weapon->oprops_known |= ITEM_RAGE;
+            }
         }
     }
 
