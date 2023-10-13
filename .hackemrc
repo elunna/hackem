@@ -112,7 +112,7 @@ OPTIONS=ghoulname:Discord
 OPTIONS=birdname:Polly
 OPTIONS=monkeyname:Unga-Unga
 OPTIONS=wolfname:Apache
-OPTIONS=droidname:R2
+OPTIONS=droidname:Z2L1
 
 # The nameable fruit is always vegan
 # If you change this, update the MENUCOLOR below so it matches.
@@ -146,7 +146,7 @@ OPTIONS=news
 #OPTIONS=nopet
 
 # For debugging (non-devs can just turn this off)
-OPTIONS=sanity_check
+#OPTIONS=sanity_check
 
 # Show damage being dealt
 OPTIONS=showdmg
@@ -172,7 +172,7 @@ OPTIONS=autostairtravel
 # Enable kicking with ctrl+direction
 OPTIONS=ctrlkick
 
-# Travelling: Update map after every step? 
+# Traveling: Update map after every step? 
 #  (walk goes slow, run goes fast, teleport=instant)
 OPTIONS=runmode:teleport
 
@@ -201,7 +201,6 @@ OPTIONS=paranoid_confirmation:attack pray quit Remove swim wand-break
 # Autocomplete these #extended commands
 # These seem to mess up #chat
 # AUTOCOMPLETE=zap,pray,force,rub,twoweapon,chat
-
 # -----------------------------------------------------------------------------
 # D) Auto-pickup rules
 OPTIONS=autopickup
@@ -210,7 +209,7 @@ OPTIONS=autopickup
 #OPTIONS=pickup_types:$
 
 # Speedrunning pickup - Pick up most valuable items
-# Spellbooks are '+', I leave them out because they are heavy.
+# Spellbooks are '+', left out because they are heavy.
 OPTIONS=pickup_types:$?!="/
 
 # Pickup thrown daggers/arrows/etc.
@@ -256,7 +255,6 @@ AUTOPICKUP_EXCEPTION="<royal jelly"
 #AUTOPICKUP_EXCEPTION="<egg"
 #  Tins are usually worth it (unless they are troll meat)
 AUTOPICKUP_EXCEPTION="< tin"
-AUTOPICKUP_EXCEPTION="> tin opener"
 AUTOPICKUP_EXCEPTION="> tin.*troll"
 
 
@@ -291,6 +289,7 @@ AUTOPICKUP_EXCEPTION="<.*apron"
 AUTOPICKUP_EXCEPTION="<.*polished silver shield"
 # # blind
 
+# Helms
 AUTOPICKUP_EXCEPTION="<.*conical hat"
 #AUTOPICKUP_EXCEPTION="<.*hat"
 #AUTOPICKUP_EXCEPTION="<.*skull cap"
@@ -303,27 +302,35 @@ AUTOPICKUP_EXCEPTION="<.*fearsome helmet"
 AUTOPICKUP_EXCEPTION="<.*top hat helmet"
 AUTOPICKUP_EXCEPTION="<.*visored helmet"
 
+# Robes
 AUTOPICKUP_EXCEPTION="<.*red robe"
 AUTOPICKUP_EXCEPTION="<.*blue robe"
 AUTOPICKUP_EXCEPTION="<.*orange robe"
 AUTOPICKUP_EXCEPTION="<.*green robe"
+
+# Shirts
 AUTOPICKUP_EXCEPTION=">.*Hawaiian shirt"
 AUTOPICKUP_EXCEPTION=">.*T-shirt"
+AUTOPICKUP_EXCEPTION=">.*Striped shirt"
+AUTOPICKUP_EXCEPTION=">.*Ruffled shirt"
 
+# Cloaks
 AUTOPICKUP_EXCEPTION="<.*tattered cape"
 AUTOPICKUP_EXCEPTION="<.*opera cloak"
 AUTOPICKUP_EXCEPTION="<.*feathery cloak"
 AUTOPICKUP_EXCEPTION="<.*ornamental cope"
-AUTOPICKUP_EXCEPTION="<.*dirty rag" #SLASH'EM
+AUTOPICKUP_EXCEPTION="<.*dirty rag"
+AUTOPICKUP_EXCEPTION="<.*funeral shroud"
 AUTOPICKUP_EXCEPTION="<.*dusty cloak"
 
-
+# Shields
 AUTOPICKUP_EXCEPTION="<.*smooth shield"
 AUTOPICKUP_EXCEPTION="<.*polished shield"
 AUTOPICKUP_EXCEPTION="<.*shiny shield"
 AUTOPICKUP_EXCEPTION="<.*humming shield"
 AUTOPICKUP_EXCEPTION="<.*slippery shield"
 
+# Gloves
 AUTOPICKUP_EXCEPTION="<.*old gloves"
 AUTOPICKUP_EXCEPTION="<.*falconry gloves"
 AUTOPICKUP_EXCEPTION="<.*riding gloves"
@@ -333,7 +340,9 @@ AUTOPICKUP_EXCEPTION="<.*gardening gloves"
 AUTOPICKUP_EXCEPTION="<.*padded gloves"
 AUTOPICKUP_EXCEPTION="<.*black gloves"
 AUTOPICKUP_EXCEPTION="<.*fencing gloves"
+AUTOPICKUP_EXCEPTION="<.*white gloves"
 
+# Boots
 AUTOPICKUP_EXCEPTION="<.*combat boots"
 AUTOPICKUP_EXCEPTION="<.*jungle boots"
 AUTOPICKUP_EXCEPTION="<.*hiking boots"
@@ -347,13 +356,11 @@ AUTOPICKUP_EXCEPTION="<.*snow boots"
 # # The same logic applies as for unid'd armor.
 AUTOPICKUP_EXCEPTION="<.*wooden ring"
 AUTOPICKUP_EXCEPTION="<.*opal ring"
-AUTOPICKUP_EXCEPTION="<.*obsidian ring"
-AUTOPICKUP_EXCEPTION="<.*plain ring"
 AUTOPICKUP_EXCEPTION="<.*granite ring"
-AUTOPICKUP_EXCEPTION="<.*glass ring"
 AUTOPICKUP_EXCEPTION="<.*clay ring"
 AUTOPICKUP_EXCEPTION="<.*coral ring"
 AUTOPICKUP_EXCEPTION="<.*black onyx ring"
+AUTOPICKUP_EXCEPTION="<.*glittery"
 AUTOPICKUP_EXCEPTION="<.*moonstone ring"
 AUTOPICKUP_EXCEPTION="<.*tiger eye ring"
 AUTOPICKUP_EXCEPTION="<.*jade ring"
@@ -366,9 +373,7 @@ AUTOPICKUP_EXCEPTION="<.*diamond ring"
 AUTOPICKUP_EXCEPTION="<.*pearl ring"
 AUTOPICKUP_EXCEPTION="<.*iron ring"
 AUTOPICKUP_EXCEPTION="<.*brass ring"
-AUTOPICKUP_EXCEPTION="<.*crystal ring"
 AUTOPICKUP_EXCEPTION="<.*embossed ring"
-
 AUTOPICKUP_EXCEPTION="<.*copper ring"
 AUTOPICKUP_EXCEPTION="<.*twisted ring"
 AUTOPICKUP_EXCEPTION="<.*steel ring$"
@@ -380,7 +385,9 @@ AUTOPICKUP_EXCEPTION="<.*wire ring"
 AUTOPICKUP_EXCEPTION="<.*engagement ring"
 AUTOPICKUP_EXCEPTION="<.*ridged ring"
 AUTOPICKUP_EXCEPTION="<.*wedding ring"
+AUTOPICKUP_EXCEPTION="<.*neon ring"
 AUTOPICKUP_EXCEPTION="<.*shiny ring"
+
 
 AUTOPICKUP_EXCEPTION="<.*quartz ring"
 AUTOPICKUP_EXCEPTION="<.*porcelain ring"
@@ -392,16 +399,24 @@ AUTOPICKUP_EXCEPTION="<.*citrine ring"
 AUTOPICKUP_EXCEPTION="<.*amber ring"
 AUTOPICKUP_EXCEPTION="<.*jet ring"
 AUTOPICKUP_EXCEPTION="<.*chrysoberyl ring"
+AUTOPICKUP_EXCEPTION="<.*obsidian ring"
+AUTOPICKUP_EXCEPTION="<.*plain ring"
+AUTOPICKUP_EXCEPTION="<.*glass ring"
 AUTOPICKUP_EXCEPTION="<.*plastic ring"
+AUTOPICKUP_EXCEPTION="<.*crystal ring"
+
+
 
 # Identified rings
 AUTOPICKUP_EXCEPTION=">.*meat ring"
+
 AUTOPICKUP_EXCEPTION=">.*ring of adornment"
 AUTOPICKUP_EXCEPTION=">.*ring of gain constitution"
 AUTOPICKUP_EXCEPTION=">.*ring of gain strength"
 AUTOPICKUP_EXCEPTION=">.*ring of increase accuracy"
 AUTOPICKUP_EXCEPTION=">.*ring of increase damage"
 AUTOPICKUP_EXCEPTION=">.*ring of protection"
+AUTOPICKUP_EXCEPTION=">.*ring of carrying"
 AUTOPICKUP_EXCEPTION=">.*ring of regeneration"
 AUTOPICKUP_EXCEPTION=">.*ring of searching"
 AUTOPICKUP_EXCEPTION=">.*ring of stealth"
@@ -424,18 +439,16 @@ AUTOPICKUP_EXCEPTION=">.*ring of polymorph"
 AUTOPICKUP_EXCEPTION=">.*ring of polymorph control"
 AUTOPICKUP_EXCEPTION=">.*ring of invisibility"
 AUTOPICKUP_EXCEPTION=">.*ring of see invisible"
-AUTOPICKUP_EXCEPTION=">.*ring of protection from shape changers"
 AUTOPICKUP_EXCEPTION=">.*mood ring"
 AUTOPICKUP_EXCEPTION=">.*ring of sleeping"
+AUTOPICKUP_EXCEPTION=">.*ring of displacement"
+AUTOPICKUP_EXCEPTION=">.*ring of protection from shape changers"
 
 
 # Informal naming
 AUTOPICKUP_EXCEPTION=">.*ring called adornment"
 AUTOPICKUP_EXCEPTION=">.*ring called gain con*"
-AUTOPICKUP_EXCEPTION=">.*ring called gain dex*"
-AUTOPICKUP_EXCEPTION=">.*ring called gain int*"
 AUTOPICKUP_EXCEPTION=">.*ring called gain str*"
-AUTOPICKUP_EXCEPTION=">.*ring called gain wis*"
 AUTOPICKUP_EXCEPTION=">.*ring called (increase|) accuracy"
 AUTOPICKUP_EXCEPTION=">.*ring called (increase|) damage"
 AUTOPICKUP_EXCEPTION=">.*ring called protection"
@@ -451,7 +464,6 @@ AUTOPICKUP_EXCEPTION=">.*ring called warn*"
 AUTOPICKUP_EXCEPTION=">.*ring called poison*"
 AUTOPICKUP_EXCEPTION=">.*ring called fire*"
 AUTOPICKUP_EXCEPTION=">.*ring called cold*"
-AUTOPICKUP_EXCEPTION=">.*ring called psy*"
 AUTOPICKUP_EXCEPTION=">.*ring called sonic*"
 AUTOPICKUP_EXCEPTION=">.*ring called shock*"
 AUTOPICKUP_EXCEPTION=">.*ring called free*"
@@ -469,8 +481,8 @@ AUTOPICKUP_EXCEPTION=">.*ring called sleep*"
 
 # #unidentified amulets
 # #amulets show up properly when blind
-AUTOPICKUP_EXCEPTION="<.*warped amulet"
 AUTOPICKUP_EXCEPTION="<.*circular amulet"
+AUTOPICKUP_EXCEPTION="<.*warped amulet"
 AUTOPICKUP_EXCEPTION="<.*spherical amulet"
 AUTOPICKUP_EXCEPTION="<.*oval amulet"
 AUTOPICKUP_EXCEPTION="<.*pentagonal amulet"
@@ -485,6 +497,11 @@ AUTOPICKUP_EXCEPTION="<.*octagonal amulet"
 AUTOPICKUP_EXCEPTION="<.*oblong amulet"
 AUTOPICKUP_EXCEPTION="<.*perforated amulet"
 AUTOPICKUP_EXCEPTION="<.*cubical amulet"
+AUTOPICKUP_EXCEPTION="<.*convex amulet"
+AUTOPICKUP_EXCEPTION="<.*spiked amulet"
+AUTOPICKUP_EXCEPTION="<.*rectangular amulet"
+AUTOPICKUP_EXCEPTION="<.*elliptic amulet"
+
 
 # Identified amulets
 AUTOPICKUP_EXCEPTION=">.*amulet versus poison"
@@ -544,7 +561,7 @@ AUTOPICKUP_EXCEPTION="<.*wand (of|called) speed*"
 AUTOPICKUP_EXCEPTION=">.*wand of undead turning"
 AUTOPICKUP_EXCEPTION="<.*wand (of|called) drain*"
 AUTOPICKUP_EXCEPTION="<.*wand (of|called) poly*"
-AUTOPICKUP_EXCEPTION="<.*wand of cancellation"
+AUTOPICKUP_EXCEPTION="<.*wand of cancel*"
 AUTOPICKUP_EXCEPTION="<.*wand (of|called) tele*"
 AUTOPICKUP_EXCEPTION="<.*wand of create horde"
 AUTOPICKUP_EXCEPTION="<.*wand of extra healing"
@@ -554,15 +571,15 @@ AUTOPICKUP_EXCEPTION=">.*wand of probing"
 AUTOPICKUP_EXCEPTION="<.*wand of digging"
 AUTOPICKUP_EXCEPTION=">.*wand of magic missile"
 AUTOPICKUP_EXCEPTION="<.*wand of fire"
-# AUTOPICKUP_EXCEPTION=">.*wand of cold"
+AUTOPICKUP_EXCEPTION="<.*wand of cold"
 AUTOPICKUP_EXCEPTION=">.*wand of sleep"
 AUTOPICKUP_EXCEPTION="<.*wand (of|called) death"
 AUTOPICKUP_EXCEPTION="<.*wand of lightning"
 AUTOPICKUP_EXCEPTION="<.*wand of poison gas"
 AUTOPICKUP_EXCEPTION="<.*wand of corrosion"
-AUTOPICKUP_EXCEPTION="<.*wand of sonics"
-AUTOPICKUP_EXCEPTION="<.*wand of water"
-AUTOPICKUP_EXCEPTION="<.*wand of fireball"
+AUTOPICKUP_EXCEPTION="<.*wand of noise"
+AUTOPICKUP_EXCEPTION="<.*wand of deluge"
+
 
 
 
@@ -800,7 +817,7 @@ MENUCOLOR=" wolfsbane"=lightgreen
 MENUCOLOR=" catnip"=lightgreen
 MENUCOLOR=" spinach"=lightgreen
 MENUCOLOR=" pineapple"=lightgreen
-MENUCOLOR=" pinch of catnip"=lightgreen
+MENUCOLOR=" sprig of catnip"=lightgreen
 
 MENUCOLOR="acid blob"=lightgreen
 MENUCOLOR="quivering blob"=lightgreen
@@ -819,18 +836,26 @@ MENUCOLOR="orange jelly"=lightgreen
 MENUCOLOR="rancid jelly"=lightgreen
 
 MENUCOLOR="lichen corpse"=lightgreen
-MENUCOLOR="shrieker corpse"=lightgreen
-MENUCOLOR="screamer corpse"=lightgreen
-MENUCOLOR="violet fungus corpse"=lightgreen
-MENUCOLOR="gray fungus corpse"=lightgreen
-MENUCOLOR="disgusting fungus corpse"=lightgreen
+
 MENUCOLOR="brown mold corpse"=lightgreen
 MENUCOLOR="yellow mold corpse"=lightgreen
 MENUCOLOR="green mold corpse"=lightgreen
+MENUCOLOR="red mold corpse"=lightgreen
+MENUCOLOR="orange mold corpse"=lightgreen
+MENUCOLOR="shrieker corpse"=lightgreen
+MENUCOLOR="violet fungus corpse"=lightgreen
+MENUCOLOR="screamer corpse"=lightgreen
+MENUCOLOR="gray fungus corpse"=lightgreen
+MENUCOLOR="black mold corpse"=lightgreen
 MENUCOLOR="brown moldier corpse"=lightgreen
 MENUCOLOR="yellow moldier corpse"=lightgreen
 MENUCOLOR="green moldier corpse"=lightgreen
-MENUCOLOR="red mold corpse"=lightgreen
+MENUCOLOR="red moldier corpse"=lightgreen
+MENUCOLOR="orange moldier corpse"=lightgreen
+MENUCOLOR="gray moldier corpse"=lightgreen
+MENUCOLOR="black moldier corpse"=lightgreen
+
+
 
 # Note: Un-green anything blessed that isn't vegan 
 # (because blessed items all will be green)
@@ -919,14 +944,15 @@ MENUCOLOR="balsa wand"=orange&underline
 MENUCOLOR="crystal wand"=orange&underline
 MENUCOLOR="bamboo wand"=orange&underline
 MENUCOLOR="maple wand"=orange&underline
-MENUCOLOR="rusty wand"=orange&underline
+MENUCOLOR="crusty wand"=orange&underline
+
 MENUCOLOR="pine wand"=orange&underline
 MENUCOLOR="oak wand"=orange&underline
 MENUCOLOR="plastic wand"=orange&underline
-MENUCOLOR="thin wand"=orange&underline
 MENUCOLOR="green wand"=orange&underline
 MENUCOLOR="ebony wand"=orange&underline
 MENUCOLOR="marble wand"=orange&underline
+
 MENUCOLOR="tin wand"=orange&underline
 MENUCOLOR="brass wand"=orange&underline
 MENUCOLOR="copper wand"=orange&underline
@@ -971,7 +997,8 @@ MENUCOLOR="pliable wand"=orange&underline
 MENUCOLOR="dragon-bone wand"=orange&underline
 MENUCOLOR="golden wand"=orange&underline
 MENUCOLOR="gilded wand"=orange&underline
-
+MENUCOLOR="thin wand"=orange&underline
+MENUCOLOR="porcelain wand"=orange&underline
 
 # Mark wands that "vanish" test as potentially dangerous
 MENUCOLOR=" van(.*)"=orange&bold
@@ -989,6 +1016,7 @@ MENUCOLOR=" c(o|hi)ckatrice (corpse|egg) \(wielded.*\)"=yellow&inverse
 
 # Take caution with these....
 MENUCOLOR=" cursed.* unicorn horn"=red&underline
+MENUCOLOR=" cursed.* Nighthorn"=red&underline
 MENUCOLOR=" cursed.* luck(stone)?($| )"=red&underline
 MENUCOLOR="(loadstone|load stone)"=red&underline
 
@@ -1114,7 +1142,6 @@ MENUCOLOR=" 100% "=red
 
 # Forgotten spells
 MENUCOLOR=" \(gone\)"=red
-
 # -----------------------------------------------------------------------------
 # I) MSGTYPE settings
 #	- Mundane messages/spam
@@ -1237,7 +1264,6 @@ MSGTYPE=alert "You are momentarily blinded by a flash of light!?"
 MSGTYPE=alert "You materialize in a different location!"
 MSGTYPE=alert "A trap door opens up under you!"
 MSGTYPE=alert "You feel dizzy for a moment, but the sensation passes."
-
 
 ## Hunger
 MSGTYPE=stop "You feel hungry."
@@ -1371,7 +1397,6 @@ OPTIONS=use_darkgray
 OPTIONS=windowtype:tty
 #OPTIONS=IBMgraphics
 #OPTIONS=DECgraphics
-
 
 # Enable curses windowport (false)
 #OPTIONS=windowtype:curses
