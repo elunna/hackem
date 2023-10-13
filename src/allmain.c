@@ -365,7 +365,7 @@ boolean resuming;
                                         && using_oprop(ITEM_SURF));
                        
                         /* TECH: Blinking! */
-                        if (tech_inuse(T_BLINK) && surfing) {
+                        if (tech_inuse(T_BLINK) || surfing) {
                             /* Case    Average  Variance
                             * -------------------------
                             * Normal    12         0
