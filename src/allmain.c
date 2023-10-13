@@ -360,9 +360,12 @@ boolean resuming;
                                 moveamt -= NORMAL_SPEED / 2;
                         }
                         
+                        boolean surfing = ((is_damp_terrain(u.ux, u.uy) 
+                                || is_lava(u.ux, u.uy))
+                                        && using_oprop(ITEM_SURF));
                        
                         /* TECH: Blinking! */
-                        if (tech_inuse(T_BLINK)) {
+                        if (tech_inuse(T_BLINK) && surfing) {
                             /* Case    Average  Variance
                             * -------------------------
                             * Normal    12         0
@@ -373,7 +376,8 @@ boolean resuming;
                             * V F & B   30        18
                             */
                             moveamt += NORMAL_SPEED * 2 / 3;
-                            if (rn2(3) == 0) moveamt += NORMAL_SPEED / 2;
+                            if (rn2(3) == 0) 
+                                moveamt += NORMAL_SPEED / 2;
                         }
                     }
 
