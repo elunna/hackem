@@ -3619,6 +3619,20 @@ xchar x, y;
 
     offer = ltmp + cltmp;
 
+    if (obj->oprops & ITEM_STENCH) {
+        switch (rnd(3)) {
+            case 1:
+                verbalize("I'm not buying that stinky thing!");
+                break;
+            case 2:
+                verbalize("Your %s smells, get it out of here!", xname(obj));
+                break;
+            case 3:
+                verbalize("Ugh, what stench you bring.");
+                break;
+        }
+        obj->oprops_known |= ITEM_STENCH;
+    }
     /* get one case out of the way: nothing to sell, and no gold */
     if (!(isgold || cgold)
         && ((offer + gltmp) == 0L || sell_how == SELL_DONTSELL)) {
