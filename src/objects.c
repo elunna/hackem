@@ -762,6 +762,7 @@ RING(None, "chrysoberyl",                        0,                        150, 
 RING(None, "obsidian",                           0,                        150, 0, 0, 0, 7, GEMSTONE, CLR_BLACK),
 RING(None, "plain",                              0,                        150, 0, 0, 0, 7, MINERAL,  HI_MINERAL),
 RING(None, "glass",                              0,                        150, 0, 0, 0, 7, GLASS,  CLR_CYAN),
+RING(None, "crystal",                            0,                        150, 0, 0, 0, 5, GLASS, HI_GLASS),     /* SpliceHack */
 RING(None, "plastic",                            0,                        150, 0, 0, 0, 1, PLASTIC, CLR_WHITE),
 
 #undef RING
