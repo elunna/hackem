@@ -249,7 +249,7 @@ static const char *const shkmasks[] = {
 
 static const char *const shkjunk[] = {
     /* Silly names, clown names */
-    "=Spiffy", "=Bonko", "=Binky", "=Tubby", "=Zippy", "=Jumbo"
+    "=Spiffy", "=Bonko", "=Binky", "=Tubby", "=Zippy", "=Jumbo",
     "=Mittens", "=Chuckles", "=Bam Bam", "=Larry", "=Curly",
     "=Moe", "=Zaff", "=Punky", "=Zonko", 0
 };
@@ -1412,7 +1412,9 @@ struct obj *obj;
 {
     int i, shp_indx = ESHK(shkp)->shoptype - SHOPBASE;
     const struct shclass *shp = &shtypes[shp_indx];
-
+    
+    if (obj->oprops & ITEM_STENCH)
+        return FALSE;
     if (shp->symb == RANDOM_CLASS)
         return TRUE;
     for (i = 0; i < SIZE(shtypes[0].iprobs) && shp->iprobs[i].iprob; i++) {
