@@ -4156,9 +4156,10 @@ struct monst *mdef;
     if (mdef == u.usteed)
         dismount_steed(DISMOUNT_GENERIC);
 
-    /* feared monster cleared */
+    /* Clear feared monster */
     if (mdef == u.fearedmon)
         remove_fearedmon();
+    
     /* stuck to you? release */
     unstuck(mdef);
     /* drop special items like the Amulet so that a dismissed Kop or nurse
@@ -5112,7 +5113,6 @@ struct monst *mtmp;
         }
         wake_nearto(mtmp->mx, mtmp->my, 5 * 5);
         if ((canseemon(mtmp) || (!Deaf && how_resistant(SONIC_RES) < 50))
-            && !Underwater && !Confusion
             && !Role_if(PM_KNIGHT)
             && !wielding_artifact(ART_DRAGONBANE)) {
             i = 1 + max(0, (int) mtmp->m_lev - (int) mtmp->data->mlevel);
@@ -5122,7 +5122,8 @@ struct monst *mtmp;
             }
             
             if (Fearless) {
-                You("are not intimidated.");
+                if (!rn2(4))
+                    You("are not intimidated.");
             } else if (ACURR(A_CHA) + (Deaf ? 5 : 0) < rn2(25 + i)) {
                 make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5 * i), TRUE);
                 u.fearedmon = mtmp;

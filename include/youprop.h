@@ -56,11 +56,6 @@
 #define EPsychic_resistance u.uprops[PSYCHIC_RES].extrinsic
 #define Psychic_resistance (HPsychic_resistance || EPsychic_resistance)
 
-#define HFearless u.uprops[FEARLESS].intrinsic
-/* This is not clean, but unfortunately we are out of SPFX fields */
-#define EFearless u.uprops[FEARLESS].extrinsic
-#define Fearless (HFearless || EFearless)
-
 #define HStun_resistance u.uprops[STUN_RES].intrinsic
 #define EStun_resistance u.uprops[STUN_RES].extrinsic
 #define Stun_resistance (HStun_resistance || EStun_resistance                  \
@@ -147,7 +142,11 @@
 #define Stunned HStun
 
 #define HAfraid u.uprops[AFRAID].intrinsic
-#define Afraid HAfraid
+#define Afraid (HAfraid && !Fearless)
+
+#define HFearless u.uprops[FEARLESS].intrinsic
+#define EFearless u.uprops[FEARLESS].extrinsic
+#define Fearless (HFearless || EFearless)
 
 #define HConfusion u.uprops[CONFUSION].intrinsic
 #define Confusion HConfusion

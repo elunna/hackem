@@ -234,6 +234,34 @@ boolean talk;
     set_itimeout(&HAfraid, xtime);
 }
 
+void
+make_fearless(xtime, talk)
+long xtime;
+boolean talk;
+{
+    long old = HFearless;
+
+    if (Unaware)
+        talk = FALSE;
+
+    if (!xtime && old) {
+        if (talk)
+            You_feel("less %s now.", Hallucination ? "heroic" : "brave");
+    }
+
+    if (xtime && !old) {
+        if (talk && Afraid) {
+            You_feel("brave!");
+        }
+        make_afraid(0L, TRUE);
+    }
+
+    if ((xtime && !old) || (!xtime && old))
+        context.botl = TRUE;
+
+    set_itimeout(&HFearless, xtime);
+}
+
 /* Sick is overloaded with both fatal illness and food poisoning (via
    u.usick_type bit mask), but delayed killer can only support one or
    the other at a time.  They should become separate intrinsics.... */
@@ -992,7 +1020,7 @@ register struct obj *otmp;
             nomovemsg = "You awake with a headache.";
         }
         /* liquid courage */
-        make_afraid(0L, TRUE);
+        make_fearless(itimeout_incr(HFearless, d(8, 4)), FALSE);
         break;
     case POT_ENLIGHTENMENT:
         if (otmp->cursed) {

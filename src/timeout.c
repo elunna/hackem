@@ -39,6 +39,7 @@ const struct propname {
     { AFRAID, "afraid" },
     { HALLUC, "hallucinating" },
     { BLINDED, "blinded" },
+    { FEARLESS, "fearless" },
     { DEAF, "deafness" },
     { VOMITING, "vomiting" },
     { GLIB, "slippery fingers" },
@@ -64,7 +65,6 @@ const struct propname {
     { ACID_RES, "acid resistance" },
     { STONE_RES, "stoning resistance" },
     { PSYCHIC_RES, "psionic resistance" },
-    { FEARLESS, "fearless" },
     { DRAIN_RES, "drain resistance" },
     { STUN_RES, "stun resistance" },
     { SICK_RES, "sickness resistance" },
@@ -840,10 +840,17 @@ nh_timeout()
             case AFRAID:
                 set_itimeout(&HAfraid, 1L);
                 make_afraid(0L, TRUE);
-                if (!Afraid) {
-                    stop_occupation();
-                    You("are no longer afraid.");
+                if (!Afraid && !Fearless) {
                     remove_fearedmon();
+                    stop_occupation();
+                }
+                break;
+            case FEARLESS:
+                set_itimeout(&HFearless, 1L);
+                make_fearless(0L, TRUE);
+                if (Fearless) {
+                    Your("bravery runs out .");
+                    stop_occupation();
                 }
                 break;
             case BLINDED:

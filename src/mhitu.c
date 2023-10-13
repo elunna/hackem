@@ -3488,12 +3488,13 @@ struct attack *mattk;
         if (how_resistant(SONIC_RES) > 50)
             break;
         if (Fearless) {
-            You("are not afraid.");
+            if (!rn2(4))
+                You("are not afraid.");
             break;
         }
         if (!Afraid)
             You("are struck with a sudden, terrible fear.");
-        make_afraid((HAfraid & TIMEOUT) + (long) dmg, TRUE);
+        make_afraid((HAfraid & TIMEOUT) + (long) dmg, FALSE);
         u.fearedmon = mtmp;
         aggravate();
         stop_occupation();
@@ -3987,7 +3988,8 @@ struct attack *mattk;
                 && !mtmp->mspec_used 
                 && (ACURR(A_CHA) - mtmp->m_lev + u.ulevel < rn2(25))) {
             if (Fearless) {
-                You("are not afraid of the %s!", mon_nam(mtmp));
+                if (!rn2(4))
+                    You("are not afraid of the %s!", mon_nam(mtmp));
                 break;
             } else if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD) && rn2(3)) {
                 pline_The("%s doesn't look so bad through %s.",
@@ -3996,7 +3998,7 @@ struct attack *mattk;
             }
             if (!Afraid)
                 You("are struck with a terrible fear of %s!", mon_nam(mtmp));
-            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), FALSE);
             u.fearedmon = mtmp;
             if (mtmp->data == &mons[PM_BODAK]) 
                 u.ugrave_arise = PM_BODAK;
@@ -4245,7 +4247,8 @@ struct attack *mattk;
                           An(bare_artifactname(ublindf)), s_suffix(mon_nam(mtmp)));
                 break;
             } else if (Fearless) {
-                You("are not afraid of the %s!", mon_nam(mtmp));
+                if (!rn2(4))
+                    You("are not afraid of the %s!", mon_nam(mtmp));
                 break;
             }
             if (!Afraid)

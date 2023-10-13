@@ -116,7 +116,6 @@ register struct obj *obj;
         if (Afraid && ((uwep && uwep->oartifact == ART_DRAGONBANE)
             || (olduwep && olduwep->oartifact == ART_DRAGONBANE)))
             if (is_dragon(u.fearedmon->data)) {
-                make_afraid(0L, TRUE);
                 context.botl = 1;
             }
     }
@@ -280,12 +279,12 @@ register struct obj *obj;
             EInfravision |= W_WEP;
         }
         if (uwep->oprops & ITEM_RAGE) {
-            EFearless |= W_WEP;
             if (Afraid) {
-                make_afraid(0L, TRUE);
+                Your("%s suppresses your fear with rage!", xname(uwep));
                 context.botl = 1;
                 uwep->oprops_known |= ITEM_RAGE;
             }
+            EFearless |= W_WEP;
         }
         if (uwep->oprops & ITEM_TOUGH) {
             EDisint_resistance |= W_WEP;
@@ -659,12 +658,12 @@ register struct obj *obj;
             EInfravision |= W_SWAPWEP;
         }
         if (uswapwep->oprops & ITEM_RAGE) {
-            EFearless |= W_SWAPWEP;
             if (Afraid) {
-                make_afraid(0L, TRUE);
+                Your("%s suppresses your fear with rage!", xname(uwep));
                 context.botl = 1;
                 uswapwep->oprops_known |= ITEM_RAGE;
             }
+            EFearless |= W_SWAPWEP;
         }
         if (uswapwep->oprops & ITEM_TOUGH) {
             EDisint_resistance |= W_SWAPWEP;

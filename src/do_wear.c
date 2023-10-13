@@ -234,12 +234,11 @@ long mask;
     if (props & ITEM_DANGER)
         EInfravision |= mask;
     if (props & ITEM_RAGE) {
-        EFearless |= mask;
         if (Afraid) {
-            make_afraid(0L, TRUE);
             context.botl = 1;
             otmp->oprops_known |= ITEM_RAGE;
         }
+        EFearless |= mask;
     }
     if (props & ITEM_TOUGH)
         EDisint_resistance |= mask;
@@ -796,14 +795,13 @@ Helmet_on(VOID_ARGS)
         Your("thoughts feel much more secure.");
         uarmh->known = 1;
         makeknown(TINFOIL_HAT);
+        if (Afraid) {
+            context.botl = TRUE;
+        }
         EFearless |= W_ARMH;
         BClairvoyant |= W_ARMH;
         BTelepat |= W_ARMH;
         see_monsters();
-        if (Afraid) {
-            make_afraid(0L, TRUE);
-            context.botl = TRUE;
-        }
         break;
     case HELM_OF_BRILLIANCE:
         adj_abon(uarmh, uarmh->spe);
@@ -1141,11 +1139,10 @@ Shield_on(VOID_ARGS)
     toggle_armor_light(uarms, TRUE);
 
     if (uarms && uarms->oartifact == ART_PRIDWEN) {
-        EFearless |= W_ARMS;
         if (Afraid) {
-            make_afraid(0L, TRUE);
             context.botl = TRUE;
         }
+        EFearless |= W_ARMS;
     }
     return 0;
 }
@@ -1183,7 +1180,7 @@ Shield_off(VOID_ARGS)
     if (was_arti_light)
         toggle_armor_light(otmp, FALSE);
 
-    if (uarms && uarms->oartifact == ART_PRIDWEN) {
+    if (otmp && otmp->oartifact == ART_PRIDWEN) {
         EFearless &= ~W_ARMS;
     }
     return 0;

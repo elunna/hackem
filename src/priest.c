@@ -577,7 +577,8 @@ struct monst* ghost;
     ghost->mpeaceful = 0;
     set_malign(ghost);
     if (Fearless) {
-        You_see("a ghost try to frighten you.");
+        if (!rn2(4))
+            You_see("a ghost try to frighten you.");
         return;
     }
     if (multi >= 0) {
