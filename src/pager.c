@@ -1312,7 +1312,7 @@ char *usr_text;
         if (obj->oprops & ITEM_SLOW) OBJPUTSTR("Grants lethargy");
         if (obj->oprops & ITEM_SUSTAIN) OBJPUTSTR("Grants sustainability");
         if (obj->oprops & ITEM_STEALTH) OBJPUTSTR("Grants stealth");
-        if (obj->oprops & ITEM_STABLE) OBJPUTSTR("Grants stability");
+        if (obj->oprops & ITEM_BURDEN) OBJPUTSTR("Grants stability, weights 4x more");
         if (obj->oprops & ITEM_SURF) OBJPUTSTR("Grants water walking");
         if (obj->oprops & ITEM_SWIM) OBJPUTSTR("Grants swimming");
     }

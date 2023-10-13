@@ -372,7 +372,7 @@ const struct PropTypes prop_lookup[NUM_PROPERTIES] = {
         { ADORNED,           ITEM_EXCEL },
         { FIXED_ABIL,        ITEM_SUSTAIN },
         { STEALTH,           ITEM_STEALTH },
-        { STABLE,            ITEM_STABLE },
+        { STABLE,            ITEM_BURDEN },
         { WWALKING,          ITEM_SURF },
         { SWIMMING,          ITEM_SWIM }
 };
@@ -681,7 +681,7 @@ boolean on, silently;
             case ITEM_STEALTH:
                 which = STEALTH;
                 break;
-            case ITEM_STABLE:
+            case ITEM_BURDEN:
                 which = STABLE;
                 break;
             case ITEM_SURF:

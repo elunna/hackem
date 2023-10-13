@@ -1831,6 +1831,11 @@ register struct obj *obj;
     } else if (obj->otyp == CANDELABRUM_OF_INVOCATION && obj->spe) {
         return wt + obj->spe * (int) objects[TALLOW_CANDLE].oc_weight;
     }
+    
+    /* Items with burden property */
+    if (obj->oprops & ITEM_BURDEN)
+        wt *= 4;
+    
     return (wt ? wt * (int) obj->quan : ((int) obj->quan + 1) >> 1);
 }
 

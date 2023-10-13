@@ -687,9 +687,9 @@ boolean has_of;
                 Strcpy(of, " and");
         }
     }
-    if (props & ITEM_STABLE) {
-        if ((props_known & ITEM_STABLE) || dump_prop_flag) {
-            Strcat(buf, of), Strcat(buf, " stability"),
+    if (props & ITEM_BURDEN) {
+        if ((props_known & ITEM_BURDEN) || dump_prop_flag) {
+            Strcat(buf, of), Strcat(buf, " burden"),
                     Strcpy(of, " and");
         }
     }
@@ -4387,9 +4387,9 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_STEALTH;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "stability", l = strlen("stability"))) {
+                } else if (!strncmpi((p + of), "burden", l = strlen("burden"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_STABLE;
+                        objprops |= ITEM_BURDEN;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "water walking", l = strlen("water walking"))
                             || !strncmpi((p + of), "surfing", l = strlen("surfing"))) {

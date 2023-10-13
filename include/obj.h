@@ -613,7 +613,7 @@ struct obj {
 #define ITEM_FLEX      0x00200000L /* stoning resistance */
 #define ITEM_HEALTH    0x00400000L /* sickness resistance */
 #define ITEM_STUN      0x00800000L /* stun resistance */
-#define ITEM_STABLE    0x01000000L /* clobber resistance */
+#define ITEM_BURDEN    0x01000000L /* clobber resistance */
 #define ITEM_SURF      0x02000000L /* water walking */
 #define ITEM_SWIM      0x04000000L /* swimming */
 #define ITEM_RAGE      0x08000000L /* fearlessness, bloodthirsty
@@ -635,7 +635,7 @@ struct obj {
 /* Positive properties */
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCH \
                          | ITEM_VIGIL | ITEM_EXCEL | ITEM_SUSTAIN \
-                         | ITEM_STEALTH | ITEM_INSIGHT | ITEM_STABLE \
+                         | ITEM_STEALTH | ITEM_INSIGHT | ITEM_BURDEN \
                          | ITEM_SURF | ITEM_SWIM | ITEM_RAGE | ITEM_TOUGH)
 /* Negative properties */
 #define ITEM_BAD_PROPS (ITEM_FUMBLE | ITEM_HUNGER | ITEM_STENCH \

@@ -296,7 +296,7 @@ long mask;
         } else
             toggle_stealth(otmp, (EStealth & ~mask), TRUE);
     }
-    if (props & ITEM_STABLE)
+    if (props & ITEM_BURDEN)
         EStable |= mask;
     if (props & ITEM_SURF) {
         EWwalking |= mask;
@@ -394,7 +394,7 @@ long mask;
         EStealth &= ~mask;
         toggle_stealth(otmp, (EStealth & ~mask), FALSE);
     }
-    if (props & ITEM_STABLE)
+    if (props & ITEM_BURDEN)
         EStable &= ~mask;
     if (props & ITEM_SURF) {
         EWwalking &= ~mask;

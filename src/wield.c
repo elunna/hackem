@@ -168,7 +168,7 @@ register struct obj *obj;
             EStealth &= ~W_WEP;
             toggle_stealth(olduwep, (EStealth & ~W_WEP), FALSE);
         }
-        if (olduwep->oprops & ITEM_STABLE) {
+        if (olduwep->oprops & ITEM_BURDEN) {
             EStable &= ~W_WEP;
         }
         if (olduwep->oprops & ITEM_SURF) {
@@ -260,7 +260,7 @@ register struct obj *obj;
             } else
                 toggle_stealth(uwep, (EStealth & ~W_WEP), TRUE);
         }
-        if (uwep->oprops & ITEM_STABLE) {
+        if (uwep->oprops & ITEM_BURDEN) {
             EStable |= W_WEP;
         }
         if (uwep->oprops & ITEM_SURF) {
@@ -552,8 +552,8 @@ register struct obj *obj;
             EStealth &= ~W_SWAPWEP;
             toggle_stealth(olduswapwep, (EStealth & ~W_SWAPWEP), TRUE);
         }
-        /* Stability property */
-        if (olduswapwep->oprops & ITEM_STABLE) {
+        /* Burden/stability property */
+        if (olduswapwep->oprops & ITEM_BURDEN) {
             HStable &= ~W_SWAPWEP;
         }
         /* Water walking */
@@ -653,7 +653,7 @@ register struct obj *obj;
             } else
                 toggle_stealth(uswapwep, (EStealth & ~W_SWAPWEP), TRUE);
         }
-        if (uswapwep->oprops & ITEM_STABLE) {
+        if (uswapwep->oprops & ITEM_BURDEN) {
             HStable |= W_SWAPWEP;
         }
         if (uswapwep->oprops & ITEM_SURF) {
