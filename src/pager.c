@@ -1231,7 +1231,8 @@ char *usr_text;
             if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("\t+1d5 + 3 sonic damage");
             if (obj->oprops & ITEM_SIZZLE) OBJPUTSTR("\t+1d5 + 3 acid damage");
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("\tdoes 1d2 (+ 10% chance of 6-15 extra) poison damage; \n\t10% chance of instakill by poison");
-            /* - Sleep resistance is only defensive */
+            if (obj->oprops & ITEM_DECAY) OBJPUTSTR("\tdrains life");
+            if (obj->oprops & ITEM_SLEEP) OBJPUTSTR("\tsleep attack");
         }
         
         if (reveal_info || is_artifact) {
@@ -1289,7 +1290,7 @@ char *usr_text;
         if (obj->oprops & ITEM_DECAY) OBJPUTSTR("Grants drain resistance");
         if (obj->oprops & ITEM_SLEEP) OBJPUTSTR("Grants sleep resistance");
         if (obj->oprops & ITEM_FLEX) OBJPUTSTR("Grants petrification resistance");
-        if (obj->oprops & ITEM_HEALTH) OBJPUTSTR("Grants sickness resistance");
+        if (obj->oprops & ITEM_FILTH) OBJPUTSTR("Grants sickness resistance");
         if (obj->oprops & ITEM_STUN) OBJPUTSTR("Grants stun resistance");
         if (obj->oprops & ITEM_RAGE) OBJPUTSTR("Grants rage and fearlessness");
         if (obj->oprops & ITEM_PROWESS) OBJPUTSTR("Grants prowess in technical skills");

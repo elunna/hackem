@@ -770,7 +770,7 @@ struct obj *otmp;
             return TRUE;
         if (adtyp == AD_STON && (otmp->oprops & ITEM_FLEX))
             return TRUE;
-        if (adtyp == AD_DISE && (otmp->oprops & ITEM_HEALTH))
+        if (adtyp == AD_DISE && (otmp->oprops & ITEM_FILTH))
             return TRUE;
         if (adtyp == AD_STUN && (otmp->oprops & ITEM_STUN))
             return TRUE;
@@ -1425,8 +1425,8 @@ int tmp;
             spec_dbon_applies = TRUE;
             /* majority of ITEM_VENOM damage
              * handled in src/uhitm.c */
-            if (otmp->oprops & ITEM_VENOM)
-                /* don't worry about vulnerability (it doesn't exist for poison anyway) */
+            if (otmp->oprops & ITEM_VENOM || otmp->oprops & ITEM_SLEEP)
+                /* don't worry about vulnerability (it doesn't exist for these anyway) */
                 return rnd(2);
             else {
                 dbon = rnd(5) + 3;
@@ -1437,6 +1437,11 @@ int tmp;
         }
         if ((otmp->oprops & ITEM_DECAY)
             && ((yours) ? (!Drain_resistance) : (!resists_drli(mon)))) {
+            spec_dbon_applies = TRUE;
+            return 0;
+        }
+        if ((otmp->oprops & ITEM_FILTH)
+            && ((yours) ? (!Sick_resistance) : (!resists_sick(mon)))) {
             spec_dbon_applies = TRUE;
             return 0;
         }
@@ -2263,6 +2268,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         boolean no_sick = youdefend ? Sick_resistance
                                     : (resists_sick(mdef)
                                        || defended(mdef, AD_DISE));
+        boolean grim = otmp->oartifact == ART_GRIMTOOTH;
 
         if (Role_if(PM_SAMURAI)) {
             You("dishonorably use a diseased weapon!");
@@ -2274,43 +2280,49 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         if (realizes_damage) {
             /* currently the only object that uses this
                is Grimtooth */
-            pline_The("filthy dagger %s %s%c",
+            pline_The("filthy %s %s %s%c",
+                      otmp->oartifact ? artiname(otmp->oartifact) : "weapon",
                       no_sick ? "hits"
                               : rn2(2) ? "contaminates" : "infects",
                       hittee, !spec_dbon_applies ? '.' : '!');
-        }
 
-        if (!rn2(10) && elf) {
-            if (show_instakill)
-                pline("Grimtooth penetrates %s soft flesh, disemboweling %s!",
-                    youdefend ? "your" : s_suffix(mon_nam(mdef)),
-                    youdefend ? "you" : noit_mhim(mdef));
-            if (youdefend) {
-                losehp((Upolyd ? u.mh : u.uhp) + 1, "disemboweled by Grimtooth",
-                       NO_KILLER_PREFIX);
-            } else { /* you or mon hit monster */
-                if (youattack) {
-                    xkilled(mdef, XKILL_NOMSG);
-                } else {
-                    monkilled(mdef, 0, AD_DISE);
+
+            if (!rn2(10) && grim && elf) {
+                if (show_instakill)
+                    pline("Grimtooth penetrates %s soft flesh, disemboweling %s!",
+                          youdefend ? "your" : s_suffix(mon_nam(mdef)),
+                          youdefend ? "you" : noit_mhim(mdef));
+                if (youdefend) {
+                    losehp((Upolyd ? u.mh : u.uhp) + 1, "disemboweled by Grimtooth",
+                           NO_KILLER_PREFIX);
+                } else { /* you or mon hit monster */
+                    if (youattack) {
+                        xkilled(mdef, XKILL_NOMSG);
+                    } else {
+                        monkilled(mdef, 0, AD_DISE);
+                    }
+                }
+                return TRUE;
+            }
+
+            if (youdefend && !rn2(5)) {
+                diseasemu(mdef->data);
+            } else if (!youdefend) {
+                mdef->mdiseasetime = rnd(10) + 5;
+                if (!no_sick && !rn2(5)) {
+                    if (canseemon(mdef))
+                        pline("%s looks %s.", Monnam(mdef),
+                              mdef->mdiseased ? "even worse" : "diseased");
+                    mdef->mdiseased = 1;
+                    if (wielding_artifact(ART_GRIMTOOTH) || (uwep == otmp))
+                        mdef->mdiseabyu = TRUE;
+                    else
+                        mdef->mdiseabyu = FALSE;
                 }
             }
-            return TRUE;
-        }
-
-        if (youdefend && !rn2(5)) {
-            diseasemu(mdef->data);
-        } else if (!youdefend) {
-            mdef->mdiseasetime = rnd(10) + 5;
-            if (!no_sick && !rn2(5)) {
-                if (canseemon(mdef))
-                    pline("%s looks %s.", Monnam(mdef),
-                          mdef->mdiseased ? "even worse" : "diseased");
-                mdef->mdiseased = 1;
-                if (wielding_artifact(ART_GRIMTOOTH))
-                    mdef->mdiseabyu = TRUE;
-                else
-                    mdef->mdiseabyu = FALSE;
+            if ((otmp->oprops & ITEM_FILTH) && spec_dbon_applies) {
+                otmp->oprops_known |= ITEM_FILTH;
+                update_inventory();
             }
         }
         return realizes_damage;
@@ -2419,25 +2431,48 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         return realizes_damage;
     }
 
-    /* Drowsing Rod */
-    if (attacks(AD_SLEE, otmp) && rn2(20)) {
-        if (realizes_damage && (youdefend || mdef->mcanmove)) {
-            pline_The("staff sprays a %s %s at %s!", rndcolor(),
-            (rn2(2) ? "gas" : "mist"), hittee);
-        }
-        if (youdefend &&
-            (how_resistant(SLEEP_RES) == 100 || Breathless)) {
-            pline_The("rod's vapors do not affect you.");
-        } else if (youdefend) {
-            fall_asleep(-resist_reduce(rnd(10), SLEEP_RES), TRUE);
-            if (Blind)
-                You("are put to sleep!");
-            else
-                You("are put to sleep by %s!", artiname(otmp->oartifact));
-        } else if (mdef->mcanmove && !breathless(mdef->data) && sleep_monst(mdef, d(2, 4), -1)) {
-             if (!Blind)
-                pline("%s is put to sleep by %s's vapors!", Monnam(mdef), artiname(otmp->oartifact));
-            slept_monst(mdef);
+    /* Drowsing Rod/Sleep property 
+     * Drowsing Rod has fantastic odds of success (19 in 20 each time)
+     * Weapons with the sleep attack are not quite as good (1 in 3 odds)
+     * */
+    if (attacks(AD_SLEE, otmp) && (otmp->oartifact ? rn2(20) : !rn2(3))) {
+        if (realizes_damage) {
+            if (otmp->oartifact == ART_DROWSING_ROD) {
+                if (realizes_damage && (youdefend || mdef->mcanmove)) {
+                    pline_The("staff sprays a %s %s at %s!", rndcolor(),
+                              (rn2(2) ? "gas" : "mist"), hittee);
+                }
+            } else if (otmp->oclass == WEAPON_CLASS
+                      && (otmp->oprops & ITEM_SLEEP)) {
+                pline_The("%s %s %s%c", distant_name(otmp, xname),
+                          (resists_sleep(mdef) || defended(mdef, AD_SLEE))
+                          ? "hits"
+                          : rn2(2) ? "drugs"
+                                   : "sprays",
+                          hittee, !spec_dbon_applies ? '.' : '!');
+            }
+            
+            if (youdefend &&
+                (how_resistant(SLEEP_RES) == 100 || Breathless)) {
+                pline_The("vapors do not affect you.");
+            } else if (youdefend) {
+                fall_asleep(-resist_reduce(rnd(10), SLEEP_RES), TRUE);
+                if (Blind)
+                    You("are put to sleep!");
+                else
+                    You("are put to sleep by %s!", 
+                        otmp->oartifact ? artiname(otmp->oartifact) : xname(otmp));
+            } else if (mdef->mcanmove && !breathless(mdef->data) 
+                        && sleep_monst(mdef, d(2, 4), -1)) {
+                if (!Blind)
+                    pline("%s is put to sleep!", Monnam(mdef));
+                slept_monst(mdef);
+            }
+            
+            if ((otmp->oprops & ITEM_SLEEP) && spec_dbon_applies) {
+                otmp->oprops_known |= ITEM_SLEEP;
+                update_inventory();
+            }
         }
         return realizes_damage;
     }
@@ -4147,6 +4182,18 @@ struct obj *obj;
         pline("An inky darkness spreads in the %s!", hliquid("water"));
         if (oprops)
             obj->oprops_known |= ITEM_VENOM;
+        return TRUE;
+    }
+    if (ad_type == AD_DISE || oprops & ITEM_FILTH) {
+        pline("The %s turns a sickly %s!", hliquid("water"), hcolor("green"));
+        if (oprops)
+            obj->oprops_known |= ITEM_FILTH;
+        return TRUE;
+    }
+    if (ad_type == AD_SLEE || oprops & ITEM_SLEEP) {
+        pline("The %s stands completely still.", hliquid("water"));
+        if (oprops)
+            obj->oprops_known |= ITEM_SLEEP;
         return TRUE;
     }
     return FALSE;

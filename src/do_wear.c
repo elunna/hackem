@@ -229,7 +229,7 @@ long mask;
         ESleep_resistance |= mask;
     if (props & ITEM_FLEX)
         EStone_resistance |= mask;
-    if (props & ITEM_HEALTH)
+    if (props & ITEM_FILTH)
         ESick_resistance |= mask;
     if (props & ITEM_STUN)
         EStun_resistance |= mask;
@@ -342,7 +342,7 @@ long mask;
         ESleep_resistance &= ~mask;
     if (props & ITEM_FLEX)
         EStone_resistance &= ~mask;
-    if (props & ITEM_HEALTH)
+    if (props & ITEM_FILTH)
         ESick_resistance &= ~mask;
     if (props & ITEM_STUN)
         EStun_resistance &= ~mask;

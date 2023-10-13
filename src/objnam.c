@@ -574,7 +574,7 @@ boolean has_of;
     if (props & ITEM_SLEEP) {
         if ((props_known & ITEM_SLEEP) || dump_prop_flag) {
             Strcat(buf, of),
-                    Strcat(buf, of), Strcat(buf, " sleep resistance"),
+                    Strcat(buf, weapon ? " sleep" : " alertness"),
                     Strcpy(of, " and");
         }
     }
@@ -583,10 +583,10 @@ boolean has_of;
             Strcat(buf, " versus stone"), Strcpy(of, " and");
         }
     }
-    if (props & ITEM_HEALTH) {
-        if ((props_known & ITEM_HEALTH) || dump_prop_flag) {
+    if (props & ITEM_FILTH) {
+        if ((props_known & ITEM_FILTH) || dump_prop_flag) {
             Strcat(buf, of),
-                    Strcat(buf, of), Strcat(buf, " sick resistance"),
+                    Strcat(buf, weapon ? " filth" : " health"),
                     Strcpy(of, " and");
         }
     }
@@ -4305,7 +4305,8 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SIZZLE;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "sleep", l = strlen("sleep"))) {
+                } else if (!strncmpi((p + of), "sleep", l = strlen("sleep"))
+                            || !strncmpi((p + of), "alertness", l = strlen("alertness"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_SLEEP;
                     objpropcount++;
@@ -4313,9 +4314,10 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_FLEX;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "sick", l = strlen("sick"))) {
+                } else if  (!strncmpi((p + of), "filth", l = strlen("filth"))
+                            || !strncmpi((p + of), "health", l = strlen("health"))){
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_HEALTH;
+                        objprops |= ITEM_FILTH;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "stun", l = strlen("stun"))) {
                     if (!objpropcount || wizard)
@@ -5396,8 +5398,8 @@ struct obj *no_wish;
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_SLEEP);
         else if (objprops & ITEM_FLEX)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_FLEX);
-        else if (objprops & ITEM_HEALTH)
-            objprops &= ~(ITEM_RES_PROPS & ~ITEM_HEALTH);
+        else if (objprops & ITEM_FILTH)
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_FILTH);
         else if (objprops & ITEM_STUN)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_STUN);
         else if (objprops & ITEM_RAGE)

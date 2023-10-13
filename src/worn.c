@@ -360,7 +360,7 @@ const struct PropTypes prop_lookup[NUM_PROPERTIES] = {
         { ACID_RES,          ITEM_SIZZLE },
         { SLEEP_RES,         ITEM_SLEEP },
         { STONE_RES,         ITEM_FLEX },
-        { SICK_RES,          ITEM_HEALTH },
+        { SICK_RES,          ITEM_FILTH },
         { STUN_RES,          ITEM_STUN },
         { FEARLESS,          ITEM_RAGE },
         { TELEPAT,           ITEM_ESP },

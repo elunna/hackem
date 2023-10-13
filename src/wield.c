@@ -189,14 +189,8 @@ register struct obj *obj;
                 spoteffects(TRUE);
             }
         }
-        if (olduwep->oprops & ITEM_SLEEP) {
-            ESleep_resistance &= ~W_WEP;
-        }
         if (olduwep->oprops & ITEM_FLEX) {
             EStone_resistance &= ~W_WEP;
-        }
-        if (olduwep->oprops & ITEM_HEALTH) {
-            ESick_resistance &= ~W_WEP;
         }
         if (olduwep->oprops & ITEM_STUN) {
             EStun_resistance &= ~W_WEP;
@@ -279,14 +273,8 @@ register struct obj *obj;
                 spoteffects(TRUE);
             }
         }
-        if (uwep->oprops & ITEM_SLEEP) {
-            ESleep_resistance |= W_WEP;
-        }
         if (uwep->oprops & ITEM_FLEX) {
             EStone_resistance |= W_WEP;
-        }
-        if (uwep->oprops & ITEM_HEALTH) {
-            ESick_resistance |= W_WEP;
         }
         if (uwep->oprops & ITEM_STUN) {
             EStun_resistance |= W_WEP;
@@ -576,17 +564,9 @@ register struct obj *obj;
                 spoteffects(TRUE);
             }
         }
-        /* Sleep resistance */
-        if (olduswapwep->oprops & ITEM_SLEEP) {
-            ESleep_resistance &= ~W_SWAPWEP;
-        }
         /* Stone resistance */
         if (olduswapwep->oprops & ITEM_FLEX) {
             EStone_resistance &= ~W_SWAPWEP;
-        }
-        /* Sickness resistance */
-        if (olduswapwep->oprops & ITEM_HEALTH) {
-            ESick_resistance &= ~W_SWAPWEP;
         }
         /* Stun resistance */
         if (olduswapwep->oprops & ITEM_STUN) {
@@ -672,14 +652,8 @@ register struct obj *obj;
                 spoteffects(TRUE);
             }
         }
-        if (uswapwep->oprops & ITEM_SLEEP) {
-            ESleep_resistance |= W_SWAPWEP;
-        }
         if (uswapwep->oprops & ITEM_FLEX) {
             EStone_resistance |= W_SWAPWEP;
-        }
-        if (uswapwep->oprops & ITEM_HEALTH) {
-            ESick_resistance |= W_SWAPWEP;
         }
         if (uswapwep->oprops & ITEM_STUN) {
             EStun_resistance |= W_SWAPWEP;

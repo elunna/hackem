@@ -597,7 +597,7 @@ struct obj {
 #define ITEM_DECAY     0x00000040L /* drains life or resistance */
 #define ITEM_SLEEP     0x00000080L /* sleep resistance */
 #define ITEM_FLEX      0x00000100L /* stoning resistance */
-#define ITEM_HEALTH    0x00000200L /* sickness resistance */
+#define ITEM_FILTH     0x00000200L /* sickness resistance */
 #define ITEM_TOUGH     0x00000400L /* disintegration res 
                                     * Makes items erosionproof and indestructible */
 #define ITEM_OILSKIN   0x00000800L /* permanently greased */
@@ -631,7 +631,7 @@ struct obj {
 /* Properties that grant both a worn resistance and attack type */
 #define ITEM_RES_PROPS (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM \
                             | ITEM_SIZZLE | ITEM_SCREAM | ITEM_DECAY        \
-                            | ITEM_SLEEP | ITEM_FLEX | ITEM_HEALTH        \
+                            | ITEM_SLEEP | ITEM_FLEX | ITEM_FILTH        \
                             | ITEM_STUN)
 /* Positive properties */
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCH \
@@ -642,7 +642,7 @@ struct obj {
 #define ITEM_BAD_PROPS (ITEM_FUMBLE | ITEM_HUNGER | ITEM_STENCH \
                         | ITEM_TELE | ITEM_SLOW)
 
-#define NON_WEP_PROPS (ITEM_SLEEP | ITEM_FLEX | ITEM_HEALTH | ITEM_STUN)
+#define NON_WEP_PROPS (ITEM_FLEX | ITEM_STUN)
 #define ONLY_WEP_PROPS (ITEM_RAGE | ITEM_PROWESS)
 
 /*
