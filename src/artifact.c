@@ -1378,9 +1378,7 @@ struct monst *mon;
        always return 0 for any artifact which has that attribute */
 
     if (weap && weap->attk.damn && spec_applies(weap, mon))
-        /*return rnd((int) weap->attk.damn);*/
-        /* SLASH'EM style flat damage for artifacts */
-        return (int)weap->attk.damn;
+        return rnd((int) weap->attk.damn);
     return 0;
 }
 
