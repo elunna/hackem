@@ -862,9 +862,12 @@ int udist;
                     return dog_eat(mtmp, obj, omx, omy, FALSE);
             }
 
+            boolean shopgood = (obj->unpaid 
+                    || (obj->where == OBJ_FLOOR && !obj->no_charge 
+                    && costly_spot(obj->ox, obj->oy)));
             carryamt = can_carry(mtmp, obj);
             if (carryamt > 0 && !obj->cursed && !obj->zombie_corpse
-                && could_reach_item(mtmp, obj->ox, obj->oy)) {
+                && could_reach_item(mtmp, obj->ox, obj->oy) && !shopgood) {
                 boolean can_use = could_use_item(mtmp, obj, TRUE, FALSE);
                 if (can_use || (rn2(20) < edog->apport + 3)) {
                     if (can_use || rn2(udist) || !rn2(edog->apport)) {
@@ -956,6 +959,11 @@ int after, udist, whappr;
                 if (!could_reach_item(mtmp, nx, ny)
                     || !can_reach_location(mtmp, mtmp->mx, mtmp->my, nx, ny))
                     continue;
+                /* skip always shop food and other items if chastised */
+                if (obj->unpaid || (obj->where == OBJ_FLOOR && !obj->no_charge 
+                      && costly_spot(obj->ox, obj->oy)))
+                    continue;
+                
                 if (otyp < MANFOOD
                     && (otyp < ACCFOOD || edog->hungrytime <= monstermoves)
                     && edog->hungrytime < monstermoves + DOG_SATIATED) {
@@ -1646,7 +1654,10 @@ int after; /* this is extra fast monster movement */
             for (obj = level.objects[nx][ny]; obj; obj = obj->nexthere) {
                 if (obj->cursed) {
                     cursemsg[i] = TRUE;
-                } else if ((otyp = dogfood(mtmp, obj)) < MANFOOD
+                } else if (obj->unpaid || (obj->where == OBJ_FLOOR 
+                      && !obj->no_charge && costly_spot(obj->ox, obj->oy)))
+                    continue;
+                else if ((otyp = dogfood(mtmp, obj)) < MANFOOD
                            && (otyp < ACCFOOD
                            || edog->hungrytime <= monstermoves)
                            && edog->hungrytime < monstermoves + DOG_SATIATED) {
