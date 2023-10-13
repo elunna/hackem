@@ -1786,6 +1786,9 @@ shk_other_services()
     
     /* Init the shopkeeper */
     shkp = shop_keeper(/* roomno= */*u.ushops);
+    if (!shkp)
+        return result;
+    
     shkdat = &mons[ERAC(shkp)->rmnum];
     
     /* Init your name */
