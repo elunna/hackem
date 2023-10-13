@@ -595,32 +595,33 @@ struct obj {
 #define ITEM_SIZZLE    0x00000010L /* acid damage or resistance */
 #define ITEM_SCREAM    0x00000020L /* sonic damage or resistance */
 #define ITEM_DECAY     0x00000040L /* drains life or resistance */
-#define ITEM_OILSKIN   0x00000080L /* permanently greased */
-#define ITEM_ESP       0x00000100L /* telepathy */
-#define ITEM_SEARCH    0x00000200L /* searching */
-#define ITEM_VIGIL     0x00000400L /* warning, wisdom boost, flanking defense */
-#define ITEM_EXCEL     0x00000800L /* luck, charisma boost */
-#define ITEM_FUMBLE    0x00001000L /* fumbling */
-#define ITEM_HUNGER    0x00002000L /* hunger */
-#define ITEM_STENCH    0x00004000L /* aggravate monster, prevents digestion
-                                    * stenchy items cannot be eaten by players or monsters */
-#define ITEM_TELE      0x00008000L /* teleportitis */
-#define ITEM_SLOW      0x00010000L /* slowness */
-#define ITEM_SUSTAIN   0x00020000L /* sustain ability, items retain their enchantment level */
-#define ITEM_STEALTH   0x00040000L /* stealth */
-#define ITEM_INSIGHT   0x00080000L /* see invisible, magical vision */
-#define ITEM_SLEEP     0x00100000L /* sleep resistance */
-#define ITEM_FLEX      0x00200000L /* stoning resistance */
-#define ITEM_HEALTH    0x00400000L /* sickness resistance */
-#define ITEM_STUN      0x00800000L /* stun resistance */
-#define ITEM_BURDEN    0x01000000L /* clobber resistance */
-#define ITEM_SURF      0x02000000L /* water walking */
-#define ITEM_SWIM      0x04000000L /* swimming */
-#define ITEM_RAGE      0x08000000L /* fearlessness, bloodthirsty
-                                    * makes your weapon deal max damage */
-#define ITEM_TOUGH     0x10000000L /* disintegration res 
+#define ITEM_SLEEP     0x00000080L /* sleep resistance */
+#define ITEM_FLEX      0x00000100L /* stoning resistance */
+#define ITEM_HEALTH    0x00000200L /* sickness resistance */
+#define ITEM_TOUGH     0x00000400L /* disintegration res 
                                     * Makes items erosionproof and indestructible */
-#define ITEM_PROWESS   0x20000000L /* Speeds up tech cooldowns, skill bonuses */
+#define ITEM_OILSKIN   0x00000800L /* permanently greased */
+#define ITEM_ESP       0x00001000L /* telepathy */
+#define ITEM_SEARCH    0x00002000L /* searching */
+#define ITEM_STEALTH   0x00004000L /* stealth */
+#define ITEM_VIGIL     0x00008000L /* warning, wisdom boost, flanking defense */
+#define ITEM_EXCEL     0x00010000L /* luck, charisma boost */
+#define ITEM_INSIGHT   0x00020000L /* see invisible, magical vision */
+#define ITEM_PROWESS   0x00040000L /* Speeds up tech cooldowns, skill bonuses */
+#define ITEM_SURF      0x00080000L /* water walking */
+#define ITEM_SWIM      0x00100000L /* swimming */
+#define ITEM_RAGE      0x00200000L /* fearlessness, bloodthirsty
+                                    * makes your weapon deal max damage */
+#define ITEM_FUMBLE    0x00400000L /* fumbling */
+#define ITEM_HUNGER    0x00800000L /* hunger */
+#define ITEM_STENCH    0x01000000L /* aggravate monster, prevents digestion
+                                    * stenchy items cannot be eaten by players or monsters */
+#define ITEM_TELE      0x02000000L /* teleportitis */
+#define ITEM_SLOW      0x04000000L /* slowness */
+#define ITEM_SUSTAIN   0x08000000L /* sustain ability, 
+                                    * items retain their enchantment level */
+#define ITEM_STUN      0x10000000L /* stun resistance */
+#define ITEM_BURDEN    0x20000000L /* stability, but item weighs more */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 

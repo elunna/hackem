@@ -1310,7 +1310,7 @@ char *usr_text;
         if (obj->oprops & ITEM_STENCH) OBJPUTSTR("Grants aggravate monster");
         if (obj->oprops & ITEM_TELE) OBJPUTSTR("Grants teleportation");
         if (obj->oprops & ITEM_SLOW) OBJPUTSTR("Grants lethargy");
-        if (obj->oprops & ITEM_SUSTAIN) OBJPUTSTR("Grants sustainability");
+        if (obj->oprops & ITEM_SUSTAIN) OBJPUTSTR("Grants fixed abilities");
         if (obj->oprops & ITEM_STEALTH) OBJPUTSTR("Grants stealth");
         if (obj->oprops & ITEM_BURDEN) OBJPUTSTR("Grants stability, weights 4x more");
         if (obj->oprops & ITEM_SURF) OBJPUTSTR("Grants water walking");
