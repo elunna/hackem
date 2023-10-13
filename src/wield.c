@@ -283,6 +283,12 @@ register struct obj *obj;
                 Your("%s suppresses your fear with rage!", xname(uwep));
                 context.botl = 1;
                 uwep->oprops_known |= ITEM_RAGE;
+            } else if (!(uwep->oprops_known & ITEM_RAGE)) {
+                if (!Blind)
+                    You_feel("a red mist descending on you!");
+                else
+                    You_feel("like magma is coursing through your veins!");
+                uwep->oprops_known |= ITEM_RAGE;
             }
             EFearless |= W_WEP;
         }
@@ -662,6 +668,12 @@ register struct obj *obj;
                 Your("%s suppresses your fear with rage!", xname(uwep));
                 context.botl = 1;
                 uswapwep->oprops_known |= ITEM_RAGE;
+            } else if (!(uwep->oprops_known & ITEM_RAGE)) {
+                if (!Blind)
+                    You_feel("a red mist descending on you!");
+                else
+                    You_feel("like magma is coursing through your veins!");
+                uwep->oprops_known |= ITEM_RAGE;
             }
             EFearless |= W_SWAPWEP;
         }
