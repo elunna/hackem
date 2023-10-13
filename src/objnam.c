@@ -536,8 +536,8 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
-    if (props & ITEM_DRLI) {
-        if ((props_known & ITEM_DRLI) || dump_prop_flag) {
+    if (props & ITEM_DECAY) {
+        if ((props_known & ITEM_DECAY) || dump_prop_flag) {
             Strcat(buf, of),
             Strcat(buf, weapon ? " decay" : " drain resistance"),
             Strcpy(of, " and");
@@ -564,8 +564,8 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
-    if (props & ITEM_ACID) {
-        if ((props_known & ITEM_ACID) || dump_prop_flag) {
+    if (props & ITEM_SIZZLE) {
+        if ((props_known & ITEM_SIZZLE) || dump_prop_flag) {
             Strcat(buf, of),
                 Strcat(buf, weapon ? " sizzle" : " acid resistance"),
                 Strcpy(of, " and");
@@ -578,15 +578,13 @@ boolean has_of;
                     Strcpy(of, " and");
         }
     }
-    if (props & ITEM_STONE) {
-        if ((props_known & ITEM_STONE) || dump_prop_flag) {
-            Strcat(buf, of),
-                    Strcat(buf, of), Strcat(buf, " stone resistance"),
-                    Strcpy(of, " and");
+    if (props & ITEM_FLEX) {
+        if ((props_known & ITEM_FLEX) || dump_prop_flag) {
+            Strcat(buf, " versus stone"), Strcpy(of, " and");
         }
     }
-    if (props & ITEM_SICK) {
-        if ((props_known & ITEM_SICK) || dump_prop_flag) {
+    if (props & ITEM_HEALTH) {
+        if ((props_known & ITEM_HEALTH) || dump_prop_flag) {
             Strcat(buf, of),
                     Strcat(buf, of), Strcat(buf, " sick resistance"),
                     Strcpy(of, " and");
@@ -607,7 +605,7 @@ boolean has_of;
     }
     if (props & ITEM_TOUGH) {
         if ((props_known & ITEM_TOUGH) || dump_prop_flag) {
-            Strcat(buf, of), Strcat(buf, " resilience"),
+            Strcat(buf, of), Strcat(buf, " toughness"),
                     Strcpy(of, " and");
         }
     }
@@ -623,8 +621,8 @@ boolean has_of;
             Strcpy(of, " and");
         }
     }
-    if (props & ITEM_SEARCHING) {
-        if ((props_known & ITEM_SEARCHING) || dump_prop_flag) {
+    if (props & ITEM_SEARCH) {
+        if ((props_known & ITEM_SEARCH) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " searching"),
             Strcpy(of, " and");
         }
@@ -647,8 +645,8 @@ boolean has_of;
                     Strcpy(of, " and");
         }
     }
-    if (props & ITEM_FUMBLING) {
-        if ((props_known & ITEM_FUMBLING) || dump_prop_flag) {
+    if (props & ITEM_FUMBLE) {
+        if ((props_known & ITEM_FUMBLE) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " fumbling"),
             Strcpy(of, " and");
         }
@@ -695,8 +693,8 @@ boolean has_of;
                     Strcpy(of, " and");
         }
     }
-    if (props & ITEM_WWALK) {
-        if ((props_known & ITEM_WWALK) || dump_prop_flag) {
+    if (props & ITEM_SURF) {
+        if ((props_known & ITEM_SURF) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " surfing"),
                 Strcpy(of, " and");
         }
@@ -4285,7 +4283,7 @@ struct obj *no_wish;
                 } else if (!strncmpi((p + of), "drain", l = strlen("drain"))
                            || !strncmpi((p + of), "decay", l = strlen("decay"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_DRLI;
+                        objprops |= ITEM_DECAY;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "shock", l = strlen("shock"))
                            || !strncmpi((p + of), "lightning", l = strlen("lightning"))) {
@@ -4305,7 +4303,7 @@ struct obj *no_wish;
                 } else if (!strncmpi((p + of), "acid", l = strlen("acid"))
                            || !strncmpi((p + of), "sizzle", l = strlen("sizzle"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_ACID;
+                        objprops |= ITEM_SIZZLE;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "sleep", l = strlen("sleep"))) {
                     if (!objpropcount || wizard)
@@ -4313,11 +4311,11 @@ struct obj *no_wish;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "stone", l = strlen("stone"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_STONE;
+                        objprops |= ITEM_FLEX;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "sick", l = strlen("sick"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_SICK;
+                        objprops |= ITEM_HEALTH;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "stun", l = strlen("stun"))) {
                     if (!objpropcount || wizard)
@@ -4327,7 +4325,7 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_RAGE;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "resilience", l = strlen("resilience"))) {
+                } else if (!strncmpi((p + of), "toughness", l = strlen("toughness"))) {
                     if (!objpropcount || wizard)
                         objprops |= ITEM_TOUGH;
                     objpropcount++;
@@ -4343,7 +4341,7 @@ struct obj *no_wish;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "searching", l = strlen("searching"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_SEARCHING;
+                        objprops |= ITEM_SEARCH;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "insight", l = strlen("insight"))) {
                     if (!objpropcount || wizard)
@@ -4363,7 +4361,7 @@ struct obj *no_wish;
                        as they don't exist, you'd wish for 'fumble
                        boots' instead */
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_FUMBLING;
+                        objprops |= ITEM_FUMBLE;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "hunger", l = strlen("hunger"))) {
                     if (!objpropcount || wizard)
@@ -4396,7 +4394,7 @@ struct obj *no_wish;
                 } else if (!strncmpi((p + of), "water walking", l = strlen("water walking"))
                             || !strncmpi((p + of), "surfing", l = strlen("surfing"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_WWALK;
+                        objprops |= ITEM_SURF;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "swimming", l = strlen("swimming"))) {
                     if (!objpropcount || wizard)
@@ -5384,22 +5382,22 @@ struct obj *no_wish;
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_FROST);
         else if (objprops & ITEM_FIRE)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_FIRE);
-        else if (objprops & ITEM_DRLI)
-            objprops &= ~(ITEM_RES_PROPS & ~ITEM_DRLI);
+        else if (objprops & ITEM_DECAY)
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_DECAY);
         else if (objprops & ITEM_SHOCK)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_SHOCK);
         else if (objprops & ITEM_VENOM)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_VENOM);
         else if (objprops & ITEM_SCREAM)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_SCREAM);
-        else if (objprops & ITEM_ACID)
-            objprops &= ~(ITEM_RES_PROPS & ~ITEM_ACID);
+        else if (objprops & ITEM_SIZZLE)
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_SIZZLE);
         else if (objprops & ITEM_SLEEP)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_SLEEP);
-        else if (objprops & ITEM_STONE)
-            objprops &= ~(ITEM_RES_PROPS & ~ITEM_STONE);
-        else if (objprops & ITEM_SICK)
-            objprops &= ~(ITEM_RES_PROPS & ~ITEM_SICK);
+        else if (objprops & ITEM_FLEX)
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_FLEX);
+        else if (objprops & ITEM_HEALTH)
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_HEALTH);
         else if (objprops & ITEM_STUN)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_STUN);
         else if (objprops & ITEM_RAGE)
@@ -5727,17 +5725,17 @@ long objprops;
     if (otmp->otyp == OILSKIN_CLOAK)
         objprops &= ~ITEM_OILSKIN;
     if (otmp->otyp == ROGUES_GLOVES)
-        objprops &= ~ITEM_SEARCHING;
+        objprops &= ~ITEM_SEARCH;
     if (otmp->otyp == ROGUES_GLOVES)
-        objprops &= ~ITEM_SEARCHING;
+        objprops &= ~ITEM_SEARCH;
     if (otmp->otyp == GAUNTLETS_OF_FUMBLING)
-        objprops &= ~ITEM_FUMBLING;
+        objprops &= ~ITEM_FUMBLE;
     if (otmp->otyp == GAUNTLETS_OF_SWIMMING)
         objprops &= ~ITEM_SWIM;
     if (otmp->otyp == FUMBLE_BOOTS)
-        objprops &= ~ITEM_FUMBLING;
+        objprops &= ~ITEM_FUMBLE;
     if (otmp->otyp == WATER_WALKING_BOOTS)
-        objprops &= ~ITEM_WWALK;
+        objprops &= ~ITEM_SURF;
     if (otmp->otyp == RESONANT_SHIELD)
         objprops &= ~ITEM_SCREAM;
     if (otmp->otyp == ELVEN_CLOAK)
@@ -5745,13 +5743,13 @@ long objprops;
     if (otmp->otyp == ELVEN_BOOTS)
         objprops &= ~ITEM_STEALTH;
     if (otmp->otyp == ALCHEMY_SMOCK)
-        objprops &= ~(ITEM_ACID | ITEM_VENOM);
+        objprops &= ~(ITEM_SIZZLE | ITEM_VENOM);
     
     if (otmp->oclass == RING_CLASS) {
         /* TODO: Figure out how to loop over the props 
          * and use obj_has_prop(obj, which) */
         if (otmp->otyp == RIN_SEARCHING)
-            objprops &= ~ITEM_SEARCHING;
+            objprops &= ~ITEM_SEARCH;
         if (otmp->otyp == RIN_STEALTH)
             objprops &= ~ITEM_STEALTH;
         if (otmp->otyp == RIN_SUSTAIN_ABILITY)

@@ -141,7 +141,7 @@ register struct obj *obj;
             EMagic_sense &= ~W_WEP;
             toggle_seeinv(olduwep, (ESee_invisible & ~W_WEP), FALSE);
         }
-        if (olduwep->oprops & ITEM_FUMBLING) {
+        if (olduwep->oprops & ITEM_FUMBLE) {
             if (!(HFumbling & ~TIMEOUT))
                 HFumbling = EFumbling = 0;
             EFumbling &= ~W_WEP;
@@ -171,13 +171,13 @@ register struct obj *obj;
         if (olduwep->oprops & ITEM_STABLE) {
             EStable &= ~W_WEP;
         }
-        if (olduwep->oprops & ITEM_WWALK) {
+        if (olduwep->oprops & ITEM_SURF) {
             EWwalking &= ~W_WEP;
             if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
                 && !Levitation && !Flying && !is_clinger(youmonst.data)
                 && !context.takeoff.cancelled_don
                 && !iflags.in_lava_effects) {
-                olduwep->oprops_known |= ITEM_WWALK;
+                olduwep->oprops_known |= ITEM_SURF;
                 spoteffects(TRUE);
             }
         }
@@ -192,10 +192,10 @@ register struct obj *obj;
         if (olduwep->oprops & ITEM_SLEEP) {
             ESleep_resistance &= ~W_WEP;
         }
-        if (olduwep->oprops & ITEM_STONE) {
+        if (olduwep->oprops & ITEM_FLEX) {
             EStone_resistance &= ~W_WEP;
         }
-        if (olduwep->oprops & ITEM_SICK) {
+        if (olduwep->oprops & ITEM_HEALTH) {
             ESick_resistance &= ~W_WEP;
         }
         if (olduwep->oprops & ITEM_STUN) {
@@ -227,7 +227,7 @@ register struct obj *obj;
             EMagic_sense |= W_WEP;
             toggle_seeinv(uwep, (ESee_invisible & ~W_WEP), TRUE);
         }
-        if (uwep->oprops & ITEM_FUMBLING) {
+        if (uwep->oprops & ITEM_FUMBLE) {
             if (!(HFumbling & ~TIMEOUT))
                 incr_itimeout(&HFumbling, rnd(20));
             EFumbling |= W_WEP;
@@ -263,11 +263,11 @@ register struct obj *obj;
         if (uwep->oprops & ITEM_STABLE) {
             EStable |= W_WEP;
         }
-        if (uwep->oprops & ITEM_WWALK) {
+        if (uwep->oprops & ITEM_SURF) {
             EWwalking |= W_WEP;
             if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
                 spoteffects(TRUE);
-                uwep->oprops_known |= ITEM_WWALK;
+                uwep->oprops_known |= ITEM_SURF;
             }
         }
         if (uwep->oprops & ITEM_SWIM) {
@@ -282,10 +282,10 @@ register struct obj *obj;
         if (uwep->oprops & ITEM_SLEEP) {
             ESleep_resistance |= W_WEP;
         }
-        if (uwep->oprops & ITEM_STONE) {
+        if (uwep->oprops & ITEM_FLEX) {
             EStone_resistance |= W_WEP;
         }
-        if (uwep->oprops & ITEM_SICK) {
+        if (uwep->oprops & ITEM_HEALTH) {
             ESick_resistance |= W_WEP;
         }
         if (uwep->oprops & ITEM_STUN) {
@@ -303,8 +303,6 @@ register struct obj *obj;
             EDisint_resistance |= W_WEP;
         }
     }
-
-
 
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.
@@ -521,7 +519,7 @@ register struct obj *obj;
             toggle_seeinv(olduswapwep, (ESee_invisible & ~W_SWAPWEP), FALSE);
         }
         /* Fumbling property */
-        if (olduswapwep->oprops & ITEM_FUMBLING) {
+        if (olduswapwep->oprops & ITEM_FUMBLE) {
             if (!(HFumbling & ~TIMEOUT))
                 HFumbling = EFumbling = 0;
             EFumbling &= ~W_SWAPWEP;
@@ -559,13 +557,13 @@ register struct obj *obj;
             HStable &= ~W_SWAPWEP;
         }
         /* Water walking */
-        if (olduswapwep->oprops & ITEM_WWALK) {
+        if (olduswapwep->oprops & ITEM_SURF) {
             HWwalking &= ~W_SWAPWEP;
             if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
                 && !Levitation && !Flying && !is_clinger(youmonst.data)
                 && !context.takeoff.cancelled_don
                 && !iflags.in_lava_effects) {
-                olduswapwep->oprops_known |= ITEM_WWALK;
+                olduswapwep->oprops_known |= ITEM_SURF;
                 spoteffects(TRUE);
             }
         }
@@ -583,11 +581,11 @@ register struct obj *obj;
             ESleep_resistance &= ~W_SWAPWEP;
         }
         /* Stone resistance */
-        if (olduswapwep->oprops & ITEM_STONE) {
+        if (olduswapwep->oprops & ITEM_FLEX) {
             EStone_resistance &= ~W_SWAPWEP;
         }
         /* Sickness resistance */
-        if (olduswapwep->oprops & ITEM_SICK) {
+        if (olduswapwep->oprops & ITEM_HEALTH) {
             ESick_resistance &= ~W_SWAPWEP;
         }
         /* Stun resistance */
@@ -622,7 +620,7 @@ register struct obj *obj;
             EMagic_sense |= W_SWAPWEP;
             toggle_seeinv(uswapwep, (ESee_invisible & ~W_SWAPWEP), TRUE);
         }
-        if (uswapwep->oprops & ITEM_FUMBLING) {
+        if (uswapwep->oprops & ITEM_FUMBLE) {
             if (!(HFumbling & ~TIMEOUT))
                 incr_itimeout(&HFumbling, rnd(20));
             EFumbling |= W_SWAPWEP;
@@ -658,11 +656,11 @@ register struct obj *obj;
         if (uswapwep->oprops & ITEM_STABLE) {
             HStable |= W_SWAPWEP;
         }
-        if (uswapwep->oprops & ITEM_WWALK) {
+        if (uswapwep->oprops & ITEM_SURF) {
             HWwalking |= W_SWAPWEP;
             if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
                 spoteffects(TRUE);
-                uswapwep->oprops_known |= ITEM_WWALK;
+                uswapwep->oprops_known |= ITEM_SURF;
             }
         }
         if (uswapwep->oprops & ITEM_SWIM) {
@@ -677,10 +675,10 @@ register struct obj *obj;
         if (uswapwep->oprops & ITEM_SLEEP) {
             ESleep_resistance |= W_SWAPWEP;
         }
-        if (uswapwep->oprops & ITEM_STONE) {
+        if (uswapwep->oprops & ITEM_FLEX) {
             EStone_resistance |= W_SWAPWEP;
         }
-        if (uswapwep->oprops & ITEM_SICK) {
+        if (uswapwep->oprops & ITEM_HEALTH) {
             ESick_resistance |= W_SWAPWEP;
         }
         if (uswapwep->oprops & ITEM_STUN) {
@@ -698,10 +696,6 @@ register struct obj *obj;
             EDisint_resistance |= W_SWAPWEP;
         }
     }
-
-
-
-
 }
 
 /*** Commands to change particular slot(s) ***/

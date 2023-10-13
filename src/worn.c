@@ -353,18 +353,18 @@ struct obj *obj; /* item to make known if effect can be seen */
 const struct PropTypes prop_lookup[NUM_PROPERTIES] = {
         { FIRE_RES,          ITEM_FIRE },
         { COLD_RES,          ITEM_FROST },
-        { DRAIN_RES,         ITEM_DRLI },
+        { DRAIN_RES,         ITEM_DECAY },
         { SHOCK_RES,         ITEM_SHOCK },
         { SONIC_RES,         ITEM_SCREAM },
         { POISON_RES,        ITEM_VENOM },
-        { ACID_RES,          ITEM_ACID },
+        { ACID_RES,          ITEM_SIZZLE },
         { SLEEP_RES,         ITEM_SLEEP },
-        { STONE_RES,         ITEM_STONE },
-        { SICK_RES,          ITEM_SICK },
+        { STONE_RES,         ITEM_FLEX },
+        { SICK_RES,          ITEM_HEALTH },
         { STUN_RES,          ITEM_STUN },
         { FEARLESS,          ITEM_RAGE },
         { TELEPAT,           ITEM_ESP },
-        { FUMBLING,          ITEM_FUMBLING },
+        { FUMBLING,          ITEM_FUMBLE },
         { HUNGER,            ITEM_HUNGER },
         { AGGRAVATE_MONSTER, ITEM_STENCH },
         { TELEPORT,          ITEM_TELE },
@@ -373,7 +373,7 @@ const struct PropTypes prop_lookup[NUM_PROPERTIES] = {
         { FIXED_ABIL,        ITEM_SUSTAIN },
         { STEALTH,           ITEM_STEALTH },
         { STABLE,            ITEM_STABLE },
-        { WWALKING,          ITEM_WWALK },
+        { WWALKING,          ITEM_SURF },
         { SWIMMING,          ITEM_SWIM }
 };
 
@@ -618,7 +618,7 @@ boolean on, silently;
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = COLD_RES;
                 break;
-            case ITEM_DRLI:
+            case ITEM_DECAY:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = DRAIN_RES;
                 break;
@@ -634,7 +634,7 @@ boolean on, silently;
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = POISON_RES;
                 break;
-            case ITEM_ACID:
+            case ITEM_SIZZLE:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = ACID_RES;
                 break;
@@ -642,7 +642,7 @@ boolean on, silently;
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = SLEEP_RES;
                 break;
-            case ITEM_STONE:
+            case ITEM_FLEX:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = STONE_RES;
                 break;
@@ -660,7 +660,7 @@ boolean on, silently;
             case ITEM_EXCEL:
                 which = ADORNED;
                 break;
-            case ITEM_FUMBLING:
+            case ITEM_FUMBLE:
                 which = FUMBLING;
                 break;
             case ITEM_HUNGER:
@@ -684,7 +684,7 @@ boolean on, silently;
             case ITEM_STABLE:
                 which = STABLE;
                 break;
-            case ITEM_WWALK:
+            case ITEM_SURF:
                 which = WWALKING;
                 break;
             case ITEM_SWIM:

@@ -163,7 +163,7 @@ int ef_flags;
     if (!otmp)
         return ER_NOTHING;
 
-    /* Resiliant items are immune to erosion. */
+    /* Tough items are immune to erosion. */
     if (otmp && otmp->oprops & ITEM_TOUGH) {
         otmp->oprops_known |= ITEM_TOUGH;
         return FALSE;
@@ -4634,10 +4634,10 @@ drown()
         } else if (!HWwalking) {
             /* *Something* is keeping us afloat! */
             for (otmp = invent; otmp; otmp = otmp->nobj)
-                if (otmp->oprops & ITEM_WWALK && is_worn(otmp)
-                      && !(otmp->oprops_known & ITEM_WWALK)) {
+                if (otmp->oprops & ITEM_SURF && is_worn(otmp)
+                      && !(otmp->oprops_known & ITEM_SURF)) {
                     Your("%s keeps you from falling in the water!", xname(otmp));
-                    otmp->oprops_known |= ITEM_WWALK;
+                    otmp->oprops_known |= ITEM_SURF;
                     update_inventory();
                 }
         }

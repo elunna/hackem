@@ -1229,7 +1229,7 @@ char *usr_text;
             if (obj->oprops & ITEM_FROST) OBJPUTSTR("\t+1d5 + 3 cold damage");
             if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("\t+1d5 + 3 shock damage");
             if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("\t+1d5 + 3 sonic damage");
-            if (obj->oprops & ITEM_ACID) OBJPUTSTR("\t+1d5 + 3 acid damage");
+            if (obj->oprops & ITEM_SIZZLE) OBJPUTSTR("\t+1d5 + 3 acid damage");
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("\tdoes 1d2 (+ 10% chance of 6-15 extra) poison damage; \n\t10% chance of instakill by poison");
             /* - Sleep resistance is only defensive */
         }
@@ -1285,27 +1285,27 @@ char *usr_text;
         if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("Grants shock resistance");
         if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("Grants sonic resistance");
         if (obj->oprops & ITEM_VENOM) OBJPUTSTR("Grants poison resistance");
-        if (obj->oprops & ITEM_ACID) OBJPUTSTR("Grants acid resistance");
-        if (obj->oprops & ITEM_DRLI) OBJPUTSTR("Grants drain resistance");
+        if (obj->oprops & ITEM_SIZZLE) OBJPUTSTR("Grants acid resistance");
+        if (obj->oprops & ITEM_DECAY) OBJPUTSTR("Grants drain resistance");
         if (obj->oprops & ITEM_SLEEP) OBJPUTSTR("Grants sleep resistance");
-        if (obj->oprops & ITEM_STONE) OBJPUTSTR("Grants petrification resistance");
-        if (obj->oprops & ITEM_SICK) OBJPUTSTR("Grants sickness resistance");
+        if (obj->oprops & ITEM_FLEX) OBJPUTSTR("Grants petrification resistance");
+        if (obj->oprops & ITEM_HEALTH) OBJPUTSTR("Grants sickness resistance");
         if (obj->oprops & ITEM_STUN) OBJPUTSTR("Grants stun resistance");
         if (obj->oprops & ITEM_RAGE) OBJPUTSTR("Grants rage and fearlessness");
         if (obj->oprops & ITEM_PROWESS) OBJPUTSTR("Grants prowess in technical skills");
-        if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Grants disintegration resistance");
+        if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Grants disintegration resistance, indestructible item");
         if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
-        if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
+        if (obj->oprops & ITEM_FUMBLE) OBJPUTSTR("Grants fumbling");
     }
     /* PROPERTY INFO */
 
     if (dummy.oprops_known
         && (oc.oc_class == WEAPON_CLASS || oc.oc_class == ARMOR_CLASS)) {
         if (obj->oprops & ITEM_ESP) OBJPUTSTR("Grants telepathy");
-        if (obj->oprops & ITEM_SEARCHING) OBJPUTSTR("Grants searching");
+        if (obj->oprops & ITEM_SEARCH) OBJPUTSTR("Grants searching");
         if (obj->oprops & ITEM_INSIGHT) OBJPUTSTR("Grants see invisible");
         if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/CHA adjustment");
-        if (obj->oprops & ITEM_VIGIL) OBJPUTSTR("Grants warning/DEX adjustment");
+        if (obj->oprops & ITEM_VIGIL) OBJPUTSTR("Grants warning/WIS adjustment");
         if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
         if (obj->oprops & ITEM_STENCH) OBJPUTSTR("Grants aggravate monster");
         if (obj->oprops & ITEM_TELE) OBJPUTSTR("Grants teleportation");
@@ -1313,7 +1313,7 @@ char *usr_text;
         if (obj->oprops & ITEM_SUSTAIN) OBJPUTSTR("Grants sustainability");
         if (obj->oprops & ITEM_STEALTH) OBJPUTSTR("Grants stealth");
         if (obj->oprops & ITEM_STABLE) OBJPUTSTR("Grants stability");
-        if (obj->oprops & ITEM_WWALK) OBJPUTSTR("Grants water walking");
+        if (obj->oprops & ITEM_SURF) OBJPUTSTR("Grants water walking");
         if (obj->oprops & ITEM_SWIM) OBJPUTSTR("Grants swimming");
     }
 

@@ -1579,8 +1579,8 @@ struct obj *obj;
     if (context.bypasses && obj->bypass)
         return FALSE;
     
-    /* Sustainable or resilient items will not shudder. */
-    if (obj->oprops & ITEM_SUSTAIN)
+    /* Sustainable or tough items will not shudder. */
+    if (obj->oprops & ITEM_SUSTAIN && obj->oprops & ITEM_TOUGH)
         return FALSE;
     
     if (obj->oclass == WAND_CLASS)

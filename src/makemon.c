@@ -2641,7 +2641,7 @@ register struct monst *mtmp;
             (void) mpickobj(mtmp, otmp);
         } else if (ptr == &mons[PM_VECNA]) {
             otmp = mksobj(ROBE, FALSE, FALSE);
-            otmp->oprops = ITEM_DRLI;
+            otmp->oprops = ITEM_DECAY;
             otmp->oeroded2 = TRUE;
             curse(otmp);
             (void) mpickobj(mtmp, otmp);

@@ -592,31 +592,34 @@ struct obj {
 #define ITEM_FROST     0x00000002L /* frost damage or resistance */
 #define ITEM_SHOCK     0x00000004L /* shock damage or resistance */
 #define ITEM_VENOM     0x00000008L /* poison damage or resistance */
-#define ITEM_ACID      0x00000010L /* acid damage or resistance */
+#define ITEM_SIZZLE    0x00000010L /* acid damage or resistance */
 #define ITEM_SCREAM    0x00000020L /* sonic damage or resistance */
-#define ITEM_DRLI      0x00000040L /* drains life or resists it */
+#define ITEM_DECAY     0x00000040L /* drains life or resistance */
 #define ITEM_OILSKIN   0x00000080L /* permanently greased */
-#define ITEM_ESP       0x00000100L /* extrinsic telepathy */
-#define ITEM_SEARCHING 0x00000200L /* extrinsic searching */
-#define ITEM_VIGIL     0x00000400L /* extrinsic warning */
-#define ITEM_EXCEL     0x00000800L /* confers luck, charisma boost */
-#define ITEM_FUMBLING  0x00001000L /* extrinsic fumbling */
-#define ITEM_HUNGER    0x00002000L /* extrinsic hunger */
-#define ITEM_STENCH    0x00004000L /* extrinsic aggravate monster */
-#define ITEM_TELE      0x00008000L /* extrinsic teleportitis */
-#define ITEM_SLOW      0x00010000L /* extrinsic slowness */
-#define ITEM_SUSTAIN   0x00020000L /* extrinsic sustain ability */
-#define ITEM_STEALTH   0x00040000L /* extrinsic stealth */
-#define ITEM_INSIGHT   0x00080000L /* extrinsic see invisible */
-#define ITEM_SLEEP     0x00100000L /* extrinsic sleep resistance */
-#define ITEM_STONE     0x00200000L /* extrinsic stoning resistance */
-#define ITEM_SICK      0x00400000L /* extrinsic sickness resistance */
-#define ITEM_STUN      0x00800000L /* extrinsic stun resistance */
-#define ITEM_STABLE    0x01000000L /* extrinsic clobber resistance */
-#define ITEM_WWALK     0x02000000L /* extrinsic water walking */
-#define ITEM_SWIM      0x04000000L /* extrinsic swimming */
-#define ITEM_RAGE      0x08000000L /* extrinsic rage and fearlessness */
-#define ITEM_TOUGH     0x10000000L /* extrinsic disintegration res */
+#define ITEM_ESP       0x00000100L /* telepathy */
+#define ITEM_SEARCH    0x00000200L /* searching */
+#define ITEM_VIGIL     0x00000400L /* warning, wisdom boost, flanking defense */
+#define ITEM_EXCEL     0x00000800L /* luck, charisma boost */
+#define ITEM_FUMBLE    0x00001000L /* fumbling */
+#define ITEM_HUNGER    0x00002000L /* hunger */
+#define ITEM_STENCH    0x00004000L /* aggravate monster, prevents digestion
+                                    * stenchy items cannot be eaten by players or monsters */
+#define ITEM_TELE      0x00008000L /* teleportitis */
+#define ITEM_SLOW      0x00010000L /* slowness */
+#define ITEM_SUSTAIN   0x00020000L /* sustain ability, items retain their enchantment level */
+#define ITEM_STEALTH   0x00040000L /* stealth */
+#define ITEM_INSIGHT   0x00080000L /* see invisible, magical vision */
+#define ITEM_SLEEP     0x00100000L /* sleep resistance */
+#define ITEM_FLEX      0x00200000L /* stoning resistance */
+#define ITEM_HEALTH    0x00400000L /* sickness resistance */
+#define ITEM_STUN      0x00800000L /* stun resistance */
+#define ITEM_STABLE    0x01000000L /* clobber resistance */
+#define ITEM_SURF      0x02000000L /* water walking */
+#define ITEM_SWIM      0x04000000L /* swimming */
+#define ITEM_RAGE      0x08000000L /* fearlessness, bloodthirsty
+                                    * makes your weapon deal max damage */
+#define ITEM_TOUGH     0x10000000L /* disintegration res 
+                                    * Makes items erosionproof and indestructible */
 #define ITEM_PROWESS   0x20000000L /* Speeds up tech cooldowns, skill bonuses */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
@@ -626,19 +629,19 @@ struct obj {
 
 /* Properties that grant both a worn resistance and attack type */
 #define ITEM_RES_PROPS (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM \
-                            | ITEM_ACID | ITEM_SCREAM | ITEM_DRLI        \
-                            | ITEM_SLEEP | ITEM_STONE | ITEM_SICK        \
+                            | ITEM_SIZZLE | ITEM_SCREAM | ITEM_DECAY        \
+                            | ITEM_SLEEP | ITEM_FLEX | ITEM_HEALTH        \
                             | ITEM_STUN)
 /* Positive properties */
-#define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCHING \
+#define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCH \
                          | ITEM_VIGIL | ITEM_EXCEL | ITEM_SUSTAIN \
                          | ITEM_STEALTH | ITEM_INSIGHT | ITEM_STABLE \
-                         | ITEM_WWALK | ITEM_SWIM | ITEM_RAGE | ITEM_TOUGH)
+                         | ITEM_SURF | ITEM_SWIM | ITEM_RAGE | ITEM_TOUGH)
 /* Negative properties */
-#define ITEM_BAD_PROPS (ITEM_FUMBLING | ITEM_HUNGER | ITEM_STENCH \
+#define ITEM_BAD_PROPS (ITEM_FUMBLE | ITEM_HUNGER | ITEM_STENCH \
                         | ITEM_TELE | ITEM_SLOW)
 
-#define NON_WEP_PROPS (ITEM_SLEEP | ITEM_STONE | ITEM_SICK | ITEM_STUN)
+#define NON_WEP_PROPS (ITEM_SLEEP | ITEM_FLEX | ITEM_HEALTH | ITEM_STUN)
 #define ONLY_WEP_PROPS (ITEM_RAGE | ITEM_PROWESS)
 
 /*

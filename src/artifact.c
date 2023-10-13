@@ -505,7 +505,7 @@ int prop;
 {
     int i;
     /* Alchemy smock is the king of exceptions */
-    if (otmp->otyp == ALCHEMY_SMOCK && (prop & (ITEM_ACID | ITEM_VENOM)))
+    if (otmp->otyp == ALCHEMY_SMOCK && (prop & (ITEM_SIZZLE | ITEM_VENOM)))
         return TRUE;
 
     for (i = 0; i < NUM_PROPERTIES; i++) {
@@ -762,15 +762,15 @@ struct obj *otmp;
             return TRUE;
         if (adtyp == AD_DRST && (otmp->oprops & ITEM_VENOM))
             return TRUE;
-        if (adtyp == AD_ACID && (otmp->oprops & ITEM_ACID))
+        if (adtyp == AD_ACID && (otmp->oprops & ITEM_SIZZLE))
             return TRUE;
-        if (adtyp == AD_DRLI && (otmp->oprops & ITEM_DRLI))
+        if (adtyp == AD_DRLI && (otmp->oprops & ITEM_DECAY))
             return TRUE;
         if (adtyp == AD_SLEE && (otmp->oprops & ITEM_SLEEP))
             return TRUE;
-        if (adtyp == AD_STON && (otmp->oprops & ITEM_STONE))
+        if (adtyp == AD_STON && (otmp->oprops & ITEM_FLEX))
             return TRUE;
-        if (adtyp == AD_DISE && (otmp->oprops & ITEM_SICK))
+        if (adtyp == AD_DISE && (otmp->oprops & ITEM_HEALTH))
             return TRUE;
         if (adtyp == AD_STUN && (otmp->oprops & ITEM_STUN))
             return TRUE;
@@ -958,7 +958,7 @@ long wp_mask;
     if (oart) {
         spfx = (wp_mask != W_ART) ? oart->spfx : oart->cspfx;
     } else if (wp_mask == W_WEP || wp_mask == W_SWAPWEP) {
-        if (otmp->oprops & ITEM_SEARCHING)
+        if (otmp->oprops & ITEM_SEARCH)
             spfx |= SPFX_SEARCH;
         if (otmp->oprops & ITEM_VIGIL)
             spfx |= SPFX_WARN;
@@ -1435,7 +1435,7 @@ int tmp;
                 return dbon;
             }
         }
-        if ((otmp->oprops & ITEM_DRLI)
+        if ((otmp->oprops & ITEM_DECAY)
             && ((yours) ? (!Drain_resistance) : (!resists_drli(mon)))) {
             spec_dbon_applies = TRUE;
             return 0;
@@ -2211,7 +2211,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                                     : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
             } else if (otmp->oclass == WEAPON_CLASS
-                       && (otmp->oprops & ITEM_ACID)) {
+                       && (otmp->oprops & ITEM_SIZZLE)) {
                 pline_The("acidic %s %s %s%c",
                           distant_name(otmp, xname),
                           !spec_dbon_applies        ? "hits"
@@ -2225,8 +2225,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             if (!rn2(5))
                 erode_armor(mdef, ERODE_CORRODE);
         }
-        if ((otmp->oprops & ITEM_ACID) && spec_dbon_applies) {
-            otmp->oprops_known |= ITEM_ACID;
+        if ((otmp->oprops & ITEM_SIZZLE) && spec_dbon_applies) {
+            otmp->oprops_known |= ITEM_SIZZLE;
             update_inventory();
         }
         return realizes_damage;
@@ -3014,7 +3014,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     pline_The("massive sword draws the %s from %s!",
                               life, mon_nam(mdef));
                 else if (otmp->oclass == WEAPON_CLASS
-                         && (otmp->oprops & ITEM_DRLI))
+                         && (otmp->oprops & ITEM_DECAY))
                     pline_The("deadly %s draws the %s from %s!",
                           distant_name(otmp, xname), life,
                           mon_nam(mdef));
@@ -3023,8 +3023,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     pline("%s draws the %s from %s!",
                           The(distant_name(otmp, xname)), life,
                           mon_nam(mdef));
-                if (otmp->oprops & ITEM_DRLI) {
-                    otmp->oprops_known |= ITEM_DRLI;
+                if (otmp->oprops & ITEM_DECAY) {
+                    otmp->oprops_known |= ITEM_DECAY;
                     update_inventory();
                 }
             }
@@ -3059,15 +3059,15 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             else if (otmp->oartifact == ART_LIFESTEALER)
                 pline_The("massive sword drains your %s!", life);
             else if (otmp->oclass == WEAPON_CLASS
-                     && (otmp->oprops & ITEM_DRLI))
+                     && (otmp->oprops & ITEM_DECAY))
                 pline_The("deadly %s drains your %s!",
                           distant_name(otmp, xname), life);
             /* The Staff of Aesculapius */
             else
                 pline("%s drains your %s!", The(distant_name(otmp, xname)),
                       life);
-            if (otmp->oprops & ITEM_DRLI) {
-                otmp->oprops_known |= ITEM_DRLI;
+            if (otmp->oprops & ITEM_DECAY) {
+                otmp->oprops_known |= ITEM_DECAY;
                 update_inventory();
             }
             losexp("life drainage");
@@ -4119,10 +4119,10 @@ struct obj *obj;
             obj->oprops_known |= ITEM_SHOCK;
         return TRUE;
     }
-    if (ad_type == AD_DRLI || oprops & ITEM_DRLI) {
+    if (ad_type == AD_DRLI || oprops & ITEM_DECAY) {
         pline("%s thins the %s!", The(xname(obj)), hliquid("water"));
         if (oprops)
-            obj->oprops_known |= ITEM_DRLI;
+            obj->oprops_known |= ITEM_DECAY;
         return TRUE;
     }
     if (ad_type == AD_LOUD || oprops & ITEM_SCREAM) {
@@ -4131,10 +4131,10 @@ struct obj *obj;
             obj->oprops_known |= ITEM_SCREAM;
         return TRUE;
     }
-    if (ad_type == AD_ACID || oprops & ITEM_ACID) {
+    if (ad_type == AD_ACID || oprops & ITEM_SIZZLE) {
         pline("The %s bubbles from contact with your %s!", hliquid("water"), xname(obj));
         if (oprops)
-            obj->oprops_known |= ITEM_ACID;
+            obj->oprops_known |= ITEM_SIZZLE;
         return TRUE;
     }
     if (oprops & ITEM_RAGE) {

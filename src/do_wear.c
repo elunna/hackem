@@ -219,17 +219,17 @@ long mask;
         EShock_resistance |= mask;
     if (props & ITEM_VENOM)
         EPoison_resistance |= mask;
-    if (props & ITEM_ACID)
+    if (props & ITEM_SIZZLE)
         EAcid_resistance |= mask;
     if (props & ITEM_SCREAM)
         ESonic_resistance |= mask;
-    if (props & ITEM_DRLI)
+    if (props & ITEM_DECAY)
         EDrain_resistance |= mask;
     if (props & ITEM_SLEEP)
         ESleep_resistance |= mask;
-    if (props & ITEM_STONE)
+    if (props & ITEM_FLEX)
         EStone_resistance |= mask;
-    if (props & ITEM_SICK)
+    if (props & ITEM_HEALTH)
         ESick_resistance |= mask;
     if (props & ITEM_STUN)
         EStun_resistance |= mask;
@@ -251,7 +251,7 @@ long mask;
         ETelepat |= mask;
         see_monsters();
     }
-    if (props & ITEM_SEARCHING)
+    if (props & ITEM_SEARCH)
         ESearching |= mask;
 
     if (props & ITEM_INSIGHT) {
@@ -271,7 +271,7 @@ long mask;
     if (props & ITEM_PROWESS) {
         (void) changes_stat(otmp, ITEM_PROWESS);
     }
-    if (props & ITEM_FUMBLING) {
+    if (props & ITEM_FUMBLE) {
         if (!EFumbling && !(HFumbling & ~TIMEOUT))
             incr_itimeout(&HFumbling, rnd(20));
         EFumbling |= mask;
@@ -298,11 +298,11 @@ long mask;
     }
     if (props & ITEM_STABLE)
         EStable |= mask;
-    if (props & ITEM_WWALK) {
+    if (props & ITEM_SURF) {
         EWwalking |= mask;
         if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
             spoteffects(TRUE);
-            otmp->oprops_known |= ITEM_WWALK;
+            otmp->oprops_known |= ITEM_SURF;
         }
     }
     if (props & ITEM_SWIM) {
@@ -328,7 +328,7 @@ long mask;
         EFire_resistance &= ~mask;
     if (props & ITEM_FROST)
         ECold_resistance &= ~mask;
-    if (props & ITEM_DRLI)
+    if (props & ITEM_DECAY)
         EDrain_resistance &= ~mask;
     if (props & ITEM_SHOCK)
         EShock_resistance &= ~mask;
@@ -336,13 +336,13 @@ long mask;
         ESonic_resistance &= ~mask;
     if (props & ITEM_VENOM)
         EPoison_resistance &= ~mask;
-    if (props & ITEM_ACID)
+    if (props & ITEM_SIZZLE)
         EAcid_resistance &= ~mask;
     if (props & ITEM_SLEEP)
         ESleep_resistance &= ~mask;
-    if (props & ITEM_STONE)
+    if (props & ITEM_FLEX)
         EStone_resistance &= ~mask;
-    if (props & ITEM_SICK)
+    if (props & ITEM_HEALTH)
         ESick_resistance &= ~mask;
     if (props & ITEM_STUN)
         EStun_resistance &= ~mask;
@@ -356,7 +356,7 @@ long mask;
         ETelepat &= ~mask;
         see_monsters();
     }
-    if (props & ITEM_SEARCHING)
+    if (props & ITEM_SEARCH)
         ESearching &= ~mask;
     if (props & ITEM_INSIGHT) {
         ESee_invisible &= ~mask;
@@ -375,7 +375,7 @@ long mask;
     if (props & ITEM_PROWESS) {
         (void) changes_stat(otmp, ITEM_PROWESS);
     }
-    if (props & ITEM_FUMBLING) {
+    if (props & ITEM_FUMBLE) {
         EFumbling &= ~mask;
         if (!EFumbling && !(HFumbling & ~TIMEOUT))
            HFumbling = EFumbling = 0;
@@ -396,13 +396,13 @@ long mask;
     }
     if (props & ITEM_STABLE)
         EStable &= ~mask;
-    if (props & ITEM_WWALK) {
+    if (props & ITEM_SURF) {
         EWwalking &= ~mask;
         if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
             && !Levitation && !Flying && !is_clinger(youmonst.data)
             && !context.takeoff.cancelled_don
             && !iflags.in_lava_effects) {
-           otmp->oprops_known |= ITEM_WWALK;
+           otmp->oprops_known |= ITEM_SURF;
            spoteffects(TRUE);
         }
     }
