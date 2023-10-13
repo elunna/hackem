@@ -192,8 +192,8 @@ register struct obj *obj;
         if (olduwep->oprops & ITEM_FLEX) {
             EStone_resistance &= ~W_WEP;
         }
-        if (olduwep->oprops & ITEM_STUN) {
-            EStun_resistance &= ~W_WEP;
+        if (olduwep->oprops & ITEM_DANGER) {
+            EInfravision &= ~W_WEP;
         }
         if (olduwep->oprops & ITEM_RAGE) {
             EFearless &= ~W_WEP;
@@ -276,8 +276,8 @@ register struct obj *obj;
         if (uwep->oprops & ITEM_FLEX) {
             EStone_resistance |= W_WEP;
         }
-        if (uwep->oprops & ITEM_STUN) {
-            EStun_resistance |= W_WEP;
+        if (uwep->oprops & ITEM_DANGER) {
+            EInfravision |= W_WEP;
         }
         if (uwep->oprops & ITEM_RAGE) {
             EFearless |= W_WEP;
@@ -569,8 +569,8 @@ register struct obj *obj;
             EStone_resistance &= ~W_SWAPWEP;
         }
         /* Stun resistance */
-        if (olduswapwep->oprops & ITEM_STUN) {
-            EStun_resistance &= ~W_SWAPWEP;
+        if (olduswapwep->oprops & ITEM_DANGER) {
+            EInfravision &= ~W_SWAPWEP;
         }
         /* Fearlessness */
         if (olduswapwep->oprops & ITEM_RAGE) {
@@ -655,8 +655,8 @@ register struct obj *obj;
         if (uswapwep->oprops & ITEM_FLEX) {
             EStone_resistance |= W_SWAPWEP;
         }
-        if (uswapwep->oprops & ITEM_STUN) {
-            EStun_resistance |= W_SWAPWEP;
+        if (uswapwep->oprops & ITEM_DANGER) {
+            EInfravision |= W_SWAPWEP;
         }
         if (uswapwep->oprops & ITEM_RAGE) {
             EFearless |= W_SWAPWEP;

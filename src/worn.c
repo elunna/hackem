@@ -361,7 +361,7 @@ const struct PropTypes prop_lookup[NUM_PROPERTIES] = {
         { SLEEP_RES,         ITEM_SLEEP },
         { STONE_RES,         ITEM_FLEX },
         { SICK_RES,          ITEM_FILTH },
-        { STUN_RES,          ITEM_STUN },
+        { INFRAVISION,       ITEM_DANGER },
         { FEARLESS,          ITEM_RAGE },
         { TELEPAT,           ITEM_ESP },
         { FUMBLING,          ITEM_FUMBLE },
@@ -646,9 +646,9 @@ boolean on, silently;
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = STONE_RES;
                 break;
-            case ITEM_STUN:
+            case ITEM_DANGER:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
-                    which = STUN_RES;
+                    which = INFRAVISION;
                 break;
             case ITEM_RAGE:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))

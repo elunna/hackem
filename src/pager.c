@@ -1291,7 +1291,7 @@ char *usr_text;
         if (obj->oprops & ITEM_SLEEP) OBJPUTSTR("Grants sleep resistance");
         if (obj->oprops & ITEM_FLEX) OBJPUTSTR("Grants petrification resistance");
         if (obj->oprops & ITEM_FILTH) OBJPUTSTR("Grants sickness resistance");
-        if (obj->oprops & ITEM_STUN) OBJPUTSTR("Grants stun resistance");
+        if (obj->oprops & ITEM_DANGER) OBJPUTSTR("Grants infravision with increased difficulty");
         if (obj->oprops & ITEM_RAGE) OBJPUTSTR("Grants rage and fearlessness");
         if (obj->oprops & ITEM_PROWESS) OBJPUTSTR("Grants prowess in technical skills");
         if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Grants disintegration resistance, indestructible item");

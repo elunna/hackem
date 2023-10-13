@@ -620,7 +620,7 @@ struct obj {
 #define ITEM_SLOW      0x04000000L /* slowness */
 #define ITEM_SUSTAIN   0x08000000L /* sustain ability, 
                                     * items retain their enchantment level */
-#define ITEM_STUN      0x10000000L /* stun resistance */
+#define ITEM_DANGER    0x10000000L /* infravision + increased difficulty */
 #define ITEM_BURDEN    0x20000000L /* stability, but item weighs more */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
@@ -631,8 +631,7 @@ struct obj {
 /* Properties that grant both a worn resistance and attack type */
 #define ITEM_RES_PROPS (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM \
                             | ITEM_SIZZLE | ITEM_SCREAM | ITEM_DECAY        \
-                            | ITEM_SLEEP | ITEM_FLEX | ITEM_FILTH        \
-                            | ITEM_STUN)
+                            | ITEM_SLEEP | ITEM_FLEX | ITEM_FILTH)
 /* Positive properties */
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCH \
                          | ITEM_VIGIL | ITEM_EXCEL | ITEM_SUSTAIN \
@@ -640,9 +639,9 @@ struct obj {
                          | ITEM_SURF | ITEM_SWIM | ITEM_RAGE | ITEM_TOUGH)
 /* Negative properties */
 #define ITEM_BAD_PROPS (ITEM_FUMBLE | ITEM_HUNGER | ITEM_STENCH \
-                        | ITEM_TELE | ITEM_SLOW)
+                        | ITEM_TELE | ITEM_SLOW | ITEM_DANGER)
 
-#define NON_WEP_PROPS (ITEM_FLEX | ITEM_STUN)
+#define NON_WEP_PROPS (ITEM_FLEX)
 #define ONLY_WEP_PROPS (ITEM_RAGE | ITEM_PROWESS)
 
 /*

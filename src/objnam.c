@@ -590,10 +590,10 @@ boolean has_of;
                     Strcpy(of, " and");
         }
     }
-    if (props & ITEM_STUN) {
-        if ((props_known & ITEM_STUN) || dump_prop_flag) {
+    if (props & ITEM_DANGER) {
+        if ((props_known & ITEM_DANGER) || dump_prop_flag) {
             Strcat(buf, of),
-                    Strcat(buf, of), Strcat(buf, " stun resistance"),
+                    Strcat(buf, of), Strcat(buf, " danger"),
                     Strcpy(of, " and");
         }
     }
@@ -4319,9 +4319,9 @@ struct obj *no_wish;
                     if (!objpropcount || wizard)
                         objprops |= ITEM_FILTH;
                     objpropcount++;
-                } else if (!strncmpi((p + of), "stun", l = strlen("stun"))) {
+                } else if (!strncmpi((p + of), "danger", l = strlen("danger"))) {
                     if (!objpropcount || wizard)
-                        objprops |= ITEM_STUN;
+                        objprops |= ITEM_DANGER;
                     objpropcount++;
                 } else if (!strncmpi((p + of), "rage", l = strlen("rage"))) {
                     if (!objpropcount || wizard)
@@ -5400,8 +5400,8 @@ struct obj *no_wish;
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_FLEX);
         else if (objprops & ITEM_FILTH)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_FILTH);
-        else if (objprops & ITEM_STUN)
-            objprops &= ~(ITEM_RES_PROPS & ~ITEM_STUN);
+        else if (objprops & ITEM_DANGER)
+            objprops &= ~(ITEM_RES_PROPS & ~ITEM_DANGER);
         else if (objprops & ITEM_RAGE)
             objprops &= ~(ITEM_RES_PROPS & ~ITEM_RAGE);
         else if (objprops & ITEM_TOUGH)

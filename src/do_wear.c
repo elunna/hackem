@@ -231,8 +231,8 @@ long mask;
         EStone_resistance |= mask;
     if (props & ITEM_FILTH)
         ESick_resistance |= mask;
-    if (props & ITEM_STUN)
-        EStun_resistance |= mask;
+    if (props & ITEM_DANGER)
+        EInfravision |= mask;
     if (props & ITEM_RAGE) {
         EFearless |= mask;
         if (Afraid) {
@@ -344,8 +344,8 @@ long mask;
         EStone_resistance &= ~mask;
     if (props & ITEM_FILTH)
         ESick_resistance &= ~mask;
-    if (props & ITEM_STUN)
-        EStun_resistance &= ~mask;
+    if (props & ITEM_DANGER)
+        EInfravision &= ~mask;
     if (props & ITEM_RAGE)
         EFearless &= ~mask;
     if (props & ITEM_TOUGH)
