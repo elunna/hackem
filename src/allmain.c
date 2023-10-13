@@ -362,7 +362,7 @@ boolean resuming;
                         
                         boolean surfing = ((is_damp_terrain(u.ux, u.uy) 
                                 || is_lava(u.ux, u.uy))
-                                        && using_oprop(ITEM_SURF));
+                                        && !Underwater && using_oprop(ITEM_SURF));
                        
                         /* TECH: Blinking! */
                         if (tech_inuse(T_BLINK) || surfing) {
