@@ -724,6 +724,25 @@ char *enterstring;
         eshkp->following = 0;
         (void) strncpy(eshkp->customer, plname, PL_NSIZ);
         pacify_shk(shkp);
+
+        /* tourists get a special identification service for shop items */
+        if (Role_if(PM_TOURIST) && !Hallucination) {
+            struct mkroom *sroom = &rooms[eshkp->shoproom - ROOMOFFSET];
+            int sx, sy;
+            for (sx = sroom->lx; sx <= sroom->hx; sx++) {
+                for (sy = sroom->ly; sy <= sroom->hy; sy++) {
+                    if (OBJ_AT(sx, sy)) {
+                        struct obj *otmp = level.objects[sx][sy];
+                        int nochrg = 0;
+                        long price = get_cost_of_shop_item(otmp, &nochrg);
+                        if (price > 0) {
+                            otmp->dknown = 1;
+                            discover_object(otmp->otyp, TRUE, FALSE);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     if (muteshk(shkp) || eshkp->following)
@@ -4321,21 +4340,6 @@ struct monst *shkp;
     return 1;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 static int
 shk_charge(const char *slang, struct monst *shkp, char svc_type)
 {
@@ -4455,7 +4459,6 @@ struct monst *shkp;
         outrumor(0, BY_OTHER);
     return 1;
 }
-
 
 static int
 shk_firearms(slang, shkp)
@@ -4641,7 +4644,6 @@ struct monst *shkp;
 
     return TRUE;
 }
-
 
 /*
 ** Smooth out the lower/upper bounds on the price to get something

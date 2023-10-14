@@ -878,31 +878,17 @@ int shp_indx;
     case ARMOR_CLASS:
     case WEAPON_CLASS:
         switch (rnd(4)) {
-        case 1:
-            srace = PM_HUMAN;
-            break;
-        case 2:
-            srace = PM_GIANT;
-            break;
-        case 3:
-            srace = PM_CENTAUR;
-            break;
-        case 4:
-            srace = PM_DWARF;
-            break;
+        case 1: srace = PM_HUMAN; break;
+        case 2: srace = PM_GIANT; break;
+        case 3: srace = PM_CENTAUR; break;
+        case 4: srace = PM_DWARF; break;
         }
         break;
     case FOOD_CLASS:
         switch (rnd(3)) {
-        case 1:
-            srace = PM_DWARF;
-            break;
-        case 2:
-            srace = PM_GNOME;
-            break;
-        case 3:
-            srace = PM_HUMAN;
-            break;
+        case 1: srace = PM_DWARF; break;
+        case 2: srace = PM_GNOME; break;
+        case 3: srace = PM_HUMAN; break;
         }
         break;
     case RING_CLASS:
@@ -912,18 +898,10 @@ int shp_indx;
     case WAND_CLASS:
     case POTION_CLASS:
         switch (rnd(4)) {
-        case 1:
-            srace = PM_ELF;
-            break;
-        case 2:
-            srace = PM_GNOME;
-            break;
-        case 3:
-            srace = PM_NYMPH;
-            break;
-        case 4:
-            srace = PM_HUMAN;
-            break;
+        case 1: srace = PM_ELF; break;
+        case 2: srace = PM_GNOME; break;
+        case 3: srace = PM_NYMPH; break;
+        case 4: srace = PM_HUMAN; break;
         }
         break;
     case TOOL_CLASS:
@@ -943,18 +921,10 @@ int shp_indx;
     case SCROLL_CLASS:
     case SPBOOK_CLASS:
         switch (rnd(4)) {
-        case 1:
-            srace = PM_ILLITHID;
-            break;
-        case 2:
-            srace = PM_HUMAN;
-            break;
-        case 3:
-            srace = PM_GNOME;
-            break;
-        case 4:
-            srace = PM_ELF;
-            break;
+        case 1: srace = PM_ILLITHID; break;
+        case 2: srace = PM_HUMAN; break;
+        case 3: srace = PM_GNOME; break;
+        case 4: srace = PM_ELF; break;
         }
         break;
     default:
