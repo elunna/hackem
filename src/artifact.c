@@ -3426,10 +3426,8 @@ struct obj *obj;
 
         switch (oart->inv_prop) {
         case TAMING: {
-            struct obj pseudo;
-
-            pseudo =
-                zeroobj; /* neither cursed nor blessed, zero oextra too */
+            /* neither cursed nor blessed, zero oextra too */
+            struct obj pseudo = zeroobj;
             pseudo.otyp = SCR_TAMING;
             (void) seffects(&pseudo);
             break;

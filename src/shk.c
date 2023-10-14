@@ -4165,7 +4165,6 @@ long svc_type;
     return 1;
 }
 
-
 static int
 shk_armor_works(slang, shkp, svc_type)
 const char *slang;
@@ -4208,10 +4207,6 @@ long svc_type;
         break;
 
     case SHK_ARM_ENC:
-        if (Is_dragon_scales(obj)) {
-            verbalize("Sorry I don't handle dragon scales, allergic you see...");
-            return 0;
-        }
         verbalize("Nobody will ever hit on you again.");
 
         charge = (obj->spe + 1) * (obj->spe + 1) * 500;
@@ -4241,9 +4236,17 @@ long svc_type;
 
         if (Hallucination)
             Your("%s looks dented.", xname(obj));
-        
-        obj->spe++;
-        adj_abon(obj, 1);
+
+        if (Is_dragon_scales(obj)) {
+            struct obj pseudo = zeroobj;
+            pseudo.otyp = SCR_ENCHANT_ARMOR;
+            maybe_process_scales(obj, &pseudo);
+            update_inventory();
+            return 1; /* obj is gone */
+        } else {
+            obj->spe++;
+            adj_abon(obj, 1);
+        }
         update_inventory();
         break;
 

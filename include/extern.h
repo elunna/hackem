@@ -2388,12 +2388,13 @@ E void FDECL(set_lit, (int, int, genericptr_t));
 #endif
 E void FDECL(litroom, (BOOLEAN_P, struct obj *));
 E void litroom_mon(boolean, struct obj *, int, int);
-E void FDECL(do_genocide, (int,BOOLEAN_P));
+E void FDECL(do_genocide, (int, BOOLEAN_P));
 E void FDECL(punish, (struct obj *));
 E void NDECL(unpunish);
 E boolean FDECL(cant_revive, (int *, BOOLEAN_P, struct obj *));
 E boolean NDECL(create_particular);
 E int FDECL(mon_to_zombie, (int));
+E boolean maybe_process_scales(struct obj *, struct obj *);
 
 /* ### rect.c ### */
 
