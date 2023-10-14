@@ -1269,10 +1269,12 @@ int dam;
     
     /* Counter attacks */
     /* Does the shield have a property? */
-    if (!rn2(skillpoints))
-        You("%s the attack with your shield.", 
-            rn2(2) ? "block" : "deflect");
-    else {
+    if (!rn2(skillpoints)) {
+        if (mtmp)
+            You("%s the attack with your shield.",
+                rn2(2) ? "block" : "deflect");
+        /* The projectile blocking has a message in thitu */
+    } else if (mtmp) {
         if (rn2(2))
             You("force your shield into the %s attack!",
                 s_suffix(mon_nam(mtmp)));
@@ -1280,14 +1282,13 @@ int dam;
             You("smash the %s with your shield!", mon_nam(mtmp));
             
         res = damage_mon(mtmp, dam, AD_PHYS);
-    }
-    
-    if (res)
-        xkilled(mtmp, XKILL_GIVEMSG);
-    else if (!mtmp->mconf) {
-        if (canseemon(mtmp))
-            pline("%s looks dazed.", Monnam(mtmp));
-        mtmp->mconf = 1;
+        if (res)
+            xkilled(mtmp, XKILL_GIVEMSG);
+        else if (!mtmp->mconf) {
+            if (canseemon(mtmp))
+                pline("%s looks dazed.", Monnam(mtmp));
+            mtmp->mconf = 1;
+        }
     }
     
     /* We should reward shield skill, so blocking will 
