@@ -1085,8 +1085,7 @@ makelevel()
             mkroom(REALZOO);
         else if (u_depth > 10 && !rn2(20))
             mkroom(ZROOM);
-        else if (u_depth > 10 && !rn2(30)) 
-            mkroom(CLINIC); 
+
         else if (u_depth > 10 && !rn2(16)
                  && !(mvitals[PM_BABY_OWLBEAR].mvflags & G_GONE))
             mkroom(OWLBNEST);
@@ -1103,21 +1102,23 @@ makelevel()
             mkroom(GIANTCOURT);
         else if (u_depth > 15 && !rn2(11))
             mkroom(SWAMP);
-        else if (u_depth > 15 && !rn2(17))
-            mkroom(MINIGUILD);
         else if (u_depth > 16 && !rn2(13)
                  && !(mvitals[PM_COCKATRICE].mvflags & G_GONE))
             mkroom(COCKNEST);
-        else if (u_depth > 20 && !rn2(20))
-            mkroom(DRAGONLAIR);
         else if (u_depth > 17 && !rn2(12)
                  && !(mvitals[PM_MIND_FLAYER_LARVA].mvflags & G_GONE))
             mkroom(NURSERY);
         else if (u_depth > 18 && !rn2(20) 
                  && !(mvitals[PM_MIGO_DRONE].mvflags & G_GONE))
             mkroom(MIGOHIVE);
-        else if (u_depth > 15 && !rn2(20))
+        else if (u_depth > 18 && !rn2(20))
             mkroom(TERRORHALL);
+        else if (u_depth > 18 && !rn2(30))
+            mkroom(CLINIC);
+        else if (u_depth > 25 && !rn2(17))
+            mkroom(MINIGUILD);
+        else if (u_depth > 25 && !rn2(20))
+            mkroom(DRAGONLAIR);
     }
 
  skip0:
