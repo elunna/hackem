@@ -2599,6 +2599,7 @@ boolean prefilled;
         case LEMUREPIT:
         case MIGOHIVE:
         case FUNGUSFARM:
+        case ZROOM:
             fill_zoo(croom);
             break;
         }
@@ -2627,6 +2628,9 @@ boolean prefilled;
         break;
     case FUNGUSFARM:
         level.flags.has_fungusfarm = TRUE;
+        break;
+    case ZROOM:
+        level.flags.has_zroom = TRUE;
         break;
     case MINIGUILD:
         level.flags.has_guild = TRUE;

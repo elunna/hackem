@@ -209,6 +209,7 @@ static struct {
     { "lemurepit", LEMUREPIT },
     { "migohive", MIGOHIVE },
     { "fungusfarm",  FUNGUSFARM },
+    { "zouthern room", ZROOM },
     { "clinic",  CLINIC },
     { "terrorhall",  TERRORHALL },
     

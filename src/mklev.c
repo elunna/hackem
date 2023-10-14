@@ -868,6 +868,7 @@ clear_level_structures()
     level.flags.has_morgue = level.flags.graveyard = 0;
     level.flags.has_lemurepit = 0;
     level.flags.has_fungusfarm = 0;
+    level.flags.has_zroom = 0;
     level.flags.has_guild = 0;
     level.flags.has_clinic = 0;
     level.flags.has_terrorhall = 0;
@@ -1082,6 +1083,8 @@ makelevel()
             mkroom(BEEHIVE);
         else if (u_depth > 9 && !rn2(19)) 
             mkroom(REALZOO);
+        else if (u_depth > 10 && !rn2(20))
+            mkroom(ZROOM);
         else if (u_depth > 10 && !rn2(30)) 
             mkroom(CLINIC); 
         else if (u_depth > 10 && !rn2(16)

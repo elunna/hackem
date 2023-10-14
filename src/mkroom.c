@@ -126,6 +126,9 @@ int roomtype;
         case TERRORHALL: 
             mkzoo(TERRORHALL); 
             break;
+        case ZROOM:
+            mkzoo(ZROOM);
+            break;
         default:
             impossible("Tried to make a room of type %d.", roomtype);
         }
@@ -143,7 +146,7 @@ mkshop()
 #ifndef MAC
         ep = nh_getenv("SHOPTYPE");
         if (ep) {
-            if (*ep == 'z' || *ep == 'Z') {
+            if (*ep == 'Z') {
                 mkzoo(ZOO);
                 return;
             }
@@ -213,6 +216,10 @@ mkshop()
             }
             if (*ep == '}') {
                 mkswamp();
+                return;
+            }
+            if (*ep == 'z') {
+                mkzoo(ZROOM);
                 return;
             }
             for (i = 0; shtypes[i].name; i++)
@@ -476,6 +483,7 @@ struct mkroom *sroom;
                     (type == COURT) ? courtmon() : 
                     (type == BARRACKS) ? squadmon() : 
                     (type == TERRORHALL) ? mkclass(S_UMBER, 0) :
+                    (type == ZROOM) ? mkclass(S_ZOUTHERN, 0) :
                     (type == MORGUE) ? morguemon() : 
                     (type == FUNGUSFARM) ? fungus() :
                     (type == MINIGUILD) ? guildmon() :
@@ -555,6 +563,12 @@ struct mkroom *sroom;
                     (void) mksobj_at(SLIME_MOLD, sx, sy, TRUE, FALSE);
                 if (!rn2(5))
                     (void) mksobj_at(MUSHROOM, sx, sy, TRUE, FALSE);
+                break;
+            case ZROOM:
+                if (!rn2(3))
+                    (void) mksobj_at(TIN, sx, sy, TRUE, FALSE);
+                if (!rn2(5))
+                    (void) mksobj_at(BOOMERANG, sx, sy, TRUE, FALSE);
                 break;
             case BADFOODSHOP:
                 /* Rotten eggs */
@@ -726,6 +740,9 @@ struct mkroom *sroom;
         break;
     case FUNGUSFARM:
         level.flags.has_fungusfarm = 1;
+        break;
+    case ZROOM:
+        level.flags.has_zroom = 1;
         break;
     case CLINIC:
         level.flags.has_clinic = 1;

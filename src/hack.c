@@ -2984,7 +2984,13 @@ register boolean newlev;
             You("enter a strange hive!");
             break;
         case FUNGUSFARM:
-            You("enter a room full of fungi!");
+            if (Hallucination)
+                You("go down under!");
+            else
+                You("enter a room full of fungi!");
+            break;
+        case ZROOM:
+            You("enter an exotic room!");
             break;
         case MINIGUILD:
             You("enter a smelly guild!");
