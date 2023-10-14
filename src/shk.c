@@ -2476,7 +2476,7 @@ long
 get_cost_of_shop_item(obj, nochrg)
 register struct obj *obj;
 int *nochrg; /* alternate return value: 1: no charge, 0: shop owned,        */
-{            /* -1: not in a shop (so should't be formatted as "no charge") */
+{            /* -1: not in a shop (so shouldn't be formatted as "no charge") */
     struct monst *shkp;
     struct obj *top;
     xchar x, y;
@@ -2689,6 +2689,12 @@ register struct monst *shkp; /* if angry, impose a surcharge */
     if (shkp && ESHK(shkp)->surcharge)
         tmp += (tmp + 2L) / 3L;
 
+    /* Remember prices */
+    if (!objects[obj->otyp].oc_name_known) {
+        /* Note the price in the items called field */
+        call_price(obj, tmp);
+    }
+    
     /* KMH, balance patch -- healthstone replaces rotting/health */
     /* Used UnNetHack pricing instead of slashem's - more fair. */
     if (Is_blackmarket(&u.uz)) {

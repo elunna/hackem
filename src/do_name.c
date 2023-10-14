@@ -1607,6 +1607,56 @@ struct obj *obj;
     }
 }
 
+void
+call_price(obj, price)
+struct obj *obj;
+int price;
+{
+    char buf[BUFSZ], pbuf[BUFSZ];
+    char **str1;
+    const char *obj_desc = OBJ_DESCR(objects[obj->otyp]);
+    Sprintf(pbuf, "_%d", price);
+    
+    if (!obj->dknown)
+        return; /* probably blind */
+
+    /* pointer to old name */
+    str1 = &(objects[obj->otyp].oc_uname);
+    
+    /* No previous name or was the price already noted? */
+    if (!*str1 || !strstri(*str1, obj_desc))
+        Sprintf(buf, "%s -%d", obj_desc, price);
+#if 0
+    else {
+        /* Do we already have this price? */
+        if (!strstri(*str1, pbuf)) {
+            Sprintf(buf, "%s -%d", *str1, price);
+        } else
+            Strcat(buf, *str1);
+    }
+#endif
+    /* clear old name */
+    if (*str1)
+        free((genericptr_t) *str1);
+
+    /* strip leading and trailing spaces; uncalls item if all spaces */
+    (void) mungspaces(buf);
+    if (!*buf) {
+        if (*str1) { /* had name, so possibly remove from disco[] */
+            /* strip name first, for the update_inventory() call
+               from undiscover_object() */
+            *str1 = (char *) 0;
+            undiscover_object(obj->otyp);
+        }
+    } else {
+        *str1 = dupstr(buf);
+        discover_object(obj->otyp, FALSE, TRUE); /* possibly add to disco[] */
+    }
+}
+
+
+
+
 STATIC_OVL void
 namefloorobj()
 {

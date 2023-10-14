@@ -497,6 +497,7 @@ E struct obj *FDECL(oname, (struct obj *, const char *));
 E boolean FDECL(objtyp_is_callable, (int));
 E int NDECL(docallcmd);
 E void FDECL(docall, (struct obj *));
+E void FDECL(call_price, (struct obj *, int));
 E const char *NDECL(rndghostname);
 E char *FDECL(racial_adj, (char *, struct monst *));
 E char *FDECL(x_monnam, (struct monst *, int, const char *, int, BOOLEAN_P));
