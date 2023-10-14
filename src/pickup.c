@@ -2132,7 +2132,9 @@ boolean taking;
                                    && !which_armor(mtmp, W_ARMG)
                                    && !(resists_ston(mtmp)
                                         || defended(mtmp, AD_STON)));
-
+        boolean unpaid = otmp->unpaid 
+                || (!otmp->no_charge && costly_spot(otmp->ox, otmp->oy));
+        
         /* Clear inapplicable wornmask bits */
         unwornmask &= ~(W_ART | W_ARTI | W_QUIVER);
 
@@ -2140,6 +2142,11 @@ boolean taking;
             int carryamt;
             if (welded(otmp)) {
                 weldmsg(otmp);
+                continue;
+            }
+            if (unpaid) {
+                pline("A mysterious force prevents you from giving away %s...", 
+                      yname(otmp));
                 continue;
             }
             if (otmp->otyp == LOADSTONE && cursed(otmp, TRUE)
