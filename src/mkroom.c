@@ -1296,30 +1296,38 @@ courtmon()
 }
 
 struct permonst *
-realzoomon()
-{
-	int i = rn2(60) + rn2(3 * level_difficulty());
+realzoomon() {
+    int i = rn2(60) + rn2(3 * level_difficulty());
 
-	if (i > 175)
-            return (&mons[PM_JUMBO_THE_ELEPHANT]);
-	else if (i > 115)
-            return (&mons[PM_MASTODON]);
-	else if (i > 85)
-            return (&mons[PM_PYTHON]);
-	else if (i > 70)
-            return (&mons[PM_MUMAK]);
-	else if (i > 55)
-            return (&mons[PM_TIGER]);
-	else if (i > 45)
-            return (&mons[PM_PANTHER]);
-	else if (i > 25)
-            return (&mons[PM_JAGUAR]);
-	else if (i > 15)
-            return (&mons[PM_APE]);
-        else if (i > 5)
-            return (&mons[PM_ZOO_BAT]);
-	else
-            return (&mons[PM_MONKEY]);
+    if (i > 175)
+        return &mons[PM_JUMBO_THE_ELEPHANT];
+    else if (i > 135)
+        return &mons[PM_WOOLLY_MAMMOTH];
+    else if (i > 115)
+        return &mons[PM_MASTODON];
+    else if (i > 85)
+        return rn2(3) ? &mons[PM_PYTHON] 
+                      : &mons[PM_GIANT_ANACONDA];
+    else if (i > 70)
+        return &mons[PM_MUMAK];
+    else if (i > 55)
+        return rn2(3) ? &mons[PM_TIGER] 
+                      : &mons[PM_LION];
+    else if (i > 45)
+        return rn2(3) ? &mons[PM_PANTHER] 
+                      : &mons[PM_HIPPO];
+    else if (i > 25)
+        return &mons[PM_LANDSHARK];
+    else if (i > 25)
+        return &mons[PM_JAGUAR];
+    else if (i > 15)
+        return &mons[PM_APE];
+    else if (i > 5)
+        return &mons[PM_ZOO_BAT];
+    else if (i > 2)
+        return &mons[PM_FERAL_HOG];
+    else
+        return &mons[PM_MONKEY];
 }
 
 #define NSTYPES (PM_GENERAL - PM_SOLDIER + 1)
