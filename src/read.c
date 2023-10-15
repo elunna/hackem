@@ -3355,7 +3355,7 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
                  || (Role_if(PM_ICE_MAGE) && 
                     (!strcmpi(buf, "white dragon") 
                      || !strcmpi(buf, "white baby dragon")))) {
-                You_feel("guilty.");
+                You_feel("extremely guilty.");
                 adjalign(-99);
             }
             

@@ -427,9 +427,11 @@ dig(VOID_ARGS)
                 lev->typ = ROOM, lev->flags = 0;
                 if (!rn2(5))
                     (void) rnd_treefruit_at(dpx, dpy);
-                if (Race_if(PM_ELF) || Role_if(PM_RANGER))
+                if (Race_if(PM_ELF) || Role_if(PM_RANGER)) {
+                    You_feel("guilty.");
                     adjalign(-1);
-                else if (Race_if(PM_DWARF))
+                }else if (Race_if(PM_DWARF))
+                    You_feel("proper.");
                     adjalign(1);
             } else if (IS_DEADTREE(lev->typ)) {
                 /* no fruit for you */

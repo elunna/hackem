@@ -1623,14 +1623,17 @@ no_rise:
                doesn't use violated_vegetarian() to prevent
                duplicated "you feel guilty" messages */
             u.uconduct.unvegetarian++;
-            if (u.ualign.type == A_LAWFUL || Role_if(PM_MONK)) {
-                You_feel("%sguilty about drinking such a vile liquid.",
-                         Role_if(PM_MONK) ? "especially " : "");
-                u.ugangr++;
-                adjalign(-15);
-            } else if (u.ualign.type == A_NEUTRAL)
-                adjalign(-3);
-            exercise(A_CON, FALSE);
+            if (!Race_if(PM_VAMPIRIC)) {
+                if (u.ualign.type == A_LAWFUL || Role_if(PM_MONK)) {
+                    You_feel("%sguilty about drinking such a vile liquid.",
+                             Role_if(PM_MONK) ? "especially " : "");
+                    u.ugangr++;
+                    adjalign(-15);
+                } else if (u.ualign.type == A_NEUTRAL)
+                    You_feel("guilty.");
+                    adjalign(-3);
+                exercise(A_CON, FALSE);
+            }
             if (Race_if(PM_VAMPIRIC)) {
                 if (!Unchanging) 
                     rehumanize();

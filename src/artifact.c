@@ -3910,6 +3910,7 @@ struct obj *obj;
             } while (summon_loop);
             
             /* Tsk,tsk.. */
+            You_feel("guilty.");
             adjalign(-3);
             change_luck(-3);
             break;
