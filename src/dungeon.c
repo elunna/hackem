@@ -1679,14 +1679,8 @@ level_difficulty()
 #endif /*0*/
     }
     if ((uamul && uamul->otyp == AMULET_OF_DANGER)
-          || using_oprop(ITEM_DANGER)) {
+          || using_oprop(ITEM_DANGER))
         res += 15;
-    }
-    /* Wishes increase difficulty (unless fuzzing) */
-    else if (u.uconduct.wishes > 1 && !iflags.debug_fuzzer) {
-        int bump = (u.uconduct.wishes - 1) * 2;
-        res += (bump > 15) ? 15 : bump;
-    }
     return (xchar) res;
 }
 
