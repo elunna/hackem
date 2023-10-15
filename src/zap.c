@@ -1945,13 +1945,13 @@ int id;
 
     /* Maybe copy properties over. Depends on luck, 
      * the percent is chance of success:
-     *  LUCK:    −11    −8   −5    −2      0     +2     +5     +8    +11
-     * 	SUCCESS: 0.3%  0.4%	0.4%  0.4%  14.3%  28.2%  42.1%	 56.1%  70.0%
+     *  LUCK:     <0      0     +2     +5     +8    +11
+     * 	SUCCESS: 0.5%  20.0%  39.5%  59.0%  78.5%  98.0%
      * 
      * A cursed object always has its properties wiped.
      * */
     if (obj->oprops) {
-        if (!obj->cursed && rnl(7) == 0)
+        if (!obj->cursed && rnl(5) == 0)
             otmp->oprops = obj->oprops;
         else
             otmp->oprops = 0L;
