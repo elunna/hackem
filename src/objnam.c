@@ -744,6 +744,7 @@ struct obj *obj;
      || (typ) == JACKET          \
      || (typ) == PLAIN_CLOAK     \
      || (typ) == STAKE           \
+     || ((typ) >= RIN_ADORNMENT && (typ) <= RIN_PROTECTION_FROM_SHAPE_CHAN) \
      || ((typ) == GLOVES && objects[GLOVES].oc_name_known)        \
      || ((typ) == GAUNTLETS && objects[GAUNTLETS].oc_name_known))
 
@@ -1114,6 +1115,10 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Sprintf(eos(buf), "%s spellbook", dn);
         break;
     case RING_CLASS:
+        if (dknown) {
+            Strcat(buf, materialnm[obj->material]);
+            Strcat(buf, " ");
+        }
         if (!dknown)
             Strcpy(buf, "ring");
         else if (nn) {

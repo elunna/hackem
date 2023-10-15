@@ -3558,6 +3558,25 @@ static const struct icp shiny_materials[] = {
     { 2, PLATINUM}
 };
 
+/* Reflectable items - for the shield of reflection; anything
+   that can hold a polish. Amulets also arbitrarily use this list */
+static const struct icp ring_materials[] = {
+        { 10, 0}, /* use base material */
+        { 5, BONE},
+        { 10, COPPER},
+        { 10, GEMSTONE},
+        { 5, GLASS},
+        { 5, GOLD},
+        { 10, IRON},
+        { 10, METAL},
+        { 10, MINERAL},
+        { 5, MITHRIL},
+        { 5, PLASTIC},
+        { 5, PLATINUM},
+        { 5, SILVER},
+        { 5, WOOD}
+};
+
 /* for bells and other tools, especially instruments, which are normally copper
  * or metal.  Wood and glass in other lists precludes us from using those */
 static const struct icp resonant_materials[] = {
@@ -3785,6 +3804,8 @@ struct obj* obj;
 
     /* Otherwise, select an appropriate list, or return NULL if no appropriate
      * list exists. */
+    if (obj->oclass == RING_CLASS)
+        return ring_materials;
     if (is_elven_obj(obj) && default_material != CLOTH)
         return elven_materials;
     else if (is_dwarvish_obj(obj) && default_material != CLOTH)
