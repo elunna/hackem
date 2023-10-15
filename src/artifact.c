@@ -1923,7 +1923,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             if (otmp->oartifact == ART_FROST_BRAND
                 || otmp->oartifact == ART_DEEP_FREEZE
                 || otmp->oartifact == ART_END) {
-                pline_The("ice-cold blade %s %s%c",
+                pline_The("ice-cold %s %s %s%c",
+                          otmp->oartifact == ART_DEEP_FREEZE ? "staff" : "blade",
                           !spec_dbon_applies
                               ? "hits"
                               : can_freeze(mdef->data)
