@@ -1894,6 +1894,7 @@ shambler_init()
                                                  * include/monflag.h */
     shambler->mflags1 &= ~M1_UNSOLID;           /* no ghosts */
     shambler->mflags1 &= ~M1_WALLWALK;          /* no wall-walkers */
+    shambler->mflags1 &= ~M1_CONCEAL;           /* no hiders */
     shambler->mflags1 &= ~M1_ACID;              /* will never leave a corpse */
     shambler->mflags1 &= ~M1_POIS;              /* same as above */
 
