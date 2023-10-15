@@ -272,8 +272,8 @@ gottype:
          */
         if (isbig(sroom) && 
             (shtypes[i].symb == WAND_CLASS || shtypes[i].symb == SPBOOK_CLASS
-             || sroom->rtype == CLINIC || sroom->rtype == MINIGUILD
-             || sroom->rtype == MASKSHOP)) {
+             || (SHOPBASE + i) == CLINIC || (SHOPBASE + i) == MINIGUILD
+             || (SHOPBASE + i) == MASKSHOP)) {
             i = 0;
         } 
         /* Prevent archery emporiums or gun shops if our player doesn't have

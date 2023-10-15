@@ -1093,8 +1093,10 @@ makelevel()
             mkroom(MORGUE);
         else if (u_depth > 12 && !rn2(13) && antholemon())
             mkroom(ANTHOLE);
-        else if (u_depth > 13 && !rn2(15)) 
+        else if (u_depth > 10 && !rn2(15)) 
             mkroom(BADFOODSHOP);
+        else if (u_depth > 13 && !rn2(30))
+            mkroom(CLINIC);
         else if (u_depth > 14 && !rn2(9)
                  && !(mvitals[PM_SOLDIER].mvflags & G_GONE))
             mkroom(BARRACKS);
@@ -1113,8 +1115,6 @@ makelevel()
             mkroom(MIGOHIVE);
         else if (u_depth > 18 && !rn2(20))
             mkroom(TERRORHALL);
-        else if (u_depth > 18 && !rn2(30))
-            mkroom(CLINIC);
         else if (u_depth > 25 && !rn2(17))
             mkroom(MINIGUILD);
         else if (u_depth > 25 && !rn2(20))
