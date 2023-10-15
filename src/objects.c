@@ -740,7 +740,7 @@ RING("slow digestion", "bohemian",               SLOW_DIGESTION,           200, 
 RING("teleportation", "vintage",                 TELEPORT,                 200, 1, 1, 0,  3, SILVER, HI_SILVER),
 RING("teleport control", "cosmic",               TELEPORT_CONTROL,         300, 1, 1, 0,  3, GOLD, HI_GOLD),
 RING("polymorph", "star",                        POLYMORPH,                300, 1, 1, 0,  4, BONE, CLR_WHITE),
-RING("polymorph control", "round",               POLYMORPH_CONTROL,        300, 1, 1, 0,  8, GEMSTONE, CLR_BRIGHT_GREEN),
+RING("polymorph control", "minimalist",          POLYMORPH_CONTROL,        300, 1, 1, 0,  8, GEMSTONE, CLR_BRIGHT_GREEN),
 RING("invisibility", "wire",                     INVIS,                    150, 1, 1, 0,  5, METAL, HI_METAL),
 RING("see invisible", "engagement",              SEE_INVIS,                150, 1, 1, 0,  5, GOLD, HI_METAL),
 RING("mood", "ridged",                           0,                        100, 1, 1, 0,  8, IRON, HI_METAL),      /* Slash'EM */
