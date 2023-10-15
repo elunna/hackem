@@ -1230,7 +1230,7 @@ struct monst *shk;
             maybe_add_svc(shk, SHK_ID_POTION);
     } 
     else if (shk_class_match(RING_CLASS, shk) == SHK_MATCH) {
-        if (!rn2(5))
+        if (!rn2(3))
             maybe_add_svc(shk, SHK_ID_RING);
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_AMULET);
