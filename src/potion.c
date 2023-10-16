@@ -1629,9 +1629,10 @@ no_rise:
                              Role_if(PM_MONK) ? "especially " : "");
                     u.ugangr++;
                     adjalign(-15);
-                } else if (u.ualign.type == A_NEUTRAL)
+                } else if (u.ualign.type == A_NEUTRAL) {
                     You_feel("guilty.");
                     adjalign(-3);
+                }
                 exercise(A_CON, FALSE);
             }
             if (Race_if(PM_VAMPIRIC)) {
