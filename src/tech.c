@@ -3627,7 +3627,8 @@ tech_souleater()
     struct monst *mtmp;
     int tech_no = get_tech_no(T_SOULEATER);
     int weapon_modifier, num = Upolyd ? (u.mhmax / 2) : (u.uhpmax / 2);
-    
+    boolean isweapon, isedged;
+
     if ((!Upolyd && u.uhp <= num) || (Upolyd && u.mh <= num)) {
          You("don't have the strength to invoke Souleater! Requires at least %i HP!",
              num + 1);
@@ -3635,6 +3636,13 @@ tech_souleater()
     }
     if (!uwep) {
          You("need a weapon to channel your dark energy into!");
+         return 0;
+    }
+    isweapon = (uwep->oclass == WEAPON_CLASS || is_weptool(uwep));
+    isedged = (is_pick(uwep) || (objects[uwep->otyp].oc_dir & (PIERCE | SLASH)));
+
+    if (is_missile(uwep) || (!isweapon && !isedged)) {
+         You("need a proper weapon to channel your dark energy into!");
          return 0;
     }
     You("unleash a burst of dark energy!");
