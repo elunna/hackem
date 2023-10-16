@@ -1702,7 +1702,11 @@ aligntyp alignment;
 	    mnum = ndemon(A_NONE);
 	    break;
     }
-    if (mnum == NON_PM) {
+    if (mnum == NON_PM
+        || (Role_if(PM_ICE_MAGE)
+            && (mnum == PM_FIRE_ELEMENTAL || mnum == PM_MAGMA_ELEMENTAL))
+        || (Role_if(PM_FLAME_MAGE)
+            && (mnum == PM_ICE_ELEMENTAL || mnum == PM_WATER_ELEMENTAL))) {
         You("feel a powerful presence gather, but it suddenly recedes!");
         return;
     }
