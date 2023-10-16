@@ -2656,7 +2656,7 @@ register struct monst *shkp; /* if angry, impose a surcharge */
         }
     }
     /* adjust for different material */
-    if (obj->oclass != RING_CLASS) {
+    if (obj->oclass != RING_CLASS && obj->oclass != AMULET_CLASS) {
         multiplier *= matprices[obj->material];
         divisor *= matprices[objects[obj->otyp].oc_material];
     }
@@ -2891,7 +2891,7 @@ register struct monst *shkp;
     tmp = get_pricing_units(obj) * unit_price;
 
     /* adjust for different material */
-    if (obj->oclass != RING_CLASS) {
+    if (obj->oclass != RING_CLASS && obj->oclass != AMULET_CLASS) {
         multiplier *= matprices[obj->material];
         divisor *= matprices[objects[obj->otyp].oc_material];
     }
