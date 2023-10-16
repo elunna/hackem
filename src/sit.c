@@ -81,7 +81,13 @@ dosit()
                                                                   : "");
         } else {
             You("sit on %s.", the(xname(obj)));
-            if (!(Is_box(obj) || obj->material == CLOTH))
+            if (obj->otyp == CORPSE && amorphous(&mons[obj->corpsenm]))
+                pline("It's squishy...");
+            else if (obj->otyp == CREAM_PIE) {
+                if (!Deaf)
+                    pline("Squelch!");
+                useupf(obj, obj->quan);
+            } else if (!(Is_box(obj) || obj->material == CLOTH))
                 pline("It's not very comfortable...");
         }
     } else if (trap != 0 || (u.utrap && (u.utraptype >= TT_LAVA))) {
@@ -136,20 +142,22 @@ dosit()
     } else if (IS_SINK(typ)) {
         You(sit_message, defsyms[S_sink].explanation);
         Your("%s gets wet.", humanoid(youmonst.data) ? "rump" : "underside");
-    } else if(IS_TOILET(typ)) {
+    } else if (IS_TOILET(typ)) {
         You(sit_message, defsyms[S_toilet].explanation);
 
-        if ((!Sick) && (u.uhs > 0))
+        if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
+            breaktoilet(u.ux, u.uy);
+        } else if (maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC)))
+            pline("Vampires have no use of such things.");
+        else if (!Sick && u.uhs > 0)
             You("don't have to go...");
         else {
-            /* --hackem: Yes... This was originally in Slash'EM...
-             * Leaving it for posterity. */
             if (Role_if(PM_BARBARIAN) || Role_if(PM_CAVEMAN))
                 You("miss...");
             else
                 You("grunt.");
             if (Sick)
-                make_sick(0L, (char *)0, TRUE, SICK_ALL);
+                make_sick(0L, (char *) 0, TRUE, SICK_ALL);
             if (u.uhs == 0)
                 morehungry(rn2(400) + 200);
         }
@@ -248,7 +256,7 @@ dosit()
                                               FALSE);
                             } else {
                                 pline("A clear image forms in your mind.");
-                                do_mapping();
+                                do_mapping(Confusion);
                             }
                         } else {
                             /* permanent see invisible in this instance */
@@ -298,7 +306,7 @@ dosit()
                                       FALSE);
                     } else {
                         pline("An image forms in your mind.");
-                        do_mapping();
+                        do_mapping(Confusion);
                     }
                 } else {
                     Your("vision becomes clear.");
@@ -332,7 +340,7 @@ dosit()
                 break;
             }
         } else {
-            if (is_prince(youmonst.data))
+            if (is_prince(youmonst.data) || u.uevent.uhand_of_elbereth)
                 You_feel("very comfortable here.");
             else
                 You_feel("somehow out of place...");

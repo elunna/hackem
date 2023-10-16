@@ -36,8 +36,8 @@ BRANCH:(32,10,32,10),(0,0,0,0)
 
 #
 # the stuff to find here
-OBJECT: ('!', "invulnerability"), random
-OBJECT: ('!', "invulnerability"), random
+[20%]: OBJECT: ('!', "invulnerability"), random
+[20%]: OBJECT: ('!', "invulnerability"), random
 OBJECT: ('/', "make invisible"), random
 OBJECT: ('"', "amulet versus poison"), random
 OBJECT: ('[', "speed boots"), random

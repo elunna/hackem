@@ -86,7 +86,7 @@ struct blitz_tab {
 #define T_BOOZE		39
 /* Added by SlashTHEM */
 #define T_SOULEATER 	40
-#define T_SHIELD_BLOCK  41
+#define T_POWER_SHIELD  41
 #define T_JEDI_JUMP	42
 #define T_CHARGE_SABER	43
 #define T_TELEKINESIS	44
@@ -100,7 +100,8 @@ struct blitz_tab {
 #define T_BLOOD_MAGIC   52
 #define T_BREAK_ROCK    53
 #define T_UPPERCUT      54
+#define T_ICEARMOR      55
 
-#define MAXTECH 55
+#define MAXTECH 56
 
 #endif /* TECH_H */

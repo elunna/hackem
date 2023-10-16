@@ -14,13 +14,10 @@
 #		number of choices for its branch level _first_.
 #
 
-DUNGEON:	    "The Dungeons of Doom" "D" (42, 5)
+DUNGEON:	    "The Dungeons of Doom" "D" (35, 6)
 ALIGNMENT:	    unaligned
 BRANCH:		    "The Gnomish Mines" @ (2, 3)
-RNDLEVEL:	    "mall" "T" @ (5, 2) 75 2
-LEVALIGN:	    lawful
-LEVELDESC:	    town
-RNDLEVEL:	    "oracle" "O" @ (7, 3) 3
+RNDLEVEL:	    "oracle" "O" @ (5, 5) 4
 LEVALIGN:	    neutral
 CHAINBRANCH:	"Sokoban" "oracle" + (1, 0) up
 CHAINBRANCH:	"Town" "oracle" + (2, 0) up
@@ -42,11 +39,11 @@ BRANCH:		    "The Spider Caves" @ (26, 4)
 BRANCH:		    "The Sunless Sea" @ (28, 4)
 BRANCH: 	    "The Temple of Moloch" @ (32, 4)
 BRANCH: 	    "The Giant Caverns" @ (32, 4)
-LEVEL:		    "nymph" "N" @ (23, 2) 35
-RNDLEVEL:	    "bigrm" "B" @ (20, 20) 75 20
-LEVEL:	        "stor" "S" @ (19, 21) 66
-# REMOVED: LEVEL:		"guild" "G" @ (26, 14) 20
-
+LEVEL:		    "ozzy" "N" @ (25, 10) 45
+LEVEL:		    "nymph" "N" @ (8, 17) 45
+RNDLEVEL:	    "bigrm" "B" @ (10, 20) 50 20
+LEVEL:	        "stor" "S" @ (19, 8) 66
+# LEVEL:		"guild" "G" @ (26, 14) 20
 
 
 RNDLEVEL:	    "medusa" "none" @ (-5, 4) 4
@@ -155,7 +152,7 @@ RNDLEVEL:		"soko4" "none" @ (4, 0) 18
 DUNGEON:	    "Town" "A" (3, 0)
 LEVALIGN:       lawful
 ENTRY:		    -1
-RNDLEVEL:       "town" "none" @ (1, 0) 3
+RNDLEVEL:       "town" "none" @ (1, 0) 5
 LEVEL:          "village" "none" @ (2, 0)
 LEVEL:          "townfill" "none" @ (3, 0)
 LEVELDESC:      town
@@ -186,7 +183,7 @@ LEVEL:          "caveend" "D" @ (2, 0)
 DUNGEON:        "One-eyed Sam's Market" "D" (1, 0)
 ALIGNMENT:      chaotic
 DESCRIPTION:    mazelike
-RNDLEVEL:       "blkmar" "B" @ (1, 0) 2
+LEVEL:          "blkmar" "B" @ (1, 0)
 
 ### The Lost Tomb ###
 DUNGEON:        "The Lost Tomb" "L" (1, 0)

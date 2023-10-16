@@ -1678,9 +1678,9 @@ level_difficulty()
              */
 #endif /*0*/
     }
-    if (uamul && uamul->otyp == AMULET_OF_DANGER) {
+    if ((uamul && uamul->otyp == AMULET_OF_DANGER)
+          || using_oprop(ITEM_DANGER))
         res += 15;
-    }
     return (xchar) res;
 }
 
@@ -3013,7 +3013,8 @@ boolean printdun;
     /* calculate level number */
     i = depthstart + mptr->lev.dlevel - 1;
     if (In_endgame(&mptr->lev))
-        Sprintf(buf, "%s%s:", TAB, endgamelevelname(tmpbuf, i));
+        Sprintf(buf, "%s%s:", TAB, 
+                endgamelevelname(tmpbuf, observable_depth(&mptr->lev)));
     else
         Sprintf(buf, "%sLevel %d:", TAB, i);
 
@@ -3175,4 +3176,32 @@ boolean printdun;
     }
 }
 
+
+void
+forget_mapseen(ledger_num)
+        int ledger_num;
+{
+    mapseen *mptr;
+    struct cemetery *bp;
+
+    for (mptr = mapseenchn; mptr; mptr = mptr->next)
+        if (dungeons[mptr->lev.dnum].ledger_start + mptr->lev.dlevel == ledger_num)
+            break;
+
+    /* if not found, then nothing to forget */
+    if (mptr) {
+        mptr->flags.forgot = 1;
+        mptr->br = (branch *) 0;
+
+        /* custom names are erased, not just forgotten until revisited */
+        if (mptr->custom) {
+            mptr->custom_lth = 0;
+            free((genericptr_t) mptr->custom);
+            mptr->custom = (char *) 0;
+        }
+        (void) memset((genericptr_t) mptr->msrooms, 0, sizeof mptr->msrooms);
+        for (bp = mptr->final_resting_place; bp; bp = bp->next)
+            bp->bonesknown = FALSE;
+    }
+}
 /*dungeon.c*/

@@ -33,11 +33,10 @@ const struct worn {
 
 /* This only allows for one blocking item per property */
 #define w_blocks(o, m) \
-    ((o->otyp == MUMMY_WRAPPING && ((m) & W_ARMC))                          \
-         ? INVIS                                                            \
-         : (o->otyp == CORNUTHAUM && ((m) & W_ARMH) && !Role_if(PM_WIZARD)) \
-               ? CLAIRVOYANT                                                \
-               : 0)
+    ((o->otyp == MUMMY_WRAPPING && ((m) & W_ARMC)) ? INVIS : \
+     (o->otyp == TINFOIL_HAT && ((m) & W_ARMH)) ? TELEPAT : \
+     (o->otyp == CORNUTHAUM && ((m) & W_ARMH) && \
+      !Role_if(PM_WIZARD)) ? CLAIRVOYANT : 0)
 /* note: monsters don't have clairvoyance, so your role
    has no significant effect on their use of w_blocks() */
 
@@ -276,10 +275,8 @@ struct obj *obj; /* item to make known if effect can be seen */
     unsigned int oldspeed = mon->mspeed;
 
     switch (adjust) {
-    case 3: /* no longer in sewage */
-        if (mon->permspeed == MSLOW)
-            mon->permspeed = 0;
-        give_msg = FALSE;
+    case 3:
+        give_msg = FALSE; /* recovering from sewage */
         break;
     case 2:
         mon->permspeed = MFAST;
@@ -296,13 +293,14 @@ struct obj *obj; /* item to make known if effect can be seen */
     case -1:
         if (mon->permspeed == MFAST)
             mon->permspeed = 0;
-        else
+        else if (!(defended(mon, AD_SLOW) || resists_slow(r_data(mon))))
             mon->permspeed = MSLOW;
         break;
-    case -2: /* wading through sewage */
-        mon->permspeed = MSLOW;
+    case -2: /* wading through sewage: set mspeed for temporary slow */
+        if (!(defended(mon, AD_SLOW) || resists_slow(r_data(mon))))
+            mon->mspeed = MSLOW;
         give_msg = FALSE;
-        break;
+        return; /* return early so mspeed isn't changed */
     case -3: /* petrification */
         /* take away intrinsic speed but don't reduce normal speed */
         if (mon->permspeed == MFAST)
@@ -316,10 +314,14 @@ struct obj *obj; /* item to make known if effect can be seen */
         break;
     }
 
-    for (otmp = mon->minvent; otmp; otmp = otmp->nobj)
+    for (otmp = mon->minvent; otmp; otmp = otmp->nobj) {
         if (otmp->owornmask && objects[otmp->otyp].oc_oprop == FAST)
             break;
-    if (otmp) /* speed boots */
+        if (otmp->owornmask && Is_dragon_scaled_armor(otmp)
+            && Dragon_armor_to_scales(otmp))
+            break;
+    }
+    if (otmp) /* speed boots/blue-scaled armor */
         mon->mspeed = MFAST;
     else
         mon->mspeed = mon->permspeed;
@@ -347,57 +349,56 @@ struct obj *obj; /* item to make known if effect can be seen */
     }
 }
 
-boolean
-obj_has_prop(obj, which)
+
+const struct PropTypes prop_lookup[NUM_PROPERTIES] = {
+        { FIRE_RES,          ITEM_FIRE },
+        { COLD_RES,          ITEM_FROST },
+        { DRAIN_RES,         ITEM_DECAY },
+        { SHOCK_RES,         ITEM_SHOCK },
+        { SONIC_RES,         ITEM_SCREAM },
+        { POISON_RES,        ITEM_VENOM },
+        { ACID_RES,          ITEM_SIZZLE },
+        { SLEEP_RES,         ITEM_SLEEP },
+        { STONE_RES,         ITEM_FLEX },
+        { SICK_RES,          ITEM_FILTH },
+        { INFRAVISION,       ITEM_DANGER },
+        { FEARLESS,          ITEM_RAGE },
+        { TELEPAT,           ITEM_ESP },
+        { FUMBLING,          ITEM_FUMBLE },
+        { HUNGER,            ITEM_HUNGER },
+        { AGGRAVATE_MONSTER, ITEM_STENCH },
+        { TELEPORT,          ITEM_TELE },
+        { SLOW,              ITEM_SLOW },
+        { ADORNED,           ITEM_EXCEL },
+        { FIXED_ABIL,        ITEM_SUSTAIN },
+        { STEALTH,           ITEM_STEALTH },
+        { STABLE,            ITEM_BURDEN },
+        { WWALKING,          ITEM_SURF },
+        { SWIMMING,          ITEM_SWIM }
+};
+
+boolean obj_has_prop(obj, which)
 struct obj *obj;
 int which;
 {
+    boolean is_non_weapon = (obj->oclass != WEAPON_CLASS && !is_weptool(obj));
+    int i;
+    
     if (objects[obj->otyp].oc_oprop == which)
         return TRUE;
 
     if (!obj->oprops)
         return FALSE;
 
-    switch (which) {
-    case FIRE_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_FIRE));
-    case COLD_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_FROST));
-    case DRAIN_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_DRLI));
-    case SHOCK_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_SHOCK));
-    case SONIC_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_SCREAM));
-    case POISON_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_VENOM));
-    case ACID_RES:
-        return !!(obj->oclass != WEAPON_CLASS
-                  && !is_weptool(obj)
-                  && (obj->oprops & ITEM_ACID));
-    case TELEPAT:
-        return !!(obj->oprops & ITEM_ESP);
-    case FUMBLING:
-        return !!(obj->oprops & ITEM_FUMBLING);
-    case HUNGER:
-        return !!(obj->oprops & ITEM_HUNGER);
-    case ADORNED:
-        return !!(obj->oprops & ITEM_EXCEL);
+    for (i = 0; i < NUM_PROPERTIES; i++) {
+        if (prop_lookup[i].prop == which) {
+            return !!(is_non_weapon && (obj->oprops & prop_lookup[i].flag));
+        }
     }
+
     return FALSE;
 }
+
 
 /* alchemy smock confers two properites, poison and acid resistance
    but objects[ALCHEMY_SMOCK].oc_oprop can only describe one of them;
@@ -617,7 +618,7 @@ boolean on, silently;
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = COLD_RES;
                 break;
-            case ITEM_DRLI:
+            case ITEM_DECAY:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = DRAIN_RES;
                 break;
@@ -633,22 +634,69 @@ boolean on, silently;
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = POISON_RES;
                 break;
-            case ITEM_ACID:
+            case ITEM_SIZZLE:
                 if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
                     which = ACID_RES;
+                break;
+            case ITEM_SLEEP:
+                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
+                    which = SLEEP_RES;
+                break;
+            case ITEM_FLEX:
+                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
+                    which = STONE_RES;
+                break;
+            case ITEM_DANGER:
+                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
+                    which = INFRAVISION;
+                break;
+            case ITEM_RAGE:
+                if (obj->oclass != WEAPON_CLASS && !is_weptool(obj))
+                    which = FEARLESS;
                 break;
             case ITEM_ESP:
                 which = TELEPAT;
                 break;
-            case ITEM_FUMBLING:
+            case ITEM_EXCEL:
+                which = ADORNED;
+                break;
+            case ITEM_FUMBLE:
                 which = FUMBLING;
                 break;
             case ITEM_HUNGER:
                 which = HUNGER;
                 break;
-            case ITEM_EXCEL:
-                which = ADORNED;
+            case ITEM_STENCH:
+                which = AGGRAVATE_MONSTER;
                 break;
+            case ITEM_TELE:
+                which = TELEPORT;
+                break;
+            case ITEM_SLOW:
+                which = SLOW;
+                break;
+            case ITEM_SUSTAIN:
+                which = FIXED_ABIL;
+                break;
+            case ITEM_STEALTH:
+                which = STEALTH;
+                break;
+            case ITEM_BURDEN:
+                which = STABLE;
+                break;
+            case ITEM_SURF:
+                which = WWALKING;
+                break;
+            case ITEM_SWIM:
+                which = SWIMMING;
+                break;
+            default:
+                ;
+#if 0 /* Don't throw an impossible yet, maybe after we've handled a lot of
+       * other cases.
+       **/
+                impossible("update_mon_intrinsics: unknown property [= %d]", i);
+#endif
             }
             if (which)
                 goto again;
@@ -915,7 +963,6 @@ boolean racialexception;
                     && obj->otyp != RIN_POISON_RESISTANCE
                     && obj->otyp != RIN_SHOCK_RESISTANCE
                     && obj->otyp != RIN_SONIC_RESISTANCE
-                    && obj->otyp != RIN_PSYCHIC_RESISTANCE
                     && obj->otyp != RIN_REGENERATION
                     && obj->otyp != RIN_TELEPORTATION
                     && obj->otyp != RIN_TELEPORT_CONTROL
@@ -1427,6 +1474,9 @@ struct obj *obj;
                   || wielding_artifact(ART_FIREWALL)
                   || wielding_artifact(ART_ITLACHIAYAQUE)
                   || wielding_artifact(ART_ANGELSLAYER)
+                  || wielding_artifact(ART_BALMUNG)
+                  || wielding_artifact(ART_HELLFIRE)
+                  || wearing_artifact(ART_MITRE_OF_HOLINESS)
                   || (u.twoweap && uswapwep->oprops & ITEM_FIRE)
                   || (uwep && uwep->oprops & ITEM_FIRE)) ? 25 : 5;
         break;
@@ -1435,6 +1485,8 @@ struct obj *obj;
             rc = (dmgtype(youmonst.data, AD_COLD)
                   || wielding_artifact(ART_FROST_BRAND)
                   || wielding_artifact(ART_DEEP_FREEZE)
+                  || carrying_arti(ART_HAND_OF_VECNA)
+                  || carrying_arti(ART_CANDLE_OF_ETERNAL_FLAME)
                   || (u.twoweap && uswapwep->oprops & ITEM_FROST)
                   || (uwep && uwep->oprops & ITEM_FROST)) ? 25 : 5;
         break;
@@ -1443,6 +1495,8 @@ struct obj *obj;
             rc = (dmgtype(youmonst.data, AD_DRST)
                   || dmgtype(youmonst.data, AD_DRCO)
                   || dmgtype(youmonst.data, AD_DRDX)
+                  || wielding_artifact(ART_PLAGUE)
+                  || wielding_artifact(ART_SECESPITA)
                   || (u.twoweap && uswapwep->oprops & ITEM_VENOM)
                   || (uwep && uwep->oprops & ITEM_VENOM)) ? 25 : 5;
         break;
@@ -1450,7 +1504,8 @@ struct obj *obj;
         if (!(resists_elec(mon) || defended(mon, AD_ELEC)))
             rc = (dmgtype(youmonst.data, AD_ELEC)
                   || wielding_artifact(ART_MJOLLNIR)
-                  || wielding_artifact(ART_SKULLCRUSHER)
+                  || wielding_artifact(ART_KEOLEWA)
+                  || carrying_arti(ART_STORM_WHISTLE)
                   || (u.twoweap && uswapwep->oprops & ITEM_SHOCK)
                   || (uwep && uwep->oprops & ITEM_SHOCK)) ? 25 : 5;
         break;

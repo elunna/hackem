@@ -163,6 +163,11 @@ int ef_flags;
     if (!otmp)
         return ER_NOTHING;
 
+    /* Tough items are immune to erosion. */
+    if (otmp && otmp->oprops & ITEM_TOUGH) {
+        otmp->oprops_known |= ITEM_TOUGH;
+        return FALSE;
+    }
     victim = carried(otmp) ? &youmonst : mcarried(otmp) ? otmp->ocarry : NULL;
     uvictim = (victim == &youmonst);
     vismon = victim && (victim != &youmonst) && canseemon(victim);
@@ -435,7 +440,8 @@ int x, y, typ;
     ttmp->dst.dnum = ttmp->dst.dlevel = -1;
     ttmp->madeby_u = 0;
     ttmp->once = 0;
-    ttmp->tseen = (typ == HOLE); /* hide non-holes */
+    /* hide most traps, but not holes or portals */
+    ttmp->tseen = (typ == HOLE || typ == MAGIC_PORTAL);
     ttmp->ttyp = typ;
 
     switch (typ) {
@@ -511,9 +517,6 @@ int x, y, typ;
                 if (isok(lx, ly) && IS_STWALL(levl[lx][ly].typ)) {
                     ttmp->launch.x = lx;
                     ttmp->launch.y = ly;
-                    /* --hackem: Moved ray generation to where the trap is
-                     * triggered so we can have a random beam type on every
-                     * triggering. */
                     ok = 1;
                 }
             }
@@ -983,12 +986,12 @@ struct trap *trap;
 {
     boolean isyou = (mtmp == &youmonst);
     struct permonst *mptr = mtmp->data;
-
+    xchar x = trap->tx;
+    xchar y = trap->ty;
+    
     if (amorphous(mptr) || is_whirly(mptr) || flaming(mptr)
         || unsolid(mptr) || mptr == &mons[PM_GELATINOUS_CUBE]) {
-        xchar x = trap->tx;
-        xchar y = trap->ty;
-
+        
         if (flaming(mptr) || acidic(mptr)) {
             if (domsg) {
                 if (isyou)
@@ -1014,7 +1017,16 @@ struct trap *trap;
             }
         }
         return TRUE;
+    } else if (mptr == &mons[PM_DROID]) {
+        if (domsg) {
+            pline("%s cuts %s spider web!", Monnam(mtmp),
+                  a_your[trap->madeby_u]);
+        }
+        deltrap(trap);
+        newsym(x, y);
+        return TRUE;
     }
+        
     return FALSE;
 }
 
@@ -1147,7 +1159,8 @@ unsigned trflags;
         otmp = t_missile(ARROW, trap);
         if (u.usteed && !rn2(2) && steedintrap(trap, otmp)) {
             ; /* nothing */
-        } else if (thitu(8, dmgval(otmp, &youmonst), &otmp, "arrow")) {
+        } else if (thitu(8, dmgval(otmp, &youmonst),
+                         &otmp, "arrow")) {
             if (otmp)
                 obfree(otmp, (struct obj *) 0);
         } else {
@@ -1173,7 +1186,8 @@ unsigned trflags;
         otmp = t_missile(CROSSBOW_BOLT, trap);
         if (u.usteed && !rn2(2) && steedintrap(trap, otmp)) {
             ; /* nothing */
-        } else if (thitu(8, dmgval(otmp, &youmonst), &otmp, "crossbow bolt")) {
+        } else if (thitu(8, dmgval(otmp, &youmonst),
+                         &otmp, "crossbow bolt")) {
             if (otmp)
                 obfree(otmp, (struct obj *) 0);
         } else {
@@ -1191,12 +1205,12 @@ unsigned trflags;
         seetrap(trap);
         if (isok(trap->launch.x, trap->launch.y)
             && IS_STWALL(levl[trap->launch.x][trap->launch.y].typ)) {
-            
+            trap->once = 1; /* Set before dobuzz because a fire ray can
+                             * destroy a magic beam trap on top of ice. */
             dobuzz(randomray(), 8,
                    trap->launch.x, trap->launch.y,
                    sgn(trap->tx - trap->launch.x),
                    sgn(trap->ty - trap->launch.y), FALSE);
-            trap->once = 1;
         } else {
             deltrap(trap);
             newsym(u.ux, u.uy);
@@ -1220,7 +1234,8 @@ unsigned trflags;
         oldumort = u.umortality;
         if (u.usteed && !rn2(2) && steedintrap(trap, otmp)) {
             ; /* nothing */
-        } else if (thitu(7, dmgval(otmp, &youmonst), &otmp, "little dart")) {
+        } else if (thitu(7, dmgval(otmp, &youmonst),
+                         &otmp, "little dart")) {
             if (otmp) {
                 if (otmp->opoisoned)
                     poisoned("dart", A_CON, "little dart",
@@ -1336,7 +1351,7 @@ unsigned trflags;
 
     case SLP_GAS_TRAP:
         seetrap(trap);
-        if (how_resistant(SLEEP_RES) == 100 || breathless(youmonst.data)) {
+        if (how_resistant(SLEEP_RES) == 100 || Breathless) {
             monstseesu(M_SEEN_SLEEP);
             You("are enveloped in a cloud of gas!");
         } else {
@@ -1397,7 +1412,7 @@ unsigned trflags;
         }
         update_inventory();
 
-        if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+        if (u.umonnum == PM_IRON_GOLEM) {
             int dam = u.mhmax;
 
             You("are covered with rust!");
@@ -1715,8 +1730,14 @@ unsigned trflags;
             /* opposite of magical explosion */
             losehp(dmgval2, "anti-magic implosion", KILLED_BY_AN);
         }
-        break;
 
+        if (ublindf && ublindf->otyp == MASK) {
+            if ((Antimagic && rn2(13)) || (!Antimagic && !rn2(13))) {
+                Your("%s transforms into something ordinary!", xname(ublindf));
+                ublindf->corpsenm = -1;
+            }
+        }
+        break;
     case POLY_TRAP: {
         char verbbuf[BUFSZ];
 
@@ -1852,7 +1873,7 @@ unsigned trflags;
               body_part(LEG));
             set_wounded_legs(rn2(2) ? RIGHT_SIDE : LEFT_SIDE, rn1(10, 10));
             exercise(A_DEX, FALSE);
-            losehp(Maybe_Half_Phys(rnd(8) + 6), "spear trap", KILLED_BY);
+            losehp(Maybe_Half_Phys(rnd(8) + 6), "spear trap", KILLED_BY_AN);
         }
         break;
 
@@ -2079,17 +2100,19 @@ struct obj *box;	/* at the moment only for floor traps */
     }
 
     pline("A freezing cloud shoots up from the %s!", surface(u.ux, u.uy));
-    if (Cold_resistance) {
+    if (how_resistant(SONIC_RES) > 90) {
         shieldeff(u.ux, u.uy);
         num = 0;
     }
 
+    num = resist_reduce(num, COLD_RES);
     if (!num)
         You("are uninjured.");
     else
         losehp(num, "freezing cloud", KILLED_BY_AN);
-
+    
     destroy_item(POTION_CLASS, AD_COLD);
+    u_slow_down();
 }
 
 STATIC_OVL void
@@ -2818,7 +2841,7 @@ register struct monst *mtmp;
                                         TRUE, mtmp->mx, mtmp->my);
             }
 
-            if (mptr == &mons[PM_IRON_GOLEM] || mptr == &mons[PM_STEEL_GOLEM]) {
+            if (mptr == &mons[PM_IRON_GOLEM]) {
                 if (in_sight)
                     pline("%s falls to pieces!", Monnam(mtmp));
                 else if (mtmp->mtame)
@@ -3252,9 +3275,10 @@ register struct monst *mtmp;
                 seetrap(trap);
             if (isok(trap->launch.x, trap->launch.y)
                 && IS_STWALL(levl[trap->launch.x][trap->launch.y].typ)) {
-                buzz(randomray(), 8,
-                     trap->launch.x, trap->launch.y,
-                     sgn(trap->tx - trap->launch.x), sgn(trap->ty - trap->launch.y));
+                dobuzz(randomray(), 8,
+                       trap->launch.x, trap->launch.y,
+                       sgn(trap->tx - trap->launch.x),
+                       sgn(trap->ty - trap->launch.y), FALSE);
                 trap->once = 1;
                 if (DEADMONSTER(mtmp))
                     trapkilled = TRUE;
@@ -3295,6 +3319,18 @@ register struct monst *mtmp;
         default:
             impossible("Some monster encountered a strange trap of type %d.",
                        tt);
+        }
+
+        /* mtmp can't stay hiding under an object if trapped in non-pit
+           (mtmp hiding under object at armed bear trap loccation, hero
+           zaps wand of locking or spell of wizard lock at spot triggering
+           the trap and trapping mtmp there) */
+        if (!DEADMONSTER(mtmp) && mtmp->mtrapped) {
+            boolean alreadyspotted = canspotmon(mtmp);
+
+            maybe_unhide_at(mtmp->mx, mtmp->my);
+            if (!alreadyspotted && canseemon(mtmp))
+                pline("%s appears.", Amonnam(mtmp));
         }
     }
     if (trapkilled)
@@ -3785,7 +3821,7 @@ struct obj *box; /* null for floor trap */
 STATIC_OVL void
 domagictrap()
 {
-    register int fate = rnd(20);
+    register int fate = rnd(21);
 
     /* What happened to the poor sucker? */
 
@@ -3941,6 +3977,9 @@ domagictrap()
             HConfusion = 0L;
             (void) seffects(&pseudo);
             HConfusion = save_conf;
+            break;
+        case 21: /* Scare the wits out of the player */
+            make_afraid((HAfraid & TIMEOUT) + (long) rn1(4, 1), TRUE);
             break;
         }
         default:
@@ -4358,7 +4397,7 @@ xchar x, y;
             delobj(obj);
             
             /* Deals damage similar to an alchemy blast */
-            dmg = (6 + rnd(10)) * (Acid_resistance ? 1 : 2);
+            dmg = (6 + rnd(10)) * (how_resistant(ACID_RES) > 50 ? 1 : 2);
             exercise(A_STR, FALSE);
             losehp(dmg, /* not physical damage */
                    "alchemic blast", KILLED_BY_AN);
@@ -4549,7 +4588,7 @@ uwatereffects()
     
     if (u.umonnum == PM_GREMLIN && rn2(3))
         (void) split_mon(&youmonst, (struct monst *) 0);
-    else if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+    else if (u.umonnum == PM_IRON_GOLEM) {
         You("rust!");
         i = Maybe_Half_Phys(d(2, 6));
         if (u.mhmax > i)
@@ -4564,6 +4603,7 @@ uwatereffects()
 boolean
 drown()
 {
+    struct obj *otmp;
     const char *pool_of_water;
     boolean inpool_ok = FALSE, crawl_ok;
     int i, x, y;
@@ -4591,6 +4631,15 @@ drown()
             
             Your("boots don't sink into the water!");
             makeknown(WATER_WALKING_BOOTS);
+        } else if (!HWwalking) {
+            /* *Something* is keeping us afloat! */
+            for (otmp = invent; otmp; otmp = otmp->nobj)
+                if (otmp->oprops & ITEM_SURF && is_worn(otmp)
+                      && !(otmp->oprops_known & ITEM_SURF)) {
+                    Your("%s keeps you from falling in the water!", xname(otmp));
+                    otmp->oprops_known |= ITEM_SURF;
+                    update_inventory();
+                }
         }
         return FALSE;
     }
@@ -4630,6 +4679,22 @@ drown()
     }
 
     if (Amphibious || Swimming) {
+        /* Copied from the above for water walking boots */
+        if (uarmg
+            && uarmg->otyp == GAUNTLETS_OF_SWIMMING
+            && !objects[GAUNTLETS_OF_SWIMMING].oc_name_known
+            && !(Amphibious || HSwimming)) {
+            pline("Hey! You can swim!");
+            makeknown(GAUNTLETS_OF_SWIMMING);
+        } else if (!HSwimming) {
+            otmp = using_oprop(ITEM_SWIM);
+            if (otmp && otmp->oprops_known & ITEM_SWIM) {
+                pline("Hey! You can swim!");
+                otmp->oprops_known |= ITEM_SWIM;
+                update_inventory();
+            }
+        }
+        
         if (Amphibious) {
             if (flags.verbose)
                 pline("But you aren't drowning.");
@@ -5813,7 +5878,8 @@ boolean disarm;
                disarm ? "sets it off" : "triggers a trap");
 
     display_nhwindow(WIN_MESSAGE, FALSE);
-    if (Luck > -13 && rn2(13 + Luck) > 7) { /* saved by luck */
+    if (yours ? (Luck > -13 && rn2(13 + Luck) > 7)
+              : rn2(13) > 9) { /* player saved by luck, monster by chance */
         /* trap went off, but good luck prevents damage */
         switch (rn2(13)) {
         case 12:
@@ -5847,7 +5913,8 @@ boolean disarm;
         if (msg && (yours || canseemon(mon)))
             pline("But luckily the %s!", msg);
     } else {
-        switch (rn2(20) ? ((Luck >= 13) ? 0 : rn2(13 - Luck)) : rn2(26)) {
+        switch (yours ? (rn2(20) ? ((Luck >= 13) ? 0 : rn2(13 - Luck))
+                                 : rn2(26)) : rn2(26)) {
         case 25:
         case 24:
         case 23:
@@ -6095,7 +6162,7 @@ boolean disarm;
                       the(xname(obj)));
             }
             if (yours) {
-                if (!Stunned) {
+                if (!Stunned || Stun_resistance) {
                     if (Hallucination)
                         pline("What a groovy feeling!");
                     else
@@ -6108,7 +6175,9 @@ boolean disarm;
                 (void) make_hallucinated(
                     (HHallucination & TIMEOUT) + (long) rn1(5, 16), FALSE, 0L);
             } else {
-                mon->mstun = mon->mconf = 1;
+                if (!(resists_stun(mon->data) || defended(mon, AD_STUN)))
+                    mon->mstun = 1;
+                mon->mconf = 1;
                 if (canseemon(mon))
                     pline("%s staggers for a moment.", Monnam(mon));
             }
@@ -6345,7 +6414,7 @@ int bodypart;
     }
 
     pline("KABOOM!!  %s was booby-trapped!", The(item));
-    explode(u.ux, u.uy, AD_FIRE - 1, resist_reduce(dmg, FIRE_RES),
+    explode(u.ux, u.uy, ZT_FIRE, resist_reduce(dmg, FIRE_RES),
             TRAPPED_DOOR, EXPL_FIERY);
     scatter(u.ux, u.uy, dmg,
             VIS_EFFECTS | MAY_HIT | MAY_DESTROY | MAY_FRACTURE, 0);
@@ -6353,7 +6422,8 @@ int bodypart;
     exercise(A_STR, FALSE);
     if (bodypart)
         exercise(A_CON, FALSE);
-    make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
+    if (!Stun_resistance)
+        make_stunned((HStun & TIMEOUT) + (long) dmg, TRUE);
 }
 
 /* Monster is hit by trap. */
@@ -6448,7 +6518,7 @@ in_hell_effects()
     usurvive = how_resistant(FIRE_RES) == 100 || (dmg < u.uhp);
 
     if (how_resistant(FIRE_RES) < 100) {
-        if (how_resistant(FIRE_RES) >= 50) {
+        if (how_resistant(FIRE_RES) > 50) {
             if (rn2(3))
                 pline_The("flames of hell are slowly %s you alive!",
                           rn2(2) ? "roasting" : "burning");
@@ -6516,10 +6586,7 @@ lava_effects()
      */
     if (!usurvive)
         for (obj = invent; obj; obj = obj->nobj)
-            if ((is_organic(obj) || obj->oclass == POTION_CLASS)
-                && !obj->oerodeproof
-                && objects[obj->otyp].oc_oprop != FIRE_RES
-                && obj->otyp != SCR_FIRE && obj->otyp != SPE_FIREBALL
+            if (is_flammable(obj) && !obj->oerodeproof
                 && !obj_resists(obj, 0, 0)) /* for invocation items */
                 obj->in_use = 1;
 
@@ -6527,7 +6594,7 @@ lava_effects()
      * make the player sink into the lava. Assumption: water walking only
      * comes from boots.
      */
-    if (uarmf && is_organic(uarmf) && !uarmf->oerodeproof) {
+    if (uarmf && is_flammable(uarmf) && !uarmf->oerodeproof) {
         obj = uarmf;
         pline("%s into flame!", Yobjnam2(obj, "burst"));
         iflags.in_lava_effects++; /* (see above) */
@@ -6715,8 +6782,6 @@ maybe_finish_sokoban()
                things like breaking boulders or jumping will no longer
                be given, and restrictions on diagonal moves are lifted */
             Sokoban = 0; /* clear level.flags.sokoban_rules */
-            /* TODO: give some feedback about solving the sokoban puzzle
-               (perhaps say "congratulations" in Japanese?) */
         }
     }
 }
@@ -6745,23 +6810,23 @@ randomray()
     /* no AD_DISN, thanks */
     switch (rn2(10)) {
     case 0: 
-        return -20-(AD_FIRE - 1);
+        return -ZT_BREATH(ZT_FIRE);
     case 1:
-        return -10-(AD_COLD - 1);
+        return -ZT_SPELL(ZT_COLD);
     case 2:
-        return -10-(AD_SLEE - 1);
+        return -ZT_SPELL(ZT_SLEEP);
     case 3:
-        return -20-(AD_ELEC - 1);
+        return -ZT_BREATH(ZT_LIGHTNING);
     case 4:
-        return -20-(AD_DRST - 1);
+        return -ZT_BREATH(ZT_POISON_GAS);
     case 5:
-        return -20-(AD_ACID - 1);
+        return -ZT_BREATH(ZT_ACID);
     case 6:
-        return -20-(AD_LOUD - 1);
+        return -ZT_SPELL(ZT_SONIC);
     case 7:
-        return -20-(AD_WATR - 1);
+        return -ZT_SPELL(ZT_WATER);
     default:
-        return -10-(AD_MAGM - 1);
+        return -ZT_SPELL(ZT_MAGIC_MISSILE);
     }
 }
 

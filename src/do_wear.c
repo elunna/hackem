@@ -21,7 +21,6 @@ static NEARDATA const long takeoff_order[] = {
 };
 
 STATIC_DCL void FDECL(on_msg, (struct obj *));
-STATIC_DCL void FDECL(toggle_stealth, (struct obj *, long, BOOLEAN_P));
 STATIC_PTR int NDECL(Armor_on);
 STATIC_PTR int NDECL(Cloak_on);
 STATIC_PTR int NDECL(Helmet_on);
@@ -38,7 +37,6 @@ STATIC_PTR int NDECL(take_off);
 STATIC_DCL int FDECL(menu_remarm, (int));
 STATIC_DCL void FDECL(count_worn_stuff, (struct obj **, BOOLEAN_P));
 STATIC_PTR int FDECL(armor_or_accessory_off, (struct obj *));
-STATIC_PTR boolean FDECL(will_touch_skin, (long));
 STATIC_PTR int FDECL(accessory_or_armor_on, (struct obj *));
 STATIC_DCL void FDECL(already_wearing, (const char *));
 STATIC_DCL void FDECL(already_wearing2, (const char *, const char *));
@@ -87,7 +85,6 @@ static boolean initial_don = FALSE; /* manipulated in set_wear() */
 
 /* putting on or taking off an item which confers stealth;
    give feedback and discover it iff stealth state is changing */
-STATIC_OVL
 void
 toggle_stealth(obj, oldprop, on)
 struct obj *obj;
@@ -102,6 +99,8 @@ boolean on;
         && !BStealth) { /* stealth blocked by something */
         if (obj->otyp == RIN_STEALTH)
             learnring(obj, TRUE);
+        else if (obj->oprops & ITEM_STEALTH)
+            obj->oprops_known |= ITEM_STEALTH;
         else
             makeknown(obj->otyp);
 
@@ -110,14 +109,55 @@ boolean on;
                 You("move very quietly.");
             else if (Levitation || Flying)
                 You("float imperceptibly.");
-            else
+            else if (Stealth)
                 You("walk very quietly.");
-        } else {
+        } else if (!Stealth){
             if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)))
                 You("are just as noisy as before.");
             else
                You("sure are noisy.");
         }
+    }
+}
+
+/* putting on or taking off an item which confers see inv;
+   give feedback and discover it iff see invisible state is changing */
+void
+toggle_seeinv(obj, oldprop, on)
+struct obj *obj;
+long oldprop; /* prop[].extrinsic, with obj->owornmask stripped by caller */
+boolean on;
+{
+    boolean discovered = FALSE;
+    if (on ? initial_don : context.takeoff.cancelled_don)
+        return;
+
+    if (!oldprop /* extrinsic stealth from something else */
+        && !HSee_invisible) {  /* intrinsic see invisible */
+
+        /* can now see invisible monsters */
+        set_mimic_blocking(); /* do special mimic handling */
+        see_monsters();
+
+        if (on) {
+            if (Invis && !oldprop && !HSee_invisible && !Blind) {
+               newsym(u.ux, u.uy);
+               pline("Suddenly you are transparent, but there!");
+               discovered = TRUE;
+            }
+        } else if (Invisible && !Blind) {
+            newsym(u.ux, u.uy);
+            pline("Suddenly you cannot see yourself.");
+            discovered = TRUE;
+        }
+    }
+    if (discovered) {
+        if (obj->otyp == RIN_SEE_INVISIBLE)
+            learnring(obj, TRUE);
+        else if (obj->oprops & ITEM_INSIGHT)
+            obj->oprops_known |= ITEM_INSIGHT;
+        else
+            makeknown(obj->otyp);
     }
 }
 
@@ -175,16 +215,33 @@ long mask;
         EFire_resistance |= mask;
     if (props & ITEM_FROST)
         ECold_resistance |= mask;
-    if (props & ITEM_DRLI)
-        EDrain_resistance |= mask;
     if (props & ITEM_SHOCK)
         EShock_resistance |= mask;
-    if (props & ITEM_SCREAM)
-        ESonic_resistance |= mask;
     if (props & ITEM_VENOM)
         EPoison_resistance |= mask;
-    if (props & ITEM_ACID)
+    if (props & ITEM_SIZZLE)
         EAcid_resistance |= mask;
+    if (props & ITEM_SCREAM)
+        ESonic_resistance |= mask;
+    if (props & ITEM_DECAY)
+        EDrain_resistance |= mask;
+    if (props & ITEM_SLEEP)
+        ESleep_resistance |= mask;
+    if (props & ITEM_FLEX)
+        EStone_resistance |= mask;
+    if (props & ITEM_FILTH)
+        ESick_resistance |= mask;
+    if (props & ITEM_DANGER)
+        EInfravision |= mask;
+    if (props & ITEM_RAGE) {
+        if (Afraid) {
+            context.botl = 1;
+            otmp->oprops_known |= ITEM_RAGE;
+        }
+        EFearless |= mask;
+    }
+    if (props & ITEM_TOUGH)
+        EDisint_resistance |= mask;
     if (props & ITEM_OILSKIN) {
         pline("%s very tightly.", Tobjnam(otmp, "fit"));
         otmp->oprops_known |= ITEM_OILSKIN;
@@ -193,29 +250,70 @@ long mask;
         ETelepat |= mask;
         see_monsters();
     }
-    if (props & ITEM_SEARCHING)
+    if (props & ITEM_SEARCH)
         ESearching |= mask;
-    if (props & ITEM_WARNING) {
+
+    if (props & ITEM_INSIGHT) {
+        ESee_invisible |= mask;
+        EMagic_sense |= mask;
+        toggle_seeinv(otmp, (ESee_invisible & ~mask), TRUE);
+    }
+    if (props & ITEM_EXCEL) {
+        set_moreluck();
+        (void) changes_stat(otmp, ITEM_EXCEL);
+    }
+    if (props & ITEM_VIGIL) {
         EWarning |= mask;
         see_monsters();
+        (void) changes_stat(otmp, ITEM_VIGIL);
     }
-    if (props & ITEM_FUMBLING) {
+    if (props & ITEM_PROWESS) {
+        (void) changes_stat(otmp, ITEM_PROWESS);
+    }
+    if (props & ITEM_FUMBLE) {
         if (!EFumbling && !(HFumbling & ~TIMEOUT))
             incr_itimeout(&HFumbling, rnd(20));
         EFumbling |= mask;
     }
     if (props & ITEM_HUNGER)
         EHunger |= mask;
-    if (props & ITEM_EXCEL) {
-        int which = A_CHA, old_attrib = ACURR(which);
-        /* borrowing this from Ring_on() as I may want
-           to add other attributes in the future */
-        ABON(which) += otmp->spe;
-        if (old_attrib != ACURR(which))
-            otmp->oprops_known |= ITEM_EXCEL;
-        set_moreluck();
-        context.botl = 1;
+    if (props & ITEM_STENCH)
+        EAggravate_monster |= mask;
+    if (props & ITEM_TELE)
+        ETeleportation |= mask;
+    if (props & ITEM_SLOW)
+        ESlow |= mask;
+    if (props & ITEM_SUSTAIN)
+        Fixed_abil |= mask;
+    if (props & ITEM_STEALTH) {
+        EStealth |= mask;
+        if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
+            pline("This %s will not silence someone %s.",
+                  xname(otmp), rn2(2) ? "as large as you" : "of your stature");
+            otmp->oprops_known |= ITEM_STEALTH;
+            EStealth &= ~mask;
+        } else
+            toggle_stealth(otmp, (EStealth & ~mask), TRUE);
     }
+    if (props & ITEM_BURDEN)
+        EStable |= mask;
+    if (props & ITEM_SURF) {
+        EWwalking |= mask;
+        if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
+            spoteffects(TRUE);
+            otmp->oprops_known |= ITEM_SURF;
+        }
+    }
+    if (props & ITEM_SWIM) {
+        ESwimming |= mask;
+        if (u.uinwater) {
+            pline("Hey! %s helping you swim!",
+                  yobjnam(otmp, "are"));
+            otmp->oprops_known |= ITEM_SWIM;
+            spoteffects(TRUE);
+        }
+    }
+
 }
 
 void
@@ -229,7 +327,7 @@ long mask;
         EFire_resistance &= ~mask;
     if (props & ITEM_FROST)
         ECold_resistance &= ~mask;
-    if (props & ITEM_DRLI)
+    if (props & ITEM_DECAY)
         EDrain_resistance &= ~mask;
     if (props & ITEM_SHOCK)
         EShock_resistance &= ~mask;
@@ -237,38 +335,83 @@ long mask;
         ESonic_resistance &= ~mask;
     if (props & ITEM_VENOM)
         EPoison_resistance &= ~mask;
-    if (props & ITEM_ACID)
+    if (props & ITEM_SIZZLE)
         EAcid_resistance &= ~mask;
+    if (props & ITEM_SLEEP)
+        ESleep_resistance &= ~mask;
+    if (props & ITEM_FLEX)
+        EStone_resistance &= ~mask;
+    if (props & ITEM_FILTH)
+        ESick_resistance &= ~mask;
+    if (props & ITEM_DANGER)
+        EInfravision &= ~mask;
+    if (props & ITEM_RAGE)
+        EFearless &= ~mask;
+    if (props & ITEM_TOUGH)
+        EDisint_resistance &= ~mask;
     if (props & ITEM_OILSKIN)
         otmp->oprops_known |= ITEM_OILSKIN;
     if (props & ITEM_ESP) {
         ETelepat &= ~mask;
         see_monsters();
     }
-    if (props & ITEM_SEARCHING)
+    if (props & ITEM_SEARCH)
         ESearching &= ~mask;
-    if (props & ITEM_WARNING) {
+    if (props & ITEM_INSIGHT) {
+        ESee_invisible &= ~mask;
+        EMagic_sense &= ~mask;
+        toggle_seeinv(otmp, (ESee_invisible & ~mask), FALSE);
+    }
+    if (props & ITEM_EXCEL) {
+        set_moreluck();
+        (void) changes_stat(otmp, ITEM_EXCEL);
+    }
+    if (props & ITEM_VIGIL) {
         EWarning &= ~mask;
         see_monsters();
+        (void) changes_stat(otmp, ITEM_VIGIL);
     }
-    if (props & ITEM_FUMBLING) {
+    if (props & ITEM_PROWESS) {
+        (void) changes_stat(otmp, ITEM_PROWESS);
+    }
+    if (props & ITEM_FUMBLE) {
         EFumbling &= ~mask;
         if (!EFumbling && !(HFumbling & ~TIMEOUT))
            HFumbling = EFumbling = 0;
     }
     if (props & ITEM_HUNGER)
         EHunger &= ~mask;
-    if (props & ITEM_EXCEL) {
-        int which = A_CHA, old_attrib = ACURR(which);
-        /* borrowing this from Ring_off() as I may want
-           to add other attributes in the future */
-        ABON(which) -= otmp->spe;
-        if (old_attrib != ACURR(which))
-            otmp->oprops_known |= ITEM_EXCEL;
-        otmp->oprops &= ~ITEM_EXCEL;
-        set_moreluck();
-        otmp->oprops |= ITEM_EXCEL;
-        context.botl = 1;
+    if (props & ITEM_STENCH)
+        EAggravate_monster &= ~mask;
+    if (props & ITEM_TELE)
+        ETeleportation &= ~mask;
+    if (props & ITEM_SLOW)
+        ESlow &= ~mask;
+    if (props & ITEM_SUSTAIN)
+        Fixed_abil &= ~mask;
+    if (props & ITEM_STEALTH) {
+        EStealth &= ~mask;
+        toggle_stealth(otmp, (EStealth & ~mask), FALSE);
+    }
+    if (props & ITEM_BURDEN)
+        EStable &= ~mask;
+    if (props & ITEM_SURF) {
+        EWwalking &= ~mask;
+        if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
+            && !Levitation && !Flying && !is_clinger(youmonst.data)
+            && !context.takeoff.cancelled_don
+            && !iflags.in_lava_effects) {
+           otmp->oprops_known |= ITEM_SURF;
+           spoteffects(TRUE);
+        }
+    }
+    if (props & ITEM_SWIM) {
+        ESwimming &= ~mask;
+        if (u.uinwater && !Swimming) {
+           You("begin to thrash about!");
+           otmp->oprops_known |= ITEM_SWIM;
+           spoteffects(TRUE);
+        }
     }
 }
 
@@ -318,6 +461,7 @@ Boots_on(VOID_ARGS)
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             pline("This %s will not silence someone %s.",
                   xname(uarmf), rn2(2) ? "as large as you" : "of your stature");
+            makeknown(uarmf->otyp);
             EStealth &= ~W_ARMF;
         } else {
             toggle_stealth(uarmf, oldprop, TRUE);
@@ -434,8 +578,7 @@ Cloak_on(VOID_ARGS)
         u.uprops[objects[uarmc->otyp].oc_oprop].extrinsic & ~WORN_CLOAK;
 
     if (Is_dragon_scales(uarmc)
-        && otyp != SHIMMERING_DRAGON_SCALES
-        && otyp != CELESTIAL_DRAGON_SCALES) {
+        && otyp != SHIMMERING_DRAGON_SCALES) {
         /* most scales are handled the same in this function */
         otyp = GRAY_DRAGON_SCALES;
     }
@@ -446,34 +589,12 @@ Cloak_on(VOID_ARGS)
     case CLOAK_OF_MAGIC_RESISTANCE:
     case PLAIN_CLOAK:
     case GREEN_COAT:
-    case TRENCH_COAT:
     case GRAY_DRAGON_SCALES:
         break;
     case CLOAK_OF_PROTECTION:
     case ROBE_OF_WEAKNESS:
     case MANA_CLOAK:
         makeknown(uarmc->otyp);
-        break;
-    case CLOAK_OF_FLIGHT:
-        /* Copied from Amulet of Flying */
-        float_vs_flight(); /* block flying if levitating */
-        check_wings(TRUE); /* are we in a form that has wings and can already fly? */
-                           
-        if (Flying) {
-            boolean already_flying;
-
-            /* to determine whether this flight is new we have to muck
-               about in the Flying intrinsic (actually extrinsic) */
-            EFlying &= ~W_ARMC;
-            already_flying = !!Flying;
-            EFlying |= W_ARMC;
-
-            if (!already_flying) {
-                makeknown(uarmc->otyp);
-                context.botl = TRUE; /* status: 'Fly' On */
-                pline("%s you up into the air!", Tobjnam(uarmc, "hoist"));
-            }
-        }
         break;
     case ELVEN_CLOAK:
         toggle_stealth(uarmc, oldprop, TRUE);
@@ -482,7 +603,7 @@ Cloak_on(VOID_ARGS)
     case SHIMMERING_DRAGON_SCALES:
         toggle_displacement(uarmc, oldprop, TRUE);
         break;
-    case CELESTIAL_DRAGON_SCALES:
+    case CLOAK_OF_FLIGHT:
         /* setworn() has already set extrinisic flying */
         float_vs_flight(); /* block flying if levitating */
         check_wings(TRUE); /* are we in a form that has wings and can already fly? */
@@ -564,8 +685,7 @@ Cloak_off(VOID_ARGS)
     boolean was_arti_light = otmp && otmp->lamplit && artifact_light(otmp);
     boolean was_opera = (otmp && objdescr_is(otmp, "opera cloak"));
     if (Is_dragon_scales(uarmc)
-        && otyp != SHIMMERING_DRAGON_SCALES
-        && otyp != CELESTIAL_DRAGON_SCALES) {
+        && otyp != SHIMMERING_DRAGON_SCALES) {
         /* most scales are handled the same in this function */
         otyp = GRAY_DRAGON_SCALES;
     }
@@ -579,12 +699,11 @@ Cloak_off(VOID_ARGS)
     case DWARVISH_CLOAK:
     case CLOAK_OF_PROTECTION:
     case CLOAK_OF_MAGIC_RESISTANCE:
-    case CLOAK_OF_FLIGHT:
+
     case OILSKIN_CLOAK:
     case POISONOUS_CLOAK:
     case PLAIN_CLOAK:
     case GREEN_COAT:
-    case TRENCH_COAT:
     case GRAY_DRAGON_SCALES:
     case MANA_CLOAK:
         break;
@@ -595,10 +714,10 @@ Cloak_off(VOID_ARGS)
     case SHIMMERING_DRAGON_SCALES:
         toggle_displacement(otmp, oldprop, FALSE);
         break;
-    case CELESTIAL_DRAGON_SCALES: {
+    case CLOAK_OF_FLIGHT: {
         boolean was_flying = !!Flying;
 
-        /* remove scales 'early' to determine whether Flying changes */
+        /* remove cloak 'early' to determine whether Flying changes */
         setworn((struct obj *) 0, W_ARMC);
         float_vs_flight(); /* probably not needed here */
         check_wings(TRUE); /* are we in a form that has wings and can already fly? */
@@ -677,9 +796,12 @@ Helmet_on(VOID_ARGS)
         uarmh->known = 1;
         makeknown(TINFOIL_HAT);
         if (Afraid) {
-            make_afraid(0L, TRUE);
             context.botl = TRUE;
         }
+        EFearless |= W_ARMH;
+        BClairvoyant |= W_ARMH;
+        BTelepat |= W_ARMH;
+        see_monsters();
         break;
     case HELM_OF_BRILLIANCE:
         adj_abon(uarmh, uarmh->spe);
@@ -792,7 +914,6 @@ Helmet_off(VOID_ARGS)
     case ELVEN_HELM:
     case DWARVISH_HELM:
     case ORCISH_HELM:
-    case TINFOIL_HAT:
 
     case PLASTEEL_HELM:
         break;
@@ -838,6 +959,12 @@ Helmet_off(VOID_ARGS)
            dropped or destroyed here */
         uchangealign(u.ualignbase[A_CURRENT], 2);
         break;
+    case TINFOIL_HAT:
+        BClairvoyant &= ~W_ARMH;
+        BTelepat &= ~W_ARMH;
+        EFearless &= ~W_ARMH;
+        see_monsters();
+        break;
     default:
         impossible(unknown_type, c_helmet, uarmh->otyp);
     }
@@ -854,7 +981,7 @@ Gloves_on(VOID_ARGS)
     case GLOVES:
     case GAUNTLETS:
     case ROGUES_GLOVES:
-    case BOXING_GLOVES:
+    case GAUNTLETS_OF_FORCE:
     case PLASTEEL_GLOVES:
         break;
     case GAUNTLETS_OF_FUMBLING:
@@ -862,11 +989,11 @@ Gloves_on(VOID_ARGS)
             incr_itimeout(&HFumbling, rnd(20));
         break;
     case GAUNTLETS_OF_SWIMMING:
-		if (u.uinwater) {
-		   pline("Hey! You can swim!");
-		   spoteffects(TRUE);
-		}
-		break;
+        if (u.uinwater) {
+           pline("Hey! You can swim!");
+           spoteffects(TRUE);
+        }
+        break;
     case GAUNTLETS_OF_POWER:
         makeknown(uarmg->otyp);
         context.botl = 1; /* taken care of in attrib.c */
@@ -928,15 +1055,15 @@ Gloves_off(VOID_ARGS)
     case GAUNTLETS:
     case GAUNTLETS_OF_PROTECTION:
     case ROGUES_GLOVES:
-    case BOXING_GLOVES:
+    case GAUNTLETS_OF_FORCE:
     case PLASTEEL_GLOVES:
         break;
     case GAUNTLETS_OF_SWIMMING:
-	    if (u.uinwater) {
-	       You("begin to thrash about!");
-	       spoteffects(TRUE);
-	    }
-	    break;
+        if (u.uinwater && !Swimming) {
+           You("begin to thrash about!");
+           spoteffects(TRUE);
+        }
+        break;
     case GAUNTLETS_OF_FUMBLING:
         if (!(HFumbling & ~TIMEOUT))
             HFumbling = EFumbling = 0;
@@ -970,7 +1097,7 @@ Gloves_off(VOID_ARGS)
 
     /* you may now be touching some material you hate */
     if (uwep)
-        retouch_object(&uwep, FALSE);
+        retouch_object(&uwep, will_touch_skin(W_WEP), FALSE);
 
     /* KMH -- ...or your secondary weapon when you're wielding it
        [This case can't actually happen; twoweapon mode won't
@@ -1010,6 +1137,13 @@ Shield_on(VOID_ARGS)
         oprops_on(uarms, WORN_SHIELD);
     }
     toggle_armor_light(uarms, TRUE);
+
+    if (uarms && uarms->oartifact == ART_PRIDWEN) {
+        if (Afraid) {
+            context.botl = TRUE;
+        }
+        EFearless |= W_ARMS;
+    }
     return 0;
 }
 
@@ -1045,6 +1179,10 @@ Shield_off(VOID_ARGS)
     }
     if (was_arti_light)
         toggle_armor_light(otmp, FALSE);
+
+    if (otmp && otmp->oartifact == ART_PRIDWEN) {
+        EFearless &= ~W_ARMS;
+    }
     return 0;
 }
 
@@ -1110,20 +1248,25 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
         return;
 
     switch (Dragon_armor_to_scales(otmp)) {
-        /* gray: no extra effect */
-        /* silver: no extra effect */
-    case BLACK_DRAGON_SCALES:
+    /* gray: no extra effect */
+    case GREEN_DRAGON_SCALES:
         if (puton) {
-            ESlow_digestion |= W_ARM;
+            ESick_resistance |= W_ARM;
+            if (Sick) {
+                You_feel("cured.  What a relief!");
+                Sick = 0L;
+            }
         } else {
-            ESlow_digestion &= ~W_ARM;
+            ESick_resistance &= ~W_ARM;
         }
         break;
     case GOLD_DRAGON_SCALES:
         if (puton) {
-            ESearching |= W_ARM;
+            EInfravision |= W_ARM;
+            EClairvoyant |= W_ARM;
         } else {
-            ESearching &= ~W_ARM;
+            EInfravision &= ~W_ARM;
+            EClairvoyant &= ~W_ARM;
         }
         break;
     case ORANGE_DRAGON_SCALES:
@@ -1133,11 +1276,47 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
             Free_action &= ~W_ARM;
         }
         break;
-    case GREEN_DRAGON_SCALES:
+    case VIOLET_DRAGON_SCALES: {
+        boolean already_flying;
         if (puton) {
-            ESick_resistance |= W_ARM;
+            /* setworn() has already set extrinisic flying */
+            float_vs_flight(); /* block flying if levitating */
+            check_wings(TRUE); /* are we in a form that has wings and can already fly? */
+            
+            /* to determine whether this flight is new we have to muck
+               about in the Flying intrinsic (actually extrinsic) */
+            EFlying &= ~W_ARM;
+            already_flying = !!Flying;
+            EFlying |= W_ARM;
+
+            if (!already_flying) {
+                context.botl = TRUE; /* status: 'Fly' On */
+                You("are now in flight.");
+            }
         } else {
-            ESick_resistance &= ~W_ARM;
+            boolean was_flying = !!Flying;
+            /* remove scales 'early' to determine whether Flying changes */
+            /*setworn((struct obj *) 0, W_ARM);*/
+            EFlying &= ~W_ARM;
+
+            float_vs_flight(); /* probably not needed here */
+            check_wings(TRUE); /* are we in a form that has wings and can already fly? */
+            if (was_flying && !Flying) {
+                context.botl = TRUE; /* status: 'Fly' Off */
+                You("%s.", (is_pool_or_lava(u.ux, u.uy)
+                            || Is_waterlevel(&u.uz) || Is_airlevel(&u.uz))
+                           ? "stop flying"
+                           : "land");
+                spoteffects(TRUE);
+            }
+        }
+        break;
+    }
+    case SILVER_DRAGON_SCALES:
+        if (puton) {
+            ECold_resistance |= W_ARM;
+        } else {
+            ECold_resistance &= ~W_ARM;
         }
         break;
     case BLUE_DRAGON_SCALES:
@@ -1172,105 +1351,42 @@ dragon_armor_handling(struct obj *otmp, boolean puton)
     case SHIMMERING_DRAGON_SCALES:
         if (puton) {
             toggle_displacement(uarm, (EDisplaced & ~W_ARM), TRUE);
-            toggle_stealth(uarm, (EStealth & ~W_ARM), TRUE);
-            EStealth |= W_ARM;
+            if (Stunned) {
+                You_feel("%s now.",
+                         Hallucination ? "less wobbly"
+                                       : "a bit steadier");
+                Stunned = 0L;
+            }
+            EStun_resistance |= W_ARM;
         } else {
             toggle_displacement(otmp, (EDisplaced & ~W_ARM), FALSE);
-            toggle_stealth(otmp, (EStealth & ~W_ARM), FALSE);
-            EStealth &= ~W_ARM;
+            EStun_resistance &= ~W_ARM;
+        }
+        break;
+    case DEEP_DRAGON_SCALES:
+        if (puton) {
+            ESlow_digestion |= W_ARM;
+        } else {
+            ESlow_digestion &= ~W_ARM;
         }
         break;
     case SEA_DRAGON_SCALES:
         if (puton) {
             if (Strangled) {
                 You("can suddenly breathe again!");
-                Strangled = 0;
+                Strangled = 0L;
             }
             ESwimming |= W_ARM;
         } else {
             ESwimming &= ~W_ARM;
             if (Underwater) {
                 setworn((struct obj *) 0, W_ARM);
-                if (!breathless(youmonst.data) && !Amphibious && !Swimming) {
+                if (!Breathless && !Amphibious && !Swimming) {
                     You("suddenly inhale an unhealthy amount of %s!",
                         hliquid("water"));
                     (void) drown();
                 }
             }
-        }
-        break;
-    case CELESTIAL_DRAGON_SCALES: {
-        boolean already_flying, was_flying;
-        if (puton) {
-            ESleep_resistance |= W_ARM;
-            EShock_resistance |= W_ARM;
-
-            /* setworn() has already set extrinisic flying */
-            float_vs_flight(); /* block flying if levitating */
-            check_wings(TRUE); /* are we in a form that has wings and can
-                                  already fly? */
-
-            if (Flying) {
-                /* to determine whether this flight is new we have to muck
-                   about in the Flying intrinsic (actually extrinsic) */
-                EFlying &= ~W_ARM;
-                already_flying = !!Flying;
-                EFlying |= W_ARM;
-
-                if (!already_flying) {
-                    context.botl = TRUE; /* status: 'Fly' On */
-                    You("are now in flight.");
-                }
-            }
-        } else {
-            ESleep_resistance &= ~W_ARM;
-            EShock_resistance &= ~W_ARM;
-
-            was_flying = !!Flying;
-
-            /* remove armor 'early' to determine whether Flying changes */
-            setworn((struct obj *) 0, W_ARM);
-            float_vs_flight(); /* probably not needed here */
-            check_wings(TRUE); /* are we in a form that has wings and can
-                                  already fly? */
-            if (was_flying && !Flying) {
-                context.botl = TRUE; /* status: 'Fly' Off */
-                You("%s.", (is_pool_or_lava(u.ux, u.uy)
-                            || Is_waterlevel(&u.uz) || Is_airlevel(&u.uz))
-                               ? "stop flying"
-                               : "land");
-                spoteffects(TRUE);
-            }
-        }
-        break;
-    }
-    case CHROMATIC_DRAGON_SCALES:
-        /* magic res handled in objects.c */
-        if (puton) {
-            EPoison_resistance |= W_ARM;
-            EFire_resistance   |= W_ARM;
-            ECold_resistance   |= W_ARM;
-            ESleep_resistance  |= W_ARM;
-            EDisint_resistance |= W_ARM;
-            EShock_resistance  |= W_ARM;
-            EAcid_resistance   |= W_ARM;
-            EStone_resistance  |= W_ARM;
-            EReflecting        |= W_ARM;
-
-            if (Stone_resistance && Stoned) {
-                make_stoned(0L, "You no longer seem to be petrifying.", 0,
-                            (char *) 0);
-            }
-        } else {
-            EPoison_resistance &= ~W_ARM;
-            EFire_resistance   &= ~W_ARM;
-            ECold_resistance   &= ~W_ARM;
-            ESleep_resistance  &= ~W_ARM;
-            EDisint_resistance &= ~W_ARM;
-            EShock_resistance  &= ~W_ARM;
-            EAcid_resistance   &= ~W_ARM;
-            EStone_resistance  &= ~W_ARM;
-            EReflecting        &= ~W_ARM;
         }
         break;
     default:
@@ -1323,11 +1439,11 @@ Armor_off(VOID_ARGS)
     context.takeoff.mask &= ~W_ARM;
     context.takeoff.cancelled_don = FALSE;
 
-    check_wings(FALSE);
-
     dragon_armor_handling(otmp, FALSE);
 
     setworn((struct obj *) 0, W_ARM);
+
+    check_wings(FALSE);
 
     if (was_arti_light)
         toggle_armor_light(otmp, FALSE);
@@ -1391,10 +1507,7 @@ boolean silent; /* we assume a wardrobe change if false */
         if (!silent && uarm != last_worn_armor)
             Your("%s seems to have holes for wings.", simpleonames(uarm));
     } else {
-        if (!(uamul && uamul->otyp == AMULET_OF_FLYING))
-            BFlying |= W_ARM;
-        else if (!(uarmc && uarmc->otyp == CLOAK_OF_FLIGHT))
-            BFlying |= W_ARM;
+        BFlying |= W_ARM;
         if (!silent)
             You("fold your wings under your suit.");
     }
@@ -1435,7 +1548,7 @@ Amulet_on()
              * strangulation constricts the neck and ignores magical breathing.
              */
             You("can suddenly breathe again!");
-            Strangled = 0;
+            Strangled = 0L;
         }
         break;
     case AMULET_OF_UNCHANGING:
@@ -1514,9 +1627,9 @@ Amulet_on()
         find_ac();
         break;
     case AMULET_VERSUS_STONE:
-		if (Stoned)
+        if (Stoned)
             fix_petrification();
-		break;
+        break;
     case AMULET_OF_YENDOR:
         break;
     }
@@ -1549,7 +1662,7 @@ Amulet_off()
             /* HMagical_breathing must be set off
                 before calling drown() */
             setworn((struct obj *) 0, W_AMUL);
-            if (!breathless(youmonst.data) && !Amphibious && !Swimming) {
+            if (!Breathless && !Amphibious && !Swimming) {
                 You("suddenly inhale an unhealthy amount of %s!",
                     hliquid("water"));
                 (void) drown();
@@ -1661,7 +1774,6 @@ register struct obj *obj;
 
     switch (obj->otyp) {
     case RIN_TELEPORTATION:
-    /*case RIN_REGENERATION:*/
     case RIN_SEARCHING:
     case RIN_HUNGER:
     case RIN_AGGRAVATE_MONSTER:
@@ -1679,6 +1791,14 @@ register struct obj *obj;
     case RIN_SUSTAIN_ABILITY:
     case MEAT_RING:
     case RIN_SONIC_RESISTANCE:
+        break;
+    case RIN_CARRYING:
+        /* with inventory weights available, this is trivial to identify if it's
+         * charged, so if it IS charged, learn it. */
+        if (obj->spe != 0) {
+            Your("pack feels %s.", obj->spe < 0 ? "heavier" : "lighter");
+        }
+        learnring(obj, (obj->spe != 0));
         break;
     case RIN_REGENERATION:
         if (!oldprop && !HRegeneration && !regenerates(youmonst.data)) {
@@ -1698,12 +1818,12 @@ register struct obj *obj;
         if (newnap < oldnap || oldnap == 0L)
             HSleepy = (HSleepy & ~TIMEOUT) | newnap;
         break;
-        /* hackem: copied from Amulet of Restful Sleep */
     }
     case RIN_STEALTH:
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             pline("This %s will not silence someone %s.",
                   xname(obj), rn2(2) ? "as large as you" : "of your stature");
+            learnring(obj, TRUE);
             EStealth &= ~W_RING;
         } else {
             toggle_stealth(obj, oldprop, TRUE);
@@ -1713,15 +1833,7 @@ register struct obj *obj;
         see_monsters();
         break;
     case RIN_SEE_INVISIBLE:
-        /* can now see invisible monsters */
-        set_mimic_blocking(); /* do special mimic handling */
-        see_monsters();
-
-        if (Invis && !oldprop && !HSee_invisible && !Blind) {
-            newsym(u.ux, u.uy);
-            pline("Suddenly you are transparent, but there!");
-            learnring(obj, TRUE);
-        }
+        toggle_seeinv(obj, oldprop, TRUE);
         break;
     case RIN_INVISIBILITY:
         if (!oldprop && !HInvis && !BInvis && !Blind) {
@@ -1745,15 +1857,6 @@ register struct obj *obj;
         goto adjust_attrib;
     case RIN_GAIN_CONSTITUTION:
         which = A_CON;
-        goto adjust_attrib;
-    case RIN_GAIN_INTELLIGENCE:
-        which = A_INT;
-        goto adjust_attrib;
-    case RIN_GAIN_WISDOM:
-        which = A_WIS;
-        goto adjust_attrib;
-    case RIN_GAIN_DEXTERITY:
-        which = A_DEX;
         goto adjust_attrib;
     case RIN_ADORNMENT:
         which = A_CHA;
@@ -1788,12 +1891,6 @@ register struct obj *obj;
         learnring(obj, observable);
         if (obj->spe)
             find_ac(); /* updates botl */
-        break;
-    case RIN_PSYCHIC_RESISTANCE:
-        if (Afraid) {
-            make_afraid(0L, TRUE);
-            context.botl = TRUE;
-        }
         break;
     case RIN_DISPLACEMENT:
         toggle_displacement(obj, oldprop, TRUE);
@@ -1836,7 +1933,6 @@ boolean gone;
     case RIN_SLOW_DIGESTION:
     case RIN_SUSTAIN_ABILITY:
     case MEAT_RING:
-    case RIN_PSYCHIC_RESISTANCE:
     case RIN_SONIC_RESISTANCE:
         break;
     case RIN_SLEEPING:
@@ -1853,16 +1949,7 @@ boolean gone;
         break;
     case RIN_SEE_INVISIBLE:
         /* Make invisible monsters go away */
-        if (!See_invisible) {
-            set_mimic_blocking(); /* do special mimic handling */
-            see_monsters();
-        }
-
-        if (Invisible && !Blind) {
-            newsym(u.ux, u.uy);
-            pline("Suddenly you cannot see yourself.");
-            learnring(obj, TRUE);
-        }
+        toggle_seeinv(obj, (ESee_invisible& ~mask), FALSE);
         break;
     case RIN_INVISIBILITY:
         if (!Invis && !BInvis && !Blind) {
@@ -1886,15 +1973,6 @@ boolean gone;
         goto adjust_attrib;
     case RIN_GAIN_CONSTITUTION:
         which = A_CON;
-        goto adjust_attrib;
-    case RIN_GAIN_INTELLIGENCE:
-        which = A_INT;
-        goto adjust_attrib;
-    case RIN_GAIN_WISDOM:
-        which = A_WIS;
-        goto adjust_attrib;
-    case RIN_GAIN_DEXTERITY:
-        which = A_DEX;
         goto adjust_attrib;
     case RIN_ADORNMENT:
         which = A_CHA;
@@ -1958,7 +2036,8 @@ struct obj *otmp;
     if (otmp->owornmask & W_WEAPONS)
         remove_worn_item(otmp, FALSE);
     setworn(otmp, W_TOOL);
-    on_msg(otmp);
+    if (moves > 1) /* Avoid turn 1 spam */
+        on_msg(otmp);
 
     if (Blind && !already_blind) {
         changed = TRUE;
@@ -1983,7 +2062,7 @@ struct obj *otmp;
         toggle_blindness(); /* potion.c */
     }
     
-    if (ublindf && ublindf->oartifact == ART_MYSTIC_EYES) {
+    if (wearing_artifact(ART_MYSTIC_EYES)) {
         if (!already_hallucinating && !EHalluc_resistance) {
             context.botl = TRUE; /* status: On */
             pline("With madness comes clarity.");
@@ -2055,7 +2134,9 @@ struct obj *otmp;
     }
 
     if (otmp && otmp->otyp == MASK) {
-        if (otmp->blessed) {
+        if (otmp->corpsenm == -1) {
+            ; /* It's been cancelled */
+        } else if (otmp->blessed) {
             otmp->blessed = 0;
             Your("mask seems more brittle.");
         } else if (!otmp->blessed && !otmp->cursed && !rn2(3)) {
@@ -2394,7 +2475,10 @@ dotakeoff()
         otmp = getobj(clothes, "take off");
     if (!otmp)
         return 0;
-
+    if (eyewear(otmp) && uarmh && uarmh->otyp == PLASTEEL_HELM) {
+        pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+        return 0;
+    }
     return armor_or_accessory_off(otmp);
 }
 
@@ -2417,7 +2501,10 @@ doremring()
         otmp = getobj(accessories, "remove");
     if (!otmp)
         return 0;
-
+    if (eyewear(otmp) && uarmh && uarmh->otyp == PLASTEEL_HELM) {
+        pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+        return 0;
+    }
     return armor_or_accessory_off(otmp);
 }
 
@@ -2591,8 +2678,24 @@ boolean noisy;
         return 0;
     }
 
-
-    if (which && !can_wear_arm(otmp, noisy)) {
+    which = is_cloak(otmp)
+                ? c_cloak
+                : is_shirt(otmp)
+                    ? c_shirt
+                    : is_suit(otmp)
+                        ? c_suit
+                        : 0;
+    
+    if (which && cantweararm(&youmonst)
+        /* same exception for cloaks as used in m_dowear() */
+        && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
+        && otmp->otyp != MUMMY_WRAPPING /* Exception for giants and tortles */
+        && !Is_dragon_scales(otmp)      /* Exception for giants and tortles */
+        && (racial_exception(&youmonst, otmp) < 1)
+        && !(Race_if(PM_TORTLE) && otmp && otmp->otyp == ROBE)
+        && !(Race_if(PM_GIANT) && otmp && giant_sized(otmp))) {
+        if (noisy)
+            pline_The("%s will not fit on your body.", which);
         return 0;
     } else if (otmp->owornmask & W_ARMOR) {
         if (noisy)
@@ -2618,15 +2721,6 @@ boolean noisy;
                 pline_The("%s won't fit over your horn%s.",
                           helm_simple_name(otmp),
                           plur(num_horns(youmonst.data)));
-            err++;
-        } else if (!Upolyd && Race_if(PM_TORTLE) && is_hard(otmp)
-                   && !(Role_if(PM_PRIEST)
-                        && otmp->oartifact == ART_MITRE_OF_HOLINESS)) {
-            /* Tortles can't retreat back into their shells
-               whilst wearing rigid head gear */
-            if (noisy)
-                pline_The("%s is too rigid to wear.",
-                          helm_simple_name(otmp));
             err++;
         } else if (((Upolyd && is_mind_flayer(youmonst.data)) || Race_if(PM_ILLITHID)) 
                    && otmp->otyp == PLASTEEL_HELM) {
@@ -2672,9 +2766,7 @@ boolean noisy;
                                    "rear hooves" which sounds odd */
             err++;
         } else if (!Upolyd && Race_if(PM_TORTLE)) {
-            /* Tortles can't retreat back into their shells
-               whilst wearing footwear, plus their shape is
-               all wrong */
+            /* Tortles foot shape is all wrong */
             if (noisy)
                 Your ("%s are not shaped correctly to wear %s.",
                       makeplural(body_part(FOOT)), c_boots);
@@ -2715,13 +2807,6 @@ boolean noisy;
                 Your("%s are too slippery to pull on %s.",
                      fingers_or_gloves(FALSE), gloves_simple_name(otmp));
             err++;
-        } else if (!Upolyd && Race_if(PM_TORTLE) && is_hard(otmp)) {
-            /* Tortles can't retreat back into their shells
-               whilst wearing rigid gauntlets */
-            if (noisy)
-                pline_The("%s are too rigid to wear.",
-                          gloves_simple_name(otmp));
-            err++;
         } else
             *mask = W_ARMG;
     } else if (is_shirt(otmp)) {
@@ -2745,12 +2830,6 @@ boolean noisy;
             err++;
         } else
             *mask = W_ARMC;
-        if (!Upolyd && Race_if(PM_GIANT) && otmp
-            && otmp->otyp == CHROMATIC_DRAGON_SCALES) {
-            *mask = W_ARMC;
-            if (noisy)
-                pline_The("scales are just large enough to fit your body.");
-        }
     } else if (is_suit(otmp)) {
         if (uarmc) {
             if (noisy)
@@ -2761,13 +2840,14 @@ boolean noisy;
                 already_wearing("some armor");
             err++;
         } else if (youmonst.data->msize < MZ_HUGE
-                   && otmp && otmp->otyp == LARGE_SPLINT_MAIL) {
+                   && otmp && giant_sized(otmp)) {
             if (noisy)
                 You("are too small to wear such a suit of armor.");
+            makeknown(otmp->otyp);
             err++;
         } else
             *mask = W_ARM;
-        if (!Upolyd && Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
+        if (!Upolyd && Race_if(PM_GIANT) && otmp && giant_sized(otmp))
             *mask = W_ARM;
     } else {
         /* getobj can't do this after setting its allow_all flag; that
@@ -2807,11 +2887,7 @@ boolean noisy;
         && (which != c_cloak || youmonst.data->msize != MZ_SMALL)
         && otmp->otyp != MUMMY_WRAPPING /* Exception for giants/tortles */
         && (racial_exception(&youmonst, otmp) < 1)
-        /* For tortles and giants */
-        && !(otmp->oartifact == ART_GRANDMASTER_S_ROBE)
-        && !(Race_if(PM_GIANT) && otmp && otmp->otyp == LARGE_SPLINT_MAIL)
-        && !(Race_if(PM_GIANT) && otmp
-             && otmp->otyp == CHROMATIC_DRAGON_SCALES);
+        && !(Race_if(PM_GIANT) && otmp && giant_sized(otmp));
 
     if (cantwear &&noisy)
         pline_The("%s will not fit on your body.", which);
@@ -2819,15 +2895,19 @@ boolean noisy;
     return !cantwear;
 }
 
-/* Return TRUE iff wearing a potential new piece of armor with the given mask
- * will touch the hero's skin. */
-STATIC_OVL boolean
+/* Return TRUE iff wearing/wielding a potential new piece of equipment with
+ * the given mask will touch the hero's skin. */
+boolean
 will_touch_skin(mask)
 long mask;
 {
     if (mask == W_ARMC && (uarm || uarmu))
         return FALSE;
     else if (mask == W_ARM && uarmu)
+        return FALSE;
+    else if ((mask & (W_WEP | W_SWAPWEP | W_ARMS)) && uarmg)
+        return FALSE;
+    else if (mask == W_QUIVER)
         return FALSE;
     return TRUE;
 }
@@ -2837,7 +2917,7 @@ accessory_or_armor_on(obj)
 struct obj *obj;
 {
     long mask = 0L;
-    boolean armor, ring, eyewear;
+    boolean armor, ring;
 
     if (obj->owornmask & (W_ACCESSORY | W_ARMOR)) {
         already_wearing(c_that_);
@@ -2845,11 +2925,7 @@ struct obj *obj;
     }
     armor = (obj->oclass == ARMOR_CLASS);
     ring = (obj->oclass == RING_CLASS || obj->otyp == MEAT_RING);
-    eyewear = (obj->otyp == BLINDFOLD 
-               || obj->otyp == TOWEL
-               || obj->otyp == LENSES 
-               || obj->otyp == GOGGLES
-               || obj->otyp == MASK);
+
     /* checks which are performed prior to actually touching the item */
     if (armor) {
         if (!canwearobj(obj, &mask, TRUE))
@@ -2865,6 +2941,11 @@ struct obj *obj;
             makeknown(obj->otyp);
             context.botl = 1; /*for AC after zeroing u.ublessed */
             return 1;
+        }
+        if (obj->otyp == PLASTEEL_HELM 
+            && ublindf && ublindf->otyp != BLINDFOLD) {
+            You("cannot fit your helm around %s.", yname(ublindf));
+            return 0;
         }
     } else {
         /* accessory */
@@ -2936,7 +3017,14 @@ struct obj *obj;
                 already_wearing("an amulet");
                 return 0;
             }
-        } else if (eyewear) {
+        } else if (eyewear(obj)) {
+            if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+                if (obj->otyp == BLINDFOLD)
+                    pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+                else
+                    You("can't fit %s under your helm.", an(xname(obj)));
+                return 0;
+            }
             if (ublindf) {
                 if (ublindf->otyp == MASK)
                     Your("%s is already covered by a mask.",
@@ -2977,7 +3065,7 @@ struct obj *obj;
         }
     }
 
-    if (will_touch_skin(mask) && !retouch_object(&obj, FALSE))
+    if (!retouch_object(&obj, will_touch_skin(mask), FALSE))
         return 1; /* costs a turn even though it didn't get worn */
 
     if (armor) {
@@ -3039,7 +3127,7 @@ struct obj *obj;
             Amulet_on();
             /* no feedback here if amulet of change got used up */
             give_feedback = (uamul != 0);
-        } else if (eyewear) {
+        } else if (eyewear(obj)) {
             /* setworn() handled by Blindf_on() */
             Blindf_on(obj);
             /* message handled by Blindf_on(); leave give_feedback False */
@@ -3095,11 +3183,17 @@ doputon()
                                                                     : "a blindfold");
         return 0;
     }
-    if (uarmh && uarmh->otyp == PLASTEEL_HELM){
-        pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+
+    otmp = getobj(accessories, "put on");
+    
+    if (otmp && eyewear(otmp) && uarmh && uarmh->otyp == PLASTEEL_HELM) {
+        if (otmp->otyp == BLINDFOLD)
+            pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+        else
+            You("can't fit %s under your helm.", an(xname(otmp)));        
         return 1;
     }
-    otmp = getobj(accessories, "put on");
+    
     return otmp ? accessory_or_armor_on(otmp) : 0;
 }
 
@@ -3243,24 +3337,31 @@ find_ac()
         else if (u.ulevel == 30)
             tortle_ac -= 10;
     }
-
-    /* --hackem: The Ice Mage is inheriting the generous AC bonus that the 
-     * SlashEM monk enjoyed. The Ice Mage probably has a better argument since
-     * they are "growing" an ice armor as they increase in power - kind of 
-     * like the tortle. The Ice Mage has a bit of a deficit compared to the 
-     * Flame Mage, so hopefully this helps offset the imbalance. 
-     * We'll impose similar restrictions - no armor (except robes) and no 
-     * shields allowed */
-    if (Role_if(PM_ICE_MAGE)) {
-        uac -= icebonus();
-    }
+    
     /* Doppelganger no-armor bonus. */
-    if (Race_if(PM_DOPPELGANGER) && !uarm) 
+    else if (Race_if(PM_DOPPELGANGER) && !uarm) 
         uac -= (u.ulevel / 4) + 1;
     
+    /* Monk's intrinsic AC bonus from SLASH'EM. Slightly modified.
+     * This cannot stack with the other racial AC bonuses. 
+     */
+    else if (Role_if(PM_MONK) && !uwep
+          && (!uarm || is_robe(uarm)) && !uarms) {
+        /* Cap off the Monk's ac bonus to -10 */
+        if (u.ulevel > 18) 
+            uac -= 10;
+        else
+            uac -= (u.ulevel / 2); /* Was (u.ulevel / 2)+2 */
+    }
+
     /* Drunken boxing */
     if (Role_if(PM_MONK) && Confusion && !uarm) {
         uac -= 1;
+    }
+    
+    if (tech_inuse(T_ICEARMOR)) {
+        /* Armor and shield restrictions are checked in icebonus() */
+        uac -= icebonus();
     }
     
     /* Dexterity affects your base AC */
@@ -3316,12 +3417,8 @@ int
 icebonus()
 {
     /* No non-robe body armor and no shield allowed */
-    if ((!uarm || is_robe(uarm)) && !uarms) {
-        if (u.ulevel > 18) 
-            return 11;
-        else 
-            return (u.ulevel / 2) + 2;
-    }
+    if ((!uarm || is_robe(uarm)) && !uarms)
+        return (u.ulevel / 2) + 2;
     return 0;
 }
 
@@ -3913,9 +4010,8 @@ boolean choose;
     if (DESTROY_ARM(uarmc)) {
         if (donning(otmp))
             cancel_don();
-        /* for gold/chromatic DS, we don't want Cloak_off() to report
-           that it stops shining _after_ we've been told that it is
-           destroyed */
+        /* for gold DS, we don't want Cloak_off() to report that it
+         * stops shining _after_ we've been told that it is destroyed */
         if (otmp->lamplit)
             end_burn(otmp, FALSE);
         Your("%s crumbles and turns to dust!", cloak_simple_name(uarmc));
@@ -3923,18 +4019,21 @@ boolean choose;
         useup(otmp);
     } else if (DESTROY_ARM(uarm)) {
         if (uarm && (uarm == otmp)
-            && otmp->otyp == CRYSTAL_PLATE_MAIL)
-            goto end;
-        if (donning(otmp))
-            cancel_don();
-        /* for gold/chromatic dragon-scaled armor, we don't want
-           Armor_gone() to report that it stops shining _after_
-           we've been told that it is destroyed */
-        if (otmp->lamplit)
-            end_burn(otmp, FALSE);
-        Your("armor turns to dust and falls to the %s!", surface(u.ux, u.uy));
-        (void) Armor_gone();
-        useup(otmp);
+            && otmp->otyp == CRYSTAL_PLATE_MAIL) {
+            otmp->in_use = FALSE; /* nothing happens */
+            return 0;
+        } else {
+            if (donning(otmp))
+                cancel_don();
+            /* for gold dragon-scaled armor, we don't want
+               Armor_gone() to report that it stops shining _after_
+               we've been told that it is destroyed */
+            if (otmp->lamplit)
+                end_burn(otmp, FALSE);
+            Your("armor turns to dust and falls to the %s!", surface(u.ux, u.uy));
+            (void) Armor_gone();
+            useup(otmp);
+        }
     } else if (DESTROY_ARM(uarmu)) {
         if (donning(otmp))
             cancel_don();
@@ -3948,19 +4047,11 @@ boolean choose;
         (void) Helmet_off();
         useup(otmp);
     } else if (DESTROY_ARM(uarmg)) {
-        if (uarmg && (uarmg == otmp)
-            && otmp->oartifact == ART_DRAGONBANE) {
-            pline("%s %s and cannot be disintegrated.",
-                  Yname2(otmp), rn2(2) ? "resists completely"
-                                       : "defies physics");
-            goto end;
-        }
         if (donning(otmp))
             cancel_don();
-        Your("gloves vanish!");
+        Your("gloves disintegrate!");
         (void) Gloves_off();
         useup(otmp);
-        selftouch("You");
     } else if (DESTROY_ARM(uarmf)) {
         if (donning(otmp))
             cancel_don();
@@ -3987,7 +4078,6 @@ boolean choose;
         pline("%s crumbles to pieces!", Yname2(otmp));
         m_useup(u.usteed, otmp);
     } else {
-end:
         return 0; /* could not destroy anything */
     }
 
@@ -4013,17 +4103,6 @@ register schar delta;
             makeknown(uarmh->otyp);
             ABON(A_INT) += (delta);
             ABON(A_WIS) += (delta);
-        }
-        context.botl = 1;
-    }
-    if (otmp && (otmp->oprops & ITEM_EXCEL) && (otmp->owornmask & W_ARMOR)) {
-        if (delta) {
-            int which = A_CHA,
-                old_attrib = ACURR(which);
-            ABON(which) += (delta);
-            if (old_attrib != ACURR(which))
-                otmp->oprops_known |= ITEM_EXCEL;
-            set_moreluck();
         }
         context.botl = 1;
     }
@@ -4113,4 +4192,24 @@ toggle_armor_light(struct obj *armor, boolean on)
     }
 }
 
+/* Computes magical bonus from worn rings of a specific type.
+ * Intended for things that give numerical bonuses; could theoretically be
+ * extended later if other equipment confers a similar bonus. */
+int
+ringbon(ring_typ)
+short ring_typ;
+{
+    int bon = 0;
+    if (!objects[ring_typ].oc_charged) {
+        impossible("ringbon: called with non-chargeable ring?");
+        return 0;
+    }
+    if (uleft && uleft->otyp == ring_typ) {
+        bon += uleft->spe;
+    }
+    if (uright && uright->otyp == ring_typ) {
+        bon += uright->spe;
+    }
+    return bon;
+}
 /*do_wear.c*/

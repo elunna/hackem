@@ -39,6 +39,7 @@ const struct propname {
     { AFRAID, "afraid" },
     { HALLUC, "hallucinating" },
     { BLINDED, "blinded" },
+    { FEARLESS, "fearless" },
     { DEAF, "deafness" },
     { VOMITING, "vomiting" },
     { GLIB, "slippery fingers" },
@@ -65,6 +66,7 @@ const struct propname {
     { STONE_RES, "stoning resistance" },
     { PSYCHIC_RES, "psionic resistance" },
     { DRAIN_RES, "drain resistance" },
+    { STUN_RES, "stun resistance" },
     { SICK_RES, "sickness resistance" },
     { DEATH_RES, "death magic resistance" },
     { ANTIMAGIC, "magic resistance" },
@@ -578,7 +580,7 @@ nh_timeout()
     int sleeptime;
     int m_idx;
     int baseluck = (flags.moonphase == FULL_MOON) ? 1 : 0;
-
+    
     if (flags.friday13)
         baseluck -= 1;
     if (Role_if(PM_ARCHEOLOGIST) && uarmh && uarmh->otyp == FEDORA)
@@ -586,51 +588,53 @@ nh_timeout()
     if (quest_status.killed_leader)
         baseluck -= 4;
     if (flags.quest_boon)
-        baseluck += 3;
+        baseluck += 1;
+    if (u.uconduct.wishes)
+        baseluck += wishluck();
     
     if (u.uluck != baseluck) {
-	int timeout = 600;
-	int time_luck = stone_luck(FALSE);
-	/* Cursed luckstones slow bad luck timing out; blessed luckstones
-	 * slow good luck timing out; normal luckstones slow both;
-	 * neither is affected if you don't have a luckstone.
-         * Luck is based at 0 usually, +1 if a full moon and -1 on Friday 13th
-         */
-	if (has_luckitem() && (!time_luck
-            || (time_luck > 0 && u.uluck > baseluck)
-            || (time_luck < 0 && u.uluck < baseluck))) {
+        int timeout = 600;
+        int time_luck = stone_luck(FALSE);
+        /* Cursed luckstones slow bad luck timing out; blessed luckstones
+         * slow good luck timing out; normal luckstones slow both;
+         * neither is affected if you don't have a luckstone.
+             * Luck is based at 0 usually, +1 if a full moon and -1 on Friday 13th
+             */
+        if (has_luckitem() && (!time_luck
+                               || (time_luck > 0 && u.uluck > baseluck)
+                               || (time_luck < 0 && u.uluck < baseluck))) {
 
-	/* The slowed timeout depends on the distance between your
-	 * luck (not including luck bonuses) and your base luck.
-	 *
-	 * distance	timeout
-	 * --------------------
-	 *  1		24800
-	 *  2		24200
-	 *  3		23200
-	 *  4		21800
-	 *  5		20000
-	 *  6		17800
-	 *  7		15200
-	 *  8		12200
-	 *  9		8800
-	 *  10		5000
-	 *  11		800
-	 */
-	int base_dist = u.uluck - baseluck;
-	int slow_timeout = 25000 - 200 * (base_dist * base_dist);
-	if (slow_timeout > timeout) timeout = slow_timeout;
-	}
+            /* The slowed timeout depends on the distance between your
+             * luck (not including luck bonuses) and your base luck.
+             *
+             * distance	timeout
+             * --------------------
+             *  1		24800
+             *  2		24200
+             *  3		23200
+             *  4		21800
+             *  5		20000
+             *  6		17800
+             *  7		15200
+             *  8		12200
+             *  9		8800
+             *  10		5000
+             *  11		800
+             */
+            int base_dist = u.uluck - baseluck;
+            int slow_timeout = 25000 - 200 * (base_dist * base_dist);
+            if (slow_timeout > timeout) timeout = slow_timeout;
+        }
 
-	if (u.uhave.amulet || u.ugangr) timeout = timeout / 2;
+        if (u.uhave.amulet || u.ugangr) timeout = timeout / 2;
 
-	if (moves >= u.luckturn + timeout) {
-	    if (u.uluck > baseluck)
-		u.uluck--;
-	    else if (u.uluck < baseluck)
-		u.uluck++;
+        if (moves >= u.luckturn + timeout) {
+            if (u.uluck > baseluck)
+                u.uluck--;
+            else if (u.uluck < baseluck)
+                u.uluck++;
             u.luckturn = moves;
-	}
+        }
     }
     
     /* WAC -- check for timeout of specials */
@@ -658,7 +662,7 @@ nh_timeout()
         phaze_dialogue();
     if (u.mtimedone && !--u.mtimedone) {
         if (Unchanging ||
-            (ublindf && ublindf->otyp == MASK))
+            (ublindf && ublindf->otyp == MASK && ublindf->corpsenm != -1))
             u.mtimedone = rnd(100 * youmonst.data->mlevel + 1);
         else if (is_were(youmonst.data))
             you_unwere(FALSE); /* if polycontrl, asks whether to rehumanize */
@@ -791,6 +795,7 @@ nh_timeout()
             case SLOW:
                 HSlow &= ~FROMOUTSIDE;
                 You_feel("less sluggish.");
+                context.botl = TRUE;
                 break;
             case REFLECTING:
                 if (!Blind)
@@ -815,6 +820,10 @@ nh_timeout()
                 if (!Vulnerable_acid)
                     You("are no longer vulnerable to acid.");
                 break;
+            case VULN_LOUD:
+                if (!Vulnerable_loud)
+                    You("are no longer vulnerable to sound.");
+                break;
             case CONFUSION:
                 /* So make_confused works properly */
                 set_itimeout(&HConfusion, 1L);
@@ -831,10 +840,17 @@ nh_timeout()
             case AFRAID:
                 set_itimeout(&HAfraid, 1L);
                 make_afraid(0L, TRUE);
-                if (!Afraid) {
-                    stop_occupation();
-                    You("are no longer afraid.");
+                if (!Afraid && !Fearless) {
                     remove_fearedmon();
+                    stop_occupation();
+                }
+                break;
+            case FEARLESS:
+                set_itimeout(&HFearless, 1L);
+                make_fearless(0L, TRUE);
+                if (Fearless) {
+                    Your("bravery runs out .");
+                    stop_occupation();
                 }
                 break;
             case BLINDED:
@@ -974,6 +990,10 @@ nh_timeout()
                 break;
             case GLIB:
                 make_glib(0); /* might update persistent inventory */
+                break;
+            case REGENERATION:
+                if (!Regeneration)
+                    You_feel("enervated.");
                 break;
             }
         }
@@ -1341,7 +1361,6 @@ long timeout;
                 verbalize("Gleep!"); /* Mything eggs :-) */
             }
             break;
-
         case OBJ_FLOOR:
             if (cansee_hatchspot) {
                 knows_egg = TRUE;
@@ -1349,7 +1368,6 @@ long timeout;
                 redraw = TRUE; /* update egg's map location */
             }
             break;
-
         case OBJ_MINVENT:
             if (cansee_hatchspot) {
                 /* egg carrying monster might be invisible */
@@ -1395,6 +1413,8 @@ long timeout;
         }
         if (redraw)
             newsym(x, y);
+
+        maybe_unhide_at(x, y);
     }
 }
 

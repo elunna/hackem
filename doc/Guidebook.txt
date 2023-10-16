@@ -3351,6 +3351,9 @@
             Automatically pick up things onto which you move (default  on).
             Persistent.  See pickup_types to refine the behavior.
 
+          autostairtravel
+            Automatically travel to stairs using < or >.
+            
           autoquiver
             This  option  controls  what  happens  when you attempt the `f'
             (fire) command when nothing is  quivered  or  readied  (default
@@ -3417,7 +3420,10 @@
           confirm
             Have  user  confirm  attacks  on  pets,  shopkeepers, and other
             peaceable creatures (default on).  Persistent.
-
+          
+          ctrlkick
+            Enable kicking shortcuts with ctrl + direction.
+            
           dark_room
             Show out-of-sight areas of lit rooms (default on).  Persistent.
 

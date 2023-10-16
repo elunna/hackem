@@ -75,7 +75,7 @@ extern int NDECL(dofire);             /**/
 extern int NDECL(dothrow);            /**/
 extern int NDECL(doeat);              /**/
 extern int NDECL(done2);              /**/
-extern int NDECL(vanquished);         /**/
+extern int NDECL(dovanquished);       /**/
 extern int NDECL(doengrave);          /**/
 extern int NDECL(dopickup);           /**/
 extern int NDECL(ddoinv);             /**/
@@ -133,6 +133,7 @@ extern int NDECL(doremoveimarkers);   /**/
 
 static int NDECL((*timed_occ_fn));
 
+STATIC_PTR int NDECL(doenshelling);
 STATIC_PTR int NDECL(dosuspend_core);
 STATIC_PTR int NDECL(dosh_core);
 STATIC_PTR int NDECL(doherecmdmenu);
@@ -734,7 +735,7 @@ domonability(VOID_ARGS)
         return dohide();
     else if (maybe_polyd(is_tortle(youmonst.data),
              Race_if(PM_TORTLE)))
-        return toggleshell();
+        return doenshelling();
     else if (is_mind_flayer(youmonst.data))
         return domindblast();
     else if (u.umonnum == PM_GREMLIN) {
@@ -971,7 +972,7 @@ wiz_map(VOID_ARGS)
             t->tseen = 1;
             map_trap(t, TRUE);
         }
-        do_mapping();
+        do_mapping(FALSE);
         HConfusion = save_Hconf;
         HHallucination = save_Hhallu;
     } else
@@ -979,19 +980,24 @@ wiz_map(VOID_ARGS)
     return 0;
 }
 
-/* ^S command - cast any spell. */
+/* ^S command - cast any spell, does not require energy to use */
 STATIC_PTR int
 wiz_spell(VOID_ARGS)
 {
     char buf[BUFSZ] = DUMMY;
     int last_spbook, i;
+
     while (buf[0] == '\0' || buf[0] == '\033') {
-        getlin("What spell do you successfully cast without energy use?", buf);
+        getlin("Which spell to cast?", buf);
         (void) mungspaces(buf);
     }
-    last_spbook = (SPBOOK_CLASS + 1 < MAXOCLASSES ? bases[SPBOOK_CLASS + 1] : NUM_OBJECTS) - 1;
+
+    last_spbook = (SPBOOK_CLASS + 1 < MAXOCLASSES
+                   ? bases[SPBOOK_CLASS + 1] : NUM_OBJECTS) - 1;
+
     for (i = bases[SPBOOK_CLASS]; i <= last_spbook; ++i) {
-        if (objects[i].oc_skill < P_FIRST_SPELL || objects[i].oc_skill > P_LAST_SPELL)
+        if (objects[i].oc_skill < P_FIRST_SPELL
+            || objects[i].oc_skill > P_LAST_SPELL)
             continue;
         if (!strcmpi(buf, OBJ_NAME(objects[i]))) {
             /* pline("Casting [%d] %s", i, buf); */
@@ -3275,9 +3281,9 @@ int final;
     char buf[BUFSZ];
     register struct obj *otmp;
 
-    /*\
+    /*
      *  Attributes
-    \*/
+     */
     enlght_out("");
     enlght_out_attr(ATR_SUBHEAD, final ? "Final Attributes:" : "Current Attributes:");
 
@@ -3326,31 +3332,34 @@ int final;
     if (EFire_resistance)
         enl_msg("Your items ", "are", "were", " protected from fire",
                 from_what(AD_FIRE));
+    
     Sprintf(buf, "%d%% cold resistant", how_resistant(COLD_RES));
     if (Cold_resistance)
         you_are(buf, "");
     if (ECold_resistance)
         enl_msg("Your items ", "are", "were", " protected from cold",
                 from_what(AD_COLD));
+    
     Sprintf(buf, "%d%% sleep resistant", how_resistant(SLEEP_RES));
     if (Sleep_resistance)
         you_are(buf, "");
     Sprintf(buf, "%d%% disintegration resistant", how_resistant(DISINT_RES));
     if (Disint_resistance)
         you_are(buf, "");
+    
     Sprintf(buf, "%d%% shock resistant", how_resistant(SHOCK_RES));
     if (Shock_resistance)
         you_are(buf, "");
     if (EShock_resistance)
         enl_msg("Your items ", "are", "were", " protected from shock",
                 from_what(AD_ELEC));
+    
     Sprintf(buf, "%d%% poison resistant", how_resistant(POISON_RES));
     if (Poison_resistance)
         you_are(buf, "");
     /* End of partial intrinsic resistances */
 
-    if (Stable)
-        you_are("stable", from_what(STABLE));
+
     if (Acid_resistance)
         you_are("acid resistant", from_what(ACID_RES));
     if (EAcid_resistance)
@@ -3358,8 +3367,12 @@ int final;
                 from_what(AD_ACID));
     if (Psychic_resistance)
         you_are("psionic resistant", from_what(PSYCHIC_RES));
-    if (Sonic_resistance)
-        you_are("sonic resistant", from_what(SONIC_RES));
+    if (Sonic_resistance) {
+        if (!WSonic_resistance)
+            you_are("sonic resistant", from_what(SONIC_RES));
+        else
+            you_are("sonic resistant", " (from being underwater)");
+    }
     if (ESonic_resistance)
         enl_msg("Your items ", "are", "were", " protected from sonic",
                 from_what(AD_LOUD));
@@ -3369,8 +3382,16 @@ int final;
         you_are("immune to sickness", from_what(SICK_RES));
     if (Stone_resistance)
         you_are("petrification resistant", from_what(STONE_RES));
+    if (Stun_resistance)
+        you_are("stun resistant", from_what(STUN_RES));
+    if (BWithering)
+        you_are("resistant to withering", ""); /* No WITHER_RES yet */
     if (Death_resistance)
         you_are("immune to the effects of death magic", from_what(DEATH_RES));
+    if (Fearless)
+        you_are("fearless", from_what(FEARLESS));
+    if (Stable)
+        you_are("stable", from_what(STABLE));
     if (Halluc_resistance)
         enl_msg(You_, "resist", "resisted", " hallucinations",
                 from_what(HALLUC_RES));
@@ -3384,7 +3405,8 @@ int final;
         you_are("vulnerable to electricity", from_what(VULN_ELEC));
     if (Vulnerable_acid)
         you_are("vulnerable to acid", from_what(VULN_ACID));
-
+    if (Vulnerable_loud)
+        you_are("vulnerable to sonic", from_what(VULN_LOUD));
     /*** Vision and senses ***/
     if (!Blind && (Blinded || !haseyes(youmonst.data)))
         you_can("see", from_what(-BLINDED)); /* Eyes of the Overworld */
@@ -3399,7 +3421,9 @@ int final;
         you_are("telepathic", from_what(TELEPAT));
     if (Warning)
         you_are("warned", from_what(WARNING));
-
+    if (Magic_sense)
+        enl_msg(You_, "sense", "sensed", " magic", from_what(MAGIC_SENSE));
+    
     /* Need to walk all potential in-use artifacts that glow on warning since
      * it is possible to have multiple artifacts that warn of the same monster type
      * as well as artifacts that warn of multiple monster types. */
@@ -3748,7 +3772,7 @@ int final;
     #endif
 
     if (Role_if(PM_NECROMANCER)) { 
-        Sprintf(buf, "%d %s", u.uspirits, u.uspirits != 1 ? "spirits" : "spirit");
+        Sprintf(buf, "harvested %d %s", u.uspirits, u.uspirits != 1 ? "spirits" : "spirit");
         you_have(buf, "");
     } 
     
@@ -4220,6 +4244,9 @@ struct ext_func_tab extcmdlist[] = {
     { M('F'), "craft", "combine two objects to create a new object", doforging, AUTOCOMPLETE },
     { ';', "glance", "show what type of thing a map symbol corresponds to",
             doquickwhatis, IFBURIED | GENERALCMD },
+    { M('g'), "genocided",
+              "list monsters that have been genocided or become extinct",
+              dogenocided, IFBURIED | AUTOCOMPLETE },
     { '?', "help", "give a help message", dohelp, IFBURIED | GENERALCMD },
     { '\0', "herecmdmenu", "show menu of commands you can do here",
             doherecmdmenu, IFBURIED },
@@ -5677,15 +5704,14 @@ register char *cmd;
             context.run = 1;
             domove_attempting |= DOMOVE_RUSH;
         } else if (movecmd(unctrl(*cmd))) {
-            /* Control + Movement key 
-             * Highjacking this to support kick shortcut commands
-             */
-#if 0
-            context.run = 3;
-            domove_attempting |= DOMOVE_RUSH;
-#endif  
-            dokickdir(FALSE);
-            return;
+            /* Control + Movement key */
+            if (iflags.ctrlkick) {
+                dokickdir(FALSE);
+                return;
+            } else {
+                context.run = 3;
+                domove_attempting |= DOMOVE_RUSH;
+            }
         }
         break;
     }
@@ -6964,6 +6990,7 @@ do_stair_travel(char up_or_down)
     boolean upstairs = (up_or_down == '<');
     coord cc;
     int stairs = 0;
+    if (!iflags.autostairtravel) return 0;
     if ((stairs = find_remembered_stairs(upstairs, &cc)) > 0) {
         iflags.travelcc.x = cc.x;
         iflags.travelcc.y = cc.y;
@@ -7028,6 +7055,58 @@ dotravel(VOID_ARGS)
     cmd[0] = Cmd.spkeys[NHKF_TRAVEL];
     readchar_queue = cmd;
     return 0;
+}
+
+/* tortle #monster action */
+STATIC_PTR int
+doenshelling(VOID_ARGS)
+{
+    int delay = 0;
+
+    if (!Hidinshell && u.uinshell) {
+        You_cant("retreat into your shell again so soon.");
+        return 0;
+    } else if (!Hidinshell && Punished) {
+        You_cant("retreat into your shell with an iron ball chained to your %s!",
+                 body_part(LEG));
+        return 0;
+    } else if (uarmg && is_hard(uarmg) && uarmg->cursed) {
+        Your("cursed %s prevent you from retreating into your shell.",
+             gloves_simple_name(uarmg));
+        return 0;
+    } else if (uarmh && is_hard(uarmh) && uarmh->cursed
+               && !(Role_if(PM_PRIEST) && wearing_artifact(ART_MITRE_OF_HOLINESS))) {
+        Your("cursed %s prevents you from retreating into your shell.",
+             helm_simple_name(uarmh));
+        return 0;
+    }
+
+    /* varible delay when enshelling if wearing rigid armor
+       (gauntlets/helmet) */
+    if (uarmg && is_hard(uarmg))
+        delay += rn2(3) + 2;
+    if (uarmh && is_hard(uarmh))
+        delay += rn2(3) + 2;
+
+    You("%s%s your shell.", delay ? "begin to " : "",
+        Hidinshell ? "emerge from" : "retreat into");
+
+    if (delay) {
+        static char shelling_reason[26]; /* "retreating into his shell\0" */
+        afternmv = toggleshell;
+        nomul(-delay);
+        if (Hidinshell) {
+            nomovemsg = "You finish emerging from your shell.";
+            Sprintf(shelling_reason, "emerging from %s shell", uhis());
+        } else {
+            nomovemsg = "You finish hiding in your shell.";
+            Sprintf(shelling_reason, "retreating into %s shell", uhis());
+        }
+        multi_reason = shelling_reason;
+        return 1;
+    } else {
+        return toggleshell();
+    }
 }
 
 /*

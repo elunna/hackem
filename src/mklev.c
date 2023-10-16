@@ -793,7 +793,7 @@ place_axe()
         }
     }
 
-    if (trees > 0) {
+    if (trees > 0 && !rn2(4)) {
         if (!rnf(ilog2(trees), trees)) {
             int trycount = 0;
             do {
@@ -868,6 +868,7 @@ clear_level_structures()
     level.flags.has_morgue = level.flags.graveyard = 0;
     level.flags.has_lemurepit = 0;
     level.flags.has_fungusfarm = 0;
+    level.flags.has_zroom = 0;
     level.flags.has_guild = 0;
     level.flags.has_clinic = 0;
     level.flags.has_terrorhall = 0;
@@ -987,12 +988,12 @@ makelevel()
         croom = &rooms[rn2(nroom)];
     } while (!croom->needjoining && ++tryct < 500);
     if (!Is_botlevel(&u.uz)) {
-	if (!somexyspace(croom, &pos, 0)) {
+        if (!somexyspace(croom, &pos, 0)) {
             if (!is_damp_terrain(pos.x, pos.y)) {
                 pos.x = somex(croom);
                 pos.y = somey(croom);
             }
-	}
+        }
         mkstairs(pos.x, pos.y, 0, croom); /* down */
     }
     if (nroom > 1) {
@@ -1004,7 +1005,7 @@ makelevel()
     }
 
     if (u.uz.dlevel != 1) {
-	if (!somexyspace(croom, &pos, 0)) {
+        if (!somexyspace(croom, &pos, 0)) {
             if (!somexy(croom, &pos)) {
                 if (!is_damp_terrain(pos.x, pos.y)) {
                     pos.x = somex(croom);
@@ -1012,7 +1013,7 @@ makelevel()
                 }
             }
         }
-	mkstairs(pos.x, pos.y, 1, croom); /* up */
+        mkstairs(pos.x, pos.y, 1, croom); /* up */
     }
 
     branchp = Is_branchlev(&u.uz);    /* possible dungeon branch */
@@ -1082,8 +1083,9 @@ makelevel()
             mkroom(BEEHIVE);
         else if (u_depth > 9 && !rn2(19)) 
             mkroom(REALZOO);
-        else if (u_depth> 10 && !rn2(40)) 
-            mkroom(CLINIC); /* supposed to be very rare --Amy */
+        else if (u_depth > 10 && !rn2(20))
+            mkroom(ZROOM);
+
         else if (u_depth > 10 && !rn2(16)
                  && !(mvitals[PM_BABY_OWLBEAR].mvflags & G_GONE))
             mkroom(OWLBNEST);
@@ -1091,8 +1093,10 @@ makelevel()
             mkroom(MORGUE);
         else if (u_depth > 12 && !rn2(13) && antholemon())
             mkroom(ANTHOLE);
-        else if (u_depth > 13 && !rn2(15)) 
+        else if (u_depth > 10 && !rn2(15)) 
             mkroom(BADFOODSHOP);
+        else if (u_depth > 13 && !rn2(30))
+            mkroom(CLINIC);
         else if (u_depth > 14 && !rn2(9)
                  && !(mvitals[PM_SOLDIER].mvflags & G_GONE))
             mkroom(BARRACKS);
@@ -1100,21 +1104,21 @@ makelevel()
             mkroom(GIANTCOURT);
         else if (u_depth > 15 && !rn2(11))
             mkroom(SWAMP);
-        else if (u_depth > 15 && !rn2(17))
-            mkroom(MINIGUILD);
         else if (u_depth > 16 && !rn2(13)
                  && !(mvitals[PM_COCKATRICE].mvflags & G_GONE))
             mkroom(COCKNEST);
-        else if (u_depth > 20 && !rn2(20))
-            mkroom(DRAGONLAIR);
         else if (u_depth > 17 && !rn2(12)
                  && !(mvitals[PM_MIND_FLAYER_LARVA].mvflags & G_GONE))
             mkroom(NURSERY);
         else if (u_depth > 18 && !rn2(20) 
                  && !(mvitals[PM_MIGO_DRONE].mvflags & G_GONE))
             mkroom(MIGOHIVE);
-        else if (u_depth > 15 && !rn2(20))
+        else if (u_depth > 18 && !rn2(20))
             mkroom(TERRORHALL);
+        else if (u_depth > 25 && !rn2(17))
+            mkroom(MINIGUILD);
+        else if (u_depth > 25 && !rn2(20))
+            mkroom(DRAGONLAIR);
     }
 
  skip0:
@@ -1127,18 +1131,18 @@ makelevel()
 
     /* for each room: put things inside */
     for (croom = rooms; croom->hx > 0; croom++) {
-	if (croom->rtype != OROOM && croom->rtype != RNDVAULT)
+        if (croom->rtype != OROOM && croom->rtype != RNDVAULT)
             continue;
-	if (!croom->needfill)
+        if (!croom->needfill)
             continue;
         if (Is_rogue_level(&u.uz))
             goto skip_nonrogue;
-        
+
         /* maybe place some dungeon features inside
          * This should go first because it's capable of creating non-ACCESSIBLE
          * terrain types; we don't want to embed any monsters, objects, or traps
          * in a tree. */
-        
+
         /* greater chance of puddles if a water source is nearby */
         if (!rn2(10))
             mkfount(0, croom);
@@ -1153,19 +1157,21 @@ makelevel()
         }
         if (!rn2(40) && depth(&u.uz) > 2)
             mkforge(0, croom);
-        if (!rn2(65) && depth(&u.uz) > 3)
-            mkvent(0, croom);
+        if (!rn2(65) && depth(&u.uz) > 3) {
+            if (!has_dnstairs(croom) && !has_upstairs(croom))
+                mkvent(0, croom);
+        }
         if (!rn2(60))
             mkaltar(croom);
         if (!rn2(20 + (depth(&u.uz) * 5)))
             mktree(croom);
-    
+
         i = 80 - (depth(&u.uz) * 2);
         if (i < 2)
             i = 2;
         if (!rn2(i))
             mkgrave(croom);
-        
+
         /* put traps and mimics inside */
         i = 8 - (level_difficulty() / 6);
         if (i < 2)
@@ -1173,7 +1179,7 @@ makelevel()
             i = 2;
         while (!rn2(i))
             mktrap(0, 0, croom, (coord *) 0);
-        
+
         /* maybe put a monster inside */
         /* Note: monster may be on the stairs. This cannot be
            avoided: maybe the player fell through a trap door
@@ -1193,7 +1199,7 @@ makelevel()
             if (!occupied(pos.x, pos.y) && rn2(5))
                 (void) makemon(&mons[PM_HONEY_BADGER], pos.x, pos.y, NO_MM_FLAGS);
         }
-        
+
         /* maybe put some gold inside */
         if (!rn2(3)) {
             x = somex(croom);
@@ -1204,12 +1210,12 @@ makelevel()
             }
         }
         /* put statues inside */
-	if (!rn2(20)) {
-	    if (somexyspace(croom, &pos, 0))
-		(void) mkcorpstat(STATUE, (struct monst *) 0,
-				  (struct permonst *) 0,
-				  pos.x, pos.y, CORPSTAT_INIT);
-	}
+        if (!rn2(20)) {
+            if (somexyspace(croom, &pos, 0))
+                (void) mkcorpstat(STATUE, (struct monst *) 0,
+                                  (struct permonst *) 0,
+                                  pos.x, pos.y, CORPSTAT_INIT);
+        }
         /* put box/chest/safe inside;
          *  40% chance for at least 1 box, regardless of number
          *  of rooms; about 5 - 7.5% for 2 boxes, least likely
@@ -1218,43 +1224,43 @@ makelevel()
          * A safe will only show up below level 15 since they're
          *  not unlockable.
          */
-	if (!rn2(nroom * 5 / 2)) {
-	    i = rn2(5);
+        if (!rn2(nroom * 5 / 2)) {
+            i = rn2(5);
             if (!i && depth(&u.uz) > 15) {
                 boxtype = IRON_SAFE;
             } else if (!i && depth(&u.uz) > 10) {
                 boxtype = CRYSTAL_CHEST;
-	    } else if (i > 2) {
-	        boxtype = CHEST;
-	    } else {
-	        boxtype = LARGE_BOX;
-	    }
-	    if (somexyspace(croom, &pos, 0))
-		(void) mksobj_at(boxtype, pos.x, pos.y, TRUE, FALSE);
-	}
+            } else if (i > 2) {
+                boxtype = CHEST;
+            } else {
+                boxtype = LARGE_BOX;
+            }
+            if (somexyspace(croom, &pos, 0))
+                (void) mksobj_at(boxtype, pos.x, pos.y, TRUE, FALSE);
+        }
         /* maybe make some graffiti */
         if (!rn2(27 + 3 * abs(depth(&u.uz)))) {
             char buf[BUFSZ];
             const char *mesg = random_engraving(buf);
 
             if (mesg) {
-		if (somexyspace(croom, &pos, 1))
+                if (somexyspace(croom, &pos, 1))
                     make_engr_at(pos.x, pos.y, mesg, 0L, MARK);
             }
         }
 
- skip_nonrogue:
+skip_nonrogue:
         if (!rn2(3)) {
-	    if (somexyspace(croom, &pos, 0))
-		(void) mkobj_at(0, pos.x, pos.y, TRUE);
+            if (somexyspace(croom, &pos, 0))
+                (void) mkobj_at(0, pos.x, pos.y, TRUE);
             tryct = 0;
             while (!rn2(5)) {
                 if (++tryct > 100) {
                     impossible("tryct overflow4");
                     break;
                 }
-		if (somexyspace(croom, &pos, 0))
-		    (void) mkobj_at(0, pos.x, pos.y, TRUE);
+                if (somexyspace(croom, &pos, 0))
+                    (void) mkobj_at(0, pos.x, pos.y, TRUE);
             }
         }
     }
@@ -2122,6 +2128,7 @@ struct mkroom *croom;
 
     /* Put a forge at m.x, m.y */
     levl[m.x][m.y].typ = FORGE;
+    levl[m.x][m.y].lit = TRUE;
 
     level.flags.nforges++;
 }

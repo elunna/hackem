@@ -94,7 +94,7 @@ DEBUGINFO = Y
 #
 #  The version of the game this Makefile was designed for
 #NETHACK_VERSION="3.6.6"
-NETHACK_VERSION="1.2.0"
+NETHACK_VERSION="1.2.1"
 
 # A brief version for use in macros
 NHV=$(NETHACK_VERSION:.=)
@@ -766,13 +766,13 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(DAT)\knox.des \
 	$(DAT)\kobold.des \
 	$(DAT)\lethe.des \
-	$(DAT)\mall.des \
 	$(DAT)\medusa.des \
 	$(DAT)\mines.des \
 	$(DAT)\mtemple.des \
 	$(DAT)\nkai.des \
 	$(DAT)\nymph.des \
 	$(DAT)\oracle.des \
+	$(DAT)\ozzy.des \
 	$(DAT)\qchaos.des \
 	$(DAT)\qlawful.des \
 	$(DAT)\qneutral.des \
@@ -822,13 +822,13 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(U)levcomp knox.des
 	$(U)levcomp kobold.des
 	$(U)levcomp lethe.des
-	$(U)levcomp mall.des
 	$(U)levcomp medusa.des
     $(U)levcomp mines.des
 	$(U)levcomp mtemple.des
 	$(U)levcomp nkai.des
 	$(U)levcomp nymph.des
 	$(U)levcomp oracle.des
+	$(U)levcomp ozzy.des
 	$(U)levcomp qchaos.des
 	$(U)levcomp qlawful.des
 	$(U)levcomp qneutral.des
@@ -1355,7 +1355,7 @@ spotless: clean
 	if exist $(DAT)\???-strt.lev	 del $(DAT)\???-strt.lev
 	if exist $(DAT)\air.lev		 del $(DAT)\air.lev
 	if exist $(DAT)\astral.lev	 del $(DAT)\astral.lev
-	if exist $(DAT)\blkmar-?.lev	 del $(DAT)\blkmar-?.lev
+	if exist $(DAT)\blkmar.lev	 del $(DAT)\blkmar.lev
 	if exist $(DAT)\bigrm-*.lev	 del $(DAT)\bigrm-*.lev
 	if exist $(DAT)\castle-?.lev	 del $(DAT)\castle-?.lev
 	if exist $(DAT)\cave*.lev	 del $(DAT)\cave*.lev
@@ -1381,6 +1381,7 @@ spotless: clean
 	if exist $(DAT)\oracle-?.lev	 del $(DAT)\oracle-?.lev
 	if exist $(DAT)\oracles		 del $(DAT)\oracles
 	if exist $(DAT)\orcus.lev	 del $(DAT)\orcus.lev
+	if exist $(DAT)\ozzy.lev	 del $(DAT)\ozzy.lev
 	if exist $(DAT)\rumors		 del $(DAT)\rumors
 	if exist $(DAT)\quest.dat	 del $(DAT)\quest.dat
 	if exist $(DAT)\qlawful.lev	 del $(DAT)\qlawful.lev

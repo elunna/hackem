@@ -286,7 +286,7 @@ boolean foundyou;
     int dmg, ml = min(mtmp->m_lev, 50);
     int ret;
     int spellnum = 0;
-
+    struct obj *marm;
     /* Three cases:
      * -- monster is attacking you.  Search for a useful spell.
      * -- monster thinks it's attacking you.  Search for a useful spell,
@@ -422,8 +422,13 @@ boolean foundyou;
     case AD_FIRE:
         if (is_demon(mtmp->data))
             pline("You're enveloped in hellfire!");
-        else
+        else if (!Underwater)
             pline("You're enveloped in flames.");
+        else {
+            pline("The flames are quenched by the water around you.");
+            dmg = 0;
+            break;
+        }
 
         if (how_resistant(FIRE_RES) == 100) {
             shieldeff(u.ux, u.uy);
@@ -462,7 +467,13 @@ boolean foundyou;
         }
         break;
     case AD_ACID:
-        pline("You're splashed in acid.");
+        if (!Underwater)
+            pline("You're splashed in acid.");
+        else {
+            pline("The acid dissipates harmlessly in the water around you.");
+            dmg = 0;
+            break;
+        }
         if (how_resistant(ACID_RES) == 100) {
             shieldeff(u.ux, u.uy);
             pline("But you resist the effects.");
@@ -480,6 +491,34 @@ boolean foundyou;
             pline("Some missiles bounce off!");
             monstseesu(M_SEEN_MAGR);
             dmg = (dmg + 1) / 2;
+        }
+        break;
+    case AD_PSYC:
+        marm = which_armor(mtmp, W_ARMH);
+        pline("Your mind is being attacked!");
+        
+        if (Psychic_resistance ) {
+            shieldeff(u.ux, u.uy);
+            pline("You fend off the mental attack!");
+            dmg = 0;
+        } else if (mindless(youmonst.data)) {
+            shieldeff(mtmp->mx, mtmp->my);
+            You("are unaffected by the psionic energy!");
+            dmg = 0;
+        } else {
+            /* Mon wearing helm of telepathy gets bonus */
+            if (marm && marm->otyp == HELM_OF_TELEPATHY)
+                dmg += rnd(6) + 2;
+            if (marm && marm->otyp == TINFOIL_HAT)
+                dmg = 0;
+        }
+        if (Blind_telepat || Unblind_telepat) {
+            dmg *= 2; /* You are more sensitive */
+            pline("%s locks on to your telepathic mind!", Monnam(mtmp));
+        }
+            
+        if (dmg && !rn2(4)) {
+            make_confused(HConfusion + d(3, 4), FALSE);
         }
         break;
     case AD_SPEL:   /* wizard spell */
@@ -543,6 +582,10 @@ struct monst *mattk, *mdef;
                       The(xname(oatmp)),
                       uattk ? "your" : s_suffix(mon_nam(mattk)));
             }
+            return 0;
+        } else if (oatmp && oatmp->oprops & ITEM_TOUGH) {
+            oatmp->oprops_known |= ITEM_TOUGH;
+            pline("%s safely absorbs the magic.", Yname2(oatmp));
             return 0;
         } else if (oatmp->oerodeproof) {
             if (!udefend && !canseemon(mdef)) {
@@ -720,7 +763,7 @@ int spellnum;
         if (m_canseeu(mtmp) 
               && distu(mtmp->mx, mtmp->my) <= (ml < mcastrange(ml))) {
             pline("%s douses you in a torrent of acid!", Monnam(mtmp));
-            explode(u.ux, u.uy, AD_ACID - 1, d((ml / 2) + 4, 8),
+            explode(u.ux, u.uy, ZT_ACID, d((ml / 2) + 4, 8),
                     MON_CASTBALL, EXPL_ACID);
             if (how_resistant(ACID_RES) == 100) {
                 shieldeff(u.ux, u.uy);
@@ -831,11 +874,12 @@ int spellnum;
     case MGC_STUN_YOU:
         if (Antimagic || Free_action || Hidinshell) {
             shieldeff(u.ux, u.uy);
-            if (!Stunned)
+            if (!(Stunned || Stun_resistance))
                 You_feel("momentarily disoriented.");
             make_stunned(1L, FALSE);
         } else {
-            You(Stunned ? "struggle to keep your balance." : "reel...");
+            if (!(Stun_resistance))
+                You(Stunned ? "struggle to keep your balance." : "reel...");
             dmg = d(ACURR(A_DEX) < 12 ? 6 : 4, 4);
             if (Half_spell_damage)
                 dmg = (dmg + 1) / 2;
@@ -857,8 +901,8 @@ int spellnum;
         if (m_canseeu(mtmp) && distu(mtmp->mx, mtmp->my) <= mcastrange(ml)) {
             pline("%s blasts you with %s!", Monnam(mtmp),
                   (spellnum == MGC_FIRE_BOLT) ? "fire" : "ice");
-            explode(u.ux, u.uy, (spellnum == MGC_FIRE_BOLT) ? AD_FIRE - 1
-                                                            : AD_COLD - 1,
+            explode(u.ux, u.uy, (spellnum == MGC_FIRE_BOLT) ? ZT_FIRE 
+                                                            : ZT_COLD,
                     resist_reduce(d((ml / 5) + 1, 8),
                     (spellnum == MGC_FIRE_BOLT) ? FIRE_RES : COLD_RES),
                     MON_CASTBALL, (spellnum == MGC_FIRE_BOLT) ? EXPL_FIERY
@@ -890,6 +934,10 @@ int spellnum;
             monstseesu(M_SEEN_MAGR);
             dmg = (dmg + 1) / 2;
         }
+        if (BTelepat) {
+            pline_The("spell is blocked%s", dmg > 5 ? "!" : ".");
+            return;
+        }
         if (dmg <= 5)
             You("get a slight %sache.", body_part(HEAD));
         else if (dmg <= 10)
@@ -914,7 +962,8 @@ const char* vulntext[] = {
         "reddish-orange",
         "purplish-blue",
         "coppery-yellow",
-        "greenish-mottled"
+        "greenish-mottled",
+        "shimmering-stippled"
 };
 
 STATIC_OVL
@@ -963,7 +1012,7 @@ int spellnum;
             dmg = d(8, 6);
             if (Half_physical_damage)
                 dmg = (dmg + 1) / 2;
-            if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM) {
+            if (u.umonnum == PM_IRON_GOLEM) {
                 You("rust!");
                 Strcpy(killer.name, "rusted away");
                 killer.format = NO_KILLER_PREFIX;
@@ -1163,7 +1212,7 @@ int spellnum;
         dmg = m_cure_self(mtmp, dmg);
         break;
     case CLC_VULN_YOU:
-        dmg = rnd(4);
+        dmg = rnd(5);
         pline("A %s film oozes over your %s!",
               Blind ? "slimy" : vulntext[dmg], body_part(SKIN));
         switch (dmg) {
@@ -1199,6 +1248,12 @@ int spellnum;
                 return;
             incr_itimeout(&HVulnerable_acid, rnd(100) + 150);
             You_feel("easily corrodable.");
+            break;
+        case 5:
+            if (Vulnerable_loud)
+                return;
+            incr_itimeout(&HVulnerable_loud, rnd(100) + 150);
+            You_feel("hyperacute.");
             break;
         default:
             break;
@@ -1334,11 +1389,9 @@ int spellnum;
         if ((!mtmp->iswiz || context.no_of_wizards > 1)
             && (spellnum == MGC_CLONE_WIZ || spellnum == MGC_CALL_UNDEAD))
             return TRUE;
-        /* only lichs can cast call undead */
-        /* [BarclayII] so can necromancers */
+        /* only lichs and necromancers can cast call undead */
         if (spellnum == MGC_CALL_UNDEAD
-            && mtmp->data->mlet != S_LICH 
-            && mtmp->data != &mons[PM_NECROMANCER])
+            && mtmp->data->mlet != S_LICH && mtmp->data != &mons[PM_NECROMANCER])
             return TRUE;
         /* pools can only be created in certain locations and then only
         * rarely unless you're carrying the amulet.
@@ -1469,6 +1522,10 @@ int spellnum;
                  || spellnum == MGC_CALL_UNDEAD)
             || (!mtmp->iswiz && spellnum == MGC_CLONE_WIZ)))
             return TRUE;
+        /* only lichs and necromancers can cast call undead */
+        if (spellnum == MGC_CALL_UNDEAD 
+            && mtmp->data->mlet != S_LICH && mtmp->data != &mons[PM_NECROMANCER])
+            return TRUE;
         if ((!mtmp->iswiz || context.no_of_wizards > 1)
             && spellnum == MGC_CLONE_WIZ)
             return TRUE;
@@ -1525,8 +1582,6 @@ int spellnum;
     return FALSE;
 }
 
-/* convert 1..10 to 0..9; add 10 for second group (spell casting) */
-#define ad_to_typ(k) (10 + (int) k - 1)
 
 /* monster uses spell against player (ranged) */
 int
@@ -1536,20 +1591,20 @@ register struct attack *mattk;
 {
     /* don't print constant stream of curse messages for 'normal'
        spellcasting monsters at range */
-    if (mattk->adtyp > AD_PSYC)
+    if (mattk->adtyp >= AD_PSYC)
         return 0;
 
     if (mtmp->mcan) {
         cursetxt(mtmp, FALSE);
         return 0;
     }
-    if (lined_up(mtmp) && rn2(3)) {
+    if (lined_up(mtmp) && !rn2(7)) {
         nomul(0);
-        if (mattk->adtyp && (mattk->adtyp < 11)) { /* no cf unsigned > 0 */
+        if (mattk->adtyp && (mattk->adtyp <= MAX_ZT)) { /* no cf unsigned > 0 */
             if (canseemon(mtmp))
                 pline("%s zaps you with a %s!", Monnam(mtmp),
-                      flash_types[ad_to_typ(mattk->adtyp) - 10]);
-            buzz(-ad_to_typ(mattk->adtyp), (int) mattk->damn, mtmp->mx,
+                      flash_types[AD_to_ZT(mattk->adtyp)]);
+            buzz(ZT_MONSPELL(AD_to_ZT(mattk->adtyp)), (int) mattk->damn, mtmp->mx,
                  mtmp->my, sgn(tbx), sgn(tby));
         } else
             impossible("Monster spell %d cast", mattk->adtyp - 1);
@@ -1575,11 +1630,11 @@ register struct attack *mattk;
     }
     if (mlined_up(mtmp, mdef, FALSE) && rn2(3)) {
         nomul(0);
-        if (mattk->adtyp && (mattk->adtyp < 11)) { /* no cf unsigned > 0 */
+        if (mattk->adtyp && (mattk->adtyp <= MAX_ZT)) { /* no cf unsigned > 0 */
             if (canseemon(mtmp))
                 pline("%s zaps %s with a %s!", Monnam(mtmp),
-                      mon_nam(mdef), flash_types[ad_to_typ(mattk->adtyp) - 10]);
-            dobuzz(-ad_to_typ(mattk->adtyp), (int) mattk->damn, mtmp->mx,
+                      mon_nam(mdef), flash_types[AD_to_ZT(mattk->adtyp)]);
+            dobuzz(-AD_to_SPELL(mattk->adtyp), (int) mattk->damn, mtmp->mx,
                    mtmp->my, sgn(tbx), sgn(tby), FALSE);
         } else
             impossible("Monster spell %d cast", mattk->adtyp - 1);
@@ -1603,6 +1658,10 @@ struct attack *mattk;
     if (mdef->mhp <= 0)
         return 0;
 
+    /* Currently the droid's ranged attack - not melee. */
+    if (mattk->adtyp == AD_ELEC)
+        return 0; 
+    
     if ((mattk->adtyp == AD_SPEL || mattk->adtyp == AD_CLRC) && ml) {
         int cnt = 40;
 
@@ -1693,8 +1752,14 @@ struct attack *mattk;
         if (canseemon(mdef)) {
             if (is_demon(mtmp->data))
                 pline("%s is enveloped in hellfire!", Monnam(mdef));
-            else
+            else if (!mon_underwater(mdef))
                 pline("%s is enveloped in flames.", Monnam(mdef));
+            else {
+                pline("The flames are quenched by the water around %s.",
+                      mon_nam(mdef));
+                dmg = 0;
+                break;
+            }
         }
         
         if (resists_fire(mdef) || defended(mdef, AD_FIRE)) {
@@ -1732,8 +1797,16 @@ struct attack *mattk;
         dmg = 0;
         break;
     case AD_ACID:
-        if (canseemon(mdef))
-            pline("%s is covered in acid.", Monnam(mdef));
+        if (canseemon(mdef)) {
+            if (!mon_underwater(mdef))
+                pline("%s is covered in acid.", Monnam(mdef));
+            else {
+                pline("The acid dissipates harmlessly in the water around %s.",
+                      mon_nam(mdef));
+                dmg = 0;
+                break;
+            }
+        }
         if (resists_acid(mdef) || defended(mdef, AD_ACID)) {
             shieldeff(mdef->mx, mdef->my);
             if (canseemon(mdef))
@@ -1893,8 +1966,14 @@ struct attack *mattk;
         if (canseemon(mtmp)) {
             if (is_demon(youmonst.data))
                 pline("%s is enveloped in hellfire!", Monnam(mtmp));
-            else
+            else if (!mon_underwater(mtmp))
                 pline("%s is enveloped in flames.", Monnam(mtmp));
+            else {
+                pline("The flames are quenched by the water around %s.",
+                      mon_nam(mtmp));
+                dmg = 0;
+                break;
+            }
         }
       
         if (resists_fire(mtmp) || defended(mtmp, AD_FIRE)) {
@@ -1926,8 +2005,16 @@ struct attack *mattk;
         }
         break;
     case AD_ACID:
-        if (canseemon(mtmp))
-            pline("%s is covered in acid.", Monnam(mtmp));
+        if (canseemon(mtmp)) {
+            if (!mon_underwater(mtmp))
+                pline("%s is covered in acid.", Monnam(mtmp));
+            else {
+                pline("The acid dissipates harmlessly in the water around %s.",
+                      mon_nam(mtmp));
+                dmg = 0;
+                break;
+            }
+        }
         if (resists_acid(mtmp) || defended(mtmp, AD_ACID)) {
             shieldeff(mtmp->mx, mtmp->my);
             if (canseemon(mtmp))
@@ -1946,6 +2033,12 @@ struct attack *mattk;
             dmg = (dmg + 1) / 2;
         }
         break;
+    case AD_PSYC: {
+        struct obj *pseudo = mksobj(SPE_PSIONIC_WAVE, FALSE, FALSE);
+        bhitm(mtmp, pseudo);
+        obfree(pseudo, NULL);
+        break;
+    }
     case AD_SPEL:   /* wizard spell */
     case AD_CLRC: { /* clerical spell */
         if (mattk->adtyp == AD_SPEL)
@@ -2074,7 +2167,7 @@ int spellnum;
         }
         if (yours || canseemon(mtmp))
             You("douse %s in a torrent of acid!", mon_nam(mtmp));
-        explode(mtmp->mx, mtmp->my, AD_ACID - 1, d((u.ulevel / 2) + 4, 8),
+        explode(mtmp->mx, mtmp->my, ZT_ACID, d((u.ulevel / 2) + 4, 8),
                 WAND_CLASS, EXPL_ACID);
         if (resists_acid(mtmp) || defended(mtmp, AD_ACID)) {
             shieldeff(mtmp->mx, mtmp->my);
@@ -2218,7 +2311,8 @@ int spellnum;
         }
         if (resist(mtmp, 0, 0, FALSE)) {
             shieldeff(mtmp->mx, mtmp->my);
-            if (yours || canseemon(mtmp))
+            if (yours || canseemon(mtmp) 
+                  || resists_stun(mtmp->data) || defended(mtmp, AD_STUN))
                 pline("%s seems momentarily disoriented.", Monnam(mtmp));
         } else {
             if (yours || canseemon(mtmp)) {
@@ -2264,8 +2358,8 @@ int spellnum;
         if (yours || canseemon(mtmp)) {
             You("blast %s with %s!", mon_nam(mtmp),
                 (spellnum == MGC_FIRE_BOLT) ? "fire" : "ice");
-            explode(mtmp->mx, mtmp->my, (spellnum == MGC_FIRE_BOLT) ? AD_FIRE - 1
-                                                                    : AD_COLD - 1,
+            explode(mtmp->mx, mtmp->my,
+                    (spellnum == MGC_FIRE_BOLT) ? ZT_FIRE : ZT_COLD,
                     d((u.ulevel / 5) + 1, 8), WAND_CLASS, 1);
             if (spellnum == MGC_FIRE_BOLT
                 && (resists_fire(mtmp) || defended(mtmp, AD_FIRE))) {
@@ -2575,7 +2669,7 @@ int spellnum;
         }
 
         if (yours || canseemon(mtmp)) {
-            dmg = rnd(4);
+            dmg = rnd(5);
             pline("A %s film oozes over %s exterior!",
                   Blind ? "slimy" : vulntext[dmg], mhis(mtmp));
             switch (dmg) {
@@ -2606,6 +2700,13 @@ int spellnum;
                     return;
                 mtmp->vuln_acid = rnd(100) + 150;
                 pline("%s is easily corrodable.", Monnam(mtmp));
+                break;
+            case 5:
+                if ((mtmp->data->mflags4 & M4_VULNERABLE_LOUD) != 0
+                    || mtmp->vuln_loud)
+                    return;
+                mtmp->vuln_loud = rnd(100) + 150;
+                pline("%s is hyperacute.", Monnam(mtmp));
                 break;
             default:
                 break;
@@ -2660,8 +2761,7 @@ int spellnum;
 }
 
 /* Figure out how far a spellcaster can reach with a spell based on their level */
-STATIC_OVL
-int
+STATIC_OVL int
 mcastrange(ml) 
 int ml;
 {
@@ -2675,4 +2775,5 @@ int ml;
         return 49;  /* ~7 spaces */
     return 192;     /* ~13 spaces */
 }
+
 /*mcastu.c*/

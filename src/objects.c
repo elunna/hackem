@@ -143,7 +143,7 @@ WEAPON("shuriken", "throwing star",
 WEAPON("boomerang", None,
        1, 1, 0, 0, 15,   5,  20,  9,  9, 0, B,   -P_BOOMERANG, WOOD, HI_WOOD),
 WEAPON("chakram", "circular blade",                            /* SpliceHack */
-       0, 1, 0, 0, 6,  5,  20, 9, 9, 0, S,   -P_BOOMERANG, SILVER, HI_SILVER),
+       0, 1, 0, 0,  6,   5,  20,  10,10, 1, S,   -P_BOOMERANG, SILVER, HI_SILVER),
 
 /* spears [note: javelin used to have a separate skill from spears,
  * because the latter are primarily stabbing weapons rather than
@@ -161,7 +161,7 @@ WEAPON("javelin", "throwing spear",
        0, 1, 0, 0, 10,  20,   3,  6,  6, 0, P,   P_SPEAR, IRON, HI_METAL),
 /* Base weapon for the artifact weapon Gungnir */
 WEAPON("atgeir", "bladed spear",                                /* dNethack */
-       1, 0, 0, 0,  5,  45,  15,  4, 12, 0, P,   P_SPEAR, IRON, HI_METAL),
+       0, 0, 0, 0,  5,  45,  15,  4, 12, 0, P,   P_SPEAR, IRON, HI_METAL),
 
 /* spearish; doesn't stack, not intended to be thrown */
 WEAPON("trident", None,
@@ -183,7 +183,8 @@ WEAPON("stake", None,                               /* Slash'EM */
        1, 0, 0, 0,  5,  20,  20,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
 WEAPON("great dagger", None,                               /* Slash'EM */
        1, 0, 0, 0,  0,  20,  30,  6,  7, 2, P,   P_DAGGER, METAL, CLR_BLACK),
-
+WEAPON("pencil", None,
+       1, 1, 0, 0,  3,   2,   4,  2,  2, 1, P,   P_DAGGER, WOOD, CLR_YELLOW),
 WEAPON("scalpel", None,
        1, 1, 0, 0,  0,   5,   6,  3,  3, 2, S,   P_KNIFE, METAL, HI_METAL),
 WEAPON("knife", None,
@@ -226,9 +227,9 @@ WEAPON("falchion", "heavy sword",                              /* SpliceHack */
 WEAPON("orcish scimitar", "crude curved sword",
        0, 0, 0, 0, 15,  40,  15,  6,  8, 0, S,   P_SABER, IRON, CLR_BLACK),
 WEAPON("saber", None,
-       1, 0, 0, 0,  6,  40,  75,  8,  8, 0, S,   P_SABER, IRON, HI_METAL),
+       1, 0, 0, 0,  6,  40,  75,  8,  8, 0, S,   P_SABER, SILVER, HI_METAL),
 WEAPON("rapier", None,                                           /* Slash'EM */
-       1, 0, 0,  0, 10,  30,  40,  6,  8,  0, P,  P_SABER, METAL, CLR_BLACK),
+       1, 0, 0,  0, 10,  15,  40,  6,  8,  0, P,  P_SABER, METAL, CLR_BLACK),
 WEAPON("broadsword", None,
        1, 0, 0, 0,  8,  70,  10,  4,  6, 0, S,   P_BROAD_SWORD, IRON, HI_METAL),
         /* +d4 small, +1 large */
@@ -305,6 +306,7 @@ WEAPON("scythe", "curved polearm",                             /* SpliceHack */
 /* bludgeons */
 WEAPON("mace", None,
        1, 0, 0, 0, 30,  30,   5,  6,  6, 0, B,   P_MACE, IRON, HI_METAL),
+        /* +1 small */
 WEAPON("heavy mace", None,                                     /* EvilHack */
        1, 0, 0, 0, 15,  50,  10, 10, 10, 0, B,   P_MACE, IRON, HI_METAL),
         /* +1 small */
@@ -332,7 +334,7 @@ WEAPON("rubber hose", None,
 WEAPON("quarterstaff", "staff",
        0, 0, 0, 1, 11,  40,   5,  6,  6, 0, B,   P_QUARTERSTAFF, WOOD, HI_WOOD),
 WEAPON("silver capped staff", None,
-       0, 0, 1, 1,  5,  45, 100,  6,  6, 0, B,	 P_QUARTERSTAFF, SILVER, HI_SILVER),
+       0, 0, 0, 1,  5,  45, 100,  6,  6, 0, B,	 P_QUARTERSTAFF, SILVER, HI_SILVER),
 WEAPON("staff of divination", "wormwood staff",                /* EvilHack */
        0, 0, 1, 1,  5,  40, 400,  6,  6, 0, B,   P_QUARTERSTAFF, WOOD, HI_WOOD),
 WEAPON("staff of healing", "twisted staff",                    /* EvilHack */
@@ -364,7 +366,7 @@ WEAPON("spiked chain", None, /* Originally P|S */              /* SpliceHack */
 
 /* misc */
 WEAPON("bullwhip", None,
-       1, 0, 0, 0,  2,  20,   4,  2,  1, 0, 0,   P_WHIP, LEATHER, CLR_BROWN),
+       1, 0, 0, 0,  2,  7,   4,  2,  1, 0, 0,   P_WHIP, LEATHER, CLR_BROWN),
 WEAPON("flaming lash", None,                                   /* SpliceHack */
        1, 0, 0, 0,  0, 180,   4, 12, 12, 0, 0,   P_WHIP, DRAGON_HIDE, CLR_RED),
 /* Good to-hit and small damage, but low large damage */
@@ -466,7 +468,7 @@ HELM("cornuthaum", "conical hat",
 HELM("fedora", None,
      1, 0,           0,  0, 0,  3,  1, 10, 0, CLOTH, CLR_BROWN),
 HELM("toque", None,                                            /* EvilHack */
-     1, 0,   SONIC_RES,  0, 0,  3,  1, 10, 0, CLOTH, CLR_ORANGE),
+     1, 0,           0,  0, 0,  3,  1, 10, 0, CLOTH, CLR_ORANGE),
 HELM("elven helm", "hat",
      0, 0,           0,  6, 1,  3,  8,  9, 0, LEATHER, HI_LEATHER),
 HELM("orcish helm", "skull cap",
@@ -511,14 +513,13 @@ DRGN_SCALES("deep dragon scales",       0, DRAIN_RES,         700, CLR_MAGENTA),
 DRGN_SCALES("red dragon scales",        0, FIRE_RES,          500, CLR_RED),
 DRGN_SCALES("white dragon scales",      0, COLD_RES,          500, CLR_WHITE),
 DRGN_SCALES("orange dragon scales",     0, SLEEP_RES,         500, CLR_ORANGE),
+DRGN_SCALES("violet dragon scales",     0, SONIC_RES,         700, CLR_BRIGHT_MAGENTA),
 DRGN_SCALES("black dragon scales",      0, DISINT_RES,        700, CLR_BLACK),
 DRGN_SCALES("blue dragon scales",       0, SHOCK_RES,         500, CLR_BLUE),
 DRGN_SCALES("green dragon scales",      0, POISON_RES,        500, CLR_GREEN),
 DRGN_SCALES("gold dragon scales",       0, 0,                 500, HI_GOLD),
 DRGN_SCALES("sea dragon scales",        0, MAGICAL_BREATHING, 500, HI_ZAP),
 DRGN_SCALES("yellow dragon scales",     0, ACID_RES,          500, CLR_YELLOW),
-DRGN_SCALES("celestial dragon scales",  0, FLYING,           1000, CLR_BRIGHT_MAGENTA),
-DRGN_SCALES("chromatic dragon scales",  0, ANTIMAGIC,        1500, CLR_MAGENTA),
 #undef DRGN_SCALES
 /* other suits */
 ARMOR("plate mail", None,
@@ -558,6 +559,8 @@ ARMOR("jacket", None,
 /* Robes */
 ARMOR("robe", "red robe",
       0, 0, 0, 0,           1, 1, 40, 25, 9, 0, ARM_SUIT, LEATHER, CLR_RED),
+ARMOR("large robe", None,
+      0, 0, 0, 0,           1, 1, 60, 25, 9, 0, ARM_SUIT, LEATHER, CLR_BROWN),
 ARMOR("robe of protection", "blue robe",                        /* Slash'EM */
       0, 1, 0, 0,           1, 1, 40, 50, 5, 1, ARM_SUIT, LEATHER, CLR_BLUE),
 ARMOR("robe of power", "orange robe",                           /* Slash'EM */
@@ -610,8 +613,6 @@ CLOAK("mana cloak", "funeral shroud",
       0, 1, ENERGY_REGENERATION, 4, 0, 10, 50,  9, 1, CLOTH, CLR_BLACK),
 CLOAK("cloak of displacement", "dusty cloak",
       0, 1,  DISPLACED, 10, 0, 10, 50,  9, 1,  CLOTH, HI_CLOTH),
-CLOAK("trench coat", "black cloak",
-      0, 0,          0,  8, 0, 15, 40,  9, 1,  LEATHER, CLR_BLACK),
 
 /* shields */
 SHIELD("small shield", None,
@@ -619,7 +620,7 @@ SHIELD("small shield", None,
 SHIELD("elven shield", "blue and green shield",
        0, 0, 0,           0, 2, 0,  40,   7, 8, 0,  WOOD, CLR_GREEN),
 SHIELD("tower shield", None,                                   /* SpliceHack */
-       1, 0, 1,           0, 2, 0, 200,  20, 7, 0,  IRON, HI_METAL),
+       1, 0, 1,           0, 2, 0, 200,  20, 6, 0,  IRON, HI_METAL),
 SHIELD("Uruk-hai shield", "white-handed shield",
        0, 0, 0,           0, 2, 0,  50,   7, 9, 0,  IRON, HI_METAL),
 SHIELD("orcish shield", "red-eyed shield",
@@ -652,7 +653,7 @@ GLOVES("gauntlets of power", "riding gloves",
        0, 1,          0,  8, 1, 30,  50, 9, 0,  IRON, CLR_BROWN),
 GLOVES("rogues gloves", "fine gloves",                   /* SpliceHack */
        0, 1,  SEARCHING,  4, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
-GLOVES("boxing gloves", "boiled gloves",                      /* SpliceHack */
+GLOVES("gauntlets of force", "boxing gloves",                      /* SpliceHack */
        0, 1,          0,  4, 1, 10,  50, 9, 0,  LEATHER, HI_LEATHER),
 GLOVES("gauntlets of protection", "gardening gloves",           /* EvilHack */
        0, 1, PROTECTION,  4, 1, 10,  60, 8, 3,  CLOTH, CLR_BROWN),
@@ -684,7 +685,7 @@ BOOTS("water walking boots", "jungle boots",
 BOOTS("jumping boots", "hiking boots",
       0, 1,    JUMPING, 12, 2, 20, 50, 9, 0, LEATHER, HI_LEATHER),
 BOOTS("stomping boots", "steel-toed boots",                    /* SpliceHack */
-      0, 1,          0, 12, 2, 20, 50, 9, 0, LEATHER, HI_LEATHER),
+      0, 1,          0, 12, 2, 20, 50, 9, 0, IRON, HI_LEATHER),
 BOOTS("elven boots", "mud boots",
       0, 1,    STEALTH, 12, 2, 15,  8, 9, 0, LEATHER, HI_LEATHER),
 BOOTS("kicking boots", "buckled boots",
@@ -709,40 +710,37 @@ BOOTS("levitation boots", "snow boots",
            BITS(0, 0, spec, 0, mgc, spec, 0, 0, 0,                    \
                 HARDGEM(mohs), 0, P_NONE, metal),                     \
            power, RING_CLASS, prob, 0, 3, cost, 0, 0, 0, 0, 15, color)
-RING("adornment", "wooden",                      ADORNED,                  100, 1, 1, 1, 2, WOOD, HI_WOOD),
-RING("gain constitution", "opal",                0,                        150, 1, 1, 1, 7, MINERAL, HI_MINERAL),
-RING("gain dexterity",  "obsidian",              0,                        150, 1, 1, 1, 7, GEMSTONE, CLR_BLACK),  /* Slash'EM */
-RING("gain intelligence", "plain",               0,                        150, 1, 1, 1, 7, MINERAL,  HI_MINERAL), /* Slash'EM */
-RING("gain strength", "granite",                 0,                        150, 1, 1, 1, 7, MINERAL, HI_MINERAL),  
-RING("gain wisdom", "glass",                     0,                        150, 1, 1, 1, 7, GLASS,  CLR_CYAN),   /* Slash'EM */
-RING("increase accuracy", "clay",                0,                        150, 1, 1, 1, 4, MINERAL, CLR_RED),
-RING("increase damage", "coral",                 0,                        150, 1, 1, 1, 4, MINERAL, CLR_ORANGE),
-RING("protection", "black onyx",                 PROTECTION,               100, 1, 1, 1, 7, MINERAL, CLR_BLACK),
+RING("adornment", "spiral",                     ADORNED,                  100, 1, 1, 1, 2, WOOD, HI_WOOD),
+RING("gain constitution", "puzzle",             0,                        150, 1, 1, 1, 7, MINERAL, HI_MINERAL),
+RING("gain strength", "pyramid",                0,                        150, 1, 1, 1, 7, MINERAL, HI_MINERAL),  
+RING("increase accuracy", "rhombus",            0,                        150, 1, 1, 1, 4, MINERAL, CLR_RED),
+RING("increase damage", "teardrop",             0,                        150, 1, 1, 1, 4, MINERAL, CLR_ORANGE),
+RING("protection", "knotted",                   PROTECTION,               100, 1, 1, 1, 7, MINERAL, CLR_BLACK),
         /* 'PROTECTION' intrinsic enhances MC from worn armor by +1,
            regardless of ring's enchantment; wearing a second ring of
            protection (or even one ring of protection combined with
            cloak of protection) doesn't give a second MC boost */
-RING("regeneration", "moonstone",                REGENERATION,             200, 1, 1, 0,  6, MINERAL, HI_MINERAL),
-RING("searching", "tiger eye",                   SEARCHING,                200, 1, 1, 0,  6, GEMSTONE, CLR_BROWN),
-RING("stealth", "jade",                          STEALTH,                  100, 1, 1, 0,  6, GEMSTONE, CLR_GREEN),
-RING("sustain ability", "bronze",                FIXED_ABIL,               100, 1, 1, 0,  4, COPPER, HI_COPPER),
-RING("levitation", "agate",                      LEVITATION,               200, 1, 1, 0,  7, GEMSTONE, CLR_RED),
-RING("hunger", "topaz",                          HUNGER,                   100, 1, 1, 0,  8, GEMSTONE, CLR_CYAN),
-RING("aggravate monster", "sapphire",            AGGRAVATE_MONSTER,        150, 1, 1, 0,  9, GEMSTONE, CLR_BLUE),
-RING("conflict", "ruby",                         CONFLICT,                 300, 1, 1, 0,  9, GEMSTONE, CLR_RED),
-RING("warning", "diamond",                       WARNING,                  100, 1, 1, 0, 10, GEMSTONE, CLR_WHITE),
-RING("poison resistance", "pearl",               POISON_RES,               150, 1, 1, 0,  4, BONE, CLR_WHITE),
-RING("fire resistance", "iron",                  FIRE_RES,                 200, 1, 1, 0,  5, IRON, HI_METAL),
-RING("cold resistance", "brass",                 COLD_RES,                 150, 1, 1, 0,  4, COPPER, HI_COPPER),
-RING("psychic resistance", "crystal",            PSYCHIC_RES,              150, 1, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
+RING("carrying", "glittery",                     0,                        200, 1, 1, 1,  7, GEMSTONE, CLR_WHITE),
+RING("regeneration", "mobius",                   REGENERATION,             200, 1, 1, 0,  6, MINERAL, HI_MINERAL),
+RING("searching", "infinity",                    SEARCHING,                200, 1, 1, 0,  6, GEMSTONE, CLR_BROWN),
+RING("stealth", "viney",                         STEALTH,                  100, 1, 1, 0,  6, GEMSTONE, CLR_GREEN),
+RING("sustain ability", "braided",               FIXED_ABIL,               100, 1, 1, 0,  4, COPPER, HI_COPPER),
+RING("levitation", "antique",                    LEVITATION,               200, 1, 1, 0,  7, GEMSTONE, CLR_RED),
+RING("hunger", "scaled",                         HUNGER,                   100, 1, 1, 0,  8, GEMSTONE, CLR_CYAN),
+RING("aggravate monster", "crescent",            AGGRAVATE_MONSTER,        150, 1, 1, 0,  9, GEMSTONE, CLR_BLUE),
+RING("conflict", "chunky",                       CONFLICT,                 300, 1, 1, 0,  9, GEMSTONE, CLR_RED),
+RING("warning", "tribal",                        WARNING,                  100, 1, 1, 0, 10, GEMSTONE, CLR_WHITE),
+RING("poison resistance", "rustic",              POISON_RES,               150, 1, 1, 0,  4, BONE, CLR_WHITE),
+RING("fire resistance", "retro",                 FIRE_RES,                 200, 1, 1, 0,  5, IRON, HI_METAL),
+RING("cold resistance", "exotic",                COLD_RES,                 150, 1, 1, 0,  4, COPPER, HI_COPPER),
 RING("sonic resistance",   "embossed",           SONIC_RES,                150, 1, 1, 0,  3, GLASS, HI_GLASS),     /* SpliceHack */
-RING("shock resistance", "copper",               SHOCK_RES,                150, 1, 1, 0,  3, COPPER, HI_COPPER),
+RING("shock resistance", "floral",               SHOCK_RES,                150, 1, 1, 0,  3, COPPER, HI_COPPER),
 RING("free action", "twisted",                   FREE_ACTION,              200, 1, 1, 0,  6, METAL, HI_METAL),
-RING("slow digestion", "steel",                  SLOW_DIGESTION,           200, 1, 1, 0,  8, METAL, HI_METAL),
-RING("teleportation", "silver",                  TELEPORT,                 200, 1, 1, 0,  3, SILVER, HI_SILVER),
-RING("teleport control", "gold",                 TELEPORT_CONTROL,         300, 1, 1, 0,  3, GOLD, HI_GOLD),
-RING("polymorph", "ivory",                       POLYMORPH,                300, 1, 1, 0,  4, BONE, CLR_WHITE),
-RING("polymorph control", "emerald",             POLYMORPH_CONTROL,        300, 1, 1, 0,  8, GEMSTONE, CLR_BRIGHT_GREEN),
+RING("slow digestion", "bohemian",               SLOW_DIGESTION,           200, 1, 1, 0,  8, METAL, HI_METAL),
+RING("teleportation", "vintage",                 TELEPORT,                 200, 1, 1, 0,  3, SILVER, HI_SILVER),
+RING("teleport control", "cosmic",               TELEPORT_CONTROL,         300, 1, 1, 0,  3, GOLD, HI_GOLD),
+RING("polymorph", "star",                        POLYMORPH,                300, 1, 1, 0,  4, BONE, CLR_WHITE),
+RING("polymorph control", "minimalist",          POLYMORPH_CONTROL,        300, 1, 1, 0,  8, GEMSTONE, CLR_BRIGHT_GREEN),
 RING("invisibility", "wire",                     INVIS,                    150, 1, 1, 0,  5, METAL, HI_METAL),
 RING("see invisible", "engagement",              SEE_INVIS,                150, 1, 1, 0,  5, GOLD, HI_METAL),
 RING("mood", "ridged",                           0,                        100, 1, 1, 0,  8, IRON, HI_METAL),      /* Slash'EM */
@@ -751,17 +749,21 @@ RING("displacement", "neon",                     DISPLACED,                200, 
 RING("protection from shape changers", "shiny",  PROT_FROM_SHAPE_CHANGERS, 100, 1, 1, 0,  5, PLATINUM, CLR_BRIGHT_CYAN),
 
 /* Extra descriptions */
-RING(None, "quartz",                             0,                        150, 0, 0, 0, 7, GLASS, HI_GLASS),
-RING(None, "porcelain",                          0,                        150, 0, 0, 0, 8, GLASS, HI_MINERAL),
-RING(None, "ceramic",                            0,                        150, 0, 0, 0, 8, GLASS, HI_MINERAL),
-RING(None, "mithril",                            0,                        150, 0, 0, 0, 5, MITHRIL, HI_SILVER),
-RING(None, "platinum",                           0,                        150, 0, 0, 0, 3, PLATINUM, HI_METAL),
-RING(None, "jacinth",                            0,                        150, 0, 0, 0, 9, GEMSTONE, CLR_ORANGE),
-RING(None, "citrine",                            0,                        150, 0, 0, 0, 6, GEMSTONE, CLR_ORANGE),
-RING(None, "amber",                              0,                        150, 0, 0, 0, 2, GEMSTONE, CLR_BROWN),
-RING(None, "jet",                                0,                        150, 0, 0, 0, 7, GEMSTONE, CLR_BLACK),
-RING(None, "chrysoberyl",                        0,                        150, 0, 0, 0, 5, GEMSTONE, CLR_YELLOW),
-RING(None, "plastic",                            0,                        150, 0, 0, 0, 1, PLASTIC, CLR_WHITE),
+RING(None, "cubic",                              0,                        150, 0, 0, 0, 7, GLASS, HI_GLASS),
+RING(None, "angular",                            0,                        150, 0, 0, 0, 8, GLASS, HI_MINERAL),
+RING(None, "zodiac",                             0,                        150, 0, 0, 0, 8, GLASS, HI_MINERAL),
+RING(None, "dainty",                             0,                        150, 0, 0, 0, 5, MITHRIL, HI_SILVER),
+RING(None, "tri-band",                           0,                        150, 0, 0, 0, 3, PLATINUM, HI_METAL),
+RING(None, "bezeled",                            0,                        150, 0, 0, 0, 9, GEMSTONE, CLR_ORANGE),
+RING(None, "clustered",                          0,                        150, 0, 0, 0, 6, GEMSTONE, CLR_ORANGE),
+RING(None, "abstract",                           0,                        150, 0, 0, 0, 2, GEMSTONE, CLR_BROWN),
+RING(None, "ancient",                            0,                        150, 0, 0, 0, 7, GEMSTONE, CLR_BLACK),
+RING(None, "gothic",                             0,                        150, 0, 0, 0, 5, GEMSTONE, CLR_YELLOW),
+RING(None, "celtic",                             0,                        150, 0, 0, 0, 7, GEMSTONE, CLR_BLACK),
+RING(None, "plain",                              0,                        150, 0, 0, 0, 7, MINERAL,  HI_MINERAL),
+RING(None, "wavey",                              0,                        150, 0, 0, 0, 7, GLASS,  CLR_CYAN),
+RING(None, "roman",                              0,                        150, 0, 0, 0, 5, GLASS, HI_GLASS),     /* SpliceHack */
+RING(None, "tapered",                            0,                        150, 0, 0, 0, 1, PLASTIC, CLR_WHITE),
 
 #undef RING
 
@@ -820,14 +822,13 @@ OBJECT(OBJ("Amulet of Yendor", /* note: description == name */
            BITS(kn, 0, chg, 1, mgc, chg, 0, 0, 0, 0, 0, P_NONE, mat),   \
            0, TOOL_CLASS, prob, 0, wt, cost, 0, 0, 0, 0, wt, color)
 
-           
 /* containers */
 CONTAINER("large box",        None, 1, 0, 0, 40, 350,   8, WOOD, HI_WOOD),
 CONTAINER("chest",            None, 1, 0, 0, 25, 600,  16, WOOD, HI_WOOD),
 CONTAINER("iron safe",        None, 1, 0, 0, 10, 900,  50, IRON, HI_METAL),  /* EvilHack/Un */
 CONTAINER("crystal chest",    None, 1, 1, 0,  1, 500,  20, GEMSTONE, CLR_WHITE), /* EvilHack */
 CONTAINER("ice box",          None, 1, 0, 0,  5, 900,  42, PLASTIC, CLR_WHITE),
-CONTAINER("medical kit","white bag",0, 0, 0, 10,  25, 500, LEATHER, HI_LEATHER),
+CONTAINER("medical kit",     "bag", 0, 0, 0, 10,   5, 500, LEATHER, HI_LEATHER),
 CONTAINER("sack",            "bag", 0, 0, 0, 35,  15,   2, CLOTH, HI_CLOTH),
 CONTAINER("oilskin sack",    "bag", 0, 0, 0,  5,  15, 100, CLOTH, HI_CLOTH),
 CONTAINER("bag of holding",  "bag", 0, 1, 0, 20,  15, 100, CLOTH, HI_CLOTH),
@@ -842,10 +843,10 @@ TOOL("credit card",         None, 1, 0, 0, 0,  15,   1,  10, PLASTIC, CLR_WHITE)
 /* light sources */
 TOOL("tallow candle",   "candle", 0, 1, 0, 0,  20,   2,  10, WAX, CLR_WHITE),
 TOOL("wax candle",      "candle", 0, 1, 0, 0,   5,   2,  20, WAX, CLR_WHITE),
-TOOL("magic candle",    "candle", 0, 1, 1, 0,   5,   2, 500, WAX, CLR_WHITE),       /* Slash'EM */
+TOOL("magic candle",    "candle", 0, 1, 1, 0,   7,   2, 500, WAX, CLR_WHITE),       /* Slash'EM */
 TOOL("lantern",             None, 1, 0, 0, 0,  30,  30,  12, COPPER, CLR_YELLOW),
 TOOL("oil lamp",          "lamp", 0, 0, 0, 0,  45,  20,  10, COPPER, CLR_YELLOW),
-TOOL("magic lamp",        "lamp", 0, 0, 1, 0,  15,  20,1000, COPPER, CLR_YELLOW),
+TOOL("magic lamp",        "lamp", 0, 0, 1, 0,   1,  20,1000, COPPER, CLR_YELLOW),
 /* other tools */
 TOOL("expensive camera",    None, 1, 0, 0, 1,  15,  12, 200, PLASTIC, CLR_BLACK),
 TOOL("mirror",   "looking glass", 0, 0, 0, 0,  45,  13,  10, GLASS, HI_SILVER),
@@ -877,7 +878,7 @@ TOOL("mask",                None, 1, 0, 1, 0,  10,  20, 150, WOOD, HI_WOOD),    
         /* monster type specified by obj->corpsenm */
 TOOL("magic marker",    "marker", 0, 0, 1, 1,   0,   2,  200, PLASTIC, CLR_RED),
 /* traps */
-TOOL("land mine",           None, 1, 0, 0, 0,   0, 300, 180, IRON, CLR_RED),
+TOOL("land mine",           None, 1, 0, 0, 0,   0, 200, 180, IRON, CLR_RED),
 TOOL("beartrap",            None, 1, 0, 0, 0,   0, 200,  60, IRON, HI_METAL),
 /* instruments */
 TOOL("pea whistle",    "whistle", 0, 0, 0, 0, 100,   3,  10, METAL, HI_METAL),
@@ -953,7 +954,7 @@ FOOD("tripe ration",        140,  2, 10, 0, FLESH, 200, CLR_BROWN),
 FOOD("corpse",                0,  1,  0, 0, FLESH,   0, CLR_BROWN),
 /* body parts (currently only for base object: the Eye of Vecna) */
 FOOD("eyeball",               0,  1,  1, 0, FLESH,   5, CLR_WHITE),
-FOOD("severed hand",          0,  1,  0, 0, FLESH,  40, CLR_BROWN),
+FOOD("severed hand",          0,  1,200, 0, FLESH,  40, CLR_BROWN),
 FOOD("egg",                  85,  1,  1, 1, FLESH,  80, CLR_WHITE),
 FOOD("meatball",              0,  1,  1, 0, FLESH,   5, CLR_BROWN),
 FOOD("meat stick",            0,  1,  1, 0, FLESH,   5, CLR_BROWN),
@@ -1024,7 +1025,7 @@ FOOD("tin",                  75,  0, 10, 1, METAL,   0, HI_METAL),
            power, POTION_CLASS, prob, 0, 20, cost, 0, 0, 0, 0, 10, color)
 POTION("gain ability",           "ruby",  1, 0, 42, 300, CLR_RED),
 POTION("reflection",         "metallic",  1, REFLECTING, 10, 300, CLR_GRAY), /* SpliceHack */
-POTION("regeneration",          "purple-red",  1, REGENERATION, 20, 150, CLR_MAGENTA), /* SpliceHack */
+POTION("regeneration",     "purple-red",  1, REGENERATION, 20, 150, CLR_MAGENTA), /* SpliceHack */
 POTION("restore ability",        "pink",  1, 0, 40, 100, CLR_BRIGHT_MAGENTA),
 POTION("confusion",            "orange",  1, CONFUSION, 42, 100, CLR_ORANGE),
 POTION("clairvoyance",    "luminescent",  1, 0, 20, 100, CLR_WHITE),         /* Slash'EM */
@@ -1034,12 +1035,12 @@ POTION("paralysis",           "emerald",  1, 0, 42, 300, CLR_BRIGHT_GREEN),
 POTION("speed",            "dark green",  1, FAST, 42, 200, CLR_GREEN),
 POTION("levitation",             "cyan",  1, LEVITATION, 42, 200, CLR_CYAN),
 POTION("hallucination",      "sky blue",  1, HALLUC, 40, 100, CLR_CYAN),
-POTION("invisibility", "brilliant blue",  1, INVIS, 40, 150, CLR_BRIGHT_BLUE),
+POTION("invisibility",         "indigo",  1, INVIS, 40, 150, CLR_BRIGHT_BLUE),
 POTION("see invisible",       "magenta",  1, SEE_INVIS, 42, 50, CLR_MAGENTA),
 POTION("healing",               "amber",  1, 0, 57, 100, CLR_BROWN),
 POTION("extra healing",          "puce",  1, 0, 47, 100, CLR_RED),
 POTION("gain level",            "milky",  1, 0, 20, 300, CLR_WHITE),
-POTION("invulnerability",         "icy",  1, 0,  5, 300, CLR_BRIGHT_BLUE),   /* Slash'EM */
+POTION("invulnerability",         "icy",  1, 0,  2, 300, CLR_BRIGHT_BLUE),   /* Slash'EM */
 POTION("enlightenment",        "swirly",  1, 0, 20, 200, CLR_ORANGE),
 POTION("monster detection",    "bubbly",  1, 0, 40, 150, CLR_WHITE),
 POTION("object detection",      "smoky",  1, 0, 42, 150, CLR_GRAY),
@@ -1055,7 +1056,7 @@ POTION("oil",                   "murky",  0, 0, 30, 250, CLR_BROWN),
 /* fixed description */
 POTION("water",                 "clear",  0, 0, 92, 100, CLR_CYAN),
 POTION("amnesia",          "sparkling",   1, 0, 16, 100, CLR_CYAN),          /* Slash'EM */
-POTION("blood",             "blood-red",  0, 0,  0,  50, CLR_RED),           /* Slash'EM */
+POTION("blood",             "blood-red",  0, 0,  0, 100, CLR_RED),           /* Slash'EM */
 POTION("vampire blood",     "blood-red",  1, 0,  0, 300, CLR_RED),           /* Slash'EM */
 #undef POTION
 
@@ -1086,7 +1087,7 @@ SCROLL("knowledge",                   "POTESTAS",  1,  20,  50), /* SpliceHack *
 SCROLL("identify",                  "KERNOD WEL",  1, 180,  20),
 SCROLL("air",                        "TRATS ARL",  1,  35, 200), /* SpliceHack */
                                  /* LRA START */
-SCROLL("transmogrify",              "TLON UQBAR",  1,  20, 200), /* SpliceHack */
+SCROLL("transmogrify",              "TLON UQBAR",  1,  15, 300), /* SpliceHack */
                                 /* Tlon Uqbar */
 SCROLL("magic mapping",              "ELAM EBOW",  1,  45, 100),
 SCROLL("amnesia",                   "DUAM XNAHT",  1,  35, 200),
@@ -1180,7 +1181,7 @@ SPELL("finger of death", "stained",       P_ATTACK_SPELL,       5, 10, 7, 1, RAY
 SPELL("lightning",       "electric blue", P_ATTACK_SPELL,      10,  8, 4, 1, RAY, CLR_BRIGHT_BLUE),  /* Slash'EM */
 SPELL("poison blast",    "olive green",   P_ATTACK_SPELL,      10,  2, 4, 1, RAY, CLR_GREEN),        /* Slash'EM */
 SPELL("acid blast",      "acid green",    P_ATTACK_SPELL,       5,  9, 6, 1, RAY, CLR_BRIGHT_GREEN), /* Slash'EM */
-SPELL("sonicboom",       "ghostly",       P_MATTER_SPELL,       5,  7, 4, 1, RAY, CLR_BLACK),        /* SpliceHack */
+SPELL("sonic boom",       "ghostly",       P_MATTER_SPELL,       5,  7, 6, 1, RAY, CLR_BLACK),        /* SpliceHack */
 /* Water spell here? */
 SPELL("psionic wave",    "worn",          P_ATTACK_SPELL,       0,  1, 1, 1, IMMEDIATE, CLR_MAGENTA), /* EvilHack */
     /* Don't disturb the order of the spells above. zap.c depends on it. */
@@ -1197,13 +1198,11 @@ SPELL("reflection",	     "decrepit",      P_MATTER_SPELL,      15,  3, 5, 1, IMM
 SPELL("flame sphere",    "canvas",        P_MATTER_SPELL,      15,  2, 1, 1, NODIR, CLR_BROWN),   /* Slash'EM */
 SPELL("freeze sphere",   "hardcover",     P_MATTER_SPELL,      15,  2, 1, 1, NODIR, CLR_BROWN),   /* Slash'EM */
 SPELL("cancellation",    "shining",       P_MATTER_SPELL,      15,  8, 7, 1, IMMEDIATE, CLR_WHITE),
-/* Fire Bolt is the Flame Mage's special spell - not randomly generated. */
-SPELL("fire bolt",       "feathered",     P_MATTER_SPELL,       0,  2, 1, 1, IMMEDIATE, CLR_YELLOW),
+SPELL("fire bolt",       "feathered",     P_MATTER_SPELL,      15,  2, 1, 1, IMMEDIATE, CLR_YELLOW),
 SPELL("slow monster",    "light green",   P_ENCHANTMENT_SPELL, 30,  2, 1, 1, IMMEDIATE, CLR_BRIGHT_GREEN),
-SPELL("cause fear",      "light blue",    P_ENCHANTMENT_SPELL,  25,  3, 3, 1, NODIR, CLR_BRIGHT_BLUE),
+SPELL("cause fear",      "light blue",    P_ENCHANTMENT_SPELL, 25,  3, 3, 1, NODIR, CLR_BRIGHT_BLUE),
 SPELL("charm monster",   "magenta",       P_ENCHANTMENT_SPELL, 15,  3, 4, 1, IMMEDIATE, CLR_MAGENTA),
 SPELL("confuse monster", "orange",        P_ENCHANTMENT_SPELL, 30,  2, 1, 1, IMMEDIATE, CLR_ORANGE),
-
 SPELL("haste self",      "purple",        P_ESCAPE_SPELL,      30,  4, 3, 1, NODIR, CLR_MAGENTA),
 SPELL("levitation",      "tan",           P_ESCAPE_SPELL,      20,  4, 4, 1, NODIR, CLR_BROWN),
 SPELL("teleport away",   "gold",          P_ESCAPE_SPELL,      15,  6, 5, 1, IMMEDIATE, HI_GOLD),
@@ -1272,29 +1271,27 @@ OBJECT(OBJ("Book of the Dead", "papyrus"),
     OBJECT(OBJ(name, typ),                                              \
            BITS(0, 0, 1, 0, mgc, 1, 0, 0, 0, 0, dir, P_NONE, metal),    \
            0, WAND_CLASS, prob, 0, 7, cost, 0, 0, 0, 0, 30, color)
-WAND("light",           "glass", 285, 100, 1, NODIR, GLASS, HI_GLASS),
-WAND("secret door detection",
-                        "balsa", 150, 150, 1, NODIR, WOOD, HI_WOOD),
-WAND("enlightenment", "crystal",  58, 150, 1, NODIR, GLASS, HI_GLASS),
+WAND("light",           "glass", 285, 100, 1, NODIR,     GLASS, HI_GLASS),
+WAND("detection",       "balsa", 150, 150, 1, NODIR,     WOOD, HI_WOOD),
+WAND("enlightenment", "crystal",  58, 150, 1, NODIR,     GLASS, HI_GLASS),
 WAND("healing",        "bamboo",  60, 150, 1, IMMEDIATE, WOOD, CLR_YELLOW),         /* Slash'EM */
-WAND("create monster",  "maple", 135, 200, 1, NODIR, WOOD, HI_WOOD),
-WAND("fear",            "rusty",  25, 200, 1, NODIR, IRON, CLR_RED),                /* Slash'EM */
-WAND("wishing",          "pine",   2, 500, 1, NODIR, WOOD, HI_WOOD),
+WAND("create monster",  "maple", 135, 200, 1, NODIR,     WOOD, HI_WOOD),
+WAND("fear",           "crusty",  25, 200, 1, NODIR,     IRON, CLR_RED),                /* Slash'EM */
+WAND("wishing",          "pine",   2, 500, 1, NODIR,     WOOD, HI_WOOD),
 WAND("nothing",           "oak",  75, 500, 0, IMMEDIATE, WOOD, HI_WOOD),
-WAND("wonder",        "plastic",  5, 100, 0, IMMEDIATE, PLASTIC, CLR_RED),          /* SpliceHack */
-WAND("wind",            "green", 15, 300, 1, IMMEDIATE, PLASTIC,                    /* SpliceHack */
+WAND("wonder",        "plastic",   5, 100, 0, IMMEDIATE, PLASTIC, CLR_RED),          /* SpliceHack */
+WAND("wind",            "green",  15, 175, 1, IMMEDIATE, PLASTIC,                    /* SpliceHack */
                                                             CLR_BRIGHT_GREEN),
 WAND("striking",        "ebony", 225, 150, 1, IMMEDIATE, WOOD, HI_WOOD),
-
 WAND("make invisible", "marble", 135, 150, 1, IMMEDIATE, MINERAL, HI_MINERAL),
 WAND("slow monster",      "tin", 150, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("speed monster",   "brass", 150, 150, 1, IMMEDIATE, COPPER, HI_COPPER),
 WAND("undead turning", "copper", 150, 150, 1, IMMEDIATE, COPPER, HI_COPPER),
-WAND("draining",       "ceramic",  15, 175, 1, IMMEDIATE, GLASS,  HI_MINERAL),    /* Slash'EM */
+WAND("draining",      "ceramic",  15, 175, 1, IMMEDIATE, GLASS,  HI_MINERAL),    /* Slash'EM */
 WAND("polymorph",      "silver", 135, 200, 1, IMMEDIATE, SILVER, HI_SILVER),
 WAND("cancellation", "platinum", 135, 200, 1, IMMEDIATE, PLATINUM, CLR_WHITE),
 WAND("teleportation", "iridium", 135, 200, 1, IMMEDIATE, METAL, CLR_BRIGHT_CYAN),
-WAND("create horde",   "black",    5, 300, 1, NODIR,     IRON,  CLR_BLACK),      /* Slash'EM */
+WAND("create horde",    "black",   5, 300, 1, NODIR,     IRON,  CLR_BLACK),      /* Slash'EM */
 WAND("extra healing",  "bronze",  30, 300, 1, IMMEDIATE, COPPER,   CLR_YELLOW),     /* Slash'EM */
 WAND("opening",          "zinc",  75, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("locking",      "aluminum",  75, 150, 1, IMMEDIATE, METAL, HI_METAL),
@@ -1303,40 +1300,39 @@ WAND("probing",       "uranium",  90, 150, 1, IMMEDIATE, METAL, HI_METAL),
 /* This is extremely kludgy, but that's what zap.c expects. */
 WAND("digging",          "iron", 165, 150, 1, RAY, IRON,  HI_METAL),
 WAND("magic missile",   "steel", 150, 150, 1, RAY, METAL, HI_METAL),
-WAND("fire",        "hexagonal", 120, 175, 1, RAY, GLASS,  HI_METAL),
+WAND("fire",        "hexagonal", 120, 175, 1, RAY, GLASS, HI_METAL),
 WAND("cold",            "short", 120, 175, 1, RAY, IRON,  HI_METAL),
 WAND("sleep",           "runed", 150, 175, 1, RAY, IRON,  HI_METAL),
 WAND("death",            "long",  15, 500, 1, RAY, IRON,  HI_METAL),
 WAND("lightning",      "curved", 120, 175, 1, RAY, IRON,  HI_METAL),
-WAND("poison gas",  "octagonal",  20, 175, 1, RAY, GLASS,  HI_METAL),
+WAND("poison gas",  "octagonal",  20, 175, 1, RAY, GLASS, HI_METAL),
 WAND("corrosion",     "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
-WAND("noise",        "titanium",  20, 175, 1, RAY, METAL,  HI_METAL),
+WAND("noise",        "titanium",  20, 175, 1, RAY, METAL, HI_METAL),
 WAND("deluge",      "driftwood",  10, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
 /* extra descriptions, shuffled into use at start of new game */
-WAND(None,             "spiked",  0, 150, 1, 0, IRON, HI_METAL),
-WAND(None,            "jeweled",  0, 150, 1, 0, IRON, HI_MINERAL),
-WAND(None,        "forked",    0, 150, 1, 0,         WOOD,     HI_WOOD),
-WAND(None,        "quartz",    0, 150, 1, 0,         GLASS,    HI_GLASS),
-WAND(None,        "walnut",    0, 150, 1, 0,         WOOD,     HI_WOOD),
-WAND(None,        "mahogany",  0, 150, 1, 0,         WOOD,     HI_WOOD),
-WAND(None,        "cedar",     0, 150, 1, 0,         WOOD,     HI_WOOD),
-WAND(None,        "chrome",    0, 150, 1, 0,         METAL,    HI_SILVER),
-WAND(None,        "nickel",    0, 150, 1, 0,         METAL,    HI_METAL),
-WAND(None,        "mithril",   0, 150, 1, 0,         MITHRIL,  HI_SILVER),
-WAND(None,        "grooved",   0, 150, 1, 0,         WOOD,     HI_WOOD),
-WAND(None,        "bent",      0, 150, 1, 0,         IRON,     HI_METAL),
-WAND(None,        "bone",      0, 150, 1, 0,         BONE,     CLR_WHITE),
-WAND(None,        "alabaster", 0, 150, 1, 0,         MINERAL,  CLR_BROWN),
-WAND(None,        "orichalcum",0, 150, 1, 0,         METAL,    HI_METAL),
-WAND(None,        "electrum",  0, 150, 1, 0,         METAL,    HI_GOLD),
-WAND(None,          "holly",   0, 150, 1, 0, WOOD, HI_WOOD),
-WAND(None,          "pliable", 0, 150, 1, 0, PLASTIC, HI_WOOD),
-WAND(None,     "dragon-bone",  0, 150, 1, 0, BONE, CLR_WHITE),
-WAND(None,          "golden",  0, 150, 1, 0, GOLD, HI_GOLD),
-WAND(None,          "gilded",  0, 150, 1, 0, GOLD, HI_GOLD),
-
-WAND(None,            "thin",  0, 150, 1, 0, IRON, HI_METAL),
-WAND(None,        "porcelain", 0, 150, 1, 0,         GLASS,    CLR_WHITE),
+WAND(None,             "spiked",   0, 150, 1, 0,   IRON,     HI_METAL),
+WAND(None,            "jeweled",   0, 150, 1, 0,   IRON,     HI_MINERAL),
+WAND(None,             "forked",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,             "quartz",   0, 150, 1, 0,   GLASS,    HI_GLASS),
+WAND(None,             "walnut",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,           "mahogany",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,              "cedar",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,             "chrome",   0, 150, 1, 0,   METAL,    HI_SILVER),
+WAND(None,             "nickel",   0, 150, 1, 0,   METAL,    HI_METAL),
+WAND(None,            "mithril",   0, 150, 1, 0,   MITHRIL,  HI_SILVER),
+WAND(None,            "grooved",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,               "bent",   0, 150, 1, 0,   IRON,     HI_METAL),
+WAND(None,               "bone",   0, 150, 1, 0,   BONE,     CLR_WHITE),
+WAND(None,          "alabaster",   0, 150, 1, 0,   MINERAL,  CLR_BROWN),
+WAND(None,         "orichalcum",   0, 150, 1, 0,   METAL,    HI_METAL),
+WAND(None,           "electrum",   0, 150, 1, 0,   METAL,    HI_GOLD),
+WAND(None,              "holly",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,            "pliable",   0, 150, 1, 0,   PLASTIC,  HI_WOOD),
+WAND(None,        "dragon-bone",   0, 150, 1, 0,   BONE,     CLR_WHITE),
+WAND(None,             "golden",   0, 150, 1, 0,   GOLD,     HI_GOLD),
+WAND(None,             "gilded",   0, 150, 1, 0,   GOLD,     HI_GOLD),
+WAND(None,               "thin",   0, 150, 1, 0,   IRON,     HI_METAL),
+WAND(None,          "porcelain",   0, 150, 1, 0,   GLASS,    CLR_WHITE),
 #undef WAND
 
 /* coins ... - so far, gold is all there is */

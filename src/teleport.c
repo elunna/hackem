@@ -1366,7 +1366,8 @@ domagicportal(ttmp)
 register struct trap *ttmp;
 {
     struct d_level target_level;
-
+    struct obj *otmp;
+    
     if (u.utrap && u.utraptype == TT_BURIEDBALL)
         buried_ball_to_punishment();
 
@@ -1391,6 +1392,15 @@ register struct trap *ttmp;
         return;
     }
 
+    /* Armed bombs need to be snuffed. */
+    for (otmp = invent; otmp; otmp = otmp->nobj) {
+        if (is_bomb(otmp) && obj_has_timer(otmp, BOMB_BLOW)) {
+            /* (quietly) stop previous timer, if any */
+            (void) stop_timer(BOMB_BLOW, obj_to_any(otmp));
+            otmp->oarmed = 0;
+        }
+    }
+    
     target_level = ttmp->dst;
     schedule_goto(&target_level, FALSE, FALSE, 1,
                   "You feel dizzy for a moment, but the sensation passes.",
@@ -1956,8 +1966,7 @@ boolean give_feedback;
         unstuck(mtmp);
         (void) rloc(mtmp, TRUE);
 
-    } else if (((mtmp->data == &mons[PM_BLACK_MARKETEER] && rn2(5)) ||
-                (mtmp->data == &mons[PM_ONE_EYED_SAM] && rn2(13))) &&
+    } else if ((mtmp->data == &mons[PM_ONE_EYED_SAM] && rn2(13)) &&
                enexto_core_range(&cc, u.ux, u.uy, mtmp->data, 0,
                                  rnf(1, 10) ? 4 : 3)) {
         rloc_to(mtmp, cc.x, cc.y);

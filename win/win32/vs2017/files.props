@@ -62,7 +62,6 @@
     <Desfiles Include = "knox.des"/>
     <Desfiles Include = "kobold.des"/>
     <Desfiles Include = "lethe.des"/>
-    <Desfiles Include = "mall.des"/>
     <Desfiles Include = "medusa.des"/>
     <Desfiles Include = "mines.des"/>
     <Desfiles Include = "mtemple.des"/>
@@ -70,6 +69,7 @@
     <Desfiles Include = "nkai.des"/>
     <Desfiles Include = "nymph.des"/>
     <Desfiles Include = "oracle.des"/>
+    <Desfiles Include = "ozzy.des"/>
     <Desfiles Include = "qchaos.des"/>
     <Desfiles Include = "qlawful.des"/>
     <Desfiles Include = "qneutral.des"/>
@@ -107,8 +107,7 @@
     <Levfiles Include = "bigrm-18.lev"/>
     <Levfiles Include = "bigrm-19.lev"/>
     <Levfiles Include = "bigrm-20.lev"/>
-    <Levfiles Include = "blkmar-1.lev"/>
-    <Levfiles Include = "blkmar-2.lev"/>
+    <Levfiles Include = "blkmar.lev"/>
     <Levfiles Include = "castle-1.lev"/>
     <Levfiles Include = "castle-2.lev"/>
     <Levfiles Include = "castle-3.lev"/>
@@ -131,6 +130,7 @@
     <Levfiles Include = "hellc-3.lev"/>
     <Levfiles Include = "hellfill.lev"/>
     <Levfiles Include = "orcus.lev"/>
+    <Levfiles Include = "ozzy.lev"/>
     <Levfiles Include = "sanctum.lev"/>
     <Levfiles Include = "valley.lev"/>
     <Levfiles Include = "giants.lev"/>
@@ -181,6 +181,7 @@
     <Levfiles Include = "oracle-1.lev"/>
     <Levfiles Include = "oracle-2.lev"/>
     <Levfiles Include = "oracle-3.lev"/>
+    <Levfiles Include = "oracle-4.lev"/>
     <Levfiles Include = "qchaos.lev"/>
     <Levfiles Include = "qlawful.lev"/>
     <Levfiles Include = "qneutral.lev"/>
@@ -262,6 +263,8 @@
     <Levfiles Include = "town-1.lev"/>
     <Levfiles Include = "town-2.lev"/>
     <Levfiles Include = "town-3.lev"/>
+    <Levfiles Include = "town-4.lev"/>
+    <Levfiles Include = "town-5.lev"/>
     <Levfiles Include = "ucastle.lev"/>
     <Levfiles Include = "vlt-0000.lev"/>
     <Levfiles Include = "vlt-0001.lev"/>

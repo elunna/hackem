@@ -126,6 +126,9 @@ int roomtype;
         case TERRORHALL: 
             mkzoo(TERRORHALL); 
             break;
+        case ZROOM:
+            mkzoo(ZROOM);
+            break;
         default:
             impossible("Tried to make a room of type %d.", roomtype);
         }
@@ -143,7 +146,7 @@ mkshop()
 #ifndef MAC
         ep = nh_getenv("SHOPTYPE");
         if (ep) {
-            if (*ep == 'z' || *ep == 'Z') {
+            if (*ep == 'Z') {
                 mkzoo(ZOO);
                 return;
             }
@@ -215,6 +218,10 @@ mkshop()
                 mkswamp();
                 return;
             }
+            if (*ep == 'z') {
+                mkzoo(ZROOM);
+                return;
+            }
             for (i = 0; shtypes[i].name; i++)
                 if (*ep == def_oc_syms[(int) shtypes[i].symb].sym)
                     goto gottype;
@@ -264,9 +271,9 @@ gottype:
          * - so make them general stores
          */
         if (isbig(sroom) && 
-            (shtypes[i].symb == WAND_CLASS
-             || shtypes[i].symb == SPBOOK_CLASS
-             || !strcmp(shtypes[i].name, "mask shop"))) {
+            (shtypes[i].symb == WAND_CLASS || shtypes[i].symb == SPBOOK_CLASS
+             || (SHOPBASE + i) == CLINIC || (SHOPBASE + i) == MINIGUILD
+             || (SHOPBASE + i) == MASKSHOP)) {
             i = 0;
         } 
         /* Prevent archery emporiums or gun shops if our player doesn't have
@@ -339,8 +346,8 @@ mk_zoo_thronemon(x,y)
 int x,y;
 {
     int i = rnd(level_difficulty());
-    int pm = (i > 9) ? PM_OGRE_ROYAL
-        : (i > 5) ? PM_ELVEN_ROYAL
+    int pm = (i > 13) ? PM_OGRE_ROYAL
+        : (i > 10) ? PM_ELVEN_ROYAL
         : (i > 2) ? PM_DWARF_ROYAL
         : PM_GNOME_ROYAL;
     struct monst *mon = makemon(&mons[pm], x, y, NO_MM_FLAGS);
@@ -476,6 +483,7 @@ struct mkroom *sroom;
                     (type == COURT) ? courtmon() : 
                     (type == BARRACKS) ? squadmon() : 
                     (type == TERRORHALL) ? mkclass(S_UMBER, 0) :
+                    (type == ZROOM) ? mkclass(S_ZOUTHERN, 0) :
                     (type == MORGUE) ? morguemon() : 
                     (type == FUNGUSFARM) ? fungus() :
                     (type == MINIGUILD) ? guildmon() :
@@ -483,9 +491,10 @@ struct mkroom *sroom;
                         (sx == tx && sy == ty ? &mons[PM_QUEEN_BEE] : 
                         &mons[PM_KILLER_BEE]) : 
                     (type == LEPREHALL) ?
-                        (rn2(9) ? &mons[PM_LEPRECHAUN] 
+                        (rn2(21) ? &mons[PM_LEPRECHAUN] 
                           : &mons[PM_LEPRECHAUN_WIZARD]) : 
-                    (type == COCKNEST) ? &mons[PM_COCKATRICE] : 
+                    (type == COCKNEST) 
+                        ? rn2(4) ? &mons[PM_COCKATRICE] : &mons[PM_CHICKATRICE] : 
                     (type == ANTHOLE) ? 
                         (sx == tx && sy == ty ? &mons[PM_QUEEN_ANT] : 
                         antholemon()) :
@@ -555,6 +564,12 @@ struct mkroom *sroom;
                 if (!rn2(5))
                     (void) mksobj_at(MUSHROOM, sx, sy, TRUE, FALSE);
                 break;
+            case ZROOM:
+                if (!rn2(3))
+                    (void) mksobj_at(TIN, sx, sy, TRUE, FALSE);
+                if (!rn2(5))
+                    (void) mksobj_at(BOOMERANG, sx, sy, TRUE, FALSE);
+                break;
             case BADFOODSHOP:
                 /* Rotten eggs */
                 if (!rn2(3)) {
@@ -618,6 +633,11 @@ struct mkroom *sroom;
                                 sobj, mkobj(RANDOM_CLASS, FALSE));
                         sobj->owt = weight(sobj);
                     }
+                }
+                if (!rn2(5)) {
+                    struct obj *egg = mksobj_at(EGG, sx, sy, FALSE, FALSE);
+                    egg->owt = weight(egg);
+                    set_corpsenm(egg, PM_COCKATRICE);
                 }
                 break;
             case MINIGUILD:
@@ -720,6 +740,9 @@ struct mkroom *sroom;
         break;
     case FUNGUSFARM:
         level.flags.has_fungusfarm = 1;
+        break;
+    case ZROOM:
+        level.flags.has_zroom = 1;
         break;
     case CLINIC:
         level.flags.has_clinic = 1;
@@ -886,6 +909,9 @@ guildmon()
                                              : &mons[mtyp]);
 }
 
+#define FIRST_MOLD PM_LICHEN
+#define FIRST_MOLDIER PM_BROWN_MOLDIER
+#define LAST_MOLDIER PM_BLACK_MOLDIER
 
 STATIC_OVL struct permonst *
 fungus()
@@ -895,27 +921,30 @@ fungus()
     i = rn2(hd > 20 ? 19 : hd > 12 ? 15 : 12);
 
     switch (i) {
-    case 0:
-    case 1: mtyp = PM_LICHEN; break;	
-    case 2: mtyp = PM_BROWN_MOLD; break;
-    case 3: mtyp = PM_YELLOW_MOLD; break;
-    case 4: mtyp = PM_GREEN_MOLD; break;
-    case 5: mtyp = PM_RED_MOLD;	break;
-    case 6: mtyp = PM_SHRIEKER;	break;
-    case 7: mtyp = PM_VIOLET_FUNGUS; break;
-    case 8: mtyp = PM_BLUE_JELLY; break;
-    case 9: mtyp = PM_MOLDY_PUDDING; break;
-    case 10: mtyp = PM_DISGUSTING_MOLD; break;
-    case 11: mtyp = PM_GRAY_OOZE; break;
-    /* Following only after level 12... */
-    case 12: mtyp = PM_SPOTTED_JELLY; break;
-    case 13: mtyp = PM_BROWN_PUDDING; break;
-    case 14: mtyp = PM_GRAY_FUNGUS; break;
-    /* Following only after level 20... */
-    case 15: mtyp = PM_GREEN_SLIME; break;
-    case 16: mtyp = PM_BLACK_PUDDING; break;
-    case 17: mtyp = PM_OCHRE_JELLY; break;
-    case 18: mtyp = PM_SHOGGOTH; break;
+        case 7:  case 8:
+            mtyp = (rn2(2) ? PM_BLUE_JELLY : PM_SPOTTED_JELLY);
+            break;
+        case 9: case 10:
+            mtyp = FIRST_MOLDIER + rn2(LAST_MOLDIER - FIRST_MOLDIER);
+            break;
+        case 11: case 12:
+            mtyp = (rn2(2) ? PM_CLEAR_JELLY : PM_OCHRE_JELLY);
+            break;
+        case 13: case 14:
+            mtyp = (rn2(2) ? PM_YELLOW_JELLY : PM_ORANGE_JELLY);
+            break;
+        case 15: case 16:
+            mtyp = PM_GRAY_OOZE + rn2(PM_BLACK_PUDDING - PM_GRAY_OOZE);
+            break;
+        case 17:
+            mtyp = PM_RANCID_JELLY;
+            break;
+        case 18:
+            mtyp = PM_SHOGGOTH;
+            break;
+        default:
+            /* All the weaker F */
+            mtyp = PM_LICHEN + rn2(FIRST_MOLDIER - FIRST_MOLD);
     }
 
     return ((mvitals[mtyp].mvflags & G_GONE) ?
@@ -1284,30 +1313,38 @@ courtmon()
 }
 
 struct permonst *
-realzoomon()
-{
-	int i = rn2(60) + rn2(3 * level_difficulty());
+realzoomon() {
+    int i = rn2(60) + rn2(3 * level_difficulty());
 
-	if (i > 175)
-            return (&mons[PM_JUMBO_THE_ELEPHANT]);
-	else if (i > 115)
-            return (&mons[PM_MASTODON]);
-	else if (i > 85)
-            return (&mons[PM_PYTHON]);
-	else if (i > 70)
-            return (&mons[PM_MUMAK]);
-	else if (i > 55)
-            return (&mons[PM_TIGER]);
-	else if (i > 45)
-            return (&mons[PM_PANTHER]);
-	else if (i > 25)
-            return (&mons[PM_JAGUAR]);
-	else if (i > 15)
-            return (&mons[PM_APE]);
-        else if (i > 5)
-            return (&mons[PM_ZOO_BAT]);
-	else
-            return (&mons[PM_MONKEY]);
+    if (i > 175)
+        return &mons[PM_JUMBO_THE_ELEPHANT];
+    else if (i > 135)
+        return &mons[PM_WOOLLY_MAMMOTH];
+    else if (i > 115)
+        return &mons[PM_MASTODON];
+    else if (i > 85)
+        return rn2(3) ? &mons[PM_PYTHON] 
+                      : &mons[PM_GIANT_ANACONDA];
+    else if (i > 70)
+        return &mons[PM_MUMAK];
+    else if (i > 55)
+        return rn2(3) ? &mons[PM_TIGER] 
+                      : &mons[PM_LION];
+    else if (i > 45)
+        return rn2(3) ? &mons[PM_PANTHER] 
+                      : &mons[PM_HIPPO];
+    else if (i > 25)
+        return &mons[PM_LANDSHARK];
+    else if (i > 25)
+        return &mons[PM_JAGUAR];
+    else if (i > 15)
+        return &mons[PM_APE];
+    else if (i > 5)
+        return &mons[PM_ZOO_BAT];
+    else if (i > 2)
+        return &mons[PM_FERAL_HOG];
+    else
+        return &mons[PM_MONKEY];
 }
 
 #define NSTYPES (PM_GENERAL - PM_SOLDIER + 1)

@@ -143,7 +143,7 @@ OBJECT: ('%', "egg"), $places[1], montype:"giant louse", 2
 [40%]: OBJECT: ('/', "draining"), $places[2], cursed, 0
 [60%]: OBJECT: ('/', "opening"), $places[2], cursed, 0
 [80%]: OBJECT: ('/', "nothing"), $places[2], cursed, 0
-[60%]: OBJECT: ('/', "secret door detection"), $places[2], cursed, 0
+[60%]: OBJECT: ('/', "detection"), $places[2], cursed, 0
 [40%]: OBJECT: ('[', "fumble boots"), $places[2], cursed, -2
 [40%]: OBJECT: ('[', "gauntlets of fumbling"), $places[2], cursed, -4
 [40%]: OBJECT: ('[', "poisonous cloak"), $places[2], cursed, -1
@@ -173,12 +173,15 @@ OBJECT: ('%', "corpse"), $places[3], montype:"black dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"deep dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"red dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"orange dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"violet dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"yellow dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"green dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"blue dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"shimmering dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"gray dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"silver dragon", 0
 OBJECT: ('%', "corpse"), $places[3], montype:"white dragon", 0
+OBJECT: ('%', "corpse"), $places[3], montype:"gold dragon", 0
 MONSTER: ('w', "maggot"), $places[3], hostile
 MONSTER: ('w', "maggot"), $places[3], hostile
 MONSTER: ('w', "maggot"), $places[3], hostile

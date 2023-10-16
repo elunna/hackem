@@ -300,7 +300,9 @@ struct instance_flags {
     boolean altmeta;      /* Alt-c sends ESC c rather than M-c */
 #endif
     boolean autodescribe;     /* autodescribe mode in getpos() */
+    boolean autostairtravel;  /* travel to stairs when > or < pressed */
     boolean cbreak;           /* in cbreak mode, rogue format */
+    boolean ctrlkick;         /* Kick via control+direction */
     boolean deferred_X;       /* deferred entry into explore mode */
     boolean echo;             /* 1 to echo characters */
     boolean force_invmenu;    /* always menu when handling inventory */
@@ -321,6 +323,7 @@ struct instance_flags {
     boolean perm_invent;      /* keep full inventories up until dismissed */
     boolean renameallowed;    /* can change hero name during role selection */
     boolean renameinprogress; /* we are changing hero name */
+    boolean showdmg;          /* Display damage being dealt */
     boolean status_updates;   /* allow updates to bottom status lines;
                                * disable to avoid excessive noise when using
                                * a screen reader (use ^X to review status) */

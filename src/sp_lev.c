@@ -2599,6 +2599,7 @@ boolean prefilled;
         case LEMUREPIT:
         case MIGOHIVE:
         case FUNGUSFARM:
+        case ZROOM:
             fill_zoo(croom);
             break;
         }
@@ -2627,6 +2628,9 @@ boolean prefilled;
         break;
     case FUNGUSFARM:
         level.flags.has_fungusfarm = TRUE;
+        break;
+    case ZROOM:
+        level.flags.has_zroom = TRUE;
         break;
     case MINIGUILD:
         level.flags.has_guild = TRUE;
@@ -4434,6 +4438,11 @@ genericptr_t arg;
         if (x && (IS_WALL(levl[x - 1][y].typ) || levl[x - 1][y].horizontal))
             levl[x][y].horizontal = 1;
     }
+    
+    /* Vents need to be manually started. */
+    if (IS_VENT(levl[x][y].typ))
+        (void) start_timer((long) rnd(10), TIMER_LEVEL, FIXTURE_ACTIVATE,
+                           long_to_any(((long) x << 16) | (long) y));
 }
 
 void
@@ -4444,6 +4453,8 @@ genericptr_t arg;
     if (IS_FURNITURE(levl[x][y].typ))
         return;
     levl[x][y].typ = (*(int *) arg);
+    if (IS_FORGE(levl[x][y].typ))
+        levl[x][y].lit = TRUE;
 }
 
 void

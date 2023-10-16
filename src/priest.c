@@ -576,10 +576,9 @@ struct monst* ghost;
 {
     ghost->mpeaceful = 0;
     set_malign(ghost);
-    if (Psychic_resistance 
-        || Role_if(PM_NECROMANCER) 
-        || Role_if(PM_UNDEAD_SLAYER)) {
-        You_see("a ghost try to frighten you.");
+    if (Fearless) {
+        if (!rn2(4))
+            You_see("a ghost try to frighten you.");
         return;
     }
     if (multi >= 0) {
@@ -615,10 +614,10 @@ register struct monst *priest;
     boolean strayed = (u.ualign.record < 0);
 
     /* KMH, conduct */
-    if(!u.uconduct.gnostic++)
+    if (!u.uconduct.gnostic++)
         livelog_printf(LL_CONDUCT,
-               "rejected atheism by consulting with %s",
-               mon_nam(priest));
+                       "rejected atheism by consulting with %s",
+                       mon_nam(priest));
 
     if (priest->mflee || (!priest->ispriest && coaligned && strayed)) {
         pline("%s doesn't want anything to do with you!", Monnam(priest));
@@ -895,7 +894,7 @@ struct monst *priest;
         break;
     }
 
-    buzz(-10 - (AD_ELEC - 1), 6, x, y, sgn(tbx),
+    buzz(-(ZT_SPELL(ZT_LIGHTNING)), 6, x, y, sgn(tbx),
          sgn(tby)); /* bolt of lightning */
     exercise(A_WIS, FALSE);
 }

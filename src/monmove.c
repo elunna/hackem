@@ -31,7 +31,8 @@ struct monst *mtmp;
             You_hear("a distant explosion.");
     }
     wake_nearto(mtmp->mx, mtmp->my, 7 * 7);
-    mtmp->mstun = 1;
+    if (!(resists_stun(mtmp->data) || defended(mtmp, AD_STUN)))
+        mtmp->mstun = 1;
     damage_mon(mtmp, rnd(15), AD_PHYS);
     if (DEADMONSTER(mtmp)) {
         mondied(mtmp);
@@ -93,6 +94,7 @@ struct monst *mtmp;
                     && (mtmp->isshk
                         || mtmp->ispriest
                         || mtmp->isqldr
+                        || mtmp->data == &mons[PM_CTHULHU]
                         || mtmp->data == &mons[PM_ORACLE]))));
 }
 
@@ -108,10 +110,13 @@ xchar x, y;
     if (m_can_break_boulder(mtmp)
         && ((otmp = sobj_at(BOULDER, x, y)) != 0)) {
         if (distu(mtmp->mx, mtmp->my) < 4 * 4) {
-            if (using_pick && cansee(x, y)) {
-                pline("%s swings %s %s.",
-                      Monnam(mtmp), mhis(mtmp),
-                      simpleonames(MON_WEP(mtmp)));
+            if (using_pick) {
+                if (cansee(x, y))
+                    pline("%s swings %s %s.",
+                          Monnam(mtmp), mhis(mtmp),
+                          simpleonames(MON_WEP(mtmp)));
+                else if (!Deaf)
+                    You_hear("a crumbling sound.");
             } else {
                 if (!Deaf)
                     pline("%s %s %s.",
@@ -137,11 +142,12 @@ register struct monst *mtmp;
 
     if (mtmp->mpeaceful && in_town(u.ux + u.dx, u.uy + u.dy)
         && mtmp->mcansee && m_canseeu(mtmp) && !rn2(3)) {
-        if (Role_if(PM_CONVICT) 
+        if (Role_if(PM_CONVICT)
             && !Upolyd 
             && (!ublindf || (ublindf
                              && ublindf->otyp != TOWEL
-                             && ublindf->otyp != BLINDFOLD))) {
+                             && ublindf->otyp != BLINDFOLD))
+            && (!uarmh || (uarmh && uarmh->otyp != PLASTEEL_HELM))) {
             mon_yells(mtmp, "Hey, you're the one from the wanted poster!");
             (void) angry_guards(!!Deaf);
             stop_occupation();
@@ -212,6 +218,8 @@ struct monst *mtmp;
         || is_rider(mtmp->data)
         || mtmp->data->mlet == S_HUMAN
         || mtmp->data->mlet == S_ANGEL
+        || mtmp->data == &mons[PM_HONEY_BADGER]
+        || mtmp->data == &mons[PM_NEOTHELID]
         || unique_corpstat(mtmp->data)
         || (mtmp->isshk && inhishop(mtmp))
         || (mtmp->ispriest && inhistemple(mtmp))
@@ -256,6 +264,7 @@ struct monst *mtmp;
                  || mtmp->mpeaceful || mtmp->data->mlet == S_HUMAN
                  || mtmp->data == &mons[PM_MINOTAUR]
                  || mtmp->data == &mons[PM_ELDER_MINOTAUR]
+                 || mtmp->data == &mons[PM_GIANT_PRAYING_MANTIS]
                  || mtmp->data == &mons[PM_NEOTHELID]
                  || unique_corpstat(mtmp->data)
                  || Inhell || In_endgame(&u.uz)));
@@ -272,7 +281,7 @@ boolean digest_meal;
         && !mon->mwither
         && (!Is_valley(&u.uz) || is_undead(r_data(mon)))
         && (moves % 20 == 0 || mon_prop(mon, REGENERATION))
-        && !(uwep && uwep->oartifact && uwep->oartifact == ART_MORTALITY_DIAL))
+        && !wielding_artifact(ART_MORTALITY_DIAL))
         mon->mhp++;
 
     if (mon->mspec_used)
@@ -632,7 +641,9 @@ register struct monst *mtmp;
     if (mwalk_sewage) {
         if (is_flyer(mdat) || is_floater(mdat)
             || is_clinger(mdat) || is_swimmer(mdat)
-            || passes_walls(mdat) || can_levitate(mtmp)) {
+            || passes_walls(mdat) || can_levitate(mtmp)
+            || can_wwalk(mtmp) || defended(mtmp, AD_SLOW)
+            || resists_slow(r_data(mtmp))) {
             mwalk_sewage = FALSE;
         } else {
             mon_adjust_speed(mtmp, -2, (struct obj *) 0);
@@ -677,6 +688,9 @@ register struct monst *mtmp;
     if (is_zombie(mdat) && !rn2(10))
         m_respond(mtmp);
     if (mdat == &mons[PM_MEDUSA] && couldsee(mtmp->mx, mtmp->my))
+        m_respond(mtmp);
+    if (is_gnome(mdat) && !is_undead(mdat)
+        && m_canseeu(mtmp))
         m_respond(mtmp);
     if (DEADMONSTER(mtmp))
         return 1; /* m_respond gaze can kill medusa */
@@ -832,6 +846,7 @@ register struct monst *mtmp;
                     m2->msleeping = 0;
             }
         }
+        distfleeck(mtmp, &inrange, &nearby, &scared);
     }
 
     /* ghosts prefer turning invisible instead of moving if they can */
@@ -907,7 +922,16 @@ toofar:
             if (res & MM_AGR_DIED)
                 return 1; /* Oops. */
 
-            return 0; /* that was our move for the round */
+            /* Prevent fire vampires and other ranged monsters from 
+             * always staying at a distance. Otherwise they will just
+             * camp at a few squares away. We have to check if it died as a
+             * result of the attack. Otherwise they might die from something
+             * like a reflected wand zap and continue moving, causing a
+             * "placing defunct monster onto map" panic. */
+            if (rn2(3))
+                return 0; /* that was our move for the round */
+            if (DEADMONSTER(mtmp))
+                return 0;
         }
     }
 
@@ -957,6 +981,7 @@ toofar:
         || (is_wanderer(mdat) && !rn2(4)) || (Conflict && !mtmp->iswiz) || is_skittish(mdat)
         || (!mtmp->mcansee && !rn2(4)) || mtmp->mpeaceful
         || (nearby && !mtmp->mpeaceful && is_outflanker(mtmp->data) && !rn2(2))) {
+        
         /* Possibly cast an undirected spell if not attacking you */
         /* note that most of the time castmu() will pick a directed
            spell and do nothing, so the monster moves normally */
@@ -964,7 +989,7 @@ toofar:
            from you from having cast dozens of sticks-to-snakes
            or similar spells by the time you reach it */
         if (!mtmp->mspec_used
-            && dist2(mtmp->mx, mtmp->my, u.ux, u.uy) <= 49) {
+            && dist2(mtmp->mx, mtmp->my, u.ux, u.uy) < 50) {
             struct attack *mattk, *a;
             mattk = has_erac(mtmp) ? ERAC(mtmp)->mattk: mdat->mattk;
 
@@ -1279,7 +1304,7 @@ register int after;
     can_open = !(nohands(ptr) || r_verysmall(mtmp));
     can_unlock = ((can_open && monhaskey(mtmp, TRUE))
                   || mtmp->iswiz || is_rider(ptr));
-    doorbuster = racial_giant(mtmp);
+    doorbuster = racial_giant(mtmp) || mtmp->data == &mons[PM_CTHULHU];
     if (mtmp->wormno)
         goto not_special;
     /* my dog gets special treatment */
@@ -1379,8 +1404,8 @@ register int after;
 
     /* teleport if that lies in our nature */
     if (mon_prop(mtmp, TELEPORT) 
-        && !rn2(ptr == &mons[PM_TENGU] 
-             || ptr == &mons[PM_PHASE_SPIDER]? 5 : 85)
+        && !rn2((ptr == &mons[PM_TENGU] || ptr == &mons[PM_PHASE_SPIDER])
+                    ? 5 : 85)
         && !tele_restrict(mtmp) && !((mtmp->isshk || mtmp->ispriest) && mtmp->mpeaceful)) {
 	if (!decide_to_teleport(mtmp) || rn2(2))
             (void) rloc(mtmp, TRUE);

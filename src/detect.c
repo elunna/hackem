@@ -22,7 +22,6 @@ STATIC_DCL boolean FDECL(check_map_spot, (int, int, CHAR_P, unsigned, BOOLEAN_P)
 STATIC_DCL boolean FDECL(clear_stale_map, (CHAR_P, unsigned, BOOLEAN_P));
 STATIC_DCL void FDECL(sense_trap, (struct trap *, XCHAR_P, XCHAR_P, int));
 STATIC_DCL int FDECL(detect_obj_traps, (struct obj *, BOOLEAN_P, int));
-STATIC_DCL void FDECL(show_map_spot, (int, int));
 STATIC_PTR void FDECL(findone, (int, int, genericptr_t));
 STATIC_PTR void FDECL(openone, (int, int, genericptr_t));
 STATIC_DCL int FDECL(mfind0, (struct monst *, BOOLEAN_P));
@@ -227,10 +226,12 @@ boolean magic;
     obj->dknown = 1;
     if (magic) {
         obj->oprops_known |= obj->oprops;
+#if 0 /* Just oprops */
         if ((objects[obj->otyp].oc_magic || obj->oartifact)
             && !is_soko_prize_flag(obj)) {
             makeknown(obj->otyp);
         }
+#endif
     }
     if (Has_contents(obj)) {
         for (otmp = obj->cobj; otmp; otmp = otmp->nobj)
@@ -1022,7 +1023,6 @@ int mclass;                /* monster class, 0 for all */
     return 0;
 }
 
-/* TODO: other magical types of creature? */
 #define MAGICMONSTER(mon) (attacktype(mon->data, AT_MAGC))
 
 /*
@@ -1069,6 +1069,10 @@ struct obj *detector;   /* object doing the detecting */
             if (do_pknown)
                 do_dknown_of(obj, TRUE);
         }
+
+    /* Non-blessed only does inventory */
+    if (!do_pknown)
+        return 0;
 
     for (obj = fobj; obj; obj = obj->nobj) {
         if (!is_magic(obj))
@@ -1598,15 +1602,16 @@ struct obj **optr;
     return;
 }
 
-STATIC_OVL void
-show_map_spot(x, y)
+void
+show_map_spot(x, y, cnf)
 register int x, y;
+boolean cnf;
 {
     struct rm *lev;
     struct trap *t;
     int oldglyph;
 
-    if (Confusion && rn2(7))
+    if (cnf && rn2(7))
         return;
     lev = &levl[x][y];
 
@@ -1644,7 +1649,8 @@ register int x, y;
 }
 
 void
-do_mapping()
+do_mapping(partial)
+boolean partial;
 {
     register int zx, zy;
     boolean unconstrained;
@@ -1652,7 +1658,7 @@ do_mapping()
     unconstrained = unconstrain_map();
     for (zx = 1; zx < COLNO; zx++)
         for (zy = 0; zy < ROWNO; zy++)
-            show_map_spot(zx, zy);
+            show_map_spot(zx, zy, partial);
 
     if (!level.flags.hero_memory || unconstrained) {
         flush_screen(1);                 /* flush temp screen */
@@ -1723,7 +1729,7 @@ struct obj *sobj; /* scroll--actually fake spellbook--object */
         for (zy = lo_y; zy <= hi_y; zy++) {
             oldglyph = glyph_at(zx, zy);
             /* this will remove 'remembered, unseen mon' (and objects) */
-            show_map_spot(zx, zy);
+            show_map_spot(zx, zy, Confusion);
             /* if there are any objects here, see the top one */
             if (OBJ_AT(zx, zy)) {
                 /* not vobj_at(); this is not vision-based access;

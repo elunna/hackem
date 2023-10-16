@@ -91,6 +91,9 @@ struct monst *mon;
                                               : ndemon(atyp);
         cnt = ((dtype != NON_PM)
                && !rn2(4) && is_ndemon(&mons[dtype])) ? 2 : 1;
+    } else if (ptr == &mons[PM_BONE_DEVIL]) {
+        dtype = PM_SKELETON;
+        cnt = 1;
     } else if (is_ndemon(ptr)) {
         dtype = (!rn2(20)) ? dlord(atyp) : (!rn2(6)) ? ndemon(atyp)
                                                      : monsndx(ptr);
@@ -285,7 +288,7 @@ register struct monst *mtmp;
 
     cash = money_cnt(invent);
     demand = rn1(4000, 1000)
-           + (1000 * (1 + (sgn(u.ualign.type) == sgn(mon_aligntyp(mtmp)))));
+           + (1000 * (1 - (sgn(u.ualign.type) == sgn(mon_aligntyp(mtmp)))));
 
     if (!demand || multi < 0 || cash <= 0) { /* you have no gold or can't move */
         mtmp->mpeaceful = 0;

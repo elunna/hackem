@@ -200,6 +200,10 @@ boolean check_if_better, stashing;
              || otmp->otyp == UNICORN_HORN
              || cures_stoning(mtmp, otmp, FALSE)));
 
+    /* don't try to pick up uball/uchain */
+    if (otmp == uball || otmp == uchain)
+        return FALSE;
+
     if (can_use) {
         /* arbitrary - greedy monsters keep any item you can use */
         if (likes_gold(mtmp->data) && !stashing)
@@ -858,9 +862,12 @@ int udist;
                     return dog_eat(mtmp, obj, omx, omy, FALSE);
             }
 
+            boolean shopgood = (obj->unpaid 
+                    || (obj->where == OBJ_FLOOR && !obj->no_charge 
+                    && costly_spot(obj->ox, obj->oy)));
             carryamt = can_carry(mtmp, obj);
             if (carryamt > 0 && !obj->cursed && !obj->zombie_corpse
-                && could_reach_item(mtmp, obj->ox, obj->oy)) {
+                && could_reach_item(mtmp, obj->ox, obj->oy) && !shopgood) {
                 boolean can_use = could_use_item(mtmp, obj, TRUE, FALSE);
                 if (can_use || (rn2(20) < edog->apport + 3)) {
                     if (can_use || rn2(udist) || !rn2(edog->apport)) {
@@ -952,6 +959,11 @@ int after, udist, whappr;
                 if (!could_reach_item(mtmp, nx, ny)
                     || !can_reach_location(mtmp, mtmp->mx, mtmp->my, nx, ny))
                     continue;
+                /* skip always shop food and other items if chastised */
+                if (obj->unpaid || (obj->where == OBJ_FLOOR && !obj->no_charge 
+                      && costly_spot(obj->ox, obj->oy)))
+                    continue;
+                
                 if (otyp < MANFOOD
                     && (otyp < ACCFOOD || edog->hungrytime <= monstermoves)
                     && edog->hungrytime < monstermoves + DOG_SATIATED) {
@@ -1074,7 +1086,7 @@ int maxdist;
             if ((!targ->minvis || mon_prop(mtmp, SEE_INVIS))
                 && !targ->mundetected)
                 break;
-            /* If the pet can't see it, it assumes it aint there */
+            /* If the pet can't see it, it assumes it ain't there */
             targ = 0;
         }
     }
@@ -1287,7 +1299,7 @@ struct monst *mtmp;   /* Pet */
 
 boolean
 acceptable_pet_target(mtmp, mtmp2, ranged)
-register struct monst *mtmp; /* your pet */
+register struct monst *mtmp;  /* your pet */
 register struct monst *mtmp2; /* the potential target */
 boolean ranged;
 {
@@ -1315,29 +1327,34 @@ boolean ranged;
         balk = mtmp2->m_lev + 1;
     }
 
-    return
-    !((!ranged && (int) mtmp2->m_lev >= balk
-       && !attacktype(mtmp->data, AT_EXPL))
-       || (!ranged && mtmp2->data == &mons[PM_FLOATING_EYE] && rn2(10)
-           && mtmp->mcansee && haseyes(mtmp->data) && mtmp2->mcansee
-           && (mon_prop(mtmp, SEE_INVIS) || !mtmp2->minvis))
-       /* Monsters with dangerous passive attacks */
-       || (!ranged && (mtmp2->data == &mons[PM_GELATINOUS_CUBE] 
-                          || mtmp2->data == &mons[PM_HEDGEHOG]
-                          || mtmp2->data == &mons[PM_GREEN_SLIME]) 
-              && rn2(10))
-       /* Disintegrators */
-       || (!ranged && (mtmp2->data == &mons[PM_BLACK_DRAGON] 
-                      || mtmp2->data == &mons[PM_ANTIMATTER_VORTEX]) 
-          && !(resists_disint(mtmp) || defended(mtmp, AD_DISN)))
-       || (!ranged && max_passive_dmg(mtmp2, mtmp) >= mtmp->mhp)
-       || ((mtmp->mhp * 4 < mtmp->mhpmax || mtmp2->data->msound == MS_GUARDIAN
-           || mtmp2->data->msound == MS_LEADER)
-           && mtmp2->mpeaceful && !grudge && !Conflict)
-       || (!ranged && touch_petrifies(mtmp2->data)
-           && !(resists_ston(mtmp) || defended(mtmp, AD_STON)))
-       || (!ranged && mtmp2->data == &mons[PM_GRAY_FUNGUS]
-           && !(resists_sick(mtmp->data) || defended(mtmp, AD_DISE))));
+    boolean scared = (!ranged && (int)mtmp2->m_lev >= balk 
+            && !attacktype(mtmp->data, AT_EXPL));
+    boolean bad_eye = (!ranged && mtmp2->data == &mons[PM_FLOATING_EYE] && rn2(10)
+                       && mtmp->mcansee && haseyes(mtmp->data) && mtmp2->mcansee
+                       && (mon_prop(mtmp, SEE_INVIS) || !mtmp2->minvis));
+    boolean vs_passive = (!ranged && (mtmp2->data == &mons[PM_GELATINOUS_CUBE]
+                                   || mtmp2->data == &mons[PM_HEDGEHOG]
+                                   || mtmp2->data == &mons[PM_MANTICORE]
+                                   || mtmp2->data == &mons[PM_ADHERER]
+                                   || mtmp2->data == &mons[PM_GREEN_SLIME]) && rn2(10));
+    boolean vs_disint = (!ranged 
+            && (mtmp2->data == &mons[PM_BLACK_DRAGON]
+                || mtmp2->data == &mons[PM_ANTIMATTER_VORTEX]) 
+            && !(resists_disint(mtmp) || defended(mtmp, AD_DISN)));
+    boolean passive_kill = (!ranged && max_passive_dmg(mtmp2, mtmp) >= mtmp->mhp);
+    boolean vs_peaceful = (mtmp->mhp * 4 < mtmp->mhpmax 
+            || mtmp2->data->msound == MS_GUARDIAN || mtmp2->data->msound == MS_LEADER)
+                    && mtmp2->mpeaceful && !grudge && !Conflict;
+    boolean vs_stoner = (!ranged && touch_petrifies(mtmp2->data) 
+            && !(resists_ston(mtmp) || defended(mtmp, AD_STON)));
+    boolean vs_dise = (!ranged 
+            && (mtmp2->data == &mons[PM_GRAY_FUNGUS]
+                || mtmp2->data == &mons[PM_SWAMP_FERN]
+                || mtmp2->data == &mons[PM_GRAY_MOLDIER]) 
+            && !(resists_sick(mtmp) || defended(mtmp, AD_DISE)));
+
+    return !(scared || bad_eye || vs_passive || vs_disint 
+             || passive_kill || vs_peaceful || vs_stoner || vs_dise);
 }
 
 
@@ -1350,7 +1367,7 @@ register struct monst *mtmp;
     int udist = distu(mtmp->mx, mtmp->my);
 
     /* Undead won't betray necros */
-    if (Role_if(PM_NECROMANCER && is_undead(mtmp->data)))
+    if (Role_if(PM_NECROMANCER) && is_undead(mtmp->data))
         return FALSE;
     
     /* if (udist < 4 && has_edog && !mtmp->isspell && !rn2(3) */
@@ -1637,7 +1654,10 @@ int after; /* this is extra fast monster movement */
             for (obj = level.objects[nx][ny]; obj; obj = obj->nexthere) {
                 if (obj->cursed) {
                     cursemsg[i] = TRUE;
-                } else if ((otyp = dogfood(mtmp, obj)) < MANFOOD
+                } else if (obj->unpaid || (obj->where == OBJ_FLOOR 
+                      && !obj->no_charge && costly_spot(obj->ox, obj->oy)))
+                    continue;
+                else if ((otyp = dogfood(mtmp, obj)) < MANFOOD
                            && (otyp < ACCFOOD
                            || edog->hungrytime <= monstermoves)
                            && edog->hungrytime < monstermoves + DOG_SATIATED) {
@@ -1767,7 +1787,21 @@ int after; /* this is extra fast monster movement */
         wasseen = canseemon(mtmp);
         remove_monster(omx, omy);
         place_monster(mtmp, nix, niy);
-        if (cursemsg[chi] && (wasseen || canseemon(mtmp))) {
+
+        struct obj *floor_obj;
+        struct obj *obj2;
+        
+        if (mtmp->data == &mons[PM_DROID]) {
+            /* Scan all the items at the location */
+            for (floor_obj = level.objects[mtmp->mx][mtmp->my]; 
+                    floor_obj; floor_obj = obj2) {
+                obj2 = floor_obj->nexthere;
+                /* Reveal BUC */
+                set_bknown(floor_obj, 1);
+                /* Reveal properties */
+                floor_obj->oprops_known |= floor_obj->oprops;
+            }
+        } else if (cursemsg[chi] && (wasseen || canseemon(mtmp))) {
             /* describe top item of pile, not necessarily cursed item itself;
                don't use glyph_at() here--it would return the pet but we want
                to know whether an object is remembered at this map location */
@@ -1913,7 +1947,7 @@ static struct qmchoices {
     { PM_HOUSECAT, 0, PM_DOG, M_AP_MONSTER },
     { PM_LARGE_CAT, 0, PM_LARGE_DOG, M_AP_MONSTER },
     { PM_HOUSECAT, 0, PM_GIANT_RAT, M_AP_MONSTER },
-    { 0, S_DOG, SINK,
+    { 0, S_DOG, TOILET,
       M_AP_FURNITURE }, /* sorry, no fire hydrants in NetHack */
     { 0, 0, TRIPE_RATION, M_AP_OBJECT }, /* leave this at end */
 };

@@ -107,7 +107,7 @@ mitre_inhell(void)
 {
     if (!Inhell)
         return FALSE;
-    if (uarmh && uarmh->oartifact == ART_MITRE_OF_HOLINESS)
+    if (wearing_artifact(ART_MITRE_OF_HOLINESS))
         return FALSE;
     return TRUE;
 }
@@ -385,7 +385,7 @@ int trouble;
             useup(uamul);
         }
         You("can breathe again.");
-        Strangled = 0;
+        Strangled = 0L;
         context.botl = 1;
         break;
     case TROUBLE_LAVA:
@@ -875,8 +875,8 @@ gcrownu()
                                       
     if (Role_if(PM_PIRATE)) {
         u.uevent.uhand_of_elbereth = 2; /* Alignment of P King is treated as neutral */
-        in_hand = (uwep && uwep->oartifact == ART_REAVER);
-        already_exists = exist_artifact(SCIMITAR, artiname(ART_REAVER));
+        verbalize("Hurrah for our Pirate %s!",
+                  flags.female ? "Queen" : "King");
         livelog_printf(LL_DIVINEGIFT, "was granted the title of \"Pirate %s\" by %s",
                        flags.female ? "Queen" : "King",
                        u_gname());
@@ -1000,16 +1000,8 @@ gcrownu()
     }
 
     if (Role_if(PM_PIRATE)) {
-        u.uevent.uhand_of_elbereth = 2; /* Alignment of P King is treated as neutral */
-        in_hand = (uwep && uwep->oartifact == ART_REAVER);
+        in_hand = wielding_artifact(ART_REAVER);
         already_exists = exist_artifact(SCIMITAR, artiname(ART_REAVER));
-        verbalize("Hurrah for our Pirate %s!",
-                  flags.female ? "Queen" : "King");
-        livelog_printf(LL_DIVINEGIFT,
-                       "was granted the title of \"Pirate %s\" by %s",
-                       flags.female ? "Queen" : "King",
-                       u_gname());
-
         obj = mksobj(SCIMITAR, FALSE, FALSE);
         obj = oname(obj, artiname(ART_REAVER));
         obj->spe = 1;
@@ -1473,7 +1465,7 @@ aligntyp g_align;
                              || carrying(MAGIC_MARKER)) && u.uconduct.literate)
                             break;
                     }
-                    otmp->otyp = rnd_class(bases[SPBOOK_CLASS], SPE_BLANK_PAPER);
+                    otmp->otyp = rnd_class(bases[SPBOOK_CLASS], SPE_PROTECTION);
                     otmp->material = objects[otmp->otyp].oc_material;
                     otmp->owt = weight(otmp);
                 }
@@ -1574,35 +1566,43 @@ register struct monst *mtmp;
     for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj) {
         if (otmp->otyp == AMULET_OF_YENDOR && In_endgame(&u.uz)
             && a_align(mtmp->mx, mtmp->my) == check_malign(mtmp)) {
-        pline("%s raises the Amulet of Yendor high above the altar!",
-              Monnam(mtmp));
-        /* game is now unwinnable... oops */
-        m_useup(mtmp, otmp);
-        livelog_printf(LL_ARTIFACT, "failed their quest! %s sacrificed the Amulet of Yendor, ascending!",
-                       Monnam(mtmp));
-        if (is_demon(mtmp->data) || mtmp->iswiz) {
-            pline("%s gains ultimate power, laughs fiendishly, and erases you from existence.",
+            pline("%s raises the Amulet of Yendor high above the altar!",
                   Monnam(mtmp));
-            Sprintf(killer.name, "%s wrath", s_suffix(mon_nam(mtmp)));
-            killer.format = KILLED_BY;
-            done(DIED);
-        } else {
-            pline("%s accepts the Amulet and gains dominion over the gods, and %s ascends to demigodhood!",
-                  a_gname_at(mtmp->mx, mtmp->my), mon_nam(mtmp));
-            if (Luck >= 10) {
-                pline("Luckily for you, %s does not smite you with their newfound power, and you are allowed to live.",
-                      mon_nam(mtmp));
-                pline("However, your quest ends here...");
-                done(ESCAPED);
-            } else {
-                pline_The("Demigod of %s looks down upon you, and squashes you like the ant that you are.",
-                      a_gname_at(mtmp->mx, mtmp->my));
-                Sprintf(killer.name, "%s indifference", s_suffix(mon_nam(mtmp)));
+            /* game is now unwinnable... oops */
+            m_useup(mtmp, otmp);
+            livelog_printf(LL_ARTIFACT, "failed their quest! %s sacrificed the Amulet of Yendor, ascending!",
+                           Monnam(mtmp));
+            if (is_demon(mtmp->data) || mtmp->iswiz) {
+                pline("%s gains ultimate power, laughs fiendishly, and erases you from existence.",
+                      Monnam(mtmp));
+                Sprintf(killer.name, "%s wrath", s_suffix(mon_nam(mtmp)));
                 killer.format = KILLED_BY;
                 done(DIED);
+                /* life-saved, try again */
+                pline("%s is not deterred...", Monnam(mtmp));
+                Sprintf(killer.name, "%s fury", s_suffix(mon_nam(mtmp)));
+                done(DIED);
+            } else {
+                pline("%s accepts the Amulet and gains dominion over the gods, and %s ascends to demigodhood!",
+                      a_gname_at(mtmp->mx, mtmp->my), mon_nam(mtmp));
+                if (Luck >= 10 || mtmp->mpeaceful || mtmp->mtame || peace_minded(mtmp)) {
+                    pline("Luckily for you, %s does not smite you with %s newfound power, and you are allowed to live.",
+                          mon_nam(mtmp), mhis(mtmp));
+                    pline("However, your quest ends here...");
+                    done(ESCAPED);
+                } else {
+                    pline_The("Demigod%s of %s looks down upon you and squashes you like the ant that you are.",
+                          mtmp->female ? "dess" : "",
+                          a_gname_at(mtmp->mx, mtmp->my));
+                    Sprintf(killer.name, "%s indifference", s_suffix(mon_nam(mtmp)));
+                    killer.format = KILLED_BY;
+                    done(DIED);
+                }
             }
-        }
-        return 3;
+            /* life-saved, or refusing to die in explore/debug mode */
+            pline("%s frowns and casts you back to the mortal realm.", Monnam(mtmp));
+            done(ESCAPED);
+            return 3;
         }
     }
     return 0;
@@ -1787,7 +1787,8 @@ dosacrifice()
 #define MAXVALUE 24 /* Highest corpse value (besides Wiz) */
 
     /* sacrificing the Eye of the Beholder is a special case */
-    if (otmp->oartifact == ART_EYE_OF_THE_BEHOLDER) {
+    if (otmp->oartifact == ART_EYE_OF_THE_BEHOLDER 
+          || otmp->oartifact == ART_HAND_OF_VECNA) {
         You("offer this abomination to %s...", a_gname());
         value = MAXVALUE; /* woop */
         /* KMH, conduct */
@@ -2354,11 +2355,7 @@ dosacrifice()
                     exercise(A_WIS, TRUE);
 
                     /* make sure we can use this weapon */
-                    if (otmp->oartifact == ART_GRANDMASTER_S_ROBE)
-                        unrestrict_weapon_skill(P_MARTIAL_ARTS);
-                    else
-                        unrestrict_weapon_skill(weapon_type(otmp));
-
+                    unrestrict_weapon_skill(weapon_type(otmp));
                     if (!Hallucination && !Blind) {
                         otmp->dknown = 1;
                         makeknown(otmp->otyp);

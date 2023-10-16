@@ -249,3 +249,75 @@ ROOM: "ordinary" , random, random, random, random {
 OBJECT:('`',"statue"),random,montype:"woodchuck",1
 
 RANDOM_CORRIDORS
+
+
+
+
+
+LEVEL: "oracle-4"
+
+ROOM: "delphi" , lit, (3,3), (center,center), (11,9) {
+  FOUNTAIN:(5,2)
+  FOUNTAIN:(3,4)
+  FOUNTAIN:(7,4)
+  FOUNTAIN:(5,6)
+
+  # four vents
+  TERRAIN:(02,02),'V'
+  TERRAIN:(02,06),'V'
+  TERRAIN:(08,02),'V'
+  TERRAIN:(08,06),'V'
+
+  REPLACE_TERRAIN:(0,0,11,9),'.',',', 30%
+  
+  $statuelocs = { (0,0),(10,0),(0,8),(10,8) }
+  SHUFFLE:$statuelocs
+  OBJECT:('`',"statue"),$statuelocs[0],montype:"air elemental",1
+  OBJECT:('`',"statue"),$statuelocs[1],montype:"earth elemental",1
+  OBJECT:('`',"statue"),$statuelocs[2],montype:"fire elemental",1
+  OBJECT:('`',"statue"),$statuelocs[3],montype:"water elemental",1
+
+  MONSTER: ('@', "Oracle"), (5,4) {
+        OBJECT: ('(', "eight ball"), uncursed
+  }
+
+  MONSTER: random, random
+  MONSTER: random, random
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  STAIR: random, up
+  OBJECT: random,random
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  STAIR: random, down
+  OBJECT: random, random
+  TRAP: random, random
+  MONSTER: random, random
+  MONSTER: random, random
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  OBJECT: random, random
+  MONSTER: random, random
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  TRAP: random, random
+  MONSTER: random, random
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  TRAP: random, random
+  MONSTER: random, random
+}
+
+# Keep thy enemies close...
+OBJECT:('`',"statue"),random,montype:"woodchuck",1
+
+RANDOM_CORRIDORS
+

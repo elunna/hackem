@@ -99,34 +99,204 @@ register struct obj *obj;
         if (!Blind)
             pline("%s shining.", Tobjnam(olduwep, "stop"));
     }
-    if (uwep == obj
-        && ((uwep && uwep->oartifact == ART_OGRESMASHER)
-            || (olduwep && olduwep->oartifact == ART_OGRESMASHER)))
-        context.botl = 1;
+    if (uwep == obj) {
+        if ((uwep && uwep->oartifact == ART_OGRESMASHER)
+                || (olduwep && olduwep->oartifact == ART_OGRESMASHER))
+            context.botl = 1;
 
-    if (uwep == obj
-        && ((uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
-            || (olduwep && olduwep->oartifact == ART_CHAINS_OF_MALCANTHET)))
-        context.botl = 1;
+        if ((uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
+                || (olduwep && olduwep->oartifact == ART_CHAINS_OF_MALCANTHET))
+            context.botl = 1;
 
-    if (uwep == obj
-        && ((uwep && uwep->oartifact == ART_GIANTSLAYER)
-            || (olduwep && olduwep->oartifact == ART_GIANTSLAYER)))
-        context.botl = 1;
+        if ((uwep && uwep->oartifact == ART_GIANTSLAYER)
+                || (olduwep && olduwep->oartifact == ART_GIANTSLAYER))
+            context.botl = 1;
 
-    if (uwep && uwep == obj && (uwep->oprops & ITEM_EXCEL)) {
-        uwep->oprops_known |= ITEM_EXCEL;
-        set_moreluck();
-        context.botl = 1;
-        update_inventory();
+        /* Only the primary weapon */
+        if (Afraid && ((uwep && uwep->oartifact == ART_DRAGONBANE)
+            || (olduwep && olduwep->oartifact == ART_DRAGONBANE)))
+            if (is_dragon(u.fearedmon->data)) {
+                context.botl = 1;
+            }
     }
 
-    if (olduwep && (olduwep->oprops & ITEM_EXCEL)) {
-        olduwep->oprops_known |= ITEM_EXCEL;
-        set_moreluck();
-        context.botl = 1;
-        update_inventory();
+    /* This needs to come before setting properties in case we are
+     * switching between two weapons with properties. */
+    if (olduwep) {
+        if (olduwep->oprops & ITEM_EXCEL) {
+            set_moreluck();
+            (void) changes_stat(olduwep, ITEM_EXCEL);
+        }
+        if (olduwep->oprops & ITEM_VIGIL) {
+            EWarning  &= ~W_WEP;
+            see_monsters();
+            (void) changes_stat(olduwep, ITEM_VIGIL);
+        }
+        if (olduwep->oprops & ITEM_PROWESS) {
+            (void) changes_stat(olduwep, ITEM_PROWESS);
+        }
+        if (olduwep->oprops & ITEM_INSIGHT) {
+            ESee_invisible &= ~W_WEP;
+            EMagic_sense &= ~W_WEP;
+            toggle_seeinv(olduwep, (ESee_invisible & ~W_WEP), FALSE);
+        }
+        if (olduwep->oprops & ITEM_FUMBLE) {
+            if (!(HFumbling & ~TIMEOUT))
+                HFumbling = EFumbling = 0;
+            EFumbling &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_HUNGER) {
+            EHunger &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_STENCH) {
+            EAggravate_monster &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_TELE) {
+            ETeleportation &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_SLOW) {
+            ESlow &= ~W_WEP;
+            olduwep->oprops_known |= ITEM_SLOW;
+            context.botl = 1;
+            update_inventory();
+        }
+        if (olduwep->oprops & ITEM_SUSTAIN) {
+            Fixed_abil &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_STEALTH) {
+            EStealth &= ~W_WEP;
+            toggle_stealth(olduwep, (EStealth & ~W_WEP), FALSE);
+        }
+        if (olduwep->oprops & ITEM_BURDEN) {
+            EStable &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_SURF) {
+            EWwalking &= ~W_WEP;
+            if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
+                && !Levitation && !Flying && !is_clinger(youmonst.data)
+                && !context.takeoff.cancelled_don
+                && !iflags.in_lava_effects) {
+                olduwep->oprops_known |= ITEM_SURF;
+                spoteffects(TRUE);
+            }
+        }
+        if (olduwep->oprops & ITEM_SWIM) {
+            ESwimming &= ~W_WEP;
+            if (u.uinwater && !Swimming) {
+                You("begin to thrash about!");
+                olduwep->oprops_known |= ITEM_SWIM;
+                spoteffects(TRUE);
+            }
+        }
+        if (olduwep->oprops & ITEM_FLEX) {
+            EStone_resistance &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_DANGER) {
+            EInfravision &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_RAGE) {
+            EFearless &= ~W_WEP;
+        }
+        if (olduwep->oprops & ITEM_TOUGH) {
+            EDisint_resistance &= ~W_WEP;
+        }
     }
+
+    if (uwep && uwep == obj) {
+        if (uwep->oprops & ITEM_EXCEL) {
+            set_moreluck();
+            (void) changes_stat(uwep, ITEM_EXCEL);
+        }
+        if (uwep->oprops & ITEM_VIGIL) {
+            EWarning |= W_WEP;
+            see_monsters();
+            (void) changes_stat(uwep, ITEM_VIGIL);
+        }
+        if (uwep->oprops & ITEM_PROWESS) {
+            (void) changes_stat(uwep, ITEM_PROWESS);
+        }
+        if (uwep->oprops & ITEM_INSIGHT) {
+            ESee_invisible |= W_WEP;
+            EMagic_sense |= W_WEP;
+            toggle_seeinv(uwep, (ESee_invisible & ~W_WEP), TRUE);
+        }
+        if (uwep->oprops & ITEM_FUMBLE) {
+            if (!(HFumbling & ~TIMEOUT))
+                incr_itimeout(&HFumbling, rnd(20));
+            EFumbling |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_HUNGER) {
+            EHunger |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_STENCH) {
+            EAggravate_monster |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_TELE) {
+            ETeleportation |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_SLOW) {
+            ESlow |= W_WEP;
+            uwep->oprops_known |= ITEM_SLOW;
+            context.botl = 1;
+            update_inventory();
+        }
+        if (uwep->oprops & ITEM_SUSTAIN) {
+            Fixed_abil |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_STEALTH) {
+            EStealth |= W_WEP;
+            if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
+                pline("This %s will not silence someone %s.",
+                      xname(uwep), rn2(2) ? "as large as you" : "of your stature");
+                uwep->oprops_known |= ITEM_STEALTH;
+                EStealth &= ~W_WEP;
+            } else
+                toggle_stealth(uwep, (EStealth & ~W_WEP), TRUE);
+        }
+        if (uwep->oprops & ITEM_BURDEN) {
+            EStable |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_SURF) {
+            EWwalking |= W_WEP;
+            if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
+                spoteffects(TRUE);
+                uwep->oprops_known |= ITEM_SURF;
+            }
+        }
+        if (uwep->oprops & ITEM_SWIM) {
+            ESwimming |= W_WEP;
+            if (u.uinwater) {
+                pline("Hey! %s helping you swim!",
+                      yobjnam(uwep, "are"));
+                uwep->oprops_known |= ITEM_SWIM;
+                spoteffects(TRUE);
+            }
+        }
+        if (uwep->oprops & ITEM_FLEX) {
+            EStone_resistance |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_DANGER) {
+            EInfravision |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_RAGE) {
+            if (Afraid) {
+                Your("%s suppresses your fear with rage!", xname(uwep));
+                context.botl = 1;
+                uwep->oprops_known |= ITEM_RAGE;
+            } else if (!(uwep->oprops_known & ITEM_RAGE)) {
+                if (!Blind)
+                    You_feel("a red mist descending on you!");
+                else
+                    You_feel("like magma is coursing through your veins!");
+                uwep->oprops_known |= ITEM_RAGE;
+            }
+            EFearless |= W_WEP;
+        }
+        if (uwep->oprops & ITEM_TOUGH) {
+            EDisint_resistance |= W_WEP;
+        }
+    }
+
     /* Note: Explicitly wielding a pick-axe will not give a "bashing"
      * message.  Wielding one via 'a'pplying it will.
      * 3.2.2:  Wielding arbitrary objects will give bashing message too.
@@ -180,12 +350,13 @@ struct obj *wep;
     } else if (wep->otyp == CORPSE && cant_wield_corpse(wep)) {
         /* hero must have been life-saved to get here; use a turn */
         res++; /* corpse won't be wielded */
-    } else if (uarms && bimanual(wep)) {
+    } else if (uarms && bimanual(wep)
+          && !maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)) ) {
+        /* Giants can use a shield and a two-handed weapon simultaneously */
         You("cannot wield a two-handed %s while wearing a shield.",
             is_sword(wep) ? "sword" : wep->otyp == BATTLE_AXE ? "axe"
                                                               : "weapon");
-    } else if ((!uarmg || (is_demon(raceptr(&youmonst)) && uarmg))
-               && !retouch_object(&wep, FALSE)) {
+    } else if (!retouch_object(&wep, !uarmg, FALSE)) {
         /* don't retouch and take material damage if you're wearing
            gloves, except for crowned Infidels (demon race) */
         res++; /* takes a turn even though it doesn't get wielded */
@@ -287,6 +458,8 @@ void
 setuswapwep(obj)
 register struct obj *obj;
 {
+    struct obj *olduswapwep = uswapwep;
+
     if (u.twoweap && obj && (obj->oartifact || obj->oprops))
         set_artifact_intrinsic(obj, 1, W_SWAPWEP);
 
@@ -306,22 +479,208 @@ register struct obj *obj;
                     arti_light_description(uswapwep));
     }
 
+    /* Stat changing weapons are handled elsewhere */
     if (uswapwep == obj
         && (u.twoweap && uswapwep->oartifact == ART_OGRESMASHER))
         context.botl = 1;
-
     if (uswapwep == obj
         && (u.twoweap && uswapwep->oartifact == ART_GIANTSLAYER))
         context.botl = 1;
 
-    if (uswapwep == obj
-        && (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {
-        uswapwep->oprops_known |= ITEM_EXCEL;
-        set_moreluck();
-        context.botl = 1;
-        update_inventory();
+    /* Similar to the main weapons, this block should probably come before
+     * the wielding, otherwise we might set and then unset a stat. */
+    if (!u.twoweap && olduswapwep) {
+        /* Excellence property */
+        if (olduswapwep->oprops & ITEM_EXCEL) {
+            set_moreluck();
+            (void) changes_stat(olduswapwep, ITEM_EXCEL);
+        }
+        /* Vigilance property */
+        if (olduswapwep->oprops & ITEM_VIGIL) {
+            EWarning  &= ~W_WEP;
+            see_monsters();
+            (void) changes_stat(olduswapwep, ITEM_VIGIL);
+        }
+        /* Prowess property */
+        if (olduswapwep->oprops & ITEM_PROWESS) {
+            (void) changes_stat(olduswapwep, ITEM_PROWESS);
+        }
+        /* Insight property */
+        if (olduswapwep->oprops & ITEM_INSIGHT) {
+            ESee_invisible &= ~W_SWAPWEP;
+            EMagic_sense &= ~W_SWAPWEP;
+            toggle_seeinv(olduswapwep, (ESee_invisible & ~W_SWAPWEP), FALSE);
+        }
+        /* Fumbling property */
+        if (olduswapwep->oprops & ITEM_FUMBLE) {
+            if (!(HFumbling & ~TIMEOUT))
+                HFumbling = EFumbling = 0;
+            EFumbling &= ~W_SWAPWEP;
+        }
+        /* Hunger property */
+        if (olduswapwep->oprops & ITEM_HUNGER) {
+            EHunger &= ~W_SWAPWEP;
+        }
+        /* Aggravate monster property */
+        if (olduswapwep->oprops & ITEM_STENCH) {
+            EAggravate_monster &= ~W_SWAPWEP;
+        }
+        /* Teleportitis monster property */
+        if (olduswapwep->oprops & ITEM_TELE) {
+            ETeleportation &= ~W_SWAPWEP;
+        }
+        /* Lethargy property */
+        if (olduswapwep->oprops & ITEM_SLOW) {
+            ESlow &= ~W_SWAPWEP;
+            olduswapwep->oprops_known |= ITEM_SLOW;
+            context.botl = 1;
+            update_inventory();
+        }
+        /* Sustainability property */
+        if (olduswapwep->oprops & ITEM_SUSTAIN) {
+            Fixed_abil &= ~W_SWAPWEP;
+        }
+        /* Stealth property */
+        if (olduswapwep->oprops & ITEM_STEALTH) {
+            EStealth &= ~W_SWAPWEP;
+            toggle_stealth(olduswapwep, (EStealth & ~W_SWAPWEP), TRUE);
+        }
+        /* Burden/stability property */
+        if (olduswapwep->oprops & ITEM_BURDEN) {
+            HStable &= ~W_SWAPWEP;
+        }
+        /* Water walking */
+        if (olduswapwep->oprops & ITEM_SURF) {
+            HWwalking &= ~W_SWAPWEP;
+            if ((is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy))
+                && !Levitation && !Flying && !is_clinger(youmonst.data)
+                && !context.takeoff.cancelled_don
+                && !iflags.in_lava_effects) {
+                olduswapwep->oprops_known |= ITEM_SURF;
+                spoteffects(TRUE);
+            }
+        }
+        /* Swimming property */
+        if (olduswapwep->oprops & ITEM_SWIM) {
+            HSwimming &= ~W_SWAPWEP;
+            if (u.uinwater && !Swimming) {
+                You("begin to thrash about!");
+                olduswapwep->oprops_known |= ITEM_SWIM;
+                spoteffects(TRUE);
+            }
+        }
+        /* Stone resistance */
+        if (olduswapwep->oprops & ITEM_FLEX) {
+            EStone_resistance &= ~W_SWAPWEP;
+        }
+        /* Stun resistance */
+        if (olduswapwep->oprops & ITEM_DANGER) {
+            EInfravision &= ~W_SWAPWEP;
+        }
+        /* Fearlessness */
+        if (olduswapwep->oprops & ITEM_RAGE) {
+            EFearless &= ~W_SWAPWEP;
+        }
+        /* Toughness */
+        if (olduswapwep->oprops & ITEM_TOUGH) {
+            EDisint_resistance &= ~W_SWAPWEP;
+        }
     }
-    return;
+
+    if (uswapwep == obj && u.twoweap) {
+        if (uswapwep->oprops & ITEM_EXCEL) {
+            set_moreluck();
+            (void) changes_stat(uswapwep, ITEM_EXCEL);
+        }
+        if (uswapwep->oprops & ITEM_VIGIL) {
+            EWarning |= W_WEP;
+            see_monsters();
+            (void) changes_stat(uswapwep, ITEM_VIGIL);
+        }
+        if (uswapwep->oprops & ITEM_PROWESS) {
+            (void) changes_stat(uswapwep, ITEM_PROWESS);
+        }
+        if (uswapwep->oprops & ITEM_INSIGHT) {
+            ESee_invisible |= W_SWAPWEP;
+            EMagic_sense |= W_SWAPWEP;
+            toggle_seeinv(uswapwep, (ESee_invisible & ~W_SWAPWEP), TRUE);
+        }
+        if (uswapwep->oprops & ITEM_FUMBLE) {
+            if (!(HFumbling & ~TIMEOUT))
+                incr_itimeout(&HFumbling, rnd(20));
+            EFumbling |= W_SWAPWEP;
+        }
+        if (uswapwep->oprops & ITEM_HUNGER) {
+            EHunger |= W_SWAPWEP;
+        }
+        if (uswapwep->oprops & ITEM_STENCH) {
+            EAggravate_monster |= W_SWAPWEP;
+        }
+        if (uswapwep->oprops & ITEM_TELE) {
+            ETeleportation |= W_SWAPWEP;
+        }
+        if (uswapwep->oprops & ITEM_SLOW) {
+            ESlow |= W_SWAPWEP;
+            uwep->oprops_known |= ITEM_SLOW;
+            context.botl = 1;
+            update_inventory();
+        }
+        if (uswapwep->oprops & ITEM_SUSTAIN) {
+            Fixed_abil |= W_SWAPWEP;
+        }
+        if (uswapwep->oprops & ITEM_STEALTH) {
+            EStealth |= W_SWAPWEP;
+            if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
+                pline("This %s will not silence someone %s.",
+                      xname(uswapwep), rn2(2) ? "as large as you" : "of your stature");
+                uswapwep->oprops_known |= ITEM_STEALTH;
+                EStealth &= ~W_SWAPWEP;
+            } else
+                toggle_stealth(uswapwep, (EStealth & ~W_SWAPWEP), TRUE);
+        }
+        if (uswapwep->oprops & ITEM_BURDEN) {
+            HStable |= W_SWAPWEP;
+        }
+        if (uswapwep->oprops & ITEM_SURF) {
+            HWwalking |= W_SWAPWEP;
+            if (u.uinwater || is_lava(u.ux, u.uy) || is_sewage(u.ux, u.uy)) {
+                spoteffects(TRUE);
+                uswapwep->oprops_known |= ITEM_SURF;
+            }
+        }
+        if (uswapwep->oprops & ITEM_SWIM) {
+            HSwimming |= W_SWAPWEP;
+            if (u.uinwater) {
+                pline("Hey! %s helping you swim!",
+                      yobjnam(uswapwep, "are"));
+                uswapwep->oprops_known |= ITEM_SWIM;
+                spoteffects(TRUE);
+            }
+        }
+        if (uswapwep->oprops & ITEM_FLEX) {
+            EStone_resistance |= W_SWAPWEP;
+        }
+        if (uswapwep->oprops & ITEM_DANGER) {
+            EInfravision |= W_SWAPWEP;
+        }
+        if (uswapwep->oprops & ITEM_RAGE) {
+            if (Afraid) {
+                Your("%s suppresses your fear with rage!", xname(uwep));
+                context.botl = 1;
+                uswapwep->oprops_known |= ITEM_RAGE;
+            } else if (!(uwep->oprops_known & ITEM_RAGE)) {
+                if (!Blind)
+                    You_feel("a red mist descending on you!");
+                else
+                    You_feel("like magma is coursing through your veins!");
+                uwep->oprops_known |= ITEM_RAGE;
+            }
+            EFearless |= W_SWAPWEP;
+        }
+        if (uswapwep->oprops & ITEM_TOUGH) {
+            EDisint_resistance |= W_SWAPWEP;
+        }
+    }
 }
 
 /*** Commands to change particular slot(s) ***/
@@ -821,14 +1180,14 @@ uqwepgone()
 void
 untwoweapon()
 {
+    struct obj *tmp = uswapwep;
     if (u.twoweap) {
-        struct obj *tmp = uswapwep;
         You("can no longer use two weapons at once.");
         u.twoweap = FALSE;
-        setuswapwep((struct obj *) 0);
-        setuswapwep(tmp);
-        update_inventory();
     }
+    setuswapwep((struct obj *) 0);
+    setuswapwep(tmp);
+    update_inventory();
     return;
 }
 
@@ -933,8 +1292,8 @@ register int amount;
     if (!Blind) {
         xtime = (amount * amount == 1) ? "moment" : "while";
         pline("%s %s for a %s.",
-              Yobjnam2(uwep, amount == 0 ? "violently glow" : "glow"), color,
-              xtime);
+              Yobjnam2(uwep, amount == 0 ? "violently glow" : "glow"),
+              color, xtime);
         if (otyp != STRANGE_OBJECT && uwep->known
             && (amount > 0 || (amount < 0 && otmp->bknown)))
             makeknown(otyp);

@@ -207,6 +207,8 @@ unsigned mgflags;
                 color = CLR_BRIGHT_GREEN;
             else if (getroomtype(x, y) == FUNGUSFARM)
                 color = CLR_BRIGHT_GREEN;
+            else if (getroomtype(x, y) == ZROOM)
+                color = CLR_BRIGHT_BLUE;
             else if (getroomtype(x, y) == CLINIC)
                 color = CLR_ORANGE;
             else if (getroomtype(x, y) == TERRORHALL)

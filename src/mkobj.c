@@ -336,7 +336,15 @@ struct obj *box;
     for (n = tries; n > 0; n--) {
         if (box->otyp == MEDICAL_KIT) {
             int supplies[] = { PHIAL, BANDAGE, PILL };
-            if (!(otmp = mksobj(supplies[rn2(SIZE(supplies))], TRUE, TRUE)))
+            int newitem = supplies[rn2(SIZE(supplies))];
+            
+            /* Avoid giving players useless items */
+            if (Race_if(PM_VAMPIRIC) && newitem != PHIAL)
+                continue;
+            if (!Race_if(PM_VAMPIRIC) && newitem == PHIAL)
+                continue;
+            
+            if (!(otmp = mksobj(newitem, TRUE, TRUE)))
                 continue;
         } else if (box->otyp == ICE_BOX) {
             otmp = mksobj(CORPSE, TRUE, FALSE);
@@ -365,7 +373,7 @@ struct obj *box;
                 otmp->owt = weight(otmp);
             } else
                 while (otmp->otyp == ROCK) {
-                    otmp->otyp = rnd_class(DILITHIUM_CRYSTAL, LOADSTONE);
+                    otmp->otyp = rnd_class(FIRST_GEM, LOADSTONE);
                     if (otmp->quan > 2L)
                         otmp->quan = 1L;
                     otmp->owt = weight(otmp);
@@ -829,7 +837,7 @@ may_generate_eroded(struct obj* otmp) {
     return TRUE;
 }
 
-/* mksobj(): create a specific type of object; result it always non-Null */
+/* mksobj(): create a specific type of object; result is always non-Null */
 struct obj *
 mksobj(otyp, init, artif)
 int otyp;
@@ -1190,6 +1198,8 @@ boolean artif;
                 otmp->recharged = (Is_stronghold(&u.uz) || discover) ? 0 : 1;
             } else if (otmp->otyp == WAN_WONDER) {
                 otmp->spe = rn1(10, 15);
+            } else if (otmp->otyp == WAN_CREATE_HORDE) {
+                otmp->spe = rnd(3);
             } else {
                 otmp->spe =
                     rn1(5, (objects[otmp->otyp].oc_dir == NODIR) ? 11 : 4);
@@ -1734,7 +1744,7 @@ register struct obj *obj;
     }
 
     if (obj->oartifact == ART_TREASURY_OF_PROTEUS) {
-     	wt =  150; /* Same as a crystal ball (ie, the Orb of Weight) */
+     	wt = 50;
     }
 
     /* glob absorpsion means that merging globs accumulates weight while
@@ -1751,11 +1761,27 @@ register struct obj *obj;
     }
     if (Is_container(obj) || obj->otyp == STATUE) {
         struct obj *contents;
-        register int cwt = 0;
+        int cwt;
 
-        if (obj->otyp == STATUE && obj->corpsenm >= LOW_PM)
-            wt = (int) obj->quan * ((int) mons[obj->corpsenm].cwt * 3 / 2);
+        if (obj->otyp == STATUE && obj->corpsenm >= LOW_PM) {
+            int msize = (int) mons[obj->corpsenm].msize, /* 0..7 */
+                minwt = (msize + msize + 1) * 100;
 
+            /* default statue weight is 1.5 times corpse weight */
+            wt = 3 * (int) mons[obj->corpsenm].cwt / 2;
+            /* some monsters that never leave a corpse when they die have
+               corpse weight defined as 0; statues resembling them need to
+               have non-zero weight; others are so tiny (killer bee) that
+               they weigh barely more than nothing or so insubstantial
+               (wraith) that they actually weigh nothing; statues of such
+               need more heft */
+            if (wt < minwt)
+                wt = minwt;
+            /* this has no effect because statues don't stack */
+            wt *= (int) obj->quan;
+        }
+
+        cwt = 0; /* contents weight */
         for (contents = obj->cobj; contents; contents = contents->nobj)
             cwt += weight(contents);
         /*
@@ -1805,6 +1831,11 @@ register struct obj *obj;
     } else if (obj->otyp == CANDELABRUM_OF_INVOCATION && obj->spe) {
         return wt + obj->spe * (int) objects[TALLOW_CANDLE].oc_weight;
     }
+    
+    /* Items with burden property */
+    if (obj->oprops & ITEM_BURDEN)
+        wt *= 4;
+    
     return (wt ? wt * (int) obj->quan : ((int) obj->quan + 1) >> 1);
 }
 
@@ -1824,7 +1855,7 @@ const int matac[] = {
      3,  /* LEATHER */
      4,  /* WOOD */
      5,  /* BONE */
-     8,  /* DRAGON_HIDE */
+     5,  /* DRAGON_HIDE */
      5,  /* IRON - de facto baseline for metal armor */
      5,  /* METAL */
      4,  /* COPPER */
@@ -2968,6 +2999,11 @@ const char *mesg;
 
     if (!Has_contents(container))
         return;
+    
+    if (Bad_bag(container) && container->spe > 0)
+        /* Charged bad bags should always be empty */
+        insane_object(container, "%s charged bag of tricks/rats contains something! %s %s: %s",
+                      mesg, (struct monst *) 0);
     /* change "invent sanity" to "contained invent sanity"
        but leave "nested contained invent sanity" as is */
     if (!strstri(mesg, "contained"))
@@ -3385,7 +3421,7 @@ struct obj **obj1, **obj2;
             /* callers really ought to take care of this; glob melding is
                a bookkeeping issue rather than a display one */
             if (ox && cansee(ox, oy))
-                newsym(ox, oy);
+                newsym_force(ox, oy);
         }
     } else {
         impossible("obj_meld: not called with two actual objects");
@@ -3522,6 +3558,25 @@ static const struct icp shiny_materials[] = {
     { 2, PLATINUM}
 };
 
+/* Reflectable items - for the shield of reflection; anything
+   that can hold a polish. Amulets also arbitrarily use this list */
+static const struct icp ring_materials[] = {
+        { 10, 0}, /* use base material */
+        { 5, BONE},
+        { 10, COPPER},
+        { 10, GEMSTONE},
+        { 5, GLASS},
+        { 5, GOLD},
+        { 10, IRON},
+        { 10, METAL},
+        { 10, MINERAL},
+        { 5, MITHRIL},
+        { 5, PLASTIC},
+        { 5, PLATINUM},
+        { 5, SILVER},
+        { 5, WOOD}
+};
+
 /* for bells and other tools, especially instruments, which are normally copper
  * or metal.  Wood and glass in other lists precludes us from using those */
 static const struct icp resonant_materials[] = {
@@ -3618,25 +3673,6 @@ static const struct icp sling_bullet_materials[] = {
     { 1, PLATINUM},
 };
 
-/* special case array for helm of speed */
-static const struct icp helm_speed_materials[] = {
-    {30, 0}, /* default to base type, steel */
-    {25, LEATHER},
-    {12, CLOTH},
-    { 7, BONE},
-    { 5, METAL},
-    { 5, WOOD},
-    { 4, SILVER},
-    { 4, COPPER},
-    { 3, MITHRIL},
-    { 1, GOLD},
-    { 1, GLASS},
-    { 1, MINERAL},
-    { 1, PLATINUM},
-    { 1, DRAGON_HIDE}
-};
-
-
 
 /* Return the appropriate above list for a given object, or NULL if there isn't
  * an appropriate list. */
@@ -3658,6 +3694,7 @@ struct obj* obj;
         case FLAMING_LASH:
         case WORM_TOOTH:
         case CRYSKNIFE:
+        case PENCIL:
         case STAFF_OF_DIVINATION:
         case STAFF_OF_HEALING:
         case STAFF_OF_NECROMANCY:
@@ -3684,6 +3721,11 @@ struct obj* obj;
         case PHIAL:
         case AMULET_OF_YENDOR:
         case FAKE_AMULET_OF_YENDOR:
+        /* Tshirts and mummy wrappings can only be cloth. */
+        case HAWAIIAN_SHIRT:
+        case STRIPED_SHIRT:
+        case RUFFLED_SHIRT:
+        case T_SHIRT:
             return NULL;
         /* Any other cases for specific object types go here. */
         case SHIELD_OF_REFLECTION:
@@ -3754,14 +3796,16 @@ struct obj* obj;
         case BULLET:
         case SHOTGUN_SHELL:
             return sling_bullet_materials;
-        case HELM_OF_SPEED:
-            return helm_speed_materials;
+        case SABER:
+            return shiny_materials;
         default:
             break;
     }
 
     /* Otherwise, select an appropriate list, or return NULL if no appropriate
      * list exists. */
+    if (obj->oclass == RING_CLASS)
+        return ring_materials;
     if (is_elven_obj(obj) && default_material != CLOTH)
         return elven_materials;
     else if (is_dwarvish_obj(obj) && default_material != CLOTH)
@@ -3922,11 +3966,12 @@ int material;
 boolean
 warp_material(struct obj* obj, boolean by_you)
 {
-    int origmat, newmat;
-    int j = 0;
+    int origmat, newmat, j = 0;
     
-    if (obj->oartifact && rn2(20))
+    /* Artifacts can not be transmogrified. */
+    if (obj->oartifact)
         return FALSE;
+    
     origmat = obj->material;
     
     while (j < 200) {
@@ -3939,7 +3984,7 @@ warp_material(struct obj* obj, boolean by_you)
     /* Does the hero hate the material? */
     /* Also we need to check if valid again if the above loop went through 
      * all tries. */
-    if (!Hate_material(newmat) && valid_obj_material(obj, newmat))
+    if (valid_obj_material(obj, newmat))
         obj->material = newmat;
     else
         /* can use a 0 in the list to default to the base material */

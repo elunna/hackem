@@ -191,5 +191,19 @@ OPTIONS=sortloot:full
 OPTIONS=time
 OPTIONS=paranoid_confirmation:attack pray quit Remove swim wand-break
 
+OPTIONS=showdmg
+OPTIONS=invweight
+
+# For fuzzing
 BIND=v:wizmakemap
+
+# For bug-finding
+OPTIONS=sanity_check
+
+# Make testing curses easier
+#OPTIONS=windowtype:curses
+#OPTIONS=align_message:top
+#OPTIONS=align_status:bottom
+#OPTIONS=perm_invent
+
 #eof

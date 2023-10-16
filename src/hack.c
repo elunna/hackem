@@ -744,7 +744,13 @@ struct monst *mon;
         && !(amorphous(ptr) || is_whirly(ptr) || noncorporeal(ptr)
              || slithy(ptr) || can_fog(mon) || Passes_walls))
         return 1;
-
+    
+    /* Greased cloaks let us pass through tight spots */
+    if (!Sokoban && uarmc 
+        && (uarmc->otyp == OILSKIN_CLOAK || uarmc->oprops & ITEM_OILSKIN
+            || uarmc->greased))
+        return 0;
+    
     /* lugging too much junk? */
     amt = (mon == &youmonst) ? inv_weight() + weight_cap()
                              : curr_mon_load(mon);
@@ -820,6 +826,7 @@ int mode;
                    && is_pick(uwep)) {
             /* MRKR: Automatic digging when wielding the appropriate tool */
             if (mode == DO_MOVE)
+                if (retouch_object(&uwep, !uarmg, FALSE))
                 (void) use_pick_axe2(uwep);
             return FALSE;
         } else {
@@ -1548,9 +1555,12 @@ domove_core()
                 || maybe_polyd(is_tortle(youmonst.data), Race_if(PM_TORTLE))
                 || is_clinger(youmonst.data) || is_whirly(youmonst.data)
                 || (uarm && Is_dragon_scaled_armor(uarm)
-                    && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES)) {
+                    && (Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES
+                        || Dragon_armor_to_scales(uarm) == BLUE_DRAGON_SCALES))
+                || Wwalking
+                || (uarmf && !strncmp(OBJ_DESCR(objects[uarmf->otyp]), "mud ", 4))) {
                 walk_sewage = FALSE;
-            } else if (!uarmf || strncmp(OBJ_DESCR(objects[uarmf->otyp]), "mud ", 4)) {
+            } else {
                 HSlow |= FROMOUTSIDE;
                 HSlow &= ~TIMEOUT;
                 HSlow += 3; /* slowed on next move */
@@ -1775,16 +1785,19 @@ domove_core()
     trap = t_at(x, y);
     if (context.forcefight && trap && trap->ttyp == WEB
         && trap->tseen && uwep) {
-        if (uwep->oartifact == ART_STING) {
+        if (uwep->oartifact == ART_STING
+            || (is_lightsaber(uwep) && uwep->lamplit)) {
             /* guaranteed success */
-            pline("Sting cuts through the web!");
+            pline("%s cuts through the web!", Yname2(uwep));
         }
-        else if (!is_blade(uwep)) {
-            You_cant("cut a web with a %s!", xname(uwep));
+        else if (is_lightsaber(uwep)) { /* deactivated */
+            You_cant("cut a web with a deactivated %s!", simpleonames(uwep));
             return;
         }
-        /* TODO: if failing to cut the web is going to be a thing, it should
-         * really be an occupation... */
+        else if (!is_blade(uwep)) {
+            You_cant("cut a web with %s!", ansimpleoname(uwep));
+            return;
+        }
         else if (rn2(20) > ACURR(A_DEX)) {
             You("hack ineffectually at some of the strands.");
             return;
@@ -1829,6 +1842,7 @@ domove_core()
             if (context.forcefight
                 /* can we dig? */
                 && uwep && dig_typ(uwep, x, y)
+                && retouch_object(&uwep, !uarmg, FALSE)
                 /* should we dig? */
                 && !glyph_is_invisible(glyph) && !glyph_is_monster(glyph)) {
                 (void) use_pick_axe2(uwep);
@@ -1965,7 +1979,7 @@ do_nothing:
                                && Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES)
                            || HWwalking)
                           && !u.usteed);
-        /* FIXME: This can be exploited to identify the ring of fire resistance
+        /* This can be exploited to identify the ring of fire resistance
          * if the player is wearing it unidentified and has identified
          * fireproof boots of water walking and is walking over lava. However,
          * this is such a marginal case that it may not be worth fixing. */
@@ -2222,7 +2236,7 @@ do_nothing:
     if (context.run) {
         if (context.run < 8)
             if (IS_DOOR(tmpr->typ) || IS_ROCK(tmpr->typ)
-                || IS_FURNITURE(tmpr->typ))
+                || (IS_FURNITURE(tmpr->typ) && tmpr->typ != GRAVE))
                 nomul(0);
     }
 
@@ -2507,8 +2521,14 @@ boolean newspot;             /* true if called by spoteffects */
                 You("splash through the shallow water.");
 
             if (is_sewage(u.ux, u.uy) && u.umoved && !rn2(4)
-                && !maybe_polyd(is_tortle(youmonst.data), Race_if(PM_TORTLE))
-                && (!uarmf || strncmp(OBJ_DESCR(objects[uarmf->otyp]), "mud ", 4))) {
+                && !(is_swimmer(youmonst.data)
+                     || maybe_polyd(is_tortle(youmonst.data), Race_if(PM_TORTLE))
+                     || is_clinger(youmonst.data) || is_whirly(youmonst.data)
+                     || (uarm && Is_dragon_scaled_armor(uarm)
+                         && (Dragon_armor_to_scales(uarm) == WHITE_DRAGON_SCALES
+                             || Dragon_armor_to_scales(uarm) == BLUE_DRAGON_SCALES))
+                     || Wwalking
+                     || (uarmf && !strncmp(OBJ_DESCR(objects[uarmf->otyp]), "mud ", 4)))) {
                 pline("%s %s difficulty %s through %s.",
                       u.usteed ? upstart(x_monnam(u.usteed,
                                          (has_mname(u.usteed)) ? ARTICLE_NONE
@@ -2526,8 +2546,7 @@ boolean newspot;             /* true if called by spoteffects */
 
             if (Upolyd && youmonst.data  == &mons[PM_GREMLIN])
                 (void) split_mon(&youmonst, NULL);
-            else if ((youmonst.data == &mons[PM_IRON_GOLEM] 
-                      || youmonst.data == &mons[PM_STEEL_GOLEM])
+            else if ((youmonst.data == &mons[PM_IRON_GOLEM])
                      /* mud boots keep the feet dry */
                      && (!uarmf
                          || strncmp(OBJ_DESCR(objects[uarmf->otyp]), "mud ", 4))) {
@@ -2965,7 +2984,13 @@ register boolean newlev;
             You("enter a strange hive!");
             break;
         case FUNGUSFARM:
-            You("enter a room full of fungi!");
+            if (Hallucination)
+                You("go down under!");
+            else
+                You("enter a room full of fungi!");
+            break;
+        case ZROOM:
+            You("enter an exotic room!");
             break;
         case MINIGUILD:
             You("enter a smelly guild!");
@@ -3271,6 +3296,7 @@ lookaround()
             if (IS_ROCK(levl[x][y].typ) 
                 || levl[x][y].typ == ROOM
                 || levl[x][y].typ == ICE
+                || levl[x][y].typ == GRAVE
                 || IS_GRASS(levl[x][y].typ)
                 || (IS_AIR(levl[x][y].typ)
                     && !In_V_tower(&u.uz))) {
@@ -3546,13 +3572,21 @@ maybe_wail()
 
              
 /* Print the amount of damage inflicted */
-/* KMH -- Centralized to one function */
+/* KMH -- Centralized to one function 
+ * Damage to the player will be in parentheses "(3)"
+ * Damage to the monster will be brackets "[3]" 
+ * */
 void
-showdmg(n)
-	register int n;
+showdmg(n, yours)
+int n;
+boolean yours;
 {
-    if (wizard)
-        pline("(%d pts.)", n);
+    if (!iflags.showdmg)
+        return;
+    if (yours)
+        pline("(%d pt%s)", n, (n > 1 ? "s" : ""));
+    else
+        pline("[%d pt%s]", n, (n > 1 ? "s" : ""));
     return;
 }
 
@@ -3573,6 +3607,7 @@ boolean k_format;
     }        
     if (Upolyd) {
         u.mh -= n;
+        showdmg(n, TRUE);
         if (u.mhmax < u.mh)
             u.mhmax = u.mh;
         context.botl = 1;
@@ -3584,6 +3619,8 @@ boolean k_format;
     }
 
     u.uhp -= n;
+    showdmg(n, TRUE);
+    
     if (u.uhp > u.uhpmax)
         u.uhpmax = u.uhp; /* perhaps n was negative */
     else
@@ -3605,6 +3642,7 @@ weight_cap()
 {
     long carrcap, save_ELev = ELevitation, save_BLev = BLevitation;
     long maxcarrcap = MAX_CARR_CAP;
+    int pct_increase;
     struct obj *boots = uarmf;
     
     /* boots take multiple turns to wear but any properties they
@@ -3677,6 +3715,11 @@ weight_cap()
         float_vs_flight();
     }
 
+    /* final adjustment: ring of carrying lets you carry more than usual and go
+     * over the normal carrycap */
+    pct_increase = ringbon(RIN_CARRYING) * 10;
+    carrcap = (carrcap * (100 + pct_increase)) / 100;
+
     return (int) carrcap;
 }
 
@@ -3695,7 +3738,7 @@ inv_weight()
             wt += (int) (((long) otmp->quan + 50L) / 100L);
         else if (otmp->otyp == BOULDER && racial_throws_rocks(&youmonst))
             wt += GIANT_BLDR_WEIGHT * otmp->quan;
-        else /*if (otmp->otyp != BOULDER || !racial_throws_rocks(&youmonst)) */
+        else
             wt += otmp->owt;
         otmp = otmp->nobj;
     }
@@ -4157,5 +4200,4 @@ struct monst *mon;
     }
 #undef oresist_disintegration
 }
-
 /*hack.c*/

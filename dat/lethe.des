@@ -1778,7 +1778,6 @@ DOOR: locked, (65,10)
 DOOR: locked, (71,10)
 
 # Watch Dog
-# TODO: Enable when we take cerberus out of VoTD
 # MONSTER: ('d', "Cerberus"), (68,10), asleep, hostile
 
 # Sea monsters for the river

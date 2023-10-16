@@ -1021,6 +1021,7 @@ genericptr_t p2;
             pline("%s is burning your %s!", Something,
                   makeplural(body_part(LUNG)));
             You("cough and spit blood!");
+            wake_nearto(u.ux, u.uy, 2);
             losehp(resist_reduce(Maybe_Half_Phys(rnd(dam) + 5), POISON_RES),
                    "gas cloud", KILLED_BY_AN);
             return FALSE;
@@ -1037,6 +1038,7 @@ genericptr_t p2;
                 return FALSE;  /* Just a regular cloud? */
             if (cansee(mtmp->mx, mtmp->my))
                 pline("%s coughs!", Monnam(mtmp));
+            wake_nearto(mtmp->mx, mtmp->my, 2);
             if (heros_fault(reg))
                 setmangry(mtmp, TRUE);
             if (haseyes(mtmp->data) && mtmp->mcansee) {
@@ -1128,7 +1130,7 @@ region_danger()
                 continue;
             /* minor inconvenience if you're poison resistant;
                not harmful enough to be a prayer-level trouble */
-            if (Poison_resistance)
+            if (how_resistant(POISON_RES) > 35)
                 continue;
             ++n;
         }

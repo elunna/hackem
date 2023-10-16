@@ -1283,6 +1283,11 @@ Fire ammunition from quiver. Default key is `{\tt f}'.
 \item[\tb{\#force}]
 Force a lock. Autocompletes. Default key is `{\tt M-f}'.
 %.lp
+\item[\tb{\#genocided}]
+List any monster types which have been genocided or become extinct.
+Autocompletes.
+Default key is `{\tt M-g}'.
+%.lp
 \item[\tb{\#glance}]
 Show what type of thing a map symbol corresponds to. Default key is `{\tt ;}'.
 %.lp
@@ -1751,6 +1756,9 @@ option to have {\it NetHack\/} combine them into meta\+key.
 %.lp
 \item[\tb{M-f}]
 {\tt\#force}
+%.lp
+\item[\tb{M-g}]
+{\tt\#genocided}
 %.lp
 \item[\tb{M-i}]
 {\tt\#invoke}
@@ -3266,6 +3274,9 @@ Walking into a door attempts to open it (default true).  Persistent.
 Automatically pick up things onto which you move (default on).  Persistent.
 See ``{\it pickup\verb+_+types\/}'' to refine the behavior.
 %.lp
+\item[\ib{autostairtravel}]
+Automatically travel to stairs using < or >.
+%.lp
 \item[\ib{autoquiver}]
 This option controls what happens when you attempt the `f' (fire)
 command when nothing is quivered or readied (default false).
@@ -3320,6 +3331,9 @@ players if it detects some anticipated mistakes (default on).
 \item[\ib{confirm}]
 Have user confirm attacks on pets, shopkeepers, and other
 peaceable creatures (default on).  Persistent.
+%.lp
+\item[\ib{ctrlkick}]
+Enable kicking shortcuts with ctrl + direction.
 %.lp
 %.lp
 \item[\ib{dark\verb+_+room}]

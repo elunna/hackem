@@ -179,14 +179,17 @@ dosave0()
 
     vision_recalc(2); /* shut down vision to prevent problems
                          in the event of an impossible() call */
-
+    
     /* undo date-dependent luck adjustments made at startup time */
     if (flags.moonphase == FULL_MOON) /* ut-sally!fletcher */
         change_luck(-1);              /* and unido!ab */
     if (flags.friday13)
         change_luck(1);
     if (flags.quest_boon)
-        change_luck(-3);
+        change_luck(-1);
+    if (u.uconduct.wishes)
+        change_luck(-wishluck());
+    
     if (iflags.window_inited)
         HUP clear_nhwindow(WIN_MESSAGE);
 

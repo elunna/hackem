@@ -317,7 +317,7 @@ const genericptr vptr2;
                          *sli2 = (struct sortloot_item *) vptr2;
     struct obj *obj1 = sli1->obj,
                *obj2 = sli2->obj;
-    char *nam1, *nam2;
+    char *nam1, *nam2, *tmpstr;
     const char *mat1, *mat2;
     int val1, val2, c, namcmp;
 
@@ -390,11 +390,15 @@ const genericptr vptr2;
      * comparisons it gets subjected to.
      */
     nam1 = sli1->str;
-    if (!nam1)
-        nam1 = sli1->str = dupstr(loot_xname(obj1));
+    if (!nam1) {
+        nam1 = sli1->str = dupstr(tmpstr = loot_xname(obj1));
+        maybereleaseobuf(tmpstr);
+    }
     nam2 = sli2->str;
-    if (!nam2)
-        nam2 = sli2->str = dupstr(loot_xname(obj2));
+    if (!nam2) {
+        nam2 = sli2->str = dupstr(tmpstr = loot_xname(obj2));
+        maybereleaseobuf(tmpstr);
+    }
     if ((namcmp = strcmpi(nam1, nam2)) != 0)
         return namcmp;
 
@@ -1697,8 +1701,8 @@ register const char *let, *word;
                  && (otmp->oclass == TOOL_CLASS && otyp != KEG))
              || (!strcmp(word, "eat") && !is_edible(otmp))
              || (!strcmp(word, "sacrifice")
-                 && (otyp != CORPSE && otyp != AMULET_OF_YENDOR
-                     && otyp != FAKE_AMULET_OF_YENDOR))
+                 && (!can_sacrifice(otmp->otyp)
+                 && otyp != AMULET_OF_YENDOR && otyp != FAKE_AMULET_OF_YENDOR))
              || (!strcmp(word, "write with")
                  && (otmp->oclass == TOOL_CLASS
                      && otyp != MAGIC_MARKER && otyp != TOWEL)

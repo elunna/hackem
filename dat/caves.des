@@ -470,6 +470,7 @@ LOOP [5] { OBJECT: random, random }
 [45%]: MONSTER: ('D', "red dragon"), random, hostile
 [45%]: MONSTER: ('D', "white dragon"), random, hostile
 [45%]: MONSTER: ('D', "orange dragon"), random, hostile
+[45%]: MONSTER: ('D', "violet dragon"), random, hostile
 [45%]: MONSTER: ('D', "black dragon"), random, hostile
 [45%]: MONSTER: ('D', "blue dragon"), random, hostile
 [45%]: MONSTER: ('D', "green dragon"), random, hostile
@@ -488,7 +489,7 @@ $mon_names = MONSTER: {
     ('D', "baby sea dragon"),           ('D', "baby gold dragon"),
     ('D', "baby deep dragon"),          ('D', "baby gray dragon"),
     ('D', "baby silver dragon"),        ('D', "baby orange dragon"),
-    ('D', "baby black dragon")
+    ('D', "baby violet dragon"),        ('D', "baby black dragon")
 }
 
 

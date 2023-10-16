@@ -397,14 +397,12 @@ short typ;
     if (!rn2(3))
         bless(obj);
     if (objects[obj->otyp].oc_armcat == ARM_SUIT) {
-        /* make sure player monsters don't spawn with a set of
-           chromatic dragon scales... */
         obj->dragonscales = rnd_class(FIRST_DRAGON_SCALES,
-                                      LAST_DRAGON_SCALES - 1);
+                                      LAST_DRAGON_SCALES);
         if (monsndx(mon->data) == PM_WIZARD) {
             /* Wizards have a guaranteed cloak of magic resistance. */
             obj->dragonscales = rnd_class(FIRST_DRAGON_SCALES + 1,
-                                          LAST_DRAGON_SCALES - 1);
+                                          LAST_DRAGON_SCALES);
         }
     }
     /* Most players who get to the endgame who have cursed equipment
@@ -607,9 +605,7 @@ struct obj *obj;
         break;
     case PM_UNDEAD_SLAYER:
         if (rn2(2)) {
-            weapon = SPEAR;
-            /* TODO: Figure out how to make this silver */
-            /*set_material(weapon, SILVER);*/
+            weapon = STAKE;
         }
         if (rn2(2))
             armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
@@ -685,7 +681,12 @@ struct obj *obj;
     if (ascending) {
         if (!rn2(10))
             (void) mongets(mtmp, rn2(3) ? LUCKSTONE : LOADSTONE);
-        if (!racial_giant(mtmp)) {
+        if (racial_giant(mtmp)) {
+            if (is_spellcaster(mtmp)) 
+                mk_mplayer_armor(mtmp, LARGE_ROBE);
+            else
+                mk_mplayer_armor(mtmp, MUMMY_WRAPPING);
+        } else {
             mk_mplayer_armor(mtmp, armor);
             mk_mplayer_armor(mtmp, cloak);
         }
@@ -727,7 +728,7 @@ struct obj *obj;
 
         quan = rn2(3) ? rn2(3) : rn2(16);
         while (quan--)
-            (void) mongets(mtmp, rnd_class(DILITHIUM_CRYSTAL, JADE));
+            (void) mongets(mtmp, rnd_class(FIRST_GEM, LAST_GEM));
         /* To get the gold "right" would mean a player can double his
            gold supply by killing one mplayer.  Not good. */
         mkmonmoney(mtmp, rn2(1000));

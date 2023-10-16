@@ -421,7 +421,6 @@ dosounds()
         }
         return;
     }
-
     if (!Is_blackmarket(&u.uz) 
             && at_dgn_entrance("One-eyed Sam's Market") 
             && !rn2(200)) {
@@ -459,6 +458,7 @@ register struct monst *mtmp;
         ret = "growl";
         break;
     case MS_ROAR:
+    case MS_MEGAROAR:
         ret = "roar";
         break;
     case MS_BUZZ:
@@ -543,6 +543,7 @@ register struct monst *mtmp;
             yelp_verb = (!Deaf) ? "yelp" : "recoil";
             break;
         case MS_ROAR:
+        case MS_MEGAROAR:
             yelp_verb = (!Deaf) ? "snarl" : "bluff";
             break;
         case MS_SQEEK:
@@ -648,6 +649,7 @@ register struct monst *mtmp;
         *verbl_msg = 0,                 /* verbalize() */
         *verbl_msg_mcan = 0;            /* verbalize() if cancelled */
     struct permonst *ptr = mtmp->data;
+    struct obj *obj_stench = using_oprop(ITEM_STENCH);
     int msound = ptr->msound, gnomeplan = 0;
 
     /* presumably nearness and sleep checks have already been made */
@@ -656,6 +658,30 @@ register struct monst *mtmp;
     if (is_silent(ptr))
         return 0;
 
+    /* They'll notice your stenchy items */
+    if (obj_stench && olfaction(mtmp->data)) {
+        if (obj_stench->oprops_known & ITEM_STENCH) {
+            switch (rnd(3)) {
+                case 1:
+                    verbalize("Haven't you gotten rid of that smelly thing yet?");
+                    break;
+                case 2:
+                    verbalize("You don't smell that?");
+                    break;
+                case 3:
+                    verbalize("Please take your %s out of here!", xname(obj_stench));
+                    break;
+            }
+        } else {
+            if (rn2(2))
+                verbalize("Ugh, what is that smell?");
+            else
+                verbalize("Something really stinks... Is it you?");
+            obj_stench->oprops_known |= ITEM_STENCH;
+            
+        }
+    }
+    
     /* leader might be poly'd; if he can still speak, give leader speech */
     if (mtmp->m_id == quest_status.leader_m_id && msound > MS_ANIMAL)
         msound = MS_LEADER;
@@ -835,6 +861,7 @@ register struct monst *mtmp;
             pline_msg = "chitters.";
         break;
     case MS_ROAR:
+    case MS_MEGAROAR:
         pline_msg = mtmp->mpeaceful ? "snarls." : "roars!";
         break;
     case MS_SQEEK:
@@ -853,25 +880,25 @@ register struct monst *mtmp;
 		    verbl_msg = "squaarks louldly!";
 		    break;
 		case 1:
-		    verbl_msg = "says 'Polly want a lembas wafer!'";
+            pline("%s says 'Polly want a lembas wafer!'", Monnam(mtmp));
 		    break;
 		case 2:
-		    verbl_msg = "says 'Nobody expects the Spanish Inquisition!'";
+		    pline("%s says 'Nobody expects the Spanish Inquisition!'", Monnam(mtmp));
 		    break;
 		case 3:
-		    verbl_msg = "says 'Who's a good boy, then?'";
+            pline("%s says 'Who's a good boy, then?'", Monnam(mtmp));
 		    break;
 		case 4:
-		    verbl_msg = "says 'Show us yer knickers!'";
+            pline("%s says 'Show us yer knickers!'", Monnam(mtmp));
 		    break;
 		case 5:
-		    verbl_msg = "says 'You'll never make it!'";
+            pline("%s says 'You'll never make it!'", Monnam(mtmp));
 		    break;
 		case 6:
-		    verbl_msg = "whistles suggestively!";
+            pline("%s whistles suggestively!", Monnam(mtmp));
 		    break;
 		case 7:
-		    verbl_msg = "says 'What sort of a sword do you call that!'";
+            pline("%s says 'What sort of a sword do you call that!'", Monnam(mtmp));
 		    break;
 	    }
 	    break;
@@ -1085,6 +1112,9 @@ register struct monst *mtmp;
             case PM_PADAWAN:
                 pline_msg =
                     "tells you their aspirations to become great Jedi.";
+                break;
+            case MS_BOT:
+                pline_msg = "beep boops.";
                 break;
             default:
                 pline_msg = "discusses dungeon exploration.";

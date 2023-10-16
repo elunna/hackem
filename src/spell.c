@@ -77,6 +77,8 @@ static const char clothes[] = { ARMOR_CLASS, 0 };
  *      Ice are trained in ice/cold magic
  *      Nec are trained in dark necromancy
  *      Yeo prefer to use their knowledge of nature and fighting.
+ *      Pir are brute force and ruthless.
+ *      Jed are trained in the force.
  *
  *      The arms penalty is lessened for trained fighters Bar, Kni, Ran,
  *      Sam, Val -- the penalty is its metal interference, not encumbrance.
@@ -88,18 +90,20 @@ static const char clothes[] = { ARMOR_CLASS, 0 };
  *      Bar to see their enemies driven before them (SPE_CAUSE_FEAR)
  *      Cav - None
  *      Con to escape (SPE_TELEPORT_AWAY)
- *      Fla to burn (SPE_FIRE_BOLT)
+ *      Fla to illuminate (SPE_ENLIGHTEN)
  *      Hea to heal (SPE_CURE_SICKNESS)
- *      Ice to ice (SPE_CONE_OF_COLD)
+ *      Ice to mirror (SPE_REFLECTION)
  *      Inf to channel hellfire (SPE_FIREBALL)
  *      Kni to turn back evil (SPE_TURN_UNDEAD)
+ *      Jed to force (SPE_CHARM_MONSTER)
  *      Mon to preserve their abilities (SPE_RESTORE_ABILITY)
- *      Nec to spread undead (SPE_SUMMON_UNDEAD)
+ *      Nec to mass (SPE_SUMMON_UNDEAD)
+ *      Pir to raid (SPE_HASTE_SELF)
  *      Pri to bless (SPE_REMOVE_CURSE)
  *      Ran to hide (SPE_INVISIBILITY)
  *      Rog to find loot (SPE_DETECT_TREASURE)
  *      Sam to be At One (SPE_CLAIRVOYANCE)
- *      Tou to smile (SPE_CHARM_MONSTER)
+ *      Tou to smile (SPE_CREATE_FAMILIAR)
  *      Und to protect (SPE_PROTECTION)
  *      Val to maintain their armor (SPE_REPAIR_ARMOR)
  *      Wiz all really, but SPE_MAGIC_MISSILE is their party trick
@@ -462,7 +466,8 @@ register struct obj *spellbook;
     boolean too_hard = FALSE;
 
     /* attempting to read dull book may make hero fall asleep */
-    if (!confused && !Sleep_resistance && objdescr_is(spellbook, "dull")) {
+    if (!confused && (how_resistant(SLEEP_RES) < 50)
+          && objdescr_is(spellbook, "dull")) {
         const char *eyes;
         int dullbook = rnd(25) - ACURR(A_WIS);
 
@@ -497,8 +502,7 @@ register struct obj *spellbook;
         }
 
         /* Only Illithids get this 'ability' */
-        if (booktype == SPE_PSIONIC_WAVE
-            && !Race_if(PM_ILLITHID)) {
+        if (booktype == SPE_PSIONIC_WAVE && !Race_if(PM_ILLITHID)) {
             You("do not understand the strange language this book is written in.");
             pline_The("inscriptions in the book start to fade away!");
             spellbook->otyp = booktype = SPE_BLANK_PAPER;
@@ -1023,7 +1027,7 @@ boolean wiz_cast;
     energy = wiz_cast ? 0 : (spellev(spell) * 5); /* 5 <= energy <= 35 */
     
     /* Origin gives us a discount on spellcasting. */
-    if (uwep && uwep->oartifact == ART_ORIGIN && energy >= 10)
+    if (wielding_artifact(ART_ORIGIN) && energy >= 10)
         energy -= 5;
         
     /*
@@ -1031,6 +1035,7 @@ boolean wiz_cast;
      * decrement of spell knowledge is done every turn.
      */
     if (wiz_cast) {
+        ;
     } else if (spellknow(spell) <= 0) {
         if (spellid(spell) == SPE_PSIONIC_WAVE)
             You("have somehow lost your psychic ability!");
@@ -1241,7 +1246,7 @@ boolean wiz_cast;
        added per cast. the players intelligence must be greater than 6
        to be able to help remember spells as they're cast. cavepersons
        are the one role that do not have this benefit */
-    if (!Role_if(PM_CAVEMAN) && ACURR(A_INT) > 6) {
+    if (!wiz_cast && !Role_if(PM_CAVEMAN) && ACURR(A_INT) > 6) {
         spl_book[spell].sp_know += rn1(ACURR(A_INT) * 5, ACURR(A_INT) * 2);
         if (spl_book[spell].sp_know >= KEEN)
             spl_book[spell].sp_know = KEEN;
@@ -1272,7 +1277,7 @@ boolean wiz_cast;
     case SPE_CONE_OF_COLD:
     case SPE_POISON_BLAST:
     case SPE_ACID_BLAST:
-    case SPE_SONICBOOM:
+    case SPE_SONIC_BOOM:
         if (role_skill >= P_SKILLED && yn("Cast advanced spell?") == 'y') {
             if (throwspell()) {
                 cc.x = u.dx;
@@ -1288,7 +1293,7 @@ boolean wiz_cast;
                         }
                     } else {
                         explode(u.dx, u.dy,
-                                otyp - SPE_MAGIC_MISSILE + 10,
+                                ZT_SPELL(otyp - FIRST_SPELLBOOK),
                                 spell_damage_bonus(u.ulevel / 2 + 1), 0,
                                 (otyp == SPE_CONE_OF_COLD) ?
                                    EXPL_FROSTY :
@@ -1296,7 +1301,7 @@ boolean wiz_cast;
                                       EXPL_NOXIOUS :
                                       (otyp == SPE_ACID_BLAST) ?
                                          EXPL_ACID :
-                                           (otyp == SPE_SONICBOOM) ?
+                                           (otyp == SPE_SONIC_BOOM) ?
                                             EXPL_DARK :
                                                 EXPL_FIERY);
                     }
@@ -1308,13 +1313,15 @@ boolean wiz_cast;
                         u.dx = cc.x;
                         u.dy = cc.y;
                     }
+
                 }
             }
             break;
         } else if (role_skill >= P_SKILLED) {
             /* player said not to cast advanced spell; return up to half of the
              * magical energy */
-            u.uen += rnd(energy / 2);
+            if (!wiz_cast)
+                u.uen += rnd(energy / 2);
         }
         /*FALLTHRU*/
 
@@ -1426,8 +1433,9 @@ boolean wiz_cast;
             if (role_skill >= P_SKILLED)
                 pseudo->blessed = 1; /* detect monsters as well as map */
             do_vicinity_map(pseudo);
-        /* at present, only one thing blocks clairvoyance */
-        } else if (uarmh && uarmh->otyp == CORNUTHAUM)
+        /* at present, only two things block clairvoyance */
+        } else if ((uarmh && uarmh->otyp == CORNUTHAUM)
+                   || (uarmh && uarmh->otyp == TINFOIL_HAT))
             You("sense a pointy hat on top of your %s.", body_part(HEAD));
         break;
     case SPE_PROTECTION:
@@ -1560,7 +1568,8 @@ throwspell()
         u.dy = 0;
         return 1;
     } else if ((!cansee(cc.x, cc.y)
-                && (!(mtmp = m_at(cc.x, cc.y)) || !canspotmon(mtmp)))
+                && (!(mtmp = m_at(cc.x, cc.y)) || !canspotmon(mtmp))
+                && !((u.ux == cc.x) && (u.uy == cc.y)))
                || IS_STWALL(levl[cc.x][cc.y].typ)) {
         Your("mind fails to lock onto that location!");
         return 0;
@@ -2087,12 +2096,8 @@ int spell;
         splcaster += urole.spelarmr;
     else if (uarm && !is_robe(uarm) && uarm->otyp != CRYSTAL_PLATE_MAIL) 
         splcaster += 5;
-    else if (uarm && uarm->otyp == ROBE_OF_POWER) {
+    else if (uarm && uarm->otyp == ROBE_OF_POWER)
         splcaster -= urole.spelarmr;
-
-        if (uarm && uarm->oartifact == ART_GRANDMASTER_S_ROBE)
-            splcaster -= urole.spelarmr;
-    }
     
     if (uarms && uarms->oartifact != ART_MIRRORBRIGHT)
         splcaster += urole.spelshld;
@@ -2136,7 +2141,7 @@ int spell;
         || spellid(spell) == SPE_REMOVE_CURSE)
         splcaster += special;
 
-    if (uwep && uwep->oartifact == ART_ORIGIN)
+    if (wielding_artifact(ART_ORIGIN))
         splcaster -= 3;
     
     if (splcaster > 20)
@@ -2406,6 +2411,8 @@ short otyp;
         spl_book[i].sp_id = otyp;
         spl_book[i].sp_lev = objects[otyp].oc_level;
         incrnknow(i, 1);
+        if (!objects[otyp].oc_name_known)
+            makeknown(otyp);
         return TRUE;
     }
     return FALSE;

@@ -427,10 +427,13 @@ dig(VOID_ARGS)
                 lev->typ = ROOM, lev->flags = 0;
                 if (!rn2(5))
                     (void) rnd_treefruit_at(dpx, dpy);
-                if (Race_if(PM_ELF) || Role_if(PM_RANGER))
+                if (Race_if(PM_ELF) || Role_if(PM_RANGER)) {
+                    You_feel("guilty.");
                     adjalign(-1);
-                else if (Race_if(PM_DWARF))
+                } else if (Race_if(PM_DWARF)) {
+                    You_feel("proper.");
                     adjalign(1);
+                }
             } else if (IS_DEADTREE(lev->typ)) {
                 /* no fruit for you */
                 digtxt = "You cut down the tree.";
@@ -1094,18 +1097,21 @@ struct obj *obj;
     struct trap *trap, *trap_with_u;
     int dig_target;
     boolean ispick = is_pick(obj);
-
-	const char *verbing = ispick ? "digging" : is_lightsaber(uwep)
-        ? "cutting" : "chopping";
-
+    const char *verbing = ispick ? "digging" 
+                          : is_lightsaber(uwep) ? "cutting" 
+                                                : "chopping";
+    
     if (u.uswallow && attack(u.ustuck)) {
         ; /* return 1 */
     } else if (Underwater) {
         pline("Turbulence torpedoes your %s attempts.", verbing);
+    } else if (is_lightsaber(uwep) && !uwep->lamplit) {
+        Your("lightsaber is deactivated!");
+        return 1;
     } else if (u.dz < 0) {
         if (Levitation)
             if (is_lightsaber(uwep))
-			    pline_The("ceiling is too hard to cut through.");
+                pline_The("ceiling is too hard to cut through.");
             else
                 You("don't have enough leverage.");
         else
@@ -1200,14 +1206,14 @@ struct obj *obj;
                 You("swing %s through thin air.", yobjnam(obj, (char *) 0));
             }
         } else {
-            static const char * const d_action[6][2] = {
-			    {"swinging","slicing the air"},
-			    {"digging","cutting through the wall"},
-			    {"chipping the statue","cutting the statue"},
-			    {"hitting the boulder","cutting through the boulder"},
-			    {"chopping at the door","burning through the door"},
-			    {"cutting the tree","razing the tree"}
-			};
+            static const char *const d_action[6][2] = {
+                { "swinging", "slicing the air" },
+                { "digging", "cutting through the wall" },
+                { "chipping the statue", "cutting the statue" },
+                { "hitting the boulder", "cutting through the boulder" },
+                { "chopping at the door", "burning through the door" },
+                { "cutting the tree", "razing the tree" }
+            };
 
             did_dig_msg = FALSE;
             context.digging.quiet = FALSE;
@@ -1215,8 +1221,7 @@ struct obj *obj;
                 || !on_level(&context.digging.level, &u.uz)
                 || context.digging.down) {
                 if (flags.autodig && dig_target == DIGTYP_ROCK
-                    && !context.digging.down
-                    && context.digging.pos.x == u.ux
+                    && !context.digging.down && context.digging.pos.x == u.ux
                     && context.digging.pos.y == u.uy
                     && (moves <= context.digging.lastdigtime + 2
                         && moves >= context.digging.lastdigtime)) {
@@ -1231,10 +1236,11 @@ struct obj *obj;
                 assign_level(&context.digging.level, &u.uz);
                 context.digging.effort = 0;
                 if (!context.digging.quiet)
-                    You("start %s.", d_action[dig_target][is_lightsaber(uwep)]);
+                    You("start %s.",
+                        d_action[dig_target][is_lightsaber(uwep)]);
             } else {
                 You("%s %s.", context.digging.chew ? "begin" : "continue",
-					d_action[dig_target][is_lightsaber(uwep)]);
+                    d_action[dig_target][is_lightsaber(uwep)]);
                 context.digging.chew = FALSE;
             }
             set_occupation(dig, verbing, 0);
@@ -1988,7 +1994,9 @@ boolean *dealloced;
      * the real reason there (direct accessibility when carried) is
      * completely different.
      */
-    if (otmp == uchain || obj_resists(otmp, 0, 0))
+    if (otmp->oprops & ITEM_TOUGH)
+        ; /* Can be buried */
+    else if (otmp == uchain || obj_resists(otmp, 0, 0))
         return otmp2;
 
     if (otmp->otyp == LEASH && otmp->leashmon != 0)
@@ -2013,8 +2021,10 @@ boolean *dealloced;
      */
     if (otmp->otyp == CORPSE) {
         ; /* should cancel timer if under_ice */
-    } else if ((under_ice ? otmp->oclass == POTION_CLASS : is_organic(otmp))
-               && !obj_resists(otmp, 5, 95)) {
+    } else if (otmp->oprops & ITEM_TOUGH)
+        ; /* Indestructible - don't give these a timer */
+    else if ((under_ice ? otmp->oclass == POTION_CLASS : is_organic(otmp))
+               && (!obj_resists(otmp, 5, 95))) {
         (void) start_timer((under_ice ? 0L : 250L) + (long) rnd(250),
                            TIMER_OBJECT, ROT_ORGANIC, obj_to_any(otmp));
 #if 0
@@ -2229,7 +2239,7 @@ unearth_you()
     u.uburied = FALSE;
     under_ground(0);
     if (!uamul || uamul->otyp != AMULET_OF_STRANGULATION)
-        Strangled = 0;
+        Strangled = 0L;
     vision_recalc(0);
 }
 

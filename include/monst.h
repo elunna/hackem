@@ -183,6 +183,7 @@ struct monst {
     uchar vuln_cold;         /* ...to cold */
     uchar vuln_elec;         /* ...to elec */
     uchar vuln_acid;         /* ...to acid */
+    uchar vuln_loud;         /* ...to sonic */
 #define MAX_NUM_WORMS 32    /* should be 2^(wormno bitfield size) */
 
     unsigned long mstrategy; /* for monsters with mflag3: current strategy */
@@ -237,6 +238,8 @@ struct monst {
 #define MON_NOWEP(mon) ((mon)->mw = (struct obj *) 0)
 
 #define DEADMONSTER(mon) ((mon)->mhp < 1)
+#define DRAINEDMONSTER(mon) ((mon)->mhpmax < 1  || (mon)->m_lev < 1)
+
 #define is_starting_pet(mon) ((mon)->m_id == context.startingpet_mid)
 #define is_vampshifter(mon)             \
     ((mon)->cham == PM_VAMPIRE       \
@@ -273,5 +276,20 @@ struct monst {
                                   && (mon)->mappearance == (otyp))
 
 #define helpless(mon) ((mon)->msleeping || !(mon)->mcanmove)
+
+#define mon_perma_blind(mon) (!mon->mcansee && !mon->mblinded)
+
+/* Get the maximum difficulty monsters that can currently be
+   generated, given the current level difficulty and the hero's
+   level. However, once the Wizard of Yendor has been killed,
+   all bets are off. */
+#define monmax_difficulty(levdif) \
+    (u.uevent.udemigod ? 256 : (((levdif) + u.ulevel) / 2))
+#define monmin_difficulty(levdif) ((levdif) / 6)
+
+/* Macros for whether a type of monster is too strong for a specific
+   level. */
+#define montoostrong(monindx, lev) (mons[monindx].difficulty > lev)
+#define montooweak(monindx, lev) (mons[monindx].difficulty < lev)
 
 #endif /* MONST_H */

@@ -348,6 +348,18 @@ int force;
                 if (cansee(x, y))
                     pline_The("headstone topples into a chasm.");
                 goto do_pit;
+            case TREE:
+                if (cansee(x,y)) {
+                    pline_The("tree topples into a chasm.");
+                }
+                goto do_pit;
+
+            case DEADTREE:
+                if (cansee(x,y)) {
+                    pline_The("dead tree topples into a chasm.");
+                }
+                goto do_pit;
+
             case THRONE:
                 if (cansee(x, y))
                     pline_The("throne falls into a chasm.");
@@ -675,8 +687,8 @@ struct obj *instr;
                     "PWAAAAOOMP!"};
                 if (!Deaf) pline("%s", blasting_msg[rn2(3)]);
             }
-            buzz((instr->otyp == FROST_HORN) ? AD_COLD - 1 : 
-                    (instr->otyp == HORN_OF_BLASTING) ? AD_LOUD - 1 : AD_FIRE - 1,
+            buzz((instr->otyp == FROST_HORN) ? ZT_COLD : 
+                    (instr->otyp == HORN_OF_BLASTING) ? ZT_SONIC : ZT_FIRE,
                     u.ulevel, u.ux, u.uy, u.dx, u.dy);
         }
         /* makeknown(instr->otyp); */
@@ -707,9 +719,11 @@ struct obj *instr;
                 if ((distm = distu(mtmp->mx, mtmp->my)) <= 3
                     && instr->blessed && !rn2(5)) {
                     if (!mtmp->mstun) {
-                        pline("%s %s from the intense blast of sound!", Monnam(mtmp),
-                              makeplural(stagger(mtmp->data, "stagger")));
-                        mtmp->mstun = 1;
+                        if (!(resists_stun(mtmp->data) || defended(mtmp, AD_STUN))) {
+                            pline("%s %s from the intense blast of sound!", Monnam(mtmp),
+                                  makeplural(stagger(mtmp->data, "stagger")));
+                            mtmp->mstun = 1;
+                        }
                     }
                 }
             }

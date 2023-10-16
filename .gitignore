@@ -70,3 +70,4 @@ item.htm
 items.txt
 .idea
 __pycache__
+cmake-build-debug

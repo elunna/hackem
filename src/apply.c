@@ -356,9 +356,9 @@ register struct obj *obj;
         return 0;
 
     res = (moves == context.stethoscope_move)
-          && (youmonst.movement == context.stethoscope_movement);
+          && (u.umovement == context.stethoscope_movement);
     context.stethoscope_move = moves;
-    context.stethoscope_movement = youmonst.movement;
+    context.stethoscope_movement = u.umovement;
 
     bhitpos.x = u.ux, bhitpos.y = u.uy; /* tentative, reset below */
     notonhead = u.uswallow;
@@ -1674,10 +1674,14 @@ struct obj **optr;
         /*
          * Free & add to re-merge potion.  This will average the
          * age of the potions.  Not exactly the best solution,
-         * but its easy.
+         * but its easy.  Don't do that unless obj is not worn (uwep,
+         * uswapwep, or uquiver) because if wielded and other oil is
+         * quivered a "null obj after quiver merge" panic will occur.
          */
-        freeinv(obj);
-        *optr = addinv(obj);
+        if (!obj->owornmask) {
+            freeinv(obj);
+            *optr = addinv(obj);
+        }
         return;
     } else if (Underwater) {
         There("is not enough oxygen to sustain a fire.");
@@ -1973,6 +1977,28 @@ int magic; /* 0=Physical, otherwise skill level */
     } else if (!magic && u.usteed && stucksteed(FALSE)) {
         /* stucksteed gave "<steed> won't move" message */
         return 0;
+    } else if (Stunned || (Confusion && !rn2(5))) {
+        /* NB: you're guaranteed to be nonmagically jumping and to possess
+           limbs if you've gotten to this point. */
+        if (u.usteed) {
+            You("haphazardly yank the reins.");
+            /* taken from leash-pulling code */
+            if (u.usteed->data->msound != MS_SILENT)
+                switch (rn2(3)) {
+                case 0:
+                    growl(u.usteed);
+                    break;
+                case 1:
+                    yelp(u.usteed);
+                    break;
+                default:
+                    whimper(u.usteed);
+                    break;
+                }
+        }
+        else
+            You("trip over your own %s.", makeplural(body_part(FOOT)));
+        return 1;
     } else if (u.uswallow) {
         if (magic) {
             You("bounce around a little.");
@@ -2220,10 +2246,11 @@ void
 use_unicorn_horn(obj)
 struct obj *obj;
 {
-#define PROP_COUNT 7           /* number of properties we're dealing with */
+#define PROP_COUNT 8           /* number of properties we're dealing with */
 #define ATTR_COUNT (A_MAX * 3) /* number of attribute points we might fix */
     int idx, val, val_limit, trouble_count, unfixable_trbl, did_prop;
     int trouble_list[PROP_COUNT + ATTR_COUNT];
+    int chance;	/* KMH */
 
     if (Hidinshell) {
         You_cant("use your %s while hiding in your shell.",
@@ -2234,6 +2261,12 @@ struct obj *obj;
     if (obj && obj->cursed) {
         long lcount = (long) rn1(90, 10);
 
+        /* Always makes you afraid if cursed */
+        if (obj && obj->oartifact == ART_NIGHTHORN) {
+            if (Afraid) /* No feedback when already afraid */
+                pline("Nothing seems to happen.");
+            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+        }
         switch (rn2(15) / 2) { /* case 7 is half as likely as the others */
         case 0:
             make_sick((Sick & TIMEOUT) ? (Sick & TIMEOUT) / 3L + 1L
@@ -2301,6 +2334,8 @@ struct obj *obj;
         prop_trouble(STUNNED);
     if (TimedTrouble(HDeaf))
         prop_trouble(DEAF);
+    if (TimedTrouble(HAfraid))
+        prop_trouble(AFRAID);
 
     unfixable_trbl = unfixable_trouble_count(TRUE);
 
@@ -2320,6 +2355,7 @@ end:
         }
     }
 
+#if 0	/* Old NetHack success rate */
     /*
      *  Chances for number of troubles to be fixed
      *               0      1      2      3      4      5      6      7
@@ -2329,46 +2365,67 @@ end:
     val_limit = rn2(d(2, (obj && obj->blessed) ? 4 : 2));
     if (val_limit > trouble_count)
         val_limit = trouble_count;
-
+#else	/* KMH's new success rate */
+    /*
+     * blessed:  Tries all problems, each with chance given below.
+     * uncursed: Tries one problem, with chance given below.
+     * ENCHANT  +0 or less  +1   +2   +3   +4   +5   +6 or more
+     * CHANCE       30%     40%  50%  60%  70%  80%     90%
+     */
+    val_limit = (obj && obj->blessed) ? trouble_count : 1;
+    if (obj && obj->spe > 0)
+        chance = (obj->spe < 6) ? obj->spe+3 : 9;
+    else
+        chance = 3;
+#endif
+    
     /* fix [some of] the troubles */
     for (val = 0; val < val_limit; val++) {
         idx = trouble_list[val];
 
-        switch (idx) {
-        case prop2trbl(SICK):
-            make_sick(0L, (char *) 0, TRUE, SICK_ALL);
-            did_prop++;
-            break;
-        case prop2trbl(BLINDED):
-            make_blinded((long) u.ucreamed, TRUE);
-            did_prop++;
-            break;
-        case prop2trbl(HALLUC):
-            (void) make_hallucinated(0L, TRUE, 0L);
-            did_prop++;
-            break;
-        case prop2trbl(VOMITING):
-            make_vomiting(0L, TRUE);
-            did_prop++;
-            break;
-        case prop2trbl(CONFUSION):
-            make_confused(0L, TRUE);
-            did_prop++;
-            break;
-        case prop2trbl(STUNNED):
-            make_stunned(0L, TRUE);
-            did_prop++;
-            break;
-        case prop2trbl(DEAF):
-            make_deaf(0L, TRUE);
-            did_prop++;
-            break;
-        default:
-            panic("use_unicorn_horn: bad trouble? (%d)", idx);
-            break;
+        if (rn2(10) < chance) {    /* KMH */
+            switch (idx) {
+                case prop2trbl(SICK):
+                    make_sick(0L, (char *) 0, TRUE, SICK_ALL);
+                    did_prop++;
+                    break;
+                case prop2trbl(BLINDED):
+                    make_blinded((long) u.ucreamed, TRUE);
+                    did_prop++;
+                    break;
+                case prop2trbl(HALLUC):
+                    (void) make_hallucinated(0L, TRUE, 0L);
+                    did_prop++;
+                    break;
+                case prop2trbl(VOMITING):
+                    make_vomiting(0L, TRUE);
+                    did_prop++;
+                    break;
+                case prop2trbl(CONFUSION):
+                    make_confused(0L, TRUE);
+                    did_prop++;
+                    break;
+                case prop2trbl(STUNNED):
+                    make_stunned(0L, TRUE);
+                    did_prop++;
+                    break;
+                case prop2trbl(DEAF):
+                    make_deaf(0L, TRUE);
+                    did_prop++;
+                    break;
+                case prop2trbl(AFRAID):
+                    if (obj && obj->oartifact == ART_NIGHTHORN) {
+                        make_afraid(0L, TRUE);
+                        did_prop++;
+                    }
+                    break;
+                default:
+                    panic("use_unicorn_horn: bad trouble? (%d)", idx);
+                    break;
+            }
         }
     }
-
+    
     if (did_prop)
         context.botl = TRUE;
 
@@ -2642,7 +2699,10 @@ struct obj **optr;
         verbalize("You wear it, you buy it!");
         bill_dummy_object(obj);
     }
-    
+
+    if (obj->corpsenm == -1) /* It's been cancelled */
+        return TRUE;
+
     if (!polyok(&mons[obj->corpsenm])) {
         pline("%s violently, then splits in two!", Tobjnam(obj, "shudder"));
         
@@ -2932,9 +2992,7 @@ set_whetstone(VOID_ARGS)
         return 1;
     }
 
-    /* --hackem: Removed artifact "resist" penalty 
-        (Most artifacts are fixed anyway)
-    */
+    /* No artifact "resist" penalty (Most artifacts are fixed anyway) */
     chance = 4 - (ows->blessed) + (ows->cursed*2);
 
     if (!rn2(chance) && (ows->otyp == WHETSTONE)) {
@@ -2980,9 +3038,8 @@ set_whetstone(VOID_ARGS)
             uncurse(otmp);
 
         } else if (ows->blessed && otmp->spe == 0) {
-            /* --hackem: If the weapon is otherwise fine and our whetstone is blessed, 
-                I'll boost it up to +1... But they have to pass another coin flip.
-                Leo Tolstoy: “The two most powerful warriors are patience and time.”
+            /* “The two most powerful warriors are patience and time.”
+             * --Leo Tolstoy
             */
             if (!rn2(1)) {
                 otmp->spe++;
@@ -3020,8 +3077,6 @@ struct obj *stone, *obj;
     int tmptime = (15 + (rnl(13) * 5)) * obj->quan;
     register struct obj *potion;
     boolean fail_use = TRUE;
-
-    /* --hackem: For allowing use with rust traps. */
     register struct trap *trap = t_at(u.ux, u.uy);
     boolean is_rusttrap = trap != 0 && trap->ttyp == RUST_TRAP;
 
@@ -3046,8 +3101,7 @@ struct obj *stone, *obj;
                && (!is_rusttrap)
                && !IS_TOILET(levl[u.ux][u.uy].typ)
                && !IS_SINK(levl[u.ux][u.uy].typ)) {
-        /* --hackem: We test if we are NOT on a water source above.
-             A player can use a potion of water if on hand. */
+        /* A player can use a potion of water if on hand. */
         if (carrying(POT_WATER)) {
             char buf[QBUFSZ];
             Sprintf(buf, "wet the %s with", xname(stone));
@@ -4200,10 +4254,7 @@ boolean autohit;
         max_range = 5;
     else
         max_range = 8; /* (P_SKILL(typ) >= P_EXPERT) */
-
-    if (obj->oartifact == ART_GLEIPNIR)
-        max_range = max_range * 3;
-
+        
     polearm_range_min = min_range;
     polearm_range_max = max_range;
 
@@ -4335,7 +4386,7 @@ boolean autohit;
     /* Attack the monster there */
     bhitpos = cc;
     if ((mtmp = m_at(bhitpos.x, bhitpos.y)) != (struct monst *) 0) {
-        if (attack_checks(mtmp, uwep))
+        if (attack_checks(mtmp))
             return res;
         if (overexertion())
             return 1; /* burn nutrition; maybe pass out */
@@ -4447,8 +4498,15 @@ struct obj *obj;
         max_range = 5;
     else
         max_range = 8;
+    
+    if (obj->oartifact == ART_GLEIPNIR)
+        max_range = max_range * 5;
+    
     if (distu(cc.x, cc.y) > max_range) {
-        pline("Too far!");
+        if (wizard)
+            pline("Too far! [%d]", distu(cc.x, cc.y));
+        else
+            pline("Too far!");
         return res;
     } else if (!cansee(cc.x, cc.y)) {
         You(cant_see_spot);
@@ -4518,7 +4576,7 @@ struct obj *obj;
             (obj->oartifact == ART_GLEIPNIR))
             && enexto(&cc, u.ux, u.uy, (struct permonst *) 0)) {
             flags.confirm = FALSE;
-            (void) attack_checks(mtmp, uwep);
+            (void) attack_checks(mtmp);
             flags.confirm = save_confirm;
             check_caitiff(mtmp); /* despite fact there's no damage */
             You("pull in %s!", mon_nam(mtmp));
@@ -4528,7 +4586,7 @@ struct obj *obj;
         } else if ((!r_bigmonst(mtmp) && !strongmonst(mtmp->data))
                    || rn2(4)) {
             flags.confirm = FALSE;
-            (void) attack_checks(mtmp, uwep);
+            (void) attack_checks(mtmp);
             flags.confirm = save_confirm;
             check_caitiff(mtmp);
             (void) thitmonst(mtmp, uwep);
@@ -4636,7 +4694,7 @@ struct obj *obj;
     case WAN_ENLIGHTENMENT:
         pline(nothing_else_happens);
         goto discard_broken_wand;
-    case WAN_SECRET_DOOR_DETECTION:
+    case WAN_DETECTION:
         /* Detects portals: We'll use the same odds UnNetHack has for 
          * creating traps for breaking the other wands. */
         if ((obj->spe > 2) && rn2(obj->spe - 2)) {
@@ -4718,7 +4776,7 @@ struct obj *obj;
         affects_objects = FALSE;
         break;
     case WAN_FEAR:
-        if (!Role_if(PM_NECROMANCER)) {
+        if (!Fearless) {
             make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
         }
         wandfear(obj);
@@ -4954,11 +5012,9 @@ doapply()
      * applied only with feet, or something. If wearing gloves of any sort, you
      * are shielded from harmful material effects of that item, though only if
      * it's not an artifact. */
-    if (obj->oartifact || !uarmg || touches_body(obj)) {
-        if (!retouch_object(&obj, FALSE))
-            return 1; /* evading your grasp costs a turn; just be
-                         grateful that you don't drop it as well */
-    }
+    if (!retouch_object(&obj, !uarmg, FALSE))
+        return 1; /* evading your grasp costs a turn; just be
+                        grateful that you don't drop it as well */
 
     if (obj->oclass == WAND_CLASS)
         return do_break_wand(obj);
@@ -4968,6 +5024,13 @@ doapply()
     case LENSES:
     case GOGGLES:
     case MASK:
+        if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+            if (obj->otyp == BLINDFOLD)
+                pline_The("%s covers your whole face. You need to remove it first.", xname(uarmh));
+            else
+                You("can't fit %s under your helm.", an(xname(obj)));
+            return 0;
+        }
         if (obj == ublindf) {
             if (!cursed(obj, FALSE))
                 Blindf_off(obj);
@@ -5291,6 +5354,10 @@ boolean yourfault;
 {
     boolean split1off = (obj->quan > 1L);
     boolean artibomb = obj->oartifact == ART_HAND_GRENADE_OF_ANTIOCH;
+    
+    /* If a bomb is in a monster's inventory - it's always their fault */
+    if (obj->where == OBJ_MINVENT)
+        yourfault = FALSE;
     
     if (split1off)
         obj = splitobj(obj, 1L); /* Also works when on the floor */

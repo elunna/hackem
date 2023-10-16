@@ -269,7 +269,8 @@ typedef struct mapseen {
 
 enum monster_generation {
     MIN_MONGEN_RATE = 80,
-    MAX_MONGEN_RATE = 20
+    MAX_MONGEN_RATE = 5,
+    TURN_THRESHOLD = 50000
 };
 
 #endif /* DUNGEON_H */

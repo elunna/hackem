@@ -478,7 +478,10 @@ botl_realtime(void)
     
     if (iflags.show_realtime == 'p') {
         /* play time */
-        currenttime = urealtime.realtime + (getnow() - urealtime.start_timing);
+        if (moves == 1)
+            currenttime = 0;
+        else
+            currenttime = urealtime.realtime + (getnow() - urealtime.start_timing);
     } else if (iflags.show_realtime == 'w') {
         /* wallclock time */
         currenttime = getnow() - ubirthday;
@@ -554,7 +557,7 @@ char *buf;
     else if (!strcmp(dungeons[u.uz.dnum].dname, "The Wyrm Caves"))
         Sprintf(buf, "Wyrm Caves:%d ", depth(&u.uz));
     else if (!strcmp(dungeons[u.uz.dnum].dname, "Vlad's Tower"))
-        Sprintf(buf, "Vlad Tower:%d ", depth(&u.uz));
+        Sprintf(buf, "Vlad Tower:%d ", dunlev(&u.uz));
     else if (In_endgame(&u.uz))
         Sprintf(buf, Is_astralevel(&u.uz) ? "Astral Plane " : "End Game ");
     else {
@@ -2263,7 +2266,7 @@ boolean from_configfile;
         return parse_condition(s, sidx);
 
     ++sidx;
-    while (s[sidx]) {
+    while (s[sidx][0]) {
         char buf[BUFSZ], **subfields;
         int sf = 0;     /* subfield count */
         int kidx;
@@ -2688,7 +2691,7 @@ int sidx;
      */
 
     sidx++;
-    while(s[sidx]) {
+    while(s[sidx][0]) {
         int sf = 0;     /* subfield count */
         char buf[BUFSZ], **subfields;
 

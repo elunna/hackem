@@ -56,6 +56,12 @@
 #define EPsychic_resistance u.uprops[PSYCHIC_RES].extrinsic
 #define Psychic_resistance (HPsychic_resistance || EPsychic_resistance)
 
+#define HStun_resistance u.uprops[STUN_RES].intrinsic
+#define EStun_resistance u.uprops[STUN_RES].extrinsic
+#define Stun_resistance (HStun_resistance || EStun_resistance                  \
+                         || youmonst.data == &mons[PM_SHIMMERING_DRAGON]       \
+                         || youmonst.data == &mons[PM_BABY_SHIMMERING_DRAGON])
+
 #define HVulnerable_fire u.uprops[VULN_FIRE].intrinsic
 #define EVulnerable_fire u.uprops[VULN_FIRE].extrinsic
 #define Vulnerable_fire (HVulnerable_fire || EVulnerable_fire \
@@ -76,6 +82,11 @@
 #define Vulnerable_acid	(HVulnerable_acid || EVulnerable_acid \
 		         || vulnerable_to(&youmonst, AD_ACID))
 
+#define HVulnerable_loud u.uprops[VULN_LOUD].intrinsic
+#define EVulnerable_loud u.uprops[VULN_LOUD].extrinsic
+#define Vulnerable_loud	(HVulnerable_loud || EVulnerable_loud \
+		         || vulnerable_to(&youmonst, AD_LOUD))
+
 /* Hxxx due to FROMFORM only */
 #define HAntimagic u.uprops[ANTIMAGIC].intrinsic
 #define EAntimagic u.uprops[ANTIMAGIC].extrinsic
@@ -87,7 +98,9 @@
 
 #define HSonic_resistance u.uprops[SONIC_RES].intrinsic
 #define ESonic_resistance u.uprops[SONIC_RES].extrinsic
-#define Sonic_resistance (HSonic_resistance || ESonic_resistance)
+/* Anytime we are underwater we are effectively sonic resistant */
+#define WSonic_resistance Underwater
+#define Sonic_resistance (HSonic_resistance || ESonic_resistance || WSonic_resistance)
 
 #define HStone_resistance u.uprops[STONE_RES].intrinsic
 #define EStone_resistance u.uprops[STONE_RES].extrinsic
@@ -117,10 +130,8 @@
 
 #define Invulnerable u.uprops[INVULNERABLE].intrinsic /* [Tom] */
 
-#define DeathVision (ublindf \
-                     && ublindf->oartifact == ART_MYSTIC_EYES \
-                     && !Blind                                \
-                     && !Halluc_resistance)
+#define DeathVision (wearing_artifact(ART_MYSTIC_EYES) \
+                     && !Blind && !Halluc_resistance)
 
 /*** Troubles ***/
 /* Pseudo-property */
@@ -131,7 +142,11 @@
 #define Stunned HStun
 
 #define HAfraid u.uprops[AFRAID].intrinsic
-#define Afraid HAfraid
+#define Afraid (HAfraid && !Fearless)
+
+#define HFearless u.uprops[FEARLESS].intrinsic
+#define EFearless u.uprops[FEARLESS].extrinsic
+#define Fearless (HFearless || EFearless)
 
 #define HConfusion u.uprops[CONFUSION].intrinsic
 #define Confusion HConfusion
@@ -147,11 +162,11 @@
 #define Blind                                     \
     ((u.uroleplay.blind || Blinded || Blindfolded \
       || !haseyes(youmonst.data) || Hidinshell)   \
-     && !(ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD))
+     && !wearing_artifact(ART_EYES_OF_THE_OVERWORLD))
 /* ...the Eyes operate even when you really are blind
     or don't have any eyes */
 #define Blindfolded_only                                             \
-    (Blindfolded && ublindf->oartifact != ART_EYES_OF_THE_OVERWORLD \
+    (Blindfolded && !wearing_artifact(ART_EYES_OF_THE_OVERWORLD) \
      && !u.uroleplay.blind && !Blinded && haseyes(youmonst.data))
 /* ...blind because of a blindfold, and *only* that */
 
@@ -203,8 +218,9 @@
 
 #define HTelepat u.uprops[TELEPAT].intrinsic
 #define ETelepat u.uprops[TELEPAT].extrinsic
-#define Blind_telepat (HTelepat || ETelepat)
-#define Unblind_telepat (ETelepat)
+#define BTelepat u.uprops[TELEPAT].blocked
+#define Blind_telepat ((HTelepat || ETelepat) && !BTelepat)
+#define Unblind_telepat (ETelepat && !BTelepat)
 
 #define HWarning u.uprops[WARNING].intrinsic
 #define EWarning u.uprops[WARNING].extrinsic
@@ -308,8 +324,10 @@
    FROMOUTSIDE set if inside solid rock (or in water on Plane of Water) */
 #define BFlying u.uprops[FLYING].blocked
 #define Flying                                                             \
-    ((((HFlying || EFlying) && !BFlying)                                   \
-      || (u.usteed && is_flyer(u.usteed->data))) && !(BFlying & ~W_ARMOR))
+    ((((EFlying || (HFlying & ~FROMFORM)                                   \
+       || (HFlying && !big_wings(raceptr(&youmonst))))                     \
+       || (u.usteed && is_flyer(u.usteed->data))) && !(BFlying & ~W_ARMOR))\
+     || (HFlying && !BFlying)) \
 /* May touch surface; does not override any others */
 
 #define HWwalking u.uprops[WWALKING].intrinsic
@@ -334,7 +352,7 @@
 #define See_underwater \
     ((HSwimming && (HMagical_breathing || amphibious(youmonst.data)  \
                     || racial_tortle(&youmonst)))                    \
-     || (ublindf && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD) \
+     || wearing_artifact(ART_EYES_OF_THE_OVERWORLD) \
      || (ublindf && ublindf->otyp == GOGGLES))
 
 #define HBreathless u.uprops[BREATHLESS].intrinsic
@@ -464,6 +482,10 @@
 #define HStable u.uprops[STABLE].intrinsic
 #define EStable u.uprops[STABLE].extrinsic
 #define Stable (EStable || HStable)
+
+#define HMagic_sense u.uprops[MAGIC_SENSE].intrinsic
+#define EMagic_sense u.uprops[MAGIC_SENSE].extrinsic
+#define Magic_sense (HMagic_sense || EMagic_sense)
 
 #define Free_action u.uprops[FREE_ACTION].extrinsic /* [Tom] */
 

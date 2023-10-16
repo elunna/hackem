@@ -1159,6 +1159,10 @@ Default key is \(oqf\(cq.
 Force a lock.
 Autocompletes.
 Default key is \(oqM-f\(cq.
+.lp #genocided
+List any monster types which have been genocided or become extinct.
+Autocompletes.
+Default key is \(oqM-g\(cq.
 .lp "#glance  "
 Show what type of thing a map symbol corresponds to.
 Default key is \(oq;\(cq.
@@ -1601,6 +1605,8 @@ option is enabled)
 #enhance
 .lp M-f
 #force
+.lp M-g
+#genocided
 .lp M-i
 #invoke
 .lp M-j
@@ -2962,6 +2968,8 @@ Automatically pick up things onto which you move (default on). Persistent.
 See
 .op pickup_types
 to refine the behavior.
+.lp autostairtravel
+Automatically travel to stairs using < or >.
 .lp "autoquiver  "
 This option controls what happens when you attempt the \(oqf\(cq (fire)
 command when nothing is quivered or readied (default false).
@@ -3015,6 +3023,8 @@ new players if it detects some anticipated mistakes (default on).
 .lp "confirm "
 Have user confirm attacks on pets, shopkeepers, and other
 peaceable creatures (default on).  Persistent.
+.lp ctrlkick
+Enable kicking shortcuts with ctrl + direction.
 .lp dark_room
 Show out-of-sight areas of lit rooms (default on).  Persistent.
 .lp disclose
