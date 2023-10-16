@@ -1271,27 +1271,27 @@ OBJECT(OBJ("Book of the Dead", "papyrus"),
     OBJECT(OBJ(name, typ),                                              \
            BITS(0, 0, 1, 0, mgc, 1, 0, 0, 0, 0, dir, P_NONE, metal),    \
            0, WAND_CLASS, prob, 0, 7, cost, 0, 0, 0, 0, 30, color)
-WAND("light",           "glass", 285, 100, 1, NODIR, GLASS, HI_GLASS),
-WAND("detection",       "balsa", 150, 150, 1, NODIR, WOOD, HI_WOOD),
-WAND("enlightenment", "crystal",  58, 150, 1, NODIR, GLASS, HI_GLASS),
+WAND("light",           "glass", 285, 100, 1, NODIR,     GLASS, HI_GLASS),
+WAND("detection",       "balsa", 150, 150, 1, NODIR,     WOOD, HI_WOOD),
+WAND("enlightenment", "crystal",  58, 150, 1, NODIR,     GLASS, HI_GLASS),
 WAND("healing",        "bamboo",  60, 150, 1, IMMEDIATE, WOOD, CLR_YELLOW),         /* Slash'EM */
-WAND("create monster",  "maple", 135, 200, 1, NODIR, WOOD, HI_WOOD),
-WAND("fear",            "crusty",  25, 200, 1, NODIR, IRON, CLR_RED),                /* Slash'EM */
-WAND("wishing",          "pine",   2, 500, 1, NODIR, WOOD, HI_WOOD),
+WAND("create monster",  "maple", 135, 200, 1, NODIR,     WOOD, HI_WOOD),
+WAND("fear",           "crusty",  25, 200, 1, NODIR,     IRON, CLR_RED),                /* Slash'EM */
+WAND("wishing",          "pine",   2, 500, 1, NODIR,     WOOD, HI_WOOD),
 WAND("nothing",           "oak",  75, 500, 0, IMMEDIATE, WOOD, HI_WOOD),
-WAND("wonder",        "plastic",  5, 100, 0, IMMEDIATE, PLASTIC, CLR_RED),          /* SpliceHack */
-WAND("wind",            "green", 15, 175, 1, IMMEDIATE, PLASTIC,                    /* SpliceHack */
+WAND("wonder",        "plastic",   5, 100, 0, IMMEDIATE, PLASTIC, CLR_RED),          /* SpliceHack */
+WAND("wind",            "green",  15, 175, 1, IMMEDIATE, PLASTIC,                    /* SpliceHack */
                                                             CLR_BRIGHT_GREEN),
 WAND("striking",        "ebony", 225, 150, 1, IMMEDIATE, WOOD, HI_WOOD),
 WAND("make invisible", "marble", 135, 150, 1, IMMEDIATE, MINERAL, HI_MINERAL),
 WAND("slow monster",      "tin", 150, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("speed monster",   "brass", 150, 150, 1, IMMEDIATE, COPPER, HI_COPPER),
 WAND("undead turning", "copper", 150, 150, 1, IMMEDIATE, COPPER, HI_COPPER),
-WAND("draining",       "ceramic",  15, 175, 1, IMMEDIATE, GLASS,  HI_MINERAL),    /* Slash'EM */
+WAND("draining",      "ceramic",  15, 175, 1, IMMEDIATE, GLASS,  HI_MINERAL),    /* Slash'EM */
 WAND("polymorph",      "silver", 135, 200, 1, IMMEDIATE, SILVER, HI_SILVER),
 WAND("cancellation", "platinum", 135, 200, 1, IMMEDIATE, PLATINUM, CLR_WHITE),
 WAND("teleportation", "iridium", 135, 200, 1, IMMEDIATE, METAL, CLR_BRIGHT_CYAN),
-WAND("create horde",   "black",    5, 300, 1, NODIR,     IRON,  CLR_BLACK),      /* Slash'EM */
+WAND("create horde",    "black",   5, 300, 1, NODIR,     IRON,  CLR_BLACK),      /* Slash'EM */
 WAND("extra healing",  "bronze",  30, 300, 1, IMMEDIATE, COPPER,   CLR_YELLOW),     /* Slash'EM */
 WAND("opening",          "zinc",  75, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("locking",      "aluminum",  75, 150, 1, IMMEDIATE, METAL, HI_METAL),
@@ -1300,40 +1300,39 @@ WAND("probing",       "uranium",  90, 150, 1, IMMEDIATE, METAL, HI_METAL),
 /* This is extremely kludgy, but that's what zap.c expects. */
 WAND("digging",          "iron", 165, 150, 1, RAY, IRON,  HI_METAL),
 WAND("magic missile",   "steel", 150, 150, 1, RAY, METAL, HI_METAL),
-WAND("fire",        "hexagonal", 120, 175, 1, RAY, GLASS,  HI_METAL),
+WAND("fire",        "hexagonal", 120, 175, 1, RAY, GLASS, HI_METAL),
 WAND("cold",            "short", 120, 175, 1, RAY, IRON,  HI_METAL),
 WAND("sleep",           "runed", 150, 175, 1, RAY, IRON,  HI_METAL),
 WAND("death",            "long",  15, 500, 1, RAY, IRON,  HI_METAL),
 WAND("lightning",      "curved", 120, 175, 1, RAY, IRON,  HI_METAL),
-WAND("poison gas",  "octagonal",  20, 175, 1, RAY, GLASS,  HI_METAL),
+WAND("poison gas",  "octagonal",  20, 175, 1, RAY, GLASS, HI_METAL),
 WAND("corrosion",     "twisted",  20, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
-WAND("noise",        "titanium",  20, 175, 1, RAY, METAL,  HI_METAL),
+WAND("noise",        "titanium",  20, 175, 1, RAY, METAL, HI_METAL),
 WAND("deluge",      "driftwood",  10, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHack */
 /* extra descriptions, shuffled into use at start of new game */
-WAND(None,             "spiked",  0, 150, 1, 0, IRON, HI_METAL),
-WAND(None,            "jeweled",  0, 150, 1, 0, IRON, HI_MINERAL),
-WAND(None,        "forked",    0, 150, 1, 0,         WOOD,     HI_WOOD),
-WAND(None,        "quartz",    0, 150, 1, 0,         GLASS,    HI_GLASS),
-WAND(None,        "walnut",    0, 150, 1, 0,         WOOD,     HI_WOOD),
-WAND(None,        "mahogany",  0, 150, 1, 0,         WOOD,     HI_WOOD),
-WAND(None,        "cedar",     0, 150, 1, 0,         WOOD,     HI_WOOD),
-WAND(None,        "chrome",    0, 150, 1, 0,         METAL,    HI_SILVER),
-WAND(None,        "nickel",    0, 150, 1, 0,         METAL,    HI_METAL),
-WAND(None,        "mithril",   0, 150, 1, 0,         MITHRIL,  HI_SILVER),
-WAND(None,        "grooved",   0, 150, 1, 0,         WOOD,     HI_WOOD),
-WAND(None,        "bent",      0, 150, 1, 0,         IRON,     HI_METAL),
-WAND(None,        "bone",      0, 150, 1, 0,         BONE,     CLR_WHITE),
-WAND(None,        "alabaster", 0, 150, 1, 0,         MINERAL,  CLR_BROWN),
-WAND(None,        "orichalcum",0, 150, 1, 0,         METAL,    HI_METAL),
-WAND(None,        "electrum",  0, 150, 1, 0,         METAL,    HI_GOLD),
-WAND(None,          "holly",   0, 150, 1, 0, WOOD, HI_WOOD),
-WAND(None,          "pliable", 0, 150, 1, 0, PLASTIC, HI_WOOD),
-WAND(None,     "dragon-bone",  0, 150, 1, 0, BONE, CLR_WHITE),
-WAND(None,          "golden",  0, 150, 1, 0, GOLD, HI_GOLD),
-WAND(None,          "gilded",  0, 150, 1, 0, GOLD, HI_GOLD),
-
-WAND(None,            "thin",  0, 150, 1, 0, IRON, HI_METAL),
-WAND(None,        "porcelain", 0, 150, 1, 0,         GLASS,    CLR_WHITE),
+WAND(None,             "spiked",   0, 150, 1, 0,   IRON,     HI_METAL),
+WAND(None,            "jeweled",   0, 150, 1, 0,   IRON,     HI_MINERAL),
+WAND(None,             "forked",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,             "quartz",   0, 150, 1, 0,   GLASS,    HI_GLASS),
+WAND(None,             "walnut",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,           "mahogany",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,              "cedar",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,             "chrome",   0, 150, 1, 0,   METAL,    HI_SILVER),
+WAND(None,             "nickel",   0, 150, 1, 0,   METAL,    HI_METAL),
+WAND(None,            "mithril",   0, 150, 1, 0,   MITHRIL,  HI_SILVER),
+WAND(None,            "grooved",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,               "bent",   0, 150, 1, 0,   IRON,     HI_METAL),
+WAND(None,               "bone",   0, 150, 1, 0,   BONE,     CLR_WHITE),
+WAND(None,          "alabaster",   0, 150, 1, 0,   MINERAL,  CLR_BROWN),
+WAND(None,         "orichalcum",   0, 150, 1, 0,   METAL,    HI_METAL),
+WAND(None,           "electrum",   0, 150, 1, 0,   METAL,    HI_GOLD),
+WAND(None,              "holly",   0, 150, 1, 0,   WOOD,     HI_WOOD),
+WAND(None,            "pliable",   0, 150, 1, 0,   PLASTIC,  HI_WOOD),
+WAND(None,        "dragon-bone",   0, 150, 1, 0,   BONE,     CLR_WHITE),
+WAND(None,             "golden",   0, 150, 1, 0,   GOLD,     HI_GOLD),
+WAND(None,             "gilded",   0, 150, 1, 0,   GOLD,     HI_GOLD),
+WAND(None,               "thin",   0, 150, 1, 0,   IRON,     HI_METAL),
+WAND(None,          "porcelain",   0, 150, 1, 0,   GLASS,    CLR_WHITE),
 #undef WAND
 
 /* coins ... - so far, gold is all there is */
