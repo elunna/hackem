@@ -2656,9 +2656,10 @@ register struct monst *shkp; /* if angry, impose a surcharge */
         }
     }
     /* adjust for different material */
-    multiplier *= matprices[obj->material];
-    divisor *= matprices[objects[obj->otyp].oc_material];
-
+    if (obj->oclass != RING_CLASS && obj->oclass != AMULET_CLASS) {
+        multiplier *= matprices[obj->material];
+        divisor *= matprices[objects[obj->otyp].oc_material];
+    }
     if (uarmh && uarmh->otyp == DUNCE_CAP)
         multiplier *= 4L, divisor *= 3L;
     else if ((Role_if(PM_TOURIST) && u.ulevel < (MAXULEV / 2))
@@ -2890,9 +2891,10 @@ register struct monst *shkp;
     tmp = get_pricing_units(obj) * unit_price;
 
     /* adjust for different material */
-    multiplier *= matprices[obj->material];
-    divisor *= matprices[objects[obj->otyp].oc_material];
-
+    if (obj->oclass != RING_CLASS && obj->oclass != AMULET_CLASS) {
+        multiplier *= matprices[obj->material];
+        divisor *= matprices[objects[obj->otyp].oc_material];
+    }
     if (obj->globby)
         goto end;
 
