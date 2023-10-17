@@ -232,7 +232,7 @@ static struct Bool_Opt {
     { "safe_pet", &flags.safe_dog, TRUE, SET_IN_GAME },
     { "sanity_check", &iflags.sanity_check, FALSE, SET_IN_WIZGAME },
     { "selectsaved", &iflags.wc2_selectsaved, TRUE, DISP_IN_GAME }, /*WC*/
-    { "showdmg", &iflags.showdmg, TRUE, SET_IN_GAME },
+    { "showdmg", &iflags.showdmg, FALSE, SET_IN_GAME },
     { "showexp", &flags.showexp, FALSE, SET_IN_GAME },
     { "showrace", &flags.showrace, FALSE, SET_IN_GAME },
 #ifdef SCORE_ON_BOTL
