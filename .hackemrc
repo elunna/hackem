@@ -149,7 +149,7 @@ OPTIONS=news
 #OPTIONS=sanity_check
 
 # Show damage being dealt
-OPTIONS=showdmg
+#OPTIONS=showdmg
 
 # Show inventory item weights
 OPTIONS=invweight
