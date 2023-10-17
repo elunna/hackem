@@ -3558,23 +3558,23 @@ static const struct icp shiny_materials[] = {
     { 2, PLATINUM}
 };
 
-/* Reflectable items - for the shield of reflection; anything
-   that can hold a polish. Amulets also arbitrarily use this list */
+/* Rings */
 static const struct icp ring_materials[] = {
-        { 10, 0}, /* use base material */
-        { 5, BONE},
-        { 10, COPPER},
-        { 10, GEMSTONE},
-        { 5, GLASS},
-        { 5, GOLD},
-        { 10, IRON},
-        { 10, METAL},
-        { 10, MINERAL},
-        { 5, MITHRIL},
-        { 5, PLASTIC},
-        { 5, PLATINUM},
-        { 5, SILVER},
-        { 5, WOOD}
+        { 70, 0}, /* use base material */
+        { 4, GEMSTONE},
+        { 2, BONE},
+        { 2, DRAGON_HIDE},
+        { 2, COPPER},
+        { 2, GLASS},
+        { 2, GOLD},
+        { 2, IRON},
+        { 2, METAL},
+        { 2, MINERAL},
+        { 2, MITHRIL},
+        { 2, PLASTIC},
+        { 2, PLATINUM},
+        { 2, SILVER},
+        { 2, WOOD}
 };
 
 /* for bells and other tools, especially instruments, which are normally copper
