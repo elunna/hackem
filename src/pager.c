@@ -1640,6 +1640,8 @@ char *usr_text;
                     case FIXED_ABIL:
                     case FLYING:
                     case FREE_ACTION:
+                    case MAGICAL_BREATHING:
+                    case PASSES_WALLS:
                     case GLIB:
                     case HALF_SPDAM:
                     case HALF_PHDAM:
