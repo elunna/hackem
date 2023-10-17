@@ -2462,6 +2462,7 @@ register struct obj *obj;
     } else if (obj->otyp == AMULET_OF_YENDOR
                || (Role_if(PM_INFIDEL)
                    && is_quest_artifact(obj))
+               || is_artikey(obj)
                || obj->otyp == CANDELABRUM_OF_INVOCATION
                || obj->otyp == BELL_OF_OPENING
                || obj->otyp == SPE_BOOK_OF_THE_DEAD) {
