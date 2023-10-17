@@ -3770,11 +3770,6 @@ int final;
 	else if (wizard) 
         enl_msg("Your health bonus ", "is", "was", " zero");
     #endif
-
-    if (Role_if(PM_NECROMANCER)) { 
-        Sprintf(buf, "harvested %d %s", u.uspirits, u.uspirits != 1 ? "spirits" : "spirit");
-        you_have(buf, "");
-    } 
     
 #ifdef DEBUG
     /* named fruit debugging (doesn't really belong here...); to enable,
