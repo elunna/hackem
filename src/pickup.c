@@ -4084,7 +4084,6 @@ struct obj *obj;
     } else if (is_you) {
         if (flags.verbose)
             You("collect the spirit%s.", obj->quan > 1 ? "s" : "");
-        u.uspirits += obj->quan;
         bonus = spiritlev * obj->quan;
 
         if (carrying_arti(ART_GREAT_DAGGER_OF_GLAURGNAA))

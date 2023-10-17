@@ -3383,6 +3383,7 @@ dodip()
             pline1(nothing_happens);
         } else {
             short save_otyp = obj->otyp;
+            short save_dknown = obj->dknown;
 
             /* KMH, conduct */
             if(!u.uconduct.polypiles++)
@@ -3396,10 +3397,12 @@ dodip()
              * if obj->otyp is worn amulet and becomes AMULET_OF_CHANGE.
              */
             if (!obj) {
-                makeknown(POT_POLYMORPH);
+                if (potion->dknown)
+                    makeknown(POT_POLYMORPH);
                 return 1;
-            } else if (obj->otyp != save_otyp) {
-                makeknown(POT_POLYMORPH);
+            } else if (obj->otyp != save_otyp || obj->dknown != save_dknown) {
+                if (potion->dknown)
+                    makeknown(POT_POLYMORPH);
                 useup(potion);
                 prinv((char *) 0, obj, 0L);
                 return 1;

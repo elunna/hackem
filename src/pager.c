@@ -1057,6 +1057,14 @@ struct permonst * pm;
             impossible("add_to_mon: unknown attack type %d", attk->aatyp);
         } else if (attk->adtyp > LAST_AD) {
             impossible("add_to_mon: unknown damage type %d", attk->adtyp);
+        /* hack to display gelatinous cubes' (and potentially shambling
+           horrors') suffocation attack correctly---swimming won't save you! */
+        } else if (attk->aatyp == AT_ENGL && attk->adtyp == AD_WRAP
+                   && !(pm == &mons[PM_SEA_DRAGON]
+                        || pm == &mons[PM_WATER_ELEMENTAL])) {
+            Sprintf(buf2, "%s%s%s %s", dicebuf, ((*dicebuf) ? " " : ""),
+                    attacktypes[attk->aatyp], "suffocate");
+            APPENDC(TRUE, buf2);
         } else {
             Sprintf(buf2, "%s%s%s %s", dicebuf, ((*dicebuf) ? " " : ""),
                     attacktypes[attk->aatyp], damagetypes[attk->adtyp]);
@@ -1640,6 +1648,8 @@ char *usr_text;
                     case FIXED_ABIL:
                     case FLYING:
                     case FREE_ACTION:
+                    case MAGICAL_BREATHING:
+                    case PASSES_WALLS:
                     case GLIB:
                     case HALF_SPDAM:
                     case HALF_PHDAM:

@@ -498,7 +498,7 @@ boolean resuming;
                     }
 
                     if (u.uen < u.uenmax 
-                        && (!Role_if(PM_NECROMANCER) || Energy_regeneration)
+                        && !Role_if(PM_NECROMANCER)
                         && ((wtcap < MOD_ENCUMBER
                              && (!(moves % ((MAXULEV + 8 - u.ulevel)
                                             * ((Role_if(PM_WIZARD) || Role_if(PM_INFIDEL))

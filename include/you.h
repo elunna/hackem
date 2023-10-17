@@ -407,7 +407,6 @@ struct you {
     uchar uspmtime;          /* #moves between uspellprot-- */
     int uhp, uhpmax;         /* hit points, aka health */
     int uen, uenmax;         /* magical energy - M. Stephenson */
-    int uspirits;            /* contained spirits (for Necromancer) */
     xchar uhpinc[MAXULEV],   /* increases to uhpmax for each level gain */
           ueninc[MAXULEV];   /* increases to uenmax for each level gain */
     int ugangr;              /* if the gods are angry at you */

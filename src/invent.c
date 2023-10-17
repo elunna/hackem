@@ -65,8 +65,8 @@ struct obj *obj;
     static char def_srt_order[MAXOCLASSES] = {
         COIN_CLASS,     AMULET_CLASS,   RING_CLASS, WAND_CLASS, POTION_CLASS,
         SCROLL_CLASS,   SPBOOK_CLASS,   GEM_CLASS,  FOOD_CLASS, TOOL_CLASS,
-        WEAPON_CLASS,   ARMOR_CLASS,    ROCK_CLASS, BALL_CLASS, CHAIN_CLASS, 
-        SPIRIT_CLASS, 0,
+        WEAPON_CLASS,   ARMOR_CLASS,    ROCK_CLASS, BALL_CLASS, CHAIN_CLASS,
+        0,
     };
     static char armcat[8];
     const char *classorder;

@@ -990,8 +990,14 @@ register struct monst *mtmp;
     
     for (i = 0; i < NATTK; i++) {
         sum[i] = 0;
+        /* ranged &c must be updated in case the attacker has been knocked
+           back by Ashmar or the Armor of Retribution */
+        ranged = (distu(mtmp->mx, mtmp->my) > 3);
+        range2 = !monnear(mtmp, mtmp->mux, mtmp->muy);
+        foundyou = (mtmp->mux == u.ux && mtmp->muy == u.uy);
+        youseeit = canseemon(mtmp);
         if (i > 0 && firstfoundyou /* previous attack might have moved hero */
-            && (mtmp->mux != u.ux || mtmp->muy != u.uy))
+            && !foundyou)
             continue; /* fill in sum[] with 'miss' but skip other actions */
         mon_currwep = (struct obj *) 0;
         mattk = getmattk(mtmp, &youmonst, i, sum, &alt_attk);
@@ -1077,6 +1083,9 @@ register struct monst *mtmp;
                             return 1;
                     }
                 } else {
+                    /* note: wildmiss only expects cases where the hero is
+                       displaced, invisible, or underwater. if foundyou is
+                       false for other reasons, it must be dealt with above */
                     wildmiss(mtmp, mattk);
                     /* skip any remaining non-spell attacks */
                     skipnonmagc = TRUE;
