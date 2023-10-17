@@ -686,7 +686,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("The Great Dagger of Glaurgnaa", GREAT_DAGGER,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_ATTK | SPFX_INTEL 
         | SPFX_DRLI | SPFX_DALIGN | SPFX_DEFN), 0, 0, 
-      DRLI(8, 4), DFNS(AD_MAGM), NO_CARY, ENERGY_BOOST, 
+      DRLI(8, 4), DFNS(AD_MAGM), NO_CARY, 0, 
       A_CHAOTIC, PM_NECROMANCER, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
     
     A("The Mitre of Holiness", HELM_OF_BRILLIANCE,
