@@ -3951,6 +3951,14 @@ int final;
     if (!u.uconduct.gnostic)
         you_have_been("an atheist");
 
+    if (!u.ugifts)
+        you_have_never("received any gifts");
+    else {
+        Sprintf(buf, "recieved %d gift%s", u.ugifts,
+                (u.ugifts > 1L) ? "es" : "");
+        you_have_X(buf);
+    }
+
     if (!u.uconduct.weaphit) {
         you_have_never("hit with a wielded weapon");
     } else if (wizard) {
@@ -4024,7 +4032,7 @@ int final;
     if (!u.uconduct.artitouch) {
         you_have_never("touched an artifact");
     }
-
+    
     if (!u.uconduct.wishes) {
         you_have_X("used no wishes");
     } else {
@@ -4056,7 +4064,7 @@ int final;
             enl_msg(You_, "have not wished", "did not wish",
                     " for any artifacts", "");
     }
-
+    
     if (!u.uconduct.pets)
        you_have_never("owned a pet");
     
