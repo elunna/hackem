@@ -2068,6 +2068,8 @@ struct obj *otmp;
             pline("With madness comes clarity.");
             post_hallucination();
         }
+        if (ublindf)
+            curse(ublindf);
     }
 
     if (ublindf && ublindf->otyp == MASK)

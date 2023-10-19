@@ -5205,6 +5205,8 @@ boolean defend;
         return "blinding";
     case AD_STUN:
         return defend ? "stun" : "stuns/magic";
+    case AD_DETH:
+        return "death";
     case AD_DREN:
         return "drain energy";
     case AD_WTHR:

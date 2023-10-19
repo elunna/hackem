@@ -286,6 +286,13 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0, 
       ELEC(5, 24), DFNS(AD_ELEC), NO_CARY, 0,
       A_NEUTRAL, PM_VALKYRIE, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
+       
+    /* Attacks deal double damage, but at the cost of hallucination.
+     * This effect is only active while the user can see. */
+    A("Mystic Eyes", LENSES,
+      (SPFX_RESTR | SPFX_SEARCH), 0, 0,
+      NO_ATTK, DFNS(AD_DETH), NO_CARY, 0,
+      A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR, GEMSTONE),
 
     A("Sword of Balance", SHORT_SWORD, 
       (SPFX_RESTR | SPFX_DALIGN | SPFX_DEFN), 0, 0,
@@ -488,14 +495,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR | SPFX_ATTK), 0, 0, 
       MAST(3, 3), NO_DFNS, NO_CARY, 0, 
       A_NONE, NON_PM, NON_PM, 1000L, NO_COLOR, SILVER),
-    
-    /* Attacks deal double damage, but at the cost of hallucination.
-    *      This effect is only active while the user can see. */
-    A("Mystic Eyes", LENSES,
-      (SPFX_RESTR | SPFX_SEARCH), 0, 0, 
-      NO_ATTK, NO_DFNS, NO_CARY, 0,
-      A_NONE, NON_PM, NON_PM, 2000L, NO_COLOR, GEMSTONE),
-
+      
     A("Ogresmasher", HEAVY_WAR_HAMMER,
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_OGRE,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0,
