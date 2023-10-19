@@ -1020,7 +1020,7 @@ register struct obj *otmp;
             nomovemsg = "You awake with a headache.";
         }
         /* liquid courage */
-        make_fearless(itimeout_incr(HFearless, d(8, 4)), FALSE);
+        make_fearless(itimeout_incr(HFearless, d(8, otmp->blessed ? 6 : 3)), FALSE);
         break;
     case POT_ENLIGHTENMENT:
         if (otmp->cursed) {
