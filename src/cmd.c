@@ -3315,7 +3315,7 @@ int final;
     }
 
     if (monclock > 0) {
-        Sprintf(buf, "%2.2fx", (float) MIN_MONGEN_RATE / monclock);
+        Sprintf(buf, "%2.0fx", (float) MIN_MONGEN_RATE / monclock);
         enl_msg("Monster generation rate ", "is ", "was ", buf, "");
     }
 
