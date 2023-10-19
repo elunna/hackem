@@ -2284,7 +2284,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             /* currently the only object that uses this
                is Grimtooth */
             pline_The("filthy %s %s %s%c",
-                      otmp->oartifact ? artiname(otmp->oartifact) : "weapon",
+                      otmp->oartifact ? artiname(otmp->oartifact) : (is_ammo(otmp) ? xname(otmp) : "weapon"),
                       no_sick ? "hits"
                               : rn2(2) ? "contaminates" : "infects",
                       hittee, !spec_dbon_applies ? '.' : '!');
