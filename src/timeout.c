@@ -998,6 +998,7 @@ nh_timeout()
             }
         }
 
+    spell_nag();
     run_timers();
 }
 

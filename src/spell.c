@@ -13,10 +13,10 @@
    eligible to reread the spellbook and regain 100% retention (the threshold
    used to be 1000 turns, which was 10% of the original 10000 turn retention
    period but didn't get adjusted when that period got doubled to 20000) */
-#define KEEN            20000
-#define CAST_BOOST 	    500	/* memory increase for successful casting */
-#define REINFORCE_BOOST 20000	/* memory increase for reinforce memory */
-#define MAX_KNOW 	    100000	/* Absolute Max timeout */
+#define KEEN            10000
+#define CAST_BOOST 	    500	    /* memory increase for successful casting */
+#define REINFORCE_BOOST 10000	/* memory increase for reinforce memory */
+#define MAX_KNOW 	    70000	/* Absolute Max timeout */
 
 /* x: need to add 1 when used for reading a spellbook rather than for hero
    initialization; spell memory is decremented at the end of each turn,
@@ -27,12 +27,8 @@
 				 : spl_book[spell].sp_know + boost)
 #define spellev(spell) spl_book[spell].sp_lev
 #define spellname(spell) OBJ_NAME(objects[spellid(spell)])
-
-/* Added 10 more spell slots (from SlashEM) */
-#define spellet(spell)	\
-	((char) ((spell < 26) ? ('a' + spell) : \
-	        (spell < 52) ? ('A' + spell - 26) : \
-		(spell < 62) ? ('0' + spell - 52) : 0 ))
+#define spellet(spell) \
+    ((char) ((spell < 26) ? ('a' + spell) : ('A' + spell - 26)))
 
 STATIC_DCL int FDECL(spell_let_to_idx, (CHAR_P));
 STATIC_DCL boolean FDECL(cursed_book, (struct obj * bp));
@@ -2482,4 +2478,15 @@ dump_spells()
     }
 }
 
+void
+spell_nag()
+{
+    /* Check for fading spells */
+    for (int i = 0; i < MAXSPELL && spellid(i) != NO_SPELL; i++) {
+        if (spellknow(i) == 100) {
+            Your("%s spell is fading!", spellname(i));
+        }
+    }
+
+}
 /*spell.c*/

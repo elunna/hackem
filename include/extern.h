@@ -2711,6 +2711,7 @@ E boolean FDECL(force_learn_spell, (SHORT_P));
 E int NDECL (num_spells);
 E void NDECL(dump_spells);
 E void FDECL(cast_sphere, (short otyp));
+E void NDECL(spell_nag);
 
 /* ### steal.c ### */
 
