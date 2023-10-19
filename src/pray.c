@@ -2365,6 +2365,10 @@ dosacrifice()
                         makeknown(otmp->otyp);
                         discover_artifact(otmp->oartifact);
                     }
+                    if (!Role_if(PM_INFIDEL) && u.ugifts > 2
+                        && (rnd(6 + u.ugifts) <= u.ugifts)) {
+                        pline("The altar cracks in two and is destroyed!");                        levl[u.ux][u.uy].typ = ROOM;
+                    }
                     livelog_printf(LL_DIVINEGIFT | LL_ARTIFACT,
                                    "had %s bestowed upon %s by %s",
                                    otmp->oartifact
