@@ -1340,7 +1340,7 @@ char *usr_text;
         else if (objdescr_is(&dummy, "mud boots"))
             OBJPUTSTR("Protects against drowning attacks (mud boots)");
         else if (objdescr_is(&dummy, "hiking boots"))
-            OBJPUTSTR("Increases carrying capacity (hiking boots");
+            OBJPUTSTR("Increases carrying capacity (hiking boots)");
         else if (objdescr_is(&dummy, "jungle boots"))
             OBJPUTSTR("Reduces the severity of leg wounds (jungle boots)");
         else if (objdescr_is(&dummy, "old gloves"))
