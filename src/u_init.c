@@ -2306,8 +2306,8 @@ register struct trobj *origtrop;
         if (obj->oclass == AMULET_CLASS)
             setworn(obj, W_AMUL);
 
-        if (obj->oclass == TOOL_CLASS &&
-            obj->otyp == LENSES && !ublindf)
+        if (obj->oclass == TOOL_CLASS && !ublindf
+            && (obj->otyp == LENSES || obj->otyp == GOGGLES))
             setworn(obj, W_TOOL);
         
         /* Don't allow gear with object properties
