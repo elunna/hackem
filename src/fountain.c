@@ -434,6 +434,8 @@ const struct ForgeRecipe fusions[] = {
     { PARAZONIUM,           DAGGER, KNIFE,              1, 1 },
     { GREAT_DAGGER,         PARAZONIUM, KNIFE,          1, 1 },
     { KNIFE,                ARROW, DART,                2, 2 },
+    { KNIFE,                ELVEN_ARROW, DART,          2, 2 },
+    { KNIFE,                ORCISH_ARROW, DART,         2, 2 },
     { STILETTO,             CROSSBOW_BOLT, KNIFE,       2, 1 },
     { SCALPEL,              KNIFE, STILETTO,            1, 1 },
     { AKLYS,                SPEAR, FLAIL,               1, 1 },
