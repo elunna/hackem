@@ -1464,7 +1464,7 @@ tech_timeout()
               stop_occupation();
         }
 
-        if (techtout(i) > 0 && using_oprop(ITEM_PROWESS))
+        if (techtout(i) > 0 && using_oprop(ITEM_PROWESS) && u.uacted)
               techtout(i)--;
 
         /* Maintaining technical skill requires maintaining a healthy body and mind.
@@ -1482,7 +1482,7 @@ tech_timeout()
             && rn2(10))
               continue;
 
-        if (techtout(i) > 0)
+        if (techtout(i) > 0 && u.uacted)
               techtout(i)--;
     }
 }

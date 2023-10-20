@@ -2176,6 +2176,7 @@ register int aflag; /* intrinsic autosearch vs explicit searching */
 int
 dosearch()
 {
+    u.uacted = FALSE;
     return dosearch0(0);
 }
 

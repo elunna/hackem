@@ -639,7 +639,12 @@ nh_timeout()
     
     /* WAC -- check for timeout of specials */
 	tech_timeout();
-
+    
+    /* This helps track if the player merely waited or searched
+     * during their turn. If they didn't do anything else, we won't
+     * reward them with expiring their tech cooldowns. */
+    u.uacted = TRUE;
+    
     if (HPasses_walls)
         phasing_dialogue();
     if (u.uinvulnerable)
