@@ -112,7 +112,8 @@ enum cost_alteration_types {
     COST_CORRODE = 18, /* acid damage */
     COST_FRACTURE = 19,   /* glass damage */
     COST_DETERIORATE = 20, /* other material damage */
-    COST_FERMENT = 21  /* fermentation of potion into new potion */
+    COST_TRANSMOGRIFY = 21, /* transmogrify an object */
+    COST_FERMENT = 22  /* fermentation of potion into new potion */
 };
 
 /* bitmask flags for corpse_xname();

@@ -2381,7 +2381,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             otmp->oerodeproof = 0;
             if (valid_obj_material(otmp, PLASTIC)) {
                 otmp->material = PLASTIC;
-                costly_alteration(otmp, COST_DRAIN);
+                costly_alteration(otmp, COST_TRANSMOGRIFY);
             } else
                 warp_material(otmp, TRUE);
             break;

@@ -729,7 +729,7 @@ static const char *const alteration_verbs[] = {
     "cancel", "drain", "uncharge", "unbless", "uncurse", "disenchant",
     "degrade", "dilute", "erase", "burn", "neutralize", "destroy", "splatter",
     "bite", "open", "break the lock on", "rust", "rot", "tarnish", "fracture", 
-    "deteriorate", "ferment"
+    "deteriorate", "transmogrify", "ferment"
 };
 
 /* possibly bill for an object which the player has just modified */
@@ -3994,7 +3994,7 @@ warp_material(struct obj* obj, boolean by_you)
     if (origmat != obj->material) {
         /* Charge for the cost of the object */
         if (by_you)
-            costly_alteration(obj, COST_DRAIN);
+            costly_alteration(obj, COST_TRANSMOGRIFY);
         return TRUE;
     }
     return FALSE;
