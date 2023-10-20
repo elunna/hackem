@@ -254,10 +254,11 @@ boolean resuming;
                             break; /* it's now your turn */
                     } while (monscanmove);
                     context.mon_moving = FALSE;
-                } else if (youmonst.movement < NORMAL_SPEED) {
+                } else if (u.umovement < NORMAL_SPEED) {
                     /* If a scroll of time has been read, we want the player's
                      * current turn to be extended. */
                     u.utimestop = FALSE;
+                    continue;
                 }
                 if (!monscanmove && u.umovement < NORMAL_SPEED) {
                     /* both hero and monsters are out of steam this round */

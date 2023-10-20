@@ -2197,12 +2197,12 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             else
                 pline("Time slows down to a crawl around you!");
             bonus = 50 + bcsign(sobj) * 25;
-            youmonst.movement += bonus;
+            u.umovement += bonus;
             u.utimestop = TRUE;
         }
         /* Time is an illusion. Lunchtime doubly so. 
          * ― Douglas Adams, The Hitchhiker's Guide to the Galaxy */
-        morehungry(rn1(30, abs(bonus) * 5));
+        morehungry(rn1(30, abs(bonus) * 2));
         break;
     }
     case SCR_TELEPORTATION:
