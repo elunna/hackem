@@ -99,7 +99,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     A("Firewall", STAFF_OF_DIVINATION, 
       (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      FIRE(4, 8), DFNS(AD_FIRE), NO_CARY, SEFFECT, 
+      FIRE(4, 4), DFNS(AD_FIRE), NO_CARY, SEFFECT, 
       A_LAWFUL, PM_FLAME_MAGE, NON_PM, 400L, CLR_RED, DEFAULT_MAT),
 
     A("Grayswandir", SABER,
@@ -332,7 +332,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     A("Deep Freeze", STAFF_OF_MATTER,
       (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      COLD(5, 8), DFNS(AD_COLD), NO_CARY, SEFFECT, 
+      COLD(4, 4), DFNS(AD_COLD), NO_CARY, SEFFECT, 
       A_CHAOTIC, PM_ICE_MAGE, NON_PM, 400L, CLR_BLUE, METAL),
 
     /* From SporkHack, but with a twist. This is the anti-Excalibur. */
