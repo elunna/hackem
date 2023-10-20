@@ -1824,7 +1824,7 @@ char *usr_text;
     }
 
     if (reveal_info && (otyp == POT_ACID 
-            || !strcmp(usr_text, "gem alchemy"))) {
+            || (usr_text && !strcmp(usr_text, "gem alchemy")))) {
         OBJPUTSTR("");
         OBJPUTSTR("Gem alchemy recipes:");
         OBJPUTSTR("(Dipping a gem into this can alchemize a new potion)");
