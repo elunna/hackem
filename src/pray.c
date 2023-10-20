@@ -1469,8 +1469,9 @@ aligntyp g_align;
                     otmp->material = objects[otmp->otyp].oc_material;
                     otmp->owt = weight(otmp);
                 }
-                if (!u.uconduct.literate && (otmp->otyp != SPE_BLANK_PAPER)
-                    && !known_spell(otmp->otyp)) {
+                if (!u.uconduct.literate && !max_spells_learned()
+                      && otmp->otyp != SPE_BLANK_PAPER
+                      && !known_spell(otmp->otyp)) {
                     if (force_learn_spell(otmp->otyp))
                         pline("Divine knowledge of %s fills your mind!",
                               OBJ_NAME(objects[otmp->otyp]));

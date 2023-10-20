@@ -17,6 +17,9 @@
 #define CAST_BOOST 	    500	    /* memory increase for successful casting */
 #define REINFORCE_BOOST 10000	/* memory increase for reinforce memory */
 #define MAX_KNOW 	    70000	/* Absolute Max timeout */
+/* Most spells a player can learn */
+#define SPELL_LIMIT     ((ACURR(A_WIS)+ACURR(A_INT)) \
+                          / (primary_caster() ? 4 : 10))
 
 /* x: need to add 1 when used for reading a spellbook rather than for hero
    initialization; spell memory is decremented at the end of each turn,
@@ -47,6 +50,7 @@ STATIC_DCL char *FDECL(spellretention, (int, char *));
 STATIC_DCL int NDECL(throwspell);
 STATIC_DCL void FDECL(spell_backfire, (int));
 STATIC_DCL boolean FDECL(spell_aim_step, (genericptr_t, int, int));
+STATIC_DCL boolean NDECL(primary_caster);
 
 static const char clothes[] = { ARMOR_CLASS, 0 };
 
@@ -365,6 +369,15 @@ learn(VOID_ARGS)
     char splname[BUFSZ];
     boolean costly = TRUE;
     struct obj *book = context.spbook.book;
+    
+    if (max_spells_learned()) {
+        if (ACURR(A_INT) == AMAX(A_INT) 
+            && ACURR(A_WIS) == AMAX(A_WIS))
+            You("are not capable of learning any new spells (right now).");
+        else
+            You("are not capable of learning any new spells.");
+        return 0;
+    }
     
     /* JDS: lenses give 50% faster reading; 33% smaller read time */
     if (context.spbook.delay && ublindf && ublindf->otyp == LENSES && rn2(2))
@@ -2029,7 +2042,7 @@ int spell;
     int difficulty;
     int skill;
     int dex_adjust;
-    boolean paladin_bonus, primary_casters, non_casters;
+    boolean paladin_bonus, is_spellcaster, non_casters;
 
     /* Calculate intrinsic ability (splcaster) */
 
@@ -2062,14 +2075,8 @@ int spell;
     paladin_bonus = Role_if(PM_KNIGHT) && spell_skilltype(spellid(spell)) == P_ENCHANTMENT_SPELL;
 
     /* Casting roles */
-    primary_casters = (Role_if(PM_HEALER) 
-                       || Role_if(PM_PRIEST)
-                       || Role_if(PM_FLAME_MAGE)
-                       || Role_if(PM_ICE_MAGE)
-                       || Role_if(PM_NECROMANCER)
-                       || Role_if(PM_WIZARD) 
-                       || Role_if(PM_INFIDEL));
-
+    is_spellcaster = primary_caster();
+    
     non_casters = (Role_if(PM_ARCHEOLOGIST) 
                    || Role_if(PM_BARBARIAN) 
                    || Role_if(PM_CAVEMAN)
@@ -2248,7 +2255,7 @@ int spell;
         && !is_robe(uarm)) {
 #define PENALTY_NON_CASTER (spellev(spell) * 10)
 #define PENALTY_PRI_CASTER (spellev(spell) * 10) - 30
-        if (primary_casters && spellev(spell) >= 4)
+        if (is_spellcaster && spellev(spell) >= 4)
             chance -= PENALTY_PRI_CASTER;
         if (non_casters)
             chance -= PENALTY_NON_CASTER;
@@ -2487,6 +2494,20 @@ spell_nag()
             Your("%s spell is fading!", spellname(i));
         }
     }
-
 }
+
+STATIC_OVL boolean
+primary_caster() {
+    return (Role_if(PM_HEALER) || Role_if(PM_PRIEST)
+            || Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE)
+            || Role_if(PM_NECROMANCER) || Role_if(PM_WIZARD)
+            || Role_if(PM_INFIDEL));
+}
+
+boolean
+max_spells_learned()
+{
+    return num_spells() >= SPELL_LIMIT;
+}
+
 /*spell.c*/
