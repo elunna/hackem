@@ -17,6 +17,13 @@
 # following keys for that entry.  For instance, `~orc ??m*' preceding `orc*'
 # prevents "orc mummy" and "orc zombie" from matching.
 #
+alchemy
+gem alchemy
+    A lesson without pain is meaningless. That's because no one can 
+    gain without sacrificing something. But by enduring that pain 
+    and overcoming it, he shall obtain a powerful, unmatched heart... 
+    a Fullmetal heart.
+        [ Full Metal Alchemist ]
 abbathor
 	Abbathor is the sole evil dwarven god, the great master of the
 	greed and avarice that plagues so many of that otherwise noble

@@ -1823,7 +1823,8 @@ char *usr_text;
         }
     }
 
-    if (reveal_info && otyp == POT_ACID) {
+    if (reveal_info && (otyp == POT_ACID 
+            || !strcmp(usr_text, "gem alchemy"))) {
         OBJPUTSTR("");
         OBJPUTSTR("Gem alchemy recipes:");
         OBJPUTSTR("(Dipping a gem into this can alchemize a new potion)");
@@ -2417,11 +2418,12 @@ char *supplemental_name;
                                 do_mon_lookup = FALSE;
                             }
                         }
-                    } else if (otyp != STRANGE_OBJECT) {
+                    } else if (otyp != STRANGE_OBJECT 
+                            || !strcmp(encycl_matched, "gem alchemy")) {
                         do_obj_lookup = TRUE;
                     }
                     datawin = create_nhwindow(NHW_MENU);
-
+                    
                     if (!flags.lookup_data) {
                         ; /* do nothing, 'pokedex' is disabled */
                     }
