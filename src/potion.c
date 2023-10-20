@@ -1880,6 +1880,7 @@ int how;
     int distance, tx, ty;
     struct obj *saddle = (struct obj *) 0;
     struct obj *barding = (struct obj *) 0;
+    struct obj *ohit = (struct obj *) 0;
     boolean hit_saddle = FALSE, hit_barding = FALSE,
             your_fault = (how <= POTHIT_HERO_THROW 
                     || how == POTHIT_HERO_ENGULF);
@@ -1980,11 +1981,51 @@ int how;
             break;
         case POT_AMNESIA:
             /* Uh-oh! */
-            if (uarmh && is_helmet(uarmh) && rn2(10 - (uarmh->cursed ? 8 : 0))) {
-                if (uarmh->oprops & ITEM_OILSKIN && !Blind)
-                    pline_The("sparkling water slides off %s", yobjnam(uarmh, (char *) 0));
+            switch (rnd(7)) {
+                case 1:
+                    if (uarmh)
+                        ohit = uarmh;
+                    break;
+                case 2:
+                    if (uarmf)
+                        ohit = uarmf;
+                    break;
+                case 3:
+                    /* Gloves sort of protect rings */
+                    if (uarmg && rn2(3))
+                        ohit = uarmg;
+                    else
+                        ohit = rn2(2) ? uleft : uright;
+                    break;
+                case 4:
+                    /* Armor layers can protect each-other */
+                    if (uarmc)
+                        ohit = uarmc;
+                    else if (uarm)
+                        ohit = uarm;
+                    else if (uarmu)
+                        ohit = uarmu;
+                    break;
+                case 5:
+                    if (uarms)
+                        ohit = uarms;
+                    break;
+                case 6:
+                    if (uwep)
+                        ohit = uwep;
+                    break;
+                case 7:
+                    if (uswapwep)
+                        ohit = uswapwep;
+                    break;
+            }
+            
+            if (ohit && rn2(10 - (ohit->cursed ? 8 : 0))) {
+                if (ohit->oprops & ITEM_OILSKIN && !Blind)
+                    pline_The("sparkling water slides off %s", 
+                              yobjnam(ohit, (char *) 0));
                 else
-                    amnesia_wet(obj, uarmh, your_fault);
+                    amnesia_wet(obj, ohit, your_fault);
             }
             break;
         case POT_HALLUCINATION:
