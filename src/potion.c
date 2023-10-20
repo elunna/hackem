@@ -925,13 +925,22 @@ register struct obj *otmp;
         u.uhunger += 50 + rnd(50); /* You feel refreshed */
         newuhs(FALSE);
         
-        forget((!otmp->blessed? ALL_SPELLS : 0) | ALL_MAP);
-        
-        if (Hallucination)
-            pline("Hakuna matata!");
-        else if (!Psychic_resistance)
-            You_feel("your memories dissolve.");
+        if (otmp->blessed && ACURR(A_INT) > 12 && num_spells() > 0) {
+            if (yn("Do you want to forget your last spell?") != 'y') {
+                goto forget_routine;
+            } else {
+                forget_spell();
+            }
+        } else {
+forget_routine:
+            forget((!otmp->blessed ? ALL_SPELLS : 0) | ALL_MAP);
 
+            if (Hallucination)
+                pline("Hakuna matata!");
+            else if (!Psychic_resistance)
+                You_feel("your memories dissolve.");
+        }
+        
         /* Blessed amnesia makes you forget lycanthropy, sickness */
         if (otmp->blessed) {
             if (u.ulycn >= LOW_PM && !Race_if(PM_HUMAN_WEREWOLF)) {

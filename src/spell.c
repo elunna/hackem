@@ -1721,6 +1721,21 @@ losespells()
     }
 }
 
+/* Completely remove the last spell in our spell library */
+void
+forget_spell()
+{
+    int n, lastspell;
+
+    for (n = 0; n < MAXSPELL; ++n)
+        if (spellid(n) == NO_SPELL)
+            break;
+    lastspell = n - 1;
+    
+    Your("%s spell has been forgotten.", spellname(lastspell));
+    spellknow(lastspell) = 0;
+    spellid(lastspell) = NO_SPELL;
+}
 /*
  * Allow player to sort the list of known spells.  Manually swapping
  * pairs of them becomes very tedious once the list reaches two pages.

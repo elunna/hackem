@@ -2702,6 +2702,7 @@ E void FDECL(cast_reflection, (struct monst *));
 E int FDECL(spelleffects, (int, BOOLEAN_P, BOOLEAN_P));
 E int FDECL(tport_spell, (int));
 E void NDECL(losespells);
+E void NDECL(forget_spell);
 E int NDECL(dovspell);
 E void FDECL(initialspell, (struct obj *));
 E boolean NDECL(studyspell);
