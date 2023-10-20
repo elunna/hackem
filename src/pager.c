@@ -990,14 +990,12 @@ struct permonst * pm;
     ADDRESIST(pm_resistance(pm, MR2_JUMPING), "jump");
     ADDRESIST(pm_resistance(pm, MR2_WATERWALK), "walk on water");
     APPENDC(is_outflanker(pm), "flank");
-    
-    APPENDC(is_berserker(pm), "berserk");
+    APPENDC(is_berserker(pm), "go berserk");
     APPENDC(can_betray(pm), "betray you");
     APPENDC(non_tameable(pm), "not be tamed");
-    
     APPENDC(webmaker(pm), "spin webs");
     APPENDC(needspick(pm), "mine");
-    APPENDC(is_berserker(pm), "go berserk");
+   
     if (!needspick(pm))
         APPENDC(tunnels(pm), "dig");
     if (*buf) {
