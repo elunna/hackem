@@ -1470,7 +1470,7 @@ tech_timeout()
             || (u.uhunger > (Race_if(PM_HOBBIT) ? 3000 : 1000))
             || (u.uhunger < 50))
             && rn2(10))
-              return;
+              continue;
 
         if (techtout(i) > 0)
               techtout(i)--;
