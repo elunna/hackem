@@ -1129,7 +1129,12 @@ gcrownu()
         You_feel("unworthy.");
     }
     update_inventory();
-
+    
+    /* The altar can't handle the transference of all that power! */
+    pline("The altar cracks in two and is destroyed!");
+    levl[u.ux][u.uy].typ = ROOM;
+    
+    
     /* lastly, confer an extra skill slot/credit beyond the
        up-to-29 you can get from gaining experience levels */
     add_weapon_skill(1);
@@ -2368,7 +2373,8 @@ dosacrifice()
                     }
                     if (!Role_if(PM_INFIDEL) && u.ugifts > 2
                         && (rnd(6 + u.ugifts) <= u.ugifts)) {
-                        pline("The altar cracks in two and is destroyed!");                        levl[u.ux][u.uy].typ = ROOM;
+                        pline("The altar cracks in two and is destroyed!");
+                        levl[u.ux][u.uy].typ = ROOM;
                     }
                     livelog_printf(LL_DIVINEGIFT | LL_ARTIFACT,
                                    "had %s bestowed upon %s by %s",
