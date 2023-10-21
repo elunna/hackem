@@ -508,6 +508,15 @@ struct ForgeRecipe {
 
 extern const struct ForgeRecipe fusions[]; /* table of fusions */
 
+struct PotionRecipe {
+    short result_typ;
+    short typ1;
+    short typ2;
+    int chance;
+};
+
+extern const struct PotionRecipe potionrecipes[]; /* table of fusions */
+
 /* indices for some special tin types */
 #define ROTTEN_TIN 0
 #define HOMEMADE_TIN 1

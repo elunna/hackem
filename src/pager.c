@@ -1105,6 +1105,8 @@ char *usr_text;
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
     const struct ForgeRecipe *recipe;
+    const struct PotionRecipe *precipe;
+    boolean has_recipes = FALSE;
     boolean wielded, carried, potion_known;
     boolean weptool = (boolean) (oc.oc_class == TOOL_CLASS && oc.oc_skill != P_NONE);
     /* If it's an artifact, we always have it in obj. */
@@ -1779,7 +1781,6 @@ char *usr_text;
     }
 
     /* forge recipes */
-    boolean has_recipes = FALSE;
     if (reveal_info && !is_artifact
           && (oc.oc_class == WEAPON_CLASS || oc.oc_class == ARMOR_CLASS)) {
         for (recipe = fusions; recipe->result_typ; recipe++) {
@@ -1798,6 +1799,28 @@ char *usr_text;
             }
         }
     }
+    
+    /* potion alchemy */
+    has_recipes = FALSE;
+    if (reveal_info) {
+        for (precipe = potionrecipes; precipe->result_typ; precipe++) {
+            if (otyp == precipe->typ1 || otyp == precipe->typ2
+                || otyp == precipe->result_typ) {
+                if (!has_recipes) {
+                    OBJPUTSTR("");
+                    OBJPUTSTR("Potion alchemy recipes (#dip):");
+                    has_recipes = TRUE;
+                }
+                Sprintf(buf, "     %s + %s = %s%s",
+                        OBJ_NAME(objects[precipe->typ1]),
+                        OBJ_NAME(objects[precipe->typ2]),
+                        OBJ_NAME(objects[precipe->result_typ]),
+                        precipe->chance == 1 ? "" : "(1/3)" );
+                OBJPUTSTR(buf);
+            }
+        }
+    }
+    
     /* gem alchemy */
     if (oc.oc_class == GEM_CLASS && reveal_info) {
         struct obj *potion = mksobj(POT_ACID, FALSE, FALSE);

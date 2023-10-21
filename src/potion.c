@@ -2772,6 +2772,8 @@ register struct obj *o1, *o2;
 {
     int o1typ = o1->otyp, o2typ = o2->otyp;
     const char *potion_descr;
+    const struct PotionRecipe *recipe;
+    
     /* cut down on the number of cases below */
     if (o1->oclass == POTION_CLASS
         && (o2typ == POT_GAIN_LEVEL 
@@ -2786,79 +2788,11 @@ register struct obj *o1, *o2;
         o2typ = o1->otyp;
     }
 
-    switch (o1typ) {
-    case POT_HEALING:
-        if (o2typ == POT_SPEED)
-            return POT_EXTRA_HEALING;
-        /*FALLTHRU*/
-    case POT_EXTRA_HEALING:
-    case POT_FULL_HEALING:
-        if (o2typ == POT_GAIN_LEVEL || o2typ == POT_GAIN_ENERGY)
-            return (o1typ == POT_HEALING) ? POT_EXTRA_HEALING
-                   : (o1typ == POT_EXTRA_HEALING) ? POT_FULL_HEALING
-                     : POT_GAIN_ABILITY;
-        /*FALLTHRU*/
-    case UNICORN_HORN:
-        switch (o2typ) {
-        case POT_SICKNESS:
-            return POT_FRUIT_JUICE;
-        case POT_HALLUCINATION:
-        case POT_BLINDNESS:
-        case POT_CONFUSION:
-        case POT_BLOOD:
-        case POT_VAMPIRE_BLOOD:
-            return POT_WATER;
+    for (recipe = potionrecipes; recipe->result_typ; recipe++) {
+        if ((o1typ == recipe->typ1 && o2typ == recipe->typ2)) {
+            if (recipe->chance == 1 || !rn2(recipe->chance))
+                return recipe->result_typ;
         }
-        break;
-    case AMETHYST: /* "a-methyst" == "not intoxicated" */
-        if (o2typ == POT_BOOZE)
-            return POT_FRUIT_JUICE;
-        break;
-    case POT_GAIN_LEVEL:
-    case POT_GAIN_ENERGY:
-        switch (o2typ) {
-        case POT_CONFUSION:
-            return (rn2(3) ? POT_BOOZE : POT_ENLIGHTENMENT);
-        case POT_HEALING:
-            return POT_EXTRA_HEALING;
-        case POT_EXTRA_HEALING:
-            return POT_FULL_HEALING;
-        case POT_FULL_HEALING:
-            return POT_GAIN_ABILITY;
-        case POT_FRUIT_JUICE:
-            return POT_SEE_INVISIBLE;
-        case POT_BOOZE:
-            return POT_HALLUCINATION;
-        }
-        break;
-    case POT_FRUIT_JUICE:
-        switch (o2typ) {
-        case POT_SICKNESS:
-            return POT_SICKNESS;
-        case POT_BLOOD:
-            return POT_BLOOD;
-        case POT_VAMPIRE_BLOOD:
-            return POT_VAMPIRE_BLOOD;
-        case POT_ENLIGHTENMENT:
-        case POT_SPEED:
-            return POT_BOOZE;
-        case POT_GAIN_LEVEL:
-        case POT_GAIN_ENERGY:
-            return POT_SEE_INVISIBLE;
-        }
-        break;
-    case POT_ENLIGHTENMENT:
-        switch (o2typ) {
-        case POT_LEVITATION:
-            if (rn2(3))
-                return POT_GAIN_LEVEL;
-            break;
-        case POT_FRUIT_JUICE:
-            return POT_BOOZE;
-        case POT_BOOZE:
-            return POT_CONFUSION;
-        }
-        break;
     }
     
     /* MRKR: Extra alchemical effects. */
@@ -2875,6 +2809,62 @@ register struct obj *o1, *o2;
     }
     return STRANGE_OBJECT;
 }
+
+/* potion alchemy recipes */
+const struct PotionRecipe potionrecipes[] = {
+    /* ranged weapons */
+    { POT_EXTRA_HEALING,    POT_HEALING, POT_SPEED,         1 },
+    { POT_EXTRA_HEALING,    POT_HEALING, POT_GAIN_LEVEL,    1 },
+    { POT_EXTRA_HEALING,    POT_HEALING, POT_GAIN_ENERGY,   1 },
+    
+    { POT_FULL_HEALING,     POT_EXTRA_HEALING, POT_GAIN_LEVEL, 1 },
+    { POT_FULL_HEALING,     POT_EXTRA_HEALING, POT_GAIN_ENERGY,1 },
+   
+    { POT_GAIN_ABILITY,     POT_FULL_HEALING, POT_GAIN_LEVEL,  1 },
+    { POT_GAIN_ABILITY,     POT_FULL_HEALING, POT_GAIN_ENERGY, 1 },
+    
+    { POT_FRUIT_JUICE,      UNICORN_HORN, POT_SICKNESS,      1 },
+    { POT_WATER,            UNICORN_HORN, POT_HALLUCINATION, 1 },
+    { POT_WATER,            UNICORN_HORN, POT_BLINDNESS,     1 },
+    { POT_WATER,            UNICORN_HORN, POT_CONFUSION,     1 },
+    { POT_WATER,            UNICORN_HORN, POT_BLOOD,         1 },
+    { POT_WATER,            UNICORN_HORN, POT_VAMPIRE_BLOOD, 1 },
+    
+    { POT_FRUIT_JUICE,      AMETHYST,     POT_BOOZE,         1 },
+    
+    { POT_ENLIGHTENMENT,    POT_GAIN_LEVEL, POT_CONFUSION,   3 },
+        /* If not enlightenment, than booze */
+    { POT_BOOZE,            POT_GAIN_LEVEL, POT_CONFUSION,   1 },
+    { POT_EXTRA_HEALING,    POT_GAIN_LEVEL, POT_HEALING,     1 },
+    { POT_FULL_HEALING,     POT_GAIN_LEVEL, POT_EXTRA_HEALING, 1 },
+    { POT_GAIN_ABILITY,     POT_GAIN_LEVEL, POT_FULL_HEALING,1 },
+    { POT_SEE_INVISIBLE,    POT_GAIN_LEVEL, POT_FRUIT_JUICE, 1 },
+    { POT_HALLUCINATION,    POT_GAIN_LEVEL, POT_BOOZE,       1 },
+
+    { POT_ENLIGHTENMENT,    POT_GAIN_ENERGY, POT_CONFUSION,  3 },
+        /* If not enlightenment, than booze */
+    { POT_BOOZE,            POT_GAIN_ENERGY, POT_CONFUSION,  1 },
+    { POT_EXTRA_HEALING,    POT_GAIN_ENERGY, POT_HEALING,    1 },
+    { POT_FULL_HEALING,     POT_GAIN_ENERGY, POT_EXTRA_HEALING, 1 },
+    { POT_GAIN_ABILITY,     POT_GAIN_ENERGY, POT_FULL_HEALING,  1 },
+    { POT_SEE_INVISIBLE,    POT_GAIN_ENERGY, POT_FRUIT_JUICE,   1 },
+    { POT_HALLUCINATION,    POT_GAIN_ENERGY, POT_BOOZE,      1 },
+    
+    { POT_SICKNESS,         POT_FRUIT_JUICE, POT_SICKNESS,   1 },
+    { POT_BLOOD,            POT_FRUIT_JUICE, POT_BLOOD,      1 },
+    { POT_VAMPIRE_BLOOD,    POT_FRUIT_JUICE, POT_VAMPIRE_BLOOD, 1 },
+    { POT_BOOZE,            POT_FRUIT_JUICE, POT_ENLIGHTENMENT, 1 },
+    { POT_BOOZE,            POT_FRUIT_JUICE, POT_SPEED,      1 },
+    { POT_SEE_INVISIBLE,    POT_FRUIT_JUICE, POT_GAIN_LEVEL, 1 },
+    { POT_SEE_INVISIBLE,    POT_FRUIT_JUICE, POT_GAIN_ENERGY,1 },
+    
+    { POT_GAIN_LEVEL,       POT_ENLIGHTENMENT, POT_LEVITATION, 3 },
+    { POT_BOOZE,            POT_ENLIGHTENMENT, POT_FRUIT_JUICE, 1 },
+    { POT_CONFUSION,        POT_ENLIGHTENMENT, POT_BOOZE,       1 },
+    
+    { ELVEN_DAGGER,         POT_GAIN_ENERGY, KNIFE,         1 },
+    { 0, 0, 0, 0 }
+};
 
 const char *
 gem_to_potion(otyp)
