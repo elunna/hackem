@@ -147,8 +147,9 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
 
 /* Roles */
 static const struct innate_tech
-    arc_tech[] = { 
-        { 1, T_RESEARCH, 1 },
+    arc_tech[] = {
+        { 1, T_APPRAISAL, 1 },
+        { 3, T_RESEARCH, 1 },
         { 0, 0, 0 } 
     },
     bar_tech[] = { 
@@ -1048,7 +1049,7 @@ int tech_no;
         case T_APPRAISAL:
             res = tech_appraisal();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(100, 100);
             break;
         case T_PRACTICE:
             res = tech_practice();
@@ -2915,24 +2916,17 @@ tech_flurry()
 }
 
 int
-tech_appraisal()
-{
+tech_appraisal() {
     if (!uwep) {
-         You("are not wielding anything!");
-    } else if (weapon_type(uwep) == P_NONE) {
-         You("examine %s.", doname(uwep));
-         uwep->known = TRUE;
-         You("discover it is %s.", doname(uwep));
-         update_inventory();
-         return 1;
-    } else {
-        You("examine %s.", doname(uwep));
-        uwep->known = TRUE;
-        You("discover it is %s.", doname(uwep));
-        update_inventory();
-        return 1;
+        You("are not wielding anything!");
+        return 0;
     }
-    return 0;
+    You("examine %s.", doname(uwep));
+    uwep->known = TRUE;
+    uwep->oprops_known = TRUE;
+    You("discover it is %s.", doname(uwep));
+    update_inventory();
+    return 1;
 }
 
 int
