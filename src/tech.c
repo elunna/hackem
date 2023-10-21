@@ -1374,6 +1374,7 @@ void
 tech_timeout()
 {
     int i;
+    
     for (i = 0; i < MAXTECH; i++) {
         if (techid(i) == NO_TECH)
               continue;
@@ -1460,12 +1461,15 @@ tech_timeout()
             }
         }
 
+        if (!u.uacted)
+            continue; /* No timeout for doing nothing */
+            
         if (techtout(i) == 1) {
               pline("Your %s technique is ready to be used!", techname(i));
               stop_occupation();
         }
 
-        if (techtout(i) > 0 && using_oprop(ITEM_PROWESS) && u.uacted)
+        if (techtout(i) > 0 && using_oprop(ITEM_PROWESS))
               techtout(i)--;
 
         /* Maintaining technical skill requires maintaining a healthy body and mind.
@@ -1483,7 +1487,7 @@ tech_timeout()
             && rn2(10))
               continue;
 
-        if (techtout(i) > 0 && u.uacted)
+        if (techtout(i) > 0)
               techtout(i)--;
     }
 }
