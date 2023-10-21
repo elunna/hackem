@@ -3668,9 +3668,35 @@ dodip()
             update_inventory();
             return 1;
         }
+    } else if (potion->otyp == POT_INVULNERABILITY) {
+        if (obj->oartifact)
+            ; /* Already pretty indestructible */
+        else if (obj->oprops & ITEM_TOUGH)
+            ; /* Already has toughness */
+        else if (is_missile(obj) || is_ammo(obj))
+            ; /* Ammo and missiles not eligible */
+        else if (obj->oclass != WEAPON_CLASS 
+                && obj->oclass != ARMOR_CLASS
+                && obj->oclass != AMULET_CLASS
+                && obj->oclass != TOOL_CLASS
+                && obj->oclass != RING_CLASS)
+            ; /* Some items should not be indestructible: 
+ *              * food, potions, scrolls, etc */
+        else {
+            obj->oprops |= ITEM_TOUGH;
+            obj->oprops_known |= ITEM_TOUGH;
+            pline("%s covered by a %s %s %s!", Yobjnam2(obj, "are"),
+                  obj->cursed ? "mottled" : "shimmering",
+                  hcolor(obj->cursed ? NH_BLACK : NH_GOLDEN),
+                  obj->cursed ? "glow"
+                          : (is_shield(obj) ? "layer" : "shield"));
+            useup(potion);
+            update_inventory();
+            return 1;
+        }
     }
-    /* removing erosion from items */
-    else if (potion->otyp == POT_RESTORE_ABILITY && !potion->cursed
+     /* removing erosion from items */
+     else if (potion->otyp == POT_RESTORE_ABILITY && !potion->cursed
              && erosion_matters(obj) && (obj->oeroded || obj->oeroded2)) {
         obj->oeroded = obj->oeroded2 = 0;
         pline("%s as good as new!", Yobjnam2(obj, Blind ? "feel" : "look"));

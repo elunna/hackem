@@ -1302,7 +1302,7 @@ char *usr_text;
         if (obj->oprops & ITEM_DANGER) OBJPUTSTR("Grants infravision with increased difficulty");
         if (obj->oprops & ITEM_RAGE) OBJPUTSTR("Grants rage and fearlessness");
         if (obj->oprops & ITEM_PROWESS) OBJPUTSTR("Grants prowess in technical skills");
-        if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Grants disintegration resistance, indestructible item");
+        if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Indestructible item");
         if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
         if (obj->oprops & ITEM_FUMBLE) OBJPUTSTR("Grants fumbling");
     }

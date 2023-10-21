@@ -603,12 +603,6 @@ boolean has_of;
                 Strcpy(of, " and");
         }
     }
-    if (props & ITEM_TOUGH) {
-        if ((props_known & ITEM_TOUGH) || dump_prop_flag) {
-            Strcat(buf, of), Strcat(buf, " toughness"),
-                    Strcpy(of, " and");
-        }
-    }
     if (props & ITEM_PROWESS) {
         if ((props_known & ITEM_PROWESS) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " prowess"),
@@ -826,7 +820,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                 && !objects[obj->otyp].oc_name_known)
             || (obj->oartifact && not_fully_identified(obj))))
         Strcat(buf, "magical ");
-
+    
     switch (obj->oclass) {
     case AMULET_CLASS:
         if (obj->material != objects[typ].oc_material && dknown) {
@@ -917,7 +911,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             && ((obj->oprops_known & ITEM_OILSKIN)
                 || dump_prop_flag))
             Strcat(buf, "oilskin ");
-
+            
         if ((obj->material != objects[typ].oc_material
              || force_material_name(typ)) && dknown) {
             Strcat(buf, materialnm[obj->material]);
@@ -1383,7 +1377,10 @@ char *prefix;
                is_glass(obj) ? "fractured " :
                is_corrodeable(obj) ? "corroded " : "rotted ");
     }
-    if (rknown && obj->oerodeproof) {
+    if (obj->dknown && (obj->oprops & ITEM_TOUGH)
+         && ((obj->oprops_known & ITEM_TOUGH) || dump_prop_flag))
+        Strcat(prefix, "tough ");
+    else if (rknown && obj->oerodeproof) {
         if (iscrys)
             Strcat(prefix, "fixed ");
         else if (is_glass(obj))

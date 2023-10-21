@@ -598,8 +598,7 @@ struct obj {
 #define ITEM_SLEEP     0x00000080L /* sleep resistance */
 #define ITEM_FLEX      0x00000100L /* stoning resistance */
 #define ITEM_FILTH     0x00000200L /* sickness resistance */
-#define ITEM_TOUGH     0x00000400L /* disintegration res 
-                                    * Makes items erosionproof and indestructible */
+#define ITEM_TOUGH     0x00000400L /* Makes items erosionproof and indestructible */
 #define ITEM_OILSKIN   0x00000800L /* permanently greased */
 #define ITEM_ESP       0x00001000L /* telepathy */
 #define ITEM_SEARCH    0x00002000L /* searching */

@@ -197,9 +197,6 @@ register struct obj *obj;
         if (olduwep->oprops & ITEM_RAGE) {
             EFearless &= ~W_WEP;
         }
-        if (olduwep->oprops & ITEM_TOUGH) {
-            EDisint_resistance &= ~W_WEP;
-        }
     }
 
     if (uwep && uwep == obj) {
@@ -291,9 +288,6 @@ register struct obj *obj;
                 uwep->oprops_known |= ITEM_RAGE;
             }
             EFearless |= W_WEP;
-        }
-        if (uwep->oprops & ITEM_TOUGH) {
-            EDisint_resistance |= W_WEP;
         }
     }
 
@@ -581,10 +575,6 @@ register struct obj *obj;
         if (olduswapwep->oprops & ITEM_RAGE) {
             EFearless &= ~W_SWAPWEP;
         }
-        /* Toughness */
-        if (olduswapwep->oprops & ITEM_TOUGH) {
-            EDisint_resistance &= ~W_SWAPWEP;
-        }
     }
 
     if (uswapwep == obj && u.twoweap) {
@@ -676,9 +666,6 @@ register struct obj *obj;
                 uwep->oprops_known |= ITEM_RAGE;
             }
             EFearless |= W_SWAPWEP;
-        }
-        if (uswapwep->oprops & ITEM_TOUGH) {
-            EDisint_resistance |= W_SWAPWEP;
         }
     }
 }
