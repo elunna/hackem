@@ -5489,10 +5489,11 @@ boolean u_caused;
         obj2 = obj->nexthere;
         
         if (is_glass(obj)
-            || obj->otyp == STATUE
-              || obj->otyp == BOULDER) {
+            || obj->otyp == STATUE || obj->otyp == BOULDER) {
             
             if (obj_resists(obj, 2, 100))
+                continue;
+            if (obj->otyp == POT_INVULNERABILITY)
                 continue;
             
             scrquan = obj->quan; /* number present */
@@ -6676,6 +6677,10 @@ int osym, dmgtyp;
         (dmgtyp == AD_ACID && EAcid_resistance) ||
         (dmgtyp == AD_LOUD && ESonic_resistance) ||
         (dmgtyp == AD_ELEC && EShock_resistance))
+        return;
+    
+    /* Potions of invulnerability are... invulnerable */
+    if (obj->otyp == POT_INVULNERABILITY)
         return;
     
     physical_damage = FALSE;
