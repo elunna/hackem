@@ -314,7 +314,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Bat from Hell", BASEBALL_BAT,
       (SPFX_RESTR), 0, 0,
       PHYS(3, 20), NO_DFNS, NO_CARY, 0, 
-      A_CHAOTIC, PM_ROGUE, NON_PM, 5000L, CLR_RED, DEFAULT_MAT),
+      A_CHAOTIC, NON_PM, NON_PM, 5000L, CLR_RED, DEFAULT_MAT),
 
     /* Yeenoghu's infamous triple-headed flail. A massive weapon reputed to have been created
      * from the thighbone and torn flesh of an ancient god he slew. An extremely lethal artifact */
@@ -351,8 +351,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, 
       A_CHAOTIC, NON_PM, PM_ORC, 300L, NO_COLOR, DEFAULT_MAT),
 
-  /* Warns when elves are present, but its damage bonus applies to all targets.
-   *      (handled as special case in spec_dbon()). */
+    /* Warns when elves are present, but its damage bonus applies to all targets.
+    *      (handled as special case in spec_dbon()). */
     A("Grimtooth", ORCISH_DAGGER,
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_DEFN), 0, MH_ELF, 
       DISE(5, 6), DFNS(AD_DISE), NO_CARY, 0, 
