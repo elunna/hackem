@@ -1686,7 +1686,8 @@ unsigned trflags;
                     pline("It smells sort of %s in here.",
                           Hallucination ? "purple" : "funky");
                 }
-                incr_itimeout(&HHallucination,rnd(50) + 50);
+                if (!Breathless)
+                    incr_itimeout(&HHallucination,rnd(50) + 50);
             }
             break;
         } else {
