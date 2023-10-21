@@ -6506,9 +6506,10 @@ boolean yourfault;
     
     if (DEADMONSTER(mon) || DRAINEDMONSTER(mon)) {
         /*pline("%s dies!", Monnam(mon));*/
-        if (yourfault)
-            xkilled(mon, XKILL_NOMSG);
-        else
+        if (yourfault) {
+            xkilled(mon, XKILL_GIVEMSG);
+            
+        } else
             monkilled(mon, "", AD_DRLI);
         return TRUE;
     }
