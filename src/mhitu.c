@@ -3404,6 +3404,12 @@ struct monst *mtmp;
 struct attack *mattk;
 {
     int fate, dmg = d((int) mattk->damn, (int) mattk->damd);
+    int maxrange = 128;
+    
+    if (mtmp->data == &mons[PM_SCREAMER] 
+        || mtmp->data == &mons[PM_GIBBERLING])
+        maxrange = 9;
+    
     long lcount;
     boolean wakeup, has_toque = uarmh && uarmh->otyp == TOQUE;
     /* TODO: Are there polyforms that are deaf too? */
@@ -3415,7 +3421,7 @@ struct attack *mattk;
      * Only screams when a certain distance from our hero,
      * can see them, and has the available mspec.
      */
-    if (distu(mtmp->mx, mtmp->my) > 128 || !m_canseeu(mtmp)
+    if (distu(mtmp->mx, mtmp->my) > maxrange || !m_canseeu(mtmp)
         || mtmp->mspec_used)
         return FALSE;
 
