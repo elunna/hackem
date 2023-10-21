@@ -1339,7 +1339,7 @@ OBJECT: '(', random
 
 MAZE: "minetn-12",' '
 FLAGS: inaccessibles
-INIT_MAP: mines,'.',' ',true,true,lit,true
+INIT_MAP: mines,'.',' ',true,true,unlit,true
 GEOMETRY:center,center
 
 
