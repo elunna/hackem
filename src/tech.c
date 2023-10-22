@@ -235,7 +235,6 @@ static const struct innate_tech
         { 0, 0, 0 } 
     },
     pir_tech[] = {
-        { 1, T_PRACTICE, 1 },
         { 1, T_TUMBLE, 1 },
         { 5, T_SUNDER, 1 },
         { 0, 0, 0 } 
