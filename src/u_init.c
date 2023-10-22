@@ -2157,11 +2157,15 @@ register struct trobj *origtrop;
             && valid_obj_material(obj, COPPER))
             set_material(obj, COPPER);
 
-        /* Do the same for orcs and mithril objects.
-           Currently not a concern, but may be in the future */
+        /* Do the same for orcs and mithril objects */
         if (Race_if(PM_ORC) && obj->material == MITHRIL
             && valid_obj_material(obj, IRON))
             set_material(obj, IRON);
+
+        /* Do the same for vampires and silver objects */
+        if (Race_if(PM_VAMPIRE) && obj->material == SILVER
+            && valid_obj_material(obj, BONE))
+            set_material(obj, BONE);
         
         /* Holy wafers do damage to chaotic players */
         if (u.ualign.type == A_CHAOTIC && obj->otyp == HOLY_WAFER)
