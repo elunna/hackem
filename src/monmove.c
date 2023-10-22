@@ -214,13 +214,7 @@ struct monst *mtmp;
      */
     if (mtmp->iswiz
         || is_lminion(mtmp)
-        || is_mplayer(mtmp->data)
-        || is_rider(mtmp->data)
-        || mtmp->data->mlet == S_HUMAN
-        || mtmp->data->mlet == S_ANGEL
-        || mtmp->data == &mons[PM_HONEY_BADGER]
-        || mtmp->data == &mons[PM_NEOTHELID]
-        || unique_corpstat(mtmp->data)
+        || immune_mgc_scare(mtmp->data)
         || (mtmp->isshk && inhishop(mtmp))
         || (mtmp->ispriest && inhistemple(mtmp))
         || mtmp->mberserk)
@@ -260,13 +254,9 @@ struct monst *mtmp;
     return (sengr_at("Elbereth", x, y, TRUE)
             && ((u.ux == x && u.uy == y)
                 || (Displaced && mtmp->mux == x && mtmp->muy == y))
-            && !(mtmp->isshk || mtmp->isgd || !mtmp->mcansee
-                 || mtmp->mpeaceful || mtmp->data->mlet == S_HUMAN
-                 || mtmp->data == &mons[PM_MINOTAUR]
-                 || mtmp->data == &mons[PM_ELDER_MINOTAUR]
-                 || mtmp->data == &mons[PM_GIANT_PRAYING_MANTIS]
-                 || mtmp->data == &mons[PM_NEOTHELID]
-                 || unique_corpstat(mtmp->data)
+            && !(mtmp->isshk || mtmp->isgd 
+                 || !mtmp->mcansee || mtmp->mpeaceful
+                 || disrespects_elbereth(mtmp->data)
                  || Inhell || In_endgame(&u.uz)));
 }
 

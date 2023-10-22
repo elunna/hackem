@@ -91,6 +91,25 @@
     ((ptr) == &mons[PM_HEZROU] \
      || (ptr) == &mons[PM_SKUNK])
 
+#define immune_mgc_scare(ptr) \
+     ((ptr)->mlet == S_HUMAN \
+     || (ptr)->mlet == S_ANGEL \
+     || is_mplayer(ptr) \
+     || is_rider(ptr) \
+     || mindless(ptr) \
+     || unique_corpstat(ptr) \
+     || (ptr) == &mons[PM_HONEY_BADGER]  \
+     || (ptr) == &mons[PM_WIZARD_OF_YENDOR]  \
+     || (ptr) == &mons[PM_NEOTHELID])
+
+#define disrespects_elbereth(ptr) \
+     ((ptr)->mlet == S_HUMAN      \
+     || unique_corpstat(ptr) \
+     || (ptr) == &mons[PM_MINOTAUR] \
+     || (ptr) == &mons[PM_ELDER_MINOTAUR]  \
+     || (ptr) == &mons[PM_GIANT_PRAYING_MANTIS]  \
+     || (ptr) == &mons[PM_NEOTHELID])
+
 #define non_tameable(ptr) \
     (unique_corpstat(ptr) \
      || ((ptr)->mflags3 & M3_WANTSARTI) \

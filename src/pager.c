@@ -1033,6 +1033,13 @@ struct permonst * pm;
             polyok(pm) ? "" : "not ");
     MONPUTSTR(buf);
 
+    if (disrespects_elbereth(pm)) {
+        MONPUTSTR("Does not respect Elbereth.");
+    }
+    if (immune_mgc_scare(pm)) {
+        MONPUTSTR("Immune to magical scaring.");
+    }
+
     /* Attacks */
     buf[0] = buf2[0] = '\0';
     for (i = 0; i < 6; i++) {
