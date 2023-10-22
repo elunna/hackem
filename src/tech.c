@@ -1284,6 +1284,7 @@ int dam;
         if (mtmp)
             You("%s the attack with your shield.",
                 rn2(2) ? "block" : "deflect");
+        use_skill(P_SHIELD, 1);
         /* The projectile blocking has a message in thitu */
     } else if (mtmp) {
         if (rn2(2))

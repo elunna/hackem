@@ -1689,7 +1689,7 @@ int dieroll;
                            of shield */
                         if (obj->otyp == SMALL_SHIELD)
                             tmp += rn2(3) + 1;
-                        else if  (obj->otyp == TOWER_SHIELD)
+                        else if (obj->otyp == TOWER_SHIELD)
                             tmp += rn2(12) + 1;
                         else
                             tmp += rn2(6) + 2;
