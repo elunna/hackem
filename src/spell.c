@@ -1525,8 +1525,12 @@ boolean wiz_cast;
     }
 
     /* gain skill for successful cast */
+    /* Skill gain for spells is faster than skill gain for weapons;
+       four times faster when at basic skill or lower, two times
+       when above. */
     if (!wiz_cast)
-        use_skill(skill, spellev(spell));
+    use_skill(skill, (spellev(spell) * ((role_skill <= P_BASIC 
+                                         && can_advance(skill, FALSE)) ? 4 : 2)));
 
     /* WAC successful casting increases solidity of knowledge */
 	boostknow(spell, CAST_BOOST);

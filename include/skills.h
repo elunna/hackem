@@ -89,7 +89,7 @@ enum p_skills {
 
 /*
  * These are the standard weapon skill levels.  It is important that
- * the lowest "valid" skill be be 1.  The code calculates the
+ * the lowest "valid" skill be 1.  The code calculates the
  * previous amount to practice by calling  practice_needed_to_advance()
  * with the current skill-1.  To work out for the UNSKILLED case,
  * a value of 0 needed.
@@ -110,7 +110,17 @@ enum skill_levels {
     P_GRAND_MASTER = 6  /* ditto */
 };
 
-#define practice_needed_to_advance(level) ((level) * (level) *20)
+/**
+ * To reach the specified skill level:
+ * P_UNSKILLED       0
+ * P_BASIC         100
+ * P_SKILLED       200
+ * P_EXPERT        400
+ * P_MASTER        800
+ * P_GRAND_MASTER 1600
+ */
+#define practice_needed_to_advance(level) (level == 0 ? 0 \
+                                           : (1 << (level-1)) * 100)
 
 /* The hero's skill in various weapons. */
 struct skills {
