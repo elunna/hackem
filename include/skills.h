@@ -82,10 +82,7 @@ enum p_skills {
 #define P_FIRST_H_TO_H P_BARE_HANDED_COMBAT
 
 /* These roles qualify for a martial arts bonus */
-#define martial_bonus() (Role_if(PM_SAMURAI) \
-                         || Role_if(PM_MONK) \
-                         || Role_if(PM_JEDI) \
-                         || Role_if(PM_UNDEAD_SLAYER))
+#define martial_bonus() (Role_if(PM_SAMURAI) || Role_if(PM_MONK))
 
 /*
  * These are the standard weapon skill levels.  It is important that
