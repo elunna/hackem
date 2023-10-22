@@ -2767,6 +2767,7 @@ E void FDECL(learntech, (SHORT_P,long,int));
 E void NDECL(dump_techniques);
 E int FDECL(do_pickpocket, (struct monst *));
 E int FDECL(do_breakrock, (int, int));
+E int FDECL(dazzle_chance, (struct permonst *));
 
 /* ### teleport.c ### */
 

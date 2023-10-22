@@ -3545,6 +3545,23 @@ tech_dazzle()
 }
 
 int
+dazzle_chance(pm)
+struct permonst * pm;
+{
+    int d1, d2, combos = 0;
+    int daznum = techlev(get_tech_no(T_DAZZLE)) - pm->mlevel;
+    
+    for (d1 = 0; d1 < 6; d1++) {
+        for (d2 = 0; d2 < 6; d2++) {
+            if ((d1 + d2 + daznum) > 10)
+                combos++;
+        }
+    }
+    return (100*combos) / 36;
+}
+
+
+int
 tech_drawblood()
 {
     struct obj *obj, *otmp;

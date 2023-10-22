@@ -1021,9 +1021,6 @@ struct permonst * pm;
         else if (vegetarian(pm))
             MONPUTSTR("May be eaten by vegetarians.");
     }
-    if (has_blood(pm)) {
-        MONPUTSTR("May be drunk by vampiric monsters.");
-    }
     if (pm == &mons[PM_HECATONCHEIRE])
         MONPUTSTR("Attacks up to 100 times.");
     if (pm == &mons[PM_HYDRA])
@@ -1038,6 +1035,19 @@ struct permonst * pm;
     }
     if (immune_mgc_scare(pm)) {
         MONPUTSTR("Immune to magical scaring.");
+    }
+    
+    /* Dazzle info */
+    if (Race_if(PM_VAMPIRIC)) {
+        if (has_blood(pm)) {
+            MONPUTSTR("May be drunk by vampiric monsters.");
+        }
+        if (!haseyes(pm))
+            MONPUTSTR("Immune to vampiric dazzling.");
+        else {
+            Sprintf(buf2, "Chance of dazzling %d%% (estimate from base level)", dazzle_chance(pm));
+            MONPUTSTR(buf2);
+        }
     }
 
     /* Attacks */
