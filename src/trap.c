@@ -3218,7 +3218,7 @@ register struct monst *mtmp;
                 if (in_sight) {
                     seetrap(trap);
                 }
-                if (!rn2(27))
+                if (!rn2(7))
                     deltrap(trap);
             }
             break;
