@@ -2324,7 +2324,8 @@ int dieroll;
             && !rn2(max(2, uwep->spe) && !uwep->known)) {
             You("have become quite familiar with %s.",
                 yobjnam(uwep, (char *) 0));
-            uwep->known = TRUE;
+            fully_identify_obj(uwep);
+            discover_object(uwep->otyp, TRUE, TRUE);
             update_inventory();
         }
     }
