@@ -493,7 +493,7 @@ const struct ForgeRecipe fusions[] = {
     { WAR_HAMMER,           MACE, FLAIL,                1, 1 },
     { HEAVY_WAR_HAMMER,     WAR_HAMMER, WAR_HAMMER,     1, 1 },
     { FLAIL,                MACE, MORNING_STAR,         1, 1 },
-    { SPIKED_CHAIN,         IRON_CHAIN, SHURIKEN,       1, 2 },
+    { SPIKED_CHAIN,         IRON_CHAIN, SHURIKEN,       1, 18 },
     
     { LANCE,                JAVELIN, GLAIVE,            1, 1 },
     { PARTISAN,             SPEAR, BROADSWORD,          1, 1 },
