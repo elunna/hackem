@@ -901,7 +901,7 @@ struct monst *mtmp;
                               : 0; /* monsters wear but don't charge rings */
 
         /* destruction depends on current state, not adjustment */
-        if (obj->spe > rn2(7) || obj->spe <= -5) {
+        if (obj->spe > rn2(6) + 3 || (is_cursed && obj->spe <= -5)) {
             if (yours) {
                 pline("%s momentarily, then %s!", Yobjnam2(obj, "pulsate"),
                       otense(obj, "explode"));
