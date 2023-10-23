@@ -2604,6 +2604,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         known = TRUE;
         if (confused || sblessed) {
             You_feel("culpable.");
+            hold_another_object(mksobj(IRON_CHAIN, FALSE, FALSE),
+                                "It slips away from you.", (char*)0, (char*)0);
             break;
         }
         punish(sobj);
