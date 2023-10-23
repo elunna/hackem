@@ -486,7 +486,7 @@ const struct ForgeRecipe fusions[] = {
     { MACE,                 WAR_HAMMER, DAGGER,         1, 1 },
     { HEAVY_MACE,           MACE, MACE,                 1, 1 },
     { ROD,                  RUBY, MACE,                 2, 1 },
-    { EXECUTIONER_S_MACE,   HEAVY_MACE, MACE,           1, 1 },
+    { EXECUTIONER_S_MACE,   HEAVY_MACE, HEAVY_MACE,     1, 1 },
     
     { MORNING_STAR,         MACE, DAGGER,               1, 1 },
     { ORCISH_MORNING_STAR,  MACE, ORCISH_DAGGER,        1, 1 },
