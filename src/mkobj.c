@@ -1467,7 +1467,9 @@ struct obj *body;
             }
         }
     /* corpse of an actual zombie */
-    } else if (body->zombie_corpse && !body->norevive) {
+    } else if (body->zombie_corpse && !body->norevive
+          /* Priests have a chance to put down zombies for good. */
+          && !(Role_if(PM_PRIEST) && rn2(3))) {
         for (age = 2; age <= ROT_AGE; age++) {
             if (!rn2(ZOMBIE_REVIVE_CHANCE)) { /* zombie revives */
                 action = ZOMBIFY_MON; /* if buried, can dig itself out */
