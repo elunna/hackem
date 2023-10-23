@@ -1890,6 +1890,21 @@ domove_core()
             && weapon_type(uwep) == P_BARE_HANDED_COMBAT && Role_if(PM_MONK)) {
             do_breakrock(x, y);
             return;
+        } else if (levl[x][y].typ == IRONBARS
+            && ((levl[x][y].wall_info & W_NONDIGGABLE) == 0)
+            && weapon_type(uwep) == P_BARE_HANDED_COMBAT 
+            && uarmg && uarmg->otyp == GAUNTLETS_OF_FORCE) {
+            levl[bhitpos.x][bhitpos.y].typ = ROOM;
+            if (cansee(bhitpos.x, bhitpos.y)) {
+                Your("%s destroy the iron bars!", xname(uarmg));
+                makeknown_msg(uarmg->otyp);
+                
+            } else if (!Deaf)
+                You_hear("a lot of loud clanging sounds!");
+            scatter_chains(x, y);
+            wake_nearto(bhitpos.x, bhitpos.y, 20 * 20);
+            newsym(bhitpos.x, bhitpos.y);
+            return;
         } else {
             You("%s%s %s.",
                 !(boulder || solid) ? "" : !explo ? "harmlessly " : "futilely ",

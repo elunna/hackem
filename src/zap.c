@@ -4400,6 +4400,7 @@ struct obj **pobj; /* object tossed/used, set to NULL
                 pline_The("iron bars are blown apart!");
             else if (!Deaf)
                 You_hear("a lot of loud clanging sounds!");
+            scatter_chains(x, y);
             wake_nearto(bhitpos.x, bhitpos.y, 20 * 20);
             newsym(bhitpos.x, bhitpos.y);
             /* stop the bolt here; it takes a lot of energy to destroy bars */
@@ -6236,8 +6237,7 @@ boolean moncast;
         break;
 
     case ZT_SONIC: {
-        int i, xx = x, yy = y;
-        struct obj *otmp;
+        int xx = x, yy = y;
         t = t_at(x, y);
         
         if (find_drawbridge(&xx, &yy)) {
@@ -6271,15 +6271,7 @@ boolean moncast;
                     if (see_it)
                         newsym(x, y);
                 }
-                /* scatter some debris (not as much as a drawbridge! */
-                for (i = rn2(3); i > 0; --i) {
-                    otmp = mksobj_at(IRON_CHAIN, 
-                                     rn2(2) ? x : xx, 
-                                     rn2(2) ? y : yy, TRUE, FALSE);
-                    /* a force of 5 here would yield a radius of 2 for
-                       iron chain; anything less produces a radius of 1 */
-                    (void) scatter(otmp->ox, otmp->oy, 1, MAY_HIT, otmp);
-                }
+                scatter_chains(x, y);
             }
         } else if (IS_TOILET(lev->typ)) {
             rangemod -= 1;
@@ -7680,5 +7672,20 @@ int tmp;
     return tmp;
 }
 
+
+void
+scatter_chains(x, y)
+int x, y;
+{
+    struct obj *otmp;
+    int i;
+    /* scatter some debris (not as much as a drawbridge! */
+    for (i = rn2(3); i > 0; --i) {
+        otmp = mksobj_at(IRON_CHAIN, x, y, TRUE, FALSE);
+        /* a force of 5 here would yield a radius of 2 for
+           iron chain; anything less produces a radius of 1 */
+        (void) scatter(otmp->ox, otmp->oy, 1, MAY_HIT, otmp);
+    }
+}
 
 /*zap.c*/
