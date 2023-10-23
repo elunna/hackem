@@ -1798,8 +1798,7 @@ char *usr_text;
     }
 
     /* forge recipes */
-    if (reveal_info && !is_artifact
-          && (oc.oc_class == WEAPON_CLASS || oc.oc_class == ARMOR_CLASS)) {
+    if (reveal_info && !is_artifact) {
         for (recipe = fusions; recipe->result_typ; recipe++) {
             if (otyp == recipe->typ1 || otyp == recipe->typ2
                 || otyp == recipe->result_typ) {

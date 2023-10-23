@@ -3731,6 +3731,7 @@ const char *str;
         "bat from hell", /* not the "bat" monster */
         "jedi jump",     /* not the "jedi" monster */
         "Thiefbane",     /* not the "thief" rank */
+        "sling bullet",     /* not the "thief" rank */
         "Houchou",       /* not something... */
     };
     int i;

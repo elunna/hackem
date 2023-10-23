@@ -559,10 +559,10 @@ const struct ForgeRecipe fusions[] = {
     /* barding for steeds */
     { BARDING,              PLATE_MAIL, SADDLE,         1, 1 },
     { SPIKED_BARDING,       BARDING, MORNING_STAR,      1, 1 },
-    { BARDING_OF_REFLECTION, BARDING, SHIELD_OF_REFLECTION, 1, 1 },
+    { BARDING_OF_REFLECTION,BARDING, SHIELD_OF_REFLECTION, 1, 1 },
 
     /* sling bullets */
-    { SLING_BULLET, ROCK, DART, 3, 1 },
+    { SLING_BULLET,         ROCK, DART, 3, 1 },
     { 0, 0, 0, 0, 0 }
 };
 
