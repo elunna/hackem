@@ -54,7 +54,8 @@ char msgbuf[BUFSZ];
 /* non-rotting non-corpses; unlike lizard corpses, these items will behave
    as if rotten if they are cursed (fortune cookies handled elsewhere) */
 #define nonrotting_food(otyp) \
-    ((otyp) == LEMBAS_WAFER || (otyp) == CRAM_RATION)
+    ((otyp) == LEMBAS_WAFER || (otyp) == CRAM_RATION \
+    || (otyp) == EUCALYPTUS_LEAF)
 
 STATIC_OVL NEARDATA const char comestibles[] = { FOOD_CLASS, 0 };
 STATIC_OVL NEARDATA const char offerfodder[] = { FOOD_CLASS, AMULET_CLASS,
