@@ -17,6 +17,7 @@ STATIC_DCL void FDECL(skill_advance, (int));
 static int dmgval_core(struct obj*, struct monst*, struct damage_info_t*);
 static void FDECL(mon_ignite_lightsaber, (struct obj *, struct monst *));
 STATIC_PTR int NDECL(practice);
+static int FDECL(skill_crosstrain_bonus, (int));
 
 /*WAC practicing needs a delay counter*/
 static NEARDATA schar delay;            /* moves left for practice */
@@ -1952,8 +1953,9 @@ static const struct skill_range {
 int
 enhance_weapon_skill()
 {
-    int pass, i, n, len, longest, to_advance, eventually_advance, maxxed_cnt;
-    char buf[BUFSZ], sklnambuf[BUFSZ], maxsklnambuf[BUFSZ], percentbuf[BUFSZ];
+    int pass, i, n,  len, longest, crosstrain, to_advance, 
+        eventually_advance, maxxed_cnt;
+    char buf[BUFSZ], sklnambuf[BUFSZ], maxsklnambuf[BUFSZ], percentbuf[BUFSZ], crosstrainbuf[BUFSZ];
     const char *prefix;
     menu_item *selected;
     anything any;
@@ -1964,7 +1966,7 @@ enhance_weapon_skill()
         speedy = TRUE;
 
     do {
-        /* find longest available skill name, count those that can advance */
+        /* count skills that can advance */
         to_advance = eventually_advance = maxxed_cnt = 0;
         for (longest = 0, i = 0; i < P_NUM_SKILLS; i++) {
             if (P_RESTRICTED(i))
@@ -2041,6 +2043,12 @@ enhance_weapon_skill()
                             ? "    "
                             : "";
 
+                crosstrain = skill_crosstrain_bonus(i);
+                if (crosstrain > 1 && P_SKILL(i) < P_MAX_SKILL(i))
+                    Sprintf(crosstrainbuf, " x%d", crosstrain);
+                else
+                    Strcpy(crosstrainbuf, "    ");
+                
                 (void) skill_level_name(P_SKILL(i), sklnambuf);
                 (void) skill_level_name(P_MAX_SKILL(i), maxsklnambuf);
 
@@ -2053,26 +2061,26 @@ enhance_weapon_skill()
 
                 if (wizard) {
                     if (!iflags.menu_tab_sep)
-                        Sprintf(buf, " %s%-*s %-12s %5d(%4d)", prefix,
+                        Sprintf(buf, " %s%-*s %-12s %5d(%4d)%s", prefix,
                                 longest, P_NAME(i), sklnambuf, P_ADVANCE(i),
-                                practice_needed_to_advance(P_SKILL(i)));
+                                practice_needed_to_advance(P_SKILL(i)),crosstrainbuf);
                     else
-                        Sprintf(buf, " %s%s\t%s\t%5d(%4d)", prefix, P_NAME(i),
-                                sklnambuf, P_ADVANCE(i),
-                                practice_needed_to_advance(P_SKILL(i)));
+                        Sprintf(buf, " %s%s\t%s\t%5d(%4d)%s", prefix,
+                                P_NAME(i), sklnambuf, P_ADVANCE(i), 
+                                practice_needed_to_advance(P_SKILL(i)), crosstrainbuf);
                 } else {
                     if (!iflags.menu_tab_sep) {
                         if (Role_if(PM_MONK))
-                            Sprintf(buf, " %s %-*s [ %12s / %-12s ] %4s", prefix,
+                            Sprintf(buf, " %s %-*s [ %12s / %-12s ] %4s%s", prefix,
                                     longest, P_NAME(i), sklnambuf, maxsklnambuf,
-                                    percentbuf);
+                                    percentbuf, crosstrainbuf);
                         else
-                            Sprintf(buf, " %s %-*s [ %9s / %-9s ] %4s", prefix,
+                            Sprintf(buf, " %s %-*s [ %9s / %-9s ] %4s%s", prefix,
                                     longest, P_NAME(i), sklnambuf, maxsklnambuf,
-                                    percentbuf);
+                                    percentbuf, crosstrainbuf);
                     } else {
-                        Sprintf(buf, " %s%s\t[ %s\t /%s ] %4s", prefix, P_NAME(i),
-                                sklnambuf, maxsklnambuf, percentbuf);
+                        Sprintf(buf, " %s%s\t[ %s\t /%s ] %4s%s", prefix, P_NAME(i),
+                                sklnambuf, maxsklnambuf, percentbuf, crosstrainbuf);
                     }
                 }
                 any.a_int = can_advance(i, speedy) ? i + 1 : 0;
@@ -2147,7 +2155,7 @@ int degree;
         if (using_oprop(ITEM_PROWESS))
             degree *= 2;
 
-        P_ADVANCE(skill) += degree;
+        P_ADVANCE(skill) += degree * skill_crosstrain_bonus(skill);
         if (!advance_before && can_advance(skill, FALSE))
             give_may_advance_msg(skill);
     }
@@ -2687,4 +2695,96 @@ practice()
     You("finish your practice session.");
     return 0;
 }
+
+
+/*
+ * Weapon skill groups:
+ * Advanced skills will cross-train lesser skills they share a group with.
+ * A weapon skill may belong to more than one group.
+ */
+#define PG_SHORT_BLADES		0x01
+#define PG_CHOPPING_BLADES	0x02
+#define PG_SWORDS		    0x04
+#define PG_BLUDGEONS		0x08
+#define PG_FLAILS		    0x10
+#define PG_POLEARMS		    0x20
+#define PG_LAUNCHERS		0x40
+#define PG_THROWN		    0x80
+
+const uchar weapon_skill_groups[] = {
+        /* P_DAGGER */		    PG_SHORT_BLADES,
+        /* P_KNIFE */		    PG_SHORT_BLADES,
+        /* P_AXE */			    PG_CHOPPING_BLADES,
+        /* P_PICK_AXE */		PG_CHOPPING_BLADES,
+        /* P_SHORT_SWORD */		PG_SHORT_BLADES | PG_SWORDS,
+        /* P_BROAD_SWORD */		PG_CHOPPING_BLADES | PG_SWORDS,
+        /* P_LONG_SWORD */		PG_SWORDS,
+        /* P_TWO_HANDED_SWORD */PG_SWORDS,
+        /* PN_SABER */		    PG_SWORDS,
+        /* P_CLUB */		    PG_BLUDGEONS,
+        /* P_MACE */		    PG_BLUDGEONS,
+        /* P_MORNING_STAR */	PG_BLUDGEONS | PG_FLAILS,
+        /* P_FLAIL */		    PG_BLUDGEONS | PG_FLAILS,
+        /* PN_HAMMER */		    PG_BLUDGEONS,
+        /* P_QUARTERSTAFF */	PG_BLUDGEONS | PG_POLEARMS,
+        /* PN_POLEARMS */		PG_POLEARMS,
+        /* P_SPEAR */		    PG_POLEARMS,
+        /* P_TRIDENT */		    PG_POLEARMS,
+        /* PN_LIGHTSABER */		PG_SWORDS,
+        /* P_LANCE */		    PG_POLEARMS,
+        /* P_BOW */			    PG_LAUNCHERS,
+        /* P_SLING */		    PG_LAUNCHERS | PG_THROWN,
+        /* PN_FIREARMS */		PG_LAUNCHERS,
+        /* P_CROSSBOW */		PG_LAUNCHERS,
+        /* P_DART */		    PG_THROWN,
+        /* P_SHURIKEN */		PG_THROWN,
+        /* P_BOOMERANG */		PG_THROWN,
+        /* P_WHIP */		    PG_FLAILS,
+        /* P_UNICORN_HORN */	PG_POLEARMS,
+};
+
+/*
+ * How much to accelerate training of a skill based on related skills.
+ *
+ * Cross-training should never punish the player for advancing a skill,
+ * so the amount is based on the greater of its training points and its
+ * advancement level.
+ */
+STATIC_OVL int 
+skill_crosstrain_bonus(int skill)
+{
+    int base_skill, highest_skill, i;
+
+    if (skill < P_FIRST_WEAPON || skill > P_LAST_WEAPON)
+        return 1;
+
+    /* find greatest skill level based solely on training points */
+    base_skill = P_UNSKILLED;
+    for (i = P_EXPERT; i > P_UNSKILLED; i--) {
+        /* getting the training points for the _current_ level is awkward */
+        if (P_ADVANCE(skill) >= practice_needed_to_advance(i - 1)) {
+            base_skill = i;
+            break;
+        }
+    }
+    /* if advancement level exceeds points (e.g. wizard mode), catch it too */
+    if (base_skill < P_SKILL(skill))
+        base_skill = P_SKILL(skill);
+
+    /* find highest related weapon skill advancement */
+    highest_skill = P_ISRESTRICTED;
+    for (i = P_FIRST_WEAPON; i <= P_LAST_WEAPON; i++) {
+        if (i == skill)
+            continue;
+        if ((weapon_skill_groups[skill - P_FIRST_WEAPON] &
+             weapon_skill_groups[i - P_FIRST_WEAPON]) == 0)
+            continue;
+        if (P_SKILL(i) > highest_skill)
+            highest_skill = P_SKILL(i);
+    }
+
+    return max(highest_skill - base_skill + 1, 1);
+}
+
+
 /*weapon.c*/
