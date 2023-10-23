@@ -2343,18 +2343,10 @@ struct obj *weapon;
         default:
             impossible(bad_skill, P_SKILL(type)); /* fall through */
         case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            bonus = -4;
-            break;
-        case P_BASIC:
-            bonus = 0;
-            break;
-        case P_SKILLED:
-            bonus = 3;
-            break;
-        case P_EXPERT:
-            bonus = 5;
-            break;
+        case P_UNSKILLED:   bonus = -4;break;
+        case P_BASIC:       bonus = 0; break;
+        case P_SKILLED:     bonus = 3; break;
+        case P_EXPERT:      bonus = 5; break;
         }
     } else if (type == P_TWO_WEAPON_COMBAT) {
         skill = P_SKILL(P_TWO_WEAPON_COMBAT);
@@ -2364,53 +2356,12 @@ struct obj *weapon;
         default:
             impossible(bad_skill, skill); /* fall through */
         case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            bonus = -9;
-            break;
-        case P_BASIC:
-            bonus = -5;
-            break;
-        case P_SKILLED:
-            bonus = -3;
-            break;
-        case P_EXPERT:
-            bonus = 0; /* if you're an expert, there shouldn't be a penalty */
-            break;
+        case P_UNSKILLED:   bonus = -9; break;
+        case P_BASIC:       bonus = -5; break;
+        case P_SKILLED:     bonus = -3; break;
+        /* if you're an expert, there shouldn't be a penalty */
+        case P_EXPERT:      bonus = 0;  break;
         }
-        
-#if 0 /* This was introduced in EvilHack - we are disabling it to allow more 
-       * freedom with two-weaponing */
-        /* Heavy things are hard to use in your offhand unless you're
-           very good at what you're doing, or are very strong (see below) */
-        switch (P_SKILL(P_TWO_WEAPON_COMBAT)) {
-        default:
-            impossible(bad_skill, P_SKILL(P_TWO_WEAPON_COMBAT)); /* fall through */
-        case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            maxweight = 20; /* can use tridents/javelins, crysknives, unicorn horns
-                               or anything lighter */
-            break;
-        case P_BASIC:
-            maxweight = 30; /* can use short swords/spears or a mace */
-            break;
-        case P_SKILLED:
-            maxweight = 40; /* can use sabers/long swords */
-            break;
-        case P_EXPERT:
-            maxweight = 70; /* expert level can offhand any one-handed weapon */
-            break;
-        }
-
-        /* basically no restrictions if you're a giant, or have giant strength */
-        if ((uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
-            || maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)))
-            maxweight = 200;
-
-        if (uswapwep && uswapwep->owt > maxweight) {
-            /* feedback handled in attack() */
-            bonus = -30;
-        }
-#endif
     } else if (type == P_BARE_HANDED_COMBAT) {
         /*
          *        b.h. m.a. giant b.h. m.a.
@@ -2436,16 +2387,11 @@ struct obj *weapon;
     if (u.usteed) {
         switch (P_SKILL(P_RIDING)) {
         case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            bonus -= 2;
-            break;
-        case P_BASIC:
-            bonus -= 1;
-            break;
-        case P_SKILLED:
-            break;
-        case P_EXPERT:
-            break;
+        case P_UNSKILLED:bonus -= 2; break;
+        case P_BASIC:    bonus -= 1; break;
+        case P_SKILLED:              break;
+        /* but an expert can use the added momentum */
+        case P_EXPERT:   bonus += 2; break;
         }
         if (u.twoweap)
             bonus -= 2;
@@ -2494,19 +2440,11 @@ struct obj *weapon;
         default:
             impossible("weapon_dam_bonus: bad skill %d", P_SKILL(type));
         /* fall through */
-        case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            bonus = -2;
-            break;
-        case P_BASIC:
-            bonus = 0;
-            break;
-        case P_SKILLED:
-            bonus = 1;
-            break;
-        case P_EXPERT:
-            bonus = 2;
-            break;
+        case P_ISRESTRICTED:bonus = -5;break;
+        case P_UNSKILLED:   bonus = -2;break;
+        case P_BASIC:       bonus = 0; break;
+        case P_SKILLED:     bonus = 1; break;
+        case P_EXPERT:      bonus = 3; break;
         }
     } else if (type == P_TWO_WEAPON_COMBAT) {
         skill = P_SKILL(P_TWO_WEAPON_COMBAT);
@@ -2515,18 +2453,10 @@ struct obj *weapon;
         switch (skill) {
         default:
         case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            bonus = -3;
-            break;
-        case P_BASIC:
-            bonus = -1;
-            break;
-        case P_SKILLED:
-            bonus = 0;
-            break;
-        case P_EXPERT:
-            bonus = 1;
-            break;
+        case P_UNSKILLED:   bonus = -3;break;
+        case P_BASIC:       bonus = -1;break;
+        case P_SKILLED:     bonus = 0; break;
+        case P_EXPERT:      bonus = 2; break;
         }
     } else if (type == P_BARE_HANDED_COMBAT) {
         /*
@@ -2548,34 +2478,21 @@ struct obj *weapon;
     if ((u.usteed || Race_if(PM_CENTAUR))
         && type != P_TWO_WEAPON_COMBAT) {
         switch (P_SKILL(P_RIDING)) {
-        case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            break;
-        case P_BASIC:
-            break;
-        case P_SKILLED:
-            bonus += 1;
-            break;
-        case P_EXPERT:
-            bonus += 2;
-            break;
+        case P_ISRESTRICTED:break;
+        case P_UNSKILLED:   break;
+        case P_BASIC:       break;
+        case P_SKILLED:     bonus += 2; break;
+        case P_EXPERT:      bonus += 5; break;
         }
     }
     
     /* Jedi are simply better */
     if (Role_if(PM_JEDI) && weapon && is_lightsaber(weapon)) {
         switch (P_SKILL(type)) {
-        case P_EXPERT: 
-            bonus += 4; 
-            break; /* fall through removed by Amy */
-        case P_SKILLED: 
-            bonus += 2; 
-            break;
-        case P_BASIC: 
-            bonus += 1; 
-            break;
-        case P_UNSKILLED: 
-            break;
+        case P_EXPERT:  bonus += 4; break;
+        case P_SKILLED: bonus += 2; break;
+        case P_BASIC:   bonus += 1; break;
+        case P_UNSKILLED:           break;
         default: 
             impossible("unknown lightsaber skill for a jedi"); 
             break;
