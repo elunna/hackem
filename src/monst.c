@@ -190,7 +190,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(20, 5, MS_ANT, MZ_TINY), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
-        M2_HOSTILE, 0, 0, 0, 8, CLR_GRAY),
+        M2_HOSTILE, 0, 0, 0, 11, CLR_GRAY),
     MON("gibberslug", S_ANT,                             /* SpliceHack */
         LVL(5, 12, 10, 0, -2), (G_HELL | G_GENO | G_SGROUP | 1),
         A(ATTK(AT_STNG, AD_DRDX, 4, 3), 
@@ -1974,7 +1974,7 @@ NEARDATA struct permonst mons[] = {
         M1_WALLWALK | M1_ANIMAL | M1_NOHANDS
             | M1_CARNIVORE | M1_OVIPAROUS | M1_THICK_HIDE | M1_NOTAKE,
         M2_HOSTILE | M2_STRONG | M2_JUMPER, 
-        0, 0, 0, 9, CLR_GRAY),
+        0, 0, 0, 10, CLR_GRAY),
     MON("wumpus", S_QUADRUPED,
         LVL(8, 3, 2, 10, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 3, 6), 
@@ -4633,7 +4633,7 @@ struct permonst _mons2[] = {
         SIZ(WT_HUMAN, 200, MS_SILENT, MZ_HUMAN),
         MR_COLD | MR_SLEEP | MR_POISON | MR_ACID | MR_DRAIN | MR_SICK, 0,
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_POIS,
-        M2_HOSTILE, M3_INFRAVISION, 0, MH_UNDEAD, 9, CLR_YELLOW),
+        M2_HOSTILE, M3_INFRAVISION, 0, MH_UNDEAD, 12, CLR_YELLOW),
     MON("giant mummy", S_MUMMY,
         LVL(8, 14, 3, 30, -7), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_WTHR, 3, 4), 
@@ -5702,13 +5702,13 @@ struct permonst _mons2[] = {
         0, MH_UNDEAD, 6, CLR_BLACK),
     MON("skeletal pirate", S_ZOMBIE,                          /* SpliceHack */
         LVL(5, 8, 4, 0, 0), (G_SGROUP | G_NOCORPSE | 1),
-     	  A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
+     	  A(ATTK(AT_WEAP, AD_PHYS, 1, 8), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK), 
         SIZ(300, 5, MS_BONES, MZ_HUMAN),
         MR_COLD | MR_SLEEP | MR_POISON | MR_STONE | MR_DRAIN | MR_SICK, 0,
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_SWIM,
         M2_WANDER | M2_HOSTILE | M2_STRONG | M2_COLLECT | M2_NASTY,
-      	M3_INFRAVISION | M3_TRAITOR, 0, MH_UNDEAD, 7, CLR_WHITE),
+      	M3_INFRAVISION | M3_TRAITOR, 0, MH_UNDEAD, 11, CLR_WHITE),
     MON("ghast", S_ZOMBIE,                                      /* Slash'EM */
         LVL(4, 6, 10, 0, -2), (G_GENO | G_NOCORPSE | 1),
         A(ATTK(AT_CLAW, AD_PLYS, 1, 2),
