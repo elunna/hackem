@@ -1419,6 +1419,9 @@ register struct obj *obj;
                 obj->otyp = SCR_BLANK_PAPER;
                 obj->spe = 0;
             }
+            /* Scrolls of amnesia are uncancelable. */
+            if (obj->otyp == SCR_AMNESIA)
+                break;
             break;
         case SPBOOK_CLASS:
             if (otyp != SPE_CANCELLATION && otyp != SPE_NOVEL
