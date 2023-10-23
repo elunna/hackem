@@ -4308,7 +4308,7 @@ struct monst *shkp;
     if (obj->oprops) {
         verbalize("Your %s already has a property, I could *try* to remove it...", xname(obj));
         charge = 250;
-        shk_smooth_charge(&charge, 200, NOBOUND);
+        shk_smooth_charge(&charge, 250, NOBOUND);
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
         if (!rn2(4)) {
@@ -4324,7 +4324,7 @@ struct monst *shkp;
         return 0;
     } else {
         verbalize("Imbue your %s with special power!", xname(obj));
-        charge = 2000;
+        charge = 1250;
         shk_smooth_charge(&charge, 50, NOBOUND);
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
@@ -4552,7 +4552,7 @@ const char *slang;
 struct monst *shkp;
 {
     register struct obj *obj;
-    int charge = 2000; /* Gnomes are greedy */
+    int charge = 1000; /* Gnomes are greedy */
     int res = 0;
 
     if (!(obj = getobj(identify_types, "have tinkered")))
