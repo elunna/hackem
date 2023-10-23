@@ -635,7 +635,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       A_NEUTRAL, PM_BARBARIAN, NON_PM, 2500L, NO_COLOR, DEFAULT_MAT),
 #endif
 
-    A("The Sceptre of Might", ROD,
+    A("The Sceptre of Might", EXECUTIONER_S_MACE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_DALIGN), 0, 0, PHYS(5, 0),
       DFNS(AD_MAGM), NO_CARY, CONFLICT, 
       A_LAWFUL, PM_CAVEMAN, NON_PM, 2500L,
