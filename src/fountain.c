@@ -459,11 +459,11 @@ const struct ForgeRecipe fusions[] = {
     { BATTLE_AXE,           AXE, AXE,                   1, 1 },
     { DWARVISH_MATTOCK,     PICK_AXE, DWARVISH_SHORT_SWORD, 1, 1 },
     
-    { SHORT_SWORD,          CROSSBOW_BOLT, DAGGER,      2, 1 },
-    { ELVEN_SHORT_SWORD,    CROSSBOW_BOLT, ELVEN_DAGGER, 2, 1 },
+    { SHORT_SWORD,          CROSSBOW_BOLT, DAGGER,        2, 1 },
+    { ELVEN_SHORT_SWORD,    CROSSBOW_BOLT, ELVEN_DAGGER,  2, 1 },
     { ORCISH_SHORT_SWORD,   CROSSBOW_BOLT, ORCISH_DAGGER, 2, 1 },
-    { DWARVISH_SHORT_SWORD, DWARVISH_SPEAR, SHORT_SWORD, 1, 1 },
-    { GLADIUS, BROADSWORD,  SHORT_SWORD,                1, 1 },
+    { DWARVISH_SHORT_SWORD, DWARVISH_SPEAR, SHORT_SWORD,  1, 1 },
+    { GLADIUS,              BROADSWORD,  SHORT_SWORD,     1, 1 },
         
     { SCIMITAR,             KNIFE, SHORT_SWORD,         1, 1 },
     { ORCISH_SCIMITAR,      KNIFE, ORCISH_SHORT_SWORD,  1, 1 },
@@ -476,9 +476,9 @@ const struct ForgeRecipe fusions[] = {
     { RUNESWORD,            BROADSWORD, DAGGER,         1, 1 },
     
     { LONG_SWORD,           SHORT_SWORD, SHORT_SWORD,   1, 1 },
-    { ELVEN_LONG_SWORD,     ELVEN_SHORT_SWORD, ELVEN_SHORT_SWORD, 1, 1 },
+    { ELVEN_LONG_SWORD,     ELVEN_SHORT_SWORD, ELVEN_SHORT_SWORD,   1, 1 },
     { ORCISH_LONG_SWORD,    ORCISH_SHORT_SWORD, ORCISH_SHORT_SWORD, 1, 1 },
-    { KATANA, LONG_SWORD,   LONG_SWORD,                 1, 1 },
+    { KATANA,               LONG_SWORD, LONG_SWORD,                 1, 1 },
     
     { TWO_HANDED_SWORD,     LONG_SWORD, BROADSWORD,     1, 1 },
     { TSURUGI,              TWO_HANDED_SWORD, KATANA,   1, 1 },
