@@ -211,13 +211,13 @@ WEAPON("battle-axe", "double-headed axe", /* "double-bitted"? */
 
 /* swords */
 WEAPON("short sword", None,
-       1, 0, 0, 0,  8,  30,  10,  6,  8, 0, P,   P_SHORT_SWORD, IRON, HI_METAL),
+       1, 0, 0, 0,  8,  30,  10,  6,  8, 1, P,   P_SHORT_SWORD, IRON, HI_METAL),
 WEAPON("elven short sword", "runed short sword",
-       0, 0, 0, 0,  2,  11,  10,  8,  8, 0, P,   P_SHORT_SWORD, WOOD, HI_WOOD),
+       0, 0, 0, 0,  2,  11,  10,  8,  8, 1, P,   P_SHORT_SWORD, WOOD, HI_WOOD),
 WEAPON("orcish short sword", "crude short sword",
-       0, 0, 0, 0,  3,  30,  10,  5,  8, 0, P,   P_SHORT_SWORD, IRON, CLR_BLACK),
+       0, 0, 0, 0,  3,  30,  10,  5,  8, 1, P,   P_SHORT_SWORD, IRON, CLR_BLACK),
 WEAPON("dwarvish short sword", "broad short sword",
-       0, 0, 0, 0,  2,  30,  10,  7,  8, 0, P,   P_SHORT_SWORD, IRON, HI_METAL),
+       0, 0, 0, 0,  2,  30,  10,  7,  8, 1, P,   P_SHORT_SWORD, IRON, HI_METAL),
 WEAPON("gladius", None,                                        /* SpliceHack */
        1, 0, 0, 0,  1,  30,  10, 10,  6, 2, S,   P_SHORT_SWORD, IRON, HI_METAL),
 WEAPON("scimitar", "curved sword",
