@@ -2391,6 +2391,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline("%s with a strange yellow light!", Yobjnam2(otmp, "glow"));
             warp_material(otmp, TRUE);
         }
+        known = TRUE;
         update_inventory();
         break;
     }
