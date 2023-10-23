@@ -4393,6 +4393,8 @@ boolean weapon_attacks; /* skip weapon attacks if false */
             /* [ALI] Vampires are also smart. They avoid biting
                monsters if doing so would be fatal */
             if ((i > 0 && is_vampire(youmonst.data))
+                /* ... unless they are impaired */
+                && (!Stunned && !Confusion && !Hallucination)
                 && ((how_resistant(DISINT_RES) < 50
                         && (mon->data == &mons[PM_BLACK_DRAGON]
                             || mon->data == &mons[PM_ANTIMATTER_VORTEX]))
