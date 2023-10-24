@@ -3864,8 +3864,9 @@ int mndx, mvflagsmask, genomask;
     if (Is_mineend_level(&u.uz) && ptr == &mons[PM_VAMPIRE_MAGE])
         return FALSE;
     if (In_mines(&u.uz)
-        && (ptr == &mons[PM_ALHOON] 
+        && (ptr == &mons[PM_ALHOON]
             || ptr == &mons[PM_MASTER_MIND_FLAYER]
+            || ptr == &mons[PM_DEEPEST_ONE]
             || ptr == &mons[PM_BANSHEE]))
         return FALSE;
     
