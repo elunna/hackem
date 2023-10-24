@@ -3531,13 +3531,15 @@ struct attack *mattk;
         stop_occupation();
         break;
     case AD_SONG:
-        /* Harpies have an entracing song that paralyzes */
+        /* Harpies have an entrancing song that paralyzes */
         if (!can_hear)
             break; /* No inventory effects */
-        if (m_canseeu(mtmp) && !u.usleep)
-            pline("%s releases a hypnotic melody!", Monnam(mtmp));
-        else
-            You("dream of singing angels...");
+        if (m_canseeu(mtmp)) {
+            if (!u.usleep)
+                pline("%s releases a hypnotic melody!", Monnam(mtmp));
+            else
+                You("dream of singing angels...");
+        }
 
         if (how_resistant(SONIC_RES) > 50)
             break; /* No inventory damage! */

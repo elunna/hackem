@@ -6596,6 +6596,15 @@ struct monst* shkp;
         verbalize("Bugger off, you filthy little %s. Don't come begging around here!", urace.noun);
         return;
     }
+    /* Deaf */
+    if (Deaf)
+        return;
+    if (u.usleep) {
+        You("dream that there are great deals at the local shop.");
+        return;
+    }
+    /* Sleeping/paralyzed */
+    
     switch (ESHK(shkp)->shoptype) {
         default:
             verbalize(general_wares[rn2(CRYNUMBER)], urace.noun);
