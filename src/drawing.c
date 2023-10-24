@@ -175,7 +175,7 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '|', "grave", C(CLR_WHITE) },               /* grave */
 /*30*/ { '\\', "opulent throne", C(HI_GOLD) },       /* throne */
        { '#', "sink", C(CLR_GRAY) },                 /* sink */
-       { '#', "toilet", C(CLR_WHITE) },               /* toilet */
+       { '#', "toilet", C(CLR_YELLOW) },             /* toilet */
        { '{', "forge", C(CLR_ORANGE) },              /* forge */
        { '(', "magic chest", C(CLR_BRIGHT_MAGENTA) },/* magic chest */
        { '{', "fountain", C(CLR_BRIGHT_BLUE) },      /* fountain */
