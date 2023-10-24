@@ -2547,7 +2547,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("Where do you want to center the explosion?");
                 getpos_sethilite(display_stinking_cloud_positions,
                                  get_valid_stinking_cloud_pos);
-                (void) getpos(&cc, TRUE, "the desired position");
+                (void) getpos(&cc, FALSE, "the desired position");
                 if (!is_valid_stinking_cloud_pos(cc.x, cc.y, FALSE)) {
                     /* try to reach too far, get burned */
                     cc.x = u.ux;
@@ -2636,7 +2636,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         cc.y = u.uy;
         getpos_sethilite(display_stinking_cloud_positions,
                          get_valid_stinking_cloud_pos);
-        if (getpos(&cc, TRUE, "the desired position") < 0) {
+        if (getpos(&cc, FALSE, "the desired position") < 0) {
             pline1(Never_mind);
             break;
         }
