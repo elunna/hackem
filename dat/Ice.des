@@ -19,13 +19,13 @@ IIIIIIIIIIIIIIIIIII                 IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 IIIIIIIIIIIIIIIIII  ...............  IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 IIIIIIIIIIIIIIIII  ..             ..  IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 IIIIIIIIIIIIIIII  ..   IIII    .....   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-IIIII            ..  IIIII  .....        IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-IIII  ............  IIIII  ..     IIIIII   IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-III  ..            III    ..    IIIIIIIIII  IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+IIIII            ..  IIIII  .....         IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+IIII  ............  IIIII  ..     IIIIII    IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+III  ..            III    ..    IIIIIIIIII    IIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 II  ..  IIIIIIIIIIIII  ....    IIIPPPPPPIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-II ..  IIIIIIIIIIIII  ..      IIPPP....PPPII  IIIIIIIIIIIIIIIIIIIIIIIIIIIIII
-I  .... IIIIIIIIIIII ..   ...IIPP........PPII  IIIIIIIIIIIIIIIIIIIIIIIIIIIII
-I  .....  IIIIIIIIII  .....   IIPPP....PPPII  IIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+II ..  IIIIIIIIIIIII  ..      IIPPP....PPPII    IIIIIIIIIIIIIIIIIIIIIIIIIIII
+I  ...  IIIIIIIIIIII ..   ...IIPP........PPII  IIIIIIIIIIIIIIIIIIIIIIIIIIIII
+I  ....   IIIIIIIIII  .....   IIPPP....PPPII  IIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 II  ...  IIIIIIIIIIII          IIIPPPPPPIII  IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 III     IIIIIIIIIIIIIIIIIIIIII  IIIIIIIII  IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
 IIIIIIIIIIIIIIIIIIIIIIIIIIIIIII   IIIIII  IIIIIIIIIIIIIIIIIIIIII...IIIIIIIII
@@ -55,11 +55,8 @@ MAGIC_CHEST:(39,11)
 # guards for the audience chamber
 MONSTER: ('@', "froster"), (35,10)
 MONSTER: ('@', "froster"), (35,11)
-MONSTER: ('@', "froster"), random
-MONSTER: ('@', "froster"), random
-MONSTER: ('@', "froster"), random
-MONSTER: ('@', "froster"), random
-MONSTER: ('@', "froster"), random
+
+LOOP [5] { MONSTER: ('@', "froster"), random }
 MONSTER: ('D', "baby white dragon"), random, peaceful
 MONSTER: ('D', "white dragon"), random, peaceful
 MONSTER: ('D', "white dragon"), random, peaceful
@@ -68,28 +65,16 @@ MONSTER: ('D', "white dragon"), random, peaceful
 NON_DIGGABLE:(00,00,75,19)
 
 # Random traps
-TRAP: "fire", random
-TRAP: "fire", random
-TRAP: "fire", random
-TRAP: "fire", random
-TRAP: "fire", random
-TRAP: "fire", random
+LOOP [6] { TRAP: "fire", random }
 TRAP: "falling rock", random
 TRAP: "falling rock", random
 TRAP: "magic", random
 TRAP: "magic", random
 
 # Monsters on siege duty.
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
+LOOP [4] { MONSTER: ('E', "fire elemental"), random, hostile }
+LOOP [2] { MONSTER: ('v', "steam vortex"), random, hostile }
+LOOP [2] { MONSTER: ('v', "fire vortex"), random, hostile }
 MONSTER: ('c', "pyrolisk"), random, hostile
 MONSTER: ('c', "pyrolisk"), random, hostile
 MONSTER: ('d', "hell hound pup"), random, hostile
@@ -134,39 +119,19 @@ STAIR: (48,14), up
 STAIR: (20,06), down
 
 # Objects
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [9] { OBJECT: random, random }
 
 # Random traps
-TRAP: "fire", random
-TRAP: "fire", random
-TRAP: "fire", random
-TRAP: "fire", random
+LOOP [4] { TRAP: "fire", random }
 TRAP: "falling rock", random
 TRAP: "falling rock", random
 TRAP: random, random
 TRAP: random, random
 
 # Random monsters.
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
+LOOP [6] { MONSTER: ('E', "fire elemental"), random, hostile }
+LOOP [3] { MONSTER: ('v', "steam vortex"), random, hostile }
+LOOP [3] { MONSTER: ('v', "fire vortex"), random, hostile }
 MONSTER: (':', "salamander"), random, hostile
 MONSTER: (':', "salamander"), random, hostile
 MONSTER: ('N', "red naga"), random, hostile
@@ -226,19 +191,10 @@ DRAWBRIDGE: (17,14), north, closed
 
 # Objects
 OBJECT: ('(', "magic whistle"), (17,08), blessed, 0, name: "The Storm Whistle"
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [7] { OBJECT: random, random }
 
 # Random traps
-TRAP: "fire", random
-TRAP: "fire", random
-TRAP: "fire", random
-TRAP: "fire", random
+LOOP [4] { TRAP: "fire", random }
 TRAP: "falling rock", random
 TRAP: "falling rock", random
 TRAP: random, random
@@ -250,22 +206,10 @@ ALTAR: (17,08), noalign, altar
 # Random monsters.
 MONSTER: ('E', "Ragnaros"), (17,08)
 MONSTER: ('D', "red dragon"), (17,09), asleep, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('E', "fire elemental"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
-MONSTER: (':', "salamander"), random, hostile
-MONSTER: (':', "salamander"), random, hostile
-MONSTER: (':', "salamander"), random, hostile
-MONSTER: (':', "salamander"), random, hostile
+LOOP [6] { MONSTER: ('E', "fire elemental"), random, hostile }
+LOOP [3] { MONSTER: ('v', "steam vortex"), random, hostile }
+LOOP [3] { MONSTER: ('v', "fire vortex"), random, hostile }
+LOOP [4] { MONSTER: (':', "salamander"), random, hostile }
 MONSTER: ('N', "red naga"), random, hostile
 MONSTER: ('N', "red naga"), random, hostile
 MONSTER: ('d', "hell hound"), random, hostile
@@ -293,24 +237,11 @@ NOMAP
 STAIR: random, up
 STAIR: random, down
 
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [6] { OBJECT: random, random }
 
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
+LOOP [4] { MONSTER: ('E', "fire elemental"), random, hostile }
 MONSTER: ('v', "steam vortex"), random, hostile
 MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
 MONSTER: ('v', "fire vortex"), random, hostile
 MONSTER: ('v', "fire vortex"), random, hostile
 MONSTER: ('d', "hell hound"), random, hostile
@@ -320,13 +251,7 @@ MONSTER: ('d', "hell hound pup"), random, hostile
 MONSTER: ('H', "fire giant"), random, hostile
 MONSTER: ('H', "fire giant"), random, hostile
 
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
+LOOP [7] { TRAP: random, random }
 
 MAZE: "Ice-filb" , ' '
 INIT_MAP: mines, '.' , ' ' , true , true , lit, false
@@ -335,22 +260,11 @@ NOMAP
 STAIR: random, up
 STAIR: random, down
 
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [5] { OBJECT: random, random }
 
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
-MONSTER: ('E', "fire elemental"), random
+LOOP [4] { MONSTER: ('E', "fire elemental"), random, hostile }
 MONSTER: ('v', "steam vortex"), random, hostile
 MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "steam vortex"), random, hostile
-MONSTER: ('v', "fire vortex"), random, hostile
 MONSTER: ('v', "fire vortex"), random, hostile
 MONSTER: ('v', "fire vortex"), random, hostile
 MONSTER: ('N', "red naga"), random, hostile
@@ -363,10 +277,6 @@ MONSTER: ('o', "demon orc"), random, hostile
 MONSTER: ('o', "demon orc"), random, hostile
 MONSTER: ('o', "demon orc"), random, hostile
 
-TRAP: "falling rock", random
-TRAP: "falling rock", random
-TRAP: "falling rock", random
-TRAP: "falling rock", random
-TRAP: "falling rock", random
+LOOP [5] { TRAP: "falling rock", random }
 TRAP: random, random
 TRAP: random, random
