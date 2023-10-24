@@ -1808,6 +1808,12 @@ shk_other_services()
     if (!shkp)
         return result;
     
+    /* Could be ressurected Izchak */
+    if (!has_erac(shkp)) {
+        pline("Sorry, I have no services to offer you.");
+        return result;
+    }
+    
     shkdat = &mons[ERAC(shkp)->rmnum];
     
     /* Init your name */
