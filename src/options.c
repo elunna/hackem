@@ -4985,6 +4985,8 @@ doset() /* changing options via menu by Per Liboriussen */
         reglyph_darkroom();
         (void) doredraw();
     }
+
+    update_inventory();
     return 0;
 }
 
