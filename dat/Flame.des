@@ -39,9 +39,6 @@ ENDMAP
 REGION: (00,00,75,19), lit, "ordinary"
 NON_DIGGABLE: (00,00,75,19)
 
-# Random Monsters
-#RANDOM_MONSTERS: 'R', 'E'
-
 # Portal arrival point
 BRANCH: (69,17,69,17), (0,0,0,0)
 
@@ -66,22 +63,10 @@ MONSTER: ('D', "red dragon"), random, peaceful
 MONSTER: ('D', "red dragon"), random, peaceful
 
 # Random traps
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
+LOOP [8] { TRAP: "rust", random }
 
 # Monsters on siege duty.
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
+LOOP [6] { MONSTER: ('E', "water elemental"), random, hostile }
 MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('T', "water troll"), random, hostile
@@ -131,31 +116,15 @@ STAIR: (48,14), up
 STAIR: (20,06), down
 
 # Objects
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [9] { OBJECT: random, random }
 
 # Random traps
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
+LOOP [4] { TRAP: "rust", random }
 TRAP: random, random
 TRAP: random, random
 
 # Random monsters.
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
+LOOP [6] { MONSTER: ('E', "water elemental"), random, hostile }
 MONSTER: ('&', "ice devil"), random, hostile
 MONSTER: ('&', "water demon"), random, hostile
 MONSTER: ('H', "frost giant"), random, hostile
@@ -164,9 +133,7 @@ MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('T', "water troll"), random, hostile
 MONSTER: ('T', "water troll"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
+LOOP [3] { MONSTER: ('R', "rust monster"), random, hostile }
 MONSTER: ('R', "disenchanter"), random, hostile
 
 #
@@ -222,19 +189,10 @@ DRAWBRIDGE: (17,14), north, closed
 OBJECT: ('(', "magic candle"), (17,08), blessed, 0, name:"The Candle of Eternal Flame"
 
 # Objects
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [7] { OBJECT: random, random }
 
 # Random traps
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
+LOOP [4] { TRAP: "rust", random }
 TRAP: random, random
 TRAP: random, random
 
@@ -244,15 +202,8 @@ ALTAR: (17,08), noalign, altar
 # Random monsters.
 MONSTER: ('@', "Water Mage"),(17,08)
 MONSTER: ('D', "white dragon"), (17,09), asleep, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('v', "ice vortex"), random, hostile
-MONSTER: ('v', "ice vortex"), random, hostile
-MONSTER: ('v', "ice vortex"), random, hostile
+LOOP [6] { MONSTER: ('E', "water elemental"), random, hostile }
+LOOP [3] { MONSTER: ('v', "ice vortex"), random, hostile }
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('&', "ice devil"), random, hostile
@@ -290,23 +241,10 @@ NOMAP
 STAIR: random, up
 STAIR: random, down
 
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [6] { OBJECT: random, random }
 
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
+LOOP [7] { MONSTER: ('E', "water elemental"), random, hostile }
+LOOP [3] { MONSTER: ('R', "rust monster"), random, hostile } 
 MONSTER: ('n', "water nymph"), random, hostile
 MONSTER: ('n', "water nymph"), random, hostile
 MONSTER: ('H', "frost giant"), random, hostile
@@ -314,13 +252,7 @@ MONSTER: ('H', "frost giant"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
 
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
+LOOP [7] { TRAP: random, random }
 
 MAZE: "Fla-filb" , 'P'
 INIT_MAP: mines, '.' , 'P' , true , true , lit, false
@@ -329,18 +261,9 @@ NOMAP
 STAIR: random, up
 STAIR: random, down
 
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [5] { OBJECT: random, random }
 
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
+LOOP [6] { MONSTER: ('E', "water elemental"), random, hostile }
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('&', "ice devil"), random, hostile
@@ -355,14 +278,9 @@ MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('U', "water hulk"), random, hostile
 MONSTER: (';', "electric eel"), random, hostile
 MONSTER: (';', "electric eel"), random, hostile
-MONSTER: ';', random, hostile
-MONSTER: ';', random, hostile
-MONSTER: ';', random, hostile
-MONSTER: ';', random, hostile
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
+
+LOOP [4] { MONSTER: ';', random, hostile }
+
+LOOP [5] { TRAP: "rust", random }
 TRAP: random, random
 TRAP: random, random
