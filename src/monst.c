@@ -7241,6 +7241,15 @@ struct permonst _mons2[] = {
           NO_ATTK),
         SIZ(30, 30, MS_SILENT, MZ_SMALL), 0, 0,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE, 0, 0, 0, 3, CLR_BROWN),
+    /* Only appears when playing as caveman/cavewoman */
+    MON("compsognathus", S_LIZARD,                             /* SpliceHack */
+        LVL(3, 15, 5, 0, 0), (G_NOGEN | G_VLGROUP | 6),
+        A(ATTK(AT_BITE, AD_PHYS, 1, 4),
+          ATTK(AT_CLAW, AD_PHYS, 1, 2),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(25, 25, MS_SILENT, MZ_TINY), 0, 0,
+        M1_SWIM | M1_AMPHIBIOUS | M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE,
+        M2_HOSTILE | M2_FLANK, 0, 0, 0, 4, CLR_WHITE),
     MON("sea tortle", S_LIZARD,                                 /* EvilHack */
         LVL(2, 5, 0, 0, 3), (G_GENO | G_NOHELL | G_SGROUP | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
@@ -7364,7 +7373,7 @@ struct permonst _mons2[] = {
         SIZ(1500, 400, MS_MUMBLE, MZ_HUMAN), MR_SLEEP | MR_COLD, MR_COLD,
         M1_HUMANOID | M1_SLITHY | M1_THICK_HIDE | M1_POIS | M1_SWIM,
         M2_STALK | M2_HOSTILE | M2_STRONG | M2_COLLECT | M2_MAGIC,
-        M3_INFRAVISION, M4_VULNERABLE_FIRE, 0, 13, CLR_WHITE),
+        M3_INFRAVISION, M4_VULNERABLE_FIRE, 0, 13, CLR_BRIGHT_BLUE),
     MON("giant crocodile", S_LIZARD,                            /* EvilHack */
         LVL(12, 9, 1, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 4, 4), 

@@ -1730,6 +1730,7 @@ u_init()
     if (Role_if(PM_CAVEMAN) || Role_if(PM_CAVEWOMAN)) {
         mons[PM_VELOCIRAPTOR].geno &= ~(G_NOGEN);
         mons[PM_T_REX].geno &= ~(G_NOGEN);
+        mons[PM_COMPSOGNATHUS].geno &= ~(G_NOGEN);
     }
     
     /* If we have at least one spell, force starting Pw to be 5,
