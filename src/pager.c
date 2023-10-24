@@ -473,6 +473,7 @@ char *buf, *monbuf;
     struct monst *mtmp = (struct monst *) 0;
     struct permonst *pm = (struct permonst *) 0;
     int glyph;
+    char *releasep;
     boolean printed_blood = FALSE;
 
     buf[0] = monbuf[0] = '\0';
@@ -597,6 +598,10 @@ char *buf, *monbuf;
             Sprintf(eos(buf), (levl[x][y].splatpm) ? "bloody " : "");
             Sprintf(eos(buf), "%s", waterbody_name(x, y));
             printed_blood = TRUE;
+            break;
+        case S_magic_chest:
+            Strcpy(buf, releasep = doname(mchest));
+            maybereleaseobuf(releasep);
             break;
         case S_stone:
             if (!levl[x][y].seenv) {
@@ -1563,6 +1568,7 @@ char *usr_text;
         case BAG_OF_TRICKS:
         case CHEST:
         case CRYSTAL_CHEST:
+        case HIDDEN_CHEST:
         case ICE_BOX:
         case IRON_SAFE:
         case KEG:
@@ -1574,6 +1580,7 @@ char *usr_text;
         case CREDIT_CARD:
         case LOCK_PICK:
         case SKELETON_KEY:
+        case MAGIC_KEY:
             subclass = "unlocking tool";
             break;
         case LANTERN:
@@ -2726,6 +2733,8 @@ struct permonst **for_supplement;
             if (alt_i++ == 2)
                 i = 0; /* undo loop increment */
             x_str = defsyms[i].explanation;
+            if (i == S_magic_chest)
+                continue; /* don't mention it when asking what '(' is */
             if (submerged && !strcmp(x_str, defsyms[0].explanation))
                 x_str = "land"; /* replace "dark part of a room" */
             /* alt_i is now 3 or more and no longer of interest */

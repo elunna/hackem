@@ -965,6 +965,7 @@ boolean adjacentok; /* False: at obj's spot only, True: nearby is allowed */
  *      OBJ_INVENT      if in hero's inventory; return 0.
  *      OBJ_FLOOR       if on the floor; return 0.
  *      OBJ_BURIED      if buried; return 0.
+ *      OBJ_SOMEWHERE   if in magic chest; return 0.
  *      OBJ_MINVENT     if in monster's inventory; return monster.
  * container_nesting is updated with the nesting depth of the containers
  * if applicable.
@@ -1076,7 +1077,8 @@ boolean by_hero;
          */
         || (container && (container->olocked || container_nesting > 2
                           || container->otyp == STATUE
-                          || (container->otyp == BAG_OF_HOLDING && rn2(40))))
+                          || (container->otyp == BAG_OF_HOLDING && rn2(40))
+                          || container->otyp == HIDDEN_CHEST))
         /* if buried zombie cannot dig itself out, do not revive */
         || (is_zomb && corpse->where == OBJ_BURIED && !zombie_can_dig(x, y)))
         return (struct monst *) 0;
@@ -3854,6 +3856,8 @@ struct obj *obj; /* wand or spell */
                    && on_level(&u.uz, &qstart_level) && !ok_to_quest()) {
             pline_The("stairs seem to ripple momentarily.");
             disclose = TRUE;
+        } else if (IS_MAGIC_CHEST(levl[x][y].typ) && u.dz > 0) {
+            disclose = boxlock(mchest, obj);
         }
         /* down will release you from bear trap or web */
         if (u.dz > 0 && u.utrap) {
@@ -3893,6 +3897,8 @@ struct obj *obj; /* wand or spell */
                 stackobj(otmp);
             }
             newsym(x, y);
+        } else if (!striking && IS_MAGIC_CHEST(levl[x][y].typ) && u.dz > 0) {
+            disclose = boxlock(mchest, obj);
         } else if (u.dz > 0 && ttmp) {
             if (!striking && closeholdingtrap(&youmonst, &disclose)) {
                 ; /* now stuck in web or bear trap */
@@ -4396,7 +4402,8 @@ struct obj **pobj; /* object tossed/used, set to NULL
 
         if (typ == IRONBARS
             && ((levl[bhitpos.x][bhitpos.y].wall_info & W_NONDIGGABLE) == 0)
-            && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) && obj->otyp == SPE_FORCE_BOLT)
+            && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON)
+                 && obj->otyp == SPE_FORCE_BOLT)
                 || (weapon == ZAPPED_WAND && obj->otyp == WAN_STRIKING))) {
             levl[bhitpos.x][bhitpos.y].typ = ROOM;
             if (cansee(bhitpos.x, bhitpos.y))
@@ -4411,7 +4418,8 @@ struct obj **pobj; /* object tossed/used, set to NULL
             break;
         } else if (typ == IRONBARS
                    && ((levl[bhitpos.x][bhitpos.y].wall_info & W_NONDIGGABLE) != 0)
-                   && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) && obj->otyp == SPE_FORCE_BOLT)
+                   && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON)
+                        && obj->otyp == SPE_FORCE_BOLT)
                        || (weapon == ZAPPED_WAND && obj->otyp == WAN_STRIKING))) {
             if (cansee(bhitpos.x, bhitpos.y))
                 pline_The("iron bars vibrate, but are otherwise intact.");
@@ -4533,6 +4541,22 @@ struct obj **pobj; /* object tossed/used, set to NULL
                         learn_it = TRUE;
                     }
                 }
+            }
+            if (learn_it)
+                learnwand(obj);
+        }
+
+        if (weapon == ZAPPED_WAND && typ == MAGIC_CHEST) {
+            boolean learn_it = FALSE;
+
+            switch (obj->otyp) {
+            case WAN_OPENING:
+            case SPE_KNOCK:
+            case WAN_LOCKING:
+            case SPE_WIZARD_LOCK:
+                if (boxlock(mchest, obj))
+                    learn_it = TRUE;
+                break;
             }
             if (learn_it)
                 learnwand(obj);

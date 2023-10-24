@@ -1873,6 +1873,8 @@ domove_core()
                3.7: used to say "solid rock" for STONE, but that made it be
                different from unmapped walls outside of rooms (and was wrong
                on arboreal levels) */
+            if (levl[x][y].seenv && IS_MAGIC_CHEST(levl[x][y].typ))
+                Strcpy(buf, "thin air"); /* acts like a chest object would */
             if (levl[x][y].seenv || IS_STWALL(levl[x][y].typ)
                 || levl[x][y].typ == SDOOR || levl[x][y].typ == SCORR) {
                 glyph = back_to_glyph(x, y);
@@ -2766,6 +2768,12 @@ boolean pick;
         killer.format = NO_KILLER_PREFIX;
         done(DIED);
     }
+    if (IS_MAGIC_CHEST(levl[u.ux][u.uy].typ) && !Levitation) {
+        if (!Blind)
+            You("see here a magic chest.");
+        else
+            You("feel here a magic chest.");
+    }
  spotdone:
     if (!--inspoteffects) {
         spotterrain = STONE; /* 0 */
@@ -3211,6 +3219,8 @@ pickup_checks()
             pline("It won't come off the hinges.");
         else if (IS_ALTAR(lev->typ))
             pline("Moving the altar would be a very bad idea.");
+        else if (IS_MAGIC_CHEST(lev->typ))
+            pline_The("chest is bolted down!");   /* from dnethack */
         else if (lev->typ == STAIRS)
             pline_The("stairs are solidly fixed to the %s.",
                       surface(u.ux, u.uy));

@@ -18,6 +18,7 @@ STATIC_DCL void NDECL(do_positionbar);
 STATIC_DCL void FDECL(regen_hp, (int));
 STATIC_DCL void FDECL(interrupt_multi, (const char *));
 STATIC_DCL void FDECL(debug_fields, (const char *));
+STATIC_DCL void NDECL(init_mchest);
 STATIC_DCL void NDECL(pickup_spirits);
 
 
@@ -203,6 +204,7 @@ boolean resuming;
            clairvoyance (wizard with cornuthaum perhaps?); without this,
            first "random" occurrence would always kick in on turn 1 */
         context.seer_turn = (long) rnd(30);
+        init_mchest();
         u.umovement = NORMAL_SPEED;  /* giants and tortles put their best foot forward */
     }
     context.botlx = TRUE; /* for STATUS_HILITES */
@@ -876,6 +878,15 @@ boolean resuming;
 }
 
 #define U_CAN_REGEN() (Regeneration || (Sleepy && u.usleep))
+
+STATIC_OVL void
+init_mchest()
+{
+    mchest = mksobj(HIDDEN_CHEST, FALSE, FALSE);
+    mchest->olocked = 1;
+    mchest->where = OBJ_SOMEWHERE;
+    return;
+}
 
 /* maybe recover some lost health (or lose some when an eel out of water) */
 STATIC_OVL void

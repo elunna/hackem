@@ -250,6 +250,8 @@ REGION:(21,07,27,12),unlit,"ordinary",unfilled {
 DOOR:closed,(19,06)
 LADDER:(12,08),up
 
+MAGIC_CHEST:(22,12)
+
 TERRAIN: (00,00), ' '
 TERRAIN: (00,07), ' '
 TERRAIN: (00,14), ' '

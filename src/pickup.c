@@ -1709,6 +1709,11 @@ boolean countem;
     struct obj *cobj, *nobj;
     int container_count = 0;
 
+    if (IS_MAGIC_CHEST(levl[x][y].typ)) {
+        ++container_count;
+        if (!countem)
+            return container_count;
+    }
     for (cobj = level.objects[x][y]; cobj; cobj = nobj) {
         nobj = cobj->nexthere;
         if (Is_nonprize_container(cobj)) {
@@ -1796,16 +1801,27 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
             case CHEST:
                 unlocktool = autokey(TRUE);
                 break;
+            case HIDDEN_CHEST:
+                /* artifact unlocking tools can also unlock magic chests,
+                   but don't give that away by suggesting them (same logic
+                   as with crystal chests [see below comment]) */
+                unlocktool = carrying(MAGIC_KEY);
+                break;
             default:
                 /* Don't prompt for crystal chest; only artifact unlocking
-                 * tools can unlock it, and we don't want to give that away
-                 * by suggesting them automatically to the user. */
+                   tools can unlock them, and we don't want to give that
+                   away by suggesting them automatically to the user */
                 break;
             }
 
-            if (unlocktool)
-                /* pass ox and oy to avoid direction prompt */
-                return (pick_lock(unlocktool, cobj->ox, cobj->oy, cobj) != 0);
+            if (unlocktool) {
+                /* pass ox and oy to avoid direction prompt.
+                   fake the hidden chest coordinates, since it has none. */
+                if (cobj->otyp == HIDDEN_CHEST)
+                    return (pick_lock(unlocktool, u.ux, u.uy, cobj) != 0);
+                else
+                    return (pick_lock(unlocktool, cobj->ox, cobj->oy, cobj) != 0);
+            }
         }
         return 0;
     }
@@ -1916,6 +1932,11 @@ doloot()
             win = create_nhwindow(NHW_MENU);
             start_menu(win);
 
+            if (IS_MAGIC_CHEST(levl[cc.x][cc.y].typ)) {
+                any.a_obj = mchest;
+                add_menu(win, NO_GLYPH, &any, 0, 0, ATR_NONE,
+                         doname(mchest), MENU_UNSELECTED);
+            }
             for (cobj = level.objects[cc.x][cc.y]; cobj;
                  cobj = cobj->nexthere)
                 if (Is_nonprize_container(cobj)) {
@@ -1942,6 +1963,12 @@ doloot()
             if (n != 0)
                 c = 'y';
         } else {
+            if (IS_MAGIC_CHEST(levl[cc.x][cc.y].typ)) {
+                anyfound = TRUE;
+                timepassed |= do_loot_cont(&mchest, 1, 1);
+                if (abort_looting)
+                    return timepassed;
+            }
             for (cobj = level.objects[cc.x][cc.y]; cobj; cobj = nobj) {
                 nobj = cobj->nexthere;
 
@@ -3376,7 +3403,14 @@ dotip()
                 win = create_nhwindow(NHW_MENU);
                 start_menu(win);
 
-                for (cobj = level.objects[cc.x][cc.y], i = 0; cobj;
+                i = 0;
+                if (IS_MAGIC_CHEST(levl[cc.x][cc.y].typ)) {
+                    ++i;
+                    any.a_obj = mchest;
+                    add_menu(win, NO_GLYPH, &any, 0, 0, ATR_NONE,
+                             doname(mchest), MENU_UNSELECTED);
+                }
+                for (cobj = level.objects[cc.x][cc.y]; cobj;
                      cobj = cobj->nexthere)
                     if (Is_nonprize_container(cobj)) {
                         ++i;
@@ -3418,13 +3452,25 @@ dotip()
                     return 0;
                 /* else pick-from-invent below */
             } else {
+                if (IS_MAGIC_CHEST(levl[cc.x][cc.y].typ)) {
+                    c = ynq(safe_qbuf(qbuf, "There is ", " here, tip it?",
+                                      mchest, doname, ansimpleoname,
+                                      "container"));
+                    if (c == 'q')
+                        return 0;
+                    if (c != 'n') {
+                        tipcontainer(mchest);
+                        /* can only tip one container at a time */
+                        return 1;
+                    }
+                }
                 for (cobj = level.objects[cc.x][cc.y]; cobj; cobj = nobj) {
                     nobj = cobj->nexthere;
                     if (!Is_nonprize_container(cobj))
                         continue;
                     c = ynq(safe_qbuf(qbuf, "There is ", " here, tip it?",
-                                      cobj,
-                                      doname, ansimpleoname, "container"));
+                                      cobj, doname, ansimpleoname,
+                                      "container"));
                     if (c == 'q')
                         return 0;
                     if (c == 'n')
@@ -3644,6 +3690,13 @@ struct obj *box; /* or bag */
     boolean held = FALSE, maybeshopgoods;
     struct obj *targetbox = (struct obj *) 0;
     boolean cancelled = FALSE;
+
+    /* magic chests are too heavy to tip. also, they don't have a location.
+       return before anyone notices! */
+    if (box->otyp == HIDDEN_CHEST) {
+        pline_The("chest is bolted down!");
+        return;
+    }
 
     /* box is either held or on floor at hero's spot; no need to check for
        nesting; when held, we need to update its location to match hero's;

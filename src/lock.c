@@ -50,19 +50,22 @@ lock_action()
 {
     /* "unlocking"+2 == "locking" */
     static const char *actions[] = {
-        "unlocking the door",   /* [0] */
-        "unlocking the chest",  /* [1] */
-        "unlocking the box",    /* [2] */
-        "cracking the safe",    /* [3] */
-        "picking the lock"      /* [4] */
+        "unlocking the door",         /* [0] */
+        "unlocking the chest",        /* [1] */
+        "unlocking the box",          /* [2] */
+        "cracking the safe",          /* [3] */
+        "picking the lock",           /* [4] */
+        "unlocking the magic chest"   /* [5] */
     };
 
     /* if the target is currently unlocked, we're trying to lock it now */
     if (xlock.door && !(xlock.door->doormask & D_LOCKED))
         return actions[0] + 2; /* "locking the door" */
     else if (xlock.box && !xlock.box->olocked)
-        return xlock.box->otyp == CHEST ? actions[1] + 2 : xlock.box->otyp == IRON_SAFE
-                   ? actions[3] + 2 : actions[2] + 2;
+        return xlock.box->otyp == CHEST
+                   ? actions[1] + 2 : xlock.box->otyp == IRON_SAFE
+                       ? actions[3] + 2 : xlock.box->otyp == HIDDEN_CHEST
+                           ? actions[5] + 2 : actions[2] + 2;
     /* otherwise we're trying to unlock it */
     else if (xlock.picktyp == LOCK_PICK)
         return actions[4]; /* "picking the lock" */
@@ -71,8 +74,10 @@ lock_action()
     else if (xlock.door)
         return actions[0]; /* "unlocking the door" */
     else if (xlock.box)
-        return xlock.box->otyp == CHEST ? actions[1] : xlock.box->otyp == IRON_SAFE
-                   ? actions[3] : actions[2];
+        return xlock.box->otyp == CHEST
+                   ? actions[1] : xlock.box->otyp == IRON_SAFE
+                       ? actions[3] : xlock.box->otyp == HIDDEN_CHEST
+                           ? actions[5] : actions[2];
     else
         return actions[3];
 }
@@ -399,18 +404,23 @@ struct obj *
 autokey(opening)
 boolean opening; /* True: key, pick, or card; False: key or pick */
 {
-    struct obj *o, *key, *pick, *card, *akey, *apick, *acard;
+    struct obj *o, *key, *mkey, *pick, *card,
+               *akey, *amkey, *apick, *acard;
 
     /* mundane item or regular artifact or own role's quest artifact */
-    key = pick = card = (struct obj *) 0;
+    key = mkey = pick = card = (struct obj *) 0;
     /* other role's quest artifact (Rogue's Key or Tourist's Credit Card) */
-    akey = apick = acard = (struct obj *) 0;
+    akey = amkey = apick = acard = (struct obj *) 0;
     for (o = invent; o; o = o->nobj) {
         if (any_quest_artifact(o) && !is_quest_artifact(o)) {
             switch (o->otyp) {
             case SKELETON_KEY:
                 if (!akey)
                     akey = o;
+                break;
+            case MAGIC_KEY:
+                if (!amkey)
+                    amkey = o;
                 break;
             case LOCK_PICK:
                 if (!apick)
@@ -426,8 +436,12 @@ boolean opening; /* True: key, pick, or card; False: key or pick */
         } else {
             switch (o->otyp) {
             case SKELETON_KEY:
-                if (!key || is_magic_key(&youmonst, o))
+                if (!key || is_roguish_key(&youmonst, o))
                     key = o;
+                break;
+            case MAGIC_KEY:
+                if (!mkey)
+                    mkey = o;
                 break;
             case LOCK_PICK:
                 if (!pick)
@@ -445,13 +459,18 @@ boolean opening; /* True: key, pick, or card; False: key or pick */
     if (!opening)
         card = acard = 0;
     /* only resort to other role's quest artifact if no other choice */
+    if (!key && !mkey && !pick && !card)
+        mkey = amkey;
+    /* rogues favor MKoT for its untrapping */
+    if (is_roguish_key(&youmonst, key) && Role_if(PM_ROGUE))
+        mkey = key;
     if (!key && !pick && !card)
         key = akey;
     if (!pick && !card)
         pick = apick;
     if (!card)
         card = acard;
-    return key ? key : pick ? pick : card ? card : 0;
+    return mkey ? mkey : key ? key : pick ? pick : card ? card : 0;
 }
 
 /* for doapply(); if player gives a direction or resumes an interrupted
@@ -501,7 +520,7 @@ struct obj *container; /* container, for autounlock */
             const char *action = lock_action();
 
             You("resume your attempt at %s.", action);
-            xlock.magic_key = is_magic_key(&youmonst, pick);
+            xlock.magic_key = is_roguish_key(&youmonst, pick);
             set_occupation(picklock, action, 0);
             return PICKLOCK_DID_SOMETHING;
         }
@@ -523,7 +542,8 @@ struct obj *container; /* container, for autounlock */
     if (picktyp != LOCK_PICK
         && picktyp != STETHOSCOPE
         && picktyp != CREDIT_CARD
-        && picktyp != SKELETON_KEY) {
+        && picktyp != SKELETON_KEY
+        && picktyp != MAGIC_KEY) {
         impossible("picking lock with object %d?", picktyp);
         return PICKLOCK_DID_NOTHING;
     }
@@ -563,7 +583,8 @@ struct obj *container; /* container, for autounlock */
 
         count = 0;
         c = 'n'; /* in case there are no boxes here */
-        for (otmp = level.objects[cc.x][cc.y]; otmp; otmp = otmp->nexthere)
+        otmp = IS_MAGIC_CHEST(levl[cc.x][cc.y].typ) ? mchest : level.objects[cc.x][cc.y];
+        while (otmp) {
             /* autounlock on boxes: only the one that just informed you it was
              * locked. Don't include any other boxes which might be here. */
             if ((!autounlock && Is_box(otmp)) || (otmp == container)) {
@@ -602,8 +623,10 @@ struct obj *container; /* container, for autounlock */
                     c = ynq(qbuf);
                     if (c == 'q')
                         return 0;
-                    if (c == 'n')
+                    if (c == 'n') {
+                        otmp = (otmp == mchest) ? level.objects[cc.x][cc.y] : otmp->nexthere;
                         continue;
+                    }
                 }
 
                 if (otmp->obroken) {
@@ -632,8 +655,17 @@ struct obj *container; /* container, for autounlock */
                     }
                 }
 
-                /* crystal chest can only be opened by magical means */
+                /* crystal chest can only be opened by artifacts */
                 if (otmp->otyp == CRYSTAL_CHEST && !pick->oartifact) {
+                    You_cant("%s %ssuch a container with a mundane %s.",
+                             verb, it ? "" : "the lock on ",
+                             simple_typename(picktyp));
+                    return PICKLOCK_LEARNED_SOMETHING;
+                }
+
+                /* magic chests can be opened by artifacts or purpose-made keys */
+                if (otmp->otyp == HIDDEN_CHEST
+                    && !(pick->oartifact || pick->otyp == MAGIC_KEY)) {
                     You_cant("%s %ssuch a container with a mundane %s.",
                              verb, it ? "" : "the lock on ",
                              simple_typename(picktyp));
@@ -648,11 +680,12 @@ struct obj *container; /* container, for autounlock */
                     ch = 4 * ACURR(A_DEX) + 25 * Role_if(PM_ROGUE);
                     break;
                 case SKELETON_KEY:
+                case MAGIC_KEY:
                     ch = 75 + ACURR(A_DEX);
                     break;
-		case STETHOSCOPE:
-	            ch = 5 + 2 * ACURR(A_DEX) * Role_if(PM_ROGUE);
-		    break;
+                case STETHOSCOPE:
+                    ch = 5 + 2 * ACURR(A_DEX) * Role_if(PM_ROGUE);
+                    break;
                 default:
                     ch = 0;
                 }
@@ -661,7 +694,8 @@ struct obj *container; /* container, for autounlock */
 
                 /* small chance a cursed locking tool will break on use */
                 if (pick->cursed && !rn2(5)
-                    && picktyp != STETHOSCOPE 
+                    && picktyp != STETHOSCOPE
+                   && picktyp != MAGIC_KEY
                     && !pick->oartifact) {
                     pline("As you start to %s the %s, your %s breaks!",
                           (otmp->olocked ? "unlock" : "lock"),
@@ -678,6 +712,8 @@ struct obj *container; /* container, for autounlock */
                 xlock.door = 0;
                 break;
             }
+            otmp = (otmp == mchest) ? level.objects[cc.x][cc.y] : otmp->nexthere;
+        }
         if (c != 'y') {
             if (!count)
                 There("doesn't seem to be any sort of pickable lock here.");
@@ -754,6 +790,7 @@ struct obj *container; /* container, for autounlock */
                 ch = 3 * ACURR(A_DEX) + 30 * Role_if(PM_ROGUE);
                 break;
             case SKELETON_KEY:
+            case MAGIC_KEY:
                 ch = 70 + ACURR(A_DEX);
                 break;
             default:
@@ -762,7 +799,8 @@ struct obj *container; /* container, for autounlock */
 
             /* small chance a cursed locking tool will break on use */
             if (pick->cursed && !rn2(5)
-                && picktyp != STETHOSCOPE 
+                && picktyp != STETHOSCOPE
+                && picktyp != MAGIC_KEY
                 && !pick->oartifact) {
                 pline("As you start to %s the door, your %s breaks!",
                       ((door->doormask & D_LOCKED) ? "unlock" : "lock"),
@@ -783,7 +821,7 @@ struct obj *container; /* container, for autounlock */
     context.move = 0;
     xlock.chance = ch;
     xlock.picktyp = picktyp;
-    xlock.magic_key = is_magic_key(&youmonst, pick);
+    xlock.magic_key = is_roguish_key(&youmonst, pick);
     xlock.usedtime = 0;
     set_occupation(picklock, lock_action(), 0);
     return PICKLOCK_DID_SOMETHING;

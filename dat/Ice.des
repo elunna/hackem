@@ -50,8 +50,7 @@ STAIR: (05,12), down
 # High Ice Mage
 MONSTER: ('@', "High Ice Mage"), (36,11)
 
-# The treasure of the High Ice Mage
-OBJECT: ('(', "chest"), (37,11)
+MAGIC_CHEST:(39,11)
 
 # guards for the audience chamber
 MONSTER: ('@', "froster"), (35,10)

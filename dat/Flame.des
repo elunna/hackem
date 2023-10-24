@@ -51,8 +51,7 @@ STAIR: (05,12), down
 # High Flame Mage
 MONSTER: ('@', "High Flame Mage"), (36,11)
 
-# The treasure of the High Flame Mage
-OBJECT: ('(', "chest"), (37,11)
+MAGIC_CHEST:(40,11)
 
 # guards for the audience chamber
 MONSTER: ('@', "igniter"), (34,09)

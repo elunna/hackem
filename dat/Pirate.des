@@ -155,24 +155,23 @@ ENDMAP
 REGION: (00,00,75,20),lit,"ordinary"
 # Portal arrival point
 BRANCH:(07,07,20,16),(24,09,52,11)
-# Stairs
+
+MAGIC_CHEST:(17,04)
+
 STAIR: (65,10),down
-# Doors
+
 DOOR: closed, (22,06)
 DOOR: closed, (22,06)
 DOOR: closed, (27,06)
 DOOR: closed, (32,06)
 DOOR: closed, (37,06)
 DOOR: closed, (42,06)
-
 DOOR: locked, (67,10)
 DOOR: locked, (71,10)
-
 DOOR: closed, (22,17)
 DOOR: closed, (29,17)
 DOOR: closed, (36,17)
 DOOR: closed, (43,17)
-
 DOOR: locked, (49,16)
 DOOR: locked, (50,15)
 DOOR: locked, (52,15)
@@ -200,8 +199,7 @@ OBJECT: ('?', "scare monster"), (52,14), cursed, 0
 # Dread Pirate (ret.)
 MONSTER: ('@', "Mayor Cummerbund"), (51,10)
 
-# The treasure of the Dread Pirate
-OBJECT: ('(', "chest"), (52,10)
+MAGIC_CHEST:(52,10)
 
 # Guards for the audience chamber
 MONSTER: ('@', "pirate crewmate"), (22,05)

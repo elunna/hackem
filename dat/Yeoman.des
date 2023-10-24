@@ -80,6 +80,8 @@ REGION: (00,00,55,19), lit, "ordinary"
 NON_DIGGABLE: (00,00,55,19)
 NON_PASSWALL: (00,00,55,19)
 
+MAGIC_CHEST:(06,12)
+
 TRAP: "arrow", random
 TRAP: "arrow", random
 TRAP: "arrow", random

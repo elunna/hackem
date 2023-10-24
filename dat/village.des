@@ -47,6 +47,7 @@ STAIR: (25,15), up
 $places = { (41,01), (45,01), (49,01),(53,01),(73,08),(73,10),(73,12),(73,14) }
 SHUFFLE: $places
 FORGE:$places[0]
+MAGIC_CHEST:$places[1]
           
 # Regions
 # Entry Caves
@@ -181,6 +182,7 @@ CONTAINER: ('(', "chest"), (19,18) {
   [15%]: OBJECT: (')', "submachine gun"), cursed, -6, name:"Klobb"
   [15%]: OBJECT: (')', "runesword"), cursed, -9, name:"Excalipoor"
   [10%]: OBJECT: (')', "broadsword"), cursed, +3, name:"Soul Edge"
+  OBJECT:('(',"magic key")
 }
 
 LOOP [5] { GOLD: 1d200, (19,18) }

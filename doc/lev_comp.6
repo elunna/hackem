@@ -170,6 +170,7 @@ room_detail	: room_name
 		| altar_detail
 		| fountain_detail
 		| forge_detail
+		| magic_chest_detail
 		| sink_detail
 		| toilet_detail
 		| puddle_detail
@@ -267,7 +268,8 @@ map_detail	: monster_detail
 		| branch_region
 		| altar_detail
 		| fountain_detail
-                | forge_detail
+		| forge_detail
+		| magic_chest_detail
 		| mazewalk_detail
 		| wallify_detail
 		| ladder_detail
@@ -371,8 +373,11 @@ fountain_detail : FOUNTAIN_ID ':' coordinate
 		;
 		
 forge_detail : FORGE_ID ':' coordinate
-                ;
-
+        ;
+        
+magic_chest_detail : MAGIC_CHEST_ID ':' coordinate
+		;
+		
 vent_detail : VENT_ID ':' coordinate
 		;
 		
@@ -383,10 +388,10 @@ toilet_detail : TOILET_ID ':' coordinate
 		;
 
 puddle_detail : PUDDLE_ID ':' coordinate
-                ;
+		;
 
 sewage_detail : SEWAGE_ID ':' coordinate
-                ;
+		;
 
 pool_detail : POOL_ID ':' coordinate
 		;
@@ -523,7 +528,7 @@ The maximum size of a map is normally 76 columns by 21 rows.
 \&'|'	vertical wall
 \&'+'	a doorway (state is specified in a DOOR declaration)
 \&'s'	sewage
-\&'t'   a dead tree
+\&'t'	a dead tree
 \&'w'	shallow water
 \&'A'	open air
 \&'B'	boundary room location (for bounding unwalled irregular regions)
@@ -532,7 +537,8 @@ The maximum size of a map is normally 76 columns by 21 rows.
 \&'S'	a secret door
 \&'H'	a secret corridor
 \&'{'	a fountain
-\&'U'   a forge
+\&'U'	a forge
+\&'M'	a magic chest
 \&'\\'	a throne
 \&'K'	a sink
 \&'Z'	a toilet

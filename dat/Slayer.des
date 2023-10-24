@@ -11,7 +11,8 @@
 MAZE: "Und-strt",' '
 FLAGS: noteleport, hardfloor
 GEOMETRY: center, center
-
+#0        1         2   	   3	     4		   5		 6	       7
+#123456789012345678901234567890123456789012345678901234567890123456789012345
 MAP
 ............................................................................
 ............................................................................
@@ -74,8 +75,10 @@ ALTAR: (28,09), noalign, altar
 # High Priest
 MONSTER: ('@', "Van Helsing"), (28,10)
 
-# The treasure of Van Helsing
-OBJECT: ('(', "chest"), (27,10)
+$key = { (33,07),(33,12) }
+SHUFFLE: $key
+
+MAGIC_CHEST:$key[0]
 
 # knight guards for the audience chamber
 MONSTER: ('@', "exterminator"), (32,07)

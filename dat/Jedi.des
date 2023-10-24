@@ -74,12 +74,7 @@ DOOR: closed, (55,07)
 # The Jedi Master
 MONSTER: ('@', "Jedi Master"), (37,10)
 
-# His treasure
-CONTAINER: ('(', "chest"), $places[1] {
-    OBJECT: ('?', "charging")
-    OBJECT: '?'
-    OBJECT: random
-}
+MAGIC_CHEST:(37,07)
 
 # the remaining Jedi
 MONSTER: ('@', "padawan"), (38,11), peaceful

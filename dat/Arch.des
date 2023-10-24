@@ -11,6 +11,8 @@
 MAZE: "Arc-strt",' '
 FLAGS: noteleport,hardfloor
 GEOMETRY:center,center
+#0        1         2         3         4         5         6
+#1234567890123456789012345678901234567890123456789012345678901234567890
 MAP
 ............................................................................
 ............................................................................
@@ -34,7 +36,7 @@ MAP
 ............................................................................
 ENDMAP
 # Dungeon Description
-REGION:(00,00,75,19),lit,"ordinary"
+REGION: (00,00,75,19),lit,"ordinary"
 REGION: (22,06,23,06),unlit,"ordinary"
 REGION: (25,06,30,06),unlit,"ordinary"
 REGION: (32,06,48,06),unlit,"ordinary"
@@ -72,8 +74,9 @@ MONSTER:('@',"Lord Carnarvon"),(25,10) {
   OBJECT:('[',"fedora"),+5
   OBJECT:(')',"bullwhip"),+4
 }
-# The treasure of Lord Carnarvon
-OBJECT:('(',"chest"),(25,10)
+
+MAGIC_CHEST:(27,10)
+
 # student guards for the audience chamber
 MONSTER:('@',"student"),(26,09)
 MONSTER:('@',"student"),(27,09)
