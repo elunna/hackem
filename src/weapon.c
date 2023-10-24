@@ -18,6 +18,7 @@ static int dmgval_core(struct obj*, struct monst*, struct damage_info_t*);
 static void FDECL(mon_ignite_lightsaber, (struct obj *, struct monst *));
 STATIC_PTR int NDECL(practice);
 static int FDECL(skill_crosstrain_bonus, (int));
+static void FDECL(rnd_crosstrain, (int));
 
 /*WAC practicing needs a delay counter*/
 static NEARDATA schar delay;            /* moves left for practice */
@@ -2156,6 +2157,7 @@ int degree;
             degree *= 2;
 
         P_ADVANCE(skill) += degree * skill_crosstrain_bonus(skill);
+        rnd_crosstrain(skill);
         if (!advance_before && can_advance(skill, FALSE))
             give_may_advance_msg(skill);
     }
@@ -2786,5 +2788,54 @@ skill_crosstrain_bonus(int skill)
     return max(highest_skill - base_skill + 1, 1);
 }
 
+STATIC_OVL void
+rnd_crosstrain(int skill)
+{
+    if (skill < P_FIRST_WEAPON || skill > P_LAST_WEAPON)
+        return;
+    
+    switch (P_SKILL(skill)) {
+        default:
+            impossible("rnd_crosstrain: bad skill %d", P_SKILL(skill)); /* fall through */
+        case P_ISRESTRICTED:
+        case P_UNSKILLED:
+            return;
+        case P_BASIC:
+            /* If skill is basic, 1 in 9 chance of training related */
+            if (rn2(9))
+                return;
+            break;
+        case P_SKILLED:
+            /* If skill is skilled, 1 in 6 chance of training related */
+            if (rn2(6))
+                return;
+            break;
+        case P_EXPERT:
+            /* If skill is expert, 1 in 3 chance of training related */
+            if (rn2(3))
+                return;
+            break;
+    }
+    if (Luck < 0)
+        return;
+    
+    for (int i = P_FIRST_WEAPON; i <= P_LAST_WEAPON; i++) {
+        if (i == skill)
+            continue;
+        /* Is the potential skill maxxed out? */
+        if (P_SKILL(i) >= P_MAX_SKILL(i))
+            continue;
+        if (!can_practice(i))
+            continue;
+        /* Fudge factor to spread out the skills */
+        if (Luck > 2 ? !rn2(4) : rn2(4))
+            continue;
+
+        if ((weapon_skill_groups[skill - P_FIRST_WEAPON] &
+             weapon_skill_groups[i - P_FIRST_WEAPON]) != 0) {
+            P_ADVANCE(i) += 1;
+        }
+    }
+}
 
 /*weapon.c*/
