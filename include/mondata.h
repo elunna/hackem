@@ -288,7 +288,9 @@
 #define carnivorous(ptr) (((ptr)->mflags1 & M1_CARNIVORE) != 0L)
 #define herbivorous(ptr) (((ptr)->mflags1 & M1_HERBIVORE) != 0L)
 #define metallivorous(ptr) (((ptr)->mflags1 & M1_METALLIVORE) != 0L)
-#define is_gem_eater(ptr)  (((ptr)->mlet == S_DRAGON || ((ptr) == &mons[PM_XORN])) != 0L)
+#define is_gem_eater(ptr) \
+        ((((ptr)->mlet == S_DRAGON && !is_pseudodragon(ptr)) \
+        || ((ptr) == &mons[PM_XORN])) != 0L)
 #define inediate(ptr) (((ptr)->mflags1 & (M1_CARNIVORE | M1_HERBIVORE \
                                           | M1_METALLIVORE)) == 0L)
 #define polyok(ptr) (((ptr)->mflags2 & M2_NOPOLY) == 0L)
