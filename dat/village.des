@@ -175,7 +175,7 @@ CONTAINER: ('(', "chest"), (19,18) {
   # Potential easter eggs hidden within the chest...
   [5%]: OBJECT: (')', "long sword"), blessed, +3, name:"The Master Sword"
   [5%]: OBJECT: ('[', "plate mail"), blessed, +5, name:"Erdrick's Armor"
-  #[5%]: OBJECT: (')', "mallet"), blessed, +4, name:"Tendo Mallet"
+  [5%]: OBJECT: (')', "heavy war hammer"), blessed, +4, name:"Tendo Mallet"
   [5%]: OBJECT: (')', "broadsword"), blessed, +2, name:"Grandleon"
   [5%]: OBJECT: (')', "katana"), blessed, +3, name:"Kusanagi Blade"
   [15%]: OBJECT: ('[', "plate mail"), cursed, -5, name:"Alucart Mail"
