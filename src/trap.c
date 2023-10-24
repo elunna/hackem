@@ -1860,7 +1860,9 @@ unsigned trflags;
         if (u.usteed) {
             /* trap hits steed instead of you */
             (void) steedintrap(trap, (struct obj *) 0);
-        } else if (Levitation || Flying) {
+        } else if (Levitation) {
+            pline("But it isn't long enough to reach you.");
+        } else if (Flying && !rn2(2)) {
             pline("But it isn't long enough to reach you.");
         } else if (thick_skinned(youmonst.data)) {
             pline("But it breaks off against your thick hide.");
