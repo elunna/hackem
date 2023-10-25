@@ -2794,10 +2794,13 @@ LOOP [5] { MONSTER: 'a', random }
 
 # And to cater to a wider audience...
 MONSTER: ''', random
-MONSTER: 'D', random
 MONSTER: random, random
 MONSTER: random, random
 MONSTER: random, random
+
+# There was a random 'D' here, but it frequently resulted in out-of-depth adult dragons.
+# This is your reminder of those times.
+MONSTER: ('D', "baby violet dragon"), random, hostile
 
 # A guardian...
 OBJECT: ('`', "statue"), (56,08), montype:"mumak", 0
