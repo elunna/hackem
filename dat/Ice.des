@@ -73,6 +73,7 @@ TRAP: "magic", random
 
 # Monsters on siege duty.
 LOOP [4] { MONSTER: ('E', "fire elemental"), random, hostile }
+MONSTER: ('E', "magma elemental"), random, hostile
 LOOP [2] { MONSTER: ('v', "steam vortex"), random, hostile }
 LOOP [2] { MONSTER: ('v', "fire vortex"), random, hostile }
 MONSTER: ('c', "pyrolisk"), random, hostile
@@ -129,7 +130,8 @@ TRAP: random, random
 TRAP: random, random
 
 # Random monsters.
-LOOP [6] { MONSTER: ('E', "fire elemental"), random, hostile }
+LOOP [4] { MONSTER: ('E', "fire elemental"), random, hostile }
+LOOP [2] { MONSTER: ('E', "magma elemental"), random, hostile }
 LOOP [3] { MONSTER: ('v', "steam vortex"), random, hostile }
 LOOP [3] { MONSTER: ('v', "fire vortex"), random, hostile }
 MONSTER: (':', "salamander"), random, hostile
@@ -206,7 +208,8 @@ ALTAR: (17,08), noalign, altar
 # Random monsters.
 MONSTER: ('E', "Ragnaros"), (17,08)
 MONSTER: ('D', "red dragon"), (17,09), asleep, hostile
-LOOP [6] { MONSTER: ('E', "fire elemental"), random, hostile }
+LOOP [4] { MONSTER: ('E', "fire elemental"), random, hostile }
+LOOP [2] { MONSTER: ('E', "magma elemental"), random, hostile }
 LOOP [3] { MONSTER: ('v', "steam vortex"), random, hostile }
 LOOP [3] { MONSTER: ('v', "fire vortex"), random, hostile }
 LOOP [4] { MONSTER: (':', "salamander"), random, hostile }
@@ -240,6 +243,7 @@ STAIR: random, down
 LOOP [6] { OBJECT: random, random }
 
 LOOP [4] { MONSTER: ('E', "fire elemental"), random, hostile }
+MONSTER: ('E', "magma elemental"), random, hostile
 MONSTER: ('v', "steam vortex"), random, hostile
 MONSTER: ('v', "steam vortex"), random, hostile
 MONSTER: ('v', "fire vortex"), random, hostile
@@ -263,6 +267,7 @@ STAIR: random, down
 LOOP [5] { OBJECT: random, random }
 
 LOOP [4] { MONSTER: ('E', "fire elemental"), random, hostile }
+MONSTER: ('E', "magma elemental"), random, hostile
 MONSTER: ('v', "steam vortex"), random, hostile
 MONSTER: ('v', "steam vortex"), random, hostile
 MONSTER: ('v', "fire vortex"), random, hostile
