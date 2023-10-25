@@ -218,8 +218,7 @@ const char *verb;
                         /* normally we'd use ohitmon() but it can call
                            drop_throw() which calls flooreffects() */
                         damage = dmgval(obj, mtmp);
-                        mtmp->mhp -= damage;
-                        if (DEADMONSTER(mtmp)) {
+                        if (damage_mon(mtmp, damage, AD_PHYS)) {
                             if (canspotmon(mtmp))
                                 pline("%s is %s!", Monnam(mtmp),
                                       (nonliving(mtmp->data)

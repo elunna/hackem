@@ -2933,14 +2933,14 @@ int dmg;
                 pline("%s shudders!", Before);
 
             dmg += (mdef->mhpmax + 1) / 2;
-            mdef->mhp -= dmg;
-            dmg = 0;
-            if (DEADMONSTER(mdef)) {
+            
+            if (damage_mon(mdef, dmg, AD_PHYS)) {
                 if (magr == &youmonst)
                     xkilled(mdef, XKILL_GIVEMSG | XKILL_NOCORPSE);
                 else
                     monkilled(mdef, "", AD_RBRE);
             }
+            dmg = 0;
         } else if (newcham(mdef, (struct permonst *) 0, FALSE, FALSE)) {
             if (vis) { /* either seen or adjacent */
                 boolean was_seen = !!strcmpi("It", Before),
@@ -3146,7 +3146,7 @@ struct obj *mwep;
                             if (rn2(40)) {
                                 if (canseemon(magr))
                                     pline("%s partially disintegrates!", Monnam(magr));
-                                magr->mhp -= rnd(4);
+                                damage_mon(magr, rnd(4), AD_PHYS);
                             } else {
                                 if (canseemon(magr))
                                     pline("%s is disintegrated completely!", Monnam(magr));

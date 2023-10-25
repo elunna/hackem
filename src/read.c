@@ -918,8 +918,7 @@ struct monst *mtmp;
                 else
                     You_hear("an explosion.");
                 m_useup(mtmp, obj);
-                mtmp->mhp -= 3 * abs(obj->spe);
-                if (mtmp->mhp <= 0) {
+                if (damage_mon(mtmp, 3 * abs(obj->spe), AD_ELEC)) {
                     if (canseemon(mtmp))
                         pline("%s is killed by the explosion!",
                               Monnam(mtmp));
@@ -2775,10 +2774,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         dam += d(3, 3);
                     if (!rn2(3))
                         (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
-                    /* mtmp->mhp -= dam;*/
-                    damage_mon(mtmp, dam, AD_COLD);
-            
-                    if (DEADMONSTER(mtmp)) {
+
+                    if (damage_mon(mtmp, dam, AD_COLD)) {
                         killed(mtmp);
                     }
                 }
@@ -3043,14 +3040,16 @@ mwand_explode(mon, obj)
 register struct monst *mon;
 register struct obj *obj;
 {
+    int dmg = 0;
     if (canseemon(mon))
         pline("%s %s vibrates violently and explodes!",
               s_suffix(Monnam(mon)), xname(obj));
     else if (!Deaf)
         You_hear("an explosion.");
-    mon->mhp -= rnd(2 * (mon->mhpmax + 1) / 3);
+    dmg = rnd(2 * (mon->mhpmax + 1) / 3);
     m_useup(mon, obj);
-    if (mon->mhp <= 0) {
+    
+    if (damage_mon(mon, dmg, AD_MAGM)) {
     	if (canseemon(mon))
             pline("%s is killed by the explosion!", Monnam(mon));
         mondied(mon);

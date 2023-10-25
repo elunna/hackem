@@ -2726,9 +2726,10 @@ struct monst *mtmp;
             monstseesu(M_SEEN_FIRE);
             burn_away_slime();
             if (Half_spell_damage)
-                num = (num + 1) / 2;
+                losehp(((num + 1) / 2), "scroll of fire", KILLED_BY_AN);
             else
                 losehp(num, "scroll of fire", KILLED_BY_AN);
+            
             for (mtmp2 = fmon; mtmp2; mtmp2 = mtmp2->nmon) {
                 if (DEADMONSTER(mtmp2))
                     continue;
@@ -2737,10 +2738,9 @@ struct monst *mtmp;
                 if (dist2(mtmp2->mx, mtmp2->my, mtmp->mx, mtmp->my) < 3) {
                     if (resists_fire(mtmp2) || defended(mtmp2, AD_FIRE))
                         continue;
-                    damage_mon(mtmp2, num, AD_FIRE);
                     if (resists_cold(mtmp2)) /* natural resistance */
-                        mtmp2->mhp -= 3 * num;
-                    if (DEADMONSTER(mtmp2)) {
+                        num *= 3;
+                    if (damage_mon(mtmp2, num, AD_FIRE)) {
                         mondied(mtmp2);
                         break;
                     }

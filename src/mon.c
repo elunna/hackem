@@ -1057,15 +1057,14 @@ register struct monst *mtmp;
         int dam = d(3, 12);
         if (canseemon(mtmp))
             pline_The("water burns %s flesh!", s_suffix(mon_nam(mtmp)));
-        mtmp->mhp -= dam;
         if (mtmp->mhpmax > dam)
             mtmp->mhpmax -= (dam + 1) / 2;
-        if (DEADMONSTER(mtmp)) {
+        
+        if (damage_mon(mtmp, dam, AD_PHYS)) {
             if (canseemon(mtmp))
                 pline("%s dies.", Monnam(mtmp));
             mondead(mtmp);
-            if (DEADMONSTER(mtmp))
-                return 1;
+            return 1;
         }
         return 0;
     }
@@ -1238,6 +1237,7 @@ mcalcdistress()
 {
     struct monst *mtmp;
     struct obj *obj, *otmp;
+    int wither;
 
     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
         if (DEADMONSTER(mtmp))
@@ -1409,8 +1409,8 @@ mcalcdistress()
 
         /* wither away */
         if (mtmp->mwither) {
-            mtmp->mhp -= (rnd(2) - (regenerates(mtmp->data) ? 1 : 0));
-            if (DEADMONSTER(mtmp)) {
+            wither = rnd(2) - (regenerates(mtmp->data) ? 1 : 0);
+            if (damage_mon(mtmp, wither, AD_WTHR)) {
                 if (canspotmon(mtmp))
                     pline("%s withers away completely!", Monnam(mtmp));
 

@@ -3757,8 +3757,7 @@ register struct attack *mattk;
             if (!Deaf)
                 pline("%s cries out in pain!",
                       Monnam(mdef));
-            mdef->mhp -= rnd(5);
-            if (mdef->mhp <= 0)
+            if (damage_mon(mdef, rnd(5), AD_PHYS))
                 xkilled(mdef, XKILL_GIVEMSG);
             if (mdef && DEADMONSTER(mdef)) {
                 /* Other monsters may have died too, but return 2 if the actual
@@ -3789,8 +3788,7 @@ register struct attack *mattk;
                     pline("%s cries out in anguish!", Monnam(mdef));
             }
             
-            mdef->mhp -= tmp;
-            if (mdef->mhp <= 0)
+            if (damage_mon(mdef, tmp, AD_PSYC))
                 xkilled(mdef, XKILL_GIVEMSG);
             if (mdef && DEADMONSTER(mdef)) {
                 /* Other monsters may have died too, but return 2 if the actual

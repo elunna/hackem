@@ -5147,6 +5147,8 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
         tmp = ((3 * tmp) + 1) / 2;
     debugpline3("zapped monster hp = %d (= %d - %d)", mon->mhp - tmp,
                 mon->mhp, tmp);
+    /* Not calling damage_mon here so that showdmg can display
+     * correct source */
     showdmg(tmp, FALSE);
     mon->mhp -= tmp;
     return tmp;

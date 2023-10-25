@@ -1799,9 +1799,7 @@ dogaze()
                     }
                     if (lev > rn2(20))
                         (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
-                    if (dmg)
-                        mtmp->mhp -= dmg;
-                    if (DEADMONSTER(mtmp))
+                    if (damage_mon(mtmp, dmg, AD_COLD))
                         killed(mtmp);
                 } else if (adtyp == AD_PLYS) {
                     You("fix %s with an aberrant glare...", mon_nam(mtmp));

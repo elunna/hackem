@@ -4886,17 +4886,16 @@ struct attack *mattk;
             tmp += destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
         tmp += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
         
-        if ((mtmp->mhp -= tmp) <= 0) {
-            xkilled(mtmp,0);
-            if (mtmp->mhp > 0) 
-                return 1;
+        if (damage_mon(mtmp, tmp, AD_FIRE)) {
+            xkilled(mtmp, 0);
             return 2;
+        } else {
+            return 1;
         }
     }
     
-    /* Ice Mage gets a passive cold attack that grows as they get stronger
-     * and their ice armor becomes more powerful. We'll delay it a few levels
-     * so really low level ice mages have to work for it. */
+    /* Ice Armor tech for Ice Mages. As they get stronger their 
+     * ice armor becomes more powerful. */
     if (tech_inuse(T_ICEARMOR)) {
         int icetmp = icebonus();
         if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
@@ -4914,11 +4913,11 @@ struct attack *mattk;
                 tmp += destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
             
             showdmg(tmp, FALSE);
-            if ((mtmp->mhp -= tmp) <= 0) {
+            if (damage_mon(mtmp, tmp, AD_COLD)) {
                 xkilled(mtmp, 0);
-                if (mtmp->mhp > 0)
-                    return 1;
                 return 2;
+            } else {
+                return 1;
             }
         }
     }
@@ -5008,7 +5007,8 @@ struct attack *mattk;
                     if (rn2(40)) {
                         if (canseemon(mtmp))
                             pline("%s partially disintegrates!", Monnam(mtmp));
-                        mtmp->mhp -= rnd(4);
+                        if (damage_mon(mtmp, rnd(4), AD_PHYS))
+                            xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
                     } else {
                         if (canseemon(mtmp))
                             pline("%s is disintegrated completely!", Monnam(mtmp));
@@ -5026,10 +5026,10 @@ struct attack *mattk;
                         } else {
                             xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
                         }
-                        if (!DEADMONSTER(mtmp))
-                            return 1;
-                        return 2;
                     }
+                    if (!DEADMONSTER(mtmp))
+                        return 1;
+                    return 2;
                 }
             }
             if (mtmp->mhp < 1) {
