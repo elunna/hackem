@@ -1248,9 +1248,6 @@ struct monst *shk;
             maybe_add_svc(shk, SHK_ID_WAND);
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_ARMOR);
-        /* Only wand shops offer premium charging */
-        if (!rn2(4) && (shk_class_match(WAND_CLASS, shk) == SHK_MATCH)) 
-            maybe_add_svc(shk, SHK_CHG_PRE);
     } 
     else if (shk_class_match(FOOD_CLASS, shk) == SHK_MATCH) {
         maybe_add_svc(shk, SHK_ID_FOOD);
@@ -1290,15 +1287,23 @@ struct monst *shk;
             maybe_add_svc(shk, SHK_PROP);
     }
     
-    /* Charging services */
+    /* Charging services: If these shops offer charging, they
+     * always offer both basic and premium. However, they
+     * are restricted to their own specialty of items. */
     if (     (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) 
           || (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH)
-          || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)
-          || (shk_class_match(RANDOM_CLASS, shk) == SHK_MATCH)) {
-        if (!rn2(4)) 
+          || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)) {
+        if (!rn2(4)) {
             maybe_add_svc(shk, SHK_CHG_BAS);
+            maybe_add_svc(shk, SHK_CHG_PRE);
+        }
     }
 
+    /* General/junk stores can only offer basic charging, 
+     * but they can charge anything. */
+    if (shk_class_match(RANDOM_CLASS, shk) == SHK_GENERAL && !rn2(4))
+        maybe_add_svc(shk, SHK_CHG_BAS);
+    
     if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "pet store")) {
         if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
             maybe_add_svc(shk, SHK_ID_FOOD);

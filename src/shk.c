@@ -94,7 +94,7 @@ static int FDECL(shk_uncurse, (const char *, struct monst *));
 static int FDECL(shk_weapon_works, (const char *, struct monst *, long svc_type));
 static int FDECL(shk_armor_works, (const char *, struct monst *, long svc_type));
 static int FDECL(shk_property, (const char *, struct monst *));
-static int FDECL(shk_charge, (const char *, struct monst *, char svc_type));
+static int FDECL(shk_charge, (const char *, struct monst *, boolean premier));
 static int FDECL(shk_rumor, (const char *, struct monst *));
 static int FDECL(shk_firearms, (const char *, struct monst *));
 static int FDECL(shk_tinker, (const char *, struct monst *));
@@ -2033,10 +2033,10 @@ shk_other_services()
             result = shk_armor_works(slang, shkp, SHK_ARM_ENC);
             break;
         case 18:
-            result = shk_charge(slang, shkp, 'b');
+            result = shk_charge(slang, shkp, FALSE);
             break;
         case 19:
-            result = shk_charge(slang, shkp, 'p');
+            result = shk_charge(slang, shkp, TRUE);
             break;
         case 20:
             result = shk_rumor(slang, shkp);
@@ -4345,7 +4345,7 @@ struct monst *shkp;
 }
 
 static int
-shk_charge(const char *slang, struct monst *shkp, char svc_type)
+shk_charge(const char *slang, struct monst *shkp, boolean premier)
 {
     struct obj *obj = NULL;
     struct obj *tobj;
@@ -4355,42 +4355,33 @@ shk_charge(const char *slang, struct monst *shkp, char svc_type)
     obj = getobj(all_count, "charge");
     if (!obj) 
         return 0;
-
-    if (shk_class_match(WAND_CLASS, shkp) == SHK_MATCH 
-            && obj->oclass != WAND_CLASS ) {
-        verbalize("I only can charge wands.");
-        return 0;
-    } else if (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH
-               && obj->oclass != TOOL_CLASS) {
-        verbalize("I only can charge tools.");
-        return 0;
-    } else if (shk_class_match(RING_CLASS, shkp) == SHK_MATCH
-               && obj->oclass != RING_CLASS) {
-        verbalize("I only can charge rings.");
-        return 0;
+    
+    if (premier) {
+        if (shk_class_match(WAND_CLASS, shkp) == SHK_MATCH
+            && obj->oclass != WAND_CLASS) {
+            verbalize("I only offer premium charging on wands.");
+            return 0;
+        } else if (shk_class_match(TOOL_CLASS, shkp) == SHK_MATCH
+                   && obj->oclass != TOOL_CLASS) {
+            verbalize("I only offer premium charging on tools.");
+            return 0;
+        } else if (shk_class_match(RING_CLASS, shkp) == SHK_MATCH
+                   && obj->oclass != RING_CLASS) {
+            verbalize("I only offer premium charging on rings.");
+            return 0;
+        }
     }
-#if 0 /* Disabled charging spellbooks */
-    else if (shk_class_match(SPBOOK_CLASS, shkp) == SHK_MATCH 
-             && obj->oclass != SPBOOK_CLASS) {
-        verbalize("I only can charge spellbooks.");
-        return 0;
-    }
-#endif
         
     /*
     ** Wand shops can offer special service!
     ** Extra charges (for a lot of extra money!)
     */
-    if (svc_type == 'b')
-        charge = 300;
+    if (!premier)
+        charge = 250;
     else
         charge = 1000;
-
-    /* Wands of wishing should be hard to get recharged */
-    if (obj->otyp == WAN_WISHING)
-        charge *= 3;
-    else
-        shk_smooth_charge(&charge, 100, 1000);
+    
+    shk_smooth_charge(&charge, 100, 1000);
     
     if (shk_offer_price(slang, charge, shkp) == FALSE)
         return 0;
@@ -4401,7 +4392,7 @@ shk_charge(const char *slang, struct monst *shkp, char svc_type)
     }
     
     invlet = obj->invlet;
-    recharge(obj, (svc_type == 'b') ? 0 : 1, &youmonst);
+    recharge(obj, !premier ? 0 : 1, &youmonst);
 
     /*
     ** Did the object blow up?  We need to check this in a way that has 
@@ -4423,13 +4414,11 @@ shk_charge(const char *slang, struct monst *shkp, char svc_type)
     /* Wands get special treatment */
     if (obj->oclass == WAND_CLASS) {
         if (obj->otyp == WAN_WISHING) {
-            if (svc_type == 'p') 
+            if (premier) 
                 obj->spe++; /* Premier gives you ONE more charge */
             verbalize("Since you'll have everything you always wanted,");
             verbalize("...How about loaning me some money?");
-            money2mon(shkp, money_cnt(invent));
             makeknown(obj->otyp);
-            bot();
         } else {
             /* Basic: recharge() will have given 1 charge.
             ** Premier: recharge() will have given 5-10, say.

@@ -818,7 +818,7 @@ struct monst *mtmp;
     is_blessed = curse_bless > 0;
     
     /* Scrolls of charging now ID charge count, as well as doing
-               the charging, unless cursed. */
+       the charging, unless cursed. */
     if (is_blessed)
         obj->known = 1;
     
