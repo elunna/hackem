@@ -2095,24 +2095,34 @@ STATIC_OVL void
 doicetrap(box)
 struct obj *box;	/* at the moment only for floor traps */
 {
-    int num = 0;
-    num = d(4, 4);
+    int num = d(4, 8);
+    boolean lost_resistance = FALSE;
+    
     if (box) {
         impossible("doicetrap() called with non-null box.");
         return;
     }
 
     pline("A freezing cloud shoots up from the %s!", surface(u.ux, u.uy));
-    if (how_resistant(SONIC_RES) > 90) {
+    if (how_resistant(COLD_RES) > 90) {
         shieldeff(u.ux, u.uy);
-        num = 0;
+        num = rn2(3);
+        if (!rn2(3)) {
+            pline("Mist flash-freezes around you as your heat is sucked away!");
+            if (HCold_resistance && !Fixed_abil) {
+                decr_resistance(&HCold_resistance, rnd(25) + 25);
+                You_feel("alarmingly cooler.");
+                lost_resistance = TRUE;
+            }
+        }
     }
 
     num = resist_reduce(num, COLD_RES);
-    if (!num)
-        You("are uninjured.");
-    else
-        losehp(num, "freezing cloud", KILLED_BY_AN);
+    if (!num) {
+        if (!lost_resistance)
+            You("are uninjured.");
+    } else
+        losehp(num, "flash freeze", KILLED_BY_AN);
     
     destroy_item(POTION_CLASS, AD_COLD);
     u_slow_down();
@@ -2870,16 +2880,24 @@ register struct monst *mtmp;
             if (resists_cold(mtmp)) {
                 if (in_sight) {
                     shieldeff(mtmp->mx,mtmp->my);
-                    pline("%s is uninjured.", Monnam(mtmp));
+                    if (!rn2(3)) {
+                        if (mtmp->mintrinsics & MR_COLD) {
+                            mtmp->mintrinsics &= ~MR_COLD;
+                            pline("%s momentarily %s.", Monnam(mtmp),
+                                  makeplural(locomotion(mtmp->data, "stumble")));
+                        }
+                    } else
+                        pline("%s is uninjured.", Monnam(mtmp));
                 }
             } else {
-                int num = d(2,4);
+                int num = d(4, 8);
                 if (thitm(0, mtmp, (struct obj *)0, num, FALSE))
                     trapkilled = TRUE;
                 else if (!rn2(2))
                     (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
             }
-            if (see_it) seetrap(trap);
+            if (see_it) 
+                seetrap(trap);
             break; 
         case FIRE_TRAP:
         mfiretrap:
