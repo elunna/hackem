@@ -176,14 +176,14 @@ const struct Role roles[] = {
         { "Disintegrator", 0 },   /* WAC was Incinerator */
         { "Flame-Master",  0 } },
       "Earth", "Fire", "Ash", /* Special */
-      "Fla", "the great Circle of Flame", "the Water Mage's Cave",
+      "Fla", "the great Circle of Flame", "the High Ice Mage's Cave",
       PM_FLAME_MAGE, 
       NON_PM, 
       PM_HELL_HOUND_PUP,
       PM_HIGH_FLAME_MAGE, 
       PM_IGNITER,
-      PM_WATER_MAGE,
-      PM_WATER_ELEMENTAL, 
+      PM_HIGH_ICE_MAGE,
+      PM_ICE_ELEMENTAL, 
       PM_RUST_MONSTER, 
       S_ELEMENTAL, 
       S_RUSTMONST,

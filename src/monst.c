@@ -3510,7 +3510,7 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_CLAW, AD_PHYS, 4, 4), 
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
           ATTK(AT_ENGL, AD_DGST, 2, 10), 
-          ATTK(AT_NONE, AD_COLD, 0, 1)),
+          ATTK(AT_NONE, AD_COLD, 0, 6)),
         SIZ(WT_DRAGON, NUT_DRAGON, MS_ROAR, MZ_GIGANTIC), MR_COLD | MR_SONIC, MR_COLD,
         M1_FLY | M1_THICK_HIDE | M1_NOHANDS | M1_SEE_INVIS | M1_OVIPAROUS
             | M1_CARNIVORE,
@@ -3708,7 +3708,7 @@ NEARDATA struct permonst mons[] = {
     MON("ice elemental", S_ELEMENTAL,                         /* SpliceHack */
         LVL(8, 12, 2, 30, 0), (G_NOCORPSE | G_NOGEN),
         A(ATTK(AT_CLAW, AD_PHYS, 5, 6), 
-          ATTK(AT_NONE, AD_COLD, 0, 4),
+          ATTK(AT_NONE, AD_COLD, 0, 6),
           ATTK(AT_SPIT, AD_COLD, 1, 6),
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(2500, 0, MS_SILENT, MZ_LARGE), 
@@ -7798,15 +7798,16 @@ struct permonst _mons2[] = {
             | M2_COLLECT | M2_MAGIC,
         M3_CLOSE | M3_INFRAVISIBLE, 0, MH_HUMAN, 22, HI_LORD),
     MON("High Ice Mage", S_HUMAN,                               /* Slash'EM */
-        LVL(20, 12, 0, 40, 0), (G_NOGEN | G_UNIQ),
-        A(ATTK(AT_WEAP, AD_PHYS, 1, 6), 
-          ATTK(AT_WEAP, AD_PHYS, 1, 6),
-          ATTK(AT_MAGC, AD_SPEL, 0, 0), 
+        LVL(20, 15, 0, 90, 0), (G_NOGEN | G_UNIQ),
+        A(ATTK(AT_WEAP, AD_PHYS, 4, 10),
+          ATTK(AT_MAGC, AD_SPEL, 2, 8),
+          ATTK(AT_CLAW, AD_SAMU, 2, 4),
           NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_LEADER, MZ_HUMAN), MR_POISON, 
-        MR_POISON, M1_HUMANOID | M1_OMNIVORE,
-        M2_NOPOLY | M2_PNAME | M2_PEACEFUL | M2_STRONG 
-            | M2_MALE | M2_COLLECT | M2_MAGIC, 
+        SIZ(WT_HUMAN, 400, MS_LEADER, MZ_HUMAN), 
+        MR_COLD | MR_POISON | MR_DRAIN, MR_COLD | MR_POISON,
+        M1_HUMANOID | M1_OMNIVORE, M2_NOPOLY | M2_PEACEFUL 
+            | M2_STRONG | M2_STALK | M2_NASTY | M2_MALE 
+            | M2_COLLECT | M2_MAGIC, 
         M3_CLOSE | M3_INFRAVISIBLE, 0, MH_HUMAN, 24, HI_LORD),
     MON("Archbishop of Moloch", S_HUMAN,                        /* EvilHack */
         LVL(20, 15, 0, 90, A_NONE), (G_NOGEN | G_UNIQ),
@@ -7899,7 +7900,8 @@ struct permonst _mons2[] = {
           ATTK(AT_WEAP, AD_PHYS, 2, 6),
           ATTK(AT_CLAW, AD_SAMU, 2, 4), 
           NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_LEADER, MZ_HUMAN), MR_SLEEP | MR_POISON | MR_STONE, 0,
+        SIZ(WT_HUMAN, 400, MS_LEADER, MZ_HUMAN), 
+        MR_SLEEP | MR_POISON | MR_STONE, 0,
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_PEACEFUL | M2_STRONG | M2_MALE | M2_GREEDY
             | M2_JEWELS | M2_COLLECT | M2_MAGIC,
@@ -8019,19 +8021,6 @@ struct permonst _mons2[] = {
             | M2_NASTY | M2_FEMALE | M2_COLLECT | M2_MAGIC,
         M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISIBLE, 0,
         MH_HUMAN, 25, HI_LORD),
-    MON("Water Mage", S_HUMAN,                                  /* Slash'EM */
-        LVL(25, 10, -10, 10, 20), (G_NOGEN | G_UNIQ),
-        A(ATTK(AT_MAGC, AD_SPEL, 0, 0), 
-          ATTK(AT_MAGC, AD_SPEL, 0, 0),
-          ATTK(AT_WEAP, AD_PHYS, 1, 6), 
-          ATTK(AT_CLAW, AD_SAMU, 1, 4),
-          NO_ATTK, NO_ATTK),
-        SIZ(WT_HUMAN, 400, MS_NEMESIS, MZ_HUMAN), 
-        MR_POISON | MR_DRAIN, MR_POISON, 
-        M1_HUMANOID | M1_OMNIVORE,
-        M2_NOPOLY | M2_STRONG | M2_STALK | M2_HOSTILE | M2_NASTY |
-        M2_COLLECT | M2_MAGIC, 
-        M3_WANTSARTI | M3_WAITFORU | M3_INFRAVISIBLE, 0, MH_HUMAN, 34, HI_LORD),
     MON("Cyclops", S_GIANT,
         LVL(18, 12, 0, 0, -15), (G_NOGEN | G_UNIQ),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 8), 

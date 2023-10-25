@@ -2587,6 +2587,18 @@ register struct monst *mtmp;
             (void) mongets(mtmp, ROBE_OF_PROTECTION);
             (void) mongets(mtmp, POT_FULL_HEALING);
             break;
+        } else if (ptr == &mons[PM_HIGH_ICE_MAGE]) {
+            otmp = mksobj(QUARTERSTAFF, FALSE, FALSE);
+            otmp->blessed = otmp->oerodeproof = 1;
+            otmp->spe = rn1(3, 3);
+            otmp->oprops = ITEM_FROST;
+            (void) mpickobj(mtmp, otmp);
+            (void) mongets(mtmp, rn2(3)
+                                 ? rn1(ROBE_OF_WEAKNESS - ROBE + 1, ROBE)
+                                 : CLOAK_OF_PROTECTION);
+            (void) mongets(mtmp, POT_FULL_HEALING);
+            (void) mongets(mtmp, POT_REFLECTION);
+            break;
         }
         break;
     case S_NYMPH:
