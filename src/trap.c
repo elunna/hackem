@@ -5994,10 +5994,9 @@ boolean disarm;
                     }
                 }
             } else {
-                mon->mhp -= d(6, 6);
-                if (mon->mhp <= 0) {
+                if (damage_mon(mon, d(6, 6), AD_FIRE)) {
                     if (canseemon(mon))
-                        pline("%s is killed by the explosion!", Monnam(mon));
+                        pline("%s is blasted by the explosion!", Monnam(mon));
                     mondied(mon);
                 }
             }
@@ -6013,14 +6012,12 @@ boolean disarm;
                 poisoned("gas cloud", A_STR, "cloud of poison gas", 15, FALSE);
                 exercise(A_CON, FALSE);
             } else if (!(resists_poison(mon) || defended(mon, AD_DRST))) {
-                int dmg = rnd(15);
-                if (!rn2(10))
-                    dmg = mon->mhp;
-                mon->mhp -= dmg;
-                if (mon->mhp <= 0) {
-                    if (canseemon(mon))
-                        pline("%s is unaffected.", Monnam(mon));
+                int dmg = !rn2(10) ? mon->mhp : rnd(15);
+                if (damage_mon(mon, dmg, AD_DRST)) {
+                    mondied(mon);
                 }
+            } else if (canseemon(mon)) {
+                pline("%s is unaffected.", Monnam(mon));
             }
             break;
         case 16:
@@ -6036,20 +6033,11 @@ boolean disarm;
                     pline("A needle pricks %s %s.", s_suffix(mon_nam(mon)),
                           mbodypart(mon, bodypart));
                 if (!(resists_poison(mon) || defended(mon, AD_DRST))) {
-                    int dmg = rnd(10);
-
-                    if (!rn2(10))
-                        dmg = mon->mhp;
-                    mon->mhp -= dmg;
-                    if (mon->mhp <= 0) {
-                        if (canseemon(mon))
-                            pline("%s is killed!", Monnam(mon));
+                    int dmg = !rn2(10) ?  mon->mhp : rnd(10);
+                    if (damage_mon(mon, dmg, AD_DRST))
                         mondied(mon);
-                    }
-                } else {
-                    if (canseemon(mon))
-                        pline("%s is killed!", Monnam(mon));
-                    mondied(mon);
+                } else if (canseemon(mon)) {
+                    pline("%s is unaffected!", Monnam(mon));
                 }
             }
             break;
@@ -6136,13 +6124,10 @@ boolean disarm;
 
                 (void) destroy_mitem(mon, RING_CLASS, AD_ELEC);
                 (void) destroy_mitem(mon, WAND_CLASS, AD_ELEC);
+                
                 if (!(resists_elec(mon) || defended(mon, AD_ELEC))) {
-                    mon->mhp -= d(4, 4);
-                    if (mon->mhp <= 0) {
-                        if (canseemon(mon))
-                            pline("%s is killed!", Monnam(mon));
+                    if (damage_mon(mon, d(4, 4), AD_ELEC))
                         mondied(mon);
-                    }
                 } else if (canseemon(mon)) {
                     pline("%s doesn't seem to be affected.", Monnam(mon));
                 }
@@ -6490,8 +6475,7 @@ boolean nocorpse;
                 searmsg(NULL, mon, obj, TRUE);
             }
         }
-        mon->mhp -= dam;
-        if (DEADMONSTER(mon)) {
+        if (damage_mon(mon, dam, AD_PHYS)) {
             int xx = mon->mx, yy = mon->my;
 
             monkilled(mon, "", nocorpse ? -AD_RBRE : AD_PHYS);
