@@ -4687,22 +4687,6 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
                                mtmp->former_rank.mnum,
                                mtmp->former_rank.female));
     }
-    if (is_gnome(mtmp->data) && !is_undead(mtmp->data)) {
-        if (!rn2(25) && !(mtmp->mflee || mtmp->msleeping
-                          || mtmp->mstun || mtmp->mconf || mtmp->mfrozen)) {
-            for (otmp = invent; otmp; otmp = otmp->nobj) {
-                if (otmp->otyp == EGG && otmp->corpsenm == NON_PM) {
-                    if (canseemon(mtmp))
-                        pline("%s looks at you and is immediately agitated.",
-                              Monnam(mtmp));
-                    if (!Deaf)
-                        verbalize("Ahhhh!  Eggs!  %s has eggs!!",
-                                  (flags.female) ? "She" : "He");
-                    monflee(mtmp, d(2, 6) + 10, TRUE, TRUE);
-                }
-            }
-        }
-    }
 }
 
 /* changes the monster into a stone monster of the same type
@@ -5050,6 +5034,7 @@ void
 m_respond(mtmp)
 struct monst *mtmp;
 {
+    struct obj *otmp;
     int i;
     if (mtmp->data->msound == MS_SHRIEK) {
         if (!Deaf && !(uarmh && uarmh->otyp == TOQUE)) {
@@ -5099,6 +5084,24 @@ struct monst *mtmp;
                 (void) gazemu(mtmp, &mtmp->data->mattk[i]);
                 break;
             }
+    }
+
+    if (is_gnome(mtmp->data) && !is_undead(mtmp->data)) {
+        if (!rn2(25) && !(mtmp->mflee || mtmp->msleeping
+                          || mtmp->mstun || mtmp->mconf || mtmp->mfrozen)) {
+            for (otmp = invent; otmp; otmp = otmp->nobj) {
+                if (otmp->otyp == EGG && otmp->corpsenm == NON_PM) {
+                    if (canseemon(mtmp))
+                        pline("%s looks at you and is immediately agitated.",
+                              Monnam(mtmp));
+                    if (!Deaf)
+                        verbalize("Ahhhh!  Eggs!  %s has eggs!!",
+                                  (flags.female) ? "She" : "He");
+                    monflee(mtmp, d(2, 6) + 10, TRUE, TRUE);
+                    break;
+                }
+            }
+        }
     }
     /* Frightful presence! */
     boolean roaring_dragon = mtmp->data->msound == MS_MEGAROAR
