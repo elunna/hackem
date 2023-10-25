@@ -2581,9 +2581,8 @@ register struct monst *mtmp;
             otmp->spe = rn1(3, 3);
             (void) mpickobj(mtmp, otmp);
             
-            (void) mongets(mtmp, SPEED_BOOTS);
+            (void) mongets(mtmp, HIGH_BOOTS);
             (void) mongets(mtmp, AMULET_OF_REFLECTION);
-            (void) mongets(mtmp, CLOAK_OF_DISPLACEMENT);
             (void) mongets(mtmp, ROBE_OF_PROTECTION);
             (void) mongets(mtmp, POT_FULL_HEALING);
             break;
