@@ -1363,13 +1363,13 @@ NEARDATA struct permonst mons[] = {
         M1_POIS | M1_FLY | M1_THICK_HIDE, 
         M2_STALK | M2_HOSTILE | M2_NASTY, 0, 0, 0, 10, CLR_YELLOW),
     MON("nupperibo", S_IMP,                                     /* Slash'EM */
-        LVL(7, 12, 0, 20, -7), (G_GENO | 1),
-        A(ATTK(AT_CLAW, AD_DRST, 3, 4), 
-          ATTK(AT_BITE, AD_DRLI, 1, 6),
+        LVL(10, 9, 0, 20, -7), (G_HELL | G_GENO | 1),
+        A(ATTK(AT_CLAW, AD_DRST, 5, 4), 
+          ATTK(AT_BITE, AD_DRLI, 2, 6),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
-        SIZ(20, 10, MS_CUSS, MZ_TINY), MR_ACID, 0,
+        SIZ(20, 10, MS_CUSS, MZ_TINY), MR_ACID | MR_POISON, 0,
         M1_REGEN, M2_WANDER | M2_STALK, 
-        M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, 0, 9, CLR_GREEN),
+        M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR, 0, 0, 10, CLR_GREEN),
     MON("redcap", S_IMP,                                      /* SpliceHack */
         LVL(10, 15, 2, 30, 7), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_PHYS, 1, 2), 

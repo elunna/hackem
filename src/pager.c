@@ -1323,7 +1323,7 @@ char *usr_text;
         if (obj->oprops & ITEM_FILTH) OBJPUTSTR("Grants sickness resistance");
         if (obj->oprops & ITEM_DANGER) OBJPUTSTR("Grants infravision with increased difficulty");
         if (obj->oprops & ITEM_RAGE) OBJPUTSTR("Grants rage and fearlessness");
-        if (obj->oprops & ITEM_PROWESS) OBJPUTSTR("Grants prowess in technical skills");
+        if (obj->oprops & ITEM_PROWESS) OBJPUTSTR("Grants skill bonuses");
         if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Indestructible item");
         if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
         if (obj->oprops & ITEM_FUMBLE) OBJPUTSTR("Grants fumbling");
@@ -1340,10 +1340,10 @@ char *usr_text;
         if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
         if (obj->oprops & ITEM_STENCH) OBJPUTSTR("Grants aggravate monster");
         if (obj->oprops & ITEM_TELE) OBJPUTSTR("Grants teleportation");
-        if (obj->oprops & ITEM_SLOW) OBJPUTSTR("Grants lethargy");
+        if (obj->oprops & ITEM_SLOW) OBJPUTSTR("Grants slowness");
         if (obj->oprops & ITEM_SUSTAIN) OBJPUTSTR("Grants fixed abilities");
         if (obj->oprops & ITEM_STEALTH) OBJPUTSTR("Grants stealth");
-        if (obj->oprops & ITEM_BURDEN) OBJPUTSTR("Grants stability, weights 4x more");
+        if (obj->oprops & ITEM_BURDEN) OBJPUTSTR("Grants stability; item weighs 4x more");
         if (obj->oprops & ITEM_SURF) OBJPUTSTR("Grants water walking");
         if (obj->oprops & ITEM_SWIM) OBJPUTSTR("Grants swimming");
     }
@@ -1770,9 +1770,10 @@ char *usr_text;
     /* cost, wt should go next */
     buf[0] = '\0';
     if (is_artifact) {
-        Sprintf(buf, "Weighs %d aum.", oc.oc_weight);
+        if (obj)
+            Sprintf(buf, "Base weight %d aum.", oc.oc_weight);
     } else if (reveal_info) {
-        Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, oc.oc_weight);
+        Sprintf(buf, "Base cost %d, base weight %d aum.", oc.oc_cost, oc.oc_weight);
     } else {
         int base_cost = oc.oc_cost;
         for (i = 0; i < NUM_OBJECTS; i++) {
@@ -1787,9 +1788,9 @@ char *usr_text;
         }
 
         if (base_cost > 0) {
-            Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, oc.oc_weight);
+            Sprintf(buf, "Base cost %d, base weight %d aum.", oc.oc_cost, oc.oc_weight);
         } else {
-            Sprintf(buf, "Weighs %d aum.", oc.oc_weight);
+            Sprintf(buf, "Base weight %d aum.", oc.oc_weight);
         }
     }
     OBJPUTSTR(buf);
