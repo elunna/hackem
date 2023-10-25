@@ -247,6 +247,10 @@ register struct obj *obj;
                       xname(uwep), rn2(2) ? "as large as you" : "of your stature");
                 uwep->oprops_known |= ITEM_STEALTH;
                 EStealth &= ~W_WEP;
+            } else if (Stomping) {
+                pline("This %s will not silence your stomping!",  xname(uwep));
+                uwep->oprops_known |= ITEM_STEALTH;
+                EStealth &= ~W_WEP;
             } else
                 toggle_stealth(uwep, (EStealth & ~W_WEP), TRUE);
         }
@@ -623,6 +627,10 @@ register struct obj *obj;
             if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
                 pline("This %s will not silence someone %s.",
                       xname(uswapwep), rn2(2) ? "as large as you" : "of your stature");
+                uswapwep->oprops_known |= ITEM_STEALTH;
+                EStealth &= ~W_SWAPWEP;
+            } else if (Stomping) {
+                pline("This %s will not silence your stomping!", xname(uswapwep));
                 uswapwep->oprops_known |= ITEM_STEALTH;
                 EStealth &= ~W_SWAPWEP;
             } else

@@ -776,8 +776,7 @@ int x, y;
         ) {
         const char *mnam, *pronoun;
         int glyph = glyph_at(x, y);
-        boolean stomping = (uarmf && uarmf->otyp == STOMPING_BOOTS 
-                            && mon->data->msize <= MZ_SMALL);
+        boolean stomping = (Stomping && mon->data->msize <= MZ_SMALL);
 
 
         mon->mundetected = 0; /* wakeup() will handle mimic */

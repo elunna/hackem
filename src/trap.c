@@ -1125,7 +1125,7 @@ unsigned trflags;
         }
         if (!Fumbling && !undestroyable_trap(ttype)
             && ttype != ANTI_MAGIC && !forcebungle && !plunged
-            && !conj_pit && !adj_pit && (uarmf && uarmf->otyp != STOMPING_BOOTS)
+            && !conj_pit && !adj_pit && !Stomping
             && (!rn2(5) || (is_pit(ttype)
                             && is_clinger(youmonst.data)))) {
                 You("escape %s %s.", (ttype == ARROW_TRAP && !trap->madeby_u)

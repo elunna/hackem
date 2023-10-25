@@ -3535,6 +3535,8 @@ int final;
         you_are("displaced", from_what(DISPLACED));
     if (Stealth)
         you_are("stealthy", from_what(STEALTH));
+    if (Stomping)
+        you_are("stomping around", from_what(STOMPING));
     if (Aggravate_monster)
         enl_msg("You aggravate", "", "d", " monsters",
                 from_what(AGGRAVATE_MONSTER));

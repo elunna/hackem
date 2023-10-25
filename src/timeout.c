@@ -107,6 +107,7 @@ const struct propname {
     { WITHERING, "withering away" },
     { STABLE,    "extraodinarily stable" },
     { LIFESAVED, "life will be saved" },
+    { STOMPING, "stomping" },
     {  0, 0 },
 };
 

@@ -493,8 +493,8 @@ register struct monst *mtmp;
     }
     
 
-    if (uarmf && uarmf->otyp == STOMPING_BOOTS && !Levitation) {
-        if ((mtmp->data->msize <= MZ_SMALL && (verysmall(mtmp->data) || !rn2(4))) 
+    if (Stomping) {
+        if ((mtmp->data->msize <= MZ_SMALL && (verysmall(mtmp->data) || !rn2(10))) 
             || (Race_if(PM_GIANT) && mtmp->data->msize == MZ_MEDIUM && !rn2(40))) {
             You("stomp on %s!", mon_nam(mtmp));
             xkilled(mtmp, XKILL_GIVEMSG);
