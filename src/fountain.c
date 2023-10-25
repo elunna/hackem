@@ -565,6 +565,7 @@ const struct ForgeRecipe fusions[] = {
 
     /* sling bullets */
     { SLING_BULLET,         ROCK, DART, 3, 1 },
+    { SLING_BULLET,         ROCK, FLINT, 2, 1 },
     { 0, 0, 0, 0, 0 }
 };
 
