@@ -484,7 +484,7 @@ struct damage_info_t *damage_info)
         tmp += otmp->spe;
 
         /* adjust for various materials */
-        if (otmp->material == GLASS || otmp->material == GEMSTONE) {
+        if (otmp->material == GLASS) {
             /* glass is extremely sharp */
             if (objects[otmp->otyp].oc_dir & PIERCE) {
                 tmp += 3;

@@ -3674,6 +3674,17 @@ static const struct icp rod_materials[] = {
     { 3, PLATINUM},
 };
 
+/* Fun material! */
+static const struct icp unihorn_materials[] = {
+        {30, GLASS},
+        {30, BONE},
+        {20, GOLD},
+        { 5, WOOD},
+        { 5, GEMSTONE},
+        { 5, PLASTIC},
+        { 5, SILVER},
+};
+
 static const struct icp sling_bullet_materials[] = {
     {65, IRON},
     {15, METAL},
@@ -3811,6 +3822,8 @@ struct obj* obj;
             return sling_bullet_materials;
         case SABER:
             return shiny_materials;
+        case UNICORN_HORN:
+            return unihorn_materials;
         default:
             break;
     }
