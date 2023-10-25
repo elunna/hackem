@@ -635,23 +635,6 @@ unsigned corpseflags;
         break;
     case PM_TIAMAT:
         goto default_1;
-    case PM_TIGER:
-        if (!mtmp->mrevived && !rn2(100)) {
-            int otyp;
-            for (otyp = bases[RING_CLASS]; otyp < bases[RING_CLASS+1];
-                 ++otyp) {
-                const char *s;
-                if ((s = OBJ_DESCR(objects[otyp])) != 0
-                    && !strcmp(s, "tiger eye"))
-                    break;
-            }
-            if (otyp >= bases[RING_CLASS + 1])
-                impossible("No tiger eye ring?");
-            else {
-                obj = mksobj_at(otyp, x, y, FALSE, FALSE);
-            }
-        }
-        goto default_1;
     case PM_WHITE_UNICORN:
     case PM_GRAY_UNICORN:
     case PM_BLACK_UNICORN:
