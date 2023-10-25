@@ -54,7 +54,8 @@ char msgbuf[BUFSZ];
 /* non-rotting non-corpses; unlike lizard corpses, these items will behave
    as if rotten if they are cursed (fortune cookies handled elsewhere) */
 #define nonrotting_food(otyp) \
-    ((otyp) == LEMBAS_WAFER || (otyp) == CRAM_RATION)
+    ((otyp) == LEMBAS_WAFER || (otyp) == CRAM_RATION \
+    || (otyp) == EUCALYPTUS_LEAF)
 
 STATIC_OVL NEARDATA const char comestibles[] = { FOOD_CLASS, 0 };
 STATIC_OVL NEARDATA const char offerfodder[] = { FOOD_CLASS, AMULET_CLASS,
@@ -1219,9 +1220,70 @@ int pm;
             }
         }
         break;
-    case PM_WRAITH:
-        pluslvl(FALSE);
-        break;
+        case PM_WRAITH:
+            if (Role_if(PM_NECROMANCER)) {
+                /* Necros have the perk of vanilla wraith behavior! */
+                pluslvl(FALSE);
+                break;
+            }
+            switch(rnd(10)) {
+                case 1:
+                    You("feel that was a bad idea.");
+                    losexp("eating a wraith corpse");
+                    break;
+                case 2:
+                    You("don't feel so good ...");
+                    if (Upolyd) {
+                        u.mhmax -= 4;
+                        if (u.mhmax < 1)
+                            u.mhmax = 1;
+                    } else {
+                        u.uhpmax -= 4;
+                        if (u.uhpmax < 1)
+                            u.uhpmax = 1;
+                    }
+                    u.uenmax -= 8;
+                    if (u.uenmax < 1)
+                        u.uenmax = 1;
+                    u.uen -= 8;
+                    if (u.uen < 0)
+                        u.uen = 0;
+                    losehp(4, "eating a wraith corpse", KILLED_BY);
+                    break;
+                case 3:
+                case 4:
+                    You("feel something strange for a moment.");
+                    break;
+                case 5:
+                    You("feel physically and mentally stronger!");
+                    if (Upolyd) {
+                        u.mhmax += 4;
+                        u.mh = u.mhmax;
+                    } else {
+                        u.uhpmax += 4;
+                        u.uhp = u.uhpmax;
+                    }
+                    u.uenmax += 8;
+                    u.uen = u.uenmax;
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                    You("feel that was a smart thing to do.");
+                    pluslvl(FALSE);
+                    break;
+                default:
+                    break;
+            }
+            if (Role_if(PM_UNDEAD_SLAYER)) {
+                /* Unbecoming of Undead Slayers  */
+                You("have disgraced your profession.");
+                adjalign(-3);
+                break;
+            }
+            break;
     case PM_HUMAN_WERERAT:
         catch_lycanthropy = PM_WERERAT;
         break;

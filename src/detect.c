@@ -1554,7 +1554,7 @@ struct obj **optr;
         return;
     }
     You("peer into %s...", the(xname(obj)));
-    nomul(-rnd(10));
+    nomul(-rnd(Free_action ? 2 : 10));
     multi_reason = "gazing into a crystal ball";
     nomovemsg = "";
     if (obj->spe <= 0) {
@@ -2176,6 +2176,7 @@ register int aflag; /* intrinsic autosearch vs explicit searching */
 int
 dosearch()
 {
+    u.uacted = FALSE;
     return dosearch0(0);
 }
 

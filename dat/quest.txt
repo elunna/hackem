@@ -1248,7 +1248,7 @@ Again, and you think possibly for the last time, you approach
 "We have had trouble concentrating on our studies!"
 %E
 %Cp Fla 00008
-"The water elementals are fierce, but they boil away under our fire!"
+"The ice elementals are fierce, but they boil away under our fire!"
 %E
 %Cp Fla 00009
 "%lC is a strange one, but he has helped defend us."
@@ -1304,11 +1304,11 @@ Go forth, and return when you feel ready."
 
 "About six months ago, I learned that a mysterious sorcerer, known
 as %n, had begun to summon horrible elementals from the plane of 
-Water.
+Ice.
 
 "%nC and his hordes of elementals swept down upon %H and stole
 %o, and seeks to bend it to his will.  
-After many brave wizards were slain by his watery servants, I
+After many brave wizards were slain by his icy servants, I
 sent forth a summons for you!
 
 "If %n can bend %o to his will, he will become

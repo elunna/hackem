@@ -1244,6 +1244,9 @@ MSGTYPE=hide "The Book of the Dead .*"
 ## Don't miss #enhance!
 MSGTYPE=alert "You feel more confident *"
 
+# Don't miss spells being forgotten!
+MSGTYPE=alert ".* spell is fading!"
+
 ## Warn when Zapping an empty wand (disable if wresting).
 MSGTYPE=stop "Nothing happens."
 

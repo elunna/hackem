@@ -2617,6 +2617,7 @@ long timeout;
 int
 donull()
 {
+    u.uacted = FALSE;
     return 1; /* Do nothing, but let other things happen */
 }
 

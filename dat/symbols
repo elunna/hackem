@@ -143,7 +143,7 @@ finish
 
 # All symbols are spaces
 start: Blank
-	Description: completely blank symbols
+        Description: completely blank symbols
         S_air: \032
         S_altar: \032
         S_amulet: \032
@@ -237,6 +237,7 @@ start: Blank
         S_lizard: \032
         S_lslant: \032
         S_magic_beam_trap: \032
+        S_magic_chest: \032
         S_magic_portal: \032
         S_magic_trap: \032
         S_mimic: \032
@@ -500,6 +501,7 @@ start: RogueEpyx
 	S_magic_portal: \x04
 	S_web: \x04
 	S_statue_trap: \x04
+	S_magic_chest: \x28		# match it to tools
 	S_magic_trap: \x04
 	S_anti_magic_trap: \x04
 	S_polymorph_trap: \x04
@@ -579,7 +581,7 @@ start: curses
 	S_ndoor: \xfe			# meta-z, centered dot
 	S_bars: \xfc			# meta-|, not-equals sign (was '#')
 	S_tree: \xe7			# meta-g, plus or minus sign
-        S_deadtree: \xe7                # meta-g, plus or minus sign
+    S_deadtree: \xe7                # meta-g, plus or minus sign
 	S_room: \xfe			# meta-z, centered dot
 	S_corr: \xe1			# meta-a, solid block
 	S_litcorr: \xe1			# meta-a, solid block

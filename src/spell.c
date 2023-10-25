@@ -13,10 +13,13 @@
    eligible to reread the spellbook and regain 100% retention (the threshold
    used to be 1000 turns, which was 10% of the original 10000 turn retention
    period but didn't get adjusted when that period got doubled to 20000) */
-#define KEEN            20000
-#define CAST_BOOST 	    500	/* memory increase for successful casting */
-#define REINFORCE_BOOST 20000	/* memory increase for reinforce memory */
-#define MAX_KNOW 	    100000	/* Absolute Max timeout */
+#define KEEN            10000
+#define CAST_BOOST 	    500	    /* memory increase for successful casting */
+#define REINFORCE_BOOST 10000	/* memory increase for reinforce memory */
+#define MAX_KNOW 	    70000	/* Absolute Max timeout */
+/* Most spells a player can learn */
+#define SPELL_LIMIT     ((ACURR(A_WIS)+ACURR(A_INT)) \
+                          / (primary_caster() ? 4 : 10))
 
 /* x: need to add 1 when used for reading a spellbook rather than for hero
    initialization; spell memory is decremented at the end of each turn,
@@ -27,12 +30,8 @@
 				 : spl_book[spell].sp_know + boost)
 #define spellev(spell) spl_book[spell].sp_lev
 #define spellname(spell) OBJ_NAME(objects[spellid(spell)])
-
-/* Added 10 more spell slots (from SlashEM) */
-#define spellet(spell)	\
-	((char) ((spell < 26) ? ('a' + spell) : \
-	        (spell < 52) ? ('A' + spell - 26) : \
-		(spell < 62) ? ('0' + spell - 52) : 0 ))
+#define spellet(spell) \
+    ((char) ((spell < 26) ? ('a' + spell) : ('A' + spell - 26)))
 
 STATIC_DCL int FDECL(spell_let_to_idx, (CHAR_P));
 STATIC_DCL boolean FDECL(cursed_book, (struct obj * bp));
@@ -51,6 +50,7 @@ STATIC_DCL char *FDECL(spellretention, (int, char *));
 STATIC_DCL int NDECL(throwspell);
 STATIC_DCL void FDECL(spell_backfire, (int));
 STATIC_DCL boolean FDECL(spell_aim_step, (genericptr_t, int, int));
+STATIC_DCL boolean NDECL(primary_caster);
 
 static const char clothes[] = { ARMOR_CLASS, 0 };
 
@@ -369,6 +369,15 @@ learn(VOID_ARGS)
     char splname[BUFSZ];
     boolean costly = TRUE;
     struct obj *book = context.spbook.book;
+    
+    if (max_spells_learned()) {
+        if (ACURR(A_INT) == AMAX(A_INT) 
+            && ACURR(A_WIS) == AMAX(A_WIS))
+            You("are not capable of learning any new spells (right now).");
+        else
+            You("are not capable of learning any new spells.");
+        return 0;
+    }
     
     /* JDS: lenses give 50% faster reading; 33% smaller read time */
     if (context.spbook.delay && ublindf && ublindf->otyp == LENSES && rn2(2))
@@ -1516,8 +1525,12 @@ boolean wiz_cast;
     }
 
     /* gain skill for successful cast */
+    /* Skill gain for spells is faster than skill gain for weapons;
+       four times faster when at basic skill or lower, two times
+       when above. */
     if (!wiz_cast)
-        use_skill(skill, spellev(spell));
+    use_skill(skill, (spellev(spell) * ((role_skill <= P_BASIC 
+                                         && can_advance(skill, FALSE)) ? 4 : 2)));
 
     /* WAC successful casting increases solidity of knowledge */
 	boostknow(spell, CAST_BOOST);
@@ -1555,7 +1568,7 @@ throwspell()
     pline("Where do you want to cast the spell?");
     cc.x = u.ux;
     cc.y = u.uy;
-    if (getpos(&cc, TRUE, "the desired position") < 0)
+    if (getpos(&cc, FALSE, "the desired position") < 0)
         return 0; /* user pressed ESC */
     /* The number of moves from hero to where the spell drops.*/
     if (distmin(u.ux, u.uy, cc.x, cc.y) > 10) {
@@ -1712,6 +1725,21 @@ losespells()
     }
 }
 
+/* Completely remove the last spell in our spell library */
+void
+forget_spell()
+{
+    int n, lastspell;
+
+    for (n = 0; n < MAXSPELL; ++n)
+        if (spellid(n) == NO_SPELL)
+            break;
+    lastspell = n - 1;
+    
+    Your("%s spell has been forgotten.", spellname(lastspell));
+    spellknow(lastspell) = 0;
+    spellid(lastspell) = NO_SPELL;
+}
 /*
  * Allow player to sort the list of known spells.  Manually swapping
  * pairs of them becomes very tedious once the list reaches two pages.
@@ -2033,7 +2061,7 @@ int spell;
     int difficulty;
     int skill;
     int dex_adjust;
-    boolean paladin_bonus, primary_casters, non_casters;
+    boolean paladin_bonus, is_spellcaster, non_casters;
 
     /* Calculate intrinsic ability (splcaster) */
 
@@ -2066,14 +2094,8 @@ int spell;
     paladin_bonus = Role_if(PM_KNIGHT) && spell_skilltype(spellid(spell)) == P_ENCHANTMENT_SPELL;
 
     /* Casting roles */
-    primary_casters = (Role_if(PM_HEALER) 
-                       || Role_if(PM_PRIEST)
-                       || Role_if(PM_FLAME_MAGE)
-                       || Role_if(PM_ICE_MAGE)
-                       || Role_if(PM_NECROMANCER)
-                       || Role_if(PM_WIZARD) 
-                       || Role_if(PM_INFIDEL));
-
+    is_spellcaster = primary_caster();
+    
     non_casters = (Role_if(PM_ARCHEOLOGIST) 
                    || Role_if(PM_BARBARIAN) 
                    || Role_if(PM_CAVEMAN)
@@ -2252,7 +2274,7 @@ int spell;
         && !is_robe(uarm)) {
 #define PENALTY_NON_CASTER (spellev(spell) * 10)
 #define PENALTY_PRI_CASTER (spellev(spell) * 10) - 30
-        if (primary_casters && spellev(spell) >= 4)
+        if (is_spellcaster && spellev(spell) >= 4)
             chance -= PENALTY_PRI_CASTER;
         if (non_casters)
             chance -= PENALTY_NON_CASTER;
@@ -2355,12 +2377,12 @@ studyspell()
         if (spellknow(spell_no) <= 0) {
             You("are unable to focus your memory of the spell.");
             return (FALSE);
-        } else if (spellknow(spell_no) <= 1000) {
+        } else if (spellknow(spell_no) <= (KEEN / 2)) {
             Your("focus and reinforce your memory of the spell.");
             boostknow(spell_no, REINFORCE_BOOST);
             exercise(A_WIS, TRUE);      /* extra study */
             return (TRUE);
-        } else /* 1000 < spellknow(spell_no) <= 5000 */
+        } else
             You("know that spell quite well already.");
     }
     return (FALSE);
@@ -2480,6 +2502,31 @@ dump_spells()
             putstr(0, ATR_PREFORM, buf);
         }
     }
+}
+
+void
+spell_nag()
+{
+    /* Check for fading spells */
+    for (int i = 0; i < MAXSPELL && spellid(i) != NO_SPELL; i++) {
+        if (spellknow(i) == 100) {
+            Your("%s spell is fading!", spellname(i));
+        }
+    }
+}
+
+STATIC_OVL boolean
+primary_caster() {
+    return (Role_if(PM_HEALER) || Role_if(PM_PRIEST)
+            || Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE)
+            || Role_if(PM_NECROMANCER) || Role_if(PM_WIZARD)
+            || Role_if(PM_INFIDEL));
+}
+
+boolean
+max_spells_learned()
+{
+    return num_spells() >= SPELL_LIMIT;
 }
 
 /*spell.c*/

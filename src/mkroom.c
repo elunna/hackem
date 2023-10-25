@@ -1334,8 +1334,6 @@ realzoomon() {
         return rn2(3) ? &mons[PM_PANTHER] 
                       : &mons[PM_HIPPO];
     else if (i > 25)
-        return &mons[PM_LANDSHARK];
-    else if (i > 25)
         return &mons[PM_JAGUAR];
     else if (i > 15)
         return &mons[PM_APE];
@@ -1548,6 +1546,9 @@ int sym;
         break;
     case S_forge:
         typ = FORGE;
+        break;
+    case S_magic_chest:
+        typ = MAGIC_CHEST;
         break;
     case S_fountain:
         typ = FOUNTAIN;

@@ -18,6 +18,7 @@ STATIC_DCL void NDECL(do_positionbar);
 STATIC_DCL void FDECL(regen_hp, (int));
 STATIC_DCL void FDECL(interrupt_multi, (const char *));
 STATIC_DCL void FDECL(debug_fields, (const char *));
+STATIC_DCL void NDECL(init_mchest);
 STATIC_DCL void NDECL(pickup_spirits);
 
 
@@ -158,8 +159,6 @@ boolean resuming;
     struct obj *pobj, *aobj;
     int moveamt = 0, wtcap = 0, change = 0;
     /* don't make it obvious when monsters will start speeding up */
-    int timeout_start = rnd(10000) + 25000;
-    int past_clock;
     boolean monscanmove = FALSE;
     boolean elf_regen = elf_can_regen();
     boolean orc_regen = orc_can_regen();
@@ -205,6 +204,7 @@ boolean resuming;
            clairvoyance (wizard with cornuthaum perhaps?); without this,
            first "random" occurrence would always kick in on turn 1 */
         context.seer_turn = (long) rnd(30);
+        init_mchest();
         u.umovement = NORMAL_SPEED;  /* giants and tortles put their best foot forward */
     }
     context.botlx = TRUE; /* for STATUS_HILITES */
@@ -256,10 +256,11 @@ boolean resuming;
                             break; /* it's now your turn */
                     } while (monscanmove);
                     context.mon_moving = FALSE;
-                } else if (youmonst.movement < NORMAL_SPEED) {
+                } else if (u.umovement < NORMAL_SPEED) {
                     /* If a scroll of time has been read, we want the player's
                      * current turn to be extended. */
                     u.utimestop = FALSE;
+                    continue;
                 }
                 if (!monscanmove && u.umovement < NORMAL_SPEED) {
                     /* both hero and monsters are out of steam this round */
@@ -303,9 +304,6 @@ boolean resuming;
                     monclock = MIN_MONGEN_RATE;
                     /* Don't let wishes influence the fuzzer */
                     if (!iflags.debug_fuzzer) {
-                        past_clock = moves - timeout_start;
-                        if (past_clock > 0)
-                            monclock = MIN_MONGEN_RATE * TURN_THRESHOLD / (past_clock + TURN_THRESHOLD);
                         if (monclock > MIN_MONGEN_RATE / 2 && (u.uconduct.wishes >= 2L))
                             monclock = MIN_MONGEN_RATE / 2;
                         if (monclock > MIN_MONGEN_RATE / 3 && (u.uconduct.wishes >= 3L))
@@ -316,7 +314,9 @@ boolean resuming;
                             monclock = MIN_MONGEN_RATE / 5;
                         if (monclock > MIN_MONGEN_RATE / 6 && (u.uconduct.wishes >= 6L))
                             monclock = MIN_MONGEN_RATE / 6;
-                        if (u.uconduct.wishes >= 7L)
+                        if (monclock > MIN_MONGEN_RATE / 7 && (u.uconduct.wishes >= 7L))
+                            monclock = MIN_MONGEN_RATE / 7;
+                        if (u.uconduct.wishes >= 8L)
                             monclock = MAX_MONGEN_RATE;
                     }
 		            /* make sure we don't fall off the bottom */
@@ -879,6 +879,15 @@ boolean resuming;
 
 #define U_CAN_REGEN() (Regeneration || (Sleepy && u.usleep))
 
+STATIC_OVL void
+init_mchest()
+{
+    mchest = mksobj(HIDDEN_CHEST, FALSE, FALSE);
+    mchest->olocked = 1;
+    mchest->where = OBJ_SOMEWHERE;
+    return;
+}
+
 /* maybe recover some lost health (or lose some when an eel out of water) */
 STATIC_OVL void
 regen_hp(wtcap)
@@ -1439,24 +1448,14 @@ wishluck()
     /* Don't let this affect the fuzzer */
     if (iflags.debug_fuzzer)
         return 0;
-    switch (u.uconduct.wishes) {
-    case 2:
-        return -1;
-    case 3:
-        return -2;
-    case 5:
-        return -3;
-    case 7:
-        return -4;
-    case 11:
-        return -5;
-    }
+    if (u.uconduct.wishes < 2)
+        return 0;
     /* Technically we can only get the player to -10, 
      * so we force them to carry a virtual cursed luckstone. */
-    if (u.uconduct.wishes >= 13)
+    if (u.uconduct.wishes < 13)
+        return u.uconduct.wishes - 1;
+    else
         return -10;
-
-    return 0;
 }
 
 STATIC_OVL void

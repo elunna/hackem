@@ -211,13 +211,13 @@ WEAPON("battle-axe", "double-headed axe", /* "double-bitted"? */
 
 /* swords */
 WEAPON("short sword", None,
-       1, 0, 0, 0,  8,  30,  10,  6,  8, 0, P,   P_SHORT_SWORD, IRON, HI_METAL),
+       1, 0, 0, 0,  8,  30,  10,  6,  8, 1, P,   P_SHORT_SWORD, IRON, HI_METAL),
 WEAPON("elven short sword", "runed short sword",
-       0, 0, 0, 0,  2,  11,  10,  8,  8, 0, P,   P_SHORT_SWORD, WOOD, HI_WOOD),
+       0, 0, 0, 0,  2,  11,  10,  8,  8, 1, P,   P_SHORT_SWORD, WOOD, HI_WOOD),
 WEAPON("orcish short sword", "crude short sword",
-       0, 0, 0, 0,  3,  30,  10,  5,  8, 0, P,   P_SHORT_SWORD, IRON, CLR_BLACK),
+       0, 0, 0, 0,  3,  30,  10,  5,  8, 1, P,   P_SHORT_SWORD, IRON, CLR_BLACK),
 WEAPON("dwarvish short sword", "broad short sword",
-       0, 0, 0, 0,  2,  30,  10,  7,  8, 0, P,   P_SHORT_SWORD, IRON, HI_METAL),
+       0, 0, 0, 0,  2,  30,  10,  7,  8, 1, P,   P_SHORT_SWORD, IRON, HI_METAL),
 WEAPON("gladius", None,                                        /* SpliceHack */
        1, 0, 0, 0,  1,  30,  10, 10,  6, 2, S,   P_SHORT_SWORD, IRON, HI_METAL),
 WEAPON("scimitar", "curved sword",
@@ -685,7 +685,7 @@ BOOTS("water walking boots", "jungle boots",
 BOOTS("jumping boots", "hiking boots",
       0, 1,    JUMPING, 12, 2, 20, 50, 9, 0, LEATHER, HI_LEATHER),
 BOOTS("stomping boots", "steel-toed boots",                    /* SpliceHack */
-      0, 1,          0, 12, 2, 20, 50, 9, 0, IRON, HI_LEATHER),
+      0, 1,   STOMPING, 12, 2, 20, 50, 9, 0, IRON, HI_LEATHER),
 BOOTS("elven boots", "mud boots",
       0, 1,    STEALTH, 12, 2, 15,  8, 9, 0, LEATHER, HI_LEATHER),
 BOOTS("kicking boots", "buckled boots",
@@ -828,6 +828,12 @@ CONTAINER("chest",            None, 1, 0, 0, 25, 600,  16, WOOD, HI_WOOD),
 CONTAINER("iron safe",        None, 1, 0, 0, 10, 900,  50, IRON, HI_METAL),  /* EvilHack/Un */
 CONTAINER("crystal chest",    None, 1, 1, 0,  1, 500,  20, GEMSTONE, CLR_WHITE), /* EvilHack */
 CONTAINER("ice box",          None, 1, 0, 0,  5, 900,  42, PLASTIC, CLR_WHITE),
+/* define as object so it's unwishable. base type is "hidden chest" to avoid conflict
+   with terrain type name, but description is "magic chest" so player gets correct
+   feedback when they loot it. it should always remain unidentified. */
+OBJECT(OBJ("hidden chest", "magic chest"),                             \
+       BITS(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, P_NONE, GEMSTONE),        \
+       0, TOOL_CLASS, 0, 0, 5000, 999, 0, 0, 0, 0, 5000, CLR_MAGENTA),
 CONTAINER("medical kit",     "bag", 0, 0, 0, 10,   5, 500, LEATHER, HI_LEATHER),
 CONTAINER("sack",            "bag", 0, 0, 0, 35,  15,   2, CLOTH, HI_CLOTH),
 CONTAINER("oilskin sack",    "bag", 0, 0, 0,  5,  15, 100, CLOTH, HI_CLOTH),
@@ -837,9 +843,10 @@ CONTAINER("bag of tricks",   "bag", 0, 1, 1, 20,  15, 100, CLOTH, HI_CLOTH),
 #undef CONTAINER
 
 /* lock opening tools */
-TOOL("skeleton key",       "key", 0, 0, 0, 0,  80,   3,  10, BONE, CLR_WHITE),
-TOOL("lock pick",           None, 1, 0, 0, 0,  60,   4,  20, METAL, HI_METAL),
-TOOL("credit card",         None, 1, 0, 0, 0,  15,   1,  10, PLASTIC, CLR_WHITE),
+TOOL("skeleton key",       "key", 0, 0, 0, 0,  80,   3,   10, BONE, CLR_WHITE),
+TOOL("lock pick",           None, 1, 0, 0, 0,  60,   4,   20, METAL, HI_METAL),
+TOOL("credit card",         None, 1, 0, 0, 0,  15,   1,   10, PLASTIC, CLR_WHITE),
+TOOL("magic key",   "ornate key", 0, 0, 1, 0,   0,   5, 1000, GEMSTONE, CLR_RED),
 /* light sources */
 TOOL("tallow candle",   "candle", 0, 1, 0, 0,  20,   2,  10, WAX, CLR_WHITE),
 TOOL("wax candle",      "candle", 0, 1, 0, 0,   5,   2,  20, WAX, CLR_WHITE),

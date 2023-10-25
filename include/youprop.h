@@ -276,7 +276,7 @@
 
 #define HStealth u.uprops[STEALTH].intrinsic
 #define EStealth u.uprops[STEALTH].extrinsic
-#define BStealth u.uprops[STEALTH].blocked
+#define BStealth (u.uprops[STEALTH].blocked || Stomping)
 #define Stealth ((HStealth || EStealth) && !BStealth)
 
 #define HAggravate_monster u.uprops[AGGRAVATE_MONSTER].intrinsic
@@ -493,6 +493,8 @@
 
 #define Lifesaved u.uprops[LIFESAVED].extrinsic
 
+#define EStomping u.uprops[STOMPING].extrinsic
+#define Stomping (EStomping && !Levitation)
 /*
  * Some pseudo-properties.
  */

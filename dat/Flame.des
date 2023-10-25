@@ -39,9 +39,6 @@ ENDMAP
 REGION: (00,00,75,19), lit, "ordinary"
 NON_DIGGABLE: (00,00,75,19)
 
-# Random Monsters
-#RANDOM_MONSTERS: 'R', 'E'
-
 # Portal arrival point
 BRANCH: (69,17,69,17), (0,0,0,0)
 
@@ -51,8 +48,7 @@ STAIR: (05,12), down
 # High Flame Mage
 MONSTER: ('@', "High Flame Mage"), (36,11)
 
-# The treasure of the High Flame Mage
-OBJECT: ('(', "chest"), (37,11)
+MAGIC_CHEST:(40,11)
 
 # guards for the audience chamber
 MONSTER: ('@', "igniter"), (34,09)
@@ -67,30 +63,17 @@ MONSTER: ('D', "red dragon"), random, peaceful
 MONSTER: ('D', "red dragon"), random, peaceful
 
 # Random traps
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
+LOOP [8] { TRAP: "cold", random }
 
 # Monsters on siege duty.
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
+LOOP [6] { MONSTER: ('E', "ice elemental"), random, hostile }
 MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
-MONSTER: ('T', "water troll"), random, hostile
-MONSTER: ('T', "water troll"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('&', "water demon"), random, hostile
-MONSTER: ('n', "water nymph"), random, hostile
-MONSTER: ('n', "water nymph"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
+MONSTER: ('&', "ice devil"), random, hostile
+MONSTER: ('n', "ice nymph"), random, hostile
+MONSTER: ('n', "ice nymph"), random, hostile
 MONSTER: ('R', "rust monster"), random, hostile
  
 #
@@ -132,49 +115,30 @@ STAIR: (48,14), up
 STAIR: (20,06), down
 
 # Objects
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [9] { OBJECT: random, random }
 
 # Random traps
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
+LOOP [7] { TRAP: "cold", random }
 TRAP: random, random
 TRAP: random, random
 
 # Random monsters.
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
+LOOP [6] { MONSTER: ('E', "ice elemental"), random, hostile }
 MONSTER: ('&', "ice devil"), random, hostile
 MONSTER: ('&', "water demon"), random, hostile
 MONSTER: ('H', "frost giant"), random, hostile
 MONSTER: ('H', "frost giant"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
-MONSTER: ('T', "water troll"), random, hostile
-MONSTER: ('T', "water troll"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+LOOP [3] { MONSTER: ('v', "ice vortex"), random, hostile }
 MONSTER: ('R', "disenchanter"), random, hostile
 
 #
 #       The "goal" level for the quest.
 #
-#       Here you meet Lord Surtur your nemesis monster.  You have to
-#       defeat Lord Surtur in combat to gain the artifact you have
+#       Here you meet the High Ice Mage your nemesis monster.  You 
+#       have to defeat him in combat to gain the artifact you have
 #       been assigned to retrieve.
 #
 
@@ -223,19 +187,10 @@ DRAWBRIDGE: (17,14), north, closed
 OBJECT: ('(', "magic candle"), (17,08), blessed, 0, name:"The Candle of Eternal Flame"
 
 # Objects
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [7] { OBJECT: random, random }
 
 # Random traps
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
+LOOP [10] { TRAP: "cold", random }
 TRAP: random, random
 TRAP: random, random
 
@@ -243,29 +198,19 @@ TRAP: random, random
 ALTAR: (17,08), noalign, altar
 
 # Random monsters.
-MONSTER: ('@', "Water Mage"),(17,08)
+MONSTER: ('@', "High Ice Mage"),(17,08)
 MONSTER: ('D', "white dragon"), (17,09), asleep, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('E', "water elemental"), random, hostile
-MONSTER: ('v', "ice vortex"), random, hostile
-MONSTER: ('v', "ice vortex"), random, hostile
-MONSTER: ('v', "ice vortex"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
+LOOP [6] { MONSTER: ('E', "ice elemental"), random, hostile }
+LOOP [3] { MONSTER: ('v', "ice vortex"), random, hostile }
 MONSTER: ('R', "rust monster"), random, hostile
 MONSTER: ('&', "ice devil"), random, hostile
 MONSTER: ('&', "ice devil"), random, hostile
-MONSTER: ('U', "water hulk"), random, hostile
-MONSTER: ('U', "water hulk"), random, hostile
-MONSTER: ('&', "water demon"), random, hostile
-MONSTER: ('&', "water demon"), random, hostile
-MONSTER: ('T', "water troll"), random, hostile
-MONSTER: ('T', "water troll"), random, hostile
-MONSTER: ('n', "water nymph"), random, hostile
-MONSTER: ('n', "water nymph"), random, hostile
+MONSTER: ('&', "ice devil"), random, hostile
+MONSTER: ('&', "ice devil"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('n', "ice nymph"), random, hostile
+MONSTER: ('n', "ice nymph"), random, hostile
 MONSTER: (';', "electric eel"), random, hostile
 MONSTER: (';', "electric eel"), random, hostile
 MONSTER: (';', "kraken"), random, hostile
@@ -291,37 +236,18 @@ NOMAP
 STAIR: random, up
 STAIR: random, down
 
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [6] { OBJECT: random, random }
 
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('n', "water nymph"), random, hostile
-MONSTER: ('n', "water nymph"), random, hostile
+LOOP [7] { MONSTER: ('E', "ice elemental"), random, hostile }
+LOOP [3] { MONSTER: ('v', "ice vortex"), random, hostile } 
+MONSTER: ('n', "ice nymph"), random, hostile
+MONSTER: ('n', "ice nymph"), random, hostile
 MONSTER: ('H', "frost giant"), random, hostile
 MONSTER: ('H', "frost giant"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
 
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
-TRAP: random, random
+LOOP [7] { TRAP: random, random }
 
 MAZE: "Fla-filb" , 'P'
 INIT_MAP: mines, '.' , 'P' , true , true , lit, false
@@ -330,40 +256,24 @@ NOMAP
 STAIR: random, up
 STAIR: random, down
 
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
-OBJECT: random, random
+LOOP [5] { OBJECT: random, random }
 
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('E', "water elemental"), random
-MONSTER: ('R', "rust monster"), random, hostile
-MONSTER: ('R', "rust monster"), random, hostile
+LOOP [6] { MONSTER: ('E', "ice elemental"), random, hostile }
+LOOP [3] { MONSTER: ('v', "ice vortex"), random, hostile } 
 MONSTER: ('&', "ice devil"), random, hostile
 MONSTER: ('&', "water demon"), random, hostile
 MONSTER: ('&', "water demon"), random, hostile
-MONSTER: ('T', "water troll"), random, hostile
-MONSTER: ('T', "water troll"), random, hostile
-MONSTER: ('H', "frost giant"), random, hostile
-MONSTER: ('H', "frost giant"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
 MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('T', "ice troll"), random, hostile
+MONSTER: ('H', "frost giant"), random, hostile
+MONSTER: ('H', "frost giant"), random, hostile
 MONSTER: ('U', "water hulk"), random, hostile
 MONSTER: (';', "electric eel"), random, hostile
 MONSTER: (';', "electric eel"), random, hostile
-MONSTER: ';', random, hostile
-MONSTER: ';', random, hostile
-MONSTER: ';', random, hostile
-MONSTER: ';', random, hostile
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
-TRAP: "rust", random
+LOOP [4] { MONSTER: ';', random, hostile }
+
+LOOP [8] { TRAP: "cold", random }
 TRAP: random, random
 TRAP: random, random

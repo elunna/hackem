@@ -452,14 +452,13 @@ register struct monst *mtmp;
     if (is_safepet(mtmp) && !context.forcefight) {
         if (!uwep || !u_bloodthirsty()) {
             /* There are some additional considerations: this won't work
-             * if in a shop or Punished or you miss a random roll or
+             * if in a shop or you miss a random roll or
              * if you can walk thru walls and your pet cannot (KAA) or
              * if your pet is a long worm with a tail.
              * There's also a chance of displacing a "frozen" monster:
              * sleeping monsters might magically walk in their sleep.
              */
-            boolean foo = (Punished || !rn2(7)
-                           || (is_longworm(mtmp->data) && mtmp->wormno)),
+            boolean foo = (!rn2(7) || (is_longworm(mtmp->data) && mtmp->wormno)),
                     inshop = FALSE;
             char *p;
 
@@ -494,8 +493,8 @@ register struct monst *mtmp;
     }
     
 
-    if (uarmf && uarmf->otyp == STOMPING_BOOTS && !Levitation) {
-        if ((mtmp->data->msize <= MZ_SMALL && (verysmall(mtmp->data) || !rn2(4))) 
+    if (Stomping) {
+        if ((mtmp->data->msize <= MZ_SMALL && (verysmall(mtmp->data) || !rn2(10))) 
             || (Race_if(PM_GIANT) && mtmp->data->msize == MZ_MEDIUM && !rn2(40))) {
             You("stomp on %s!", mon_nam(mtmp));
             xkilled(mtmp, XKILL_GIVEMSG);
@@ -1689,7 +1688,7 @@ int dieroll;
                            of shield */
                         if (obj->otyp == SMALL_SHIELD)
                             tmp += rn2(3) + 1;
-                        else if  (obj->otyp == TOWER_SHIELD)
+                        else if (obj->otyp == TOWER_SHIELD)
                             tmp += rn2(12) + 1;
                         else
                             tmp += rn2(6) + 2;
@@ -2324,7 +2323,8 @@ int dieroll;
             && !rn2(max(2, uwep->spe) && !uwep->known)) {
             You("have become quite familiar with %s.",
                 yobjnam(uwep, (char *) 0));
-            uwep->known = TRUE;
+            fully_identify_obj(uwep);
+            discover_object(uwep->otyp, TRUE, TRUE);
             update_inventory();
         }
     }
@@ -4392,6 +4392,8 @@ boolean weapon_attacks; /* skip weapon attacks if false */
             /* [ALI] Vampires are also smart. They avoid biting
                monsters if doing so would be fatal */
             if ((i > 0 && is_vampire(youmonst.data))
+                /* ... unless they are impaired */
+                && (!Stunned && !Confusion && !Hallucination)
                 && ((how_resistant(DISINT_RES) < 50
                         && (mon->data == &mons[PM_BLACK_DRAGON]
                             || mon->data == &mons[PM_ANTIMATTER_VORTEX]))

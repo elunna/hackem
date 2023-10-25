@@ -550,6 +550,7 @@ struct obj *obj;
     case OBJ_ONBILL:
     case OBJ_MIGRATING:
     case OBJ_BURIED:
+    case OBJ_SOMEWHERE:
     default:
         return (struct obj *) 0;
     case OBJ_INVENT:
@@ -729,7 +730,7 @@ static const char *const alteration_verbs[] = {
     "cancel", "drain", "uncharge", "unbless", "uncurse", "disenchant",
     "degrade", "dilute", "erase", "burn", "neutralize", "destroy", "splatter",
     "bite", "open", "break the lock on", "rust", "rot", "tarnish", "fracture", 
-    "deteriorate", "ferment"
+    "deteriorate", "transmogrify", "ferment"
 };
 
 /* possibly bill for an object which the player has just modified */
@@ -1031,6 +1032,10 @@ boolean artif;
             case IRON_SAFE:
                 otmp->olocked = 1;
                 mkbox_cnts(otmp);
+                break;
+            case HIDDEN_CHEST: /* should not happen unless wizmode wishing */
+                otmp->olocked = 0;
+                otmp->otrapped = 0;
                 break;
             case CRYSTAL_CHEST:
                 otmp->olocked = 1;
@@ -1467,7 +1472,9 @@ struct obj *body;
             }
         }
     /* corpse of an actual zombie */
-    } else if (body->zombie_corpse && !body->norevive) {
+    } else if (body->zombie_corpse && !body->norevive
+          /* Priests have a chance to put down zombies for good. */
+          && !(Role_if(PM_PRIEST) && rn2(3))) {
         for (age = 2; age <= ROT_AGE; age++) {
             if (!rn2(ZOMBIE_REVIVE_CHANCE)) { /* zombie revives */
                 action = ZOMBIFY_MON; /* if buried, can dig itself out */
@@ -2444,6 +2451,9 @@ struct obj *obj;
     case OBJ_ONBILL:
         extract_nobj(obj, &billobjs);
         break;
+    case OBJ_SOMEWHERE:
+        extract_nobj(obj, &mchest);
+        break;
     default:
         panic("obj_extract_self");
         break;
@@ -2781,6 +2791,7 @@ obj_sanity_check()
 
     objlist_sanity(invent, OBJ_INVENT, "invent sanity");
     objlist_sanity(migrating_objs, OBJ_MIGRATING, "migrating sanity");
+    objlist_sanity(mchest, OBJ_SOMEWHERE, "magic chest sanity");
     objlist_sanity(level.buriedobjlist, OBJ_BURIED, "buried sanity");
     objlist_sanity(billobjs, OBJ_ONBILL, "bill sanity");
 
@@ -3663,6 +3674,17 @@ static const struct icp rod_materials[] = {
     { 3, PLATINUM},
 };
 
+/* Fun material! */
+static const struct icp unihorn_materials[] = {
+        {30, GLASS},
+        {30, BONE},
+        {20, GOLD},
+        { 5, WOOD},
+        { 5, GEMSTONE},
+        { 5, PLASTIC},
+        { 5, SILVER},
+};
+
 static const struct icp sling_bullet_materials[] = {
     {65, IRON},
     {15, METAL},
@@ -3705,6 +3727,8 @@ struct obj* obj;
         case GRAPPLING_HOOK:
         case IRON_SAFE:
         case CRYSTAL_CHEST:
+        case HIDDEN_CHEST:
+        case MAGIC_KEY:
         case LEATHER_DRUM:
         case DRUM_OF_EARTHQUAKE:
         case LAND_MINE:
@@ -3798,6 +3822,8 @@ struct obj* obj;
             return sling_bullet_materials;
         case SABER:
             return shiny_materials;
+        case UNICORN_HORN:
+            return unihorn_materials;
         default:
             break;
     }
@@ -3994,7 +4020,7 @@ warp_material(struct obj* obj, boolean by_you)
     if (origmat != obj->material) {
         /* Charge for the cost of the object */
         if (by_you)
-            costly_alteration(obj, COST_DRAIN);
+            costly_alteration(obj, COST_TRANSMOGRIFY);
         return TRUE;
     }
     return FALSE;

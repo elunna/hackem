@@ -836,6 +836,8 @@ const char *kickobjnam;
         what = "a toilet";        
     else if (IS_FORGE(maploc->typ))
         what = "a forge";
+    else if (IS_MAGIC_CHEST(maploc->typ))
+        what = "a magic chest";
     else if (IS_ALTAR(maploc->typ))
         what = "an altar";
     else if (IS_DRAWBRIDGE(maploc->typ))
@@ -1210,6 +1212,12 @@ boolean need_dir;
             }
             exercise(A_DEX, TRUE);
             return 1;
+        }
+        if (IS_MAGIC_CHEST(maploc->typ)) {
+            if (Levitation)
+                goto dumb;
+            pline("THUNK!"); /* same sound effect as other chests */
+            goto ouch;       /* but these are much sturdier */
         }
         if (IS_GRAVE(maploc->typ)) {
             if (Levitation)

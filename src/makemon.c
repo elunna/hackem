@@ -1631,8 +1631,8 @@ register struct monst *mtmp;
             if (rn2(2))
                 (void) mongets(mtmp, CORNUTHAUM);
             if (rn2(2))
-                (void) mongets(mtmp, rn2(13) ? AMULET_OF_GUARDING
-                                            : AMULET_OF_LIFE_SAVING);
+                (void) mongets(mtmp, rn2(4) ? (rn2(2) ? AMULET_OF_GUARDING : AMULET_OF_LIFE_SAVING)
+                                            : AMULET_OF_MAGIC_RESISTANCE);
         }
         break;
     case S_GHOST:
@@ -2581,11 +2581,22 @@ register struct monst *mtmp;
             otmp->spe = rn1(3, 3);
             (void) mpickobj(mtmp, otmp);
             
-            (void) mongets(mtmp, SPEED_BOOTS);
+            (void) mongets(mtmp, HIGH_BOOTS);
             (void) mongets(mtmp, AMULET_OF_REFLECTION);
-            (void) mongets(mtmp, CLOAK_OF_DISPLACEMENT);
             (void) mongets(mtmp, ROBE_OF_PROTECTION);
             (void) mongets(mtmp, POT_FULL_HEALING);
+            break;
+        } else if (ptr == &mons[PM_HIGH_ICE_MAGE]) {
+            otmp = mksobj(QUARTERSTAFF, FALSE, FALSE);
+            otmp->blessed = otmp->oerodeproof = 1;
+            otmp->spe = rn1(3, 3);
+            otmp->oprops = ITEM_FROST;
+            (void) mpickobj(mtmp, otmp);
+            (void) mongets(mtmp, rn2(3)
+                                 ? rn1(ROBE_OF_WEAKNESS - ROBE + 1, ROBE)
+                                 : CLOAK_OF_PROTECTION);
+            (void) mongets(mtmp, POT_FULL_HEALING);
+            (void) mongets(mtmp, POT_REFLECTION);
             break;
         }
         break;
@@ -3864,8 +3875,9 @@ int mndx, mvflagsmask, genomask;
     if (Is_mineend_level(&u.uz) && ptr == &mons[PM_VAMPIRE_MAGE])
         return FALSE;
     if (In_mines(&u.uz)
-        && (ptr == &mons[PM_ALHOON] 
+        && (ptr == &mons[PM_ALHOON]
             || ptr == &mons[PM_MASTER_MIND_FLAYER]
+            || ptr == &mons[PM_DEEPEST_ONE]
             || ptr == &mons[PM_BANSHEE]))
         return FALSE;
     

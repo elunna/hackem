@@ -965,6 +965,7 @@ boolean adjacentok; /* False: at obj's spot only, True: nearby is allowed */
  *      OBJ_INVENT      if in hero's inventory; return 0.
  *      OBJ_FLOOR       if on the floor; return 0.
  *      OBJ_BURIED      if buried; return 0.
+ *      OBJ_SOMEWHERE   if in magic chest; return 0.
  *      OBJ_MINVENT     if in monster's inventory; return monster.
  * container_nesting is updated with the nesting depth of the containers
  * if applicable.
@@ -1076,7 +1077,8 @@ boolean by_hero;
          */
         || (container && (container->olocked || container_nesting > 2
                           || container->otyp == STATUE
-                          || (container->otyp == BAG_OF_HOLDING && rn2(40))))
+                          || (container->otyp == BAG_OF_HOLDING && rn2(40))
+                          || container->otyp == HIDDEN_CHEST))
         /* if buried zombie cannot dig itself out, do not revive */
         || (is_zomb && corpse->where == OBJ_BURIED && !zombie_can_dig(x, y)))
         return (struct monst *) 0;
@@ -1419,6 +1421,9 @@ register struct obj *obj;
                 obj->otyp = SCR_BLANK_PAPER;
                 obj->spe = 0;
             }
+            /* Scrolls of amnesia are uncancelable. */
+            if (obj->otyp == SCR_AMNESIA)
+                break;
             break;
         case SPBOOK_CLASS:
             if (otyp != SPE_CANCELLATION && otyp != SPE_NOVEL
@@ -3851,6 +3856,8 @@ struct obj *obj; /* wand or spell */
                    && on_level(&u.uz, &qstart_level) && !ok_to_quest()) {
             pline_The("stairs seem to ripple momentarily.");
             disclose = TRUE;
+        } else if (IS_MAGIC_CHEST(levl[x][y].typ) && u.dz > 0) {
+            disclose = boxlock(mchest, obj);
         }
         /* down will release you from bear trap or web */
         if (u.dz > 0 && u.utrap) {
@@ -3890,6 +3897,8 @@ struct obj *obj; /* wand or spell */
                 stackobj(otmp);
             }
             newsym(x, y);
+        } else if (!striking && IS_MAGIC_CHEST(levl[x][y].typ) && u.dz > 0) {
+            disclose = boxlock(mchest, obj);
         } else if (u.dz > 0 && ttmp) {
             if (!striking && closeholdingtrap(&youmonst, &disclose)) {
                 ; /* now stuck in web or bear trap */
@@ -4393,13 +4402,15 @@ struct obj **pobj; /* object tossed/used, set to NULL
 
         if (typ == IRONBARS
             && ((levl[bhitpos.x][bhitpos.y].wall_info & W_NONDIGGABLE) == 0)
-            && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) && obj->otyp == SPE_FORCE_BOLT)
+            && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON)
+                 && obj->otyp == SPE_FORCE_BOLT)
                 || (weapon == ZAPPED_WAND && obj->otyp == WAN_STRIKING))) {
             levl[bhitpos.x][bhitpos.y].typ = ROOM;
             if (cansee(bhitpos.x, bhitpos.y))
                 pline_The("iron bars are blown apart!");
             else if (!Deaf)
                 You_hear("a lot of loud clanging sounds!");
+            scatter_chains(x, y);
             wake_nearto(bhitpos.x, bhitpos.y, 20 * 20);
             newsym(bhitpos.x, bhitpos.y);
             /* stop the bolt here; it takes a lot of energy to destroy bars */
@@ -4407,7 +4418,8 @@ struct obj **pobj; /* object tossed/used, set to NULL
             break;
         } else if (typ == IRONBARS
                    && ((levl[bhitpos.x][bhitpos.y].wall_info & W_NONDIGGABLE) != 0)
-                   && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON) && obj->otyp == SPE_FORCE_BOLT)
+                   && ((!(weapon == KICKED_WEAPON || weapon == THROWN_WEAPON)
+                        && obj->otyp == SPE_FORCE_BOLT)
                        || (weapon == ZAPPED_WAND && obj->otyp == WAN_STRIKING))) {
             if (cansee(bhitpos.x, bhitpos.y))
                 pline_The("iron bars vibrate, but are otherwise intact.");
@@ -4529,6 +4541,22 @@ struct obj **pobj; /* object tossed/used, set to NULL
                         learn_it = TRUE;
                     }
                 }
+            }
+            if (learn_it)
+                learnwand(obj);
+        }
+
+        if (weapon == ZAPPED_WAND && typ == MAGIC_CHEST) {
+            boolean learn_it = FALSE;
+
+            switch (obj->otyp) {
+            case WAN_OPENING:
+            case SPE_KNOCK:
+            case WAN_LOCKING:
+            case SPE_WIZARD_LOCK:
+                if (boxlock(mchest, obj))
+                    learn_it = TRUE;
+                break;
             }
             if (learn_it)
                 learnwand(obj);
@@ -5489,10 +5517,11 @@ boolean u_caused;
         obj2 = obj->nexthere;
         
         if (is_glass(obj)
-            || obj->otyp == STATUE
-              || obj->otyp == BOULDER) {
+            || obj->otyp == STATUE || obj->otyp == BOULDER) {
             
             if (obj_resists(obj, 2, 100))
+                continue;
+            if (obj->otyp == POT_INVULNERABILITY)
                 continue;
             
             scrquan = obj->quan; /* number present */
@@ -6235,8 +6264,7 @@ boolean moncast;
         break;
 
     case ZT_SONIC: {
-        int i, xx = x, yy = y;
-        struct obj *otmp;
+        int xx = x, yy = y;
         t = t_at(x, y);
         
         if (find_drawbridge(&xx, &yy)) {
@@ -6270,15 +6298,7 @@ boolean moncast;
                     if (see_it)
                         newsym(x, y);
                 }
-                /* scatter some debris (not as much as a drawbridge! */
-                for (i = rn2(3); i > 0; --i) {
-                    otmp = mksobj_at(IRON_CHAIN, 
-                                     rn2(2) ? x : xx, 
-                                     rn2(2) ? y : yy, TRUE, FALSE);
-                    /* a force of 5 here would yield a radius of 2 for
-                       iron chain; anything less produces a radius of 1 */
-                    (void) scatter(otmp->ox, otmp->oy, 1, MAY_HIT, otmp);
-                }
+                scatter_chains(x, y);
             }
         } else if (IS_TOILET(lev->typ)) {
             rangemod -= 1;
@@ -6676,6 +6696,10 @@ int osym, dmgtyp;
         (dmgtyp == AD_ACID && EAcid_resistance) ||
         (dmgtyp == AD_LOUD && ESonic_resistance) ||
         (dmgtyp == AD_ELEC && EShock_resistance))
+        return;
+    
+    /* Potions of invulnerability are... invulnerable */
+    if (obj->otyp == POT_INVULNERABILITY)
         return;
     
     physical_damage = FALSE;
@@ -7675,5 +7699,20 @@ int tmp;
     return tmp;
 }
 
+
+void
+scatter_chains(x, y)
+int x, y;
+{
+    struct obj *otmp;
+    int i;
+    /* scatter some debris (not as much as a drawbridge! */
+    for (i = rn2(3); i > 0; --i) {
+        otmp = mksobj_at(IRON_CHAIN, x, y, TRUE, FALSE);
+        /* a force of 5 here would yield a radius of 2 for
+           iron chain; anything less produces a radius of 1 */
+        (void) scatter(otmp->ox, otmp->oy, 1, MAY_HIT, otmp);
+    }
+}
 
 /*zap.c*/

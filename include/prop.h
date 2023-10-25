@@ -103,9 +103,10 @@ enum prop_types {
     VULN_LOUD         = 83,
     BREATHLESS        = 84,
     STABLE            = 85,
-    MAGIC_SENSE       = 86
+    MAGIC_SENSE       = 86,
+    STOMPING          = 87,
 };
-#define LAST_PROP (MAGIC_SENSE)
+#define LAST_PROP (STOMPING)
 
 /*** Where the properties come from ***/
 /* Definitions were moved here from obj.h and you.h */

@@ -99,7 +99,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     A("Firewall", STAFF_OF_DIVINATION, 
       (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      FIRE(4, 8), DFNS(AD_FIRE), NO_CARY, SEFFECT, 
+      FIRE(4, 4), DFNS(AD_FIRE), NO_CARY, SEFFECT, 
       A_LAWFUL, PM_FLAME_MAGE, NON_PM, 400L, CLR_RED, DEFAULT_MAT),
 
     A("Grayswandir", SABER,
@@ -286,6 +286,13 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0, 
       ELEC(5, 24), DFNS(AD_ELEC), NO_CARY, 0,
       A_NEUTRAL, PM_VALKYRIE, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
+       
+    /* Attacks deal double damage, but at the cost of hallucination.
+     * This effect is only active while the user can see. */
+    A("Mystic Eyes", LENSES,
+      (SPFX_RESTR | SPFX_SEARCH), 0, 0,
+      NO_ATTK, DFNS(AD_DETH), NO_CARY, 0,
+      A_NEUTRAL, NON_PM, NON_PM, 2000L, NO_COLOR, GEMSTONE),
 
     A("Sword of Balance", SHORT_SWORD, 
       (SPFX_RESTR | SPFX_DALIGN | SPFX_DEFN), 0, 0,
@@ -307,7 +314,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Bat from Hell", BASEBALL_BAT,
       (SPFX_RESTR), 0, 0,
       PHYS(3, 20), NO_DFNS, NO_CARY, 0, 
-      A_CHAOTIC, PM_ROGUE, NON_PM, 5000L, CLR_RED, DEFAULT_MAT),
+      A_CHAOTIC, NON_PM, NON_PM, 5000L, CLR_RED, DEFAULT_MAT),
 
     /* Yeenoghu's infamous triple-headed flail. A massive weapon reputed to have been created
      * from the thighbone and torn flesh of an ancient god he slew. An extremely lethal artifact */
@@ -325,7 +332,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     A("Deep Freeze", STAFF_OF_MATTER,
       (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
-      COLD(5, 8), DFNS(AD_COLD), NO_CARY, SEFFECT, 
+      COLD(4, 4), DFNS(AD_COLD), NO_CARY, SEFFECT, 
       A_CHAOTIC, PM_ICE_MAGE, NON_PM, 400L, CLR_BLUE, METAL),
 
     /* From SporkHack, but with a twist. This is the anti-Excalibur. */
@@ -344,8 +351,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), NO_DFNS, NO_CARY, 0, 
       A_CHAOTIC, NON_PM, PM_ORC, 300L, NO_COLOR, DEFAULT_MAT),
 
-  /* Warns when elves are present, but its damage bonus applies to all targets.
-   *      (handled as special case in spec_dbon()). */
+    /* Warns when elves are present, but its damage bonus applies to all targets.
+    *      (handled as special case in spec_dbon()). */
     A("Grimtooth", ORCISH_DAGGER,
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_DEFN), 0, MH_ELF, 
       DISE(5, 6), DFNS(AD_DISE), NO_CARY, 0, 
@@ -488,14 +495,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR | SPFX_ATTK), 0, 0, 
       MAST(3, 3), NO_DFNS, NO_CARY, 0, 
       A_NONE, NON_PM, NON_PM, 1000L, NO_COLOR, SILVER),
-    
-    /* Attacks deal double damage, but at the cost of hallucination.
-    *      This effect is only active while the user can see. */
-    A("Mystic Eyes", LENSES,
-      (SPFX_RESTR | SPFX_SEARCH), 0, 0, 
-      NO_ATTK, NO_DFNS, NO_CARY, 0,
-      A_NONE, NON_PM, NON_PM, 2000L, NO_COLOR, GEMSTONE),
-
+      
     A("Ogresmasher", HEAVY_WAR_HAMMER,
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH), 0, MH_OGRE,
       PHYS(5, 0), NO_DFNS, NO_CARY, 0,
@@ -635,7 +635,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       A_NEUTRAL, PM_BARBARIAN, NON_PM, 2500L, NO_COLOR, DEFAULT_MAT),
 #endif
 
-    A("The Sceptre of Might", ROD,
+    A("The Sceptre of Might", EXECUTIONER_S_MACE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_DALIGN), 0, 0, PHYS(5, 0),
       DFNS(AD_MAGM), NO_CARY, CONFLICT, 
       A_LAWFUL, PM_CAVEMAN, NON_PM, 2500L,

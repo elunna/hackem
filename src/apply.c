@@ -2062,7 +2062,7 @@ int magic; /* 0=Physical, otherwise skill level */
     cc.y = u.uy;
     jumping_is_magic = magic;
     getpos_sethilite(display_jump_positions, get_valid_jump_position);
-    if (getpos(&cc, TRUE, "the desired position") < 0)
+    if (getpos(&cc, FALSE, "the desired position") < 0)
         return 0; /* user pressed ESC */
     if (!is_valid_jump_pos(cc.x, cc.y, magic, TRUE)) {
         return 0;
@@ -4272,7 +4272,7 @@ boolean autohit;
     }
     if (!autohit) {
         getpos_sethilite(display_polearm_positions, get_valid_polearm_position);
-        if (getpos(&cc, TRUE, "the spot to hit") < 0)
+        if (getpos(&cc, FALSE, "the spot to hit") < 0)
             return res; /* ESC; uses turn iff polearm became wielded */
     }
 
@@ -4487,7 +4487,7 @@ struct obj *obj;
     pline(where_to_hit);
     cc.x = u.ux;
     cc.y = u.uy;
-    if (getpos(&cc, TRUE, "the spot to hit") < 0)
+    if (getpos(&cc, FALSE, "the spot to hit") < 0)
         return res; /* ESC; uses turn iff grapnel became wielded */
 
     /* Calculate range; unlike use_pole(), there's no minimum for range */
@@ -5069,6 +5069,7 @@ doapply()
     case OILSKIN_SACK:
     case IRON_SAFE:
     case CRYSTAL_CHEST:
+    case HIDDEN_CHEST: /* just in case */
         res = use_container(&obj, 1, FALSE);
         break;
     case BAG_OF_TRICKS:
@@ -5081,6 +5082,7 @@ doapply()
     case LOCK_PICK:
     case CREDIT_CARD:
     case SKELETON_KEY:
+    case MAGIC_KEY:
         res = (pick_lock(obj, 0, 0, NULL) != 0);
         break;
     case PICK_AXE:

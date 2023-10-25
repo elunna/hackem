@@ -320,6 +320,12 @@ aligntyp alignment; /* target alignment, or A_NONE */
                 if (exist_artifact(SCR_MAGIC_MAPPING, artiname(ART_MARAUDER_S_MAP)))
                     return (struct obj *) 0;
                 continue; /* pirates are not gifted artifacts */
+            } else if (by_align && Role_if(PM_INFIDEL)) {
+                obfree(otmp, (struct obj *) 0);
+                /* No further gifts for Infidels! */
+                if (exist_artifact(KNIFE, artiname(ART_SECESPITA)))
+                    return (struct obj *) 0;
+                continue;
             }
             /* found something to consider for random selection */
             if (a->alignment != A_NONE || u.ugifts > 0) {
@@ -2278,7 +2284,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             /* currently the only object that uses this
                is Grimtooth */
             pline_The("filthy %s %s %s%c",
-                      otmp->oartifact ? artiname(otmp->oartifact) : "weapon",
+                      otmp->oartifact ? artiname(otmp->oartifact) : (is_ammo(otmp) ? xname(otmp) : "weapon"),
                       no_sick ? "hits"
                               : rn2(2) ? "contaminates" : "infects",
                       hittee, !spec_dbon_applies ? '.' : '!');
@@ -4752,7 +4758,7 @@ mkot_trap_warn()
 /* Master Key is magic key if its bless/curse state meets our criteria:
    not cursed for rogues or blessed for non-rogues */
 boolean
-is_magic_key(mon, obj)
+is_roguish_key(mon, obj)
 struct monst *mon; /* if null, non-rogue is assumed */
 struct obj *obj;
 {
@@ -4768,7 +4774,7 @@ struct obj *obj;
 
 /* figure out whether 'mon' (usually youmonst) is carrying the magic key */
 struct obj *
-has_magic_key(mon)
+has_roguish_key(mon)
 struct monst *mon; /* if null, hero assumed */
 {
     struct obj *o;
@@ -4778,7 +4784,7 @@ struct monst *mon; /* if null, hero assumed */
         mon = &youmonst;
     for (o = ((mon == &youmonst) ? invent : mon->minvent); o;
          o = nxtobj(o, key, FALSE)) {
-        if (is_magic_key(mon, o))
+        if (is_roguish_key(mon, o))
             return o;
     }
     return (struct obj *) 0;
@@ -5199,6 +5205,8 @@ boolean defend;
         return "blinding";
     case AD_STUN:
         return defend ? "stun" : "stuns/magic";
+    case AD_DETH:
+        return "death";
     case AD_DREN:
         return "drain energy";
     case AD_WTHR:

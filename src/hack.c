@@ -1873,6 +1873,8 @@ domove_core()
                3.7: used to say "solid rock" for STONE, but that made it be
                different from unmapped walls outside of rooms (and was wrong
                on arboreal levels) */
+            if (levl[x][y].seenv && IS_MAGIC_CHEST(levl[x][y].typ))
+                Strcpy(buf, "thin air"); /* acts like a chest object would */
             if (levl[x][y].seenv || IS_STWALL(levl[x][y].typ)
                 || levl[x][y].typ == SDOOR || levl[x][y].typ == SCORR) {
                 glyph = back_to_glyph(x, y);
@@ -1889,6 +1891,21 @@ domove_core()
             || (boulder = sobj_at(STATUE, x, y)) != 0)
             && weapon_type(uwep) == P_BARE_HANDED_COMBAT && Role_if(PM_MONK)) {
             do_breakrock(x, y);
+            return;
+        } else if (levl[x][y].typ == IRONBARS
+            && ((levl[x][y].wall_info & W_NONDIGGABLE) == 0)
+            && weapon_type(uwep) == P_BARE_HANDED_COMBAT 
+            && uarmg && uarmg->otyp == GAUNTLETS_OF_FORCE) {
+            levl[bhitpos.x][bhitpos.y].typ = ROOM;
+            if (cansee(bhitpos.x, bhitpos.y)) {
+                Your("%s destroy the iron bars!", xname(uarmg));
+                makeknown_msg(uarmg->otyp);
+                
+            } else if (!Deaf)
+                You_hear("a lot of loud clanging sounds!");
+            scatter_chains(x, y);
+            wake_nearto(bhitpos.x, bhitpos.y, 20 * 20);
+            newsym(bhitpos.x, bhitpos.y);
             return;
         } else {
             You("%s%s %s.",
@@ -2751,6 +2768,12 @@ boolean pick;
         killer.format = NO_KILLER_PREFIX;
         done(DIED);
     }
+    if (IS_MAGIC_CHEST(levl[u.ux][u.uy].typ) && !Levitation) {
+        if (!Blind)
+            You("see here a magic chest.");
+        else
+            You("feel here a magic chest.");
+    }
  spotdone:
     if (!--inspoteffects) {
         spotterrain = STONE; /* 0 */
@@ -3196,6 +3219,8 @@ pickup_checks()
             pline("It won't come off the hinges.");
         else if (IS_ALTAR(lev->typ))
             pline("Moving the altar would be a very bad idea.");
+        else if (IS_MAGIC_CHEST(lev->typ))
+            pline_The("chest is bolted down!");   /* from dnethack */
         else if (lev->typ == STAIRS)
             pline_The("stairs are solidly fixed to the %s.",
                       surface(u.ux, u.uy));

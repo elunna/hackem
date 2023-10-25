@@ -1129,7 +1129,12 @@ gcrownu()
         You_feel("unworthy.");
     }
     update_inventory();
-
+    
+    /* The altar can't handle the transference of all that power! */
+    pline("The altar cracks in two and is destroyed!");
+    levl[u.ux][u.uy].typ = ROOM;
+    
+    
     /* lastly, confer an extra skill slot/credit beyond the
        up-to-29 you can get from gaining experience levels */
     add_weapon_skill(1);
@@ -1469,8 +1474,9 @@ aligntyp g_align;
                     otmp->material = objects[otmp->otyp].oc_material;
                     otmp->owt = weight(otmp);
                 }
-                if (!u.uconduct.literate && (otmp->otyp != SPE_BLANK_PAPER)
-                    && !known_spell(otmp->otyp)) {
+                if (!u.uconduct.literate && !max_spells_learned()
+                      && otmp->otyp != SPE_BLANK_PAPER
+                      && !known_spell(otmp->otyp)) {
                     if (force_learn_spell(otmp->otyp))
                         pline("Divine knowledge of %s fills your mind!",
                               OBJ_NAME(objects[otmp->otyp]));
@@ -2364,6 +2370,11 @@ dosacrifice()
                         otmp->dknown = 1;
                         makeknown(otmp->otyp);
                         discover_artifact(otmp->oartifact);
+                    }
+                    if (!Role_if(PM_INFIDEL) && u.ugifts > 2
+                        && (rnd(6 + u.ugifts) <= u.ugifts)) {
+                        pline("The altar cracks in two and is destroyed!");
+                        levl[u.ux][u.uy].typ = ROOM;
                     }
                     livelog_printf(LL_DIVINEGIFT | LL_ARTIFACT,
                                    "had %s bestowed upon %s by %s",

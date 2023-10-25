@@ -857,6 +857,7 @@ clear_level_structures()
     level.bonesinfo = (struct cemetery *) 0;
 
     level.flags.nforges = 0;
+    level.flags.nmagicchests = 0;
     level.flags.nfountains = 0;
     level.flags.nvents = 0;
     level.flags.nsinks = 0;

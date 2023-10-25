@@ -434,8 +434,13 @@ const struct ForgeRecipe fusions[] = {
     { PARAZONIUM,           DAGGER, KNIFE,              1, 1 },
     { GREAT_DAGGER,         PARAZONIUM, KNIFE,          1, 1 },
     { KNIFE,                ARROW, DART,                2, 2 },
+    { KNIFE,                ELVEN_ARROW, DART,          2, 2 },
+    { KNIFE,                ORCISH_ARROW, DART,         2, 2 },
     { STILETTO,             CROSSBOW_BOLT, KNIFE,       2, 1 },
     { SCALPEL,              KNIFE, STILETTO,            1, 1 },
+    { AKLYS,                ORCISH_SPEAR, FLAIL,        1, 1 },
+    { AKLYS,                DWARVISH_SPEAR, FLAIL,      1, 1 },
+    { AKLYS,                ELVEN_SPEAR, FLAIL,         1, 1 },
     { AKLYS,                SPEAR, FLAIL,               1, 1 },
     { SHURIKEN,             DART, DAGGER,               2, 1 },
     { CHAKRAM,              BOOMERANG, SHURIKEN,        1, 1 },
@@ -454,11 +459,11 @@ const struct ForgeRecipe fusions[] = {
     { BATTLE_AXE,           AXE, AXE,                   1, 1 },
     { DWARVISH_MATTOCK,     PICK_AXE, DWARVISH_SHORT_SWORD, 1, 1 },
     
-    { SHORT_SWORD,          CROSSBOW_BOLT, DAGGER,      2, 1 },
-    { ELVEN_SHORT_SWORD,    CROSSBOW_BOLT, ELVEN_DAGGER, 2, 1 },
+    { SHORT_SWORD,          CROSSBOW_BOLT, DAGGER,        2, 1 },
+    { ELVEN_SHORT_SWORD,    CROSSBOW_BOLT, ELVEN_DAGGER,  2, 1 },
     { ORCISH_SHORT_SWORD,   CROSSBOW_BOLT, ORCISH_DAGGER, 2, 1 },
-    { DWARVISH_SHORT_SWORD, DWARVISH_SPEAR, SHORT_SWORD, 1, 1 },
-    { GLADIUS, BROADSWORD,  SHORT_SWORD,                1, 1 },
+    { DWARVISH_SHORT_SWORD, DWARVISH_SPEAR, SHORT_SWORD,  1, 1 },
+    { GLADIUS,              BROADSWORD,  SHORT_SWORD,     1, 1 },
         
     { SCIMITAR,             KNIFE, SHORT_SWORD,         1, 1 },
     { ORCISH_SCIMITAR,      KNIFE, ORCISH_SHORT_SWORD,  1, 1 },
@@ -471,9 +476,9 @@ const struct ForgeRecipe fusions[] = {
     { RUNESWORD,            BROADSWORD, DAGGER,         1, 1 },
     
     { LONG_SWORD,           SHORT_SWORD, SHORT_SWORD,   1, 1 },
-    { ELVEN_LONG_SWORD,     ELVEN_SHORT_SWORD, ELVEN_SHORT_SWORD, 1, 1 },
+    { ELVEN_LONG_SWORD,     ELVEN_SHORT_SWORD, ELVEN_SHORT_SWORD,   1, 1 },
     { ORCISH_LONG_SWORD,    ORCISH_SHORT_SWORD, ORCISH_SHORT_SWORD, 1, 1 },
-    { KATANA, LONG_SWORD,   LONG_SWORD,                 1, 1 },
+    { KATANA,               LONG_SWORD, LONG_SWORD,                 1, 1 },
     
     { TWO_HANDED_SWORD,     LONG_SWORD, BROADSWORD,     1, 1 },
     { TSURUGI,              TWO_HANDED_SWORD, KATANA,   1, 1 },
@@ -481,15 +486,14 @@ const struct ForgeRecipe fusions[] = {
     { MACE,                 WAR_HAMMER, DAGGER,         1, 1 },
     { HEAVY_MACE,           MACE, MACE,                 1, 1 },
     { ROD,                  RUBY, MACE,                 2, 1 },
-    { EXECUTIONER_S_MACE,   HEAVY_MACE, MACE,           1, 1 },
+    { EXECUTIONER_S_MACE,   HEAVY_MACE, SPIKED_CHAIN,   1, 1 },
     
     { MORNING_STAR,         MACE, DAGGER,               1, 1 },
     { ORCISH_MORNING_STAR,  MACE, ORCISH_DAGGER,        1, 1 },
     { WAR_HAMMER,           MACE, FLAIL,                1, 1 },
     { HEAVY_WAR_HAMMER,     WAR_HAMMER, WAR_HAMMER,     1, 1 },
     { FLAIL,                MACE, MORNING_STAR,         1, 1 },
-    { TRIPLE_HEADED_FLAIL,  FLAIL, SPIKED_CHAIN,        1, 1 },
-    { SPIKED_CHAIN,         IRON_CHAIN, SHURIKEN,       1, 2 },
+    { SPIKED_CHAIN,         IRON_CHAIN, SHURIKEN,       1, 18 },
     
     { LANCE,                JAVELIN, GLAIVE,            1, 1 },
     { PARTISAN,             SPEAR, BROADSWORD,          1, 1 },
@@ -557,10 +561,11 @@ const struct ForgeRecipe fusions[] = {
     /* barding for steeds */
     { BARDING,              PLATE_MAIL, SADDLE,         1, 1 },
     { SPIKED_BARDING,       BARDING, MORNING_STAR,      1, 1 },
-    { BARDING_OF_REFLECTION, BARDING, SHIELD_OF_REFLECTION, 1, 1 },
+    { BARDING_OF_REFLECTION,BARDING, SHIELD_OF_REFLECTION, 1, 1 },
 
     /* sling bullets */
-    { SLING_BULLET, ROCK, DART, 3, 1 },
+    { SLING_BULLET,         ROCK, DART, 3, 1 },
+    { SLING_BULLET,         ROCK, FLINT, 2, 1 },
     { 0, 0, 0, 0, 0 }
 };
 

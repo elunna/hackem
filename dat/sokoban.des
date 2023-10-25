@@ -39,10 +39,10 @@ GEOMETRY: center, center
 #12345678901234567890123456789012345678901234567890
 MAP
 ------  ----- 
-|....|  |...| 
-|....----...| 
-|...........| 
-|..|-|.|-|..| 
+|....|--|...|
+|....|.--...|
+|...........|
+|..|-|.|-|..|
 ---------|.---
 |......|.....|
 |..----|.....|
@@ -50,7 +50,7 @@ MAP
  |.|---|.....|
  |...........|
  |..|---------
- ----         
+ ----
 ENDMAP
 BRANCH: (06,04,06,04), (0,0,0,0)
 STAIR: (06,06),up
@@ -58,7 +58,8 @@ REGION: (00,00,13,12), lit, "ordinary"
 NON_DIGGABLE: (00,00,13,12)
 NON_PASSWALL: (00,00,13,12)
 
-# Boulders
+MAGIC_CHEST:(06,02)
+
 OBJECT: ('`', "boulder"), (02,02)
 OBJECT: ('`', "boulder"), (02,03)
 OBJECT: ('`', "boulder"), (10,02)
@@ -70,7 +71,6 @@ OBJECT: ('`', "boulder"), (09,09)
 OBJECT: ('`', "boulder"), (08,10)
 OBJECT: ('`', "boulder"), (10,10)
 
-# Traps
 TRAP: "pit", (03,06)
 TRAP: "pit", (04,06)
 TRAP: "pit", (05,06)
@@ -81,11 +81,9 @@ TRAP: "pit", (05,10)
 TRAP: "pit", (06,10)
 TRAP: "pit", (07,10)
 
-# A little help
 OBJECT: ('?', "earth"), (02,11)
 OBJECT: ('?', "earth"), (03,11)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -103,8 +101,8 @@ MAP
 -------- ------
 |.|....|-|....|
 |.|-..........|
-|.||....|.....|
-|.||....|.....|
+|.|.....|.....|
+|.|-....|.....|
 |.|-----|.-----
 |.|    |......|
 |.-----|......|
@@ -118,7 +116,8 @@ REGION: (00,00,14,10), lit, "ordinary"
 NON_DIGGABLE: (00,00,14,10)
 NON_PASSWALL: (00,00,14,10)
 
-# Boulders
+MAGIC_CHEST:(06,01)
+
 OBJECT: ('`', "boulder"), (05,02)
 OBJECT: ('`', "boulder"), (06,02)
 OBJECT: ('`', "boulder"), (06,03)
@@ -132,7 +131,6 @@ OBJECT: ('`', "boulder"), (08,08)
 OBJECT: ('`', "boulder"), (09,08)
 OBJECT: ('`', "boulder"), (10,08)
 
-# Traps
 TRAP: "pit", (01,02)
 TRAP: "pit", (01,03)
 TRAP: "pit", (01,04)
@@ -144,11 +142,9 @@ TRAP: "pit", (04,08)
 TRAP: "pit", (05,08)
 TRAP: "pit", (06,08)
 
-# A little help
 OBJECT: ('?', "earth"), (01,09)
 OBJECT: ('?', "earth"), (02,09)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -170,15 +166,15 @@ GEOMETRY: center, center
 MAP
      -------
      |..|..|     --------
-------.....--- ---......---
-|......---...| |..........|
-|.|.|......|.--|........|.---
+------.....-------......---
+|......---...|.|..........|
+|.|.|......|.|.|........|.---
 |.|.--..|..|...-F-F-F-F--...|
 |.......|...................|
 |.|.--..|..|...-F-F-F-F--...|
-|.|.|......|.--|........|.---
-|......---...| |..........|
-------.....--- ---......---
+|.|.|......|.|.|........|.---
+|......---...|.|..........|
+------.....-------......---
      |..|..|     --------
      -------
 ENDMAP
@@ -187,8 +183,8 @@ STAIR: (26,06), up
 REGION: (00,00,28,12), lit, "ordinary"
 NON_DIGGABLE: (00,00,28,12)
 NON_PASSWALL: (00,00,28,12)
-OBJECT: ('?', "earth"), (16,03)
-OBJECT: ('?', "earth"), (16,09)
+MAGIC_CHEST:(14,03)
+
 OBJECT: ('`', "boulder"), (08,02)
 OBJECT: ('`', "boulder"), (08,04)
 OBJECT: ('`', "boulder"), (03,05)
@@ -199,6 +195,7 @@ OBJECT: ('`', "boulder"), (10,06)
 OBJECT: ('`', "boulder"), (03,07)
 OBJECT: ('`', "boulder"), (08,08)
 OBJECT: ('`', "boulder"), (08,10)
+
 TRAP: "pit", (15,06)
 TRAP: "pit", (16,06)
 TRAP: "pit", (17,06)
@@ -209,7 +206,9 @@ TRAP: "pit", (21,06)
 TRAP: "pit", (22,06)
 TRAP: "pit", (23,06)
 
-# Random objects
+OBJECT: ('?', "earth"), (16,03)
+OBJECT: ('?', "earth"), (16,09)
+
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -239,8 +238,8 @@ MAP
 |.-FF-.......--...|
 |............|-----
 |..---.......|
----- ------.--
-          ---
+---- ------..|
+          ----
 ENDMAP
 BRANCH: (11,14,11,14), (0,0,0,0)
 STAIR: (12,02), up
@@ -248,8 +247,9 @@ REGION: (00,00,18,15), lit, "ordinary"
 NON_DIGGABLE: (00,00,18,15)
 NON_PASSWALL: (00,00,18,15)
 DOOR: locked,  (02,02)
-OBJECT: ('?', "earth"), (01,13)
-OBJECT: ('?', "earth"), (02,13)
+
+MAGIC_CHEST:(12,12)
+
 OBJECT: ('`', "boulder"), (08,06)
 OBJECT: ('`', "boulder"), (10,06)
 OBJECT: ('`', "boulder"), (15,06)
@@ -262,6 +262,7 @@ OBJECT: ('`', "boulder"), (16,08)
 OBJECT: ('`', "boulder"), (15,09)
 OBJECT: ('`', "boulder"), (11,10)
 OBJECT: ('`', "boulder"), (13,10)
+
 TRAP: "pit", (01,03)
 TRAP: "pit", (01,04)
 TRAP: "pit", (01,05)
@@ -274,7 +275,9 @@ TRAP: "pit", (03,12)
 TRAP: "pit", (04,12)
 TRAP: "pit", (05,12)
 
-# Random objects
+OBJECT: ('?', "earth"), (01,13)
+OBJECT: ('?', "earth"), (02,13)
+
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -313,8 +316,9 @@ REGION: (00,00,15,15), lit, "ordinary"
 NON_DIGGABLE: (00,00,15,15)
 NON_PASSWALL: (00,00,15,15)
 DOOR: locked, (14,04)
-OBJECT: ('?', "earth"), (01,01)
-OBJECT: ('?', "earth"), (02,01)
+
+MAGIC_CHEST:(08,14)
+
 OBJECT: ('`', "boulder"), (02,04)
 OBJECT: ('`', "boulder"), (02,05)
 OBJECT: ('`', "boulder"), (04,05)
@@ -327,6 +331,7 @@ OBJECT: ('`', "boulder"), (07,09)
 OBJECT: ('`', "boulder"), (08,10)
 OBJECT: ('`', "boulder"), (09,10)
 OBJECT: ('`', "boulder"), (07,11)
+
 TRAP: "pit", (03,03)
 TRAP: "pit", (04,03)
 TRAP: "pit", (05,03)
@@ -339,7 +344,9 @@ TRAP: "pit", (11,03)
 TRAP: "pit", (12,03)
 TRAP: "pit", (13,03)
 
-# Random objects
+OBJECT: ('?', "earth"), (01,01)
+OBJECT: ('?', "earth"), (02,01)
+
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -374,8 +381,9 @@ STAIR: (11,07), up
 REGION: (00,00,16,12), lit, "ordinary"
 NON_DIGGABLE: (00,00,16,12)
 NON_PASSWALL: (00,00,16,12)
-OBJECT: ('?', "earth"), (14,01)
-OBJECT: ('?', "earth"), (15,01)
+
+MAGIC_CHEST:(01,01)
+
 OBJECT: ('`', "boulder"), (12,02)
 OBJECT: ('`', "boulder"), (06,03)
 OBJECT: ('`', "boulder"), (12,03)
@@ -386,6 +394,7 @@ OBJECT: ('`', "boulder"), (14,07)
 OBJECT: ('`', "boulder"), (12,09)
 OBJECT: ('`', "boulder"), (13,09)
 OBJECT: ('`', "boulder"), (14,10)
+
 TRAP: "pit", (06,07)
 TRAP: "pit", (07,07)
 TRAP: "pit", (08,07)
@@ -397,7 +406,9 @@ TRAP: "pit", (08,09)
 TRAP: "pit", (09,09)
 TRAP: "pit", (10,09)
 
-# Random objects
+OBJECT: ('?', "earth"), (14,01)
+OBJECT: ('?', "earth"), (15,01)
+
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -430,8 +441,9 @@ STAIR: (10,9), up
 REGION: (00,00,18,11), lit, "ordinary"
 NON_DIGGABLE: (00,00,18,11)
 NON_PASSWALL: (00,00,18,11)
-OBJECT: ('?', "earth"), (1,8)
-OBJECT: ('?', "earth"), (1,9)
+
+MAGIC_CHEST:(04,06)
+
 OBJECT: ('`', "boulder"), (12,2)
 OBJECT: ('`', "boulder"), (14,2)
 OBJECT: ('`', "boulder"), (9,3)
@@ -440,6 +452,7 @@ OBJECT: ('`', "boulder"), (16,4)
 OBJECT: ('`', "boulder"), (8,5)
 OBJECT: ('`', "boulder"), (10,5)
 OBJECT: ('`', "boulder"), (14,9)
+
 TRAP: "pit", (2,6)
 TRAP: "pit", (2,7)
 TRAP: "pit", (4,9)
@@ -447,6 +460,10 @@ TRAP: "pit", (5,9)
 TRAP: "pit", (6,9)
 TRAP: "pit", (7,9)
 TRAP: "pit", (8,9)
+
+OBJECT: ('?', "earth"), (1,8)
+OBJECT: ('?', "earth"), (1,9)
+
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -481,7 +498,8 @@ REGION: (00,00,11,10), lit, "ordinary"
 NON_DIGGABLE: (00,00,11,10)
 NON_PASSWALL: (00,00,11,10)
 
-# Boulders
+MAGIC_CHEST:(10,02)
+
 OBJECT: ('`', "boulder"), (08,03)
 OBJECT: ('`', "boulder"), (09,03)
 OBJECT: ('`', "boulder"), (09,04)
@@ -493,7 +511,6 @@ OBJECT: ('`', "boulder"), (09,07)
 OBJECT: ('`', "boulder"), (05,08)
 OBJECT: ('`', "boulder"), (08,08)
 
-# Traps
 TRAP: "pit", (05,03)
 TRAP: "pit", (04,03)
 TRAP: "pit", (03,03)
@@ -503,7 +520,6 @@ TRAP: "pit", (01,06)
 TRAP: "pit", (01,07)
 TRAP: "pit", (01,08)
 
-# A little help
 OBJECT: ('?', "earth"), (01,02)
 OBJECT: ('?', "earth"), (02,02)
 
@@ -543,7 +559,8 @@ REGION: (00,00,13,12), lit, "ordinary"
 NON_DIGGABLE: (00,00,13,12)
 NON_PASSWALL: (00,00,13,12)
 
-# Boulders
+MAGIC_CHEST:(9,05)
+
 OBJECT: ('`', "boulder"), (04,02)
 OBJECT: ('`', "boulder"), (06,02)
 OBJECT: ('`', "boulder"), (07,02)
@@ -556,7 +573,6 @@ OBJECT: ('`', "boulder"), (08,09)
 OBJECT: ('`', "boulder"), (11,09)
 OBJECT: ('`', "boulder"), (11,10)
 
-# Traps
 TRAP: "pit", (05,09)
 TRAP: "pit", (04,09)
 TRAP: "pit", (03,09)
@@ -568,7 +584,6 @@ TRAP: "pit", (01,04)
 TRAP: "pit", (01,03)
 TRAP: "pit", (01,02)
 
-# A little help
 OBJECT: ('?', "earth"), (01,10)
 OBJECT: ('?', "earth"), (02,10)
 
@@ -607,24 +622,21 @@ REGION: (00,00,16,10), lit, "ordinary"
 NON_DIGGABLE: (00,00,16,10)
 NON_PASSWALL: (00,00,16,10)
 
-# Boulders
+MAGIC_CHEST:(05,09)
+
 OBJECT: ('`', "boulder"), (03,02)
 OBJECT: ('`', "boulder"), (05,02)
-#
 OBJECT: ('`', "boulder"), (10,02)
 OBJECT: ('`', "boulder"), (10,03)
 OBJECT: ('`', "boulder"), (13,03)
 OBJECT: ('`', "boulder"), (14,04)
 OBJECT: ('`', "boulder"), (13,05)
-#
 OBJECT: ('`', "boulder"), (11,07)
 OBJECT: ('`', "boulder"), (12,08)
 OBJECT: ('`', "boulder"), (13,08)
-#
 OBJECT: ('`', "boulder"), (06,07)
 OBJECT: ('`', "boulder"), (05,08)
 
-# Traps
 TRAP: "pit", (07,05)
 TRAP: "pit", (06,05)
 TRAP: "pit", (05,05)
@@ -636,11 +648,9 @@ TRAP: "pit", (02,07)
 TRAP: "pit", (03,07)
 TRAP: "pit", (04,07)
 
-# A little help
 OBJECT: ('?', "earth"), (02,08)
 OBJECT: ('?', "earth"), (03,08)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -676,22 +686,20 @@ REGION: (00,00,14,12), lit, "ordinary"
 NON_DIGGABLE: (00,00,14,12)
 NON_PASSWALL: (00,00,14,12)
 
-# Boulders
+MAGIC_CHEST:(05,07)
+
 OBJECT: ('`', "boulder"), (05,10)
 OBJECT: ('`', "boulder"), (10,10)
-#
 OBJECT: ('`', "boulder"), (05,06)
 OBJECT: ('`', "boulder"), (03,05)
 OBJECT: ('`', "boulder"), (04,04)
 OBJECT: ('`', "boulder"), (05,03)
 OBJECT: ('`', "boulder"), (06,02)
-#
 OBJECT: ('`', "boulder"), (07,04)
 OBJECT: ('`', "boulder"), (08,05)
 OBJECT: ('`', "boulder"), (10,04)
 OBJECT: ('`', "boulder"), (10,06)
 
-# Traps
 TRAP: "pit", (07,02)
 TRAP: "pit", (08,02)
 TRAP: "pit", (09,02)
@@ -702,11 +710,9 @@ TRAP: "pit", (13,03)
 TRAP: "pit", (13,04)
 TRAP: "pit", (13,05)
 
-# A little help
 OBJECT: ('?', "earth"), (12,01)
 OBJECT: ('?', "earth"), (13,01)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -740,15 +746,14 @@ REGION: (00,00,14,10), lit, "ordinary"
 NON_DIGGABLE: (00,00,14,10)
 NON_PASSWALL: (00,00,14,10)
 
-# Boulders
+MAGIC_CHEST:(01,04)
+
 OBJECT: ('`', "boulder"), (02,08)
 OBJECT: ('`', "boulder"), (04,08)
 OBJECT: ('`', "boulder"), (04,06)
-#
 OBJECT: ('`', "boulder"), (02,04)
 OBJECT: ('`', "boulder"), (05,04)
 OBJECT: ('`', "boulder"), (05,02)
-#
 OBJECT: ('`', "boulder"), (07,03)
 OBJECT: ('`', "boulder"), (08,02)
 OBJECT: ('`', "boulder"), (09,03)
@@ -756,7 +761,6 @@ OBJECT: ('`', "boulder"), (10,02)
 OBJECT: ('`', "boulder"), (07,05)
 OBJECT: ('`', "boulder"), (10,05)
 
-# Traps
 TRAP: "pit", (09,08)
 TRAP: "pit", (10,08)
 TRAP: "pit", (11,08)
@@ -768,11 +772,9 @@ TRAP: "pit", (13,04)
 TRAP: "pit", (13,03)
 TRAP: "pit", (13,02)
 
-# A little help
 OBJECT: ('?', "earth"), (12,09)
 OBJECT: ('?', "earth"), (13,09)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -807,7 +809,8 @@ REGION: (00,00,14,11), lit, "ordinary"
 NON_DIGGABLE: (00,00,14,11)
 NON_PASSWALL: (00,00,14,11)
 
-# Boulders
+MAGIC_CHEST:(11,04)
+
 OBJECT: ('`', "boulder"), (03,02)
 OBJECT: ('`', "boulder"), (09,02)
 OBJECT: ('`', "boulder"), (11,02)
@@ -823,7 +826,6 @@ OBJECT: ('`', "boulder"), (06,07)
 OBJECT: ('`', "boulder"), (03,09)
 OBJECT: ('`', "boulder"), (07,09)
 
-# Traps
 TRAP: "pit", (13,05)
 TRAP: "pit", (07,06)
 TRAP: "pit", (12,06)
@@ -837,11 +839,9 @@ TRAP: "pit", (10,08)
 TRAP: "pit", (11,08)
 TRAP: "pit", (12,08)
 
-# A little help
 OBJECT: ('?', "earth"), (11,09)
 OBJECT: ('?', "earth"), (12,09)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -874,7 +874,8 @@ REGION: (00,00,14,09), lit, "ordinary"
 NON_DIGGABLE: (00,00,14,09)
 NON_PASSWALL: (00,00,14,09)
 
-# Boulders
+MAGIC_CHEST:(01,01)
+
 OBJECT: ('`', "boulder"), (02,03)
 OBJECT: ('`', "boulder"), (05,03)
 OBJECT: ('`', "boulder"), (03,04)
@@ -888,7 +889,6 @@ OBJECT: ('`', "boulder"), (10,06)
 OBJECT: ('`', "boulder"), (08,07)
 OBJECT: ('`', "boulder"), (10,07)
 
-# Traps
 TRAP: "pit", (07,02)
 TRAP: "pit", (08,02)
 TRAP: "pit", (09,02)
@@ -900,11 +900,9 @@ TRAP: "pit", (13,05)
 TRAP: "pit", (13,06)
 TRAP: "pit", (13,07)
 
-# A little help
 OBJECT: ('?', "earth"), (12,01)
 OBJECT: ('?', "earth"), (13,01)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -940,7 +938,8 @@ REGION: (00,00,13,11), lit, "ordinary"
 NON_DIGGABLE: (00,00,13,11)
 NON_PASSWALL: (00,00,13,11)
 
-# Boulders
+MAGIC_CHEST:(02,10)
+
 OBJECT: ('`', "boulder"), (02,02)
 OBJECT: ('`', "boulder"), (04,02)
 OBJECT: ('`', "boulder"), (08,02)
@@ -953,7 +952,6 @@ OBJECT: ('`', "boulder"), (05,07)
 OBJECT: ('`', "boulder"), (03,08)
 OBJECT: ('`', "boulder"), (04,09)
 
-# Traps
 TRAP: "pit", (11,03)
 TRAP: "pit", (11,04)
 TRAP: "pit", (11,05)
@@ -965,11 +963,9 @@ TRAP: "pit", (08,10)
 TRAP: "pit", (09,10)
 TRAP: "pit", (10,10)
 
-# A little help
 OBJECT: ('?', "earth"), (12,09)
 OBJECT: ('?', "earth"), (12,10)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1005,7 +1001,8 @@ REGION: (00,00,18,11), lit, "ordinary"
 NON_DIGGABLE: (00,00,18,11)
 NON_PASSWALL: (00,00,18,11)
 
-# Boulders
+MAGIC_CHEST:(03,02)
+
 OBJECT: ('`', "boulder"), (07,02)
 OBJECT: ('`', "boulder"), (03,03)
 OBJECT: ('`', "boulder"), (08,03)
@@ -1018,7 +1015,6 @@ OBJECT: ('`', "boulder"), (05,05)
 OBJECT: ('`', "boulder"), (05,07)
 OBJECT: ('`', "boulder"), (05,09)
 
-# Traps
 TRAP: "pit", (14,02)
 TRAP: "pit", (15,02)
 TRAP: "pit", (16,03)
@@ -1030,11 +1026,9 @@ TRAP: "pit", (16,08)
 TRAP: "pit", (14,10)
 TRAP: "pit", (15,10)
 
-# A little help
 OBJECT: ('?', "earth"), (15,01)
 OBJECT: ('?', "earth"), (16,01)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1070,7 +1064,8 @@ REGION: (00,00,14,11), lit, "ordinary"
 NON_DIGGABLE: (00,00,14,11)
 NON_PASSWALL: (00,00,14,11)
 
-# Boulders
+MAGIC_CHEST:(08,05)
+
 OBJECT: ('`', "boulder"), (04,03)
 OBJECT: ('`', "boulder"), (04,04)
 OBJECT: ('`', "boulder"), (05,04)
@@ -1084,7 +1079,6 @@ OBJECT: ('`', "boulder"), (11,08)
 OBJECT: ('`', "boulder"), (03,09)
 OBJECT: ('`', "boulder"), (12,09)
 
-# Traps
 TRAP: "pit", (03,01)
 TRAP: "pit", (04,01)
 TRAP: "pit", (05,01)
@@ -1096,11 +1090,9 @@ TRAP: "pit", (10,01)
 TRAP: "pit", (11,01)
 TRAP: "pit", (12,01)
 
-# A little help
 OBJECT: ('?', "earth"), (07,07)
 OBJECT: ('?', "earth"), (08,07)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1133,7 +1125,8 @@ REGION: (00,00,12,08), lit, "ordinary"
 NON_DIGGABLE: (00,00,12,08)
 NON_PASSWALL: (00,00,12,08)
 
-# Boulders
+MAGIC_CHEST:(03,06)
+
 OBJECT: ('`', "boulder"), (09,02)
 OBJECT: ('`', "boulder"), (04,04)
 OBJECT: ('`', "boulder"), (06,04)
@@ -1145,7 +1138,6 @@ OBJECT: ('`', "boulder"), (04,06)
 OBJECT: ('`', "boulder"), (06,06)
 OBJECT: ('`', "boulder"), (09,06)
 
-# Traps
 TRAP: "pit", (03,02)
 TRAP: "pit", (04,02)
 TRAP: "pit", (05,02)
@@ -1156,11 +1148,9 @@ TRAP: "pit", (01,04)
 TRAP: "pit", (01,05)
 TRAP: "pit", (01,06)
 
-# A little help
 OBJECT: ('?', "earth"), (01,01)
 OBJECT: ('?', "earth"), (02,01)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1196,7 +1186,6 @@ REGION: (00,00,28,11), lit, "ordinary"
 NON_DIGGABLE: (00,00,28,11)
 NON_PASSWALL: (00,00,28,11)
 
-# Boulders
 OBJECT: ('`', "boulder"), (03,02)
 OBJECT: ('`', "boulder"), (04,02)
 OBJECT: ('`', "boulder"), (06,02)
@@ -1218,7 +1207,6 @@ OBJECT: ('`', "boulder"), (09,09)
 OBJECT: ('`', "boulder"), (10,07)
 OBJECT: ('`', "boulder"), (10,10)
 
-# Traps
 TRAP: "hole", (12,10)
 TRAP: "hole", (13,10)
 TRAP: "hole", (14,10)
@@ -1235,7 +1223,6 @@ TRAP: "hole", (24,10)
 TRAP: "hole", (25,10)
 TRAP: "hole", (26,10)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1272,7 +1259,6 @@ REGION: (00,00,25,13), lit, "ordinary"
 NON_DIGGABLE: (00,00,25,13)
 NON_PASSWALL: (00,00,25,13)
 
-# Boulders
 OBJECT: ('`', "boulder"), (02,03)
 OBJECT: ('`', "boulder"), (08,03)
 OBJECT: ('`', "boulder"), (09,04)
@@ -1290,7 +1276,6 @@ OBJECT: ('`', "boulder"), (07,10)
 OBJECT: ('`', "boulder"), (10,10)
 OBJECT: ('`', "boulder"), (03,11)
 
-# Traps
 TRAP: "hole", (12,10)
 TRAP: "hole", (13,10)
 TRAP: "hole", (14,10)
@@ -1304,7 +1289,6 @@ TRAP: "hole", (21,10)
 TRAP: "hole", (22,10)
 TRAP: "hole", (23,10)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1365,7 +1349,6 @@ TRAP: "hole", (07,05)
 TRAP: "hole", (08,05)
 TRAP: "hole", (09,05)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1429,7 +1412,6 @@ TRAP: "hole", (06,11)
 TRAP: "hole", (07,11)
 TRAP: "hole", (08,11)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1489,7 +1471,6 @@ TRAP: "hole", (15,09)
 TRAP: "hole", (16,09)
 TRAP: "hole", (17,09)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1559,7 +1540,6 @@ TRAP: "hole", (10,10)
 TRAP: "hole", (09,11)
 TRAP: "hole", (10,11)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1707,7 +1687,6 @@ REGION: (00,00,15,13), lit, "ordinary"
 NON_DIGGABLE: (00,00,15,13)
 NON_PASSWALL: (00,00,15,13)
 
-# Boulders
 OBJECT: ('`', "boulder"), (06,02)
 OBJECT: ('`', "boulder"), (07,02)
 OBJECT: ('`', "boulder"), (02,03)
@@ -1719,7 +1698,6 @@ OBJECT: ('`', "boulder"), (07,06)
 OBJECT: ('`', "boulder"), (03,07)
 OBJECT: ('`', "boulder"), (07,09)
 
-# Traps
 TRAP: "hole", (04,08)
 TRAP: "hole", (04,09)
 TRAP: "hole", (04,10)
@@ -1767,7 +1745,6 @@ NON_PASSWALL: (00,00,15,11)
 
 DOOR: locked, (13,09)
 
-# Boulders
 OBJECT: ('`', "boulder"), (03,03)
 OBJECT: ('`', "boulder"), (06,03)
 OBJECT: ('`', "boulder"), (02,04)
@@ -1780,7 +1757,6 @@ OBJECT: ('`', "boulder"), (06,06)
 OBJECT: ('`', "boulder"), (07,06)
 OBJECT: ('`', "boulder"), (02,07)
 
-# Traps
 TRAP: "hole", (03,10)
 TRAP: "hole", (04,10)
 TRAP: "hole", (05,10)
@@ -1831,7 +1807,6 @@ REGION: (00,00,25,13), lit, "ordinary"
 NON_DIGGABLE: (00,00,26,13)
 NON_PASSWALL: (00,00,26,13)
 
-# Boulders
 OBJECT: ('`', "boulder"), (03,11)
 OBJECT: ('`', "boulder"), (05,11)
 OBJECT: ('`', "boulder"), (07,11)
@@ -1854,7 +1829,6 @@ OBJECT: ('`', "boulder"), (10,05)
 OBJECT: ('`', "boulder"), (10,03)
 OBJECT: ('`', "boulder"), (11,03)
 
-# Traps
 TRAP: "hole", (13,02)
 TRAP: "hole", (14,02)
 TRAP: "hole", (15,02)
@@ -1871,7 +1845,6 @@ TRAP: "hole", (24,03)
 TRAP: "hole", (25,04)
 TRAP: "hole", (25,05)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1909,7 +1882,6 @@ REGION: (00,00,26,13), lit, "ordinary"
 NON_DIGGABLE: (00,00,26,13)
 NON_PASSWALL: (00,00,26,13)
 
-# Boulders
 OBJECT: ('`', "boulder"), (05,03)
 OBJECT: ('`', "boulder"), (07,03)
 OBJECT: ('`', "boulder"), (09,03)
@@ -1928,7 +1900,6 @@ OBJECT: ('`', "boulder"), (10,08)
 OBJECT: ('`', "boulder"), (11,08)
 OBJECT: ('`', "boulder"), (11,06)
 
-# Traps
 TRAP: "hole", (12,10)
 TRAP: "hole", (13,10)
 TRAP: "hole", (14,10)
@@ -1943,7 +1914,6 @@ TRAP: "hole", (22,10)
 TRAP: "hole", (23,10)
 TRAP: "hole", (24,10)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -1984,7 +1954,6 @@ REGION: (00,00,25,15), lit, "ordinary"
 NON_DIGGABLE: (00,00,25,15)
 NON_PASSWALL: (00,00,25,15)
 
-# Boulders
 OBJECT: ('`', "boulder"), (10,06)
 OBJECT: ('`', "boulder"), (11,05)
 OBJECT: ('`', "boulder"), (12,06)
@@ -2007,7 +1976,6 @@ OBJECT: ('`', "boulder"), (23,06)
 #
 OBJECT: ('`', "boulder"), (06,10)
 
-# Traps
 TRAP: "hole", (08,13)
 TRAP: "hole", (07,13)
 TRAP: "hole", (06,13)
@@ -2026,7 +1994,6 @@ TRAP: "hole", (07,10)
 TRAP: "hole", (07,09)
 TRAP: "hole", (07,08)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -2071,7 +2038,6 @@ REGION: (00,00,27,17), lit, "ordinary"
 NON_DIGGABLE: (00,00,27,17)
 NON_PASSWALL: (00,00,27,17)
 
-# Boulders
 OBJECT: ('`', "boulder"), (03,03)
 OBJECT: ('`', "boulder"), (05,03)
 OBJECT: ('`', "boulder"), (07,03)
@@ -2085,7 +2051,6 @@ OBJECT: ('`', "boulder"), (10,08)
 OBJECT: ('`', "boulder"), (06,09)
 OBJECT: ('`', "boulder"), (06,10)
 
-# Traps
 TRAP: "hole", (09,16)
 TRAP: "hole", (10,16)
 TRAP: "hole", (11,16)
@@ -2097,7 +2062,6 @@ TRAP: "hole", (16,16)
 TRAP: "hole", (17,16)
 TRAP: "hole", (18,16)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -2135,7 +2099,6 @@ REGION: (00,00,17,13), lit, "ordinary"
 NON_DIGGABLE: (00,00,17,13)
 NON_PASSWALL: (00,00,17,13)
 
-# Boulders
 OBJECT: ('`', "boulder"), (09,02)
 OBJECT: ('`', "boulder"), (15,02)
 OBJECT: ('`', "boulder"), (03,03)
@@ -2149,7 +2112,6 @@ OBJECT: ('`', "boulder"), (02,08)
 OBJECT: ('`', "boulder"), (03,11)
 OBJECT: ('`', "boulder"), (04,11)
 
-# Traps
 TRAP: "hole", (04,04)
 TRAP: "hole", (08,04)
 TRAP: "hole", (02,05)
@@ -2164,7 +2126,6 @@ TRAP: "hole", (05,10)
 TRAP: "hole", (06,10)
 TRAP: "hole", (07,10)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -2198,7 +2159,6 @@ REGION: (00,00,24,07), lit, "ordinary"
 NON_DIGGABLE: (00,00,24,07)
 NON_PASSWALL: (00,00,24,07)
 
-# Boulders
 OBJECT: ('`', "boulder"), (05,02)
 OBJECT: ('`', "boulder"), (04,03)
 OBJECT: ('`', "boulder"), (04,04)
@@ -2207,7 +2167,6 @@ OBJECT: ('`', "boulder"), (09,05)
 OBJECT: ('`', "boulder"), (10,05)
 OBJECT: ('`', "boulder"), (11,05)
 
-# Traps
 TRAP: "hole", (17,02)
 TRAP: "hole", (17,03)
 TRAP: "hole", (17,04)
@@ -2215,7 +2174,6 @@ TRAP: "hole", (14,05)
 TRAP: "hole", (15,05)
 TRAP: "hole", (16,05)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -2258,7 +2216,6 @@ REGION: (00,00,25,18), lit, "ordinary"
 NON_DIGGABLE: (00,00,25,18)
 NON_PASSWALL: (00,00,25,18)
 
-# Boulders
 OBJECT: ('`', "boulder"), (12,03)
 OBJECT: ('`', "boulder"), (12,04)
 OBJECT: ('`', "boulder"), (09,06)
@@ -2277,7 +2234,6 @@ OBJECT: ('`', "boulder"), (11,14)
 OBJECT: ('`', "boulder"), (11,16)
 OBJECT: ('`', "boulder"), (12,16)
 
-# Traps
 TRAP: "hole", (15,06)
 TRAP: "hole", (16,06)
 TRAP: "hole", (17,06)
@@ -2294,7 +2250,6 @@ TRAP: "hole", (18,11)
 TRAP: "hole", (14,12)
 TRAP: "hole", (18,12)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -2330,7 +2285,6 @@ REGION: (00,00,19,11), lit, "ordinary"
 NON_DIGGABLE: (00,00,19,11)
 NON_PASSWALL: (00,00,19,11)
 
-# Boulders
 OBJECT: ('`', "boulder"), (02,02)
 OBJECT: ('`', "boulder"), (03,02)
 OBJECT: ('`', "boulder"), (05,03)
@@ -2345,7 +2299,6 @@ OBJECT: ('`', "boulder"), (03,09)
 OBJECT: ('`', "boulder"), (05,07)
 OBJECT: ('`', "boulder"), (06,06)
 
-# Traps
 TRAP: "hole", (08,09)
 TRAP: "hole", (09,09)
 TRAP: "hole", (10,09)
@@ -2357,7 +2310,6 @@ TRAP: "hole", (15,09)
 TRAP: "hole", (16,09)
 TRAP: "hole", (17,09)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -2393,7 +2345,6 @@ REGION: (00,00,19,12), lit, "ordinary"
 NON_DIGGABLE: (00,00,19,12)
 NON_PASSWALL: (00,00,19,12)
 
-# Boulders
 OBJECT: ('`', "boulder"), (04,02)
 OBJECT: ('`', "boulder"), (04,03)
 OBJECT: ('`', "boulder"), (05,03)
@@ -2411,7 +2362,6 @@ OBJECT: ('`', "boulder"), (06,09)
 OBJECT: ('`', "boulder"), (05,10)
 OBJECT: ('`', "boulder"), (05,11)
 
-# Traps
 TRAP: "hole", (07,11)
 TRAP: "hole", (08,11)
 TRAP: "hole", (09,11)
@@ -2424,7 +2374,6 @@ TRAP: "hole", (15,11)
 TRAP: "hole", (16,11)
 TRAP: "hole", (17,11)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -2496,7 +2445,6 @@ TRAP: "hole", (16,06)
 TRAP: "hole", (17,06)
 TRAP: "hole", (18,06)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -2556,7 +2504,6 @@ TRAP: "hole", (16,12)
 TRAP: "hole", (13,13)
 TRAP: "hole", (15,14)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -2596,7 +2543,6 @@ REGION: (00,00,21,15), lit, "ordinary"
 NON_DIGGABLE: (00,00,21,15)
 NON_PASSWALL: (00,00,21,15)
 
-# Boulders
 OBJECT: ('`', "boulder"), (08,04)
 OBJECT: ('`', "boulder"), (11,05)
 OBJECT: ('`', "boulder"), (12,05)
@@ -2612,7 +2558,6 @@ OBJECT: ('`', "boulder"), (08,09)
 OBJECT: ('`', "boulder"), (10,10)
 OBJECT: ('`', "boulder"), (11,11)
 
-# Traps
 TRAP: "hole", (08,01)
 TRAP: "hole", (09,01)
 TRAP: "hole", (10,01)
@@ -2626,7 +2571,6 @@ TRAP: "hole", (17,01)
 TRAP: "hole", (18,01)
 TRAP: "hole", (19,01)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -2668,7 +2612,6 @@ REGION: (00,00,24,15), lit, "ordinary"
 NON_DIGGABLE: (00,00,24,15)
 NON_PASSWALL: (00,00,24,15)
 
-# Boulders
 OBJECT: ('`', "boulder"), (05,02)
 OBJECT: ('`', "boulder"), (04,03)
 OBJECT: ('`', "boulder"), (03,06)
@@ -2687,7 +2630,6 @@ OBJECT: ('`', "boulder"), (10,11)
 OBJECT: ('`', "boulder"), (04,12)
 OBJECT: ('`', "boulder"), (08,12)
 
-# Traps
 TRAP: "hole", (09,04)
 TRAP: "hole", (10,04)
 TRAP: "hole", (11,04)
@@ -2703,7 +2645,6 @@ TRAP: "hole", (20,04)
 TRAP: "hole", (21,04)
 TRAP: "hole", (22,04)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -3046,7 +2987,6 @@ REGION: (00,00,29,11), lit, "ordinary"
 NON_DIGGABLE: (00,00,29,11)
 NON_PASSWALL: (00,00,29,11)
 
-# Boulders
 OBJECT: ('`', "boulder"), (03,03)
 OBJECT: ('`', "boulder"), (06,02)
 #
@@ -3071,7 +3011,6 @@ OBJECT: ('`', "boulder"), (06,08)
 OBJECT: ('`', "boulder"), (07,09)
 OBJECT: ('`', "boulder"), (08,08)
 
-# Traps
 TRAP: "hole", (10,10)
 TRAP: "hole", (11,10)
 TRAP: "hole", (12,10)
@@ -3091,7 +3030,6 @@ TRAP: "hole", (25,10)
 TRAP: "hole", (26,10)
 TRAP: "hole", (27,10)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -3128,7 +3066,6 @@ REGION: (00,00,20,12), lit, "ordinary"
 NON_DIGGABLE: (00,00,20,12)
 NON_PASSWALL: (00,00,20,12)
 
-# Boulders
 OBJECT: ('`', "boulder"), (03,02)
 OBJECT: ('`', "boulder"), (03,05)
 #
@@ -3147,7 +3084,6 @@ OBJECT: ('`', "boulder"), (05,09)
 OBJECT: ('`', "boulder"), (06,10)
 OBJECT: ('`', "boulder"), (08,09)
 
-# Traps
 TRAP: "hole", (07,11)
 TRAP: "hole", (08,11)
 TRAP: "hole", (09,11)
@@ -3161,7 +3097,6 @@ TRAP: "hole", (16,11)
 TRAP: "hole", (17,11)
 TRAP: "hole", (18,11)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -3199,7 +3134,6 @@ REGION: (00,00,21,13), lit, "ordinary"
 NON_DIGGABLE: (00,00,21,13)
 NON_PASSWALL: (00,00,21,13)
 
-# Boulders
 OBJECT: ('`', "boulder"), (14,10)
 OBJECT: ('`', "boulder"), (15,09)
 OBJECT: ('`', "boulder"), (16,08)
@@ -3223,7 +3157,6 @@ OBJECT: ('`', "boulder"), (02,03)
 OBJECT: ('`', "boulder"), (03,02)
 OBJECT: ('`', "boulder"), (04,02)
 
-# Traps
 TRAP: "hole", (14,11)
 TRAP: "hole", (15,11)
 TRAP: "hole", (16,11)
@@ -3240,7 +3173,6 @@ TRAP: "hole", (20,04)
 TRAP: "hole", (20,03)
 TRAP: "hole", (20,02)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -3283,7 +3215,6 @@ REGION: (00,00,25,16), lit, "ordinary"
 NON_DIGGABLE: (00,00,25,16)
 NON_PASSWALL: (00,00,25,16)
 
-# Boulders
 OBJECT: ('`', "boulder"), (10,02)
 OBJECT: ('`', "boulder"), (04,03)
 OBJECT: ('`', "boulder"), (12,03)
@@ -3319,7 +3250,6 @@ OBJECT: ('`', "boulder"), (13,13)
 OBJECT: ('`', "boulder"), (21,13)
 OBJECT: ('`', "boulder"), (15,14)
 
-# Traps
 TRAP: "hole", (04,06)
 TRAP: "hole", (05,06)
 TRAP: "hole", (06,06)
@@ -3341,7 +3271,6 @@ TRAP: "hole", (19,10)
 TRAP: "hole", (20,10)
 TRAP: "hole", (21,10)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -3388,7 +3317,6 @@ REGION: (00,00,14,19), lit, "ordinary"
 NON_DIGGABLE: (00,00,14,19)
 NON_PASSWALL: (00,00,14,19)
 
-# Boulders
 OBJECT: ('`', "boulder"), (04,02)
 OBJECT: ('`', "boulder"), (10,05)
 OBJECT: ('`', "boulder"), (02,09)
@@ -3402,7 +3330,6 @@ OBJECT: ('`', "boulder"), (08,16)
 OBJECT: ('`', "boulder"), (11,16)
 OBJECT: ('`', "boulder"), (12,17)
 
-# Traps
 TRAP: "hole", (06,02)
 TRAP: "hole", (07,02)
 TRAP: "hole", (08,02)
@@ -3414,7 +3341,6 @@ TRAP: "hole", (13,04)
 TRAP: "hole", (13,05)
 TRAP: "hole", (13,06)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -3454,7 +3380,6 @@ REGION: (00,00,35,12), lit, "ordinary"
 NON_DIGGABLE: (00,00,35,12)
 NON_PASSWALL: (00,00,35,12)
 
-# Boulders
 OBJECT: ('`', "boulder"), (05,06)
 OBJECT: ('`', "boulder"), (09,06)
 OBJECT: ('`', "boulder"), (13,06)
@@ -3467,7 +3392,6 @@ OBJECT: ('`', "boulder"), (08,09)
 OBJECT: ('`', "boulder"), (09,10)
 OBJECT: ('`', "boulder"), (13,10)
 
-# Traps
 TRAP: "hole", (19,06)
 TRAP: "hole", (20,06)
 TRAP: "hole", (21,06)
@@ -3479,7 +3403,6 @@ TRAP: "hole", (24,08)
 TRAP: "hole", (24,09)
 TRAP: "hole", (24,10)
 
-# Random objects
 # No free food here, but you can buy some from the deli.
 OBJECT: '=', random
 OBJECT: '/', random
@@ -3513,7 +3436,6 @@ REGION: (00,00,24,08), lit, "ordinary"
 NON_DIGGABLE: (00,00,24,08)
 NON_PASSWALL: (00,00,24,08)
 
-# Boulders
 # Spoiler: positions to aim for are as follows:
 # (19,02),(21,02),(16,03),(17,03),(13,04),(17,04),(20,04),
 # (21,04),(16,05),(22,05),(21,06), and the last stands at (14,05).
@@ -3531,7 +3453,6 @@ OBJECT: ('`', "boulder"), (14,05)
 OBJECT: ('`', "boulder"), (14,05)
 ENGRAVING:(17,07),burn,"How did they all end up on top of each other?"
 
-# Traps
 TRAP: "hole", (02,07)
 TRAP: "hole", (03,07)
 TRAP: "hole", (04,07)
@@ -3544,7 +3465,6 @@ TRAP: "hole", (10,07)
 TRAP: "hole", (11,07)
 TRAP: "hole", (12,07)
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -3590,7 +3510,6 @@ REGION: (00,00,25,17), lit, "ordinary"
 NON_DIGGABLE: (00,00,25,17)
 NON_PASSWALL: (00,00,25,17)
 
-# Boulders
 OBJECT: ('`', "boulder"), (03,05)
 OBJECT: ('`', "boulder"), (05,05)
 OBJECT: ('`', "boulder"), (07,05)
@@ -3610,7 +3529,6 @@ OBJECT: ('`', "boulder"), (08,10)
 OBJECT: ('`', "boulder"), (09,12)
 OBJECT: ('`', "boulder"), (03,14)
 
-# Traps
 TRAP: "hole", (08,01)
 TRAP: "hole", (09,01)
 TRAP: "hole", (10,01)
@@ -3631,7 +3549,6 @@ TRAP: "hole", (23,01)
 MONSTER: ('m', "giant mimic"), random, m_object "boulder"
 MONSTER: ('m', "giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -3694,7 +3611,6 @@ REGION: (00,00,25,16), lit, "ordinary"
 NON_DIGGABLE: (00,00,25,16)
 NON_PASSWALL: (00,00,25,16)
 
-# Boulders
 OBJECT: ('`', "boulder"), (04,04)
 OBJECT: ('`', "boulder"), (02,06)
 OBJECT: ('`', "boulder"), (03,06)
@@ -3716,7 +3632,6 @@ OBJECT: ('`', "boulder"), (10,08)
 OBJECT: ('`', "boulder"), (12,09)
 OBJECT: ('`', "boulder"), (11,10)
 
-# Traps
 TRAP: "hole", (05,01)
 TRAP: "hole", (06,01)
 TRAP: "hole", (07,01)
@@ -3739,7 +3654,6 @@ TRAP: "hole", (22,01)
 MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -3852,7 +3766,6 @@ TRAP: "hole", (14,13)
 MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -3965,7 +3878,6 @@ TRAP: "hole", (15,15)
 MONSTER: ('m', "giant mimic"), random, m_object "boulder"
 MONSTER: ('m', "giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -4042,7 +3954,6 @@ REGION: (00,00,28,16), lit, "ordinary"
 NON_DIGGABLE: (00,00,28,16)
 NON_PASSWALL: (00,00,28,16)
 
-# Boulders
 OBJECT: ('`', "boulder"), (06,03)
 OBJECT: ('`', "boulder"), (07,03)
 OBJECT: ('`', "boulder"), (07,04)
@@ -4066,7 +3977,6 @@ OBJECT: ('`', "boulder"), (11,13)
 OBJECT: ('`', "boulder"), (14,13)
 OBJECT: ('`', "boulder"), (11,14)
 
-# Traps
 TRAP: "hole", (08,03)
 TRAP: "hole", (09,03)
 TRAP: "hole", (10,03)
@@ -4089,7 +3999,6 @@ TRAP: "hole", (25,03)
 MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -4163,7 +4072,6 @@ REGION: (00,00,30,15), lit, "ordinary"
 NON_DIGGABLE: (00,00,30,15)
 NON_PASSWALL: (00,00,30,15)
 
-# Boulders
 OBJECT: ('`', "boulder"), (04,02)
 OBJECT: ('`', "boulder"), (06,02)
 OBJECT: ('`', "boulder"), (08,02)
@@ -4186,7 +4094,6 @@ OBJECT: ('`', "boulder"), (12,10)
 OBJECT: ('`', "boulder"), (14,10)
 OBJECT: ('`', "boulder"), (15,10)
 
-# Traps
 TRAP: "hole", (11,13)
 TRAP: "hole", (12,13)
 TRAP: "hole", (13,13)
@@ -4209,7 +4116,6 @@ TRAP: "hole", (28,13)
 MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 MONSTER: ('m',"giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -4268,7 +4174,6 @@ REGION: (00,00,28,12), lit, "ordinary"
 NON_DIGGABLE: (00,00,28,12)
 NON_PASSWALL: (00,00,28,12)
 
-# Boulders
 OBJECT: ('`', "boulder"), (02,02)
 OBJECT: ('`', "boulder"), (05,03)
 OBJECT: ('`', "boulder"), (04,04)
@@ -4285,7 +4190,6 @@ OBJECT: ('`', "boulder"), (10,09)
 OBJECT: ('`', "boulder"), (07,10)
 OBJECT: ('`', "boulder"), (08,10)
 
-# Traps
 TRAP: "hole", (18,01)
 TRAP: "hole", (19,01)
 TRAP: "hole", (20,01)
@@ -4304,7 +4208,6 @@ TRAP: "hole", (16,09)
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -4379,7 +4282,6 @@ REGION: (00,00,26,18), lit, "ordinary"
 NON_DIGGABLE: (00,00,26,18)
 NON_PASSWALL: (00,00,26,18)
 
-# Boulders
 OBJECT: ('`', "boulder"), (05,14)
 OBJECT: ('`', "boulder"), (08,15)
 OBJECT: ('`', "boulder"), (09,14)
@@ -4405,7 +4307,6 @@ OBJECT: ('`', "boulder"), (03,07)
 OBJECT: ('`', "boulder"), (04,04)
 OBJECT: ('`', "boulder"), (04,03)
 
-# Traps
 TRAP: "hole", (18,02)
 TRAP: "hole", (19,02)
 TRAP: "hole", (20,02)
@@ -4428,7 +4329,6 @@ TRAP: "hole", (25,13)
 MONSTER:('m',"giant mimic"), (10,14), m_object "boulder"
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -4496,7 +4396,6 @@ REGION: (00,00,26,16), lit, "ordinary"
 NON_DIGGABLE: (00,00,26,16)
 NON_PASSWALL: (00,00,26,16)
 
-# Boulders
 OBJECT: ('`', "boulder"), (03,14)
 #
 OBJECT: ('`', "boulder"), (06,14)
@@ -4524,7 +4423,6 @@ OBJECT: ('`', "boulder"), (11,05)
 OBJECT: ('`', "boulder"), (12,05)
 OBJECT: ('`', "boulder"), (12,06)
 
-# Traps
 TRAP: "hole", (06,01)
 TRAP: "hole", (07,01)
 TRAP: "hole", (08,01)
@@ -4547,7 +4445,6 @@ TRAP: "hole", (23,01)
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -4620,7 +4517,6 @@ REGION: (00,00,18,17), lit, "ordinary"
 NON_DIGGABLE: (00,00,18,17)
 NON_PASSWALL: (00,00,18,17)
 
-# Boulders
 OBJECT: ('`', "boulder"), (06,02)
 OBJECT: ('`', "boulder"), (09,03)
 OBJECT: ('`', "boulder"), (11,03)
@@ -4639,7 +4535,6 @@ OBJECT: ('`', "boulder"), (09,07)
 OBJECT: ('`', "boulder"), (13,07)
 OBJECT: ('`', "boulder"), (15,07)
 
-# Traps
 TRAP: "hole", (08,09)
 TRAP: "hole", (08,10)
 TRAP: "hole", (04,12)
@@ -4660,7 +4555,6 @@ TRAP: "hole", (09,16)
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -4728,7 +4622,6 @@ REGION: (00,00,29,14), lit, "ordinary"
 NON_DIGGABLE: (00,00,29,14)
 NON_PASSWALL: (00,00,29,14)
 
-# Boulders
 OBJECT: ('`', "boulder"), (02,02)
 OBJECT: ('`', "boulder"), (05,02)
 OBJECT: ('`', "boulder"), (10,02)
@@ -4749,7 +4642,6 @@ OBJECT: ('`', "boulder"), (02,08)
 OBJECT: ('`', "boulder"), (04,08)
 OBJECT: ('`', "boulder"), (07,08)
 
-# Traps
 TRAP: "hole", (06,02)
 TRAP: "hole", (06,03)
 TRAP: "hole", (06,04)
@@ -4772,7 +4664,6 @@ TRAP: "hole", (19,10)
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 MONSTER:('m',"giant mimic"), random, m_object "boulder"
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random
@@ -4842,7 +4733,6 @@ REGION: (00,00,30,17), lit, "ordinary"
 NON_DIGGABLE: (00,00,30,17)
 NON_PASSWALL: (00,00,30,17)
 
-# Boulders
 OBJECT: ('`', "boulder"), (02,02)
 OBJECT: ('`', "boulder"), (03,02)
 OBJECT: ('`', "boulder"), (05,02)
@@ -4876,7 +4766,6 @@ OBJECT: ('`', "boulder"), (02,11)
 OBJECT: ('`', "boulder"), (03,11)
 OBJECT: ('`', "boulder"), (11,11)
 
-# Traps
 TRAP: "hole", (19,04)
 TRAP: "hole", (19,05)
 TRAP: "hole", (19,06)
@@ -4911,7 +4800,6 @@ MONSTER:('m',"giant mimic"), random, m_object "boulder"
 
 MONSTER:('D',"baby green dragon"), $place[1]
 
-# Random objects
 OBJECT: '%', random
 OBJECT: '%', random
 OBJECT: '%', random

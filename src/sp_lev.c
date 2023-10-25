@@ -688,7 +688,8 @@ count_features()
       = level.flags.nsinks 
         = level.flags.nvents 
           = level.flags.nforges 
-            = level.flags.ntoilets = 0;
+            = level.flags.nmagicchests
+              = level.flags.ntoilets = 0;
     
     for (y = 0; y < ROWNO; y++)
         for (x = 0; x < COLNO; x++) {
@@ -701,6 +702,8 @@ count_features()
                 level.flags.nsinks++;
             else if (typ == FORGE)
                 level.flags.nforges++;
+            else if (typ == MAGIC_CHEST)
+                level.flags.nmagicchests++;
             else if (typ == TOILET)
                 level.flags.ntoilets++;
         }
@@ -4529,6 +4532,9 @@ struct sp_coder *coder;
     case SPO_FORGE:
         typ = FORGE;
         break;
+    case SPO_MAGIC_CHEST:
+        typ = MAGIC_CHEST;
+        break;
     case SPO_SINK:
         typ = SINK;
         break;
@@ -5715,6 +5721,7 @@ sp_lev *lvl;
         case SPO_TOILET:
         case SPO_POOL:
         case SPO_FORGE:
+        case SPO_MAGIC_CHEST:
         case SPO_FOUNTAIN:
         case SPO_VENT:
         case SPO_PUDDLE:

@@ -818,7 +818,7 @@ struct monst *mtmp;
     is_blessed = curse_bless > 0;
     
     /* Scrolls of charging now ID charge count, as well as doing
-               the charging, unless cursed. */
+       the charging, unless cursed. */
     if (is_blessed)
         obj->known = 1;
     
@@ -901,7 +901,7 @@ struct monst *mtmp;
                               : 0; /* monsters wear but don't charge rings */
 
         /* destruction depends on current state, not adjustment */
-        if (obj->spe > rn2(7) || obj->spe <= -5) {
+        if (obj->spe > rn2(6) + 3 || (is_cursed && obj->spe <= -5)) {
             if (yours) {
                 pline("%s momentarily, then %s!", Yobjnam2(obj, "pulsate"),
                       otense(obj, "explode"));
@@ -2197,12 +2197,12 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             else
                 pline("Time slows down to a crawl around you!");
             bonus = 50 + bcsign(sobj) * 25;
-            youmonst.movement += bonus;
+            u.umovement += bonus;
             u.utimestop = TRUE;
         }
         /* Time is an illusion. Lunchtime doubly so. 
          * ― Douglas Adams, The Hitchhiker's Guide to the Galaxy */
-        morehungry(rn1(30, abs(bonus) * 5));
+        morehungry(rn1(30, abs(bonus) * 2));
         break;
     }
     case SCR_TELEPORTATION:
@@ -2381,7 +2381,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             otmp->oerodeproof = 0;
             if (valid_obj_material(otmp, PLASTIC)) {
                 otmp->material = PLASTIC;
-                costly_alteration(otmp, COST_DRAIN);
+                costly_alteration(otmp, COST_TRANSMOGRIFY);
             } else
                 warp_material(otmp, TRUE);
             break;
@@ -2391,6 +2391,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline("%s with a strange yellow light!", Yobjnam2(otmp, "glow"));
             warp_material(otmp, TRUE);
         }
+        known = TRUE;
         update_inventory();
         break;
     }
@@ -2546,7 +2547,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("Where do you want to center the explosion?");
                 getpos_sethilite(display_stinking_cloud_positions,
                                  get_valid_stinking_cloud_pos);
-                (void) getpos(&cc, TRUE, "the desired position");
+                (void) getpos(&cc, FALSE, "the desired position");
                 if (!is_valid_stinking_cloud_pos(cc.x, cc.y, FALSE)) {
                     /* try to reach too far, get burned */
                     cc.x = u.ux;
@@ -2603,6 +2604,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         known = TRUE;
         if (confused || sblessed) {
             You_feel("culpable.");
+            hold_another_object(mksobj(IRON_CHAIN, FALSE, FALSE),
+                                "It slips away from you.", (char*)0, (char*)0);
             break;
         }
         punish(sobj);
@@ -2633,7 +2636,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         cc.y = u.uy;
         getpos_sethilite(display_stinking_cloud_positions,
                          get_valid_stinking_cloud_pos);
-        if (getpos(&cc, TRUE, "the desired position") < 0) {
+        if (getpos(&cc, FALSE, "the desired position") < 0) {
             pline1(Never_mind);
             break;
         }

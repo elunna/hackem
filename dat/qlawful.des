@@ -99,6 +99,11 @@ MONSTER: ('i', "imp"), (49,15), hostile
 [60%]: TRAP: "sleep gas", (49,16)
 [60%]: TRAP: "sleep gas", (48,17)
 
+$chest_pl = { (47,15), (47,17), (49,15), (49,17) }
+SHUFFLE: $chest_pl
+MAGIC_CHEST:$chest_pl[0]
+
+
 # false treasure
 MONSTER: ('$', "large pile of killer coins"), $places[0], asleep
 [80%]: MONSTER: ('$', "pile of killer coins"), $places[0], asleep
@@ -204,7 +209,7 @@ MONSTER: 'S', $places[4], asleep
 MONSTER: 's', $places[4], asleep
 [50%]: MONSTER: 's', $places[4], hostile
 
-# no temple 
+# no temple
 ALTAR: $places[5], coaligned, altar
 MONSTER: ('@', "aligned priest"), $places[5], coaligned, peaceful
 

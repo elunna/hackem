@@ -1125,7 +1125,7 @@ unsigned trflags;
         }
         if (!Fumbling && !undestroyable_trap(ttype)
             && ttype != ANTI_MAGIC && !forcebungle && !plunged
-            && !conj_pit && !adj_pit && (uarmf && uarmf->otyp != STOMPING_BOOTS)
+            && !conj_pit && !adj_pit && !Stomping
             && (!rn2(5) || (is_pit(ttype)
                             && is_clinger(youmonst.data)))) {
                 You("escape %s %s.", (ttype == ARROW_TRAP && !trap->madeby_u)
@@ -1686,7 +1686,8 @@ unsigned trflags;
                     pline("It smells sort of %s in here.",
                           Hallucination ? "purple" : "funky");
                 }
-                incr_itimeout(&HHallucination,rnd(50) + 50);
+                if (!Breathless)
+                    incr_itimeout(&HHallucination,rnd(50) + 50);
             }
             break;
         } else {
@@ -1859,7 +1860,9 @@ unsigned trflags;
         if (u.usteed) {
             /* trap hits steed instead of you */
             (void) steedintrap(trap, (struct obj *) 0);
-        } else if (Levitation || Flying) {
+        } else if (Levitation) {
+            pline("But it isn't long enough to reach you.");
+        } else if (Flying && !rn2(2)) {
             pline("But it isn't long enough to reach you.");
         } else if (thick_skinned(youmonst.data)) {
             pline("But it breaks off against your thick hide.");
@@ -2092,24 +2095,34 @@ STATIC_OVL void
 doicetrap(box)
 struct obj *box;	/* at the moment only for floor traps */
 {
-    int num = 0;
-    num = d(4, 4);
+    int num = d(4, 8);
+    boolean lost_resistance = FALSE;
+    
     if (box) {
         impossible("doicetrap() called with non-null box.");
         return;
     }
 
     pline("A freezing cloud shoots up from the %s!", surface(u.ux, u.uy));
-    if (how_resistant(SONIC_RES) > 90) {
+    if (how_resistant(COLD_RES) > 90) {
         shieldeff(u.ux, u.uy);
-        num = 0;
+        num = rn2(3);
+        if (!rn2(3)) {
+            pline("Mist flash-freezes around you as your heat is sucked away!");
+            if (HCold_resistance && !Fixed_abil) {
+                decr_resistance(&HCold_resistance, rnd(25) + 25);
+                You_feel("alarmingly cooler.");
+                lost_resistance = TRUE;
+            }
+        }
     }
 
     num = resist_reduce(num, COLD_RES);
-    if (!num)
-        You("are uninjured.");
-    else
-        losehp(num, "freezing cloud", KILLED_BY_AN);
+    if (!num) {
+        if (!lost_resistance)
+            You("are uninjured.");
+    } else
+        losehp(num, "flash freeze", KILLED_BY_AN);
     
     destroy_item(POTION_CLASS, AD_COLD);
     u_slow_down();
@@ -2867,16 +2880,24 @@ register struct monst *mtmp;
             if (resists_cold(mtmp)) {
                 if (in_sight) {
                     shieldeff(mtmp->mx,mtmp->my);
-                    pline("%s is uninjured.", Monnam(mtmp));
+                    if (!rn2(3)) {
+                        if (mtmp->mintrinsics & MR_COLD) {
+                            mtmp->mintrinsics &= ~MR_COLD;
+                            pline("%s momentarily %s.", Monnam(mtmp),
+                                  makeplural(locomotion(mtmp->data, "stumble")));
+                        }
+                    } else
+                        pline("%s is uninjured.", Monnam(mtmp));
                 }
             } else {
-                int num = d(2,4);
+                int num = d(4, 8);
                 if (thitm(0, mtmp, (struct obj *)0, num, FALSE))
                     trapkilled = TRUE;
                 else if (!rn2(2))
                     (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
             }
-            if (see_it) seetrap(trap);
+            if (see_it) 
+                seetrap(trap);
             break; 
         case FIRE_TRAP:
         mfiretrap:
@@ -3217,7 +3238,7 @@ register struct monst *mtmp;
                 if (in_sight) {
                     seetrap(trap);
                 }
-                if (!rn2(27))
+                if (!rn2(7))
                     deltrap(trap);
             }
             break;
@@ -5443,7 +5464,7 @@ boolean force;
     }
     /* 'force' is true for #invoke; make it be true for #untrap if
        carrying MKoT */
-    if (!force && has_magic_key(&youmonst))
+    if (!force && has_roguish_key(&youmonst))
         force = TRUE;
 
     ttmp = t_at(x, y);

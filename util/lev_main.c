@@ -1384,6 +1384,8 @@ char c;
         return (SCORR);
     case 'U':
         return (FORGE);
+    case 'M':
+        return (MAGIC_CHEST);
     case '{':
         return (FOUNTAIN);
     case '\\':

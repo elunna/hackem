@@ -197,9 +197,6 @@ register struct obj *obj;
         if (olduwep->oprops & ITEM_RAGE) {
             EFearless &= ~W_WEP;
         }
-        if (olduwep->oprops & ITEM_TOUGH) {
-            EDisint_resistance &= ~W_WEP;
-        }
     }
 
     if (uwep && uwep == obj) {
@@ -250,6 +247,10 @@ register struct obj *obj;
                       xname(uwep), rn2(2) ? "as large as you" : "of your stature");
                 uwep->oprops_known |= ITEM_STEALTH;
                 EStealth &= ~W_WEP;
+            } else if (Stomping) {
+                pline("This %s will not silence your stomping!",  xname(uwep));
+                uwep->oprops_known |= ITEM_STEALTH;
+                EStealth &= ~W_WEP;
             } else
                 toggle_stealth(uwep, (EStealth & ~W_WEP), TRUE);
         }
@@ -291,9 +292,6 @@ register struct obj *obj;
                 uwep->oprops_known |= ITEM_RAGE;
             }
             EFearless |= W_WEP;
-        }
-        if (uwep->oprops & ITEM_TOUGH) {
-            EDisint_resistance |= W_WEP;
         }
     }
 
@@ -581,10 +579,6 @@ register struct obj *obj;
         if (olduswapwep->oprops & ITEM_RAGE) {
             EFearless &= ~W_SWAPWEP;
         }
-        /* Toughness */
-        if (olduswapwep->oprops & ITEM_TOUGH) {
-            EDisint_resistance &= ~W_SWAPWEP;
-        }
     }
 
     if (uswapwep == obj && u.twoweap) {
@@ -635,6 +629,10 @@ register struct obj *obj;
                       xname(uswapwep), rn2(2) ? "as large as you" : "of your stature");
                 uswapwep->oprops_known |= ITEM_STEALTH;
                 EStealth &= ~W_SWAPWEP;
+            } else if (Stomping) {
+                pline("This %s will not silence your stomping!", xname(uswapwep));
+                uswapwep->oprops_known |= ITEM_STEALTH;
+                EStealth &= ~W_SWAPWEP;
             } else
                 toggle_stealth(uswapwep, (EStealth & ~W_SWAPWEP), TRUE);
         }
@@ -676,9 +674,6 @@ register struct obj *obj;
                 uwep->oprops_known |= ITEM_RAGE;
             }
             EFearless |= W_SWAPWEP;
-        }
-        if (uswapwep->oprops & ITEM_TOUGH) {
-            EDisint_resistance |= W_SWAPWEP;
         }
     }
 }

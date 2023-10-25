@@ -324,12 +324,14 @@ struct you {
     char ushops_entered[5]; /* ditto, shops entered this turn */
     char ushops_left[5];    /* ditto, shops exited this turn */
 
-    int uhunger;  /* refd only in eat.c and shk.c */
-    unsigned uhs; /* hunger state - see eat.c */
-    boolean ukinghill; /* records if you are carying the pirate treasure
-    (and are therefor king of the hill) */
-    int protean; /* counter for the auto-polypiling power of the chest*/
-    boolean utimestop; /* Counter for scroll of time */
+    int uhunger;            /* refd only in eat.c and shk.c */
+    unsigned uhs;           /* hunger state - see eat.c */
+    boolean ukinghill;      /* records if you are carrying the pirate treasure
+                             * (and are therefor king of the hill) */
+    int protean;            /* counter for the auto-polypiling power of the chest*/
+    boolean utimestop;      /* Counter for scroll of time */
+    boolean uacted;         /* Tracks if the player did something 
+                             * other than wait or search */
     struct prop uprops[LAST_PROP + 1];
 
     unsigned umconf;
