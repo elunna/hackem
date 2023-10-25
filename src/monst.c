@@ -2257,7 +2257,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(150, 100, MS_GROWL, MZ_SMALL), MR_POISON, 0,
         M1_SWIM | M1_ANIMAL | M1_NOHANDS | M1_OMNIVORE | M1_TUNNEL
             | M1_THICK_HIDE, M2_HOSTILE | M2_STRONG,
-        M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 12, CLR_BLACK),
+        M3_INFRAVISIBLE | M3_BERSERK, 0, 0, 12, CLR_BRIGHT_MAGENTA),
     /*
      * spiders & scorpions
      * Note: (keep webmaker() in sync if new critters are added)
