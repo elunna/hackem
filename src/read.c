@@ -2371,6 +2371,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 otmp->oprops = 0;
                 otmp->oprops_known = 0;
                 create_oprop(otmp, TRUE);
+                /* Reveal the property */
+                otmp->oprops_known = otmp->oprops;
             } else {
                 pline1(nothing_happens);
             }
