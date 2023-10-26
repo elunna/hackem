@@ -3921,9 +3921,11 @@ struct obj *obj;
             } while (summon_loop);
             
             /* Tsk,tsk.. */
-            You_feel("guilty.");
-            adjalign(-3);
-            change_luck(-3);
+            if (!Role_if(PM_NECROMANCER)) {
+                You_feel("guilty.");
+                adjalign(-3);
+                change_luck(-3);
+            }
             break;
         }
         case DEATH_GAZE:
