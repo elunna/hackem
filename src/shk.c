@@ -4351,12 +4351,7 @@ struct monst *shkp;
             Your("%s to dissemble into pieces!", aobjnam(obj, "seem"));
             
         } else {
-            /* Do our best to add a property. */
-            for (int i = 0; i < 1000; i++) {
-                create_oprop(obj, TRUE);
-                if (obj->oprops)
-                    break;
-            }
+            handle_new_property(obj);
             /* Reveal the property */
             obj->oprops_known = obj->oprops;
         }

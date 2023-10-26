@@ -49,6 +49,7 @@ STATIC_PTR void specified_id(void);
 STATIC_PTR void seffect_cloning(struct obj **);
 STATIC_PTR void NDECL(do_acquirement);
 
+
 STATIC_OVL boolean
 learnscrolltyp(scrolltyp)
 short scrolltyp;
@@ -2374,14 +2375,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     break;
                 }
                 pline("%s with a fluorescent blue light!", Yobjnam2(otmp, "glow"));
-                otmp->oprops = 0;
-                otmp->oprops_known = 0;
-                /* Do our best to add a property. */
-                for (int i = 0; i < 1000; i++) {
-                    create_oprop(otmp, TRUE);
-                    if (otmp->oprops)
-                        break;
-                }
+                handle_new_property(otmp);
                 /* Reveal the property */
                 otmp->oprops_known = otmp->oprops;
             } else {
@@ -4308,4 +4302,42 @@ struct obj *otmp, *sobj;
     return TRUE;
 }
 
+void
+handle_new_property(otmp)
+struct obj *otmp;
+{
+    long old_wornmask = otmp->owornmask;
+    boolean was_twoweap = u.twoweap;
+    
+    remove_worn_item(otmp, FALSE);
+    otmp->oprops = 0;
+    otmp->oprops_known = 0;
+
+    /* Do our best to add a property. */
+    for (int i = 0; i < 1000; i++) {
+        create_oprop(otmp, TRUE);
+        if (otmp->oprops)
+            break;
+    }
+
+    if (old_wornmask) {
+        /* wearslot() returns a mask which might have multiple bits set;
+           narrow that down to the bit(s) currently in use */
+        /* if the new form can be worn in the same slot, make it so */
+        if ((old_wornmask & W_WEP) != 0L) {
+            setuwep(otmp);
+            if (was_twoweap && uwep && !bimanual(uwep))
+                u.twoweap = TRUE;
+        } else if ((old_wornmask & W_SWAPWEP) != 0L) {
+            setuswapwep(otmp);
+            if (was_twoweap && uswapwep)
+                u.twoweap = TRUE;
+        } else if ((old_wornmask & W_QUIVER) != 0L) {
+            setuqwep(otmp);
+        } else {
+            setworn(otmp, old_wornmask);
+        }
+        set_wear(otmp);
+    }
+}
 /*read.c*/

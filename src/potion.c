@@ -17,6 +17,7 @@ STATIC_DCL void NDECL(ghost_from_bottle);
 STATIC_DCL boolean
 FDECL(H2Opotion_dip, (struct obj *, struct obj *, BOOLEAN_P, const char *));
 STATIC_DCL void FDECL(dipsink, (struct obj *));
+STATIC_DCL void FDECL(quiet_unwear, (struct obj *));
 
 /* force `val' to be within valid range for intrinsic timeout value */
 STATIC_OVL long
@@ -4251,25 +4252,8 @@ int *res;
     if (carried(obj)) {
         if (obj == uskin) 
             rehumanize();
-        /* Quietly remove worn item if no longer compatible --ALI */
-        owornmask = obj->owornmask;
-        if (owornmask & W_ARM && !is_suit(obj))
-            owornmask &= ~W_ARM;
-        if (owornmask & W_ARMC && !is_cloak(obj))
-            owornmask &= ~W_ARMC;
-        if (owornmask & W_ARMH && !is_helmet(obj))
-            owornmask &= ~W_ARMH;
-        if (owornmask & W_ARMS && !is_shield(obj))
-            owornmask &= ~W_ARMS;
-        if (owornmask & W_ARMG && !is_gloves(obj))
-            owornmask &= ~W_ARMG;
-        if (owornmask & W_ARMF && !is_boots(obj))
-            owornmask &= ~W_ARMF;
-        if (owornmask & W_ARMU && !is_shirt(obj))
-            owornmask &= ~W_ARMU;
-        if (owornmask & W_TOOL && obj->otyp != BLINDFOLD &&
-          obj->otyp != TOWEL && obj->otyp != LENSES)
-            owornmask &= ~W_TOOL;
+        owornmask = obj->owornmask;;
+        quiet_unwear(obj);
         otyp2 = obj->otyp;
         obj->otyp = otyp;
         remove_worn_item(obj, TRUE);
@@ -4277,9 +4261,7 @@ int *res;
         obj->owornmask = owornmask;
         setworn(obj, obj->owornmask);
         set_wear(obj);
-        /* puton_worn_item(obj); */
     }
-
     
      if ((obj->otyp == BAG_OF_HOLDING || Bad_bag(obj)) 
           && Has_contents(obj)) {
@@ -4322,6 +4304,36 @@ int *res;
     
     *res = 1;
     return obj;
+}
+
+void
+quiet_unwear(obj)
+struct obj *obj;
+{
+    long owornmask = obj->owornmask;;
+    
+    /* Quietly remove worn item if no longer compatible --ALI */
+    if (owornmask & W_ARM && !is_suit(obj))
+        owornmask &= ~W_ARM;
+    if (owornmask & W_ARMC && !is_cloak(obj))
+        owornmask &= ~W_ARMC;
+    if (owornmask & W_ARMH && !is_helmet(obj))
+        owornmask &= ~W_ARMH;
+    if (owornmask & W_ARMS && !is_shield(obj))
+        owornmask &= ~W_ARMS;
+    if (owornmask & W_ARMG && !is_gloves(obj))
+        owornmask &= ~W_ARMG;
+    if (owornmask & W_ARMF && !is_boots(obj))
+        owornmask &= ~W_ARMF;
+    if (owornmask & W_ARMU && !is_shirt(obj))
+        owornmask &= ~W_ARMU;
+    if (owornmask & W_TOOL 
+            && obj->otyp != BLINDFOLD 
+            && obj->otyp != TOWEL
+            && obj->otyp != MASK
+            && obj->otyp != GOGGLES
+            && obj->otyp != LENSES)
+        owornmask &= ~W_TOOL;
 }
 
 int
