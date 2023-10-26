@@ -3983,7 +3983,8 @@ long ident_type;
         if (premium
               && obj->bknown 
               && obj->rknown 
-              && obj->known) 
+              && obj->known
+              && obj->oprops == obj->oprops_known) 
             ripoff = TRUE;
     }
 
@@ -3994,8 +3995,10 @@ long ident_type;
         }
         pline("%s chuckles greedily...", mon_nam(shkp));
         charge = base_id_charge(obj);
-    } else if (!premium)
-        charge = base_id_charge(obj);       /* basic */    
+    } else if (!premium 
+        /* Give a little break on weapons and armor */
+        || ident_type == SHK_ID_WEAPON || ident_type == SHK_ID_ARMOR)
+        charge = base_id_charge(obj);       /* basic */
     else {
         charge = base_id_charge(obj) * 2;   /* premier */
     }
