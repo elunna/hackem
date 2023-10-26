@@ -2359,22 +2359,34 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 otmp->oprops = 0;
                 otmp->oprops_known = 0;
             }
-            /* Maybe change or add a property. Depends on luck.
+            /* Maybe change or add a property. 
+             * 
+             * Adding to a magical item depends on luck.
              * The percent is chance of success:
              *  LUCK:     <0      0     +2     +5     +8    +11
              * 	SUCCESS: 0.5%  20.0%  39.5%  59.0%  78.5%  98.0%
              * 	
              * 	If cursed the property is always wiped.
              */
-            else if ((sblessed || otmp->oprops) && rnl(5) == 0) {
+            else if (sblessed || otmp->oprops) {
+                if (objects[otmp->otyp].oc_magic && !rnl(5) == 0) {
+                    pline1(nothing_happens);
+                    break;
+                }
                 pline("%s with a fluorescent blue light!", Yobjnam2(otmp, "glow"));
                 otmp->oprops = 0;
                 otmp->oprops_known = 0;
-                create_oprop(otmp, TRUE);
+                /* Do our best to add a property. */
+                for (int i = 0; i < 1000; i++) {
+                    create_oprop(otmp, TRUE);
+                    if (otmp->oprops)
+                        break;
+                }
                 /* Reveal the property */
                 otmp->oprops_known = otmp->oprops;
             } else {
                 pline1(nothing_happens);
+                break;
             }
         } else if (scursed) {
             pline("%s with a sickly green light!", Yobjnam2(otmp, "glow"));

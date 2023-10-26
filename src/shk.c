@@ -4335,7 +4335,13 @@ struct monst *shkp;
         return 0;
     } else {
         verbalize("Imbue your %s with special power!", xname(obj));
-        charge = 1250;
+        
+        /* Magical items cost quite a bit more */
+        if (objects[obj->otyp].oc_magic) {
+            charge = 2250;
+        } else
+            charge = 750;
+        
         shk_smooth_charge(&charge, 50, NOBOUND);
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
@@ -4343,8 +4349,17 @@ struct monst *shkp;
         verbalize("No refunds or exchanges!");
         if (Hallucination) {
             Your("%s to dissemble into pieces!", aobjnam(obj, "seem"));
-        } else
-            create_oprop(obj, TRUE);
+            
+        } else {
+            /* Do our best to add a property. */
+            for (int i = 0; i < 1000; i++) {
+                create_oprop(obj, TRUE);
+                if (obj->oprops)
+                    break;
+            }
+            /* Reveal the property */
+            obj->oprops_known = obj->oprops;
+        }
     }
     fully_identify_obj(obj);
     update_inventory();
