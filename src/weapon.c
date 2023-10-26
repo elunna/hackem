@@ -2801,24 +2801,19 @@ rnd_crosstrain(int skill)
         case P_UNSKILLED:
             return;
         case P_BASIC:
-            /* If skill is basic, 1 in 9 chance of training related */
-            if (rn2(9))
+            if (rn2(13))
                 return;
             break;
         case P_SKILLED:
-            /* If skill is skilled, 1 in 6 chance of training related */
-            if (rn2(6))
+            if (rn2(7))
                 return;
             break;
         case P_EXPERT:
-            /* If skill is expert, 1 in 3 chance of training related */
             if (rn2(3))
                 return;
             break;
     }
-    if (Luck < 0)
-        return;
-    
+
     for (int i = P_FIRST_WEAPON; i <= P_LAST_WEAPON; i++) {
         if (i == skill)
             continue;
@@ -2826,6 +2821,10 @@ rnd_crosstrain(int skill)
         if (P_SKILL(i) >= P_MAX_SKILL(i))
             continue;
         if (!can_practice(i))
+            continue;
+        /* Players need to advance once a skill reaches 100% to keep benefiting */
+        if ((int) P_ADVANCE(i) >= 
+              practice_needed_to_advance(P_SKILL(i)))
             continue;
         /* Fudge factor to spread out the skills */
         if (Luck > 2 ? !rn2(4) : rn2(4))
