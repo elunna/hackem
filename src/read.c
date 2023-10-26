@@ -4340,5 +4340,7 @@ struct obj *otmp;
         }
         set_wear(otmp);
     }
+    /* Handle burden property */
+    otmp->owt = weight(otmp);
 }
 /*read.c*/

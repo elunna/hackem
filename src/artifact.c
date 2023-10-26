@@ -474,6 +474,10 @@ boolean allow_detrimental;
               && (j & ONLY_WEP_PROPS))
             continue;
         
+        /* Burden doesn't really affect ring weight much */
+        if (otmp->oclass == RING_CLASS && j & ITEM_BURDEN)
+            continue;
+        
         if ((otmp->oprops & ITEM_RES_PROPS) && (j & ITEM_RES_PROPS))
             continue; /* these are mutually exclusive */
 

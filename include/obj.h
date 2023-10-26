@@ -634,11 +634,11 @@ struct obj {
 /* Positive properties */
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCH \
                          | ITEM_VIGIL | ITEM_EXCEL | ITEM_SUSTAIN \
-                         | ITEM_STEALTH | ITEM_INSIGHT | ITEM_BURDEN \
-                         | ITEM_SURF | ITEM_SWIM | ITEM_RAGE | ITEM_TOUGH)
+                         | ITEM_STEALTH | ITEM_INSIGHT | ITEM_SURF \
+                         | ITEM_SWIM | ITEM_RAGE | ITEM_TOUGH)
 /* Negative properties */
 #define ITEM_BAD_PROPS (ITEM_FUMBLE | ITEM_HUNGER | ITEM_STENCH \
-                        | ITEM_TELE | ITEM_SLOW | ITEM_DANGER)
+                        | ITEM_TELE | ITEM_SLOW | ITEM_DANGER | ITEM_BURDEN)
 
 #define NON_WEP_PROPS (ITEM_FLEX)
 #define ONLY_WEP_PROPS (ITEM_RAGE | ITEM_PROWESS)

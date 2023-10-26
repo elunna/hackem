@@ -5440,7 +5440,11 @@ struct obj *no_wish;
 
         if (otmp->oclass == ARMOR_CLASS || otmp->oclass == RING_CLASS)
             objprops &= ~ONLY_WEP_PROPS;
-
+        
+        /* Burden doesn't really affect ring weight much */
+        if (otmp->oclass == RING_CLASS)
+            objprops &= ~ITEM_BURDEN;
+        
         objprops = rm_redundant_oprops(otmp, objprops);
 
         /* The player cannot wish for properties */

@@ -1841,7 +1841,7 @@ register struct obj *obj;
     
     /* Items with burden property */
     if (obj->oprops & ITEM_BURDEN)
-        wt *= 4;
+        wt *= 8;
     
     return (wt ? wt * (int) obj->quan : ((int) obj->quan + 1) >> 1);
 }
