@@ -2221,7 +2221,7 @@ do_nothing:
                 if (rn2(4)) {
                     You_feel("guilty about losing your pet like this.");
                     u.ugangr++;
-                    if (u.ualign.type == A_NONE)
+                    if (Uevil_inherently)
                         adjalign(-3);
                     else
                         adjalign(-15);

@@ -2408,7 +2408,7 @@ dosacrifice()
                 return 1;
             } else if (!rnl(30 + u.ulevel)) {
                 /* Random item blessed/cursed */
-                if (Role_if(PM_INFIDEL) && u.ualign.type==A_NONE)
+                if (Role_if(PM_INFIDEL) && u.ualign.type == A_NONE)
                     moloch_gives_curse();
                 else
                     god_gives_benefit();

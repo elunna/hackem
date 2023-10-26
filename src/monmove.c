@@ -498,7 +498,7 @@ int *inrange, *nearby, *scared;
                     || (!mtmp->mpeaceful && in_your_sanctuary(mtmp, 0, 0)))) {
         *scared = 1;
         monflee(mtmp, rnd(rn2(7) ? 10 : 100), TRUE, TRUE);
-        if (u.ualign.type == A_NONE && !context.coward
+        if (Uevil_inherently && !context.coward
             && sengr_at("Elbereth", seescaryx, seescaryy, TRUE)) {
             /* Followers of Moloch aren't supposed
              * to hide behind other gods. */

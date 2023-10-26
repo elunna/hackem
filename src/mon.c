@@ -4568,8 +4568,7 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
      */
     if (((always_peaceful(mdat) && mtmp->malign <= 0)
         || (mtmp->isshk && !is_zombie(mdat)))
-        && u.ualign.type != A_CHAOTIC
-        && u.ualign.type != A_NONE) {
+        && u.ualign.type != A_CHAOTIC && !Uevil_inherently) {
         HTelepat &= ~INTRINSIC;
         change_luck(-2);
         You("murderer!");
@@ -4591,7 +4590,7 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
     /* adjust alignment points */
     if (mtmp->m_id == quest_status.leader_m_id) { /* REAL BAD! */
         quest_status.leader_is_dead = TRUE;
-        if (u.ualign.type != A_NONE) {
+        if (!Uevil_inherently) {
             if (canspotmon(mtmp))
                 You_feel("very guilty.");
             else
@@ -4609,14 +4608,14 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
         if (!quest_status.killed_leader)
             adjalign((int) (ALIGNLIM / 4));
     } else if (mdat->msound == MS_GUARDIAN) { /* Bad */
-        if (u.ualign.type != A_NONE) {
+        if (!Uevil_inherently) {
             if (canspotmon(mtmp))
                 You_feel("guilty.");
             else
                 You("have a vague sense of guilt.");
             adjalign(-(int) (ALIGNLIM / 8));
         }
-        if (u.ualign.type == A_NONE)
+        if (Uevil_inherently)
             ; /* Moloch's indifference */
         else
             u.ugangr++;
@@ -4635,7 +4634,7 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
         else if (u.ualign.type == A_NONE && mdat->maligntyp == A_LAWFUL)
             adjalign((int) (ALIGNLIM / 4)); /* Infidel-only BIG bonus */
     } else if (mtmp->mtame) {
-        if (u.ualign.type == A_NONE) {
+        if (Uevil_inherently) {
             if (canspotmon(mtmp))
                 You_feel("guilty.");
             else
@@ -4651,7 +4650,7 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
         /* your god is mighty displeased... */
         if (!Deaf) {
             if (!Hallucination) {
-                if (u.ualign.type == A_NONE)
+                if (Uevil_inherently)
                     You_hear("sinister laughter off in the distance...");
                 else
                     You_hear("the rumble of distant thunder...");
@@ -4667,7 +4666,7 @@ int xkill_flags; /* 1: suppress message, 2: suppress corpse, 4: pacifist */
                            uhis(), mdat->mname);
         }
     } else if (mtmp->mpeaceful) {
-        if (u.ualign.type != A_NONE) {
+        if (!Uevil_inherently) {
             if (canspotmon(mtmp))
                 You_feel("guilty.");
             else
@@ -5173,7 +5172,7 @@ boolean via_attack;
            it's intentionally larger than the 1s and 2s that are normally
            given for this sort of thing. */
         /* reduce to 3 (average) when alignment is already very low */
-        if (u.ualign.type != A_NONE) {
+        if (!Uevil_inherently) {
             You_feel("like a hypocrite.");
             adjalign(-1);
         } else
@@ -5214,7 +5213,8 @@ boolean via_attack;
             }
         } else {
             /* Prevent guilt spam in Black Market when angering everybody */
-            if (u.ualign.type != A_NONE && !Is_blackmarket(&u.uz)) { /* Infidels are supposed to be bad */
+            /* Infidels are supposed to be bad */
+            if (!Uevil_inherently && !Is_blackmarket(&u.uz)) {
                 if (canspotmon(mtmp))
                     You_feel("guilty.");
                 else
@@ -5311,7 +5311,7 @@ boolean via_attack;
                                    perhaps reduce tameness? */
                             } else {
                                 mon->mpeaceful = 0;
-                                if (u.ualign.type != A_NONE && !Is_blackmarket(&u.uz)) {
+                                if (!Uevil_inherently && !Is_blackmarket(&u.uz)) {
                                     if (canspotmon(mon))
                                         You_feel("guilty.");
                                     else

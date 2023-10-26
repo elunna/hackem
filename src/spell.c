@@ -2517,9 +2517,12 @@ spell_nag()
 
 STATIC_OVL boolean
 primary_caster() {
-    return (Role_if(PM_HEALER) || Role_if(PM_PRIEST)
-            || Role_if(PM_FLAME_MAGE) || Role_if(PM_ICE_MAGE)
-            || Role_if(PM_NECROMANCER) || Role_if(PM_WIZARD)
+    return (Role_if(PM_HEALER)
+            || Role_if(PM_PRIEST)
+            || Role_if(PM_FLAME_MAGE)
+            || Role_if(PM_ICE_MAGE)
+            || Role_if(PM_NECROMANCER)
+            || Role_if(PM_WIZARD)
             || Role_if(PM_INFIDEL));
 }
 

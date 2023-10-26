@@ -968,7 +968,7 @@ forget_routine:
         unkn++;
         if (is_undead(youmonst.data) || is_demon(raceptr(&youmonst))
             || u.ualign.type <= A_CHAOTIC) {
-            int dice = (u.ualign.type == A_NONE) ? 4 : 2;
+            int dice = Uevil_inherently ? 4 : 2;
             if (otmp->blessed) {
                 pline("This burns like %s!", hliquid("acid"));
                 exercise(A_CON, FALSE);

@@ -22,6 +22,9 @@
 
 #define maybe_polyd(if_so, if_not) (Upolyd ? (if_so) : (if_not))
 
+#define Uevil_inherently (u.ualign.type == A_NONE \
+                          || Race_if(PM_VAMPIRIC))
+
 /*** Resistances to troubles ***/
 /* With intrinsics and extrinsics */
 #define HFire_resistance u.uprops[FIRE_RES].intrinsic

@@ -26,7 +26,7 @@ STATIC_DCL void FDECL(kops_gone, (BOOLEAN_P));
      || Race_if((mon)->mnum))
 
 #define hostile_shk(mon) \
-    ((erac_race_hostile(mon) || u.ualign.type == A_NONE) \
+    ((erac_race_hostile(mon) || Uevil_inherently) \
      && !is_izchak(mon, FALSE))
 
 #define muteshk(shkp) \
@@ -642,7 +642,7 @@ struct monst *shkp;
     livelog_printf(LL_ACHIEVE, "stole %ld %s worth of merchandise from %s %s",
                    total, currency(total), s_suffix(shkname(shkp)),
                    shtypes[eshkp->shoptype - SHOPBASE].name);
-    if (!Role_if(PM_ROGUE) && u.ualign.type != A_NONE) { 
+    if (!Role_if(PM_ROGUE) && !Uevil_inherently) { 
         if (u.ualign.type == A_LAWFUL)
             You_feel("guilty."); /* stealing is unlawful */
         adjalign(-sgn(u.ualign.type));
@@ -5753,7 +5753,7 @@ boolean cant_mollify;
         } else
             growl(shkp);
         hot_pursuit(shkp);
-        if (u.ualign.type != A_NONE)
+        if (!Uevil_inherently)
             adjalign(-sgn(u.ualign.type));
     }
 }

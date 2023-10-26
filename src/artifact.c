@@ -3995,7 +3995,7 @@ struct obj *obj;
             }
             
             /* Use at your own risk... */
-            if (u.ualign.type != A_NONE) {
+            if (!Uevil_inherently) {
                 if (u.ualign.type == A_LAWFUL) {
                     You_feel("very guilty.");
                     adjalign(-7);
