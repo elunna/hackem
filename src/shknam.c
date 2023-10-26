@@ -955,7 +955,7 @@ int shp_indx;
     eshkp->customer[0] = '\0';
     /* WAC init services */
     init_shk_services(shk);
-    shkmoney = 1000L + 30L * (long) rnd(100);  /* initial capital */
+    shkmoney = 2250L + 65L * (long) rnd(100);  /* initial capital */
     /* [CWC] Lets not create the money yet until we see if the
          shk is a black marketeer, else we'll have to create
        another money object, if GOLDOBJ is defined */
