@@ -180,7 +180,7 @@ WEAPON("athame", None,
 WEAPON("parazonium", "triangular dagger",                      /* SpliceHack */
        0, 1, 0, 0,  1,  12,  15,  6,  4, 1, S,   P_DAGGER, METAL, HI_METAL),
 WEAPON("stake", None,                               /* Slash'EM */
-       1, 0, 0, 0,  5,  20,  20,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
+       1, 1, 0, 0,  5,  20,  20,  6,  6, 0, P,   P_DAGGER, WOOD, HI_WOOD),
 WEAPON("great dagger", None,                               /* Slash'EM */
        1, 0, 0, 0,  0,  20,  30,  6,  7, 2, P,   P_DAGGER, METAL, CLR_BLACK),
 WEAPON("pencil", None,
