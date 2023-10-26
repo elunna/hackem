@@ -121,7 +121,7 @@ OBJECT(OBJ("strange object", None),
 #define S SLASH
 #define B WHACK
 
-/* missiles; materiel reflects the arrowhead, not the shaft */
+/* missiles; material reflects the arrowhead, not the shaft */
 PROJECTILE("arrow", None,
            1, 67, 1, 2, 6, 6, 0,        IRON, -P_BOW, HI_METAL),
 PROJECTILE("elven arrow", "runed arrow",
