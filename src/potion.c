@@ -4508,11 +4508,13 @@ obj2upgrade(int otyp)
     /* tools */
     
     case SACK: return OILSKIN_SACK;
-    case OILSKIN_SACK: return SACK;
     
-    case BAG_OF_HOLDING: return BAG_OF_TRICKS;     
+    case OILSKIN_SACK: return BAG_OF_HOLDING;
     case BAG_OF_TRICKS: return BAG_OF_HOLDING;
-
+    case BAG_OF_RATS: return BAG_OF_HOLDING;
+    
+    case BAG_OF_HOLDING: return SACK;
+    
     case SKELETON_KEY: return LOCK_PICK;
     case LOCK_PICK: return SKELETON_KEY;
         
