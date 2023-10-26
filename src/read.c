@@ -4307,6 +4307,7 @@ handle_new_property(otmp)
 struct obj *otmp;
 {
     long old_wornmask = otmp->owornmask;
+    long old_oprops = otmp->oprops;
     boolean was_twoweap = u.twoweap;
     
     remove_worn_item(otmp, FALSE);
@@ -4316,7 +4317,7 @@ struct obj *otmp;
     /* Do our best to add a property. */
     for (int i = 0; i < 1000; i++) {
         create_oprop(otmp, TRUE);
-        if (otmp->oprops)
+        if (otmp->oprops && otmp->oprops != old_oprops)
             break;
     }
 
