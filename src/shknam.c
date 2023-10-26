@@ -897,11 +897,12 @@ int shp_indx;
     /* wands and potions also similar... */
     case WAND_CLASS:
     case POTION_CLASS:
-        switch (rnd(4)) {
+        switch (rnd(8)) {
         case 1: srace = PM_ELF; break;
         case 2: srace = PM_GNOME; break;
         case 3: srace = PM_NYMPH; break;
         case 4: srace = PM_HUMAN; break;
+        default:  srace = PM_VAMPIRIC; break;
         }
         break;
     case TOOL_CLASS:
@@ -920,11 +921,12 @@ int shp_indx;
     /* and scrolls and books fall to spellcasters */
     case SCROLL_CLASS:
     case SPBOOK_CLASS:
-        switch (rnd(4)) {
+        switch (rnd(5)) {
         case 1: srace = PM_ILLITHID; break;
         case 2: srace = PM_HUMAN; break;
         case 3: srace = PM_GNOME; break;
         case 4: srace = PM_ELF; break;
+        case 5: srace = PM_VAMPIRIC; break;
         }
         break;
     default:
