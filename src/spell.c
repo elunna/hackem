@@ -18,16 +18,18 @@
 #define REINFORCE_BOOST 10000	/* memory increase for reinforce memory */
 #define MAX_KNOW 	    70000	/* Absolute Max timeout */
 /* Most spells a player can learn */
-#define SPELL_LIMIT     ((ACURR(A_WIS)+ACURR(A_INT)) \
-                          / (primary_caster() ? 4 : 10))
+#define SPELL_LIMIT     ((ACURR(A_WIS) + ACURR(A_INT)) \
+                          / (primary_caster() ? (Role_if(PM_WIZARD) ? 3 : 4) : 10))
 
 /* x: need to add 1 when used for reading a spellbook rather than for hero
    initialization; spell memory is decremented at the end of each turn,
    including the turn on which the spellbook is read; without the extra
    increment, the hero used to get cheated out of 1 turn of retention */
 #define incrnknow(spell, x) (spl_book[spell].sp_know = KEEN + (x))
-#define boostknow(spell, boost)  spl_book[spell].sp_know = ((spl_book[spell].sp_know + boost > MAX_KNOW) ? MAX_KNOW \
-				 : spl_book[spell].sp_know + boost)
+#define boostknow(spell, boost)  spl_book[spell].sp_know = \
+                ((spl_book[spell].sp_know + boost > MAX_KNOW) \
+                    ? MAX_KNOW \
+				    : spl_book[spell].sp_know + boost)
 #define spellev(spell) spl_book[spell].sp_lev
 #define spellname(spell) OBJ_NAME(objects[spellid(spell)])
 #define spellet(spell) \
