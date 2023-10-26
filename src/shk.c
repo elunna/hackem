@@ -3962,7 +3962,7 @@ long ident_type;
     int i, charge;
     boolean ripoff = FALSE;
     boolean premium;
-
+    
     for (i = 0; i < IDENTIFY_TYPES; i++) {
         if (ident_type != id_types[i].svc_type) {
             continue;
@@ -3971,7 +3971,11 @@ long ident_type;
             return 0;
         break;
     }
-
+    if (obj->unpaid) {
+        verbalize("You'll have to buy it first...");
+        return 0;
+    }
+    
     if (ident_type == SHK_ID_WEAPON || ident_type == SHK_ID_ARMOR)
         premium = TRUE;
     
@@ -4043,6 +4047,10 @@ struct monst *shkp;
 
     if (!(obj = getobj(identify_types, "uncurse")))
         return 0;
+    if (obj->unpaid) {
+        verbalize("You'll have to buy it first...");
+        return 0;
+    }
 
     if (obj->bknown && !obj->cursed && !Confusion && !Hallucination) {
         pline("That item is not cursed!");
@@ -4099,6 +4107,10 @@ long svc_type;
     
     if (!obj)
         return 0;
+    if (obj->unpaid) {
+        verbalize("You'll have to buy it first...");
+        return 0;
+    }
 
     /* Check if you asked for a non weapon tool to be improved */
     if (obj->oclass == TOOL_CLASS && !is_weptool(obj))
@@ -4206,8 +4218,12 @@ long svc_type;
     struct obj *obj;
     int charge;
 
-    if ( !(obj = getobj(armor_types, "improve")))
+    if (!(obj = getobj(armor_types, "improve")))
         return 0;
+    if (obj->unpaid) {
+        verbalize("You'll have to buy it first...");
+        return 0;
+    }
 
     switch (svc_type) {
     case SHK_ARM_FIX:
@@ -4301,6 +4317,10 @@ struct monst *shkp;
     obj = getobj(all_count, "enhance");
     if (!obj)
         return 0;
+    if (obj->unpaid) {
+        verbalize("You'll have to buy it first...");
+        return 0;
+    }
 
     if (shk_class_match(WEAPON_CLASS, shkp) == SHK_MATCH
         && obj->oclass != WEAPON_CLASS ) {
@@ -4374,7 +4394,11 @@ shk_charge(const char *slang, struct monst *shkp, boolean premier)
     obj = getobj(all_count, "charge");
     if (!obj) 
         return 0;
-    
+    if (obj->unpaid) {
+        verbalize("You'll have to buy it first...");
+        return 0;
+    }
+
     if (premier) {
         if (shk_class_match(WAND_CLASS, shkp) == SHK_MATCH
             && obj->oclass != WAND_CLASS) {
@@ -4567,7 +4591,11 @@ struct monst *shkp;
 
     if (!(obj = getobj(identify_types, "have tinkered")))
         return 0;
-    
+    if (obj->unpaid) {
+        verbalize("You'll have to buy it first...");
+        return 0;
+    }
+
     if (ACURR(A_INT) < 13) {
        charge += 1000;
     }
