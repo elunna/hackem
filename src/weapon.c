@@ -2704,16 +2704,19 @@ practice()
  * Advanced skills will cross-train lesser skills they share a group with.
  * A weapon skill may belong to more than one group.
  */
-#define PG_SHORT_BLADES		0x01
-#define PG_CHOPPING_BLADES	0x02
-#define PG_SWORDS		    0x04
-#define PG_BLUDGEONS		0x08
-#define PG_FLAILS		    0x10
-#define PG_POLEARMS		    0x20
-#define PG_LAUNCHERS		0x40
-#define PG_THROWN		    0x80
+#define PG_SHORT_BLADES		0x00000001L
+#define PG_CHOPPING_BLADES	0x00000002L
+#define PG_SWORDS		    0x00000004L
+#define PG_BLUDGEONS		0x00000008L
+#define PG_FLAILS		    0x00000010L
+#define PG_POLEARMS		    0x00000020L
+#define PG_LAUNCHERS		0x00000040L
+#define PG_THROWN		    0x00000080L
+#define PG_OFFENSIVE		0x00000100L
+#define PG_DEFENSIVE		0x00000200L
+#define PG_MYSTICAL		    0x00000400L
 
-const uchar weapon_skill_groups[] = {
+const long weapon_skill_groups[] = {
         /* P_DAGGER */		    PG_SHORT_BLADES,
         /* P_KNIFE */		    PG_SHORT_BLADES,
         /* P_AXE */			    PG_CHOPPING_BLADES,
@@ -2743,6 +2746,14 @@ const uchar weapon_skill_groups[] = {
         /* P_BOOMERANG */		PG_THROWN,
         /* P_WHIP */		    PG_FLAILS,
         /* P_UNICORN_HORN */	PG_POLEARMS,
+
+        /* PN_ATTACK_SPELL */       PG_OFFENSIVE,
+        /* PN_HEALING_SPELL */      PG_DEFENSIVE,
+        /* PN_DIVINATION_SPELL */   PG_MYSTICAL,
+        /* PN_ENCHANTMENT_SPELL */  PG_OFFENSIVE | PG_MYSTICAL,
+        /* PN_NECRO_SPELL */        PG_OFFENSIVE,
+        /* PN_ESCAPE_SPELL */       PG_DEFENSIVE,
+        /* PN_MATTER_SPELL */       PG_OFFENSIVE | PG_DEFENSIVE,
 };
 
 /*
@@ -2757,7 +2768,7 @@ skill_crosstrain_bonus(int skill)
 {
     int base_skill, highest_skill, i;
 
-    if (skill < P_FIRST_WEAPON || skill > P_LAST_WEAPON)
+    if (skill < P_FIRST_WEAPON || skill > P_LAST_SPELL)
         return 1;
 
     /* find greatest skill level based solely on training points */
@@ -2775,11 +2786,11 @@ skill_crosstrain_bonus(int skill)
 
     /* find highest related weapon skill advancement */
     highest_skill = P_ISRESTRICTED;
-    for (i = P_FIRST_WEAPON; i <= P_LAST_WEAPON; i++) {
+    for (i = P_FIRST_WEAPON; i <= P_LAST_SPELL; i++) {
         if (i == skill)
             continue;
-        if ((weapon_skill_groups[skill - P_FIRST_WEAPON] &
-             weapon_skill_groups[i - P_FIRST_WEAPON]) == 0)
+        if ((weapon_skill_groups[(long) skill - P_FIRST_WEAPON] &
+             weapon_skill_groups[(long) i - P_FIRST_WEAPON]) == 0)
             continue;
         if (P_SKILL(i) > highest_skill)
             highest_skill = P_SKILL(i);
@@ -2791,30 +2802,30 @@ skill_crosstrain_bonus(int skill)
 STATIC_OVL void
 rnd_crosstrain(int skill)
 {
-    if (skill < P_FIRST_WEAPON || skill > P_LAST_WEAPON)
+    if (skill < P_FIRST_WEAPON || skill > P_LAST_SPELL)
         return;
-    
     switch (P_SKILL(skill)) {
-        default:
-            impossible("rnd_crosstrain: bad skill %d", P_SKILL(skill)); /* fall through */
-        case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            return;
-        case P_BASIC:
-            if (rn2(13))
-                return;
-            break;
-        case P_SKILLED:
-            if (rn2(7))
-                return;
-            break;
         case P_EXPERT:
             if (rn2(3))
                 return;
             break;
+        case P_SKILLED:
+            if (skill <= P_LAST_WEAPON ? rn2(7) : rn2(5))
+                return;
+            break;
+        case P_BASIC:
+            if (skill <= P_LAST_WEAPON ? rn2(13) : rn2(7))
+                return;
+            break;
+        default:
+            impossible("rnd_crosstrain: bad skill %d", P_SKILL(skill)); 
+            /* fall through */
+        case P_ISRESTRICTED:
+        case P_UNSKILLED:
+            return;
     }
 
-    for (int i = P_FIRST_WEAPON; i <= P_LAST_WEAPON; i++) {
+    for (int i = P_FIRST_WEAPON; i <= P_LAST_SPELL; i++) {
         if (i == skill)
             continue;
         /* Is the potential skill maxxed out? */
@@ -2829,9 +2840,8 @@ rnd_crosstrain(int skill)
         /* Fudge factor to spread out the skills */
         if (Luck > 2 ? !rn2(4) : rn2(4))
             continue;
-
-        if ((weapon_skill_groups[skill - P_FIRST_WEAPON] &
-             weapon_skill_groups[i - P_FIRST_WEAPON]) != 0) {
+        if ((weapon_skill_groups[(long) skill - P_FIRST_WEAPON] &
+             weapon_skill_groups[(long) i - P_FIRST_WEAPON]) != 0) {
             P_ADVANCE(i) += 1;
         }
     }
