@@ -1940,6 +1940,9 @@ DOOR:open,(26,16)
 DOOR:closed,(06,17)
 # Special rooms
 ALTAR:(24,09),noalign,sanctum
+
+MAGIC_CHEST:(24,08)
+
 REGION:(22,14,25,18),unlit,"morgue"
 REGION:(32,11,37,14),lit,"shop"
 REGION:(12,02,15,06),lit,"shop"
