@@ -2630,6 +2630,8 @@ register struct monst *mtmp;
         }
         break;
     case S_WRAITH:
+        if (!rn2(2)) 
+            (void) mongets(mtmp, ROBE);
         if (ptr == &mons[PM_NAZGUL]) {
             otmp = mksobj(RIN_INVISIBILITY, FALSE, FALSE);
             curse(otmp);
