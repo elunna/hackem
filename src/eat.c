@@ -1280,7 +1280,7 @@ int pm;
             if (Role_if(PM_UNDEAD_SLAYER)) {
                 /* Unbecoming of Undead Slayers  */
                 You("have disgraced your profession.");
-                adjalign(-3);
+                adjalign(-5);
                 break;
             }
             break;
