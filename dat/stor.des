@@ -5,20 +5,18 @@
 LEVEL: "stor"
 
 ROOM: "ordinary", unlit, random, random, (4,4) {
+    OBJECT: '(', (2,2)
+    OBJECT: '(', (2,2)
     CONTAINER: ('(', "chest"), (2,2) {
         SWITCH [ 7 ] {
         CASE 0:
             OBJECT: '/'
-            OBJECT: '('
-            OBJECT: '('
             OBJECT: '='
             OBJECT: '"'
             ENGRAVING: (2,2), burn, "Begone! Keep Off! Shoo!"
             BREAK
         CASE 1:
             OBJECT: '/'
-            OBJECT: '('
-            OBJECT: '('
             OBJECT: '='
             OBJECT: ('=', "regeneration")
             OBJECT: '*'
@@ -26,11 +24,8 @@ ROOM: "ordinary", unlit, random, random, (4,4) {
             BREAK
         CASE 2:
             OBJECT: '/'
-            OBJECT: '('
-            OBJECT: '('
             OBJECT: '='
             OBJECT: '/'
-            OBJECT: '('
             ENGRAVING: (2, 2), burn, "Property of the Wizard! Do Not Touch!"
             BREAK
         CASE 3:

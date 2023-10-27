@@ -1812,6 +1812,9 @@ xchar x, y;
     case FORGE:
         idx = S_forge;
         break;
+    case MAGIC_CHEST:
+        idx = S_magic_chest;
+        break;
     case FOUNTAIN:
         idx = S_fountain;
         break;
@@ -2039,7 +2042,7 @@ zapdir_to_glyph(dx, dy, beam_type)
 register int dx, dy;
 int beam_type;
 {
-    if (beam_type >= NUM_ZAP) {
+    if (beam_type > NUM_ZAP) {
         impossible("zapdir_to_glyph:  illegal beam type");
         beam_type = 0;
     }
@@ -2182,6 +2185,7 @@ static const char *type_names[MAX_TYPE] = {
     "STAIRS",
     "LADDER",
     "FORGE",
+    "MAGIC_CHEST",
     "FOUNTAIN",
     "VENT",
     "THRONE",

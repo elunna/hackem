@@ -218,8 +218,7 @@ const char *verb;
                         /* normally we'd use ohitmon() but it can call
                            drop_throw() which calls flooreffects() */
                         damage = dmgval(obj, mtmp);
-                        mtmp->mhp -= damage;
-                        if (DEADMONSTER(mtmp)) {
+                        if (damage_mon(mtmp, damage, AD_PHYS)) {
                             if (canspotmon(mtmp))
                                 pline("%s is %s!", Monnam(mtmp),
                                       (nonliving(mtmp->data)
@@ -637,15 +636,6 @@ register struct obj *obj;
                   hliquid("water"),
                   (obj->spe < 0) ? "less" : "great");
         break;
-    case RIN_GAIN_INTELLIGENCE:
-    case RIN_GAIN_WISDOM:
-        pline_The("water flow seems %ser now.",
-                (obj->spe<0) ? "dull" : "quick");
-        break;
-    case RIN_GAIN_DEXTERITY:
-        pline_The("water flow seems %ser now.",
-                (obj->spe<0) ? "slow" : "fast");
-        break;
     case RIN_INCREASE_ACCURACY: /* KMH */
         pline_The("%s flow %s the drain.",
                   hliquid("water"),
@@ -745,11 +735,12 @@ register struct obj *obj;
             pline_The(
                   "sink momentarily looks like a regularly erupting geyser.");
             break;
-        case RIN_PSYCHIC_RESISTANCE:
-            pline_The("sink glows purple for a moment.");
-            break;
         case RIN_SONIC_RESISTANCE:
             pline_The("ring silently bounces down the drain.");
+            break;
+        case RIN_CARRYING:
+            pline_The("sink looks like it can hold %s water than before.",
+                      (obj->spe < 0 ? "less" : "more"));
             break;
         default:
             break;
@@ -824,8 +815,7 @@ register struct obj *obj;
     case AMULET_OF_ESP:
         if (Blind) {
             ideed = FALSE;
-        }
-        else
+        } else
             You("think you saw a %s in the toilet!",
                 Hallucination ? rndmonnam(NULL) : "rat");
         break;
@@ -839,12 +829,10 @@ register struct obj *obj;
                     orcname);
             else
                 You("suddenly notice an extended warranty on the toilet.");
-            /* pline_The("toilet gains an extra life!"); */
         }
         break;
     case AMULET_OF_STRANGULATION:
         pline_The("toilet can't flush anymore!");
-        /* pline_The("toilet seems to scream in agony silently."); */
         break;
     case AMULET_OF_RESTFUL_SLEEP:
         pline_The("toilet water stops running.");
@@ -860,11 +848,9 @@ register struct obj *obj;
             pline_The("toilet feels rubbery.");
         } else
             pline_The("toilet looks very limber.");
-            /* pline_The("toilet doesn't turn to stone."); */
         break;
     case AMULET_OF_CHANGE:
         polymorph_toilet();
-
         /* Never get this one back - lost in the pipes... */
         getitback = FALSE;
         break;
@@ -873,18 +859,15 @@ register struct obj *obj;
             ideed = FALSE;
         } else
             pline_The("toilet looks nothing like a sink.");
-            /* pline_The("toilet seems indestructible."); */
         break;
     case AMULET_OF_REFLECTION:
         if (Blind) {
             ideed = FALSE;
         } else
             You_see("yourself in the toilet %s.", hliquid("water"));
-            /* pline_The("toilet water seems to come back out of the drain!"); */
         break;
     case AMULET_OF_MAGICAL_BREATHING:
         pline_The("toilet won't stop flushing!");
-        /* pline_The("toilet water flows down the drain without requiring the flushing to be operated!"); */
         break;
     case AMULET_OF_MAGIC_RESISTANCE:
         pline_The("toilet is surrounded by a magical shield!");
@@ -894,12 +877,9 @@ register struct obj *obj;
             ideed = FALSE;
         } else
             pline_The("toilet looks very sturdy!");
-            /* pline_The("toilet is definitely not a feature from the variant that calls itself 3.7!"); */
         break;
     case AMULET_OF_FLYING:
         pline_The("toilet %s erupts in a geyser!", hliquid("water"));
-        /* pline_The("toilet soars to the %s, then lands again.", ceiling(u.ux, u.uy)); */
-
         /* We should always get this one back if the effect would push it out */
         getitback = TRUE;
         break;
@@ -917,8 +897,7 @@ register struct obj *obj;
     } else if (getitback) {
         pline_The("toilet flushes, and %s reappears!", doname(obj));
         obj->in_use = FALSE;
-
-        /* 1 in 3 chance of cursing */
+        
         if (!rn2(3))
             curse(obj);
         dropx(obj);
@@ -1457,7 +1436,8 @@ dodown()
             return 1;
         } else if (!trap || !is_hole(trap->ttyp)
                    || !Can_fall_thru(&u.uz) || !trap->tseen) {
-            if (flags.autodig && !context.nopick && uwep && is_pick(uwep)) {
+            if (flags.autodig && !context.nopick && uwep && is_pick(uwep)
+                && retouch_object(&uwep, !uarmg, FALSE)) {
                 return use_pick_axe2(uwep);
             } else if (do_stair_travel('>')) {
                 return 0;
@@ -1930,7 +1910,6 @@ boolean at_stairs, falling, portal;
             || dunlev(&u.uz) < dunlev_reached(&u.uz))
             dunlev_reached(&u.uz) = dunlev(&u.uz);
     }
-    reset_rndmonst(NON_PM); /* u.uz change affects monster generation */
 
     /* set default level change destination areas */
     /* the special level code may override these */
@@ -2533,7 +2512,7 @@ long timeout UNUSED;
      * appear on top and look weird, so prevent that.
      */
      
-    bad_spot = ((body->where == OBJ_FLOOR || body->where==OBJ_BURIED)
+    bad_spot = ((body->where == OBJ_FLOOR || body->where == OBJ_BURIED)
                         && (is_pool(body->ox, body->oy)
                             || is_lava(body->ox, body->oy)
                             || is_ice(body->ox, body->oy)
@@ -2541,13 +2520,12 @@ long timeout UNUSED;
                             || sobj_at(BOULDER, body->ox, body->oy)));
 
     /* maybe F are genocided? */
-     no_eligible = (newpm == NULL);
+    no_eligible = (newpm == NULL);
 
     /* Don't grow mold on the corpse the player is eating. */
     munching = (body == context.victual.piece);
 
     if (already_fungus || bad_spot || no_eligible || munching) {
-        /* Double check it doesn't already have a rot timer */
         if (!obj_has_timer(body, ROT_CORPSE)) {
             /* set to rot away normally */
             start_timer(250L - (monstermoves - peek_at_iced_corpse_age(body)),
@@ -2573,7 +2551,8 @@ long timeout UNUSED;
 
     /* Also, don't let the mold become named. */
     if (has_oname(body)) {
-        ONAME(body) = NULL;
+       /* ONAME(body) = NULL;*/
+        free_oname(body);
     }
 
     /* oeaten isn't used for hp calc here, and zeroing it
@@ -2591,17 +2570,21 @@ long timeout UNUSED;
     if (has_omonst(body))
         free_omonst(body);
 
-    if(!revive_corpse(body, TRUE) || oldquan > 1) {
+    if (!revive_corpse(body, TRUE) || oldquan > 1) {
         /* revive failed, or there were multiple corpses. Reset everything,
          * and set the new corpses to rot away normally. */
         body->corpsenm = oldtyp;
         if (old_oname)
             ONAME(body) = old_oname;
         body->owt = weight(body);
+        if (!obj_has_timer(body, ROT_CORPSE))
+            (void) stop_timer(ROT_CORPSE, obj_to_any(body));
+        
         start_timer(250L - (monstermoves - peek_at_iced_corpse_age(body)),
                     TIMER_OBJECT, ROT_CORPSE, arg);
     }
 }
+
 
 /* Timeout callback. Revive the corpse as a zombie. */
 void
@@ -2633,6 +2616,7 @@ long timeout;
 int
 donull()
 {
+    u.uacted = FALSE;
     return 1; /* Do nothing, but let other things happen */
 }
 
@@ -2746,6 +2730,8 @@ STATIC_OVL int
 countkeys()
 {
     int count = 0;
+    if (carrying_arti(ART_KEY_OF_ACCESS))
+        count = 2;
     if (carrying_arti(ART_KEY_OF_NEUTRALITY))
         count++;
     if (carrying_arti(ART_KEY_OF_CHAOS))

@@ -523,6 +523,10 @@ register struct monst *mtmp;
     switch (strat) {
     case STRAT_HEAL: /* hide and recover */
         mx = mtmp->mx, my = mtmp->my;
+
+        if (u.uswallow && u.ustuck == mtmp)
+            expels(mtmp, mtmp->data, TRUE);
+
         /* if wounded, hole up on or near the stairs (to block them) */
         choose_stairs(&sx, &sy);
         mtmp->mavenge = 1; /* covetous monsters attack while fleeing */

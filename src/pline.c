@@ -140,9 +140,9 @@ piratesay(const char *orig)
                                           ? " killed" : rn2(2) 
                                                 ? " sunk" : " cut down");
     orig = replace(orig, "dies ", 
-                   rn2(2) ? "walks the plank" : rnd(2) 
-                                                ? "dances the hempen jig" : rnd(2) 
-                                                      ? "sees the black spot" : "dies");
+                   rn2(2) ? "walks the plank " : rnd(2) 
+                                                ? "dances the hempen jig " : rnd(2) 
+                                                      ? "sees the black spot " : "dies ");
     orig = replace(orig, "probably", "prolly");
     orig = replace(orig, " own ", " owns ");
     orig = replace(orig, "music ", "chanties ");
@@ -162,7 +162,7 @@ piratesay(const char *orig)
     orig = replace(orig, "Oh no!", "avast ye!");
     orig = replace(orig, "Oh no", "avast ya");
     orig = replace(orig, "services rendered", "crackin' Jenny's tea up");
-    orig = replace(orig, "suffocate", "dance with Jack Ketch");
+    orig = replace(orig, "being suffocated", "dancing with Jack Ketch");
     orig = replace(orig, "fall asleep", "take a chalk");
     orig = replace(orig, "falls asleep", "takes a chalk");
     orig = replace(orig, "wakes up", "shows a leg");

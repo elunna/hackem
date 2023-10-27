@@ -29,8 +29,6 @@ STATIC_DCL boolean FDECL(makemon_rnd_goodpos, (struct monst *,
 #define m_initsgrp(mtmp, x, y, mmf) m_initgrp(mtmp, x, y, 3, mmf)
 #define m_initlgrp(mtmp, x, y, mmf) m_initgrp(mtmp, x, y, 10, mmf)
 #define m_initvlgrp(mtmp, x, y, mmf)  m_initgrp(mtmp, x, y, 20, mmf)
-#define toostrong(monindx, lev) (mons[monindx].difficulty > lev)
-#define tooweak(monindx, lev) (mons[monindx].difficulty < lev)
 
 boolean
 is_home_elemental(ptr)
@@ -210,6 +208,7 @@ extern struct trobj Towel[];
 extern struct trobj Wishing[];
 extern struct trobj Money[];
 extern struct trobj Pickaxe[];
+extern struct trobj Stake[];
 
 /* We can't set up an external struct for an actual
  * Infidel's starting inventory, as they start with
@@ -423,6 +422,15 @@ struct trobj tortlePriest[] = {
     { CLOVE_OF_GARLIC, 0, FOOD_CLASS, 1, 0 },
     { SPRIG_OF_WOLFSBANE, 0, FOOD_CLASS, 1, 0 },
     { UNDEF_TYP, UNDEF_SPE, SPBOOK_CLASS, 2, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0 }
+};
+
+struct trobj tortleSamurai[] = {
+    { KATANA, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { SHORT_SWORD, 0, WEAPON_CLASS, 1, UNDEF_BLESS }, /* wakizashi */
+    { YUMI, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { YA, 0, WEAPON_CLASS, 25, UNDEF_BLESS }, /* variable quan */
+    { TOQUE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { 0, 0, 0, 0, 0 }
 };
 
@@ -995,6 +1003,8 @@ register struct monst *mtmp;
             Samurai[S_ARROWS].trquan = rn1(20, 26);
             if (racial_giant(mtmp))
                 ini_mon_inv(mtmp, giantSamurai, 1);
+            else if (racial_tortle(mtmp))
+                ini_mon_inv(mtmp, tortleSamurai, 1);
             else
                 ini_mon_inv(mtmp, Samurai, 1);
             ini_mon_inv(mtmp, Blindfold, 5);
@@ -1022,6 +1032,8 @@ register struct monst *mtmp;
                 ini_mon_inv(mtmp, tortleUndeadSlayer, 1);
             else
                 ini_mon_inv(mtmp, UndeadSlayer, 1);
+            if (rn2(4))
+                ini_mon_inv(mtmp, Stake, 1);
             break;
         case PM_VALKYRIE:
             ini_mon_inv(mtmp, Valkyrie, 1);
@@ -1109,21 +1121,29 @@ register struct monst *mtmp;
         break;
     case S_HUMAN:
         if (mm == PM_SHOPKEEPER) {
-            mongets(mtmp, SHOTGUN);
-            m_initthrow(mtmp, SHOTGUN_SHELL, 20);
-            m_initthrow(mtmp, SHOTGUN_SHELL, 20);
-        }
-        else if (mm ==  PM_PEASANT) {
-            switch (rn2(5)) {
-            case 0: (void) mongets(mtmp, SCYTHE); break;
-            case 1: (void) mongets(mtmp, KNIFE); break;
-            case 2: (void) mongets(mtmp, CLUB); break;
-            case 3: (void) mongets(mtmp, AXE); break;
-            case 4: (void) mongets(mtmp, VOULGE); break;
+            if (rn2(20) < 13) {
+                mongets(mtmp, SHOTGUN);
+                m_initthrow(mtmp, SHOTGUN_SHELL, 20);
+                m_initthrow(mtmp, SHOTGUN_SHELL, 20);
+                
+            } else if (rn2(2)) {
+                mongets(mtmp, PISTOL);
+                m_initthrow(mtmp, BULLET, 20);
+                m_initthrow(mtmp, BULLET, 20);
+            } else {
+                mongets(mtmp, RIFLE);
+                m_initthrow(mtmp, BULLET, 20);
+                m_initthrow(mtmp, BULLET, 20);
             }
-
-        }
-        else if (mm == PM_GRIMLOCK || mm == PM_GIBBERLING) {
+        } else if (mm ==  PM_PEASANT) {
+            switch (rn2(5)) {
+            case 0: mongets(mtmp, SCYTHE); break;
+            case 1: mongets(mtmp, KNIFE); break;
+            case 2: mongets(mtmp, CLUB); break;
+            case 3: mongets(mtmp, AXE); break;
+            case 4: mongets(mtmp, VOULGE); break;
+            }
+        } else if (mm == PM_GRIMLOCK || mm == PM_GIBBERLING) {
             switch (rn2(3)) {
                 case 0:
                     w1 = rn2(2) ? CLUB : AKLYS; break;
@@ -1136,7 +1156,7 @@ register struct monst *mtmp;
                         set_material(received, STONE);
                     break;
             }
-            (void) mongets(mtmp, w1);
+            mongets(mtmp, w1);
             received = m_carrying(mtmp, w1);
             if (received && w1 == BATTLE_AXE) 
                 set_material(received, STONE);
@@ -1510,6 +1530,8 @@ register struct monst *mtmp;
             (void) mpickobj(mtmp, otmp);
             (void) mongets(mtmp, HIGH_BOOTS);
             (void) mongets(mtmp, CLOAK_OF_DISPLACEMENT);
+            if (rn2(3))
+                (void) mongets(mtmp, RIN_TELEPORT_CONTROL);
         } else if (mm == PM_CHARON) {
             (void) mongets(mtmp, WAN_OPENING);
             mkmonmoney(mtmp, (long) rn1(100, 100));
@@ -1609,8 +1631,8 @@ register struct monst *mtmp;
             if (rn2(2))
                 (void) mongets(mtmp, CORNUTHAUM);
             if (rn2(2))
-                (void) mongets(mtmp, rn2(13) ? AMULET_OF_GUARDING
-                                            : AMULET_OF_LIFE_SAVING);
+                (void) mongets(mtmp, rn2(4) ? (rn2(2) ? AMULET_OF_GUARDING : AMULET_OF_LIFE_SAVING)
+                                            : AMULET_OF_MAGIC_RESISTANCE);
         }
         break;
     case S_GHOST:
@@ -1688,8 +1710,6 @@ register struct monst *mtmp;
             case PM_GNOLL_WARRIOR:
                 if(!rn2(2)) 
                     (void) mongets(mtmp, ORCISH_HELM);
-                if (!rn2(20))
-                    (void) mongets(mtmp, ORANGE_DRAGON_SCALES);
                 else if (rn2(3))
                     (void) mongets(mtmp, SCALE_MAIL);
                 else
@@ -1702,24 +1722,14 @@ register struct monst *mtmp;
 
             case PM_GNOLL_CHIEFTAIN:
                 (void) mongets(mtmp, ORCISH_HELM);
-
-                if (!rn2(10))
-                    (void) mongets(mtmp, BLUE_DRAGON_SCALES);
-                else
-                    (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
-
+                (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
                 (void) mongets(mtmp, ORCISH_SHIELD);
                 (void) mongets(mtmp, KATANA);
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
                 break;
             case PM_GNOLL_SHAMAN:
-                if (!rn2(10))
-                    (void) mongets(mtmp, SILVER_DRAGON_SCALES);
-                else if (rn2(5))
+                 if (rn2(5))
                     (void) mongets(mtmp, CRYSTAL_PLATE_MAIL);
-                else
-                    (void) mongets(mtmp, RED_DRAGON_SCALES);
-
                 (void) mongets(mtmp, PARAZONIUM);
                 m_initthrow(mtmp, SHURIKEN, 12);
                 (void) mongets(mtmp, rnd_offensive_item(mtmp));
@@ -1754,7 +1764,6 @@ register struct monst *mtmp;
                 (void) mpickobj(mtmp, otmp);
                 /* defenses */
                 (void) mongets(mtmp, rnd_defensive_item(mtmp));
-                (void) mongets(mtmp, GREEN_DRAGON_SCALES);
                 break;
             default:
                 m_initweap_normal(mtmp);
@@ -2040,6 +2049,8 @@ register struct monst *mtmp;
             break;
         case PM_DRAUGR:
             mongets(mtmp, (rn2(4) ? WAR_HAMMER : RUNESWORD));
+            if (!rn2(4))
+                (void) mongets(mtmp, LIGHT_ARMOR);
             break;
         case PM_SKELETAL_PIRATE:
             otmp = rn2(2) ? mksobj(SCIMITAR, FALSE, FALSE) :
@@ -2570,11 +2581,22 @@ register struct monst *mtmp;
             otmp->spe = rn1(3, 3);
             (void) mpickobj(mtmp, otmp);
             
-            (void) mongets(mtmp, SPEED_BOOTS);
+            (void) mongets(mtmp, HIGH_BOOTS);
             (void) mongets(mtmp, AMULET_OF_REFLECTION);
-            (void) mongets(mtmp, CLOAK_OF_DISPLACEMENT);
             (void) mongets(mtmp, ROBE_OF_PROTECTION);
             (void) mongets(mtmp, POT_FULL_HEALING);
+            break;
+        } else if (ptr == &mons[PM_HIGH_ICE_MAGE]) {
+            otmp = mksobj(QUARTERSTAFF, FALSE, FALSE);
+            otmp->blessed = otmp->oerodeproof = 1;
+            otmp->spe = rn1(3, 3);
+            otmp->oprops = ITEM_FROST;
+            (void) mpickobj(mtmp, otmp);
+            (void) mongets(mtmp, rn2(3)
+                                 ? rn1(ROBE_OF_WEAKNESS - ROBE + 1, ROBE)
+                                 : CLOAK_OF_PROTECTION);
+            (void) mongets(mtmp, POT_FULL_HEALING);
+            (void) mongets(mtmp, POT_REFLECTION);
             break;
         }
         break;
@@ -2599,7 +2621,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, WAN_DIGGING);
         } else if (is_giant(ptr)) {
             for (cnt = rn2(max(1, (int) (mtmp->m_lev / 2))); cnt; cnt--) {
-                otmp = mksobj(rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1),
+                otmp = mksobj(rnd_class(FIRST_GEM, LAST_GLASS),
                               FALSE, FALSE);
                 otmp->quan = (long) rn1(2, 3);
                 otmp->owt = weight(otmp);
@@ -2608,6 +2630,8 @@ register struct monst *mtmp;
         }
         break;
     case S_WRAITH:
+        if (!rn2(2)) 
+            (void) mongets(mtmp, ROBE);
         if (ptr == &mons[PM_NAZGUL]) {
             otmp = mksobj(RIN_INVISIBILITY, FALSE, FALSE);
             curse(otmp);
@@ -2630,7 +2654,7 @@ register struct monst *mtmp;
             (void) mpickobj(mtmp, otmp);
         } else if (ptr == &mons[PM_VECNA]) {
             otmp = mksobj(ROBE, FALSE, FALSE);
-            otmp->oprops = ITEM_DRLI;
+            otmp->oprops = ITEM_DECAY;
             otmp->oeroded2 = TRUE;
             curse(otmp);
             (void) mpickobj(mtmp, otmp);
@@ -2700,7 +2724,7 @@ register struct monst *mtmp;
         if (!In_mines(&u.uz)) {
             int ngems = rn2(1 + min(level_difficulty() / 5, 2));
             while (ngems > 0) {
-                (void) mongets(mtmp, rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1));
+                (void) mongets(mtmp, rnd_class(FIRST_GEM, LAST_GLASS));
                 ngems--;
             }
         }
@@ -2766,7 +2790,7 @@ register struct monst *mtmp;
 
             /* gems */
             for (cnt = rn2(max(1, (int) (mtmp->m_lev / 2))); cnt; cnt--) {
-                otmp = mksobj(rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1),
+                otmp = mksobj(rnd_class(FIRST_GEM, LAST_GLASS),
                               FALSE, FALSE);
                 otmp->quan = (long) rn1(2, 3);
                 otmp->owt = weight(otmp);
@@ -2915,7 +2939,8 @@ xchar x, y; /* clone's preferred location or 0 (near mon) */
            when peaceful while being different alignment from hero */
         atyp = EMIN(m2)->min_align;
         EMIN(m2)->renegade = (atyp != u.ualign.type) ^ !m2->mpeaceful;
-    } else if (m2->mtame) {
+    } 
+    if (m2->mtame) {
         /* Because m2 is a copy of mon it is tame but not init'ed.
            However, tamedog() will not re-tame a tame dog, so m2
            must be made non-tame to get initialized properly. */
@@ -2967,7 +2992,6 @@ boolean ghostly;
                         makeplural(mons[mndx].mname));
         }
         mvitals[mndx].mvflags |= G_EXTINCT;
-        reset_rndmonst(mndx);
     }
     return result;
 }
@@ -3172,6 +3196,7 @@ long mmflags;
 {
     register struct monst *mtmp;
     struct monst fakemon;
+    struct obj *otmp;
     coord cc;
     int mndx, mcham, ct, mitem;
     boolean anymon = (!ptr);
@@ -3204,7 +3229,11 @@ long mmflags;
         impossible("makemon trying to create a monster at <%d,%d>?", x, y);
         return (struct monst *) 0;
     }
-
+    
+    /* No Nazgul from mkundead */
+    if (ptr == &mons[PM_NAZGUL] && !allow_minvent)
+        return (struct monst *) 0;
+    
     /* Does monster already exist at the position? */
     if (MON_AT(x, y)) {
         if (!(mmflags & MM_ADJACENTOK)
@@ -3243,6 +3272,7 @@ long mmflags;
                     after that, boulder carriers are fair game */
                  && ((tryct == 1 && throws_rocks(ptr) && In_sokoban(&u.uz))
                      || (is_mplayer(ptr) && no_mplayer)
+                     || (ptr == &mons[PM_VOLATILE_MUSHROOM] && inside_shop(x, y))
                      || !goodpos(x, y, &fakemon, gpflags)));
         mndx = monsndx(ptr);
     }
@@ -3421,7 +3451,6 @@ long mmflags;
         mtmp->iscerberus = TRUE;
     } else if (mndx == PM_VECNA) {
         mtmp->isvecna = TRUE;
-        struct obj *otmp;
         otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
                      artiname(ART_KEY_OF_CHAOS));
         if (otmp) {
@@ -3441,7 +3470,6 @@ long mmflags;
         if (context.no_of_wizards == 1 && Is_earthlevel(&u.uz))
             mitem = SPE_DIG;
     } else if (mndx == PM_NIGHTMARE) {
-        struct obj *otmp;
         otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
                      artiname(ART_KEY_OF_LAW));
         if (otmp) {
@@ -3449,7 +3477,6 @@ long mmflags;
             mpickobj(mtmp, otmp);
         }
     } else if (mndx == PM_BEHOLDER) {
-        struct obj *otmp;
         otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
                      artiname(ART_KEY_OF_NEUTRALITY));
         if (otmp) {
@@ -3457,7 +3484,6 @@ long mmflags;
             mpickobj(mtmp, otmp);
         }
     } else if (mndx == PM_VECNA) {
-        struct obj *otmp;
         otmp = oname(mksobj(SKELETON_KEY, TRUE, FALSE),
                      artiname(ART_KEY_OF_CHAOS));
         if (otmp) {
@@ -3566,7 +3592,7 @@ long mmflags;
 
         if (!rn2(100) && is_domestic(ptr)
             && can_saddle(mtmp) && !which_armor(mtmp, W_SADDLE)) {
-            struct obj *otmp = mksobj(SADDLE, TRUE, FALSE);
+            otmp = mksobj(SADDLE, TRUE, FALSE);
 
             put_saddle_on_mon(otmp, mtmp);
         }
@@ -3574,7 +3600,7 @@ long mmflags;
         if (mtmp && which_armor(mtmp, W_SADDLE)) {
             if (!rn2(100) && is_domestic(ptr)
                 && can_wear_barding(mtmp) && !which_armor(mtmp, W_BARDING)) {
-                struct obj *otmp = mksobj(rn2(4) ? BARDING
+                otmp = mksobj(rn2(4) ? BARDING
                                                  : rn2(3) ? SPIKED_BARDING
                                                           : BARDING_OF_REFLECTION, TRUE, FALSE);
 
@@ -3642,8 +3668,9 @@ int mndx;
      */
 
     /* assert(MAXMONNO < 255); */
-    return (mndx == PM_NAZGUL ? 9 
-            : mndx == PM_ERINYS ? 3 
+    return (mndx == PM_NAZGUL ? 9
+            : mndx == PM_ERINYS ? 3
+            : mndx == PM_NOSFERATU ? 7
             : mndx == PM_THRIAE ? 3: MAXMONNO);
 }
 
@@ -3734,17 +3761,14 @@ register struct permonst *ptr;
     return alshift;
 }
 
-static NEARDATA struct {
-    int choice_count;
-    char mchoices[SPECIAL_PM]; /* value range is 0..127 */
-} rndmonst_state = { -1, { 0 } };
-
 /* select a random monster type */
 struct permonst *
 rndmonst()
 {
     register struct permonst *ptr;
-    register int mndx, ct;
+    register int mndx;
+    int weight, totalweight, selected_mndx, zlevel, minmlev, maxmlev;
+    boolean elemlevel, upper;
 
     if (u.ukinghill) { /* You have pirate quest artifact in open inventory */
         if (rnd(100) > 80){
@@ -3760,99 +3784,78 @@ rndmonst()
     if (u.uz.dnum == quest_dnum && rn2(7) && (ptr = qt_montype()) != 0)
         return ptr;
 
-    if (rndmonst_state.choice_count < 0) { /* need to recalculate */
-        int zlevel, minmlev, maxmlev;
-        boolean elemlevel;
-        boolean upper;
+    zlevel = level_difficulty();
+    minmlev = monmin_difficulty(zlevel);
+    maxmlev = monmax_difficulty(zlevel);
+    upper = Is_rogue_level(&u.uz); /* prefer uppercase only on rogue level */
+    elemlevel = In_endgame(&u.uz) && !Is_astralevel(&u.uz); /* elmntl plane */
 
-        rndmonst_state.choice_count = 0;
-        /* look for first common monster */
-        for (mndx = LOW_PM; mndx < SPECIAL_PM; mndx++) {
-            if (!uncommon(mndx))
-                break;
-            rndmonst_state.mchoices[mndx] = 0;
-        }
-        if (mndx == SPECIAL_PM) {
-            /* evidently they've all been exterminated */
-            debugpline0("rndmonst: no common mons!");
-            return (struct permonst *) 0;
-        } /* else `mndx' now ready for use below */
-        zlevel = level_difficulty();
-        /* determine the level of the weakest monster to make. */
-        minmlev = zlevel / 6;
-        /* determine the level of the strongest monster to make.
-           once the invocation is performed, or the Wizard of
-           Yendor is killed, all bets are off */
-        maxmlev = u.uevent.udemigod ? 256 : ((zlevel + u.ulevel) / 2);
-        upper = Is_rogue_level(&u.uz);
-        elemlevel = In_endgame(&u.uz) && !Is_astralevel(&u.uz);
+    /* amount processed so far */
+    totalweight = 0;
+    selected_mndx = NON_PM;
 
-        /*
-         * Find out how many monsters exist in the range we have selected.
-         */
-        for ( ; mndx < SPECIAL_PM; mndx++) { /* (`mndx' initialized above) */
-            ptr = &mons[mndx];
-            rndmonst_state.mchoices[mndx] = 0;
-            if (tooweak(mndx, minmlev) || toostrong(mndx, maxmlev))
-                continue;
-            if (upper && !isupper((uchar) def_monsyms[(int) ptr->mlet].sym))
-                continue;
-            if (elemlevel && wrong_elem_type(ptr))
-                continue;
-            if (uncommon(mndx))
-                continue;
-             if (is_domestic(ptr) && Is_blackmarket(&u.uz)) 
-                continue;
-            if (Inhell && (ptr->geno & G_NOHELL))
-                continue;
-            ct = (int) (ptr->geno & G_FREQ) + align_shift(ptr);
-	    if (!is_mplayer(ptr))
-	        ct *= 3;
-            if (ct < 0 || ct > 127)
-                panic("rndmonst: bad count [#%d: %d]", mndx, ct);
-            rndmonst_state.choice_count += ct;
-            rndmonst_state.mchoices[mndx] = (char) ct;
-        }
+    for (mndx = LOW_PM; mndx < SPECIAL_PM; ++mndx) {
+        ptr = &mons[mndx];
+
+        if (montooweak(mndx, minmlev) || montoostrong(mndx, maxmlev))
+            continue;
+        if (upper && !isupper((uchar) 
+            def_monsyms[(int) ptr->mlet].sym))
+            continue;
+        if (elemlevel && wrong_elem_type(ptr))
+            continue;
+        if (uncommon(mndx))
+            continue;
+        if (is_domestic(ptr) && Is_blackmarket(&u.uz))
+            continue;
+        if (Inhell && (ptr->geno & G_NOHELL))
+            continue;
+#if 0
+        if (Iniceq && !likes_iceq(ptr))
+            continue;
+        if (!Iniceq && is_iceq_only(ptr))
+            continue;
+#endif
+        /* reduce the number of player monsters that could spawn */
+        if (is_mplayer(ptr) && rn2(3))
+            continue;
+        
         /*
          *      Possible modification:  if choice_count is "too low",
          *      expand minmlev..maxmlev range and try again.
          */
-    } /* choice_count+mchoices[] recalc */
+        weight = (int) (ptr->geno & G_FREQ) + align_shift(ptr);
 
-    if (rndmonst_state.choice_count <= 0) {
-        /* maybe no common mons left, or all are too weak or too strong */
-        debugpline1("rndmonst: choice_count=%d", rndmonst_state.choice_count);
-        return (struct permonst *) 0;
+        /* adjust rate at which the undead spawn on Halloween,
+           chaotic-aligned levels will see a greater increase
+           than lawful/neutral */
+        if (is_undead(ptr) && halloween())
+            weight *= 3;
+
+        if (weight < 0 || weight > 127) {
+            impossible("bad weight in rndmonst for mndx %d", mndx);
+            weight = 0;
+        }
+        /* was unconditional, but if weight==0, rn2() < 0 will always fail;
+           also need to avoid rn2(0) if totalweight is still 0 so far */
+        if (weight > 0) {
+            totalweight += weight; /* totalweight now guaranteed to be > 0 */
+            if (rn2(totalweight) < weight)
+                selected_mndx = mndx;
+        }
     }
-
     /*
-     *  Now, select a monster at random.
+     * Possible modification:  if totalweight is "too low" or nothing
+     * viable was picked, expand minmlev..maxmlev range and try again.
      */
-    ct = rnd(rndmonst_state.choice_count);
-    for (mndx = LOW_PM; mndx < SPECIAL_PM; mndx++)
-        if ((ct -= (int) rndmonst_state.mchoices[mndx]) <= 0)
-            break;
-
-    if (mndx == SPECIAL_PM || uncommon(mndx)) { /* shouldn't happen */
-        impossible("rndmonst: bad `mndx' [#%d]", mndx);
+    if (selected_mndx == NON_PM || uncommon(selected_mndx)) {
+        /* maybe no common monsters left, or all are too weak or too strong */
+        if (selected_mndx != NON_PM)
+            debugpline1("rndmonst returning Null [uncommon 'mndx'=#%d]",
+                        selected_mndx);
         return (struct permonst *) 0;
     }
-    return &mons[mndx];
-}
-
-/* called when you change level (experience or dungeon depth) or when
-   monster species can no longer be created (genocide or extinction) */
-void
-reset_rndmonst(mndx)
-int mndx; /* particular species that can no longer be created */
-{
-    /* cached selection info is out of date */
-    if (mndx == NON_PM) {
-        rndmonst_state.choice_count = -1; /* full recalc needed */
-    } else if (mndx < SPECIAL_PM) {
-        rndmonst_state.choice_count -= rndmonst_state.mchoices[mndx];
-        rndmonst_state.mchoices[mndx] = 0;
-    } /* note: safe to ignore extinction of unique monsters */
+    return &mons[selected_mndx];
 }
 
 /* decide whether it's ok to generate a candidate monster by mkclass() */
@@ -3874,8 +3877,9 @@ int mndx, mvflagsmask, genomask;
     if (Is_mineend_level(&u.uz) && ptr == &mons[PM_VAMPIRE_MAGE])
         return FALSE;
     if (In_mines(&u.uz)
-        && (ptr == &mons[PM_ALHOON] 
+        && (ptr == &mons[PM_ALHOON]
             || ptr == &mons[PM_MASTER_MIND_FLAYER]
+            || ptr == &mons[PM_DEEPEST_ONE]
             || ptr == &mons[PM_BANSHEE]))
         return FALSE;
     
@@ -3942,7 +3946,7 @@ aligntyp atyp;
                (or lower) difficulty as preceding candidate (non-zero
                'num' implies last > first so mons[last-1] is safe);
                sometimes accept it even if high difficulty */
-            if (num && toostrong(last, maxmlev)
+            if (num && montoostrong(last, maxmlev)
                 && mons[last].difficulty > mons[last - 1].difficulty
                 && rn2(2))
                 break;
@@ -4303,23 +4307,18 @@ int type;
 {
     switch (type) {
     case PM_STRAW_GOLEM:
-        return 20;
     case PM_PAPER_GOLEM:
+    case PM_DROID:
         return 20;
-    case PM_WAX_GOLEM:
-        return 40;
-    case PM_PLASTIC_GOLEM:
-        return 40;
     case PM_ROPE_GOLEM:
         return 30;
+    case PM_WAX_GOLEM:
+    case PM_PLASTIC_GOLEM:
     case PM_LEATHER_GOLEM:
-        return 40;
     case PM_GOLD_GOLEM:
-        return 40;
-    case PM_WOOD_GOLEM:
-        return 50;
     case PM_FLESH_GOLEM:
         return 40;
+    case PM_WOOD_GOLEM:
     case PM_CLAY_GOLEM:
         return 50;
     case PM_STONE_GOLEM:
@@ -4759,8 +4758,7 @@ struct obj *bag;
             }
             break;
         case 3:
-            /* nomul(-1*(rnd(4)), "sucked by a bag"); */
-            nomul(-1 * (rnd(4)));
+            nomul(-1 * rnd(4));
             if (Hallucination) {
                 You("start climbing into the bag.");
                 nomovemsg = "You give up your attempt to climb into the bag.";
@@ -4768,6 +4766,7 @@ struct obj *bag;
                 pline("%s tries to pull you into the bag!", Something);
                 nomovemsg = "You manage to free yourself.";
             }
+            multi_reason = "stuck in a bag of tricks";
             break;
         case 4:
             if (Blind)
@@ -4775,19 +4774,18 @@ struct obj *bag;
             else
                 pline_The("bag belches out %s.",
                         Hallucination ? "the alphabet" : "a noxious cloud");
-            /* (void)create_gas_cloud(u.ux, u.uy, 2, 8, rn1(3, 2)); */
-            (void)create_gas_cloud(u.ux, u.uy, 2, 8);
+            (void) create_gas_cloud(u.ux, u.uy, 2, 8);
             break;
         case 5:
             if (Blind) {
-                if (breathless(youmonst.data))
+                if (Breathless)
                     You_feel("a puff of air.");
                 else
                     You("smell a musty odor.");
             } else {
                 pline_The("bag exhales a puff of spores.");
             }
-            if (!breathless(youmonst.data))
+            if (!Breathless)
                 (void) make_hallucinated(HHallucination + rn1(35, 10), TRUE, 0L);
             break;
         case 6:
@@ -4802,9 +4800,9 @@ struct obj *bag;
             }
             if ((ACURR(A_WIS) < rnd(20) && !bag->blessed) || bag->cursed) {
                 You("are startled into immobility.");
-                /* nomul(-1*rnd(3), "startled by a bag"); */
                 nomul(-1 * rnd(3));
                 nomovemsg = "You regain your composure.";
+                multi_reason = "startled by a bag";
             }
             break;
         case 7:
@@ -4858,7 +4856,6 @@ struct obj *bag;
             }
             return 1;
         }
-            
     }
     return 0;
 }

@@ -798,7 +798,8 @@ struct monst *mtmp;
             }
         }
         nomore(MUSE_BAG_OF_TRICKS);
-        if (obj->otyp == BAG_OF_TRICKS && obj->spe > 0) {
+        if ((obj->otyp == BAG_OF_TRICKS || obj->otyp == BAG_OF_RATS) 
+              && obj->spe > 0) {
             m.defensive = obj;
             m.has_defense = MUSE_BAG_OF_TRICKS;
         }
@@ -954,7 +955,8 @@ struct obj *start;
             m.has_defense = MUSE_POT_RESTORE_ABILITY;
         }
         nomore(MUSE_BAG_OF_TRICKS);
-        if (obj->otyp == BAG_OF_TRICKS && obj->spe > 0) {
+        if ((obj->otyp == BAG_OF_TRICKS || obj->otyp == BAG_OF_RATS) 
+              && obj->spe > 0) {
             m.defensive = obj;
             m.has_defense = MUSE_BAG_OF_TRICKS;
         }
@@ -1259,17 +1261,21 @@ struct monst *mtmp;
     case MUSE_BAG_OF_TRICKS: {
         coord cc;
         struct monst *mon;
-        /* pm: 0 => random, eel => aquatic, croc => amphibious */
-        struct permonst *pm = !is_pool(mtmp->mx, mtmp->my) ? 0
-                                                           : &mons[u.uinwater ? PM_GIANT_EEL : PM_CROCODILE];
+        struct permonst *pm;
+        
+        if (otmp->otyp == BAG_OF_RATS)
+            pm = &mons[PM_SEWER_RAT + rn2(8)]; /* ANY rat is fair game */
+        else /* pm: 0 => random, eel => aquatic, croc => amphibious */
+            pm = !is_pool(mtmp->mx, mtmp->my) ? 0
+                    : &mons[u.uinwater ? PM_GIANT_EEL : PM_CROCODILE];
         
         if (!enexto(&cc, mtmp->mx, mtmp->my, pm))
             return 0;
         mbagmsg(mtmp, otmp);
         otmp->spe--;
-        mon = makemon((struct permonst *) 0, cc.x, cc.y, NO_MM_FLAGS);
+        mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
         if (mon && canspotmon(mon) && oseen)
-            makeknown(BAG_OF_TRICKS);
+            makeknown(otmp->otyp);
         return 2;
     }
     case MUSE_SCR_ELEMENTALISM: {
@@ -1600,7 +1606,6 @@ struct monst *mtmp;
     /*NOTREACHED*/
     return 0;
 }
-/* --hackem: Starting from 50 so we don't conflict with the defensive items */
 
 #define MUSE_WAN_DEATH          50
 #define MUSE_WAN_SLEEP          51
@@ -1870,7 +1875,8 @@ boolean reflection_skip;
             }
             nomore(MUSE_WAN_NOISE);
             if (obj->otyp == WAN_NOISE) {
-                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_LOUD)) {
+                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_LOUD) 
+                      && !resists_sonic(&youmonst)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_WAN_NOISE;
                 } else if (obj->spe < 1 && pick_to_charge(obj)) {
@@ -2259,42 +2265,6 @@ register struct obj *otmp;
         mtmp->mux = u.ux;
         mtmp->muy = u.uy;
         break;
-    case WAN_DELUGE:
-        reveal_invis = TRUE;
-        if (mtmp == &youmonst) {
-            if (zap_oseen)
-                makeknown(WAN_DELUGE);
-            if (rnd(20) < 10 + u.uac) {
-                tmp = d(likes_fire(youmonst.data) ? 12 : 1, 6);
-                pline_The("jet of water hits you!");
-                erode_armor(&youmonst, ERODE_RUST);
-                losehp(tmp, "jet of water", KILLED_BY_AN);
-            } else
-                pline_The("jet of water misses you.");
-            stop_occupation();
-            nomul(0);
-        } else if (mtmp->data == &mons[PM_WATER_ELEMENTAL]) {
-            mtmp->mhp += d(6, 6);
-            if (mtmp->mhp > mtmp->mhpmax)
-                mtmp->mhp = mtmp->mhpmax;
-            if (canseemon(mtmp)) {
-                pline("%s looks a lot better.", Monnam(mtmp));
-            }
-        }
-        else if (mtmp->data == &mons[PM_EARTH_ELEMENTAL]) {
-            if (canseemon(mtmp))
-                pline("%s turns into a roiling pile of mud!", Monnam(mtmp));
-            (void) newcham(mtmp, &mons[PM_MUD_ELEMENTAL], FALSE, FALSE);
-        }
-        else if (rnd(20) < 10 + find_mac(mtmp)) {
-            tmp = d(likes_fire(mtmp->data) ? 12 : 1, 6);
-            hit("jet of water", mtmp, exclam(tmp));
-        } else {
-            miss("jet of water", mtmp);
-            if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
-                makeknown(WAN_DELUGE);
-        }
-        break;
    /* disabled because find_offensive() never picks WAN_TELEPORTATION */
     case WAN_TELEPORTATION:
         if (hits_you) {
@@ -2374,15 +2344,7 @@ register struct obj *otmp;
             shieldeff(mtmp->mx, mtmp->my);
             break;	/* skip makeknown */
         } else if (!resist(mtmp, otmp->oclass, tmp, NOTELL) && mtmp->mhp > 0) {
-            mtmp->mhpmax -= tmp;
-            if (mtmp->mhpmax <= 0 || mtmp->m_lev <= 0)
-                monkilled(mtmp, "", AD_DRLI);
-            else {
-                mtmp->m_lev--;
-                if (canseemon(mtmp)) {
-                    pline("%s suddenly seems weaker!", Monnam(mtmp));
-                }
-            }
+            mon_losexp(mtmp, tmp, FALSE);
         }
         if (cansee(mtmp->mx, mtmp->my) && zap_oseen)
                 makeknown(WAN_DRAINING);
@@ -2475,6 +2437,19 @@ struct obj *obj;                     /* 2nd arg to fhitm/fhito */
             case WAN_STRIKING:
                 destroy_drawbridge(x, y);
             }
+        if (levl[x][y].typ == IRONBARS 
+            && !(levl[x][y].wall_info & W_NONDIGGABLE)
+            && obj->otyp == WAN_STRIKING) {
+            levl[x][y].typ = ROOM;
+            if (cansee(x, y))
+                pline_The("iron bars are blown apart!");
+            else if (!Deaf)
+                You_hear("a lot of loud clanging sounds!");
+            wake_nearto(x, y, 20 * 20);
+            newsym(x, y);
+            /* stop the bolt here; it takes a lot of energy to destroy bars */
+            range = 0;
+        }
         /*
          * Affect objects on the floor before monster, so that objects dropped
          * by hero when polymorphed are safe from polymorph by same beam hit;
@@ -2617,11 +2592,12 @@ struct monst *mtmp;
     case MUSE_WAN_CORROSION:
     case MUSE_WAN_POISON_GAS:
     case MUSE_WAN_NOISE:
+    case MUSE_WAN_DELUGE:
         mzapwand(mtmp, otmp, FALSE);
         if (oseen)
             makeknown(otmp->otyp);
         m_using = TRUE;
-        buzz((int) (-30 - (otmp->otyp - WAN_MAGIC_MISSILE)),
+        buzz(ZT_MONWAND(otmp->otyp - WAN_MAGIC_MISSILE),
              (otmp->otyp == WAN_MAGIC_MISSILE) ? 2 : 6, mtmp->mx, mtmp->my,
              sgn(tbx), sgn(tby));
         m_using = FALSE;
@@ -2631,9 +2607,8 @@ struct monst *mtmp;
     case MUSE_HORN_OF_BLASTING:
         mplayhorn(mtmp, otmp, FALSE);
         m_using = TRUE;
-        buzz(-30 - ((otmp->otyp == FROST_HORN) ? AD_COLD - 1 : 
-            (otmp->otyp == HORN_OF_BLASTING) ? AD_LOUD - 1 : AD_FIRE - 1),
-             mtmp->m_lev, mtmp->mx, mtmp->my, sgn(tbx),
+        buzz(ZT_MONWAND(otmp->otyp == FROST_HORN ? ZT_COLD : ZT_FIRE),
+             rn1(6, 6), mtmp->mx, mtmp->my, sgn(tbx),
              sgn(tby));
         m_using = FALSE;
         return (DEADMONSTER(mtmp)) ? 1 : 2;
@@ -2653,12 +2628,12 @@ struct monst *mtmp;
         if (!Deaf) {
             /* No effects on you if you can't hear the music, but the monster
              * doesn't know that so it won't be prevented from trying. */
-            if (Sleep_resistance)
+            if (how_resistant(SLEEP_RES) > 90)
                 You("yawn.");
             else {
                 You("fall asleep.");
                 /* sleep time is same as put_monsters_to_sleep */
-                fall_asleep(-d(10, 10), TRUE);
+                fall_asleep(-resist_reduce(d(10, 10), SLEEP_RES), TRUE);
             }
         }
         otmp->spe--;
@@ -2672,7 +2647,6 @@ struct monst *mtmp;
     case MUSE_WAN_UNDEAD_TURNING:
     case MUSE_WAN_STRIKING:
     case MUSE_WAN_WIND:
-    case MUSE_WAN_DELUGE:
     case MUSE_WAN_SLOW_MONSTER:
         zap_oseen = oseen;
         mzapwand(mtmp, otmp, FALSE);
@@ -2713,7 +2687,6 @@ struct monst *mtmp;
                 if (isok(x, y) && !closed_door(x, y)
                     && !IS_ROCK(levl[x][y].typ) 
                     && !IS_AIR(levl[x][y].typ)
-                    && !(Is_blackmarket(&u.uz) && rn2(2))
                     && (((x == mmx) && (y == mmy)) ? !is_blessed
                                                    : !is_cursed)
                     && (x != u.ux || y != u.uy)) {
@@ -2753,9 +2726,10 @@ struct monst *mtmp;
             monstseesu(M_SEEN_FIRE);
             burn_away_slime();
             if (Half_spell_damage)
-                num = (num + 1) / 2;
+                losehp(((num + 1) / 2), "scroll of fire", KILLED_BY_AN);
             else
                 losehp(num, "scroll of fire", KILLED_BY_AN);
+            
             for (mtmp2 = fmon; mtmp2; mtmp2 = mtmp2->nmon) {
                 if (DEADMONSTER(mtmp2))
                     continue;
@@ -2764,10 +2738,9 @@ struct monst *mtmp;
                 if (dist2(mtmp2->mx, mtmp2->my, mtmp->mx, mtmp->my) < 3) {
                     if (resists_fire(mtmp2) || defended(mtmp2, AD_FIRE))
                         continue;
-                    damage_mon(mtmp2, num, AD_FIRE);
                     if (resists_cold(mtmp2)) /* natural resistance */
-                        mtmp2->mhp -= 3 * num;
-                    if (DEADMONSTER(mtmp2)) {
+                        num *= 3;
+                    if (damage_mon(mtmp2, num, AD_FIRE)) {
                         mondied(mtmp2);
                         break;
                     }
@@ -3886,7 +3859,8 @@ struct obj *obj;
             || typ == HORN_OF_BLASTING 
             || typ == MAGIC_FLUTE)
             return (obj->spe > 0 && can_blow(mon));
-        if (typ == SKELETON_KEY || typ == LOCK_PICK || typ == CREDIT_CARD)
+        if (typ == SKELETON_KEY || typ == LOCK_PICK
+            || typ == CREDIT_CARD || typ == MAGIC_KEY)
             return TRUE;
         if ((typ == BAG_OF_HOLDING && !obj->cursed) || typ == OILSKIN_SACK
             || typ == SACK || (typ == BAG_OF_TRICKS && obj->spe > 0))
@@ -3931,8 +3905,6 @@ struct obj *obj;
             return (!(resists_poison(mon) || defended(mon, AD_DRST)));
         if (typ == RIN_SONIC_RESISTANCE)
             return (!(resists_sonic(mon) || defended(mon, AD_LOUD)));
-        if (typ == RIN_PSYCHIC_RESISTANCE)
-            return (!(resists_psychic(mon) || defended(mon, AD_PSYC)));
         if (typ == RIN_SLOW_DIGESTION)
             return (!mon_prop(mon, SLOW_DIGESTION));
         if (typ == RIN_REGENERATION)
@@ -3978,13 +3950,6 @@ const char *str;
             makeknown(BARDING_OF_REFLECTION);
         }
         return TRUE;
-    } else if ((orefl = which_armor(mon, W_ARMG))
-               && orefl->otyp == ART_DRAGONBANE) {
-        if (str) {
-            pline(str, s_suffix(mon_nam(mon)), "gloves");
-            makeknown(ART_DRAGONBANE);
-        }
-        return TRUE;
     } else if (arti_reflects(MON_WEP(mon))) {
         /* due to wielded artifact weapon */
         if (str)
@@ -3999,8 +3964,7 @@ const char *str;
         return TRUE;
     } else if ((orefl = which_armor(mon, W_ARM))
                && Is_dragon_scaled_armor(orefl)
-               && (Dragon_armor_to_scales(orefl) == SILVER_DRAGON_SCALES
-                   || Dragon_armor_to_scales(orefl) == CHROMATIC_DRAGON_SCALES)) {
+               && (Dragon_armor_to_scales(orefl) == SILVER_DRAGON_SCALES)) {
         if (str)
             pline(str, s_suffix(mon_nam(mon)), "armor");
         return TRUE;
@@ -4047,7 +4011,6 @@ const char *fmt, *str;
         monstseesu(M_SEEN_REFL);
         return TRUE;
     } else if (EReflecting & W_ARMG) {
-        /* Due to wearing the artifact Dragonbane */
         if (fmt && str)
             pline(fmt, str, "gloves");
         monstseesu(M_SEEN_REFL);
@@ -4430,8 +4393,9 @@ boolean by_you; /* true: if mon kills itself, hero gets credit/blame */
             pline("%s breathes fire on %sself.", Monnam(mon), mhim(mon));
         if (!rn2(3))
             mon->mspec_used = rn1(10, 5);
-        /* -21 => monster's fire breath; 1 => # of damage dice */
-        dmg = zhitm(mon, by_you ? 21 : -21, 1, &odummyp);
+        /* 1 => # of damage dice */
+        dmg = zhitm(mon, by_you ? ZT_BREATH(ZT_FIRE) : -ZT_BREATH(ZT_FIRE),
+                    1, &odummyp);
     } else if (otyp == SCR_FIRE) {
         mreadmsg(mon, obj);
         if (mon->mconf) {
@@ -4446,9 +4410,7 @@ boolean by_you; /* true: if mon kills itself, hero gets credit/blame */
         } else {
             dmg = (2 * (rn1(3, 3) + 2 * bcsign(obj)) + 1) / 3;
             m_useup(mon, obj); /* before explode() */
-            /* -11 => monster's fireball */
-            explode(mon->mx, mon->my, -11, dmg, SCROLL_CLASS,
-                    /* by_you: override -11 for mon but not others */
+            explode(mon->mx, mon->my, -ZT_SPELL(ZT_FIRE), dmg, SCROLL_CLASS,
                     by_you ? -EXPL_FIERY : EXPL_FIERY);
             dmg = 0; /* damage has been applied by explode() */
         }
@@ -4457,8 +4419,9 @@ boolean by_you; /* true: if mon kills itself, hero gets credit/blame */
             mplayhorn(mon, obj, TRUE);
         else
             mzapwand(mon, obj, TRUE);
-        /* -1 => monster's wand of fire; 2 => # of damage dice */
-        dmg = zhitm(mon, by_you ? 1 : -1, 2, &odummyp);
+        /* 2 => # of damage dice */
+        dmg = zhitm(mon, by_you ? ZT_WAND(ZT_FIRE) : -ZT_WAND(ZT_FIRE),
+                    2, &odummyp);
     }
 
     if (dmg) {

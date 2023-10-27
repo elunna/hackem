@@ -1678,8 +1678,13 @@ level_difficulty()
              */
 #endif /*0*/
     }
-    if (uamul && uamul->otyp == AMULET_OF_DANGER) {
+    if ((uamul && uamul->otyp == AMULET_OF_DANGER) || using_oprop(ITEM_DANGER)) {
         res += 15;
+    }
+    /* Wishes increase difficulty (unless fuzzing) */
+    if (u.uconduct.wishes > 1 && !iflags.debug_fuzzer) {
+        int bump = (u.uconduct.wishes - 1) * 2;
+        res += (bump > 20) ? 20 : bump;
     }
     return (xchar) res;
 }
@@ -2371,9 +2376,19 @@ d_level *lev;
 }
 
 #define INTEREST(feat)                                                   \
-    ((feat).nfount || (feat).nsink || (feat).nthrone || (feat).naltar    \
-     || (feat).ngrave || (feat).ntree || (feat).nshop || (feat).ntemple  \
-     || (feat).nforge || (feat).ntoilet || (feat).nvent || (feat).ndeadtree)
+    ((feat).nfount \
+    || (feat).nsink \
+    || (feat).nthrone \
+    || (feat).naltar \
+    || (feat).ngrave  \
+    || (feat).ntree \
+    || (feat).nshop \
+    || (feat).ntemple \
+    || (feat).nforge \
+    || (feat).nmagicchest \
+    || (feat).ntoilet \
+    || (feat).nvent \
+    || (feat).ndeadtree)
   /* || (feat).water || (feat).ice || (feat).lava */
 
 /* returns true if this level has something interesting to print out */
@@ -2604,6 +2619,11 @@ recalc_mapseen()
                 count = mptr->feat.nforge + 1;
                 if (count <= 3)
                     mptr->feat.nforge = count;
+                break;
+            case MAGIC_CHEST:
+                count = mptr->feat.nmagicchest + 1;
+                if (count <= 3)
+                    mptr->feat.nmagicchest = count;
                 break;
             case GRAVE:
                 count = mptr->feat.ngrave + 1;
@@ -3013,7 +3033,8 @@ boolean printdun;
     /* calculate level number */
     i = depthstart + mptr->lev.dlevel - 1;
     if (In_endgame(&mptr->lev))
-        Sprintf(buf, "%s%s:", TAB, endgamelevelname(tmpbuf, i));
+        Sprintf(buf, "%s%s:", TAB, 
+                endgamelevelname(tmpbuf, observable_depth(&mptr->lev)));
     else
         Sprintf(buf, "%sLevel %d:", TAB, i);
 
@@ -3067,6 +3088,7 @@ boolean printdun;
         }
         ADDNTOBUF("throne", mptr->feat.nthrone);
         ADDNTOBUF("forge", mptr->feat.nforge);
+        ADDNTOBUF("magic chest", mptr->feat.nmagicchest);
         ADDNTOBUF("fountain", mptr->feat.nfount);
         ADDNTOBUF("sink", mptr->feat.nsink);
         ADDNTOBUF("toilet", mptr->feat.ntoilet);
@@ -3175,4 +3197,32 @@ boolean printdun;
     }
 }
 
+
+void
+forget_mapseen(ledger_num)
+        int ledger_num;
+{
+    mapseen *mptr;
+    struct cemetery *bp;
+
+    for (mptr = mapseenchn; mptr; mptr = mptr->next)
+        if (dungeons[mptr->lev.dnum].ledger_start + mptr->lev.dlevel == ledger_num)
+            break;
+
+    /* if not found, then nothing to forget */
+    if (mptr) {
+        mptr->flags.forgot = 1;
+        mptr->br = (branch *) 0;
+
+        /* custom names are erased, not just forgotten until revisited */
+        if (mptr->custom) {
+            mptr->custom_lth = 0;
+            free((genericptr_t) mptr->custom);
+            mptr->custom = (char *) 0;
+        }
+        (void) memset((genericptr_t) mptr->msrooms, 0, sizeof mptr->msrooms);
+        for (bp = mptr->final_resting_place; bp; bp = bp->next)
+            bp->bonesknown = FALSE;
+    }
+}
 /*dungeon.c*/

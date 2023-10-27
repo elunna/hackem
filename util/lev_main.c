@@ -209,6 +209,7 @@ static struct {
     { "lemurepit", LEMUREPIT },
     { "migohive", MIGOHIVE },
     { "fungusfarm",  FUNGUSFARM },
+    { "zouthern room", ZROOM },
     { "clinic",  CLINIC },
     { "terrorhall",  TERRORHALL },
     
@@ -308,13 +309,13 @@ char **argv;
         ":dat:knox.des",
         ":dat:kobold.des",
         ":dat:lethe.des",
-        ":dat:mall.des",
         ":dat:medusa.des",
         ":dat:mines.des",
         ":dat:mtemple.des",
         ":dat:nkai.des",
         ":dat:nymph.des",
         ":dat:oracle.des",
+        ":dat:ozzy.des",
         ":dat:qchaos.des",
         ":dat:qlawful.des",
         ":dat:qneutral.des",
@@ -1383,6 +1384,8 @@ char c;
         return (SCORR);
     case 'U':
         return (FORGE);
+    case 'M':
+        return (MAGIC_CHEST);
     case '{':
         return (FOUNTAIN);
     case '\\':
@@ -1391,6 +1394,8 @@ char c;
         return (SINK);
     case 'Z':
         return (TOILET);
+    case 'V':
+        return (VENT);
     case '}':
         return (MOAT);
     case 'w':

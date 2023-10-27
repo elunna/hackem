@@ -43,6 +43,8 @@ boolean clumsy;
     int dmg = (ACURRSTR + ACURR(A_DEX) + ACURR(A_CON)) / 15;
     int specialdmg, kick_skill = P_NONE;
     boolean trapkilled = FALSE;
+    boolean hitshade = uarmf && (uarmf->material == SILVER 
+            || uarmf->material == BONE);
     struct obj* hated_obj = NULL;
 
     if (uarmf && uarmf->otyp == KICKING_BOOTS)
@@ -62,12 +64,12 @@ boolean clumsy;
         dmg = 0;
 
     /* attacking a shade is normally useless */
-    if (noncorporeal(mon->data))
+    if (noncorporeal(mon->data) && !hitshade)
         dmg = 0;
 
     specialdmg = special_dmgval(&youmonst, mon, W_ARMF, &hated_obj);
 
-    if (noncorporeal(mon->data) && !specialdmg) {
+    if (noncorporeal(mon->data) && !specialdmg && !hitshade) {
         pline_The("%s.", kick_passes_thru);
         /* doesn't exercise skill or abuse alignment or frighten pet,
            and shades have no passive counterattack */
@@ -151,7 +153,7 @@ xchar x, y;
         /* kicking might be halted by discovery of hidden monster,
            by player declining to attack peaceful monster,
            or by passing out due to encumbrance */
-        if (attack_checks(mon, (struct obj *) 0) || overexertion())
+        if (attack_checks(mon))
             mon = 0; /* don't kick after all */
         context.forcefight = save_forcefight;
     }
@@ -255,8 +257,10 @@ xchar x, y;
      */
     if (i < (j * 3) / 10) {
         if (!rn2((i < j / 10) ? 2 : (i < j / 5) ? 3 : 4)) {
-            if (martial())   /* if you're a martial artist, you're not a clumsy kicker */
+            if (martial()) {
+                /* if you're a martial artist, you're not a clumsy kicker */
                 goto doit;
+            }
             Your("clumsy kick does no damage.");
             (void) passive(mon, uarmf, FALSE, 1, AT_KICK, FALSE);
             return;
@@ -267,20 +271,23 @@ xchar x, y;
             clumsy = TRUE;
     }
 
-    if (Fumbling)
+    if (Fumbling) {
         clumsy = TRUE;
-
-    else if (uarm && objects[uarm->otyp].oc_bulky && ACURR(A_DEX) < rnd(25))
+    } else if (uarm && objects[uarm->otyp].oc_bulky
+               && ACURR(A_DEX) < rnd(25)) {
         clumsy = TRUE;
+    }
  doit:
     if (Role_if(PM_MONK)
         && (Race_if(PM_CENTAUR) || Race_if(PM_TORTLE))
         && (touch_petrifies(mon->data)
-            || (how_resistant(DISINT_RES) == 0
-                && mon->data == &mons[PM_BLACK_DRAGON])))
+            || (how_resistant(DISINT_RES) < 50
+                && (mon->data == &mons[PM_BLACK_DRAGON]
+                    || mon->data == &mons[PM_ANTIMATTER_VORTEX]))))
         return;
     else if (Role_if(PM_MONK) || Role_if(PM_SAMURAI))
-        You("%s %s!", martial_arts_kick[rn2(SIZE(martial_arts_kick))], mon_nam(mon));
+        You("%s %s!", martial_arts_kick[rn2(SIZE(martial_arts_kick))],
+            mon_nam(mon));
     else
         You("kick %s.", mon_nam(mon));
 
@@ -625,8 +632,7 @@ xchar x, y;
     if (kickedobj->oartifact == ART_MJOLLNIR)
         range = 1;
 
-    /* Spirits are incorporeal, but they'll budge a square or two.
-     * TODO: Kicking increases their age. */
+    /* Spirits are incorporeal, but they'll budge a square or two.*/
     if (kickedobj->oclass == SPIRIT_CLASS) {
         range = 2;
     }
@@ -830,6 +836,8 @@ const char *kickobjnam;
         what = "a toilet";        
     else if (IS_FORGE(maploc->typ))
         what = "a forge";
+    else if (IS_MAGIC_CHEST(maploc->typ))
+        what = "a magic chest";
     else if (IS_ALTAR(maploc->typ))
         what = "an altar";
     else if (IS_DRAWBRIDGE(maploc->typ))
@@ -1140,7 +1148,7 @@ boolean need_dir;
                     i = 6;
                 while (i--)
                     (void) mksobj_at(
-                        rnd_class(DILITHIUM_CRYSTAL, LUCKSTONE - 1), x, y,
+                        rnd_class(FIRST_GEM, LAST_GLASS), x, y,
                         FALSE, TRUE);
                 if (Blind)
                     You("kick %s loose!", something);
@@ -1204,6 +1212,12 @@ boolean need_dir;
             }
             exercise(A_DEX, TRUE);
             return 1;
+        }
+        if (IS_MAGIC_CHEST(maploc->typ)) {
+            if (Levitation)
+                goto dumb;
+            pline("THUNK!"); /* same sound effect as other chests */
+            goto ouch;       /* but these are much sturdier */
         }
         if (IS_GRAVE(maploc->typ)) {
             if (Levitation)

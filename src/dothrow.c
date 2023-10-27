@@ -95,10 +95,8 @@ int shotlimit;
         You("cannot throw an object at yourself.");
         return 0;
     }
-    if (is_demon(raceptr(&youmonst)) && obj->material == SILVER) {
-        retouch_object(&obj, TRUE);
-        return 0;
-    }
+    if (!retouch_object(&obj, !uarmg, TRUE))
+        return 1;
     u_wipe_engr(2);
     if (!uarmg && obj->otyp == CORPSE && touch_petrifies(&mons[obj->corpsenm])
         && !Stone_resistance) {
@@ -180,6 +178,10 @@ int shotlimit;
         case PM_SAMURAI:
             /* role-specific launcher and its ammo */
             if (obj->otyp == YA && uwep && uwep->otyp == YUMI)
+                multishot++;
+            break;
+        case PM_BARBARIAN:
+            if (obj->otyp == THROWING_AXE)
                 multishot++;
             break;
         default:
@@ -778,8 +780,7 @@ int x, y;
         ) {
         const char *mnam, *pronoun;
         int glyph = glyph_at(x, y);
-        boolean stomping = (uarmf && uarmf->otyp == STOMPING_BOOTS 
-                            && mon->data->msize <= MZ_SMALL);
+        boolean stomping = (Stomping && mon->data->msize <= MZ_SMALL);
 
 
         mon->mundetected = 0; /* wakeup() will handle mimic */
@@ -1087,7 +1088,8 @@ int dx, dy, range;
     wakeup(mon, !context.mon_moving);
     /* At the very least, debilitate the monster */
     mon->movement = 0;
-    mon->mstun = 1;
+    if (!(resists_stun(mon->data) || defended(mon, AD_STUN)))
+        mon->mstun = 1;
 
     /* Is the monster stuck or too heavy to push?
      * (very large monsters have too much inertia, even floaters and flyers)
@@ -1401,12 +1403,13 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
 {
     register struct monst *mon;
     int range, urange;
-    boolean crossbowing, gunning, boomeranging, clear_thrownobj,
-            impaired = (Confusion || Stunned || Blind
-                        || Hallucination || Fumbling || Afraid),
-            tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
-    
-    crossbowing = gunning = boomeranging = clear_thrownobj = FALSE;
+    boolean crossbowing = FALSE;
+    boolean gunning = FALSE;
+    boolean boomeranging = FALSE;
+    boolean clear_thrownobj = FALSE;
+    boolean impaired = (Confusion || Stunned || Blind
+                        || Hallucination || Fumbling || Afraid);
+    boolean tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
     
     /* 5lo: This gets used a lot, so put it here
      * hackem: Updated so that the lightsaber only auto-returns if thrown from
@@ -1422,7 +1425,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
          && P_SKILL(weapon_type(obj)) >= P_SKILLED);
     
     /* KMH -- Handle Plague here */
-    if (uwep && uwep->oartifact == ART_PLAGUE &&
+    if (wielding_artifact(ART_PLAGUE) &&
         ammo_and_launcher(obj, uwep) && is_poisonable(obj))
         obj->opoisoned = 1;
 
@@ -1628,6 +1631,8 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                         break;
                     case SLING:
                         range += (int) urange / 2;
+                        if (uwep->oartifact == ART_DAVID_S_SLING)
+                            range += urange + 1; /* divine workmanship */
                         break;
                     default:
                         break;
@@ -1766,7 +1771,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                             setuqwep((struct obj *) 0);
                         setuwep(obj);
                         u.twoweap = twoweap;
-                        retouch_object(&obj, TRUE);
+                        retouch_object(&obj, !uarmg, TRUE);
                         if (cansee(bhitpos.x, bhitpos.y))
                             newsym(bhitpos.x, bhitpos.y);
                     } else {
@@ -2037,7 +2042,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     register int disttmp; /* distance modifier */
     int otyp = obj->otyp, hmode;
     boolean guaranteed_hit = (u.uswallow && mon == u.ustuck);
-    boolean hellfiring = (uwep && uwep->oartifact == ART_HELLFIRE);
+    boolean hellfiring = wielding_artifact(ART_HELLFIRE);
     int dieroll;
 
     hmode = (obj == uwep) ? HMON_APPLIED
@@ -2083,7 +2088,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     if (uarmg && uwep && objects[uwep->otyp].oc_skill == P_BOW) {
         switch (uarmg->otyp) {
         case GAUNTLETS_OF_POWER: /* metal */
-        case BOXING_GLOVES: /* bulky */
+        case GAUNTLETS_OF_FORCE: /* bulky */
         case GAUNTLETS:
             tmp -= 2;
             break;
@@ -2110,6 +2115,8 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     if (racial_orc(mon)
         && maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF)))
         tmp++;
+    if (Role_if(PM_BARBARIAN) && obj->otyp == THROWING_AXE)
+        tmp += 3;
     if (guaranteed_hit) {
         tmp += 1000; /* Guaranteed hit */
     }
@@ -2261,14 +2268,12 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             exercise(A_DEX, TRUE);
 
             /* Detonate bolts shot by Hellfire */
-#define ZT_FIRE (10 + (AD_FIRE - 1))
             if (hellfiring && ammo_and_launcher(obj, uwep)) {
-
                 if (cansee(bhitpos.x, bhitpos.y))
                     pline("%s explodes in a ball of fire!", Doname2(obj));
                 else
                     You_hear("an explosion");
-                explode(bhitpos.x, bhitpos.y, ZT_FIRE, d(2, 6),
+                explode(bhitpos.x, bhitpos.y, ZT_SPELL(ZT_FIRE), d(2, 6),
                         WEAPON_CLASS, EXPL_FIERY);
             }
 
@@ -2637,9 +2642,9 @@ boolean from_invent;
                 levl[x][y].altarmask = AM_CHAOTIC;
             angry_priest();
         } else if (distu(x, y) <= 2) {
-            if (!breathless(youmonst.data) || haseyes(youmonst.data)) {
+            if (!Breathless || haseyes(youmonst.data)) {
                 if (obj->otyp != POT_WATER) {
-                    if (!breathless(youmonst.data)) {
+                    if (Breathless) {
                         /* [what about "familiar odor" when known?] */
                         You("smell a peculiar odor...");
                     } else {

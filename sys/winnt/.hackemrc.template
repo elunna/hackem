@@ -42,6 +42,7 @@ OPTIONS=symset:IBMGraphics,roguesymset:RogueEpyx
 #OPTIONS=dogname:Fido,catname:Morris,fruit:guava
 #OPTIONS=horsename:Silver
 #OPTIONS=ghoulname:Igor
+#OPTIONS=droidname:ZL21
 #OPTIONS=birdname:Squawks
 #OPTIONS=monkeyname:Ugga-Ugga
 
@@ -91,7 +92,7 @@ OPTIONS=force_invmenu
 
 #
 # If you want to get rid of "use #quit to quit..." use:
-OPTIONS=suppress_alert:1.2.0
+OPTIONS=suppress_alert:1.2.2
 #
 # Note: the rest_on_space in the next line may not be
 #       appropriate for a beginning NetHack player, since

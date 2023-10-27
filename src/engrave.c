@@ -327,6 +327,10 @@ int x, y;
     register struct engr *ep = engr_at(x, y);
     int sensed = 0;
 
+    /* We're running, we don't want to look at engravings. */
+    if (context.run)
+        return;
+        
     /* Sensing an engraving does not require sight,
      * nor does it necessarily imply comprehension (literacy).
      */
@@ -747,7 +751,7 @@ doengrave()
                 /* pre/postknown not needed; these will make it known if
                  * applicable */
                 break;
-            case WAN_SECRET_DOOR_DETECTION:
+            case WAN_DETECTION:
                 if (!Blind) {
                     Strcpy(post_engr_text,
                         "You find many hidden bugs on the floor.");
@@ -1000,10 +1004,15 @@ doengrave()
             case WAN_CORROSION:
                 ptext = TRUE;
                 type = BURN;
-                if (!objects[otmp->otyp].oc_name_known && !Blind) {
-                    if (flags.verbose && !wonder)
-                        pline("This %s is a wand of corrosion!", xname(otmp));
-                    preknown = TRUE;
+                if (!Blind) {
+                    Sprintf(post_engr_text,
+                            "The bugs on the %s seem to be covered with goo!",
+                            surface(u.ux, u.uy));
+                    if (!objects[otmp->otyp].oc_name_known) {
+                        if (flags.verbose && !wonder)
+                            pline("This %s is a wand of corrosion!", xname(otmp));
+                        preknown = TRUE;
+                    }
                 } else if (!Deaf) {
                     Sprintf(post_engr_text, "Something sprays from the wand.");
                 }
@@ -1045,9 +1054,21 @@ doengrave()
         break;
 
     case WEAPON_CLASS:
-        if (otmp->oartifact == ART_FIRE_BRAND)
+        if (otmp->otyp == PENCIL) {
+            if (otmp->spe > -1) {
+                if (!otmp->blessed && (rnl(10) > 5)) {
+                    Your("pencil lead breaks!");
+                    otmp->spe = -1;
+                    return 0;
+                } else
+                    type = ENGRAVE;
+            } else {
+                Your("pencil lead is broken!");
+                return 0;
+            }
+        } else if (otmp->oartifact == ART_FIRE_BRAND)
             type = BURN;
-        if (is_lightsaber(otmp)) {
+        else if (is_lightsaber(otmp)) {
             if (otmp->lamplit) 
                 type = BURN;
             else
@@ -1327,7 +1348,7 @@ doengrave()
     case ENGRAVE:
         multi = -(len / 10);
         if (otmp->oclass == WEAPON_CLASS
-            && (otmp->otyp != ATHAME || otmp->cursed)) {
+            && ((otmp->otyp != ATHAME && otmp->otyp != PENCIL) || otmp->cursed)) {
             multi = -len;
             maxelen = ((otmp->spe + 3) * 2) + 1;
             /* -2 => 3, -1 => 5, 0 => 7, +1 => 9, +2 => 11

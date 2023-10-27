@@ -51,8 +51,7 @@ BRANCH:(63,06,63,06),(0,0,0,0)
 # Dark Lord
 MONSTER: ('@', "Dark Lord"), (25,08)
 
-# The treasure of the Dark Lord
-OBJECT: ('(', "chest"), (25,09)
+MAGIC_CHEST:(34,08)
 
 # apprentice guards for the audience chamber
 MONSTER: ('@', "embalmer"), (24,07)

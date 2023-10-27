@@ -216,6 +216,7 @@ E NEARDATA char catname[];
 E NEARDATA char dogname[];
 E NEARDATA char horsename[];
 E NEARDATA char ghoulname[];
+E NEARDATA char droidname[];
 E NEARDATA char monkeyname[];
 E NEARDATA char wolfname[];
 E NEARDATA char pseudoname[];
@@ -280,6 +281,7 @@ E NEARDATA struct obj *invent, *uarm, *uarmc, *uarmh, *uarms, *uarmg, *uarmf,
 E NEARDATA struct obj *uchain; /* defined only when punished */
 E NEARDATA struct obj *uball;
 E NEARDATA struct obj *migrating_objs;
+E NEARDATA struct obj *mchest; /* magic chest */
 E NEARDATA struct obj *billobjs;
 E NEARDATA struct obj *current_wand, *thrownobj, *kickedobj;
 

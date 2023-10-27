@@ -18,6 +18,9 @@ STATIC_DCL void NDECL(do_positionbar);
 STATIC_DCL void FDECL(regen_hp, (int));
 STATIC_DCL void FDECL(interrupt_multi, (const char *));
 STATIC_DCL void FDECL(debug_fields, (const char *));
+STATIC_DCL void NDECL(init_mchest);
+STATIC_DCL void NDECL(pickup_spirits);
+STATIC_DCL void NDECL(update_monclock);
 
 #ifdef EXTRAINFO_FN
 static long prev_dgl_extrainfo = 0;
@@ -153,13 +156,10 @@ boolean resuming;
     char ch;
     int abort_lev;
 #endif
-    struct obj *pobj;
+    struct obj *pobj, *aobj;
     int moveamt = 0, wtcap = 0, change = 0;
-    boolean monscanmove = FALSE;
-
     /* don't make it obvious when monsters will start speeding up */
-    /*int timeout_start = rnd(10000) + 25000;*/
-    /*int past_clock;*/
+    boolean monscanmove = FALSE;
     boolean elf_regen = elf_can_regen();
     boolean orc_regen = orc_can_regen();
     boolean vamp_regen = vamp_can_regen();
@@ -176,7 +176,7 @@ boolean resuming;
        to use up the save file and require confirmation for explore mode */
     if (resuming && iflags.deferred_X)
         (void) enter_explore_mode();
-
+    
     /* side-effects from the real world */
     flags.moonphase = phase_of_the_moon();
     if (flags.moonphase == FULL_MOON) {
@@ -191,8 +191,11 @@ boolean resuming;
         change_luck(-1);
     }
     if (flags.quest_boon) {
-        change_luck(3); /* silent */
+        change_luck(1); /* silent */
     }
+    if (u.uconduct.wishes)
+        change_luck(wishluck());
+
     if (!resuming) { /* new game */
         context.rndencode = rnd(9000);
         set_wear((struct obj *) 0); /* for side-effects of starting gear */
@@ -201,11 +204,16 @@ boolean resuming;
            clairvoyance (wizard with cornuthaum perhaps?); without this,
            first "random" occurrence would always kick in on turn 1 */
         context.seer_turn = (long) rnd(30);
+        init_mchest();
+        u.umovement = NORMAL_SPEED;  /* giants and tortles put their best foot forward */
     }
     context.botlx = TRUE; /* for STATUS_HILITES */
     update_inventory(); /* for perm_invent */
     if (resuming) { /* restoring old game */
         read_engr_at(u.ux, u.uy); /* subset of pickup() */
+    }
+    if (halloween()) {
+        pline("Beware the Undead, for they roam the Dungeons of Doom on All Hallows' Eve!");
     }
 
     (void) encumber_msg(); /* in case they auto-picked up something */
@@ -216,7 +224,6 @@ boolean resuming;
     initrack();
 
     u.uz0.dlevel = u.uz.dlevel;
-    youmonst.movement = NORMAL_SPEED; /* give the hero some movement points */
     context.move = 0;
 
     program_state.in_moveloop = 1;
@@ -237,7 +244,7 @@ boolean resuming;
 
         if (context.move) {
             /* actual time passed */
-            youmonst.movement -= NORMAL_SPEED;
+            u.umovement -= NORMAL_SPEED;
 
             do { /* hero can't move this turn loop */
                 wtcap = encumber_msg();
@@ -245,16 +252,17 @@ boolean resuming;
                     context.mon_moving = TRUE;
                     do {
                         monscanmove = movemon();
-                        if (youmonst.movement >= NORMAL_SPEED)
+                        if (u.umovement >= NORMAL_SPEED)
                             break; /* it's now your turn */
                     } while (monscanmove);
                     context.mon_moving = FALSE;
-                } else if (youmonst.movement < NORMAL_SPEED) {
+                } else if (u.umovement < NORMAL_SPEED) {
                     /* If a scroll of time has been read, we want the player's
                      * current turn to be extended. */
                     u.utimestop = FALSE;
+                    continue;
                 }
-                if (!monscanmove && youmonst.movement < NORMAL_SPEED) {
+                if (!monscanmove && u.umovement < NORMAL_SPEED) {
                     /* both hero and monsters are out of steam this round */
                     struct monst *mtmp;
 
@@ -266,55 +274,10 @@ boolean resuming;
                        been purged at end of their previous round of moving */
                     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon)
                         mtmp->movement += mcalcmove(mtmp);
+                    
+                    /* Handle monster spawn rates */
+                    update_monclock();
 
-                    /* From SporkHack & UnNetHack (modified)
-                     * Vanilla generates a critter every 70-ish turns.
-                     * The rate accelerates to every 50 or so below the Castle,
-                     * and 'round every 25 turns once you've done the Invocation.
-                     *
-                     * We will push it even further.  Monsters post-Invocation
-                     * will almost always appear on the stairs (if present), and
-                     * much more frequently; this, along with the extra intervene()
-                     * calls, should certainly make it seem like you're wading back
-                     * through the teeming hordes.
-                     *
-                     * Aside from that, a more general clock should be put on things;
-                     * after about 30,000 turns, the frequency rate of appearance
-                     * and difficulty of monsters generated will slowly increase until
-                     * it reaches the point it will be at as if you were post-Invocation.
-                     *
-                     * The rate increases linearly with turns.  The rule of thumb is that
-                     * at turn x the rate is approximately (x / 30.0000) times the normal
-                     * rate.  Maximal rate is 8x the normal rate.
-                     */
-                    monclock = MIN_MONGEN_RATE;
-                    /* performing the invocation gets the entire dungeon riled up */
-                    if (u.uevent.invoked) {
-                        monclock = MAX_MONGEN_RATE; /* Quadrupe normal */
-                    }
-#if 0 /* Simplified the spawn rates */
-                    else {
-                        past_clock = moves - timeout_start;
-                        if (past_clock > 0)
-                            monclock = MIN_MONGEN_RATE * 30000 / (past_clock + 30000);
-                        if (monclock > MIN_MONGEN_RATE / 2 && (depth(&u.uz) > depth(&stronghold_level)
-                                                               || u.uevent.uhand_of_elbereth
-                                                               || ((quest_status.got_quest || quest_status.got_thanks)
-                                                                   && u.ulevel < 14)))
-                            monclock = MIN_MONGEN_RATE / 2;
-                        if (monclock > MIN_MONGEN_RATE / 3 && depth(&u.uz) > depth(&hella_level))
-                            monclock = MIN_MONGEN_RATE / 3;
-                        if (monclock > MIN_MONGEN_RATE / 4 && depth(&u.uz) > depth(&wiz1_level))
-                            monclock = MIN_MONGEN_RATE / 4;
-                        if (monclock > MIN_MONGEN_RATE / 6 && u.uevent.udemigod)
-                            monclock = MIN_MONGEN_RATE / 6;
-                    }
-		    /* make sure we don't fall off the bottom */
-                    if (monclock < MAX_MONGEN_RATE)
-                        monclock = MAX_MONGEN_RATE;
-                    if (monclock > MIN_MONGEN_RATE)
-                        monclock = MIN_MONGEN_RATE;
-#endif
                     if (!rn2(monclock)) {
                         if (u.uevent.invoked && xupstair && rn2(10))
                             (void) makemon((struct permonst *) 0,
@@ -328,6 +291,7 @@ boolean resuming;
                             (void) makemon((struct permonst *) 0, 0, 0,
                                            MM_MPLAYEROK);
                     }
+                    
                     /* calculate how much time passed. */
                     if (u.usteed && u.umoved) {
                         /* your speed doesn't augment steed's speed */
@@ -349,9 +313,12 @@ boolean resuming;
                                 moveamt -= NORMAL_SPEED / 2;
                         }
                         
+                        boolean surfing = ((is_damp_terrain(u.ux, u.uy) 
+                                || is_lava(u.ux, u.uy))
+                                        && !Underwater && using_oprop(ITEM_SURF));
                        
                         /* TECH: Blinking! */
-                        if (tech_inuse(T_BLINK)) {
+                        if (tech_inuse(T_BLINK) || surfing) {
                             /* Case    Average  Variance
                             * -------------------------
                             * Normal    12         0
@@ -362,7 +329,8 @@ boolean resuming;
                             * V F & B   30        18
                             */
                             moveamt += NORMAL_SPEED * 2 / 3;
-                            if (rn2(3) == 0) moveamt += NORMAL_SPEED / 2;
+                            if (rn2(3) == 0) 
+                                moveamt += NORMAL_SPEED / 2;
                         }
                     }
 
@@ -389,9 +357,9 @@ boolean resuming;
                         break;
                     }
 
-                    youmonst.movement += moveamt;
-                    if (youmonst.movement < 0)
-                        youmonst.movement = 0;
+                    u.umovement += moveamt;
+                    if (u.umovement < 0)
+                        u.umovement = 0;
                     settrack();
 
                     monstermoves++;
@@ -483,7 +451,7 @@ boolean resuming;
                     }
 
                     if (u.uen < u.uenmax 
-                        && (!Role_if(PM_NECROMANCER) || Energy_regeneration)
+                        && !Role_if(PM_NECROMANCER)
                         && ((wtcap < MOD_ENCUMBER
                              && (!(moves % ((MAXULEV + 8 - u.ulevel)
                                             * ((Role_if(PM_WIZARD) || Role_if(PM_INFIDEL))
@@ -551,31 +519,14 @@ boolean resuming;
                             }
                         }
                     }
-                    
-                    /* Autopickup spirits for Necromancer */
-                    if (Role_if(PM_NECROMANCER)) {
-                        struct obj *obj;
-                        /* Carrying the necro quest arti triples the range */
-                        int off = carrying_arti(ART_GREAT_DAGGER_OF_GLAURGNAA) ? 3 : 1;
-                        /* Loop through the surrounding squares */
-                        int x, y;
-                        for (x = u.ux - off; x <= u.ux + off; x++) {
-                            for (y = u.uy - off; y <= u.uy + off; y++) {
-                                if (!isok(x, y) || !OBJ_AT(x, y))
-                                    continue;
 
-                                /* count the objects here */
-                                for (obj = level.objects[x][y]; obj; obj = obj->nexthere) {
-                                    if (obj->otyp == SPIRIT && !inside_shop(x, y)) {
-                                        pickup_object(obj, obj->quan, TRUE);
-                                        newsym_force(x, y);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    pickup_spirits();
                     
+                    if ((aobj = carrying_arti(ART_NIGHTHORN))) {
+                        if (aobj->cursed && !rn2(100))
+                            make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), TRUE);
+                    }
+                        
                     if (!u.uinvulnerable) {
                         if (Teleportation && !rn2(85)) {
                             xchar old_ux = u.ux, old_uy = u.uy;
@@ -658,46 +609,41 @@ boolean resuming;
                     /* If wielding/wearing any of the 'banes, make those
                        monsters that they are against hostile should they
                        be tame or peaceful */
-                    for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
-                        if ((uarmg && uarmg->oartifact == ART_DRAGONBANE
-                             && is_dragon(mtmp->data))
-                            || (wielding_artifact(ART_DEATHSWORD)
-                                && racial_human(mtmp))
-                            || (wielding_artifact(ART_STING)
-                                && (racial_orc(mtmp)
-                                    || is_spider(mtmp->data)))
-                            || (wielding_artifact(ART_ORCRIST)
-                                && racial_orc(mtmp))
-                            || (wielding_artifact(ART_ELFRIST)
-                                && racial_elf(mtmp))
-                            || (wielding_artifact(ART_GRIMTOOTH)
-                                && racial_elf(mtmp))
-                            || (wielding_artifact(ART_GIANTSLAYER)
-                                && racial_giant(mtmp))
-                            || (wielding_artifact(ART_TROLLSBANE)
-                                && is_troll(mtmp->data))
-                            || (wielding_artifact(ART_OGRESMASHER)
-                                && is_ogre(mtmp->data))
-                            || (wielding_artifact(ART_SUNSWORD)
-                                && is_undead(mtmp->data))
-                            || (wielding_artifact(ART_DISRUPTER)
-                                && is_undead(mtmp->data))
-                            || (wielding_artifact(ART_SPEAR_OF_LIGHT)
-                                && is_undead(mtmp->data))
-                            || (wielding_artifact(ART_WEREBANE)
-                                && is_were(mtmp->data))
-                            || (wielding_artifact(ART_DEMONBANE)
-                                && is_demon(mtmp->data))
-                            || (wielding_artifact(ART_ANGELSLAYER)
-                                && is_angel(mtmp->data))
-                            || (wielding_artifact(ART_VORPAL_BLADE)
-                                && is_jabberwock(mtmp->data))) {
-                            if (mtmp->mpeaceful || mtmp->mtame)
+     
+                    if (uwep || u.twoweap) {
+                        for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+                            s_level *slev = Is_special(&u.uz);
+                            boolean is_shkp = has_eshk(mtmp) && inhishop(mtmp);
+                            boolean is_prst = has_epri(mtmp) && inhistemple(mtmp);
+                            boolean town_peace = (slev && slev->flags.town);
+                            boolean uwep_hates = mon_has_race(mtmp, spec_mh(uwep));
+                            boolean uswap_hates = mon_has_race(mtmp, spec_mh(uswapwep));
+                            if (!uwep_hates && !uswap_hates)
+                                continue;
+                            if (!(mtmp->mcansee && m_canseeu(mtmp)))
+                                continue;
+                            /* Towns are fairly safe zones - keep them that way. */
+                            if (town_peace)
+                                continue;
+                            /* coaligned temple priests will stay civil */
+                            if (is_prst && p_coaligned(mtmp))
+                                continue;
+                            
+                            if (is_shkp)
+                                ESHK(mtmp)->pbanned = TRUE;
+                            
+                            else if (mtmp->mpeaceful || mtmp->mtame) {
                                 mtmp->mpeaceful = mtmp->mtame = 0;
+                                pline("%s %s the %s in your %s...", Monnam(mtmp),
+                                       rn2(2) ? "strongly reacts to" : "is aggravated by",
+                                       uwep_hates ? xname(uwep) : xname(uswapwep),
+                                       body_part(HAND));
+                                setmangry(mtmp, FALSE);
+                            }
                         }
                     }
                 }
-            } while (youmonst.movement < NORMAL_SPEED); /* hero can't move */
+            } while (u.umovement < NORMAL_SPEED); /* hero can't move */
 
             /******************************************/
             /* once-per-hero-took-time things go here */
@@ -886,6 +832,15 @@ boolean resuming;
 
 #define U_CAN_REGEN() (Regeneration || (Sleepy && u.usleep))
 
+STATIC_OVL void
+init_mchest()
+{
+    mchest = mksobj(HIDDEN_CHEST, FALSE, FALSE);
+    mchest->olocked = 1;
+    mchest->where = OBJ_SOMEWHERE;
+    return;
+}
+
 /* maybe recover some lost health (or lose some when an eel out of water) */
 STATIC_OVL void
 regen_hp(wtcap)
@@ -937,11 +892,6 @@ int wtcap;
             && (!uarmc || (uarmc && uarmc->otyp != POISONOUS_CLOAK))
             && (encumbrance_ok || U_CAN_REGEN()) && !Is_valley(&u.uz)
             && !infidel_no_amulet) {
-            
-            if (Race_if(PM_VAMPIRIC) && rn2(3)) 
-                return; /* Vampires have regeneration penalty, they only
-                         * regenerate on 1/3rd of valid turns, so must rely
-                         * more on draining life. */
             /*
             * KMH, balance patch -- New regeneration code
             * Healthstones have been added, which alter your effective
@@ -1102,6 +1052,7 @@ newgame()
     u_init();
 
     shambler_init();
+    dragon_init();
 
 #ifndef NO_SIGNAL
     (void) signal(SIGINT, (SIG_RET_TYPE) done1);
@@ -1441,5 +1392,109 @@ const char *opts;
         iflags.debug.immediateflips = negated ? FALSE : TRUE;
 #endif
     return;
+}
+
+/* Calculate the "wishing pain" luck penalty for wishes */
+int
+wishluck()
+{
+    /* Don't let this affect the fuzzer */
+    if (iflags.debug_fuzzer)
+        return 0;
+    if (u.uconduct.wishes < 2)
+        return 0;
+    
+    /* For synchronizing monster spawn rates with wishes */
+    update_monclock();
+    
+    /* Technically we can only get the player to -10, 
+     * so we force them to carry a virtual cursed luckstone. */
+    if (u.uconduct.wishes < 13)
+        return -(u.uconduct.wishes);
+    else
+        return -10;
+}
+
+STATIC_OVL void
+pickup_spirits()
+{
+    char *p;
+    /* Autopickup spirits for Necromancer */
+    if (Role_if(PM_NECROMANCER)) {
+        struct obj *obj;
+        /* Carrying the necro quest arti triples the range */
+        int off = carrying_arti(ART_GREAT_DAGGER_OF_GLAURGNAA) ? 3 : 1;
+        /* Loop through the surrounding squares */
+        int x, y;
+        for (x = u.ux - off; x <= u.ux + off; x++) {
+            for (y = u.uy - off; y <= u.uy + off; y++) {
+                if (!isok(x, y) || !OBJ_AT(x, y))
+                    continue;
+
+                /* count the objects here */
+                for (obj = level.objects[x][y]; obj; obj = obj->nexthere) {
+                    if (obj->otyp == SPIRIT) {
+                        /* Don't allow auto-pickup of spirits in shops unless
+                         * the shop is abandoned. */
+                        if (inside_shop(x, y) && *(p = in_rooms(x, y, SHOPBASE))
+                            && tended_shop(&rooms[*p - ROOMOFFSET]))
+                            continue;
+
+                        pickup_object(obj, obj->quan, TRUE);
+                        newsym_force(x, y);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+STATIC_OVL void 
+update_monclock()
+{
+    /* From SporkHack & UnNetHack (modified)
+     * Vanilla generates a critter every 70-ish turns.
+     * The rate accelerates to every 50 or so below the Castle,
+     * and 'round every 25 turns once you've done the Invocation.
+     * 
+     * (From EvilHack)
+     * We will push it even further.  Monsters post-Invocation
+     * will almost always appear on the stairs (if present), and
+     * much more frequently; this, along with the extra intervene()
+     * calls, should certainly make it seem like you're wading back
+     * through the teeming hordes.
+     *
+     * Aside from that, a more general clock should be put on things;
+     * after about 50,000 turns, the frequency rate of appearance
+     * and difficulty of monsters generated will slowly increase until
+     * it reaches the point it will be at as if you were post-Invocation.
+     *
+     * The rate increases linearly with turns.  The rule of thumb is that
+     * at turn x the rate is approximately (x / 30.0000) times the normal
+     * rate.  Maximal rate is 8x the normal rate.
+     * -------------------------------------------------------------------
+     * In Hack'EM - we are going to put Yet Another Twist on monster generation
+     * and use it to "punish" wishes. For every wish the player makes, the 
+     * rate will increase! This lets the player have their wishes at the cost
+     * of a harder game later.
+     */
+    monclock = MIN_MONGEN_RATE;
+/* Don't let wishes influence the fuzzer */
+    if (!iflags.debug_fuzzer) {
+        for (long i = 2; i <= 7; i++) {
+            if (monclock > MIN_MONGEN_RATE / i && (u.uconduct.wishes >= i)) {
+                monclock = MIN_MONGEN_RATE / i;
+            }
+        }
+        if (u.uconduct.wishes >= 8L) {
+            monclock = MAX_MONGEN_RATE;
+        }
+    }
+    /* make sure we don't fall off the bottom */
+    if (monclock < MAX_MONGEN_RATE)
+        monclock = MAX_MONGEN_RATE;
+    if (monclock > MIN_MONGEN_RATE)
+        monclock = MIN_MONGEN_RATE;
 }
 /*allmain.c*/

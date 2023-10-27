@@ -4897,11 +4897,14 @@ case 406:
                   }
 break;
 case 407:
+{                     add_opvars(splev, "o", VA_PASS1(SPO_MAGIC_CHEST));
+                  }
+case 408:
 {
                       add_opvars(splev, "o", VA_PASS1(SPO_PUDDLE));
                   }
 break;
-case 408:
+case 409:
 {
                       add_opvars(splev, "o", VA_PASS1(SPO_SEWAGE));
                   }

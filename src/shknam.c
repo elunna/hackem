@@ -249,7 +249,7 @@ static const char *const shkmasks[] = {
 
 static const char *const shkjunk[] = {
     /* Silly names, clown names */
-    "=Spiffy", "=Bonko", "=Binky", "=Tubby", "=Zippy", "=Jumbo"
+    "=Spiffy", "=Bonko", "=Binky", "=Tubby", "=Zippy", "=Jumbo",
     "=Mittens", "=Chuckles", "=Bam Bam", "=Larry", "=Curly",
     "=Moe", "=Zaff", "=Punky", "=Zonko", 0
 };
@@ -863,8 +863,6 @@ int shp_indx;
     if (Is_blackmarket(&u.uz)) {
         if (sroom->rtype == BLACKSHOP) {
             shk = makemon(&mons[PM_ONE_EYED_SAM], sx, sy, MM_ESHK);
-        } else {
-            shk = makemon(&mons[PM_BLACK_MARKETEER], sx, sy, MM_ESHK);
         }
     }
     if (!shk) {
@@ -880,31 +878,17 @@ int shp_indx;
     case ARMOR_CLASS:
     case WEAPON_CLASS:
         switch (rnd(4)) {
-        case 1:
-            srace = PM_HUMAN;
-            break;
-        case 2:
-            srace = PM_GIANT;
-            break;
-        case 3:
-            srace = PM_CENTAUR;
-            break;
-        case 4:
-            srace = PM_DWARF;
-            break;
+        case 1: srace = PM_HUMAN; break;
+        case 2: srace = PM_GIANT; break;
+        case 3: srace = PM_CENTAUR; break;
+        case 4: srace = PM_DWARF; break;
         }
         break;
     case FOOD_CLASS:
         switch (rnd(3)) {
-        case 1:
-            srace = PM_DWARF;
-            break;
-        case 2:
-            srace = PM_GNOME;
-            break;
-        case 3:
-            srace = PM_HUMAN;
-            break;
+        case 1: srace = PM_DWARF; break;
+        case 2: srace = PM_GNOME; break;
+        case 3: srace = PM_HUMAN; break;
         }
         break;
     case RING_CLASS:
@@ -913,19 +897,12 @@ int shp_indx;
     /* wands and potions also similar... */
     case WAND_CLASS:
     case POTION_CLASS:
-        switch (rnd(4)) {
-        case 1:
-            srace = PM_ELF;
-            break;
-        case 2:
-            srace = PM_GNOME;
-            break;
-        case 3:
-            srace = PM_NYMPH;
-            break;
-        case 4:
-            srace = PM_HUMAN;
-            break;
+        switch (rnd(8)) {
+        case 1: srace = PM_ELF; break;
+        case 2: srace = PM_GNOME; break;
+        case 3: srace = PM_NYMPH; break;
+        case 4: srace = PM_HUMAN; break;
+        default:  srace = PM_VAMPIRIC; break;
         }
         break;
     case TOOL_CLASS:
@@ -944,19 +921,12 @@ int shp_indx;
     /* and scrolls and books fall to spellcasters */
     case SCROLL_CLASS:
     case SPBOOK_CLASS:
-        switch (rnd(4)) {
-        case 1:
-            srace = PM_ILLITHID;
-            break;
-        case 2:
-            srace = PM_HUMAN;
-            break;
-        case 3:
-            srace = PM_GNOME;
-            break;
-        case 4:
-            srace = PM_ELF;
-            break;
+        switch (rnd(5)) {
+        case 1: srace = PM_ILLITHID; break;
+        case 2: srace = PM_HUMAN; break;
+        case 3: srace = PM_GNOME; break;
+        case 4: srace = PM_ELF; break;
+        case 5: srace = PM_VAMPIRIC; break;
         }
         break;
     default:
@@ -987,7 +957,7 @@ int shp_indx;
     eshkp->customer[0] = '\0';
     /* WAC init services */
     init_shk_services(shk);
-    shkmoney = 1000L + 30L * (long) rnd(100);  /* initial capital */
+    shkmoney = 2250L + 65L * (long) rnd(100);  /* initial capital */
     /* [CWC] Lets not create the money yet until we see if the
          shk is a black marketeer, else we'll have to create
        another money object, if GOLDOBJ is defined */
@@ -1205,35 +1175,16 @@ struct monst *shk;
 {
     const struct permonst *shkdat = &mons[ERAC(shk)->rmnum];
     ESHK(shk)->services = 0L;
-    
-    /* KMH, balance patch 2 -- Increase probability of shopkeeper services.
-     * Requested by Dave <mitch45678@aol.com>
-     */
-    
-    /* Guarantee some form of identification (for black market only)
-     * 1/3 	both Basic and Premium ID
-     * 2/15 	Premium ID only
-     * 8/15 	Basic ID only
-     */
-    if (Is_blackmarket(&u.uz)) {
-        ESHK(shk)->services = 
-            SHK_ID_BASIC | SHK_ID_PREMIUM | SHK_UNCURSE;
-        return;
-    }
 
-    /* --hackem: Instead of offering basic/premier identify services,
-     * general stores will have a random selection of 2-5 item classes
-     * they can identify (at premier level). 
+
+
+    /* Instead of offering basic/premier identify services, general
+     * stores will have a random selection of item classes they can 
+     * identify (at premier level). 
      */
     if (shk_class_match(RANDOM_CLASS, shk) == SHK_GENERAL) {
-        /* General stores can start with 0-2 identify services 
-         * 10% chance of adding 1 extra. */
-        /*int num_svc = rnd(4) + 1;*/
-        int num_svc = rn2(3);
-        if (rn2(10))
-            num_svc += 1;
-        while (num_svc > 0) {
-            switch (rn2(11)) {
+        while (!rn2(6)) {
+            switch (rn2(10)) {
             case 0: maybe_add_svc(shk, SHK_ID_WEAPON); break; 
             case 1: maybe_add_svc(shk, SHK_ID_ARMOR); break; 
             case 2: maybe_add_svc(shk, SHK_ID_SCROLL); break; 
@@ -1243,42 +1194,36 @@ struct monst *shk;
             case 6: maybe_add_svc(shk, SHK_ID_AMULET); break; 
             case 7: maybe_add_svc(shk, SHK_ID_WAND); break; 
             case 8: maybe_add_svc(shk, SHK_ID_TOOL); break; 
-            case 9: maybe_add_svc(shk, SHK_ID_GEM); break; 
-            case 10: maybe_add_svc(shk, SHK_ID_FOOD); break;
+            case 9: maybe_add_svc(shk, SHK_ID_GEM); break;
             }
-            num_svc--;
         }
         /* 1 in 10 offer firearms training */
         if (!rn2(10) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
     }
-    
+
     /* Each shop type offers it's own identify service */
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
         if (rnd(100) < 75)
             maybe_add_svc(shk, SHK_ID_WEAPON);
-        /* Weapon shops offer armor id 50% of the time */
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_ARMOR);
     } 
     else if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) {
         if (rnd(100) < 75)
             maybe_add_svc(shk, SHK_ID_ARMOR);
-        /* Armor shops offer weapon id 50% of the time */
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_WEAPON);
     } 
     else if (shk_class_match(SCROLL_CLASS, shk) == SHK_MATCH) {
         if (rnd(100) < 75)
             maybe_add_svc(shk, SHK_ID_SCROLL);
-        /* Scroll stores offer book ID 50% of the time. */
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_BOOK);
     } 
     else if (shk_class_match(SPBOOK_CLASS, shk) == SHK_MATCH) {
         if (rnd(100) < 75)
             maybe_add_svc(shk, SHK_ID_BOOK);
-        /* Book stores offer scroll ID 50% of the time. */
         if (!rn2(2))
             maybe_add_svc(shk, SHK_ID_SCROLL);
     } 
@@ -1287,12 +1232,14 @@ struct monst *shk;
             maybe_add_svc(shk, SHK_ID_POTION);
     } 
     else if (shk_class_match(RING_CLASS, shk) == SHK_MATCH) {
-        if (!rn2(5))
+        if (!rn2(3))
             maybe_add_svc(shk, SHK_ID_RING);
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_AMULET);
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_GEM);
+        if (!rn2(5))
+            maybe_add_svc(shk, SHK_PROP);
     }
     else if (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH) {
         if (!rn2(2))
@@ -1301,69 +1248,65 @@ struct monst *shk;
     else if (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) {
         if (!rn2(2))
             maybe_add_svc(shk, SHK_ID_WAND);
-        /* Wand shops offer armor id 25% of the time */
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_ARMOR);
-        /* Only wand shops offer premium charging */
-        if (!rn2(4) && (shk_class_match(WAND_CLASS, shk) == SHK_MATCH)) 
-            maybe_add_svc(shk, SHK_CHG_PRE);
     } 
     else if (shk_class_match(FOOD_CLASS, shk) == SHK_MATCH) {
         maybe_add_svc(shk, SHK_ID_FOOD);
-        /* Deli shops offer potion id 50% of the time. */
         if (!rn2(10))
             maybe_add_svc(shk, SHK_ID_POTION);
     }
     
-    /* 1/3 of all shops have the uncursing service */
+    /* All shops */
     if (!rn2(3)) 
         maybe_add_svc(shk, SHK_UNCURSE);
     
     /* Weapon shop services */
-    if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
-        /* Weapon rust/erode-proofing */
-        if (!rn2(4)) 
+    if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH
+            || Is_blackmarket(&u.uz)) {
+        if (!rn2(4))
             maybe_add_svc(shk, SHK_WEP_FIX);
-        /* Weapon enchanting */
-        if (!rn2(4)) 
+        if (!rn2(4))
             maybe_add_svc(shk, SHK_WEP_ENC);
-        /* Weapon poisoning */
         if (!rn2(4))
             maybe_add_svc(shk, SHK_WEP_POI);
-        /* 1 in 5 offer firearms training */
         if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
-        
-        /* 1 in 5 offer special property grafting */
         if (!rn2(5))
             maybe_add_svc(shk, SHK_PROP);
     }
     
     /* Armor shop services */
-    if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH) {
-        /* Armor rust/erode-proofing */
+    if (shk_class_match(ARMOR_CLASS, shk) == SHK_MATCH
+            || Is_blackmarket(&u.uz)) {
         if (!rn2(4)) 
             maybe_add_svc(shk, SHK_ARM_FIX);
-        /* Armor enchanting */
         if (!rn2(4)) 
             maybe_add_svc(shk, SHK_ARM_ENC);
-        /* 1 in 5 offer firearms training */
         if (!rn2(5) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
+        if (!rn2(5))
+            maybe_add_svc(shk, SHK_PROP);
     }
     
-    /* Charging services */
+    /* Charging services: If these shops offer charging, they
+     * always offer both basic and premium. However, they
+     * are restricted to their own specialty of items. */
     if (     (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) 
           || (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH)
-          || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)
-          || (shk_class_match(RANDOM_CLASS, shk) == SHK_MATCH)) {
-        if (!rn2(4)) 
+          || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)) {
+        if (!rn2(4)) {
             maybe_add_svc(shk, SHK_CHG_BAS);
+            maybe_add_svc(shk, SHK_CHG_PRE);
+        }
     }
-    /* --hackem: Some misc shop details here - using really gross syntax... */
+
+    /* General/junk stores can only offer basic charging, 
+     * but they can charge anything. */
+    if (shk_class_match(RANDOM_CLASS, shk) == SHK_GENERAL && !rn2(4))
+        maybe_add_svc(shk, SHK_CHG_BAS);
     
     if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "pet store")) {
-        /* Pet shops offer tool/food id 50% of the time */
         if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
             maybe_add_svc(shk, SHK_ID_FOOD);
         if (!(ESHK(shk)->services & SHK_ID_TOOL) && !rn2(4))
@@ -1371,60 +1314,47 @@ struct monst *shk;
     }
     
     if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "lighting store")) {
-        /* Light shops can sometimes offer potion ID: 25% */
         if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(10))
             maybe_add_svc(shk,  SHK_ID_POTION);
     }
     if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "gun store")) {
-        /* Gun shops always offer firearms training */
+        /* Safety first! */
         maybe_add_svc(shk, SHK_FIREARMS);
     }
     
-    /* Racial based services:
-     * --hackem: We'll offer additional services occasionally that are
-     * related to the race of the shk.
-     */
+    /* Racial based services: */
     if (is_dwarf(shkdat)) {
-        /* Dwarves have some familiarity with weapons/armor */
         if (!(ESHK(shk)->services & SHK_ID_ARMOR) && !rn2(5))
            maybe_add_svc(shk, SHK_ID_ARMOR);
         if (!(ESHK(shk)->services & SHK_ID_WEAPON) && !rn2(5))
             maybe_add_svc(shk, SHK_ID_WEAPON);
-        /* Dwarves are also quite familiar with gems! */
         if (!(ESHK(shk)->services & SHK_ID_GEM) && !rn2(5))
             maybe_add_svc(shk, SHK_ID_GEM);
     }
     else if (is_orc(shkdat)) {
-        /* Orcs know how to use poison */
         if (!(ESHK(shk)->services & SHK_WEP_POI) && !rn2(4))
             maybe_add_svc(shk, SHK_WEP_POI);
     }
     else if (is_gnome(shkdat)) {
-        /* Gnomes are very familiar with tools */
         if (!(ESHK(shk)->services & SHK_ID_TOOL) && !rn2(4))
             maybe_add_svc(shk, SHK_ID_TOOL);
-        
         if (!rn2(4))
             maybe_add_svc(shk, SHK_TINKER);
     }
     else if (is_giant(shkdat)) {
-        /* Giants are familiar with gems. */
         if (!(ESHK(shk)->services & SHK_ID_GEM) && !rn2(5))
             maybe_add_svc(shk, SHK_ID_GEM);
     }
     else if (shkdat == &mons[PM_NYMPH]) {
         if (!(ESHK(shk)->services & SHK_ID_RING) && !rn2(10))
             maybe_add_svc(shk, SHK_ID_RING);
-        /* Nymphs always have potions so this makes sense. */
-
         if (!(ESHK(shk)->services & SHK_ID_POTION) && !rn2(5))
             maybe_add_svc(shk, SHK_ID_POTION);
     }
     else if (shkdat == &mons[PM_HOBBIT]) {
-        /* Cheesy LOTR reference */
+        /* LOTR */
         if (!(ESHK(shk)->services & SHK_ID_RING) && !rn2(10))
             maybe_add_svc(shk, SHK_ID_RING);
-        /* Hobbits are food obsessed */
         if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
             maybe_add_svc(shk, SHK_ID_FOOD);
     }
@@ -1434,9 +1364,8 @@ struct monst *shk;
         if (!(ESHK(shk)->services & SHK_ID_SCROLL) && !rn2(4))
             maybe_add_svc(shk, SHK_ID_SCROLL);
     }
-    
-    /* Rumours: Each shk has a small chance of offering cheap rumors */
-    if (!rn2(20))
+
+    if (!rn2(20) || Is_blackmarket(&u.uz))
         maybe_add_svc(shk, SHK_RUMOR);
     
     return;
@@ -1460,7 +1389,9 @@ struct obj *obj;
 {
     int i, shp_indx = ESHK(shkp)->shoptype - SHOPBASE;
     const struct shclass *shp = &shtypes[shp_indx];
-
+    
+    if (obj->oprops & ITEM_STENCH)
+        return FALSE;
     if (shp->symb == RANDOM_CLASS)
         return TRUE;
     for (i = 0; i < SIZE(shtypes[0].iprobs) && shp->iprobs[i].iprob; i++) {

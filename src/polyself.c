@@ -76,16 +76,18 @@ set_uasmon()
     PROPSET(STONE_RES, resists_ston(&youmonst));
     PROPSET(SONIC_RES, resists_sonic(&youmonst));
     PROPSET(PSYCHIC_RES, resists_psychic(&youmonst));
-    PROPSET(DRAIN_RES, resists_drain(racedat));
+    PROPSET(DRAIN_RES, resists_drain(&youmonst));
+    PROPSET(STUN_RES, resists_stun(racedat));
 
     /* Vulnerablilties */
     PROPSET(VULN_FIRE, vulnerable_to(&youmonst, AD_FIRE));
     PROPSET(VULN_COLD, vulnerable_to(&youmonst, AD_COLD));
     PROPSET(VULN_ELEC, vulnerable_to(&youmonst, AD_ELEC));
     PROPSET(VULN_ACID, vulnerable_to(&youmonst, AD_ACID));
+    PROPSET(VULN_LOUD, vulnerable_to(&youmonst, AD_LOUD));
 
     PROPSET(ANTIMAGIC, resists_mgc(mdat));
-    PROPSET(SICK_RES, resists_sick(mdat));
+    PROPSET(SICK_RES, resists_sick(&youmonst));
     PROPSET(DEATH_RES, immune_death_magic(mdat));
 
     /* Monster vampire bats are not stunned so neither should the player be */
@@ -349,7 +351,6 @@ newman()
             change_sex();
 
         adjabil(oldlvl, (int) u.ulevel);
-        reset_rndmonst(NON_PM); /* new monster generation criteria */
 
         /* random experience points for the new experience level */
         u.uexp = rndexp(FALSE);
@@ -650,7 +651,8 @@ int psflags;
         } else if (isvamp) {
         do_vampyr:
             if (mntmp < LOW_PM || (mons[mntmp].geno & G_UNIQ))
-                mntmp = (youmonst.data != &mons[PM_VAMPIRE] && !rn2(10))
+                mntmp = (!maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC))
+                        && !rn2(10))
                             ? PM_WOLF
                             : !rn2(4) ? PM_FOG_CLOUD : PM_VAMPIRE_BAT;
             if (controllable_poly) {
@@ -1007,9 +1009,11 @@ int mntmp;
         reset_utrap(TRUE);
     }
     if (amorphous(youmonst.data) || is_whirly(youmonst.data)
-        || unsolid(youmonst.data)) {
+        || unsolid(youmonst.data) || nolimbs(youmonst.data)) {
         if (Punished) {
-            You("slip out of the iron chain.");
+            You("%s out of the iron chain.",
+                (nolimbs(youmonst.data)
+                 && youmonst.data->msize > MZ_MEDIUM) ? "break" : "slip");
             unpunish();
         } else if (u.utrap && u.utraptype == TT_BURIEDBALL) {
             You("slip free of the buried ball and chain.");
@@ -1094,7 +1098,7 @@ break_armor()
             if (otmp->lamplit)
                 end_burn(otmp, FALSE);
             if (youmonst.data->msize >= MZ_HUGE
-                && otmp->otyp == LARGE_SPLINT_MAIL) {
+                && giant_sized(otmp)) {
                 if (humanoid(youmonst.data)) {
                     ; /* nothing bad happens, armor is still worn */
                 } else if (!humanoid(youmonst.data)) {
@@ -1103,7 +1107,7 @@ break_armor()
                     dropp(otmp);
                 }
             } else if (youmonst.data->msize <= MZ_LARGE
-                       && otmp->otyp == LARGE_SPLINT_MAIL) {
+                       && giant_sized(otmp)) {
                 Your("armor falls off!");
                 (void) Armor_gone();
                 dropx(otmp);
@@ -1129,15 +1133,9 @@ break_armor()
                 (void) Cloak_off();
                 dropx(otmp);
             } else {
-                if (youmonst.data->msize >= MZ_HUGE
-                    && humanoid(youmonst.data)
-                    && otmp->otyp == CHROMATIC_DRAGON_SCALES) {
-                    ; /* nothing bad happens, armor is still worn */
-                } else {
-                    Your("%s tears apart!", cloak_simple_name(otmp));
-                    (void) Cloak_off();
-                    useup(otmp);
-                }
+                Your("%s tears apart!", cloak_simple_name(otmp));
+                (void) Cloak_off();
+                useup(otmp);
             }
         }
         if ((otmp = uarmu) != 0) {
@@ -1180,7 +1178,7 @@ break_armor()
         }
     /* catch what breakarm() and sliparm() doesn't handle */
     } else if (youmonst.data->msize <= MZ_LARGE) {
-        if ((otmp = uarm) != 0 && otmp->otyp == LARGE_SPLINT_MAIL) {
+        if ((otmp = uarm) != 0 && giant_sized(otmp)) {
             if (donning(otmp))
                 cancel_don();
             Your("armor falls around you!");
@@ -1244,8 +1242,7 @@ break_armor()
         }
     }
     if (nohands(youmonst.data) || verysmall(youmonst.data)
-        || slithy(youmonst.data) || racial_centaur(&youmonst)
-        || racial_tortle(&youmonst)) {
+        || slithy(youmonst.data) || racial_centaur(&youmonst)) {
         if ((otmp = uarmf) != 0) {
             if (donning(otmp))
                 cancel_don();
@@ -1362,7 +1359,7 @@ rehumanize()
 {
     boolean was_flying = (Flying != 0);
     boolean forced = (u.mh < 1);
-
+    
     /* You can't revert back while unchanging */
     if (Unchanging && forced) {
         if (u.mh < 1) {
@@ -1397,10 +1394,10 @@ rehumanize()
     }
     if (forced 
         || (!Race_if(PM_DOPPELGANGER) && (rn2(20) > ACURR(A_CON)))) { 
-	/* Exhaustion for "forced" rehumaization & must pass con check for 
+	    /* Exhaustion for "forced" rehumaization & must pass con check for 
         * non-doppelgangers 
         * Don't penalize doppelgangers/polymorph running out */
-   	/* WAC Polymorph Exhaustion 1/2 HP to prevent abuse */
+   	    /* WAC Polymorph Exhaustion 1/2 HP to prevent abuse */
 	    u.uhp = (u.uhp / 2) + 1;
 	}
 
@@ -1418,13 +1415,18 @@ rehumanize()
     if (ublindf && ublindf->otyp == MASK) {
         remove_worn_item(ublindf, FALSE);
     }
+    
+    /* Polymorphed vampirics who rehumanized from withering will stop withering */
+    if (Race_if(PM_VAMPIRIC) && Withering) {
+        You("are no longer withering away.");
+        set_itimeout(&HWithering, (long) 0);
+    }
 }
 
 int
 dobreathe()
 {
-    struct attack *mattk;
-
+    struct attack *mattk;    
     if (Strangled) {
         You_cant("breathe.  Sorry.");
         return 0;
@@ -1447,13 +1449,11 @@ dobreathe()
     else if (youmonst.data == &mons[PM_CRYSTAL_GOLEM]) {
         /* Extra handling for AD_RBRE - player might poly into a crystal
          * golem. */
-        uchar adtyp;
-        adtyp = mattk->adtyp == AD_RBRE ? rnd(AD_ACID) : mattk->adtyp;
-        buzz((int) (20 + adtyp - 1), (int) mattk->damn, u.ux, u.uy, u.dx,
+        uchar adtyp = mattk->adtyp == AD_RBRE ? rnd(AD_WATR) : mattk->adtyp;
+        buzz((int) ZT_BREATH(AD_to_ZT(adtyp)), (int) mattk->damn, u.ux, u.uy, u.dx,
              u.dy);
-    }
-    else
-        buzz((int) (20 + mattk->adtyp - 1), (int) mattk->damn, u.ux, u.uy,
+    } else
+        buzz((int) ZT_BREATH(AD_to_ZT(mattk->adtyp)), (int) mattk->damn, u.ux, u.uy,
              u.dx, u.dy);
     return 1;
 }
@@ -1799,9 +1799,7 @@ dogaze()
                     }
                     if (lev > rn2(20))
                         (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
-                    if (dmg)
-                        mtmp->mhp -= dmg;
-                    if (DEADMONSTER(mtmp))
+                    if (damage_mon(mtmp, dmg, AD_COLD))
                         killed(mtmp);
                 } else if (adtyp == AD_PLYS) {
                     You("fix %s with an aberrant glare...", mon_nam(mtmp));
@@ -1831,21 +1829,11 @@ dogaze()
                 } else if (adtyp == AD_DRLI) { 
                     dmg = d(2, 6);
                     You("attack %s with a deathly gaze!", mon_nam(mtmp));
-                    
                     if (resists_drli(mtmp) || defended(mtmp, AD_DRLI)) {
                         pline_The("gaze doesn't affect %s!", mon_nam(mtmp));
                         dmg = 0;
                     } else {
-                        if (mtmp->mhp < dmg) 
-                            dmg = mtmp->mhp;
-                        mtmp->mhpmax -= dmg;
-                        damage_mon(mtmp, dmg, AD_DRLI);
-
-                        if (DEADMONSTER(mtmp) || !mtmp->m_lev) {
-                            pline("%s dies!", Monnam(mtmp));
-                            xkilled(mtmp, XKILL_NOMSG);
-                        } else
-                            mtmp->m_lev--;
+                        mon_losexp(mtmp, dmg, TRUE);
                     }
                 } else if (adtyp == AD_DRST) {
                     You("attack %s with a poison gaze!", mon_nam(mtmp));
@@ -1859,7 +1847,7 @@ dogaze()
                             dmg += rn1(10, 6);
                         
                         damage_mon(mtmp, dmg, AD_DRST);
-                        if (DEADMONSTER(mtmp) || !mtmp->m_lev) {
+                        if (DEADMONSTER(mtmp)) {
                             pline("%s dies!", Monnam(mtmp));
                             xkilled(mtmp, XKILL_NOMSG);
                         } 
@@ -2000,16 +1988,6 @@ toggleshell()
 {
     boolean was_blind = Blind, was_hiding = Hidinshell;
     
-    if (!was_hiding && u.uinshell) {
-        You_cant("retreat into your shell again so soon.");
-        return 0;
-    } else if (!was_hiding && Punished) {
-        You_cant("retreat into your shell with an iron ball chained to your %s!",
-                 body_part(LEG));
-        return 0;
-    }
-
-    You("%s your shell.", was_hiding ? "emerge from" : "retreat into");
     /* maximum of 200 turns our hero can stay inside their shell,
        and then 300-400 turns before they can hide in it again
        after emerging from it */
@@ -2318,9 +2296,7 @@ int damtype, dam;
      * have a monster-specific slow/haste so there is no way to
      * restore the old velocity once they are back to human.
      */
-    if (u.umonnum != PM_FLESH_GOLEM 
-        && u.umonnum != PM_STEEL_GOLEM
-        && u.umonnum != PM_IRON_GOLEM)
+    if (u.umonnum != PM_FLESH_GOLEM && u.umonnum != PM_IRON_GOLEM)
         return;
     switch (damtype) {
     case AD_ELEC:
@@ -2328,7 +2304,7 @@ int damtype, dam;
             heal = (dam + 5) / 6; /* Approx 1 per die */
         break;
     case AD_FIRE:
-        if (u.umonnum == PM_IRON_GOLEM || u.umonnum == PM_STEEL_GOLEM)
+        if (u.umonnum == PM_IRON_GOLEM)
             heal = dam;
         break;
     }
@@ -2367,12 +2343,8 @@ struct monst *mon;
 
     for (i = 0; i < 3; ++i) {
         if (array[i] != NULL) {
-            if (Is_dragon_armor(array[i])) {
-                if (Dragon_armor_to_pm(array[i]) == PM_CHROMATIC_DRAGON)
-                    return PM_RED_DRAGON;
-                else
-                    return Dragon_armor_to_pm(array[i]);
-            }
+            if (Is_dragon_armor(array[i])) 
+                return Dragon_armor_to_pm(array[i]);
         }
     }
     return NON_PM;

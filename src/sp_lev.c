@@ -688,7 +688,8 @@ count_features()
       = level.flags.nsinks 
         = level.flags.nvents 
           = level.flags.nforges 
-            = level.flags.ntoilets = 0;
+            = level.flags.nmagicchests
+              = level.flags.ntoilets = 0;
     
     for (y = 0; y < ROWNO; y++)
         for (x = 0; x < COLNO; x++) {
@@ -701,6 +702,8 @@ count_features()
                 level.flags.nsinks++;
             else if (typ == FORGE)
                 level.flags.nforges++;
+            else if (typ == MAGIC_CHEST)
+                level.flags.nmagicchests++;
             else if (typ == TOILET)
                 level.flags.ntoilets++;
         }
@@ -2599,6 +2602,7 @@ boolean prefilled;
         case LEMUREPIT:
         case MIGOHIVE:
         case FUNGUSFARM:
+        case ZROOM:
             fill_zoo(croom);
             break;
         }
@@ -2627,6 +2631,9 @@ boolean prefilled;
         break;
     case FUNGUSFARM:
         level.flags.has_fungusfarm = TRUE;
+        break;
+    case ZROOM:
+        level.flags.has_zroom = TRUE;
         break;
     case MINIGUILD:
         level.flags.has_guild = TRUE;
@@ -4434,6 +4441,11 @@ genericptr_t arg;
         if (x && (IS_WALL(levl[x - 1][y].typ) || levl[x - 1][y].horizontal))
             levl[x][y].horizontal = 1;
     }
+    
+    /* Vents need to be manually started. */
+    if (IS_VENT(levl[x][y].typ))
+        (void) start_timer((long) rnd(10), TIMER_LEVEL, FIXTURE_ACTIVATE,
+                           long_to_any(((long) x << 16) | (long) y));
 }
 
 void
@@ -4444,6 +4456,8 @@ genericptr_t arg;
     if (IS_FURNITURE(levl[x][y].typ))
         return;
     levl[x][y].typ = (*(int *) arg);
+    if (IS_FORGE(levl[x][y].typ))
+        levl[x][y].lit = TRUE;
 }
 
 void
@@ -4517,6 +4531,9 @@ struct sp_coder *coder;
         break;
     case SPO_FORGE:
         typ = FORGE;
+        break;
+    case SPO_MAGIC_CHEST:
+        typ = MAGIC_CHEST;
         break;
     case SPO_SINK:
         typ = SINK;
@@ -5704,6 +5721,7 @@ sp_lev *lvl;
         case SPO_TOILET:
         case SPO_POOL:
         case SPO_FORGE:
+        case SPO_MAGIC_CHEST:
         case SPO_FOUNTAIN:
         case SPO_VENT:
         case SPO_PUDDLE:

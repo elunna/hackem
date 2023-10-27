@@ -165,6 +165,13 @@ boolean quietly;
         if (chance > 2)
             chance = otmp->blessed ? 0 : !otmp->cursed ? 1 : 2;
         /* 0,1,2:  b=80%,10,10; nc=10%,80,10; c=10%,10,80 */
+
+        /* Unique monsters, monsters that covet the Amulet,
+           and various other creatures (see mondata.h) can't
+           be tamed */
+        if (non_tameable(mtmp->data))
+            chance = 2;
+
         if (Role_if(PM_KNIGHT) && u.ualign.type == A_LAWFUL
             && mtmp->data == &mons[PM_ELDRITCH_KI_RIN])
             chance = 2;
@@ -259,6 +266,8 @@ makedog()
         petname = pseudoname;
     else if (pettype == PM_GHOUL)
         petname = ghoulname;
+    else if (pettype == PM_DROID)
+        petname = droidname;
     else if (pettype == PM_PARROT)
         petname = birdname;
     else if (pettype == PM_MONKEY)
@@ -632,8 +641,8 @@ long nmv; /* number of moves */
             mtmp->mfleetim -= imv;
     }
     if (mtmp->msummoned) {
-        if (imv >= (int) mtmp->msummoned)
-            mtmp->msummoned = 1;
+        if (imv >= (int) mtmp->msummoned - 1)
+            mtmp->msummoned = 2;
         else
             mtmp->msummoned -= imv;
     }
@@ -682,8 +691,12 @@ long nmv; /* number of moves */
     else
         mtmp->mspec_used -= imv;
 
-    /* reduce tameness for every 150 moves you are separated */
-    if (mtmp->mtame) {
+    /* reduce tameness for every 150 moves you are separated
+     * The droid never loses tameness because it cannot be 
+     * revived. Minions don't lose tameness because they are divine.
+     * */
+    if (mtmp->mtame && mtmp->data != &mons[PM_DROID] 
+          && !mtmp->isminion) {
         int wilder = (imv + 75) / 150;
         if (mtmp->mtame > wilder)
             mtmp->mtame -= wilder; /* less tame */
@@ -890,6 +903,18 @@ coord *cc;   /* optional destination coordinates */
         mtmp->mtame--;
         m_unleash(mtmp, TRUE);
     }
+    
+    /* Armed bombs need to be snuffed - otherwise we get weird armed bombs that 
+     * never explode after they migrate. This solution isn't perfect, but the
+     * alternative is much more complicated. */
+    for (obj = mtmp->minvent; obj; obj = obj->nobj) {
+        if (is_bomb(obj) && obj_has_timer(obj, BOMB_BLOW)) {
+            /* (quietly) stop previous timer, if any */
+            (void) stop_timer(BOMB_BLOW, obj_to_any(obj));
+            obj->oarmed = 0;
+        }
+    }
+    
     relmon(mtmp, &migrating_mons); /* move it from map to migrating_mons */
 
     new_lev.dnum = ledger_to_dnum((xchar) tolev);
@@ -968,6 +993,15 @@ register struct obj *obj;
             return TABU;
         }
 
+        /* lizards cure stoning. ghouls won't eat them even then, though,
+           just like elves prefer starvation to cannibalism. */
+        if (obj->otyp == CORPSE && fptr == &mons[PM_LIZARD] && mon->mstone)
+            return DOGFOOD;
+
+        /* gnomes hate eggs */
+        if (obj->otyp == EGG && racial_gnome(mon))
+            return TABU;
+
         switch (obj->otyp) {
         case TRIPE_RATION:
         case MEATBALL:
@@ -985,7 +1019,7 @@ register struct obj *obj;
                                       || defended(mon, AD_ACID)))
                 || (poisonous(fptr) && !(resists_poison(mon)
                                          || defended(mon, AD_DRST)))
-                || (obj->zombie_corpse && !(resists_sick(mptr)
+                || (obj->zombie_corpse && !(resists_sick(mon)
                                             || defended(mon, AD_DISE)))
                 || (touch_petrifies(&mons[obj->corpsenm])
                     && !(resists_ston(mon) || defended(mon, AD_STON))))
@@ -1063,7 +1097,8 @@ register struct obj *obj;
         }
     default:
         if (obj->otyp == AMULET_OF_STRANGULATION
-            || obj->otyp == RIN_SLOW_DIGESTION)
+            || obj->otyp == RIN_SLOW_DIGESTION
+            || obj->oprops & ITEM_STENCH)
             return TABU;
         if (mon_hates_material(mon, obj->material))
             return TABU;
@@ -1098,22 +1133,36 @@ register struct obj *obj;
  */
 boolean
 tamedog(mtmp, obj)
-register struct monst *mtmp;
-register struct obj *obj;
+struct monst *mtmp;
+struct obj *obj;
 {
     boolean same_align = (sgn(mon_aligntyp(mtmp)) == u.ualign.type);
 
-    /* The Wiz, Vecna, Cerberus, Medusa, Grund, and the quest nemeses
-     * aren't even made peaceful. */
-    if (mtmp->iswiz || mtmp->isvecna
-        || mtmp->iscerberus || mtmp->isgrund
-        || mtmp->data == &mons[PM_MEDUSA]
-        || (mtmp->data->mflags3 & M3_WANTSARTI)
-        || unique_corpstat(mtmp->data))
+    /* reduce timed sleep or paralysis, leaving mtmp->mcanmove as-is
+       (note: if mtmp is donning armor, this will reduce its busy time) */
+    if (mtmp->mfrozen)
+        mtmp->mfrozen = (mtmp->mfrozen + 1) / 2;
+    /* end indefinite sleep; using distance==1 limits the waking to mtmp */
+    if (mtmp->msleeping)
+        wake_nearto(mtmp->mx, mtmp->my, 1); /* [different from wakeup()] */
+
+    /* Unique monsters, monsters that covet the Amulet,
+       and various other creatures (see mondata.h) aren't
+       even made peaceful */
+    if (non_tameable(mtmp->data))
         return FALSE;
 
+    /* Taming is much harder on the Astral Plane! */
+    if (Is_astralevel(&u.uz) && rn2(10))
+        return FALSE;
+
+    /* No taming in the Black Market! */
+    if (Is_blackmarket(&u.uz))
+        return FALSE;
+    
     /* Knights can never tame dragons of differing alignment */
-    if (Role_if(PM_KNIGHT) && is_dragon(mtmp->data) && !same_align)
+    if (Role_if(PM_KNIGHT) && is_dragon(mtmp->data)
+        && !same_align)
         return FALSE;
 
     /* Dark knights cannot tame ki-rin, lawful knights cannot
@@ -1141,8 +1190,7 @@ register struct obj *obj;
     if (wielding_artifact(ART_GIANTSLAYER) && racial_giant(mtmp))
         return FALSE;
 
-    if ((wielding_artifact(ART_TROLLSBANE)) 
-        && is_troll(mtmp->data))
+    if ((wielding_artifact(ART_TROLLSBANE)) && is_troll(mtmp->data))
         return FALSE;
 
     if (wielding_artifact(ART_OGRESMASHER) && is_ogre(mtmp->data))
@@ -1165,7 +1213,7 @@ register struct obj *obj;
     if (wielding_artifact(ART_VORPAL_BLADE) && is_jabberwock(mtmp->data))
         return FALSE;
 
-    if (uarmg && uarmg->oartifact == ART_DRAGONBANE && is_dragon(mtmp->data))
+    if (wielding_artifact(ART_DRAGONBANE) && is_dragon(mtmp->data))
         return FALSE;
 
     /* worst case, at least it'll be peaceful. */
@@ -1237,8 +1285,20 @@ register struct obj *obj;
             return FALSE;
     }
 
-    if (mtmp->mtame 
-        || !mtmp->mcanmove
+    /* if already tame, taming magic might make it become tamer */
+    if (mtmp->mtame) {
+        /* maximum tameness is 20, only reachable via eating */
+        if (rnd(10) > mtmp->mtame)
+            mtmp->mtame++;
+        return FALSE; /* didn't just get tamed */
+    }
+    /* pacify angry shopkeeper but don't tame him/her/it/them */
+    if (mtmp->isshk) {
+        make_happy_shk(mtmp, FALSE);
+        return FALSE;
+    }
+
+    if (!mtmp->mcanmove
         /* monsters with conflicting structures cannot be tamed */
         || mtmp->isshk 
         || mtmp->isgd 
@@ -1249,8 +1309,6 @@ register struct obj *obj;
         || racial_human(mtmp)
         || (is_demon(mtmp->data) && mtmp->data != &mons[PM_LAVA_DEMON]
             && !is_demon(raceptr(&youmonst)))
-         /* Mik -- New flag to indicate which things cannot be tamed... */
-        || cannot_be_tamed(mtmp->data)
         || (obj && dogfood(mtmp, obj) >= MANFOOD))
         return FALSE;
 

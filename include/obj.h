@@ -70,7 +70,8 @@ struct obj {
 #define OBJ_MIGRATING 5 /* object sent off to another level */
 #define OBJ_BURIED 6    /* object buried */
 #define OBJ_ONBILL 7    /* object on shk bill */
-#define NOBJ_STATES 8
+#define OBJ_SOMEWHERE 8 /* for magic chest */
+#define NOBJ_STATES 9
 
 #define WP_MODE_AUTO	0	/* Max firing speed */
 #define WP_MODE_BURST	1	/* 1/3 of max rate */
@@ -190,11 +191,11 @@ struct obj {
     ((otmp->oclass == WEAPON_CLASS || otmp->oclass == TOOL_CLASS) \
      && objects[otmp->otyp].oc_skill == P_HAMMER)
 #define is_pole(otmp)                                             \
-    ((otmp->oclass == WEAPON_CLASS                                \
-     || otmp->oclass == TOOL_CLASS)                               \
+    ((otmp->oclass == WEAPON_CLASS || otmp->oclass == TOOL_CLASS) \
      && (objects[otmp->otyp].oc_skill == P_POLEARMS               \
          || objects[otmp->otyp].oc_skill == P_LANCE               \
-         || otmp->otyp == SPIKED_CHAIN))
+         || otmp->otyp == SPIKED_CHAIN)                           \
+     && (otmp->oartifact != ART_GLEIPNIR))
 #define is_spear(otmp) \
     (otmp->oclass == WEAPON_CLASS && objects[otmp->otyp].oc_skill == P_SPEAR)
 #define is_launcher(otmp)                                                  \
@@ -242,6 +243,7 @@ struct obj {
      || otmp->otyp == SPIKED_BARDING || otmp->otyp == BARDING_OF_REFLECTION)
 #define is_robe(otmp) \
     (otmp->otyp == ROBE \
+     || otmp->otyp == LARGE_ROBE \
      || otmp->otyp == ROBE_OF_POWER \
      || otmp->otyp == ROBE_OF_PROTECTION \
      || otmp->otyp == ROBE_OF_WEAKNESS)
@@ -252,6 +254,13 @@ struct obj {
 #define is_chaotic_artifact(otmp) \
     (otmp->oartifact && arti_align(otmp->oartifact) == A_CHAOTIC)
 
+#define is_artikey(otmp) \
+    (otmp->oartifact && (otmp->oartifact == ART_KEY_OF_LAW \
+        || otmp->oartifact == ART_KEY_OF_NEUTRALITY \
+        || otmp->oartifact == ART_KEY_OF_CHAOS \
+        || otmp->oartifact == ART_KEY_OF_ACCESS))
+
+        
 #define is_magical_staff(otmp) \
     (   otmp->otyp == STAFF_OF_DIVINATION \
      || otmp->otyp == STAFF_OF_ESCAPE  \
@@ -357,8 +366,7 @@ struct obj {
 #define Is_container(o) ((o)->otyp == MEDICAL_KIT || \
                          ((o)->otyp >= LARGE_BOX && (o)->otyp <= BAG_OF_TRICKS))
 #define Is_nonprize_container(o) (Is_container(o) && !is_soko_prize_flag(o))
-#define Is_box(o) ((o)->otyp == LARGE_BOX || (o)->otyp == CHEST \
-                   || (o)->otyp == IRON_SAFE || (o)->otyp == CRYSTAL_CHEST)
+#define Is_box(o) ((o)->otyp >= LARGE_BOX && (o)->otyp <= HIDDEN_CHEST)
 #define Is_mbag(o) ((o)->otyp == BAG_OF_HOLDING \
                     || ((o)->otyp == BAG_OF_TRICKS && (o)->spe > 0) \
                     || ((o)->otyp == BAG_OF_RATS  && (o)->spe > 0))
@@ -377,9 +385,9 @@ struct obj {
  * NOTE: this assumes that gray dragons come first and yellow last, as detailed
  * in monst.c. */
 #define FIRST_DRAGON        PM_GRAY_DRAGON
-#define LAST_DRAGON         PM_CHROMATIC_DRAGON
+#define LAST_DRAGON         PM_YELLOW_DRAGON
 #define FIRST_DRAGON_SCALES GRAY_DRAGON_SCALES
-#define LAST_DRAGON_SCALES  CHROMATIC_DRAGON_SCALES
+#define LAST_DRAGON_SCALES  YELLOW_DRAGON_SCALES
 #define Is_dragon_scales(obj) \
     ((obj)->otyp >= FIRST_DRAGON_SCALES && (obj)->otyp <= LAST_DRAGON_SCALES)
 /* Note: dragonscales is corpsenm, and corpsenm is usually initialized to
@@ -504,9 +512,12 @@ struct obj {
 #define pair_of(o) \
     ((o)->otyp == LENSES || (o)->otyp == GOGGLES \
      || is_gloves(o) || is_boots(o))
-
+#define eyewear(o) \
+    ((o)->otyp == BLINDFOLD || (o)->otyp == TOWEL \
+     || (o)->otyp == LENSES || (o)->otyp == GOGGLES \
+     || (o)->otyp == MASK)
 #define bypass_forging_rules(obj) \
-    ((obj)->otyp == SADDLE)
+    ((obj)->otyp == SADDLE || (obj)->otyp == ROCK)
 
 /* 'PRIZE' values override obj->corpsenm so prizes mustn't be object types
    which use that field for monster type (or other overloaded purpose) */
@@ -566,27 +577,71 @@ struct obj {
 #define POTHIT_HERO_THROW  1 /* thrown by hero */
 #define POTHIT_MONST_THROW 2 /* thrown by a monster */
 #define POTHIT_OTHER_THROW 3 /* propelled by some other means [scatter()] */
+#define POTHIT_HERO_ENGULF 4 /* engulf effect from a gel */
+#define POTHIT_MON_ENGULF  5 /* engulf effect from a gel */
 
 /* object properties */
+
+/* When adding new properties:
+ * - IMPORTANT: Update the MAX_ITEM_PROPS and ITEM_PROP_MASK!
+ * - Also update ITEM_RES_PROPS, ITEM_GOOD_PROPS, and ITEM_BAD_PROPS below.
+ * - Also, check existing items for properties that would be redundant and add
+ *   them to is_redundant_prop and rm_redundant_oprops.
+ */
 #define ITEM_FIRE      0x00000001L /* fire damage or resistance */
 #define ITEM_FROST     0x00000002L /* frost damage or resistance */
 #define ITEM_SHOCK     0x00000004L /* shock damage or resistance */
 #define ITEM_VENOM     0x00000008L /* poison damage or resistance */
-#define ITEM_ACID      0x00000010L /* poison damage or resistance */
+#define ITEM_SIZZLE    0x00000010L /* acid damage or resistance */
 #define ITEM_SCREAM    0x00000020L /* sonic damage or resistance */
-#define ITEM_DRLI      0x00000040L /* drains life or resists it */
-#define ITEM_OILSKIN   0x00000080L /* permanently greased */
-#define ITEM_ESP       0x00000100L /* extrinsic telepathy */
-#define ITEM_SEARCHING 0x00000200L /* extrinsic searching */
-#define ITEM_WARNING   0x00000400L /* extrinsic warning */
-#define ITEM_EXCEL     0x00000800L  /* confers luck, charisma boost */
-#define ITEM_FUMBLING  0x00001000L/* extrinsic fumbling */
-#define ITEM_HUNGER    0x00002000L /* extrinsic hunger */
+#define ITEM_DECAY     0x00000040L /* drains life or resistance */
+#define ITEM_SLEEP     0x00000080L /* sleep resistance */
+#define ITEM_FLEX      0x00000100L /* stoning resistance */
+#define ITEM_FILTH     0x00000200L /* sickness resistance */
+#define ITEM_TOUGH     0x00000400L /* Makes items erosionproof and indestructible */
+#define ITEM_OILSKIN   0x00000800L /* permanently greased */
+#define ITEM_ESP       0x00001000L /* telepathy */
+#define ITEM_SEARCH    0x00002000L /* searching */
+#define ITEM_STEALTH   0x00004000L /* stealth */
+#define ITEM_VIGIL     0x00008000L /* warning, wisdom boost, flanking defense */
+#define ITEM_EXCEL     0x00010000L /* luck, charisma boost */
+#define ITEM_INSIGHT   0x00020000L /* see invisible, magical vision */
+#define ITEM_PROWESS   0x00040000L /* Speeds up tech cooldowns, skill bonuses */
+#define ITEM_SURF      0x00080000L /* water walking */
+#define ITEM_SWIM      0x00100000L /* swimming */
+#define ITEM_RAGE      0x00200000L /* fearlessness, bloodthirsty
+                                    * makes your weapon deal max damage */
+#define ITEM_FUMBLE    0x00400000L /* fumbling */
+#define ITEM_HUNGER    0x00800000L /* hunger */
+#define ITEM_STENCH    0x01000000L /* aggravate monster, prevents digestion
+                                    * stenchy items cannot be eaten by players or monsters */
+#define ITEM_TELE      0x02000000L /* teleportitis */
+#define ITEM_SLOW      0x04000000L /* slowness */
+#define ITEM_SUSTAIN   0x08000000L /* sustain ability, 
+                                    * items retain their enchantment level */
+#define ITEM_DANGER    0x10000000L /* infravision + increased difficulty */
+#define ITEM_BURDEN    0x20000000L /* stability, but item weighs more */
 
 #define ITEM_MAGICAL   0x80000000L /* known to have magical properties */
 
-#define ITEM_PROP_MASK 0x00000FFFL /* all current properties */
-#define MAX_ITEM_PROPS 14
+#define ITEM_PROP_MASK 0x3FFFFFFFL /* all current properties */
+#define MAX_ITEM_PROPS 30
+
+/* Properties that grant both a worn resistance and attack type */
+#define ITEM_RES_PROPS (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK | ITEM_VENOM \
+                            | ITEM_SIZZLE | ITEM_SCREAM | ITEM_DECAY        \
+                            | ITEM_SLEEP | ITEM_FLEX | ITEM_FILTH)
+/* Positive properties */
+#define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCH \
+                         | ITEM_VIGIL | ITEM_EXCEL | ITEM_SUSTAIN \
+                         | ITEM_STEALTH | ITEM_INSIGHT | ITEM_SURF \
+                         | ITEM_SWIM | ITEM_RAGE | ITEM_TOUGH)
+/* Negative properties */
+#define ITEM_BAD_PROPS (ITEM_FUMBLE | ITEM_HUNGER | ITEM_STENCH \
+                        | ITEM_TELE | ITEM_SLOW | ITEM_DANGER | ITEM_BURDEN)
+
+#define NON_WEP_PROPS (ITEM_FLEX)
+#define ONLY_WEP_PROPS (ITEM_RAGE | ITEM_PROWESS)
 
 /*
  *  Notes for adding new oextra structures:

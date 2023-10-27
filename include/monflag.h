@@ -46,16 +46,18 @@
 #define MS_SPELL        38 /* spellcaster not matching any of the above */
 #define MS_WERE         39 /* lycanthrope in human form */
 #define MS_BOAST        40 /* giants */
-#define MS_CHICKEN	41 /* chicken */
-#define MS_PARROT	42 /* parrots */
-#define MS_SHEEP	43 /* sheep */
-#define MS_COW		44 /* cows and bulls */
-#define MS_ATHOL	45 /* athols; howls like a shrieker */
+#define MS_CHICKEN	    41 /* chicken */
+#define MS_PARROT	    42 /* parrots */
+#define MS_SHEEP	    43 /* sheep */
+#define MS_COW		    44 /* cows and bulls */
+#define MS_ATHOL	    45 /* athols; howls like a shrieker */
 #define MS_ONEEYEDSAM   46 /* One-eyed Sam */
 #define MS_PIG          47 /* Pigs, hogs */
 #define MS_YAWN         48 /* hippos yawn when angry */
 #define MS_ANT          49 /* ants */
 #define MS_PIRATE       50 /* pirates */
+#define MS_MEGAROAR     51 /* capable of frightful dragon roars */
+#define MS_BOT          52 /* droid sounds */
 
 #define MR_FIRE         0x00000001L /* resists fire */
 #define MR_COLD         0x00000002L /* resists cold */
@@ -68,22 +70,24 @@
 #define MR_PSYCHIC      0x00000100L /* resists psychic */
 #define MR_CLOB         0x00000200L /* resists knockback */
 #define MR_SONIC        0x00000400L /* resists sonic */
+#define MR_DRAIN        0x00000800L /* resists life-drain */
+#define MR_SICK         0x00001000L /* resists sickness */
 
 /* other resistances: magic, sickness */
 /* other conveyances: teleport, teleport control, telepathy */
 
 /* individual resistances */
-#define MR2_SEE_INVIS   0x00000200L /* see invisible */
-#define MR2_LEVITATE    0x00000400L /* levitation */
-#define MR2_WATERWALK   0x00000800L /* water walking */
-#define MR2_MAGBREATH   0x00001000L /* magical breathing */
-#define MR2_DISPLACED   0x00002000L /* displaced */
-#define MR2_STRENGTH    0x00004000L /* gauntlets of power */
-#define MR2_FUMBLING    0x00008000L /* clumsy */
-#define MR2_TELEPATHY   0x00010000L /* telepathic */
-#define MR2_JUMPING     0x00020000L /* can jump */
-#define MR2_REFLECTION  0x00040000L /* has reflection */
-#define MR2_FREE_ACTION 0x00080000L /* has free action */
+#define MR2_SEE_INVIS   0x00002000L/* see invisible */
+#define MR2_LEVITATE    0x00004000L /* levitation */
+#define MR2_WATERWALK   0x00008000L /* water walking */
+#define MR2_MAGBREATH   0x00010000L /* magical breathing */
+#define MR2_DISPLACED   0x00020000L /* displaced */
+#define MR2_STRENGTH    0x00040000L /* gauntlets of power */
+#define MR2_FUMBLING    0x00080000L /* clumsy */
+#define MR2_TELEPATHY   0x00100000L /* telepathic */
+#define MR2_JUMPING     0x00200000L /* can jump */
+#define MR2_REFLECTION  0x00400000L /* has reflection */
+#define MR2_FREE_ACTION 0x00800000L /* has free action */
 
 #define M1_FLY          0x00000001L /* can fly or float */
 #define M1_SWIM         0x00000002L /* can traverse water */
@@ -182,7 +186,8 @@
 #define M4_VULNERABLE_COLD 0x0002
 #define M4_VULNERABLE_ELEC 0x0004
 #define M4_VULNERABLE_ACID 0x0008
-#define M4_STATIONARY      0x0010 /* does not move. */
+#define M4_VULNERABLE_LOUD 0x0010
+#define M4_STATIONARY      0x0020 /* does not move. */
 
 #define MZ_TINY         0 /* < 2' */
 #define MZ_SMALL        1 /* 2-4' */

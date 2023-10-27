@@ -65,8 +65,8 @@ struct obj *obj;
     static char def_srt_order[MAXOCLASSES] = {
         COIN_CLASS,     AMULET_CLASS,   RING_CLASS, WAND_CLASS, POTION_CLASS,
         SCROLL_CLASS,   SPBOOK_CLASS,   GEM_CLASS,  FOOD_CLASS, TOOL_CLASS,
-        WEAPON_CLASS,   ARMOR_CLASS,    ROCK_CLASS, BALL_CLASS, CHAIN_CLASS, 
-        SPIRIT_CLASS, 0,
+        WEAPON_CLASS,   ARMOR_CLASS,    ROCK_CLASS, BALL_CLASS, CHAIN_CLASS,
+        0,
     };
     static char armcat[8];
     const char *classorder;
@@ -317,7 +317,7 @@ const genericptr vptr2;
                          *sli2 = (struct sortloot_item *) vptr2;
     struct obj *obj1 = sli1->obj,
                *obj2 = sli2->obj;
-    char *nam1, *nam2;
+    char *nam1, *nam2, *tmpstr;
     const char *mat1, *mat2;
     int val1, val2, c, namcmp;
 
@@ -390,11 +390,15 @@ const genericptr vptr2;
      * comparisons it gets subjected to.
      */
     nam1 = sli1->str;
-    if (!nam1)
-        nam1 = sli1->str = dupstr(loot_xname(obj1));
+    if (!nam1) {
+        nam1 = sli1->str = dupstr(tmpstr = loot_xname(obj1));
+        maybereleaseobuf(tmpstr);
+    }
     nam2 = sli2->str;
-    if (!nam2)
-        nam2 = sli2->str = dupstr(loot_xname(obj2));
+    if (!nam2) {
+        nam2 = sli2->str = dupstr(tmpstr = loot_xname(obj2));
+        maybereleaseobuf(tmpstr);
+    }
     if ((namcmp = strcmpi(nam1, nam2)) != 0)
         return namcmp;
 
@@ -1697,8 +1701,8 @@ register const char *let, *word;
                  && (otmp->oclass == TOOL_CLASS && otyp != KEG))
              || (!strcmp(word, "eat") && !is_edible(otmp))
              || (!strcmp(word, "sacrifice")
-                 && (otyp != CORPSE && otyp != AMULET_OF_YENDOR
-                     && otyp != FAKE_AMULET_OF_YENDOR))
+                 && (!can_sacrifice(otmp->otyp)
+                 && otyp != AMULET_OF_YENDOR && otyp != FAKE_AMULET_OF_YENDOR))
              || (!strcmp(word, "write with")
                  && (otmp->oclass == TOOL_CLASS
                      && otyp != MAGIC_MARKER && otyp != TOWEL)
@@ -3620,6 +3624,8 @@ char *buf;
         cmap = S_toilet;  /* "toilet" */
     else if (IS_FORGE(ltyp))
         cmap = S_forge; /* "forge" */
+    else if (IS_MAGIC_CHEST(ltyp))
+        cmap = S_magic_chest; /* "magic chest" */
     else if (IS_ALTAR(ltyp)) {
         Sprintf(altbuf, "%saltar to %s (%s)",
                 ((lev->altarmask & AM_SHRINE)
@@ -3654,6 +3660,13 @@ char *buf;
 
     if (cmap >= 0)
         dfeature = defsyms[cmap].explanation;
+    if (cmap == S_magic_chest) {
+        dfeature = doname(mchest); /* hack to show lock status */
+        if (!strncmpi(dfeature, "an ", 3))
+            dfeature += 3;
+        else
+            dfeature += 2;
+    }
     if (dfeature)
         Strcpy(buf, dfeature);
     return dfeature;
@@ -3763,7 +3776,7 @@ boolean picked_some;
         }
     }
     if (!otmp || is_lava(u.ux, u.uy)
-        || (is_pool(u.ux, u.uy) && !Underwater)) {
+        || ((is_pool(u.ux, u.uy) && !Underwater))) {
         if (dfeature)
             pline1(fbuf);
         read_engr_at(u.ux, u.uy); /* Eric Backus */

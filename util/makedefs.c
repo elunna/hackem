@@ -2874,7 +2874,9 @@ do_objs()
 
     }
 
+    Fprintf(ofp, "#define\tFIRST_GEM\t(DILITHIUM_CRYSTAL)\n");
     Fprintf(ofp, "#define\tLAST_GEM\t(JADE)\n");
+    Fprintf(ofp, "#define\tLAST_GLASS\t(LUCKSTONE - 1)\n");
     Fprintf(ofp, "#define\tMAXSPELL\t%d\n", nspell + 1);
     Fprintf(ofp, "#define\tNUM_OBJECTS\t%d\n", i);
 

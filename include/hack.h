@@ -112,7 +112,8 @@ enum cost_alteration_types {
     COST_CORRODE = 18, /* acid damage */
     COST_FRACTURE = 19,   /* glass damage */
     COST_DETERIORATE = 20, /* other material damage */
-    COST_FERMENT = 21  /* fermentation of potion into new potion */
+    COST_TRANSMOGRIFY = 21, /* transmogrify an object */
+    COST_FERMENT = 22  /* fermentation of potion into new potion */
 };
 
 /* bitmask flags for corpse_xname();
@@ -193,6 +194,43 @@ enum bhit_call_types {
     FLASHED_LIGHT = 4,
     INVIS_BEAM    = 5
 };
+
+/* Zap Type definitions, formerly in zap.c */
+#define ZT_MAGIC_MISSILE (AD_MAGM - 1)
+#define ZT_FIRE (AD_FIRE - 1)
+#define ZT_COLD (AD_COLD - 1)
+#define ZT_SLEEP (AD_SLEE - 1)
+#define ZT_DEATH (AD_DISN - 1) /* or disintegration */
+#define ZT_LIGHTNING (AD_ELEC - 1)
+#define ZT_POISON_GAS (AD_DRST - 1)
+#define ZT_ACID (AD_ACID - 1)
+#define ZT_SONIC (AD_LOUD - 1)
+#define ZT_WATER (AD_WATR - 1)
+
+#define MAX_ZT (ZT_WATER + 1)
+
+#define BASE_ZT(x) ((x) % MAX_ZT)
+
+/* convert 1..11 to 0..10 */
+#define AD_to_ZT(k) ((int) k - 1)
+/* do the same and then add MAX_ZT for spells */
+#define AD_to_SPELL(k) BASE_ZT(AD_to_ZT((k)))
+
+/* Converts a zap type (ie: ZT_FIRE) to it's wand, spell, or breath equivalent.
+ * Example: ZT_WAND(ZT_FIRE) or ZT_SPELL(ZT_FIRE)
+ * NOT for AD_TYPES, ex: ZT_WAND(AD_FIRE) 
+ */
+#define ZT_WAND(x) (x)
+#define ZT_SPELL(x) (MAX_ZT + (x))
+#define ZT_BREATH(x) (MAX_ZT + MAX_ZT + (x))
+#define ZT_MONSPELL(x) (-(MAX_ZT + x))
+#define ZT_MONBREATH(x) (-((MAX_ZT*2) + x))
+#define ZT_MONWAND(x) (-((MAX_ZT*3) + x))
+
+#define FIRST_WAND (WAN_MAGIC_MISSILE)
+#define LAST_WAND (WAN_DELUGE)
+#define FIRST_SPELLBOOK (SPE_MAGIC_MISSILE)
+#define LAST_SPELLBOOK (SPE_SONIC_BOOM)
 
 /* attack mode for hmon() */
 enum hmon_atkmode_types {
@@ -459,6 +497,25 @@ enum bodypart_types {
     STOMACH   = 18,
     SKIN      = 19
 };
+
+struct ForgeRecipe {
+    short result_typ;
+    short typ1;
+    short typ2;
+    int quan_typ1;
+    int quan_typ2;
+};
+
+extern const struct ForgeRecipe fusions[]; /* table of fusions */
+
+struct PotionRecipe {
+    short result_typ;
+    short typ1;
+    short typ2;
+    int chance;
+};
+
+extern const struct PotionRecipe potionrecipes[]; /* table of fusions */
 
 /* indices for some special tin types */
 #define ROTTEN_TIN 0

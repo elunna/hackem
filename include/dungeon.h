@@ -212,6 +212,7 @@ typedef struct mapseen {
     d_level lev;          /* corresponding dungeon level */
     struct mapseen_feat {
         /* feature knowledge that must be calculated from levl array */
+        Bitfield(nmagicchest, 2);
         Bitfield(nforge, 2);
         Bitfield(nfount, 2);
         Bitfield(nsink, 2);
@@ -269,7 +270,8 @@ typedef struct mapseen {
 
 enum monster_generation {
     MIN_MONGEN_RATE = 80,
-    MAX_MONGEN_RATE = 20
+    MAX_MONGEN_RATE = 5,
+    TURN_THRESHOLD = 50000
 };
 
 #endif /* DUNGEON_H */

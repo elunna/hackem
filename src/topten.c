@@ -195,7 +195,6 @@ int
 observable_depth(lev)
 d_level *lev;
 {
-#if 0
     /* if we ever randomize the order of the elemental planes, we
        must use a constant external representation in the record file */
     if (In_endgame(lev)) {
@@ -212,8 +211,7 @@ d_level *lev;
         else
             return 0; /* ? */
     } else
-#endif
-    return depth(lev);
+        return depth(lev);
 }
 
 /* throw away characters until current record has been entirely consumed */
@@ -396,7 +394,8 @@ int how;
             (long) ubirthday, XLOG_SEP, (long) urealtime.finish_time);
     Fprintf(rfile, "%cgender0=%s%calign0=%s%crace0=%s", XLOG_SEP,
             genders[flags.initgend].filecode, XLOG_SEP,
-            aligns[u.ualign.type == A_NONE ? 3 : 1 - u.ualign.type].filecode,
+            aligns[u.ualignbase[A_ORIGINAL] == A_NONE
+                   ? 3 : 1 - sgn(u.ualignbase[A_ORIGINAL])].filecode,
             XLOG_SEP, races[flags.initrace].filecode);
     Fprintf(rfile, "%cflags=0x%lx", XLOG_SEP, encodexlogflags());
     Fprintf(rfile, "%cgold=%ld", XLOG_SEP, money_cnt(invent) + hidden_gold());

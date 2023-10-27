@@ -37,7 +37,9 @@ struct monst *mtmp;
     return (index(steeds, ptr->mlet) && (ptr->msize >= MZ_MEDIUM)
             && (!humanoid(ptr) || ptr->mlet == S_CENTAUR) && !amorphous(ptr)
             && !noncorporeal(ptr) && !is_whirly(ptr) && !unsolid(ptr)
-            && !(ptr->mlet == S_JABBERWOCK && mtmp->mnum != PM_JABBERWOCK)
+            && !(ptr->mlet == S_JABBERWOCK
+                 && mtmp->mnum != PM_JABBERWOCK
+                 && mtmp->mnum != PM_VORPAL_JABBERWOCK)
             && !(ptr->mlet == S_DOG && mtmp->mnum != PM_WARG)
             && !(ptr->mlet == S_FELINE && mtmp->mnum != PM_SABER_TOOTHED_TIGER));
 }
@@ -52,7 +54,9 @@ struct monst *mtmp;
     return (index(mbarding, ptr->mlet) && (ptr->msize >= MZ_MEDIUM)
             && !humanoid(ptr) && !amorphous(ptr)
             && !noncorporeal(ptr) && !is_whirly(ptr) && !unsolid(ptr)
-            && !(ptr->mlet == S_JABBERWOCK && mtmp->mnum != PM_JABBERWOCK)
+            && !(ptr->mlet == S_JABBERWOCK
+                 && mtmp->mnum != PM_JABBERWOCK
+                 && mtmp->mnum != PM_VORPAL_JABBERWOCK)
             && !(ptr->mlet == S_DOG && mtmp->mnum != PM_WARG)
             && !(ptr->mlet == S_FELINE && mtmp->mnum != PM_SABER_TOOTHED_TIGER));
 }
@@ -994,6 +998,12 @@ int x, y;
                    mon->mstate, buf);
         return;
     }
+    /* If monster was trapped, it's possible that while engulfing it
+     * may change position. Ex: A green slime engulfing a monster can end
+     * up in a different position than it started after finishing the engulf. */
+    if (mon->mtrapped && mon->mx != x && mon->my != y)
+        mon->mtrapped = 0;
+
     mon->mx = x, mon->my = y;
     level.monsters[x][y] = mon;
 }

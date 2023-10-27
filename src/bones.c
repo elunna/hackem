@@ -216,6 +216,10 @@ boolean restore;
                 /* "special prize" in this game becomes ordinary object
                    if loaded into another game */
                 otmp->record_achieve_special = NON_PM;
+            } else if (otmp->otyp == MAGIC_KEY) {
+                /* magic key becomes a regular key */
+                otmp->otyp = SKELETON_KEY;
+                set_material(otmp, BONE);
             } else if (otmp->otyp == AMULET_OF_YENDOR) {
                 /* no longer the real Amulet */
                 otmp->otyp = FAKE_AMULET_OF_YENDOR;
@@ -252,7 +256,7 @@ boolean restore;
             } else if (is_lightsaber(otmp)) {
                 if (obj_is_burning(otmp))
                     end_burn(otmp, TRUE);
-            }
+            }                 
         }
     }
 }
@@ -313,12 +317,21 @@ int x, y;
 
         if (rn2(5))
             curse(otmp);
-        if (mtmp)
-            (void) add_to_minv(mtmp, otmp);
-        else if (cont)
-            (void) add_to_container(cont, otmp);
-        else
-            place_object(otmp, x, y);
+        /* A bit of randomization for the bones log peekers */
+        if (!rn2(7)) {
+            obj_shudders(otmp);
+            do_osshock(otmp);
+        } else {
+            if (!rn2(5)) {
+                otmp = poly_obj(otmp, STRANGE_OBJECT);
+            }
+            if (mtmp)
+                (void) add_to_minv(mtmp, otmp);
+            else if (cont)
+                (void) add_to_container(cont, otmp);
+            else
+                place_object(otmp, x, y);
+        }
     }
     if (cont)
         cont->owt = weight(cont);

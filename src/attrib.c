@@ -92,6 +92,7 @@ static const struct innate {
 
   nec_abil[] = { /* 1, Fear Resistance - hardcoded elsewhere */
                  { 1, &(HDrain_resistance), "", "" },
+                 { 1, &(HFearless), "", "" },
                  { 1, &(HSick_resistance), "hale", "" },
                  { 3, &(HUndead_warning), "sensitive", "" },
                  { 0, 0, 0, 0 } },
@@ -137,7 +138,8 @@ static const struct innate {
                  { 7, &(HFast), "quick", "slow" },
                  { 0, 0, 0, 0 } },
 
-  wiz_abil[] = { { 15, &(HWarning), "sensitive", "" },
+  wiz_abil[] = { { 1, &(HMagic_sense), "", "" },
+                 { 15, &(HWarning), "sensitive", "" },
                  { 17, &(HTeleport_control), "controlled", "uncontrolled" },
                  { 0, 0, 0, 0 } },
 
@@ -202,16 +204,19 @@ static const struct innate {
                  { 0, 0, 0, 0 } },
   
   vam_abil[] =   { { 1, &(HPoison_resistance), "", "" },
-                   { 1, &(HSleep_resistance), "", "" },
                    { 1, &(HDrain_resistance), "", "" },
                    { 1, &(HBreathless), "breathless", "full of air" },
-                   /*{ 10, &(HHunger), "ravenous", "more content" },*/
-                   { 10, &(HRegeneration), "resilient", "less resilient" },
+                   { 1, &(HRegeneration), "resilient", "less resilient" },
+                   { 1, &(HHunger), "", "" },
+                   { 9, &(HSleep_resistance), "", "" },
                    /*{ 1, &(HFlying), "lighter than air", "gravity's pull" },*/
                    { 0, 0, 0, 0 } },
   
   dop_abil[] = { /* {   1, &(HPolymorph), "", "" },*/
-                 { 25, &(HPolymorph_control), "your choices improve", "choiceless" },
+                 { 1, &(HAcid_resistance), "", "" },
+                 { 5, &(HVulnerable_fire), "sensitive to heat", "less sensitive to heat" },
+                 { 5, &(HVulnerable_cold), "sensitive to cold", "less sensitive to cold" },
+                 { 9, &(HPolymorph_control), "your choices improve", "choiceless" },
                  { 0, 0, 0, 0 } },
   
   hum_abil[] = { { 0, 0, 0, 0 } };
@@ -222,6 +227,7 @@ STATIC_DCL const struct innate *FDECL(role_abil, (int));
 STATIC_DCL const struct innate *NDECL(get_rabil);
 STATIC_DCL const struct innate *FDECL(check_innate_abil, (long *, long));
 STATIC_DCL int FDECL(innately, (long *));
+STATIC_DCL schar FDECL(calc_prop_bonus, (int, long));
 
 /* adjust an attribute; return TRUE if change is made, FALSE otherwise */
 boolean
@@ -467,6 +473,10 @@ void
 change_luck(n)
 register schar n;
 {
+    if (u.uconduct.wishes >= 13) {
+        u.uluck = LUCKMIN;
+        return;
+    }
     u.uluck += n;
     if (u.uluck < 0 && u.uluck < LUCKMIN)
         u.uluck = LUCKMIN;
@@ -483,8 +493,7 @@ boolean parameter; /* So I can't think up of a good name.  So sue me. --KAA */
 
     for (otmp = invent; otmp; otmp = otmp->nobj)
         if (confers_luck(otmp)) {
-            if (otmp->cursed ||
-            (otmp->oartifact && otmp->oartifact == ART_LUCKLESS_FOLLY))
+            if (otmp->cursed || wielding_artifact(ART_LUCKLESS_FOLLY))
                 bonchance -= otmp->quan;
             else if (otmp->blessed)
                 bonchance += otmp->quan;
@@ -496,12 +505,11 @@ boolean parameter; /* So I can't think up of a good name.  So sue me. --KAA */
 }
 
 boolean
-has_luckitem()
-{
+has_luckitem() {
     register struct obj *otmp;
 
     for (otmp = invent; otmp; otmp = otmp->nobj)
-	if (confers_luck(otmp)) return TRUE;
+        if (confers_luck(otmp)) return TRUE;
     return FALSE;
 }
 
@@ -514,6 +522,9 @@ set_moreluck()
     else if (stone_luck(TRUE) >= 0)
         u.moreluck = LUCKADD;
     else
+        u.moreluck = -LUCKADD;
+    
+    if (u.uconduct.wishes >= 13)
         u.moreluck = -LUCKADD;
 }
 
@@ -610,7 +621,8 @@ exerper()
         debugpline0("exerper: Hunger checks");
         switch (hs) {
         case SATIATED:
-            if (!Race_if(PM_VAMPIRIC))  /* undead */
+            /* Don't punish vampires for eating too much */
+            if (!maybe_polyd(is_vampire(youmonst.data), Race_if(PM_VAMPIRIC)))
                 exercise(A_DEX, FALSE);
             if (Role_if(PM_MONK))
                 exercise(A_WIS, FALSE);
@@ -1085,8 +1097,7 @@ int propidx; /* special cases can have negative values */
                replace this with what_blocks() comparable to what_gives() */
             switch (-propidx) {
             case BLINDED:
-                if (ublindf
-                    && ublindf->oartifact == ART_EYES_OF_THE_OVERWORLD)
+                if (wearing_artifact(ART_EYES_OF_THE_OVERWORLD))
                     Sprintf(buf, because_of, bare_artifactname(ublindf));
                 break;
             case INVIS:
@@ -1163,6 +1174,7 @@ int oldlevel, newlevel;
 {
     register const struct innate *abil, *rabil;
     long prevabil, mask = FROMEXPER;
+    int i;
     /* don't give resistance messages when demon crowning.
      * they aren't given in normal crowning, and you can
      * e.g. lose and regain warning, so you don't want
@@ -1236,18 +1248,13 @@ int oldlevel, newlevel;
     adjtech(oldlevel, newlevel);
 
     /* Learn your special spell! (At level 12) */
-    if (urole.spelspec &&
-            oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV
-        && u.ulevelmax == u.ulevel) {
-        int i;
+    if (urole.spelspec && u.ulevelmax == u.ulevel
+          && oldlevel < SPECSPEL_LEV && newlevel >= SPECSPEL_LEV) {
         for (i = 0; i < MAXSPELL; i++)
             if (spellid(i) == urole.spelspec || spellid(i) == NO_SPELL)
                 break;
         if (spellid(i) == NO_SPELL)
             You("learn how to cast %s!", OBJ_NAME(objects[urole.spelspec]));
-        /*spl_book[i].sp_id = urole.spelspec;
-        spl_book[i].sp_lev = objects[urole.spelspec].oc_level;
-        spl_book[i].sp_know = 20000;*/
         force_learn_spell(urole.spelspec);
     }
 
@@ -1356,7 +1363,7 @@ acurr(x)
 int x;
 {
     register int tmp = (u.abon.a[x] + u.atemp.a[x] + u.acurr.a[x]);
-
+    schar res;
     /* robe of weakness and gauntlets of power will cancel */
 
     if (x == A_STR) {
@@ -1380,35 +1387,37 @@ int x;
 #endif
 
     } else if (x == A_CHA) {
-        if (uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
+        if (wielding_artifact(ART_CHAINS_OF_MALCANTHET))
             return (schar) 25;
         if (tmp < 18
             && (youmonst.data->mlet == S_NYMPH || u.umonnum == PM_SUCCUBUS
                 || u.umonnum == PM_INCUBUS))
             return (schar) 18;
-        if (uarmh && uarmh->otyp == FEDORA) 
-            tmp += 1;        
-        if (uarmh && uarmh->otyp == HELM_OF_MADNESS) 
-            tmp += 3; 
-        if ((uwep && (uwep->oprops & ITEM_EXCEL))
-            || (u.twoweap && (uswapwep->oprops & ITEM_EXCEL))) {
-            if (tmp > 6 && (uwep->cursed || (u.twoweap && uswapwep->cursed)))
-                return (schar) 6;
-            else if (tmp < 18 && (!uwep->blessed || (u.twoweap && !uswapwep->blessed)))
-                return (schar) 18;
-            else if (uwep->blessed || (u.twoweap && uswapwep->blessed))
-                return (schar) 25;
-        }
+        if (uarmh && uarmh->otyp == FEDORA)
+            tmp += 1;
+        if (uarmh && uarmh->otyp == HELM_OF_MADNESS)
+            tmp += 3;
+        if ((res = calc_prop_bonus(tmp, ITEM_EXCEL)))
+            return res;
+    } else if (x == A_DEX) {
+        if ((res = calc_prop_bonus(tmp, ITEM_PROWESS)))
+            return res;
     } else if (x == A_CON) {
         if (wielding_artifact(ART_OGRESMASHER))
             return (schar) 25;
-    } else if (x == A_INT || x == A_WIS) {
+    } else if (x == A_INT) {
         /* yes, this may raise int/wis if player is sufficiently
          * stupid.  there are lower levels of cognition than "dunce".
          */
         if (uarmh && uarmh->otyp == DUNCE_CAP)
             return (schar) 6;
+    } else if (x == A_WIS) {
+        if (uarmh && uarmh->otyp == DUNCE_CAP)
+            return (schar) 6;
+        if ((res = calc_prop_bonus(tmp, ITEM_VIGIL)))
+            return res;
     }
+    
 #ifdef WIN32_BUG
     return (x = ((tmp >= 25) ? 25 : (tmp <= 3) ? 3 : tmp));
 #else
@@ -1452,7 +1461,7 @@ int attrindx;
         if (wielding_artifact(ART_OGRESMASHER))
             lolimit = hilimit;
     }  else if (attrindx == A_CHA) {
-        if (uwep && uwep->oartifact == ART_CHAINS_OF_MALCANTHET)
+        if (wielding_artifact(ART_CHAINS_OF_MALCANTHET))
             lolimit = hilimit;
     }
     /* this exception is hypothetical; the only other worn item affecting
@@ -1546,5 +1555,46 @@ uhpmax()
     return (Upolyd ? u.mhmax : u.uhpmax);
 }
 
+/** Returns the bonus available for wearing/wielding 
+  * items with the specified property
+  **/
+STATIC_OVL schar
+calc_prop_bonus(bonus, prop)
+int bonus;
+long prop;
+{
+    struct obj *otmp = using_oprop(prop);
+    /* TODO: Handle having 2 or more items with the same prop and different BUC... */
+    if (otmp && (otmp->oprops & prop)) {
+        if (bonus > 6 && otmp->cursed)
+            return (schar) 6;
+        else if (bonus < 18 && !otmp->blessed)
+            return (schar) 18;
+        else if (otmp->blessed)
+            return (schar) 25;
+    }
+    return (schar) 0;
+}
 
+
+/** Checks if an property will affect any stats.
+  * If it does, we'll identify item property and update the display.
+  **/
+boolean
+changes_stat(otmp, prop)
+long prop;
+register struct obj *otmp;
+{
+    int c;
+    for (c = 0; c < A_MAX; c++) {
+        int old_attrib = ACURR(c);
+        if (calc_prop_bonus(old_attrib, prop) != old_attrib) {
+            otmp->oprops_known |= prop;
+            context.botl = 1;
+            update_inventory();
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
 /*attrib.c*/

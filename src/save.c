@@ -179,14 +179,17 @@ dosave0()
 
     vision_recalc(2); /* shut down vision to prevent problems
                          in the event of an impossible() call */
-
+    
     /* undo date-dependent luck adjustments made at startup time */
     if (flags.moonphase == FULL_MOON) /* ut-sally!fletcher */
         change_luck(-1);              /* and unido!ab */
     if (flags.friday13)
         change_luck(1);
     if (flags.quest_boon)
-        change_luck(-3);
+        change_luck(-1);
+    if (u.uconduct.wishes)
+        change_luck(-wishluck());
+    
     if (iflags.window_inited)
         HUP clear_nhwindow(WIN_MESSAGE);
 
@@ -342,6 +345,9 @@ register int fd, mode;
     /* when FREEING, deletes objects in invent and sets invent to Null;
        pointers into invent (uwep, uarmg, uamul, &c) are set to Null too */
     saveobjchn(fd, &invent, mode);
+
+    /* it's just the one object, but saveobj doesn't do everything needed */
+    saveobjchn(fd, &mchest, mode);
 
     /* save ball and chain if they happen to be in an unusal state */
     save_bc(fd, mode);
@@ -1496,6 +1502,7 @@ freedynamicdata()
     free_timers(RANGE_GLOBAL);
     free_light_sources(RANGE_GLOBAL);
     freeobjchn(invent);
+    freeobjchn(mchest);
     freeobjchn(migrating_objs);
     freemonchn(migrating_mons);
     freemonchn(mydogs); /* ascension or dungeon escape */

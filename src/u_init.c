@@ -102,11 +102,11 @@ struct trobj Healer[] = {
 };
 struct trobj Ice_Mage[] = {
 #define I_BOOK          10
-    { STILETTO, 2, WEAPON_CLASS, 1, 1 },
+    { QUARTERSTAFF, 1, WEAPON_CLASS, 1, 1 },
     { ROBE, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
     { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 1, UNDEF_BLESS },
-    { SCR_ICE, UNDEF_SPE, SCROLL_CLASS, 2, 0 },
+    { SCR_ICE, UNDEF_SPE, SCROLL_CLASS, 2, 1 },
     { WAN_COLD, UNDEF_SPE, WAND_CLASS, 1, UNDEF_BLESS },
     { FROST_HORN, UNDEF_SPE, TOOL_CLASS, 1, 1 },
     { UNDEF_TYP, UNDEF_SPE, RING_CLASS, 1, UNDEF_BLESS },
@@ -222,7 +222,7 @@ struct trobj Ranger[] = {
 struct trobj Rogue[] = {
 #define R_DAGGERS 1
 #define R_DARTS   2
-    { SHORT_SWORD, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { SHORT_SWORD, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
     { DAGGER, 0, WEAPON_CLASS, 10, 0 }, /* quan is variable */
     { DART, 0, WEAPON_CLASS, 25, UNDEF_BLESS },
     { LIGHT_ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -236,7 +236,7 @@ struct trobj Rogue[] = {
 struct trobj Samurai[] = {
 #define S_ARROWS 3
     { KATANA, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
-    { SHORT_SWORD, 0, WEAPON_CLASS, 1, UNDEF_BLESS }, /* wakizashi */
+    { SHORT_SWORD, 3, WEAPON_CLASS, 1, UNDEF_BLESS }, /* wakizashi */
     { YUMI, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { YA, 0, WEAPON_CLASS, 25, UNDEF_BLESS }, /* variable quan */
     { SPLINT_MAIL, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -264,18 +264,16 @@ struct trobj UndeadSlayer[] = {
 #define U_RANGE 2       /* silver daggers or crossbow bolts */
 #define U_MISC  3       /* +1 boots [Buffy can kick] or helmet */
 #define U_ARMOR 4       /* Tshirt/leather +1 or chain mail */
-#define U_WOLFSBANE 6   /* sprig of wolfsbane that gets replaced with medkit or lenses for vampires*/
-#define U_HOLY_WAFER 7  /* holy wafer that gets replaced with gloves for vampires */
 	{ STAKE, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
-        { SPEAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
-        { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
+    { SPEAR, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { DAGGER, 0, WEAPON_CLASS, 5, UNDEF_BLESS },
 	{ HELMET, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
 	{ CHAIN_MAIL, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
-	{ CLOVE_OF_GARLIC, 0, FOOD_CLASS, 5, 1 },
+    { CLOVE_OF_GARLIC, 0, FOOD_CLASS, 5, 1 },
 	{ SPRIG_OF_WOLFSBANE, 0, FOOD_CLASS, 5, 1 },
 	{ HOLY_WAFER, 0, FOOD_CLASS, 4, 0 },
 	{ POT_WATER, 0, POTION_CLASS, 4, 1 },        /* holy water */
-        { TORCH, 0, TOOL_CLASS, 1, 0 },
+    { TORCH, 0, TOOL_CLASS, 1, 0 },
 	{ 0, 0, 0, 0, 0 }
 };
 struct trobj Valkyrie[] = {
@@ -344,17 +342,21 @@ struct trobj Gem[] = { { UNDEF_TYP, 0, GEM_CLASS, 1, 0 },
                               { 0, 0, 0, 0, 0 } };
 struct trobj Tinningkit[] = { { TINNING_KIT, UNDEF_SPE, TOOL_CLASS, 1, 0 },
                                      { 0, 0, 0, 0, 0 } };
+struct trobj MedicalKit[] = { { MEDICAL_KIT, UNDEF_SPE, TOOL_CLASS, 1, 0 },
+                              { 0, 0, 0, 0, 0 } };
 struct trobj Pickaxe[] = { { PICK_AXE, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
+struct trobj Stake[] = { { STAKE, 0, WEAPON_CLASS, 1, 0 },
+                           { 0, 0, 0, 0, 0 } };
 struct trobj AoMR[] = { { AMULET_OF_MAGIC_RESISTANCE, 0, AMULET_CLASS, 1, 0 },
                                { 0, 0, 0, 0, 0 } };
 struct trobj AoUn[] = { { AMULET_OF_UNCHANGING, 0, AMULET_CLASS, 1, CURSED },
                                { 0, 0, 0, 0, 0 } };
 struct trobj Oilskin[] = { { OILSKIN_SACK, 0, TOOL_CLASS, 1, 0 },
                                   { 0, 0, 0, 0, 0 } };
-struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
+struct trobj Goggles[] = { { GOGGLES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
-struct trobj VampireBloodPotions[] = { { POT_VAMPIRE_BLOOD, 0, POTION_CLASS, 2, 0 },
+struct trobj Lenses[] = { { LENSES, 0, TOOL_CLASS, 1, 0 },
                            { 0, 0, 0, 0, 0 } };
 struct trobj GrapplingHook[] = { { GRAPPLING_HOOK, 0, TOOL_CLASS, 1, 0 },
                           { 0, 0, 0, 0, 0 } };
@@ -406,15 +408,18 @@ struct inv_sub {
     { PM_DWARF, LONG_SWORD, DWARVISH_BEARDED_AXE },
     { PM_GNOME, BOW, CROSSBOW },
     { PM_GNOME, ARROW, CROSSBOW_BOLT },
-    { PM_VAMPIRIC, POT_FRUIT_JUICE, POT_BLOOD	      },
-    { PM_VAMPIRIC, FOOD_RATION, POT_VAMPIRE_BLOOD     },
-    { PM_VAMPIRIC, CRAM_RATION, POT_VAMPIRE_BLOOD     },
+    { PM_VAMPIRIC, POT_FRUIT_JUICE, POT_BLOOD },
+    { PM_VAMPIRIC, FOOD_RATION, POT_VAMPIRE_BLOOD },
+    { PM_VAMPIRIC, CRAM_RATION, POT_VAMPIRE_BLOOD },
+    { PM_VAMPIRIC, HOLY_WAFER, POT_VAMPIRE_BLOOD },
+    { PM_VAMPIRIC, HELMET, GAUNTLETS },
+    { PM_VAMPIRIC, CHAIN_MAIL, JACKET },
     /* Giants have special considerations */
-    { PM_GIANT, ROBE, HIGH_BOOTS },
-    { PM_GIANT, ROBE_OF_POWER, HIGH_BOOTS },
+    { PM_GIANT, ROBE, LARGE_ROBE },
+    { PM_GIANT, ROBE_OF_POWER, LARGE_ROBE },
     { PM_GIANT, RING_MAIL, HELMET },
     { PM_GIANT, LIGHT_ARMOR, HELMET },
-    { PM_GIANT, CLOAK_OF_MAGIC_RESISTANCE, LOW_BOOTS },
+    { PM_GIANT, CLOAK_OF_MAGIC_RESISTANCE, LARGE_ROBE },
     { PM_GIANT, RIN_STEALTH, RIN_SEARCHING },
     { PM_GIANT, SPLINT_MAIL, LARGE_SPLINT_MAIL },
     { PM_GIANT, CHAIN_MAIL, LOW_BOOTS },
@@ -432,6 +437,7 @@ struct inv_sub {
     /* Tortles also have special considerations */
     { PM_TORTLE, JACKET, GLOVES },
     { PM_TORTLE, RING_MAIL, TOQUE },
+    { PM_TORTLE, SPLINT_MAIL, TOQUE },
     { PM_TORTLE, BATTLE_AXE, TRIDENT },
     { PM_TORTLE, ROBE, TOQUE },
     { PM_TORTLE, ROBE_OF_POWER, TOQUE },
@@ -440,8 +446,6 @@ struct inv_sub {
     { PM_TORTLE, HELMET, TOQUE }, /* Undead Slayer */
     { PM_TORTLE, CHAIN_MAIL, GLOVES }, /* Undead Slayer */
     { PM_TORTLE, CLOAK_OF_MAGIC_RESISTANCE, GLOVES },
-    /* Blade style Undead Slayer */
-    { PM_VAMPIRIC, CHAIN_MAIL, TRENCH_COAT }, /* Undead Slayer */
     /* Centaurs */
     { PM_CENTAUR, HIGH_BOOTS, HELMET },
     { NON_PM, STRANGE_OBJECT, STRANGE_OBJECT }
@@ -486,7 +490,6 @@ static const struct def_skill Skill_B[] = {
     { P_MORNING_STAR, P_SKILLED },
     { P_FLAIL, P_BASIC },
     { P_HAMMER, P_EXPERT },
-    { P_QUARTERSTAFF, P_BASIC },
     { P_SPEAR, P_SKILLED },
     { P_TRIDENT, P_SKILLED },
     { P_BOW, P_BASIC },
@@ -549,9 +552,9 @@ static const struct def_skill Skill_F[] = {
     { P_SHORT_SWORD, P_SKILLED },           /* For access to fire-brand */
     { P_MACE, P_BASIC },                    /* No good reason, just variety.*/
 /*  { P_MORNING_STAR, P_BASIC },*/
-    { P_CLUB, P_EXPERT },              /* because clubs/torches can be lit.*/
+    { P_CLUB, P_EXPERT },                   /* because clubs/torches can be lit.*/
     { P_HAMMER, P_SKILLED },
-    { P_QUARTERSTAFF, P_EXPERT },   /* sac gift is Firewall, a quarterstaff */
+    { P_QUARTERSTAFF, P_EXPERT },           /* sac gift is Firewall, a quarterstaff */
     { P_BOW, P_BASIC },
     { P_SLING, P_SKILLED },                 /* Familiar with flint stones */
     { P_WHIP, P_SKILLED },                  /* Potentially for flaming whips */
@@ -589,25 +592,26 @@ static const struct def_skill Skill_H[] = {
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_I[] = {
-/*Resorts mostly to stabbing weapons*/
-    { P_DAGGER, P_SKILLED },
+    /*Resorts mostly to stabbing weapons*/
+    { P_DAGGER, P_EXPERT },
     { P_KNIFE,  P_EXPERT },
     { P_AXE, P_BASIC },
-/*  { P_PICK_AXE, P_BASIC },*/
+    { P_PICK_AXE, P_BASIC },
     { P_SHORT_SWORD, P_EXPERT },
     { P_BROAD_SWORD, P_BASIC },
     { P_LONG_SWORD, P_BASIC },
-    { P_FLAIL, P_SKILLED },
-    { P_QUARTERSTAFF, P_BASIC },
-    { P_SPEAR, P_SKILLED },
-    { P_TRIDENT, P_EXPERT },
-/*  { P_BOW, P_BASIC },*/
-    { P_SLING, P_BASIC },
-/*  { P_CROSSBOW, P_BASIC },
-    { P_DART, P_EXPERT },*/
+    { P_FLAIL, P_BASIC },
+    { P_QUARTERSTAFF, P_EXPERT },
+    { P_SPEAR, P_BASIC },
+    { P_TRIDENT, P_BASIC },
+    { P_BOW, P_BASIC },
+    { P_SLING, P_SKILLED },
+    { P_CROSSBOW, P_BASIC },
+    { P_DART, P_BASIC },
     { P_UNICORN_HORN, P_SKILLED },
 
     { P_ATTACK_SPELL, P_BASIC },
+    { P_DIVINATION_SPELL, P_BASIC },
     { P_ENCHANTMENT_SPELL, P_EXPERT },
     { P_ESCAPE_SPELL, P_BASIC },
     { P_MATTER_SPELL, P_EXPERT },
@@ -652,7 +656,7 @@ static const struct def_skill Skill_J[] = {
     { P_ENCHANTMENT_SPELL, P_SKILLED }, /* special spell is charm monster */
     { P_RIDING, P_SKILLED },
     { P_TWO_WEAPON_COMBAT, P_BASIC }, 
-    { P_MARTIAL_ARTS, P_EXPERT },
+    { P_BARE_HANDED_COMBAT, P_EXPERT },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_K[] = {
@@ -703,22 +707,16 @@ static const struct def_skill Skill_Mon[] = {
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_N[] = {
-    { P_DAGGER, P_EXPERT },             /* Sac gift and generally good */
-    { P_KNIFE,  P_SKILLED },            /* For... making bodies */
-    { P_AXE, P_SKILLED },               /* For choppin up bodies */
-    { P_PICK_AXE, P_EXPERT },           /* For digging up graves */
-    { P_CLUB, P_SKILLED },              /* So aklys is an option */
-    { P_POLEARMS, P_EXPERT },           /* For scythes */
-    { P_MACE, P_SKILLED },              /* Good choices here, see Worm that Walks */
-    { P_SPEAR, P_BASIC },
-    { P_SABER, P_BASIC },
-    { P_CROSSBOW, P_SKILLED },
-    { P_DART, P_BASIC },
-    { P_UNICORN_HORN, P_EXPERT },       /* Using a dead animals horn is dark */
-
+    { P_DAGGER, P_EXPERT },             /* Sac gift and quest artifact */
+    { P_AXE, P_BASIC },                 /* For choppin up bodies */
+    { P_PICK_AXE, P_EXPERT },            /* For digging up graves */
+    { P_POLEARMS, P_BASIC },            /* For scythes */
+    { P_MACE, P_BASIC },                /* Executioner's mace, etc */
+    { P_CROSSBOW, P_BASIC },
+    { P_UNICORN_HORN, P_BASIC },        /* Using a dead animals horn is dark */
+    { P_QUARTERSTAFF, P_EXPERT },
+    
     { P_ATTACK_SPELL, P_SKILLED },
-    { P_MATTER_SPELL, P_BASIC },
-    { P_DIVINATION_SPELL, P_BASIC },
     { P_NECROMANCY_SPELL, P_EXPERT },
     { P_BARE_HANDED_COMBAT, P_BASIC },
     { P_SHIELD, P_SKILLED },
@@ -801,13 +799,12 @@ static const struct def_skill Skill_Ran[] = {
     { P_DAGGER, P_EXPERT },
     { P_KNIFE, P_SKILLED },
     { P_AXE, P_SKILLED },
-    { P_PICK_AXE, P_BASIC },
     { P_SHORT_SWORD, P_BASIC },
+    { P_BROAD_SWORD, P_SKILLED },
     { P_MORNING_STAR, P_BASIC },
     { P_FLAIL, P_SKILLED },
     { P_HAMMER, P_BASIC },
-    { P_QUARTERSTAFF, P_BASIC },
-    { P_POLEARMS, P_SKILLED },
+    { P_POLEARMS, P_BASIC },
     { P_SPEAR, P_EXPERT },
     { P_TRIDENT, P_BASIC },
     { P_BOW, P_EXPERT },
@@ -907,7 +904,7 @@ static const struct def_skill Skill_U[] = {
     { P_ENCHANTMENT_SPELL, P_SKILLED },
     { P_ESCAPE_SPELL, P_SKILLED },
     { P_MATTER_SPELL, P_BASIC },
-    { P_MARTIAL_ARTS, P_MASTER }, /* Buffy the Vampire Slayer */
+    { P_BARE_HANDED_COMBAT, P_MASTER }, /* Buffy the Vampire Slayer */
     { P_TWO_WEAPON_COMBAT, P_BASIC },
     { P_SHIELD, P_EXPERT },
     { P_NONE, 0 }
@@ -1210,7 +1207,7 @@ u_init()
         }
         ini_inv(Ice_Mage);
         if (!rn2(2)) 
-            ini_inv(Lenses);
+            ini_inv(Goggles);
         skill_init(Skill_I);
         break;
     case PM_JEDI:
@@ -1417,26 +1414,12 @@ u_init()
         /* Vampires get a longsword and a trench coat just like Blade */
         if (Race_if(PM_VAMPIRIC)) {
             UndeadSlayer[U_MAJOR].trotyp = LONG_SWORD;
-            UndeadSlayer[U_ARMOR].trotyp = TRENCH_COAT;
-            UndeadSlayer[U_ARMOR].trspe = 2;
-
-            /* Replace the holy wafer with gloves for vampires */
-            UndeadSlayer[U_HOLY_WAFER].trclass = ARMOR_CLASS;
-            UndeadSlayer[U_HOLY_WAFER].trotyp = GLOVES;
-            UndeadSlayer[U_HOLY_WAFER].trquan = 1;
-            UndeadSlayer[U_HOLY_WAFER].trspe = 0;
-            UndeadSlayer[U_HOLY_WAFER].trbless = UNDEF_BLESS;
-
+            UndeadSlayer[U_ARMOR].trspe = 0;
             /* Init first so weapon gets index a */
             ini_inv(UndeadSlayer);
-
-            /* Blade wears glasses, lenses are "close enough" */
             ini_inv(Lenses);
-            ini_inv(VampireBloodPotions);
-        }
-        else {
+        } else 
             ini_inv(UndeadSlayer);
-        }
 
         knows_class(WEAPON_CLASS);
         knows_class(ARMOR_CLASS);
@@ -1462,13 +1445,6 @@ u_init()
             ini_inv(Lamp);
         if (!rn2(5))
             ini_inv(Blindfold);
-        knows_object(MAGIC_MARKER);
-        knows_object(MAGIC_WHISTLE);
-        knows_object(MAGIC_HARP);
-        knows_object(MAGIC_FLUTE);
-        knows_object(MAGIC_CANDLE);
-        knows_object(MAGIC_LAMP);
-        knows_object(DRUM_OF_EARTHQUAKE);
         skill_init(Skill_W);
         
         break;
@@ -1572,7 +1548,7 @@ u_init()
         }
 
         /* Giants know valuable gems from glass, and may recognize a few types of valuable gem. */
-        for (i = DILITHIUM_CRYSTAL; i <= LUCKSTONE; i++) {
+        for (i = FIRST_GEM; i <= LUCKSTONE; i++) {
             if ((objects[i].oc_cost <= 1) || (rn2(100) < 5 + ACURR(A_INT)))
                 knows_object(i);
         }
@@ -1656,6 +1632,9 @@ u_init()
         change_luck(-1);
         knows_object(POT_VAMPIRE_BLOOD);
         knows_object(POT_BLOOD);
+
+        if (!Role_if(PM_HEALER))
+            ini_inv(MedicalKit);
         break;
 
     case PM_DOPPELGANGER:
@@ -1751,6 +1730,7 @@ u_init()
     if (Role_if(PM_CAVEMAN) || Role_if(PM_CAVEWOMAN)) {
         mons[PM_VELOCIRAPTOR].geno &= ~(G_NOGEN);
         mons[PM_T_REX].geno &= ~(G_NOGEN);
+        mons[PM_COMPSOGNATHUS].geno &= ~(G_NOGEN);
     }
     
     /* If we have at least one spell, force starting Pw to be 5,
@@ -1780,8 +1760,8 @@ int damg_melee_types [] =
       AD_SGLD, AD_SITM, AD_SEDU, AD_TLPT, AD_RUST,
       AD_CONF, AD_DRDX, AD_DRCO, AD_DRIN, AD_DISE,
       AD_DCAY, AD_HALU, AD_ENCH, AD_CORR, AD_BHED,
-      AD_POLY, AD_WTHR, AD_PITS, AD_WEBS, AD_LOUD,
-      AD_CALM, AD_TCKL, AD_LARV
+      AD_POLY, AD_WTHR, AD_WEBS, AD_LOUD, AD_CALM,
+      AD_TCKL, AD_LARV /*AD_PITS,*/
     };
 
 int damg_breath_types [] =
@@ -1837,7 +1817,7 @@ shambler_init()
     shambler->mmove = rn2(10) + 9;      /* slow to very fast */
     shambler->ac = rn2(31) - 20;        /* any AC */
     shambler->mr = rn2(5) * 25;         /* varying amounts of MR */
-    shambler->maligntyp = rn2(21) - 10;
+    shambler->maligntyp = rn2(21) - 10; /* varying alignment */
 
     shambler_attacks = rnd(4);
     for (i = 0; i < shambler_attacks; i++) {
@@ -1891,17 +1871,18 @@ shambler_init()
         }
     }
 
-    shambler->msize = !rn2(6) ? MZ_GIGANTIC : rn2(MZ_HUGE); /* any size */
-    shambler->cwt = 20;                                     /* fortunately moot as it's flagged NOCORPSE */
-    shambler->cnutrit = 20;                                 /* see above */
-    shambler->msound = rn2(MS_HUMANOID);                    /* any but the specials */
+    shambler->msize = !rn2(6) ? MZ_GIGANTIC
+                              : rn2(MZ_HUGE);    /* any size */
+    shambler->cwt = 20;                          /* fortunately moot as it's flagged NOCORPSE */
+    shambler->cnutrit = 20;                      /* see above */
+    shambler->msound = rn2(MS_HUMANOID);         /* any but the specials */
     shambler->mresists = 0;
 
     for (i = 0; i < rnd(6); i++)
-        shambler->mresists |= (1 << rn2(8));                /* physical resistances... */
+        shambler->mresists |= (1 << rn2(9));     /* physical resistances... */
     for (i = 0; i < rnd(5); i++)
-        shambler->mresists |= (0x100 << rn2(7));            /* 'different' resistances, even clumsy */
-    shambler->mconveys = 0;                                 /* flagged NOCORPSE */
+        shambler->mresists |= (0x200 << rn2(9)); /* 'different' resistances, even clumsy */
+    shambler->mconveys = 0;                      /* flagged NOCORPSE */
 
     /*
      * now time for the random flags.  this will likely produce
@@ -1914,6 +1895,7 @@ shambler_init()
                                                  * include/monflag.h */
     shambler->mflags1 &= ~M1_UNSOLID;           /* no ghosts */
     shambler->mflags1 &= ~M1_WALLWALK;          /* no wall-walkers */
+    shambler->mflags1 &= ~M1_CONCEAL;           /* no hiders */
     shambler->mflags1 &= ~M1_ACID;              /* will never leave a corpse */
     shambler->mflags1 &= ~M1_POIS;              /* same as above */
 
@@ -1940,6 +1922,21 @@ shambler_init()
     return;
 }
 
+/* Initialize random elements of dragons. */
+void
+dragon_init()
+{
+    /* Which dragons will have the frightful roar? */
+    struct permonst* dragon;
+    int i;
+    for (i = PM_GRAY_DRAGON; i <= PM_YELLOW_DRAGON; i++) {
+        if (!rn2(3)) {
+            dragon = &mons[i];
+            dragon->msound = MS_MEGAROAR;
+        }
+    }
+        
+}
 /* skills aren't initialized, so we use the role-specific skill lists */
 STATIC_OVL boolean
 restricted_spell_discipline(otyp)
@@ -2060,6 +2057,7 @@ register struct trobj *origtrop;
                    || otyp == SCR_AMNESIA
                    || otyp == SCR_FLOOD
                    || otyp == SCR_FIRE
+                   || otyp == SCR_ICE
                    || otyp == SCR_BLANK_PAPER
                    || otyp == SPE_BLANK_PAPER
                    || otyp == RIN_AGGRAVATE_MONSTER
@@ -2071,10 +2069,14 @@ register struct trobj *origtrop;
                        && (otyp == RIN_FIRE_RESISTANCE 
                            || otyp == RIN_COLD_RESISTANCE))
 
-                   /* Necromancers start with drain res */
-                   || (otyp == AMULET_OF_DRAIN_RESISTANCE && Role_if(PM_NECROMANCER))
+                   /* Necromancers/vampirics start with drain res */
+                   || (otyp == AMULET_OF_DRAIN_RESISTANCE
+                        && (Role_if(PM_NECROMANCER) || Race_if(PM_VAMPIRIC)))
+                   /* vampirics start with regeneration */
+                   || (otyp == RIN_REGENERATION && Race_if(PM_VAMPIRIC))
                    /* orcs start with poison resistance */
-                   || (otyp == RIN_POISON_RESISTANCE && Race_if(PM_ORC))
+                   || (otyp == RIN_POISON_RESISTANCE 
+                        && (Race_if(PM_ORC) || Race_if(PM_VAMPIRIC)))
                    /* Monks don't use weapons */
                    || (otyp == SCR_ENCHANT_WEAPON && Role_if(PM_MONK))
                    /* wizard patch -- they already have one */
@@ -2156,11 +2158,15 @@ register struct trobj *origtrop;
             && valid_obj_material(obj, COPPER))
             set_material(obj, COPPER);
 
-        /* Do the same for orcs and mithril objects.
-           Currently not a concern, but may be in the future */
+        /* Do the same for orcs and mithril objects */
         if (Race_if(PM_ORC) && obj->material == MITHRIL
             && valid_obj_material(obj, IRON))
             set_material(obj, IRON);
+
+        /* Do the same for vampires and silver objects */
+        if (Race_if(PM_VAMPIRE) && obj->material == SILVER
+            && valid_obj_material(obj, BONE))
+            set_material(obj, BONE);
         
         /* Holy wafers do damage to chaotic players */
         if (u.ualign.type == A_CHAOTIC && obj->otyp == HOLY_WAFER)
@@ -2232,16 +2238,7 @@ register struct trobj *origtrop;
             /* Undead Slayers get special silver weapons.
              * Before the object materials patch this was easy, but 
              * looks like we'll just do it here. */
-            if (Role_if(PM_UNDEAD_SLAYER)) { 
-                /* no food for vampires except garlic */
-                if (urace.malenum == PM_VAMPIRIC
-                        && obj->oclass == FOOD_CLASS
-                        && obj->otyp != CLOVE_OF_GARLIC) {
-                    dealloc_obj(obj);
-                    origtrop++;
-                    memcpy(&temptrop, origtrop, sizeof(struct trobj));
-                    continue;
-                }
+            if (Role_if(PM_UNDEAD_SLAYER)) {
                 if (is_spear(obj)
                       || obj->otyp == DAGGER 
                       || obj->otyp == ELVEN_DAGGER
@@ -2314,9 +2311,19 @@ register struct trobj *origtrop;
         if (obj->oclass == AMULET_CLASS)
             setworn(obj, W_AMUL);
 
+        if (obj->oclass == TOOL_CLASS && !ublindf
+            && (obj->otyp == LENSES || obj->otyp == GOGGLES))
+            setworn(obj, W_TOOL);
+        
         /* Don't allow gear with object properties
-         * to be start scummed for */
-        obj->oprops = obj->oprops_known = 0L;
+         * to be start scummed for. One exception! */
+        if (Role_if(PM_UNDEAD_SLAYER) && Race_if(PM_VAMPIRIC) 
+                && is_suit(obj)) {
+            obj->oprops |= ITEM_FIRE;
+            obj->oprops_known |= ITEM_FIRE;
+        }
+        else
+            obj->oprops = obj->oprops_known = 0L;
 
 #if !defined(PYRAMID_BUG) && !defined(MAC)
         if (--trop->trquan)

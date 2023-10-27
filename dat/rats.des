@@ -11,7 +11,7 @@ ROOM: "ordinary" , unlit, random, random, (16,8) {
     OBJECT: random, random
     OBJECT: random, random
     OBJECT: random, random
-    OBJECT: ('!', "invulnerability"), random
+    [20%]: OBJECT: ('!', "invulnerability"), random
     OBJECT: (')', "long sword"), (8,4)
     OBJECT: ('[', "elven boots"), (8,4)
     OBJECT: ('%', "cheese"), (8,4)
@@ -105,7 +105,7 @@ DOOR: closed, (58,10)
 DOOR: closed, (60,10)
 
 # Potion of invulerability along with some other junk - it's a sewer after all.
-OBJECT: ('!', "invulnerability"), random
+[20%]: OBJECT: ('!', "invulnerability"), random
 LOOP [3] { OBJECT: random, random }
 LOOP [5] { GOLD: 1d200, random } 
                                            

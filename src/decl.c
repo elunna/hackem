@@ -209,6 +209,8 @@ NEARDATA long wailmsg = 0L;
 
 /* objects that are moving to another dungeon level */
 NEARDATA struct obj *migrating_objs = (struct obj *) 0;
+/* magic chest */
+NEARDATA struct obj *mchest = (struct obj *) 0;
 /* objects not yet paid for */
 NEARDATA struct obj *billobjs = (struct obj *) 0;
 
@@ -225,6 +227,7 @@ NEARDATA char catname[PL_PSIZ] = DUMMY;
 NEARDATA char horsename[PL_PSIZ] = DUMMY;
 NEARDATA char wolfname[PL_PSIZ] = DUMMY;
 NEARDATA char ghoulname[PL_PSIZ] = DUMMY;
+NEARDATA char droidname[PL_PSIZ] = DUMMY;
 NEARDATA char monkeyname[PL_PSIZ] = DUMMY;
 NEARDATA char pseudoname[PL_PSIZ] = DUMMY;
 NEARDATA char ratname[PL_PSIZ] = DUMMY;

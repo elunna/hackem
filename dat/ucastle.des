@@ -31,7 +31,8 @@ REGION: (32,10,34,11), unlit, "ordinary"
 REGION: (41,02,61,08), unlit, "swamp"
 
 # Stairs
-BRANCH: (04,02,04,02), (00,00,00,00)
+#BRANCH: (04,02,04,02), (00,00,00,00)
+STAIR:(04,02),up
 TELEPORT_REGION: (41,02,61,08), (00,00,00,00)   
 
 #  Doors

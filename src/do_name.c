@@ -1204,9 +1204,6 @@ do_mname()
      *
      * Don't say the name is being rejected if it happens to match
      * the existing name.
-     *
-     * TODO: should have an alternate message when the attempt is to
-     * remove existing name without assigning a new one.
      */
     if ((mtmp->data->geno & G_UNIQ) && !mtmp->ispriest) {
         if (!alreadynamed(mtmp, monnambuf, buf))
@@ -1335,12 +1332,6 @@ const char *name;
     if (obj->oartifact || (lth && exist_artifact(obj->otyp, name)))
         return obj;
 
-    if (!strcmpi(name, "Grandmaster's Robe")
-            && Is_dragon_scaled_armor(obj)) {
-        pline("While engraving, your %s slips.", body_part(HAND));
-        return obj;
-    }
-
     new_oname(obj, lth); /* removes old name if one is present */
     if (lth)
         Strcpy(ONAME(obj), name);
@@ -1358,7 +1349,7 @@ const char *name;
         /* if obj is owned by a shop, increase your bill */
         if (obj->unpaid)
             alter_cost(obj, 0L);
-        if (via_naming && obj->oartifact != ART_GRANDMASTER_S_ROBE) {
+        if (via_naming) {
             /* naming an artifact has consequences now, much like
                wishing for one... not as bad as spawning a player
                monster or quest nemesis, but you're still not
@@ -1495,8 +1486,17 @@ docallcmd()
         allowall[0] = ALL_CLASSES;
         allowall[1] = '\0';
         obj = getobj(allowall, "name");
-        if (obj)
-            do_oname(obj);
+        if (obj) {
+            char *tempstr = xname(obj);
+            maybereleaseobuf(tempstr);
+
+            if (!obj->dknown) {
+                You("would never recognize %s later.",
+                    obj->quan > 1L ? "them" : "it");
+            } else {
+                do_oname(obj);
+            }
+        }
         break;
     case 'o': /* name a type of object in inventory */
         obj = getobj(callable, "call");
@@ -1504,7 +1504,8 @@ docallcmd()
             /* behave as if examining it in inventory;
                this might set dknown if it was picked up
                while blind and the hero can now see */
-            (void) xname(obj);
+            char *tempstr = xname(obj);
+            maybereleaseobuf(tempstr);
 
             if (!obj->dknown) {
                 You("would never recognize another one.");
@@ -1896,10 +1897,8 @@ boolean called;
             Strcat(buf, name);
             name_at_start = TRUE;
         }
-    } else if (mdat == &mons[PM_HYDRA] 
-          && mtmp->m_lev - mtmp->data->mlevel > -1) {
-        Sprintf(eos(buf), "%d-headed hydra",
-            mtmp->m_lev - mtmp->data->mlevel + 2);
+    } else if (mdat == &mons[PM_HYDRA] && num_heads(mtmp) > 1) {
+        Sprintf(eos(buf), "%d-headed hydra", num_heads(mtmp));
         name_at_start = FALSE;
     } else if ((is_mplayer(mdat) || mdat == &mons[PM_RONIN])
                && !In_endgame(&u.uz)) {

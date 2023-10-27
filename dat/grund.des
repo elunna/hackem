@@ -412,7 +412,11 @@ CONTAINER:('(', "iron safe"),(06,01) {
         }
     }
 
-    [20%]: OBJECT: ('(', "magic marker"), cursed, 34
+    IF [20%] {
+        OBJECT: ('(', "magic marker"), cursed, 34
+    } ELSE {
+        OBJECT: ('?', "acquirement"), cursed
+    }
     OBJECT: ('!', "enlightenment"), blessed, 0
     OBJECT: ('!', "enlightenment"), blessed, 0
     [50%]: OBJECT: ('!', "enlightenment"), blessed, 0
@@ -430,6 +434,8 @@ CONTAINER:('(', "iron safe"),(06,01) {
     }
     GOLD: 8700, (06,01)
     GOLD: 1d200, (06,01)
+    
+     OBJECT:('(',"magic key")
 }
 
 # arms storage

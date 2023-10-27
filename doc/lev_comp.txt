@@ -147,6 +147,7 @@ GRAMMAR
                        | altar_detail
                        | fountain_detail
                        | forge_detail
+                       | magic_chest_detail
                        | sink_detail
                        | toilet_detail
                        | puddle_detail
@@ -245,6 +246,7 @@ GRAMMAR
                        | altar_detail
                        | fountain_detail
                        | forge_detail
+                       | magic_chest_detail
                        | mazewalk_detail
                        | wallify_detail
                        | ladder_detail
@@ -349,7 +351,10 @@ GRAMMAR
        
        forge_detail : FORGE_ID ':' coordinate
                        ;
-
+                       
+       magic_chest_detail : MAGIC_CHEST_ID ':' coordinate
+                       ;
+                       
        vent_detail : VENT_ID ':' coordinate
                        ;
                        
@@ -506,6 +511,7 @@ GRAMMAR
        'H'     a secret corridor
        '{'     a fountain
        'U'     a forge
+       'M'     a magic chest
        '\'     a throne
        'K'     a sink
        'Z'     a toilet

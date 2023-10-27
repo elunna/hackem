@@ -43,6 +43,7 @@ ALTAR:(40,04),noalign,shrine
 ALTAR:(40,04),noalign,shrine
 ALTAR:(40,04),noalign,shrine
 ALTAR:(40,04),noalign,shrine
+MAGIC_CHEST:(40,05)
 
 # flanking the doorway....
 TRAP: "spiked pit",(06,03)

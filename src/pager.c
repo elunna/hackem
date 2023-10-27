@@ -473,6 +473,7 @@ char *buf, *monbuf;
     struct monst *mtmp = (struct monst *) 0;
     struct permonst *pm = (struct permonst *) 0;
     int glyph;
+    char *releasep;
     boolean printed_blood = FALSE;
 
     buf[0] = monbuf[0] = '\0';
@@ -597,6 +598,10 @@ char *buf, *monbuf;
             Sprintf(eos(buf), (levl[x][y].splatpm) ? "bloody " : "");
             Sprintf(eos(buf), "%s", waterbody_name(x, y));
             printed_blood = TRUE;
+            break;
+        case S_magic_chest:
+            Strcpy(buf, releasep = doname(mchest));
+            maybereleaseobuf(releasep);
             break;
         case S_stone:
             if (!levl[x][y].seenv) {
@@ -876,9 +881,11 @@ struct permonst * pm;
     ADDRESIST(pm_resistance(pm, MR_SONIC), "sonic");
     ADDRESIST(pm_resistance(pm, MR_PSYCHIC), "psionic attacks");
     ADDRESIST(pm_resistance(pm, MR_CLOB), "hurtle");
-    ADDRESIST(resists_drain(pm), "life-drain");
-    ADDRESIST(resists_sick(pm), "sickness");
+    ADDRESIST(pm_resistance(pm, MR_DRAIN), "life-drain");
+    ADDRESIST(pm_resistance(pm, MR_SICK), "sickness");
     ADDRESIST(resists_mgc(pm), "magic");
+    ADDRESIST(resists_stun(pm), "stun");
+    ADDRESIST(resists_slow(pm), "slow");
     ADDRESIST(immune_death_magic(pm), "death magic");
     if (*buf) {
         Sprintf(buf2, "Resists %s.", buf);
@@ -934,9 +941,6 @@ struct permonst * pm;
         } else if (bigmonst(pm)) {
             APPENDC(TRUE, "big");
         }
-        if (has_blood(pm)) {
-            MONPUTSTR("May be drunk by vampiric monsters.");
-        }
     }
 
     /* inherent characteristics: "Monster is X." */
@@ -953,19 +957,24 @@ struct permonst * pm;
     APPENDC(regenerates(pm), "regenerating");
     APPENDC(is_reviver(pm), "reviving");
     APPENDC(is_floater(pm), "floating");
+    ADDRESIST(pm_resistance(pm, MR2_LEVITATE), "floating");
     APPENDC(stationary(pm), "stationary");
     APPENDC(pm_invisible(pm), "invisible");
     APPENDC(is_undead(pm), "undead");
     if (!is_undead(pm))
         APPENDC(nonliving(pm), "nonliving");
     APPENDC(telepathic(pm), "telepathic");
+    ADDRESIST(pm_resistance(pm, MR2_TELEPATHY), "telepathic");
     APPENDC(is_displaced(pm), "displaced");
+    ADDRESIST(pm_resistance(pm, MR2_DISPLACED), "displaced");
     APPENDC(is_skittish(pm), "skittish");
     APPENDC(is_accurate(pm), "accurate");
+    APPENDC(infravisible(pm), "infravisible");
     APPENDC((mflag4 & M4_VULNERABLE_FIRE) != 0, "vulnerable to fire");
     APPENDC((mflag4 & M4_VULNERABLE_COLD) != 0, "vulnerable to cold");
     APPENDC((mflag4 & M4_VULNERABLE_ELEC) != 0, "vulnerable to electricity");
     APPENDC((mflag4 & M4_VULNERABLE_ACID) != 0, "vulnerable to acid");
+    APPENDC((mflag4 & M4_VULNERABLE_LOUD) != 0, "vulnerable to sonic");
     if (*buf) {
         Sprintf(buf2, "Is %s.", buf);
         MONPUTSTR(buf2);
@@ -983,14 +992,15 @@ struct permonst * pm;
     APPENDC(can_teleport(pm), "teleport");
     APPENDC(is_clinger(pm), "cling to the ceiling");
     APPENDC(is_jumper(pm), "jump");
+    ADDRESIST(pm_resistance(pm, MR2_JUMPING), "jump");
+    ADDRESIST(pm_resistance(pm, MR2_WATERWALK), "walk on water");
     APPENDC(is_outflanker(pm), "flank");
-    
-    APPENDC(is_berserker(pm), "berserk");
+    APPENDC(is_berserker(pm), "go berserk");
     APPENDC(can_betray(pm), "betray you");
-    APPENDC(cannot_be_tamed(pm), "not be tamed");
-    
+    APPENDC(non_tameable(pm), "not be tamed");
     APPENDC(webmaker(pm), "spin webs");
     APPENDC(needspick(pm), "mine");
+   
     if (!needspick(pm))
         APPENDC(tunnels(pm), "dig");
     if (*buf) {
@@ -1002,6 +1012,8 @@ struct permonst * pm;
     /* Full-line remarks. */
     if (touch_petrifies(pm))
         MONPUTSTR("Petrifies by touch.");
+    if (infravision(pm))
+        MONPUTSTR("Has infravision.");
     if (perceives(pm))
         MONPUTSTR("Can see invisible.");
     if (control_teleport(pm))
@@ -1022,6 +1034,26 @@ struct permonst * pm;
     Sprintf(buf, "Is %sa valid polymorph form.",
             polyok(pm) ? "" : "not ");
     MONPUTSTR(buf);
+
+    if (disrespects_elbereth(pm)) {
+        MONPUTSTR("Does not respect Elbereth.");
+    }
+    if (immune_mgc_scare(pm)) {
+        MONPUTSTR("Immune to magical scaring.");
+    }
+    
+    /* Dazzle info */
+    if (Race_if(PM_VAMPIRIC)) {
+        if (has_blood(pm)) {
+            MONPUTSTR("May be drunk by vampiric monsters.");
+        }
+        if (!haseyes(pm))
+            MONPUTSTR("Immune to vampiric dazzling.");
+        else {
+            Sprintf(buf2, "Chance of dazzling %d%% (estimate from base level)", dazzle_chance(pm));
+            MONPUTSTR(buf2);
+        }
+    }
 
     /* Attacks */
     buf[0] = buf2[0] = '\0';
@@ -1045,6 +1077,14 @@ struct permonst * pm;
             impossible("add_to_mon: unknown attack type %d", attk->aatyp);
         } else if (attk->adtyp > LAST_AD) {
             impossible("add_to_mon: unknown damage type %d", attk->adtyp);
+        /* hack to display gelatinous cubes' (and potentially shambling
+           horrors') suffocation attack correctly---swimming won't save you! */
+        } else if (attk->aatyp == AT_ENGL && attk->adtyp == AD_WRAP
+                   && !(pm == &mons[PM_SEA_DRAGON]
+                        || pm == &mons[PM_WATER_ELEMENTAL])) {
+            Sprintf(buf2, "%s%s%s %s", dicebuf, ((*dicebuf) ? " " : ""),
+                    attacktypes[attk->aatyp], "suffocate");
+            APPENDC(TRUE, buf2);
         } else {
             Sprintf(buf2, "%s%s%s %s", dicebuf, ((*dicebuf) ? " " : ""),
                     attacktypes[attk->aatyp], damagetypes[attk->adtyp]);
@@ -1086,7 +1126,10 @@ char *usr_text;
     const char* dir = (oc.oc_dir == NODIR ? "Non-directional" 
                                           : (oc.oc_dir == IMMEDIATE ? "Beam"
                                                                     : "Ray"));
-    boolean wielded, carried, identified_potion;
+    const struct ForgeRecipe *recipe;
+    const struct PotionRecipe *precipe;
+    boolean has_recipes = FALSE;
+    boolean wielded, carried, potion_known;
     boolean weptool = (boolean) (oc.oc_class == TOOL_CLASS && oc.oc_skill != P_NONE);
     /* If it's an artifact, we always have it in obj. */
     boolean is_artifact = obj && obj->oartifact;
@@ -1216,8 +1259,10 @@ char *usr_text;
             if (obj->oprops & ITEM_FROST) OBJPUTSTR("\t+1d5 + 3 cold damage");
             if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("\t+1d5 + 3 shock damage");
             if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("\t+1d5 + 3 sonic damage");
-            if (obj->oprops & ITEM_ACID) OBJPUTSTR("\t+1d5 + 3 acid damage");
+            if (obj->oprops & ITEM_SIZZLE) OBJPUTSTR("\t+1d5 + 3 acid damage");
             if (obj->oprops & ITEM_VENOM) OBJPUTSTR("\tdoes 1d2 (+ 10% chance of 6-15 extra) poison damage; \n\t10% chance of instakill by poison");
+            if (obj->oprops & ITEM_DECAY) OBJPUTSTR("\tdrains life");
+            if (obj->oprops & ITEM_SLEEP) OBJPUTSTR("\tsleep attack");
         }
         
         if (reveal_info || is_artifact) {
@@ -1263,29 +1308,44 @@ char *usr_text;
                 oc.oc_delay == 0 ? 1 : oc.oc_delay, 
                 (oc.oc_delay == 1 ? "" : "s"));
         OBJPUTSTR(buf);
-        
-        if (dummy.oprops_known) {
-            if (obj->oprops & ITEM_FIRE) OBJPUTSTR("Grants fire resistance");
-            if (obj->oprops & ITEM_FROST) OBJPUTSTR("Grants cold resistance");
-            if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("Grants shock resistance");
-            if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("Grants sonic resistance");
-            if (obj->oprops & ITEM_VENOM) OBJPUTSTR("Grants poison resistance");
-            if (obj->oprops & ITEM_ACID) OBJPUTSTR("Grants acid resistance");
-            if (obj->oprops & ITEM_DRLI) OBJPUTSTR("Grants drain resistance");
-            if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
-            if (obj->oprops & ITEM_FUMBLING) OBJPUTSTR("Grants fumbling");
-        }
     }
-
+    if (dummy.oprops_known && 
+          (oc.oc_class == ARMOR_CLASS || oc.oc_class == RING_CLASS)) {
+        if (obj->oprops & ITEM_FIRE) OBJPUTSTR("Grants fire resistance");
+        if (obj->oprops & ITEM_FROST) OBJPUTSTR("Grants cold resistance");
+        if (obj->oprops & ITEM_SHOCK) OBJPUTSTR("Grants shock resistance");
+        if (obj->oprops & ITEM_SCREAM) OBJPUTSTR("Grants sonic resistance");
+        if (obj->oprops & ITEM_VENOM) OBJPUTSTR("Grants poison resistance");
+        if (obj->oprops & ITEM_SIZZLE) OBJPUTSTR("Grants acid resistance");
+        if (obj->oprops & ITEM_DECAY) OBJPUTSTR("Grants drain resistance");
+        if (obj->oprops & ITEM_SLEEP) OBJPUTSTR("Grants sleep resistance");
+        if (obj->oprops & ITEM_FLEX) OBJPUTSTR("Grants petrification resistance");
+        if (obj->oprops & ITEM_FILTH) OBJPUTSTR("Grants sickness resistance");
+        if (obj->oprops & ITEM_DANGER) OBJPUTSTR("Grants infravision with increased difficulty");
+        if (obj->oprops & ITEM_RAGE) OBJPUTSTR("Grants rage and fearlessness");
+        if (obj->oprops & ITEM_PROWESS) OBJPUTSTR("Grants skill bonuses");
+        if (obj->oprops & ITEM_TOUGH) OBJPUTSTR("Indestructible item");
+        if (obj->oprops & ITEM_OILSKIN) OBJPUTSTR("Permanently greased");
+        if (obj->oprops & ITEM_FUMBLE) OBJPUTSTR("Grants fumbling");
+    }
     /* PROPERTY INFO */
 
     if (dummy.oprops_known
         && (oc.oc_class == WEAPON_CLASS || oc.oc_class == ARMOR_CLASS)) {
         if (obj->oprops & ITEM_ESP) OBJPUTSTR("Grants telepathy");
-        if (obj->oprops & ITEM_SEARCHING) OBJPUTSTR("Grants searching");
-        if (obj->oprops & ITEM_WARNING) OBJPUTSTR("Grants warning");
-        if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/charisma adjustment");
+        if (obj->oprops & ITEM_SEARCH) OBJPUTSTR("Grants searching");
+        if (obj->oprops & ITEM_INSIGHT) OBJPUTSTR("Grants see invisible");
+        if (obj->oprops & ITEM_EXCEL) OBJPUTSTR("Grants luck/CHA adjustment");
+        if (obj->oprops & ITEM_VIGIL) OBJPUTSTR("Grants warning/WIS adjustment");
         if (obj->oprops & ITEM_HUNGER) OBJPUTSTR("Grants hunger");
+        if (obj->oprops & ITEM_STENCH) OBJPUTSTR("Grants aggravate monster");
+        if (obj->oprops & ITEM_TELE) OBJPUTSTR("Grants teleportation");
+        if (obj->oprops & ITEM_SLOW) OBJPUTSTR("Grants slowness");
+        if (obj->oprops & ITEM_SUSTAIN) OBJPUTSTR("Grants fixed abilities");
+        if (obj->oprops & ITEM_STEALTH) OBJPUTSTR("Grants stealth");
+        if (obj->oprops & ITEM_BURDEN) OBJPUTSTR("Grants stability; item weighs 4x more");
+        if (obj->oprops & ITEM_SURF) OBJPUTSTR("Grants water walking");
+        if (obj->oprops & ITEM_SWIM) OBJPUTSTR("Grants swimming");
     }
 
     /* APPEARANCE BONUSES */
@@ -1302,10 +1362,9 @@ char *usr_text;
         else if (objdescr_is(&dummy, "mud boots"))
             OBJPUTSTR("Protects against drowning attacks (mud boots)");
         else if (objdescr_is(&dummy, "hiking boots"))
-            OBJPUTSTR("Increases carrying capacity (hiking boots");
+            OBJPUTSTR("Increases carrying capacity (hiking boots)");
         else if (objdescr_is(&dummy, "jungle boots"))
             OBJPUTSTR("Reduces the severity of leg wounds (jungle boots)");
-        /* TODO: Add buckled boots */
         else if (objdescr_is(&dummy, "old gloves"))
             OBJPUTSTR("Erosion resistant (old gloves)");
         else if (objdescr_is(&dummy, "padded gloves"))
@@ -1390,6 +1449,8 @@ char *usr_text;
             }
         } else {
             Sprintf(buf, "Comestible providing %d nutrition.", oc.oc_nutrition);
+            OBJPUTSTR(buf);
+            Sprintf(buf, "Nutrition-to-weight ratio: %d-to-1", (oc.oc_nutrition / oc.oc_weight));
             OBJPUTSTR(buf);
             Sprintf(buf, "Takes %d turn%s to eat.", oc.oc_delay,
                     (oc.oc_delay == 1 ? "" : "s"));
@@ -1495,25 +1556,6 @@ char *usr_text;
                 OBJPUTSTR("Is made of a hard material.");
             }
         }
-
-        if (obj && objects[obj->otyp].oc_name_known) {
-            struct obj *potion = mksobj(POT_ACID, FALSE, FALSE);
-            short mixture = mixtype(obj, potion);
-            obfree(potion, (struct obj *)0);
-
-            if (obj->otyp == DILITHIUM_CRYSTAL) {
-                OBJPUTSTR("Dipping into a potion of acid creates an explosion.");
-            } else if (mixture > 0) {
-                Sprintf(buf, "Dipping into a potion of acid creates %s potion.",
-                        an(OBJ_DESCR(objects[mixture])));
-                identified_potion_name = OBJ_NAME(objects[mixture]);
-                identified_potion = objects[mixture].oc_name_known;
-                if (identified_potion && identified_potion_name) {
-                    Sprintf(eos(buf)-1, " (%s).", identified_potion_name);
-                }
-                OBJPUTSTR(buf);
-            }
-        }
     }
 
     /* TOOL INFO */
@@ -1526,6 +1568,7 @@ char *usr_text;
         case BAG_OF_TRICKS:
         case CHEST:
         case CRYSTAL_CHEST:
+        case HIDDEN_CHEST:
         case ICE_BOX:
         case IRON_SAFE:
         case KEG:
@@ -1537,6 +1580,7 @@ char *usr_text;
         case CREDIT_CARD:
         case LOCK_PICK:
         case SKELETON_KEY:
+        case MAGIC_KEY:
             subclass = "unlocking tool";
             break;
         case LANTERN:
@@ -1628,6 +1672,8 @@ char *usr_text;
                     case FIXED_ABIL:
                     case FLYING:
                     case FREE_ACTION:
+                    case MAGICAL_BREATHING:
+                    case PASSES_WALLS:
                     case GLIB:
                     case HALF_SPDAM:
                     case HALF_PHDAM:
@@ -1657,6 +1703,11 @@ char *usr_text;
                 OBJPUTSTR(buf);
             }
         }
+        /* Kludge for some eyewear. Otherwise we need to add a property field to TOOL which seems like overkill. */
+        if (otyp == LENSES)
+            OBJPUTSTR("Confers searching.");
+        else if (otyp == GOGGLES)
+            OBJPUTSTR("Confers underwater vision.");
     }
 
     /* MISC PROPERTIES */
@@ -1707,7 +1758,7 @@ char *usr_text;
         if (obj && !obj->oartifact
               && oc.oc_material && obj->material != oc.oc_material)
             Sprintf(buf, "Material: %s (normally made of %s)", alt_mat, mat_str);
-        else if (obj && obj->oartifact)
+        else if (is_artifact)
             Sprintf(buf, "Material: %s ", alt_mat);
         else
             Sprintf(buf, "Material: %s ", mat_str);
@@ -1719,9 +1770,10 @@ char *usr_text;
     /* cost, wt should go next */
     buf[0] = '\0';
     if (is_artifact) {
-        Sprintf(buf, "Weighs %d aum.", oc.oc_weight);
+        if (obj)
+            Sprintf(buf, "Base weight %d aum.", oc.oc_weight);
     } else if (reveal_info) {
-        Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, oc.oc_weight);
+        Sprintf(buf, "Base cost %d, base weight %d aum.", oc.oc_cost, oc.oc_weight);
     } else {
         int base_cost = oc.oc_cost;
         for (i = 0; i < NUM_OBJECTS; i++) {
@@ -1736,16 +1788,162 @@ char *usr_text;
         }
 
         if (base_cost > 0) {
-            Sprintf(buf, "Base cost %d, weighs %d aum.", oc.oc_cost, oc.oc_weight);
+            Sprintf(buf, "Base cost %d, base weight %d aum.", oc.oc_cost, oc.oc_weight);
         } else {
-            Sprintf(buf, "Weighs %d aum.", oc.oc_weight);
+            Sprintf(buf, "Base weight %d aum.", oc.oc_weight);
         }
     }
     OBJPUTSTR(buf);
 
+    /* TRANSFORMATIONS */
+
+    /* tinker/upgrades */
+    i = obj2upgrade(otyp);
+    if (reveal_info && i && !is_artifact) {
+        OBJPUTSTR("");
+        Sprintf(buf, "Can be tinkered into: %s", OBJ_NAME(objects[i]));
+        OBJPUTSTR(buf);
+    }
+
+    /* forge recipes */
+    if (reveal_info && !is_artifact) {
+        for (recipe = fusions; recipe->result_typ; recipe++) {
+            if (otyp == recipe->typ1 || otyp == recipe->typ2
+                || otyp == recipe->result_typ) {
+                if (!has_recipes) {
+                    OBJPUTSTR("");
+                    OBJPUTSTR("Forging recipes (#craft):");
+                    has_recipes = TRUE;
+                }
+                Sprintf(buf, "     %d %s + %d %s = %s", 
+                        recipe->quan_typ1, OBJ_NAME(objects[recipe->typ1]), 
+                        recipe->quan_typ2, OBJ_NAME(objects[recipe->typ2]),
+                        OBJ_NAME(objects[recipe->result_typ]));
+                OBJPUTSTR(buf);
+            }
+        }
+    }
+    
+    /* potion alchemy */
+    has_recipes = FALSE;
+    if (reveal_info) {
+        for (precipe = potionrecipes; precipe->result_typ; precipe++) {
+            if (otyp == precipe->typ1 || otyp == precipe->typ2
+                || otyp == precipe->result_typ) {
+                if (!has_recipes) {
+                    OBJPUTSTR("");
+                    OBJPUTSTR("Potion alchemy recipes (#dip):");
+                    has_recipes = TRUE;
+                }
+                Sprintf(buf, "     %s + %s = %s%s",
+                        OBJ_NAME(objects[precipe->typ1]),
+                        OBJ_NAME(objects[precipe->typ2]),
+                        OBJ_NAME(objects[precipe->result_typ]),
+                        precipe->chance == 1 ? "" : "(1/3)" );
+                OBJPUTSTR(buf);
+            }
+        }
+    }
+    
+    /* gem alchemy */
+    if (oc.oc_class == GEM_CLASS && reveal_info) {
+        struct obj *potion = mksobj(POT_ACID, FALSE, FALSE);
+        short mixture = mixtype(&dummy, potion);
+        obfree(potion, (struct obj *)0);
+
+        if (otyp == DILITHIUM_CRYSTAL) {
+            OBJPUTSTR("");
+            OBJPUTSTR( "Dipping into a potion of acid creates an explosion.");
+        } else if (mixture > 0) {
+            OBJPUTSTR("");
+            identified_potion_name = OBJ_NAME(objects[mixture]);
+            potion_known = objects[mixture].oc_name_known;
+            Sprintf(buf, "Dipping into %s creates %s potion.",
+                    flags.verbose ? "a potion of acid" : "acid",
+                    an(OBJ_DESCR(objects[mixture])));
+            if (potion_known && identified_potion_name) {
+                Sprintf(eos(buf) - 1, " (%s).", identified_potion_name);
+            }
+            OBJPUTSTR(buf);
+        }
+    }
+
+    if (reveal_info && (otyp == POT_ACID 
+            || (usr_text && !strcmp(usr_text, "gem alchemy")))) {
+        OBJPUTSTR("");
+        OBJPUTSTR("Gem alchemy recipes:");
+        OBJPUTSTR("(Dipping a gem into this can alchemize a new potion)");
+        for (i = bases[GEM_CLASS]; i <= LAST_GEM; i++) {
+            const char *result = gem_to_potion(i);
+            if (i == DILITHIUM_CRYSTAL)
+                OBJPUTSTR("     acid + dilithium crystal = an explosion");
+            else if (result) {
+                struct obj *potion = mksobj(figure_out_potion(result), FALSE, FALSE);
+                Sprintf(buf, "     acid + %-12s = %s",
+                        OBJ_NAME(objects[i]),   /* The gem */
+                        xname(potion));         /* The potion */
+                OBJPUTSTR(buf);
+                obfree(potion, (struct obj *)0);
+            }
+        }
+    } else if (oc.oc_class == POTION_CLASS) {
+        int gem = potion_to_gem(otyp);
+        /*if (gem && oc.oc_name_known) {*/
+        if (gem && (obj || oc.oc_name_known)) {
+            OBJPUTSTR("");
+            Sprintf(buf, "Dipping a %s into acid creates %s.",
+                OBJ_NAME(objects[gem]), an(singular(&dummy, xname)));
+            OBJPUTSTR(buf);
+        }
+    }
+    
+    /* mold fermentation */
+    if (reveal_info && otyp == POT_FRUIT_JUICE) {
+        /* Display all fermenting recipes here */
+        OBJPUTSTR("");
+        OBJPUTSTR("Juice fermentation recipes:");
+        OBJPUTSTR("(#dipping a mold corpse can ferment a new potion)");
+        for (i = PM_BROWN_MOLD; i < PM_VOLATILE_MUSHROOM; i++) {
+            short result = mold_to_potion(i);
+            /* Important: Display the actual potion result - NOT the
+             * appearance, otherwise we directly leak info. */
+            if (result) {
+                Sprintf(buf, "     fruit juice + %-15s = %s",
+                        mons[i].mname,              /* The mold */
+                        OBJ_NAME(objects[result]));  /* The potion */
+                OBJPUTSTR(buf);
+
+            }
+        }
+    } else if (reveal_info && oc.oc_class == POTION_CLASS) {
+        for (i = PM_BROWN_MOLD; i < PM_VOLATILE_MUSHROOM; i++) {
+            if (mold_to_potion(i) == otyp) {
+                OBJPUTSTR("");
+                OBJPUTSTR("Fermentation recipes:");
+                Sprintf(buf, "#dipping a %s corpse into fruit juice ferments a potion of %s.",
+                        mons[i].mname,              /* The mold */
+                        OBJ_NAME(objects[otyp]));  /* The potion */
+                OBJPUTSTR(buf);
+                break;
+            }
+        }
+    }
+    if (otyp == CORPSE) {
+        int cnum = obj ? obj->corpsenm : 0;
+        short result = mold_to_potion(cnum);
+        if (result) {
+            OBJPUTSTR("");
+            OBJPUTSTR("Fermentation recipes:");
+            Sprintf(buf, "#dipping a %s corpse into fruit juice ferments a potion of %s.",
+                    mons[cnum].mname,          /* The mold */
+                    OBJ_NAME(objects[result]));  /* The potion */
+            OBJPUTSTR(buf);
+        }
+    }
+
     /* ARTIFACT PROPERTIES */
 
-    if (obj && obj->oartifact) {
+    if (is_artifact) {
         struct art_info_t a_info = artifact_info(obj->oartifact);
 
         /* Make it look like it fits with the first section */
@@ -2265,11 +2463,12 @@ char *supplemental_name;
                                 do_mon_lookup = FALSE;
                             }
                         }
-                    } else if (otyp != STRANGE_OBJECT) {
+                    } else if (otyp != STRANGE_OBJECT 
+                            || !strcmp(encycl_matched, "gem alchemy")) {
                         do_obj_lookup = TRUE;
                     }
                     datawin = create_nhwindow(NHW_MENU);
-
+                    
                     if (!flags.lookup_data) {
                         ; /* do nothing, 'pokedex' is disabled */
                     }
@@ -2535,6 +2734,8 @@ struct permonst **for_supplement;
             if (alt_i++ == 2)
                 i = 0; /* undo loop increment */
             x_str = defsyms[i].explanation;
+            if (i == S_magic_chest)
+                continue; /* don't mention it when asking what '(' is */
             if (submerged && !strcmp(x_str, defsyms[0].explanation))
                 x_str = "land"; /* replace "dark part of a room" */
             /* alt_i is now 3 or more and no longer of interest */

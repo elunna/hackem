@@ -108,6 +108,7 @@ static struct Bool_Opt {
     { "autoopen", &flags.autoopen, TRUE, SET_IN_GAME },
     { "autopickup", &flags.pickup, TRUE, SET_IN_GAME },
     { "autoquiver", &flags.autoquiver, FALSE, SET_IN_GAME },
+    { "autostairtravel", &iflags.autostairtravel, TRUE, SET_IN_GAME },
     { "autounlock", &flags.autounlock, TRUE, SET_IN_GAME },
 #if defined(MICRO) && !defined(AMIGA)
     { "BIOS", &iflags.BIOS, FALSE, SET_IN_FILE },
@@ -135,6 +136,7 @@ static struct Bool_Opt {
     { "color", &iflags.wc_color, FALSE, SET_IN_GAME },
 #endif
     { "confirm", &flags.confirm, TRUE, SET_IN_GAME },
+    { "ctrlkick", &iflags.ctrlkick, TRUE, SET_IN_GAME },
     { "dark_room", &flags.dark_room, TRUE, SET_IN_GAME },
     { "deaf", &u.uroleplay.deaf, FALSE, DISP_IN_GAME },
     { "eight_bit_tty", &iflags.wc_eight_bit_input, FALSE, SET_IN_GAME }, /*WC*/
@@ -230,6 +232,7 @@ static struct Bool_Opt {
     { "safe_pet", &flags.safe_dog, TRUE, SET_IN_GAME },
     { "sanity_check", &iflags.sanity_check, FALSE, SET_IN_WIZGAME },
     { "selectsaved", &iflags.wc2_selectsaved, TRUE, DISP_IN_GAME }, /*WC*/
+    { "showdmg", &iflags.showdmg, FALSE, SET_IN_GAME },
     { "showexp", &flags.showexp, FALSE, SET_IN_GAME },
     { "showrace", &flags.showrace, FALSE, SET_IN_GAME },
 #ifdef SCORE_ON_BOTL
@@ -336,6 +339,8 @@ static struct Comp_Opt {
     { "homunname", "the name of your (first) homunculus (e.g., homunname:Steve)",
       PL_PSIZ, DISP_IN_GAME },
     { "ghoulname",  "the name of your (first) ghoul (e.g., ghoulname:Casper)",
+      PL_PSIZ, DISP_IN_GAME },
+    { "droidname",  "the name of your droid (e.g., droidname:ZL21)",
       PL_PSIZ, DISP_IN_GAME },
     { "birdname",  "the name of your (first) bird (e.g., birdname:Squawks)",
       PL_PSIZ, DISP_IN_GAME },
@@ -525,7 +530,7 @@ static char def_inv_order[MAXOCLASSES] = {
     COIN_CLASS, AMULET_CLASS, WEAPON_CLASS, ARMOR_CLASS, FOOD_CLASS,
     SCROLL_CLASS, SPBOOK_CLASS, POTION_CLASS, RING_CLASS, WAND_CLASS,
     TOOL_CLASS, GEM_CLASS, ROCK_CLASS, BALL_CLASS, CHAIN_CLASS, 
-    SPIRIT_CLASS, 0,
+    0,
 };
 
 /*
@@ -2357,6 +2362,22 @@ boolean tinitial, tfrom_file;
         } else
             return FALSE;
         sanitize_name(ghoulname);
+        return retval;
+    }
+
+    fullname = "droidname";
+    if (match_optname(opts, fullname, 3, TRUE)) {
+        if (duplicate)
+            complain_about_duplicate(opts, 1);
+        if (negated) {
+            bad_negation(fullname, FALSE);
+            return FALSE;
+        } else if ((op = string_for_env_opt(fullname, opts, FALSE))
+                   != empty_optstr) {
+            nmcpy(droidname, op, PL_PSIZ);
+        } else
+            return FALSE;
+        sanitize_name(droidname);
         return retval;
     }
     
@@ -4964,6 +4985,8 @@ doset() /* changing options via menu by Per Liboriussen */
         reglyph_darkroom();
         (void) doredraw();
     }
+
+    update_inventory();
     return 0;
 }
 
@@ -5994,6 +6017,8 @@ char *buf;
         Sprintf(buf, "%s", horsename[0] ? horsename : none);
     else if (!strcmp(optname, "ghoulname"))
         Sprintf(buf, "%s", ghoulname[0] ? ghoulname : none);
+    else if (!strcmp(optname, "droidname"))
+        Sprintf(buf, "%s", droidname[0] ? droidname : none);
     else if (!strcmp(optname, "birdname"))
         Sprintf(buf, "%s", birdname[0] ? birdname : none);
     else if (!strcmp(optname, "monkeyname"))

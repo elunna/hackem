@@ -49,6 +49,7 @@ STATIC_PTR void specified_id(void);
 STATIC_PTR void seffect_cloning(struct obj **);
 STATIC_PTR void NDECL(do_acquirement);
 
+
 STATIC_OVL boolean
 learnscrolltyp(scrolltyp)
 short scrolltyp;
@@ -818,7 +819,7 @@ struct monst *mtmp;
     is_blessed = curse_bless > 0;
     
     /* Scrolls of charging now ID charge count, as well as doing
-               the charging, unless cursed. */
+       the charging, unless cursed. */
     if (is_blessed)
         obj->known = 1;
     
@@ -846,8 +847,8 @@ struct monst *mtmp;
          *      7 : 100     100
          */
         n = (int) obj->recharged;
-        if (n > 0 && (obj->otyp == WAN_WISHING || obj->otyp == WAN_DEATH
-                      || (n * n * n > rn2(7 * 7 * 7)))) { /* recharge_limit */
+        if (n > 0 && (obj->otyp == WAN_WISHING
+                || (n * n * n > rn2(7 * 7 * 7)))) { /* recharge_limit */
             if (yours)
                 wand_explode(obj, rnd(lim));
             else
@@ -901,7 +902,7 @@ struct monst *mtmp;
                               : 0; /* monsters wear but don't charge rings */
 
         /* destruction depends on current state, not adjustment */
-        if (obj->spe > rn2(7) || obj->spe <= -5) {
+        if (obj->spe > rn2(6) + 3 || (is_cursed && obj->spe <= -5)) {
             if (yours) {
                 pline("%s momentarily, then %s!", Yobjnam2(obj, "pulsate"),
                       otense(obj, "explode"));
@@ -918,8 +919,7 @@ struct monst *mtmp;
                 else
                     You_hear("an explosion.");
                 m_useup(mtmp, obj);
-                mtmp->mhp -= 3 * abs(obj->spe);
-                if (mtmp->mhp <= 0) {
+                if (damage_mon(mtmp, 3 * abs(obj->spe), AD_ELEC)) {
                     if (canseemon(mtmp))
                         pline("%s is killed by the explosion!",
                               Monnam(mtmp));
@@ -1161,6 +1161,30 @@ forget_traps()
             trap->tseen = 0;
 }
 
+
+/* Forget some or all of map (depends on parameters). */
+void
+forget_map()
+{
+    register int zx, zy;
+    if (Sokoban)
+        return;
+
+    known = TRUE;
+    for (zx = 0; zx < COLNO; zx++)
+        for (zy = 0; zy < ROWNO; zy++)
+            if ( rn2(7)) {
+                /* Zonk all memory of this location. */
+                levl[zx][zy].seenv = 0;
+                levl[zx][zy].waslit = 0;
+                levl[zx][zy].glyph = cmap_to_glyph(S_stone);;
+                lastseentyp[zx][zy] = 0;
+            }
+    /* forget overview data for this level */
+    forget_mapseen(ledger_no(&u.uz));
+}
+
+
 /*
  * Forget some things (e.g. after reading a scroll of amnesia).  When called,
  * the following are always forgotten:
@@ -1227,10 +1251,10 @@ struct obj *sobj;
     unsigned was_peaceful = mtmp->mpeaceful;
 
     /* No taming in the Black Market! */
-    if (sobj->cursed || Is_blackmarket(&u.uz)) {
-        setmangry(mtmp, FALSE);
-        if (was_peaceful && !mtmp->mpeaceful)
-            return -1;
+    if (Is_blackmarket(&u.uz)) {
+        return 0;
+    } else if (sobj->cursed) {
+        return -1;
     } else {
         if (mtmp->isshk)
             make_happy_shk(mtmp, FALSE);
@@ -1406,104 +1430,14 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     You("cannot enchant armor that is not worn.");
                     otmp = getobj(clothes, "enchant");
                 }
-                /* Dragon scales that are worn over body armor will cause the armor to
-                 * become scaled */
-                if (otmp && Is_dragon_scales(otmp)) { /* guarantees that worn cloak is scales,
-                                                         but does NOT guarantee existence of uarm */
-                    /* no body armor under the scales = the scales are enchanted
-                     * directly onto you (no such thing as a scaled shirt). The wearer
-                     * will polymorph. Also caused by a confused scroll, _after_ the
-                     * scales meld. */
-                    boolean poly_after_merge = (!uarm || confused);
-                    int old_light = artifact_light(otmp) ? arti_light_radius(otmp) : 0;
-                    if (uarm) {
-                        struct obj *scales = uarmc;
-                        struct obj *armor = uarm;
-                        if (armor->oartifact) {
-                            pline("%s refuses to meld into the %s.",
-                                  Yname2(scales), artiname(armor->oartifact));
-                            break;
-                        }
-                        pline("%s hardens and melds into your %s%s", Yname2(scales),
-                              suit_simple_name(armor),
-                              Is_dragon_scaled_armor(armor) ? "." : "!");
-
-                        if (Is_dragon_scaled_armor(armor)) {
-                            if (Dragon_armor_to_scales(armor) == scales->otyp) {
-                                /* scales match armor already; just use up scales */
-                                pline("Its scales still seem %s.",
-                                      dragon_scales_color(armor));
-                            } else {
-                                /* armor is already scaled but the new scales are
-                                 * different and will replace the old ones */
-                                pline("Its scales change from %s to %s!",
-                                      dragon_scales_color(armor),
-                                      dragon_scales_color(scales));
-                                /* remove properties of old scales */
-                                dragon_armor_handling(armor, FALSE);
-                            }
-                        }
-                        setnotworn(armor);
-                        /* don't allow a suit of armor with an object property
-                           to co-exist with merged dragon scales */
-                        if ((armor->oprops & ITEM_PROP_MASK) != 0) {
-                            oprops_off(armor, W_ARM);
-                            armor->oprops &= ~(ITEM_PROP_MASK);
-                        }
-                        armor->dragonscales = scales->otyp;
-                        armor->cursed = 0;
-                        if (sblessed) {
-                            armor->oeroded = armor->oeroded2 = 0;
-                            armor->blessed = 1;
-                        }
-                        setworn(armor, W_ARM);
-                        check_wings(TRUE);
-                        dragon_armor_handling(armor, TRUE);
-                        known = TRUE;
-                        if (otmp->unpaid)
-                            alter_cost(otmp, 0L); /* shop bill */
-
-                        /* handle gold/chromatic dragon-scaled armor... */
-                        if (scales->lamplit) {
-                            if (armor->lamplit) {
-                                /* if melding lit dragon scales onto already lit dragon-scaled
-                                   armor, avoid attaching a duplicate light source to the armor.
-                                   useup() won't take care of this, because it calls
-                                   setnotworn(), which will make artifact_light() return
-                                   false, so the regular check for deleting the light source
-                                   when an object is deallocated will do nothing */
-                                del_light_source(LS_OBJECT, obj_to_any(scales));
-                            } else {
-                                /* this will set armor->lamplit */
-                                obj_move_light_source(scales, armor);
-                            }
-                            /* may be different radius depending on BUC of armor */
-                            maybe_adjust_light(armor, old_light);
-                        } else if (armor->lamplit) {
-                            /* scales not lit but armor is: melding non-gold scales onto
-                               gold/chromatic-scaled armor, which will no longer be a
-                               light source */
-                            end_burn(armor, FALSE);
-                        }
-                        useup(scales);
-                    }
-                    if (poly_after_merge) {
-                        polyself(4);
-                        /* adjust duration for scroll beatitude - a blessed scroll will
-                         * give you more time as a dragon, a cursed scroll less */
-                        u.mtimedone = (u.mtimedone * (bcsign(sobj) + 2) / 2);
-                    }
-                    if (!scursed || !uarm) {
-                        break;
-                    } else {
-                        /* continue with regular cursed-enchant logic on the resulting
-                         * armor piece */
-                        otmp = uarm;
-                    }
-                }
+                if (!maybe_process_scales(otmp, sobj))
+                    break;
             }
         } else {
-            otmp = some_armor(&youmonst);
+            if (uarmc && Is_dragon_scales(uarmc))
+                otmp = uarmc;
+            else
+                otmp = some_armor(&youmonst);
         }
         if (!otmp) {
             strange_feeling(sobj, !Blind
@@ -1545,8 +1479,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         /* elven armor vibrates warningly when enchanted beyond a limit */
         special_armor = is_elven_armor(otmp)
                         || (Role_if(PM_WIZARD) && otmp->otyp == CORNUTHAUM)
-                        || (Role_if(PM_ARCHEOLOGIST) && otmp->otyp == FEDORA)
-                        || otmp->oartifact == ART_GRANDMASTER_S_ROBE;
+                        || (Role_if(PM_ARCHEOLOGIST) && otmp->otyp == FEDORA);
         if (scursed)
             same_color = (otmp->otyp == BLACK_DRAGON_SCALES);
         else
@@ -1557,6 +1490,100 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
 
         /* KMH -- catch underflow */
         s = scursed ? -otmp->spe : otmp->spe;
+        /* Dragon scales that are worn over body armor will cause the armor to
+         * become scaled */
+        if (Is_dragon_scales(otmp)) { /* guarantees that worn cloak is scales,
+                                         but NOT existence of uarm */
+            /* no body armor under the scales = the scales are enchanted
+             * directly onto you (no such thing as a scaled shirt). The
+             * wearer will polymorph. Also caused by a confused scroll,
+             * _after_ the * scales meld. */
+            boolean poly_after_merge = (!uarm || confused);
+            int old_light =
+                artifact_light(otmp) ? arti_light_radius(otmp) : 0;
+            if (uarm) {
+                struct obj *scales = uarmc;
+                struct obj *armor = uarm;
+
+                pline("%s hardens and melds into your %s%s", Yname2(scales),
+                        suit_simple_name(armor),
+                        Is_dragon_scaled_armor(armor) ? "." : "!");
+
+                if (Is_dragon_scaled_armor(armor)) {
+                    if (Dragon_armor_to_scales(armor) == scales->otyp) {
+                        /* scales match armor already; just use up scales */
+                        pline("Its scales still seem %s.",
+                                dragon_scales_color(armor));
+                    } else {
+                        /* armor is already scaled but the new scales are
+                         * different and will replace the old ones */
+                        pline("Its scales change from %s to %s!",
+                                dragon_scales_color(armor),
+                                dragon_scales_color(scales));
+                        /* remove properties of old scales */
+                        dragon_armor_handling(armor, FALSE);
+                    }
+                }
+                setnotworn(armor);
+                /* don't allow a suit of armor with an object property
+                   to co-exist with merged dragon scales */
+                if ((armor->oprops & ITEM_PROP_MASK) != 0L) {
+                    oprops_off(armor, W_ARM);
+                    armor->oprops &= ~(ITEM_PROP_MASK);
+                }
+                armor->dragonscales = scales->otyp;
+                armor->cursed = 0;
+                if (sblessed) {
+                    armor->oeroded = armor->oeroded2 = 0;
+                    armor->blessed = 1;
+                }
+                setworn(armor, W_ARM);
+                check_wings(TRUE);
+                dragon_armor_handling(armor, TRUE);
+                known = TRUE;
+                if (otmp->unpaid)
+                    alter_cost(otmp, 0L); /* shop bill */
+
+                /* handle gold dragon-scaled armor... */
+                if (scales->lamplit) {
+                    if (armor->lamplit) {
+                        /* if melding lit dragon scales onto already lit
+                           dragon-scaled armor, avoid attaching a duplicate
+                           light source to the armor.  useup() won't take care
+                           of this, because it calls setnotworn(), which will
+                           make artifact_light() return false, so the regular
+                           check for deleting the light source when an object
+                           is deallocated will do nothing */
+                        del_light_source(LS_OBJECT, obj_to_any(scales));
+                    } else {
+                        /* this will set armor->lamplit */
+                        obj_move_light_source(scales, armor);
+                    }
+                    /* may be different radius depending on BUC of armor */
+                    maybe_adjust_light(armor, old_light);
+                } else if (armor->lamplit) {
+                    /* scales not lit but armor is: melding non-gold scales
+                       onto gold-scaled armor, which will no longer
+                       be a light source */
+                    end_burn(armor, FALSE);
+                }
+                useup(scales);
+            }
+            if (poly_after_merge) {
+                polyself(4);
+                /* adjust duration for scroll beatitude - a blessed scroll
+                 * will give you more time as a dragon, a cursed scroll
+                 * less */
+                u.mtimedone = (u.mtimedone * (bcsign(sobj) + 2) / 2);
+            }
+            if (!scursed || !uarm) {
+                break;
+            } else {
+                /* continue with regular cursed-enchant logic on the resulting
+                 * armor piece */
+                otmp = uarm;
+            }
+        }
         if (s > (special_armor ? 5 : 3) && rn2(s)) {
             otmp->in_use = TRUE;
             pline("%s violently %s%s%s for a while, then %s.", Yname2(otmp),
@@ -1580,6 +1607,14 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                        : sblessed
                           ? rnd(3 - otmp->spe / 3)
                           : 1;
+
+        /* Sustainable items can't have their stat changed, they are "fixed" */
+        if (otmp && otmp->oprops & ITEM_SUSTAIN && s != 0) {
+            pline("%s vibrates and resists the change!", Yname2(otmp));
+            otmp->oprops_known |= ITEM_SUSTAIN;
+            break;
+        }
+
         pline("%s %s%s%s%s for a %s.", Yname2(otmp),
               s == 0 ? "violently " : "",
               otense(otmp, Blind ? "vibrate" : "glow"),
@@ -1634,6 +1669,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             otmp->oerodeproof = new_erodeproof ? 1 : 0;
             break;
         }
+
         if (!scursed || !otmp || !otmp->cursed) {
             /* player is prompted to choose what to destroy only when the
              * scroll is blessed and they are actually wearing armor */
@@ -1642,8 +1678,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("This is a scroll of destroy armor.");
             }
             if (!destroy_arm(otmp, gets_choice)) {
-                strange_feeling(sobj, "Your skin itches.");
-                sobj = 0; /* useup() in strange_feeling() */
+                if (otmp && otmp->oprops & ITEM_TOUGH ) {
+                    pline("%s vibrates and resists the scroll's magic!", Yname2(otmp));
+                    otmp->oprops_known |= ITEM_TOUGH;
+                } else {
+                    strange_feeling(sobj, "Your skin itches.");
+                    sobj = 0; /* useup() in strange_feeling() */
+                }
                 exercise(A_STR, FALSE);
                 exercise(A_CON, FALSE);
                 break;
@@ -1659,7 +1700,10 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
     } break;
     case SCR_CONFUSE_MONSTER:
-    case SPE_CONFUSE_MONSTER:
+    case SPE_CONFUSE_MONSTER: {
+        /* scroll vs spell */
+        int incr = (sobj->oclass == SCROLL_CLASS) ? 3 : 0;
+        
         /* Unfortunate kludge for vampiric race here
          * TODO: Find the root cause of this */
         if ((youmonst.data->mlet != S_HUMAN && !Race_if(PM_VAMPIRIC)) || scursed) {
@@ -1684,7 +1728,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                      Blind ? "" : " begin to glow",
                      Blind ? (const char *) "tingle" : hcolor(NH_RED),
                      u.umconf ? " even more" : "");
-                u.umconf++;
+                incr += rnd(2);
             } else {
                 if (Blind)
                     Your("%s tingle %s sharply.", makeplural(body_part(HAND)),
@@ -1693,14 +1737,16 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     Your("%s glow a%s brilliant %s.",
                          makeplural(body_part(HAND)),
                          u.umconf ? "n even more" : "", hcolor(NH_RED));
+                incr += rn1(8, 2);
                 /* after a while, repeated uses become less effective */
                 if (u.umconf >= 40)
-                    u.umconf++;
-                else
-                    u.umconf += rn1(8, 2);
+                    incr = 1;
+                    
             }
+            u.umconf += (unsigned) incr;
         }
         break;
+    }
     case SCR_SCARE_MONSTER:
     case SPE_CAUSE_FEAR: {
         register int ct = 0;
@@ -1902,23 +1948,10 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         /* create the critter */
         if (confused) {
-            /* Normally you get an elemental... */
-            switch (rn2(4)) {
-            case 0: /* Air */
-                critter = &mons[PM_GAS_SPORE];
-                break;
-            case 1: /* Fire */
-                critter = &mons[PM_FLAMING_SPHERE];
-                break;
-            case 2: /* Water */
-                critter = &mons[PM_FREEZING_SPHERE];
-                break;
-            default:
-            case 3: /* Earth */
-                critter = &mons[PM_SHOCKING_SPHERE];
-                break;
-            }
+            /* All spheres are available as all elementals are. */
+            critter = &mons[PM_FREEZING_SPHERE + rn2(5)];
         } else {
+            /* Normally you get an elemental... */
             critter = &mons[rand_elemental()];
         }
         /* Summoning demons is a chaotic thing... */
@@ -2053,6 +2086,12 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             uwep->oerodeproof = new_erodeproof ? 1 : 0;
             break;
         }
+        /* Sustainable items can't have their stat changed, they are "fixed" */
+        if (uwep && uwep->oprops & ITEM_SUSTAIN ) {
+            pline("%s vibrates and resists the change!", Yname2(uwep));
+            uwep->oprops_known |= ITEM_SUSTAIN;
+            break; /* use it up */
+        }
         if (!chwepon(sobj, scursed ? -1
                              : !uwep ? 1
                                : (uwep->spe >= 9) ? !rn2(uwep->spe)
@@ -2143,11 +2182,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     case SCR_CLONING:
         seffect_cloning(&sobj);
         break;
-    case SCR_TIME:
+    case SCR_TIME: {
+        int bonus = 0;
         known = TRUE;
         if (confused || scursed) {
             You("are frozen in time!");
-            nomul(-(rn1(5, 10 - 5 * bcsign(sobj))));
+            bonus = rn1(5, 10 - 5 * bcsign(sobj));
+            nomul(-(bonus));
             multi_reason = "frozen in time";
             nomovemsg = "Your natural flow of time reasserts itself.";
         } else {
@@ -2155,11 +2196,15 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("ZA WARUDO!");
             else
                 pline("Time slows down to a crawl around you!");
-            youmonst.movement += 50 + bcsign(sobj) * 25;
-            morehungry(rn1(30, 30));
+            bonus = 50 + bcsign(sobj) * 25;
+            u.umovement += bonus;
             u.utimestop = TRUE;
         }
+        /* Time is an illusion. Lunchtime doubly so. 
+         * ― Douglas Adams, The Hitchhiker's Guide to the Galaxy */
+        morehungry(rn1(30, abs(bonus) * 2));
         break;
+    }
     case SCR_TELEPORTATION:
         if (confused || scursed) {
             level_tele();
@@ -2167,15 +2212,40 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             known = scrolltele(sobj);
         }
         break;
-    case SCR_GOLD_DETECTION:
-        if ((confused || scursed) ? trap_detect(sobj, TRUE) : gold_detect(sobj))
-            sobj = 0; /* failure: strange_feeling() -> useup() */
+    case SCR_GOLD_DETECTION: {
+        /* The detect functions are tricky because they are capable of using
+         * up the object if nothing was detected in the strange_feeling result.
+         * They return 1 if they failed (nothing detected)
+         * They return 0 if they succeeded (detected something)
+         * */
+        boolean success;
+        if (!sobj)
+            break;
+        if (confused || scursed) {
+            success = trap_detect(sobj, TRUE) == 0;
+        } else {
+            success = gold_detect(sobj) == 0;
+            if (success && sblessed)
+               success = object_detect(sobj, GEM_CLASS) == 0;
+        }
+        if (!success) {
+            sobj = 0; /* success: strange_feeling() -> useup() */
+        }
         break;
+    }
     case SCR_FOOD_DETECTION:
-    case SPE_DETECT_FOOD:
-        if (food_detect(sobj))
-            sobj = 0; /* nothing detected: strange_feeling -> useup */
+    case SPE_DETECT_FOOD: {
+        boolean success;
+        if (!sobj)
+            break;
+        success = food_detect(sobj) == 0;
+        if (success && sblessed)
+            success = monster_detect(sobj, S_BAD_FOOD) == 0;
+        if (!success) {
+            sobj = 0; /* success: strange_feeling() -> useup() */
+        }
         break;
+    }
     case SCR_KNOWLEDGE: {
         useup(sobj);
         sobj = 0; /* it's gone */
@@ -2190,7 +2260,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (!already_known)
             (void) learnscrolltyp(SCR_KNOWLEDGE);
         break;
-        /* TODO: Should this return 1 since it is used up here? */
     }
     case SCR_IDENTIFY:
         /* known = TRUE; -- handled inline here */
@@ -2236,7 +2305,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             break;
         }
         else if (scursed) {
-            if (!Breathless && !breathless(youmonst.data)) {
+            if (!Breathless) {
                 known = TRUE;
                 pline_The("air is sucked from your lungs!");
                 losehp(d(3, 4), "asphyxiation", KILLED_BY);
@@ -2271,23 +2340,55 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             else
                 otmp = some_armor(&youmonst);
         } else {
-            otmp = getobj(all_count, "change material");
+            otmp = getobj(all_count, "transmogrify");
         }
-            
+
         if (!otmp) {
             strange_feeling(sobj, "Your skin crawls for a moment.");
             sobj = 0; /* useup() in strange_feeling() */
             exercise(A_CON, !scursed);
             exercise(A_STR, !scursed);
             break;
+        } else if (otmp->oartifact) {
+            Your("%s resists the transformation!", xname(otmp));
+            break;
         }
-        if (confused || scursed) {
+
+        if (confused) {
+            if (scursed) {
+                pline("%s with a fluorescent red light!", Yobjnam2(otmp, "glow"));
+                otmp->oprops = 0;
+                otmp->oprops_known = 0;
+            }
+            /* Maybe change or add a property. 
+             * 
+             * Adding to a magical item depends on luck.
+             * The percent is chance of success:
+             *  LUCK:     <0      0     +2     +5     +8    +11
+             * 	SUCCESS: 0.5%  20.0%  39.5%  59.0%  78.5%  98.0%
+             * 	
+             * 	If cursed the property is always wiped.
+             */
+            else if (sblessed || otmp->oprops) {
+                if (objects[otmp->otyp].oc_magic && !rnl(5) == 0) {
+                    pline1(nothing_happens);
+                    break;
+                }
+                pline("%s with a fluorescent blue light!", Yobjnam2(otmp, "glow"));
+                handle_new_property(otmp);
+                /* Reveal the property */
+                otmp->oprops_known = otmp->oprops;
+            } else {
+                pline1(nothing_happens);
+                break;
+            }
+        } else if (scursed) {
             pline("%s with a sickly green light!", Yobjnam2(otmp, "glow"));
             curse(otmp);
             otmp->oerodeproof = 0;
             if (valid_obj_material(otmp, PLASTIC)) {
                 otmp->material = PLASTIC;
-                costly_alteration(otmp, COST_DRAIN);
+                costly_alteration(otmp, COST_TRANSMOGRIFY);
             } else
                 warp_material(otmp, TRUE);
             break;
@@ -2297,6 +2398,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline("%s with a strange yellow light!", Yobjnam2(otmp, "glow"));
             warp_material(otmp, TRUE);
         }
+        known = TRUE;
+        update_inventory();
         break;
     }
     case SCR_CHARGING:
@@ -2362,7 +2465,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             cval = (scursed && !confused);
             if (cval)
                 HConfusion = 1; /* to screw up map */
-            do_mapping();
+            do_mapping(cval);
             if (cval) {
                 HConfusion = 0; /* restore */
                 pline("Unfortunately, you can't grasp the details.");
@@ -2376,7 +2479,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             } else if (sobj->blessed && rnl(8) == 0) {
                 sobj->age = monstermoves + (long) d(3, 10);
                 pline_The("map is clear as day!");
-                do_mapping();
+                do_mapping(FALSE);
             } else {
                 sobj->age = monstermoves + (long) d(3, 10);
                 do_vicinity_map(sobj);
@@ -2451,7 +2554,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("Where do you want to center the explosion?");
                 getpos_sethilite(display_stinking_cloud_positions,
                                  get_valid_stinking_cloud_pos);
-                (void) getpos(&cc, TRUE, "the desired position");
+                (void) getpos(&cc, FALSE, "the desired position");
                 if (!is_valid_stinking_cloud_pos(cc.x, cc.y, FALSE)) {
                     /* try to reach too far, get burned */
                     cc.x = u.ux;
@@ -2464,9 +2567,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 burn_away_slime();
             }
         }
-#define ZT_SPELL_O_FIRE 11 /* explained in splatter_burning_oil(explode.c) */
-        explode(cc.x, cc.y, ZT_SPELL_O_FIRE, dam, SCROLL_CLASS, EXPL_FIERY);
-#undef ZT_SPELL_O_FIRE
+        explode(cc.x, cc.y, ZT_SPELL(ZT_FIRE), dam, SCROLL_CLASS, EXPL_FIERY);
         break;
     }
     case SCR_EARTH:
@@ -2510,21 +2611,24 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         known = TRUE;
         if (confused || sblessed) {
             You_feel("culpable.");
+            hold_another_object(mksobj(IRON_CHAIN, FALSE, FALSE),
+                                "It slips away from you.", (char*)0, (char*)0);
             break;
         }
         punish(sobj);
         break;
     case SCR_ACQUIREMENT: 
         known = TRUE;
-        
-        pline("You have found a scroll of acquirement!");
-        if (sobj->cursed) {
-            pline("Unfortuantely, nothing happens.");
+        if (sobj->cursed || Confusion) {
+            /* The opposite of acquirement ... is loss */
+            change_luck((Luck > 1) ? -rnd(2) : -1);
+            take_gold();
             break;
         }
+        pline("You have found a scroll of acquirement!");
         do_acquirement();
         
-        if (sobj->blessed && Luck + rn2(5) > 3)
+        if (sobj->blessed && Luck + rn2(5) > 10)
             do_acquirement(); /* Bonus! */
         break;
     case SCR_STINKING_CLOUD: {
@@ -2539,7 +2643,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         cc.y = u.uy;
         getpos_sethilite(display_stinking_cloud_positions,
                          get_valid_stinking_cloud_pos);
-        if (getpos(&cc, TRUE, "the desired position") < 0) {
+        if (getpos(&cc, FALSE, "the desired position") < 0) {
             pline1(Never_mind);
             break;
         }
@@ -2552,7 +2656,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         } else {
             int i;
             if (!sblessed) {
-                for (i = 0; i < 30 + rn2(70); i++)
+                for (i = 0; i < rn1(9, 6); i++)
                     makemon(&mons[PM_GAS_SPORE], 0, 0, NO_MM_FLAGS);
             } else {
                 for (i = 0; i < rnd(3); i++)
@@ -2654,7 +2758,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     monstseesu(M_SEEN_COLD);
                 } else {
                     pline_The("scroll blasts your %s with freezing air!",
-                              makeplural(body_part(HEAD)));
+                              makeplural(body_part(HAND)));
                     losehp(d(scursed ? 1 : 2, 3), "scroll of ice", KILLED_BY_AN);
                 }
             }
@@ -2678,10 +2782,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         dam += d(3, 3);
                     if (!rn2(3))
                         (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
-                    /* mtmp->mhp -= dam;*/
-                    damage_mon(mtmp, dam, AD_COLD);
-            
-                    if (DEADMONSTER(mtmp)) {
+
+                    if (damage_mon(mtmp, dam, AD_COLD)) {
                         killed(mtmp);
                     }
                 }
@@ -2946,14 +3048,16 @@ mwand_explode(mon, obj)
 register struct monst *mon;
 register struct obj *obj;
 {
+    int dmg = 0;
     if (canseemon(mon))
         pline("%s %s vibrates violently and explodes!",
               s_suffix(Monnam(mon)), xname(obj));
     else if (!Deaf)
         You_hear("an explosion.");
-    mon->mhp -= rnd(2 * (mon->mhpmax + 1) / 3);
+    dmg = rnd(2 * (mon->mhpmax + 1) / 3);
     m_useup(mon, obj);
-    if (mon->mhp <= 0) {
+    
+    if (damage_mon(mon, dmg, AD_MAGM)) {
     	if (canseemon(mon))
             pline("%s is killed by the explosion!", Monnam(mon));
         mondied(mon);
@@ -3241,7 +3345,8 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
             /* Although "genus" is Latin for race, the hero benefits
              * from both race and role; thus genocide affects either.
              */
-            if (Your_Own_Role(mndx) || Your_Own_Race(mndx)) {
+            if (Your_Own_Role(mndx) || Your_Own_Race(mndx)
+                || (Race_if(PM_VAMPIRIC) && mndx == PM_VAMPIRE)) {
                 killplayer++;
                 break;
             }
@@ -3260,16 +3365,12 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
                  || (Role_if(PM_ICE_MAGE) && 
                     (!strcmpi(buf, "white dragon") 
                      || !strcmpi(buf, "white baby dragon")))) {
-                You_feel("guilty.");
+                You_feel("extremely guilty.");
                 adjalign(-99);
             }
             
             if (!(ptr->geno & G_GENO)) {
                 if (!Deaf) {
-                    /* FIXME: unconditional "caverns" will be silly in some
-                     * circumstances.  Who's speaking?  Divine pronouncements
-                     * aren't supposed to be hampered by deafness....
-                     */
                     if (flags.verbose)
                         pline("A thunderous voice booms through the caverns:");
                     verbalize("No, mortal!  That will not be done.");
@@ -3311,7 +3412,13 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
         }
         
         /* setting no-corpse affects wishing and random tin generation */
-        if (!only_on_level) { 
+        if (!only_on_level) {
+            /* Because these are intertwined */
+            if (mndx == PM_VAMPIRE)
+                mvitals[PM_VAMPIRIC].mvflags |= (G_GENOD | G_NOCORPSE);
+            else if (mndx == PM_VAMPIRIC)
+                mvitals[PM_VAMPIRE].mvflags |= (G_GENOD | G_NOCORPSE);
+            
             mvitals[mndx].mvflags |= (G_GENOD | G_NOCORPSE); 
         }
         pline("Wiped out %s%s%s.", which,
@@ -3356,7 +3463,6 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
         if (only_on_level) {
             kill_monster_on_level(mndx);
         } else {
-            reset_rndmonst(mndx);
             kill_genocided_monsters();
             update_inventory();	/* in case identified eggs were affected */
         }
@@ -3689,12 +3795,12 @@ struct _create_particular_data *d;
                 unblock_point(mx, my);
         }
         if (d->sick
-            && !(resists_sick(mtmp->data) || defended(mtmp, AD_DISE))) {
+            && !(resists_sick(mtmp) || defended(mtmp, AD_DISE))) {
             mtmp->msick = 1;
             mtmp->msicktime = rn1(9, 6);
         }
         if (d->diseased
-            && !(resists_sick(mtmp->data) || defended(mtmp, AD_DISE))) {
+            && !(resists_sick(mtmp) || defended(mtmp, AD_DISE))) {
             mtmp->mdiseased = 1;
             mtmp->mdiseasetime = rn1(9, 6);
         }
@@ -3886,6 +3992,7 @@ struct obj **sobjp;
         otmp2->greased = otmp->greased;
         otmp2->oeroded = otmp->oeroded;
         otmp2->oeroded2 = otmp->oeroded2;
+        otmp2->recharged = otmp->recharged;
         otmp2->opoisoned = otmp->opoisoned;
         otmp2->corpsenm = otmp->corpsenm;
         otmp2->oprops = otmp->oprops;
@@ -3906,15 +4013,20 @@ struct obj **sobjp;
             otmp2->otyp = WAN_WONDER;
             otmp2->spe = rn1(10, 15);
         } else if (otmp2->otyp == MAGIC_LAMP) {
-            otmp2->otyp = MAGIC_CANDLE;
-            otmp2->material = WAX;
+            otmp2->otyp = OIL_LAMP;
         } else if (otmp2->otyp == MAGIC_MARKER) {
-            otmp2->otyp = ATHAME;
-            otmp2->material = METAL;
-            if (sblessed) otmp2->spe = rnd(otmp->spe / 10);
+            otmp2->otyp = PENCIL;
+            otmp2->material = WOOD;
+            otmp2->spe = 0;
+            if (sblessed)
+                otmp2->spe = rnd(otmp->spe / 10);
         }
 
         otmp2->quan = 1;
+        
+        /* Weight could change due to material/type */
+        otmp2->owt = weight(otmp2); 
+        
         obj_extract_self(otmp2);
         (void) hold_another_object(otmp2, "Whoops! %s out of your grasp.",
                                 The(aobjnam(otmp2, "tumbles")),
@@ -3957,7 +4069,7 @@ int mon_to_zombie(int monnum) {
         return PM_GIANT_ZOMBIE;
     
     if (is_dragon(&mons[monnum])) 
-        return PM_ZOMBIE_DRAGON;
+        return PM_DRAGON_ZOMBIE;
     
     /* Is it humanoid? */
     if (!humanoid(&mons[monnum])) 
@@ -4004,121 +4116,231 @@ create_particular_from_buffer(const char* bufp)
 /* 5lo: A menu for acquirement instead of the awful, terrible way
  * SlashEM-Extended handles this.
  */
-static void
-do_acquirement()
+static void mk_acquired_item(class_type)
+int class_type;
 {
-    struct obj *acqo;
-    menu_item *pick_list = (menu_item *) 0;
-    winid win;
-    anything any;
-    char ch = 'q';
+    struct obj *item = mkobj(class_type, FALSE);
 
-    win = create_nhwindow(NHW_MENU);
+    if (item->otyp == GOLD_PIECE) {
+        item->quan = rnd(1000);
+    } else if (item->otyp == MAGIC_LAMP) {
+        item->otyp = OIL_LAMP;
+        item->age = 1500L;
+    } else if (item->otyp == MAGIC_MARKER) {
+        item->recharged = 1;
+    }
+    
+    while (item->otyp == WAN_WISHING) {
+        item->otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
+    }
+
+    while (item->otyp == SCR_ACQUIREMENT) {
+        item->otyp = rnd_class(SCR_CREATE_MONSTER, SCR_BLANK_PAPER);
+    }
+    /* Copied from zap.c wishing code */
+    if (item != &zeroobj) {
+        const char
+                *verb = ((Is_airlevel(&u.uz) || u.uinwater) ? "slip" : "drop"),
+                *oops_msg = (u.uswallow
+                             ? "Oops!  %s out of your reach!"
+                             : (Is_airlevel(&u.uz) || Is_waterlevel(&u.uz)
+                                || levl[u.ux][u.uy].typ < IRONBARS
+                                || levl[u.ux][u.uy].typ >= ICE)
+                               ? "Oops!  %s away from you!"
+                               : "Oops!  %s to the floor!");
+        /* The(aobjnam()) is safe since otmp is unidentified -dlc */
+        item = hold_another_object(item, oops_msg,
+                                   The(aobjnam(item, verb)),
+                                   (const char *) 0);
+    }
+}
+
+static void do_acquirement() {
+    winid win = create_nhwindow(NHW_MENU);
+    anything any;
+    int i;
+    char ch = 'q';
+    char item_chars[] = { 'r', '"', ')', '[', '%', '?', '+', '!', '=', '/', '(', '*' };
+    menu_item *pick_list = NULL;
+    const char *item_names[] = {
+            "Random item",  "Amulet", "Weapon", "Armor", "Comestible", "Scroll",
+            "Spellbook", "Potion", "Ring", "Wand", "Tool", "Gem"
+    };
+    
     start_menu(win);
-    any.a_void = 0;
-    any.a_char = 'r';
-    add_menu(win, NO_GLYPH, &any, 'r', 0, ATR_NONE, "Random item",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = ')';
-    add_menu(win, NO_GLYPH, &any, ')', 0, ATR_NONE, "Weapon",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '[';
-    add_menu(win, NO_GLYPH, &any, '[', 0, ATR_NONE, "Armor", MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '%';
-    add_menu(win, NO_GLYPH, &any, '%', 0, ATR_NONE, "Comestible",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '?';
-    add_menu(win, NO_GLYPH, &any, '?', 0, ATR_NONE, "Scroll",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '+';
-    add_menu(win, NO_GLYPH, &any, '+', 0, ATR_NONE, "Spellbook",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '!';
-    add_menu(win, NO_GLYPH, &any, '!', 0, ATR_NONE, "Potion",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '"';
-    add_menu(win, NO_GLYPH, &any, '"', 0, ATR_NONE, "Amulet",
-             MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '=';
-    add_menu(win, NO_GLYPH, &any, '=', 0, ATR_NONE, "Ring", MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '/';
-    add_menu(win, NO_GLYPH, &any, '/', 0, ATR_NONE, "Wand", MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '(';
-    add_menu(win, NO_GLYPH, &any, '(', 0, ATR_NONE, "Tool", MENU_UNSELECTED);
-    any.a_void = 0;
-    any.a_char = '*';
-    add_menu(win, NO_GLYPH, &any, '*', 0, ATR_NONE, "Gem", MENU_UNSELECTED);
+    
+    for (i = 0; i < (int) sizeof(item_chars); i++) {
+        any.a_void = 0;
+        any.a_char = item_chars[i];
+        add_menu(win, NO_GLYPH, &any, item_chars[i], 0, ATR_NONE, item_names[i], MENU_UNSELECTED);
+    }
+
     end_menu(win, "Select a type of item to create:");
-    /* No chains, iron balls, venom, boulders or gold */
+
+    
     if (select_menu(win, PICK_ONE, &pick_list) > 0) {
         ch = pick_list->item.a_char;
-        free((genericptr_t) pick_list);
+        free(pick_list);
     }
     destroy_nhwindow(win);
 
     switch (ch) {
-    default:
-    case 'r':
-        acqo = mkobj_at(RANDOM_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case ')':
-        acqo = mkobj_at(WEAPON_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '[':
-        acqo = mkobj_at(ARMOR_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '%':
-        acqo = mkobj_at(FOOD_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '?':
-        acqo = mkobj_at(SCROLL_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '+':
-        acqo = mkobj_at(SPBOOK_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '!':
-        acqo = mkobj_at(POTION_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '"':
-        acqo = mkobj_at(AMULET_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '=':
-        acqo = mkobj_at(RING_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '/':
-        acqo = mkobj_at(WAND_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '(':
-        acqo = mkobj_at(TOOL_CLASS, u.ux, u.uy, FALSE);
-        break;
-    case '*':
-        acqo = mkobj_at(GEM_CLASS, u.ux, u.uy, FALSE);
-        break;
+        case 'r': mk_acquired_item(RANDOM_CLASS); break;
+        case ')': mk_acquired_item(WEAPON_CLASS); break;
+        case '[': mk_acquired_item(ARMOR_CLASS); break;
+        case '%': mk_acquired_item(FOOD_CLASS); break;
+        case '?': mk_acquired_item(SCROLL_CLASS); break;
+        case '+': mk_acquired_item(SPBOOK_CLASS); break;
+        case '!': mk_acquired_item(POTION_CLASS); break;
+        case '"': mk_acquired_item(AMULET_CLASS); break;
+        case '=': mk_acquired_item(RING_CLASS); break;
+        case '/': mk_acquired_item(WAND_CLASS); break;
+        case '(': mk_acquired_item(TOOL_CLASS); break;
+        case '*': mk_acquired_item(GEM_CLASS); break;
     }
-    if (acqo->otyp == GOLD_PIECE)
-        acqo->quan = rnd(1000);
-    if (acqo->otyp == MAGIC_LAMP) {
-        acqo->otyp = OIL_LAMP;
-        acqo->age = 1500L;
-    }
-    if (acqo->otyp == MAGIC_MARKER)
-        acqo->recharged = 1;
-    while (acqo->otyp == WAN_WISHING || acqo->otyp == WAN_POLYMORPH)
-        acqo->otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
-    while (acqo->otyp == SCR_ACQUIREMENT)
-        acqo->otyp = rnd_class(SCR_CREATE_MONSTER, SCR_BLANK_PAPER);
-
-    pline("An item has appeared on the ground just beneath you.");
 }
 
+/* Return FALSE if failure, TRUE if success */
+boolean maybe_process_scales(otmp, sobj)
+struct obj *otmp, *sobj;
+{
+    /* Dragon scales that are worn over body armor will cause the armor to
+     * become scaled */
+    if (otmp && Is_dragon_scales(otmp)) { /* guarantees that worn cloak is scales,
+                                                     but does NOT guarantee existence of uarm */
+        /* no body armor under the scales = the scales are enchanted
+         * directly onto you (no such thing as a scaled shirt). The wearer
+         * will polymorph. Also caused by a confused scroll, _after_ the
+         * scales meld. */
+        boolean poly_after_merge = (!uarm || Confusion);
+        int old_light = artifact_light(otmp) ? arti_light_radius(otmp) : 0;
+        if (uarm) {
+            struct obj *scales = uarmc;
+            struct obj *armor = uarm;
+            if (armor->oartifact) {
+                pline("%s refuses to meld into the %s.",
+                      Yname2(scales), artiname(armor->oartifact));
+                return FALSE;
+            }
+            pline("%s hardens and melds into your %s%s", Yname2(scales),
+                  suit_simple_name(armor),
+                  Is_dragon_scaled_armor(armor) ? "." : "!");
+
+            if (Is_dragon_scaled_armor(armor)) {
+                if (Dragon_armor_to_scales(armor) == scales->otyp) {
+                    /* scales match armor already; just use up scales */
+                    pline("Its scales still seem %s.",
+                          dragon_scales_color(armor));
+                } else {
+                    /* armor is already scaled but the new scales are
+                     * different and will replace the old ones */
+                    pline("Its scales change from %s to %s!",
+                          dragon_scales_color(armor),
+                          dragon_scales_color(scales));
+                    /* remove properties of old scales */
+                    dragon_armor_handling(armor, FALSE);
+                }
+            }
+            setnotworn(armor);
+            /* don't allow a suit of armor with an object property
+               to co-exist with merged dragon scales */
+            if ((armor->oprops & ITEM_PROP_MASK) != 0) {
+                oprops_off(armor, W_ARM);
+                armor->oprops &= ~(ITEM_PROP_MASK);
+            }
+            armor->dragonscales = scales->otyp;
+            armor->cursed = 0;
+            if (sobj->blessed) {
+                armor->oeroded = armor->oeroded2 = 0;
+                armor->blessed = 1;
+            }
+            setworn(armor, W_ARM);
+            check_wings(TRUE);
+            dragon_armor_handling(armor, TRUE);
+            known = TRUE;
+            if (otmp->unpaid)
+                alter_cost(otmp, 0L); /* shop bill */
+
+            /* handle gold dragon-scaled armor... */
+            if (scales->lamplit) {
+                if (armor->lamplit) {
+                    /* if melding lit dragon scales onto already lit dragon-scaled
+                       armor, avoid attaching a duplicate light source to the armor.
+                       useup() won't take care of this, because it calls
+                       setnotworn(), which will make artifact_light() return
+                       false, so the regular check for deleting the light source
+                       when an object is deallocated will do nothing */
+                    del_light_source(LS_OBJECT, obj_to_any(scales));
+                } else {
+                    /* this will set armor->lamplit */
+                    obj_move_light_source(scales, armor);
+                }
+                /* may be different radius depending on BUC of armor */
+                maybe_adjust_light(armor, old_light);
+            } else if (armor->lamplit) {
+                /* scales not lit but armor is: melding non-gold scales onto
+                   gold-scaled armor, which will no longer be a
+                   light source */
+                end_burn(armor, FALSE);
+            }
+            useup(scales);
+        }
+        if (poly_after_merge) {
+            polyself(4);
+            /* adjust duration for scroll beatitude - a blessed scroll will
+             * give you more time as a dragon, a cursed scroll less */
+            u.mtimedone = (u.mtimedone * (bcsign(sobj) + 2) / 2);
+        }
+        if (!sobj->cursed || !uarm) {
+            return FALSE;
+        } else {
+            /* continue with regular cursed-enchant logic on the resulting
+             * armor piece */
+            otmp = uarm;
+        }
+    }
+    return TRUE;
+}
+
+void
+handle_new_property(otmp)
+struct obj *otmp;
+{
+    long old_wornmask = otmp->owornmask;
+    long old_oprops = otmp->oprops;
+    boolean was_twoweap = u.twoweap;
+    
+    remove_worn_item(otmp, FALSE);
+    otmp->oprops = 0;
+    otmp->oprops_known = 0;
+
+    /* Do our best to add a property. */
+    for (int i = 0; i < 1000; i++) {
+        create_oprop(otmp, TRUE);
+        if (otmp->oprops && otmp->oprops != old_oprops)
+            break;
+    }
+
+    if (old_wornmask) {
+        /* wearslot() returns a mask which might have multiple bits set;
+           narrow that down to the bit(s) currently in use */
+        /* if the new form can be worn in the same slot, make it so */
+        if ((old_wornmask & W_WEP) != 0L) {
+            setuwep(otmp);
+            if (was_twoweap && uwep && !bimanual(uwep))
+                u.twoweap = TRUE;
+        } else if ((old_wornmask & W_SWAPWEP) != 0L) {
+            setuswapwep(otmp);
+            if (was_twoweap && uswapwep)
+                u.twoweap = TRUE;
+        } else if ((old_wornmask & W_QUIVER) != 0L) {
+            setuqwep(otmp);
+        } else {
+            setworn(otmp, old_wornmask);
+        }
+        set_wear(otmp);
+    }
+    /* Handle burden property */
+    otmp->owt = weight(otmp);
+}
 /*read.c*/

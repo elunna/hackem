@@ -15,11 +15,12 @@ struct monst *mon;
 struct permonst *ptr;
 {
     int new_speed, old_speed = mon->data ? mon->data->mmove : 0;
+    short *movement_p = (mon == &youmonst) ? &u.umovement : &mon->movement;
 
     mon->data = ptr;
     mon->mnum = (short) monsndx(ptr);
 
-    if (mon->movement) { /* used to adjust poly'd hero as well as monsters */
+    if (*movement_p) { /* used to adjust poly'd hero as well as monsters */
         new_speed = ptr->mmove;
         /* prorate unused movement if new form is slower so that
            it doesn't get extra moves leftover from previous form;
@@ -27,12 +28,12 @@ struct permonst *ptr;
         if (new_speed < old_speed) {
             /*
              * Some static analysis warns that this might divide by 0
-               mon->movement = new_speed * mon->movement / old_speed;
+               *movement_p = new_speed * *movement_p / old_speed;
              * so add a redundant test to suppress that.
              */
-            mon->movement *= new_speed;
+            *movement_p *= new_speed;
             if (old_speed > 0) /* old > new and new >= 0, so always True */
-                mon->movement /= old_speed;
+                *movement_p /= old_speed;
         }
     }
     return;
@@ -111,7 +112,7 @@ int adtyp;
     /* if 'mon' is an adult dragon, treat it as if it was wearing scales
        so that it has the same benefit as a hero wearing dragon scales */
     mndx = monsndx(mon->data);
-    if (mndx >= PM_GRAY_DRAGON && mndx <= PM_CELESTIAL_DRAGON) {
+    if (mndx >= PM_GRAY_DRAGON && mndx <= PM_YELLOW_DRAGON) {
         /* a dragon is its own suit...  if mon is poly'd hero, we don't
            care about embedded scales (uskin) because being a dragon with
            embedded scales is no better than just being a dragon */
@@ -137,15 +138,15 @@ boolean
 resists_drli(mon)
 struct monst *mon;
 {
-    struct permonst *ptr = raceptr(mon); /* handle demonic race */
     struct obj *armor;
     long slotmask;
 
-    if (resists_drain(ptr) || is_vampshifter(mon)
+    if (resists_drain(mon) || is_vampshifter(mon)
         || (mon == &youmonst && (u.ulycn >= LOW_PM || Invulnerable)))
         return TRUE;
     armor = (mon == &youmonst) ? invent : mon->minvent;
     slotmask = W_ARMOR | W_ACCESSORY;
+    
     /* check for drain res object property */
     for (; armor; armor = armor->nobj) {
         if ((armor->owornmask & slotmask) != 0L
@@ -243,6 +244,17 @@ struct obj *obj; /* aatyp == AT_WEAP, AT_SPIT */
     if (!haseyes(mdef->data))
         return FALSE;
 
+    /* if monster has been permanently blinded, the deed is already done */
+    if (!is_you && mon_perma_blind(mdef))
+        return FALSE;
+
+    /* /corvus oculum corvi non eruit/
+       a saying expressed in Latin rather than a zoological observation:
+       "a crow will not pluck out the eye of another crow"
+       so prevent ravens from blinding each other */
+    if (magr && magr->data == &mons[PM_RAVEN] && mdef->data == &mons[PM_RAVEN])
+        return FALSE;
+
     switch (aatyp) {
     case AT_EXPL:
     case AT_BOOM:
@@ -252,8 +264,11 @@ struct obj *obj; /* aatyp == AT_WEAP, AT_SPIT */
         /* light-based attacks may be cancelled or resisted */
         if (magr && magr->mcan)
             return FALSE;
-        return !resists_blnd(mdef);
-
+        if (resists_blnd(mdef))
+            return FALSE;
+        check_visor = TRUE;
+        break;
+        
     case AT_WEAP:
     case AT_SPIT:
     case AT_NONE:
@@ -276,7 +291,8 @@ struct obj *obj; /* aatyp == AT_WEAP, AT_SPIT */
         break;
 
     case AT_ENGL:
-        if (is_you && (Blindfolded || Unaware || u.ucreamed))
+        if (is_you && (Blindfolded || Unaware || u.ucreamed 
+              || (uarmh && uarmh->otyp == PLASTEEL_HELM)))
             return FALSE;
         if (!is_you && mdef->msleeping)
             return FALSE;
@@ -306,7 +322,8 @@ struct obj *obj; /* aatyp == AT_WEAP, AT_SPIT */
     if (check_visor) {
         o = (mdef == &youmonst) ? invent : mdef->minvent;
         for (; o; o = o->nobj)
-            if ((o->owornmask & W_ARMH) && objdescr_is(o, "visored helmet"))
+            if ((o->owornmask & W_ARMH) 
+                && (objdescr_is(o, "visored helmet") || o->otyp == PLASTEEL_HELM))
                 return FALSE;
     }
 
@@ -338,6 +355,10 @@ int element;
             return (((mon->data->mflags4 & M4_VULNERABLE_ACID) != 0
                       || mon->vuln_acid)
                     && !resists_acid(mon));
+        case AD_LOUD:
+            return (((mon->data->mflags4 & M4_VULNERABLE_LOUD) != 0
+                     || mon->vuln_loud)
+                    && !resists_sonic(mon));
         default:
             break;
     }
@@ -350,7 +371,8 @@ ranged_attk(mtmp)
 struct monst *mtmp;
 {
     register int i, atyp;
-    long atk_mask = (1L << AT_BREA) | (1L << AT_SPIT) | (1L << AT_VOLY) | (1L << AT_GAZE);
+    long atk_mask = (1L << AT_BREA) | (1L << AT_SPIT) 
+            | (1L << AT_VOLY) | (1L << AT_GAZE);
     struct attack *mattk;
     mattk = has_erac(mtmp) ? ERAC(mtmp)->mattk : mtmp->data->mattk;
 
@@ -479,6 +501,7 @@ struct permonst *mptr;
      || verysmall(mptr) \
      || dmgtype(mptr, AD_CORR) \
      || dmgtype(mptr, AD_RUST) \
+     || mptr == &mons[PM_CTHULHU] \
      || (slithy(mptr) && !bigmonst(mptr)));
 }
 
@@ -1303,13 +1326,13 @@ static const short grownups[][2] = {
     { PM_BABY_RED_DRAGON, PM_RED_DRAGON },
     { PM_BABY_WHITE_DRAGON, PM_WHITE_DRAGON },
     { PM_BABY_ORANGE_DRAGON, PM_ORANGE_DRAGON },
+    { PM_BABY_VIOLET_DRAGON, PM_VIOLET_DRAGON },
     { PM_BABY_BLACK_DRAGON, PM_BLACK_DRAGON },
     { PM_BABY_BLUE_DRAGON, PM_BLUE_DRAGON },
     { PM_BABY_GREEN_DRAGON, PM_GREEN_DRAGON },
     { PM_BABY_GOLD_DRAGON, PM_GOLD_DRAGON },
     { PM_BABY_SEA_DRAGON, PM_SEA_DRAGON },
     { PM_BABY_YELLOW_DRAGON, PM_YELLOW_DRAGON },
-    { PM_BABY_CELESTIAL_DRAGON, PM_CELESTIAL_DRAGON },
     { PM_PSEUDODRAGON, PM_ELDER_PSEUDODRAGON },
     { PM_ELDER_PSEUDODRAGON, PM_ANCIENT_PSEUDODRAGON },
     { PM_RED_NAGA_HATCHLING, PM_RED_NAGA },
@@ -1337,6 +1360,7 @@ static const short grownups[][2] = {
     { PM_KEYSTONE_KOP, PM_KOP_SERGEANT },
     { PM_KOP_SERGEANT, PM_KOP_LIEUTENANT },
     { PM_KOP_LIEUTENANT, PM_KOP_KAPTAIN },
+    { PM_KOP_KAPTAIN, PM_KOP_KOMMISSIONER },
     { PM_BABY_OWLBEAR, PM_OWLBEAR },
     { PM_ARCTIC_FERN_SPROUT, PM_ARCTIC_FERN },
     { PM_BLAZING_FERN_SPROUT, PM_BLAZING_FERN },
@@ -1359,17 +1383,20 @@ static const short grownups[][2] = {
     { PM_LARGE_PILE_OF_KILLER_COINS, PM_HUGE_PILE_OF_KILLER_COINS},
     
     /* Splice additions */
-    { PM_MAGGOT, PM_GIANT_FLY },
+    { PM_MAGGOT, PM_GIANT_MOSQUITO },
     { PM_DUST_VORTEX, PM_DUST_DEVIL },
     { PM_GLASS_PIERCER, PM_DIAMOND_PIERCER },
     { PM_DIAMOND_PIERCER, PM_GOD_PIERCER },
     { PM_PIG, PM_FERAL_HOG },
     { PM_GIANT_SPIDER, PM_MONSTROUS_SPIDER },
     { PM_SHRIEKER, PM_SCREAMER },
-    { PM_RED_MOLD, PM_RED_MOLDIER },
+    { PM_BROWN_MOLD, PM_BROWN_MOLDIER },
     { PM_YELLOW_MOLD, PM_YELLOW_MOLDIER },
     { PM_GREEN_MOLD, PM_GREEN_MOLDIER },
-    { PM_BROWN_MOLD, PM_BROWN_MOLDIER },
+    { PM_RED_MOLD, PM_RED_MOLDIER },
+    { PM_ORANGE_MOLD, PM_ORANGE_MOLDIER },
+    { PM_GRAY_FUNGUS, PM_GRAY_MOLDIER },
+    { PM_BLACK_MOLD, PM_BLACK_MOLDIER },
     { PM_ICHNEUMON_LARVA, PM_GIANT_ICHNEUMON },
     { NON_PM, NON_PM }
 };
@@ -1550,7 +1577,6 @@ enum on_fire_types attktype;
     case PM_GLASS_GOLEM:
     case PM_GOLD_GOLEM:
     case PM_IRON_GOLEM:
-    case PM_STEEL_GOLEM:
         /* Melts into a puddle. */
         switch (attktype) {
         case ON_FIRE_DEAD:
