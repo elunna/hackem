@@ -554,7 +554,7 @@ typedef unsigned char uchar;
    for dgamelaunch-based server play */
 /* #define DGAMELAUNCH */
 #ifdef DGAMELAUNCH
-#define EXTRAINFO_FN    "/dgldir/extrainfo-evil/%n.extrainfo"
+#define EXTRAINFO_FN    "/dgldir/extrainfo-hackem/%n.extrainfo"
 #define MAILCKFREQ 5    /* SIMPLE_MAIL is in unixconf.h */
 #define WHEREIS_FILE    "whereis/%n.whereis" /* Write out player's current location to player.whereis */
 #define WISH_TRACKER    /* log all wishes made */
