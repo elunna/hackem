@@ -18,8 +18,8 @@
 #define REINFORCE_BOOST 10000	/* memory increase for reinforce memory */
 #define MAX_KNOW 	    70000	/* Absolute Max timeout */
 /* Most spells a player can learn */
-#define SPELL_LIMIT     ((ACURR(A_WIS) + ACURR(A_INT)) \
-                          / (primary_caster() ? (Role_if(PM_WIZARD) ? 3 : 4) : 10))
+#define SPELL_LIMIT     ((ACURR(A_WIS) + ACURR(A_INT) + 5) \
+                          / (primary_caster() ? (Role_if(PM_WIZARD) ? 3 : 4) : 12))
 
 /* x: need to add 1 when used for reading a spellbook rather than for hero
    initialization; spell memory is decremented at the end of each turn,
