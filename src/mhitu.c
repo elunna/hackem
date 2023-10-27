@@ -1071,7 +1071,7 @@ register struct monst *mtmp;
                         }
                     } else {
                         missmu(mtmp, tmp, j, mattk);
-                        if (uarms && !rn2(3))
+                        if (uarms && !rn2(7))
                             use_skill(P_SHIELD, 1);
                         /* if the attacker dies from a glancing blow off
                            of a piece of the player's armor, and said armor
@@ -1125,7 +1125,7 @@ register struct monst *mtmp;
                         sum[i] = gulpmu(mtmp, mattk);
                     } else {
                         missmu(mtmp, tmp, j, mattk);
-                        if (uarms && !rn2(3))
+                        if (uarms && !rn2(7))
                             use_skill(P_SHIELD, 1);
                     }
                 } else if (is_swallower(mtmp->data)) {
@@ -1221,7 +1221,7 @@ register struct monst *mtmp;
                         sum[i] = hitmu(mtmp, mattk);
                     } else {
                         missmu(mtmp, tmp, j, mattk);
-                        if (uarms && !rn2(3))
+                        if (uarms && !rn2(7))
                             use_skill(P_SHIELD, 1);
                     }
                     /* KMH -- Don't accumulate to-hit bonuses */
@@ -3404,6 +3404,12 @@ struct monst *mtmp;
 struct attack *mattk;
 {
     int fate, dmg = d((int) mattk->damn, (int) mattk->damd);
+    int maxrange = 128;
+    
+    if (mtmp->data == &mons[PM_SCREAMER] 
+        || mtmp->data == &mons[PM_GIBBERLING])
+        maxrange = 9;
+    
     long lcount;
     boolean wakeup, has_toque = uarmh && uarmh->otyp == TOQUE;
     /* TODO: Are there polyforms that are deaf too? */
@@ -3415,7 +3421,7 @@ struct attack *mattk;
      * Only screams when a certain distance from our hero,
      * can see them, and has the available mspec.
      */
-    if (distu(mtmp->mx, mtmp->my) > 128 || !m_canseeu(mtmp)
+    if (distu(mtmp->mx, mtmp->my) > maxrange || !m_canseeu(mtmp)
         || mtmp->mspec_used)
         return FALSE;
 
@@ -3525,13 +3531,15 @@ struct attack *mattk;
         stop_occupation();
         break;
     case AD_SONG:
-        /* Harpies have an entracing song that paralyzes */
+        /* Harpies have an entrancing song that paralyzes */
         if (!can_hear)
             break; /* No inventory effects */
-        if (m_canseeu(mtmp) && !u.usleep)
-            pline("%s releases a hypnotic melody!", Monnam(mtmp));
-        else
-            You("dream of singing angels...");
+        if (m_canseeu(mtmp)) {
+            if (!u.usleep)
+                pline("%s releases a hypnotic melody!", Monnam(mtmp));
+            else
+                You("dream of singing angels...");
+        }
 
         if (how_resistant(SONIC_RES) > 50)
             break; /* No inventory damage! */
@@ -4878,17 +4886,16 @@ struct attack *mattk;
             tmp += destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
         tmp += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
         
-        if ((mtmp->mhp -= tmp) <= 0) {
-            xkilled(mtmp,0);
-            if (mtmp->mhp > 0) 
-                return 1;
+        if (damage_mon(mtmp, tmp, AD_FIRE)) {
+            xkilled(mtmp, 0);
             return 2;
+        } else {
+            return 1;
         }
     }
     
-    /* Ice Mage gets a passive cold attack that grows as they get stronger
-     * and their ice armor becomes more powerful. We'll delay it a few levels
-     * so really low level ice mages have to work for it. */
+    /* Ice Armor tech for Ice Mages. As they get stronger their 
+     * ice armor becomes more powerful. */
     if (tech_inuse(T_ICEARMOR)) {
         int icetmp = icebonus();
         if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
@@ -4906,11 +4913,11 @@ struct attack *mattk;
                 tmp += destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
             
             showdmg(tmp, FALSE);
-            if ((mtmp->mhp -= tmp) <= 0) {
+            if (damage_mon(mtmp, tmp, AD_COLD)) {
                 xkilled(mtmp, 0);
-                if (mtmp->mhp > 0)
-                    return 1;
                 return 2;
+            } else {
+                return 1;
             }
         }
     }
@@ -5000,7 +5007,8 @@ struct attack *mattk;
                     if (rn2(40)) {
                         if (canseemon(mtmp))
                             pline("%s partially disintegrates!", Monnam(mtmp));
-                        mtmp->mhp -= rnd(4);
+                        if (damage_mon(mtmp, rnd(4), AD_PHYS))
+                            xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
                     } else {
                         if (canseemon(mtmp))
                             pline("%s is disintegrated completely!", Monnam(mtmp));
@@ -5018,10 +5026,10 @@ struct attack *mattk;
                         } else {
                             xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
                         }
-                        if (!DEADMONSTER(mtmp))
-                            return 1;
-                        return 2;
                     }
+                    if (!DEADMONSTER(mtmp))
+                        return 1;
+                    return 2;
                 }
             }
             if (mtmp->mhp < 1) {

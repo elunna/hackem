@@ -180,6 +180,10 @@ int shotlimit;
             if (obj->otyp == YA && uwep && uwep->otyp == YUMI)
                 multishot++;
             break;
+        case PM_BARBARIAN:
+            if (obj->otyp == THROWING_AXE)
+                multishot++;
+            break;
         default:
             break; /* No bonus */
         }
@@ -776,8 +780,7 @@ int x, y;
         ) {
         const char *mnam, *pronoun;
         int glyph = glyph_at(x, y);
-        boolean stomping = (uarmf && uarmf->otyp == STOMPING_BOOTS 
-                            && mon->data->msize <= MZ_SMALL);
+        boolean stomping = (Stomping && mon->data->msize <= MZ_SMALL);
 
 
         mon->mundetected = 0; /* wakeup() will handle mimic */
@@ -2112,6 +2115,8 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
     if (racial_orc(mon)
         && maybe_polyd(is_elf(youmonst.data), Race_if(PM_ELF)))
         tmp++;
+    if (Role_if(PM_BARBARIAN) && obj->otyp == THROWING_AXE)
+        tmp += 3;
     if (guaranteed_hit) {
         tmp += 1000; /* Guaranteed hit */
     }

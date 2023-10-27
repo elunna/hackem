@@ -434,6 +434,8 @@ CONTAINER:('(', "iron safe"),(06,01) {
     }
     GOLD: 8700, (06,01)
     GOLD: 1d200, (06,01)
+    
+     OBJECT:('(',"magic key")
 }
 
 # arms storage

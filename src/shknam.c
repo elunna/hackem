@@ -897,11 +897,12 @@ int shp_indx;
     /* wands and potions also similar... */
     case WAND_CLASS:
     case POTION_CLASS:
-        switch (rnd(4)) {
+        switch (rnd(8)) {
         case 1: srace = PM_ELF; break;
         case 2: srace = PM_GNOME; break;
         case 3: srace = PM_NYMPH; break;
         case 4: srace = PM_HUMAN; break;
+        default:  srace = PM_VAMPIRIC; break;
         }
         break;
     case TOOL_CLASS:
@@ -920,11 +921,12 @@ int shp_indx;
     /* and scrolls and books fall to spellcasters */
     case SCROLL_CLASS:
     case SPBOOK_CLASS:
-        switch (rnd(4)) {
+        switch (rnd(5)) {
         case 1: srace = PM_ILLITHID; break;
         case 2: srace = PM_HUMAN; break;
         case 3: srace = PM_GNOME; break;
         case 4: srace = PM_ELF; break;
+        case 5: srace = PM_VAMPIRIC; break;
         }
         break;
     default:
@@ -955,7 +957,7 @@ int shp_indx;
     eshkp->customer[0] = '\0';
     /* WAC init services */
     init_shk_services(shk);
-    shkmoney = 1000L + 30L * (long) rnd(100);  /* initial capital */
+    shkmoney = 2250L + 65L * (long) rnd(100);  /* initial capital */
     /* [CWC] Lets not create the money yet until we see if the
          shk is a black marketeer, else we'll have to create
        another money object, if GOLDOBJ is defined */
@@ -1248,9 +1250,6 @@ struct monst *shk;
             maybe_add_svc(shk, SHK_ID_WAND);
         if (!rn2(5))
             maybe_add_svc(shk, SHK_ID_ARMOR);
-        /* Only wand shops offer premium charging */
-        if (!rn2(4) && (shk_class_match(WAND_CLASS, shk) == SHK_MATCH)) 
-            maybe_add_svc(shk, SHK_CHG_PRE);
     } 
     else if (shk_class_match(FOOD_CLASS, shk) == SHK_MATCH) {
         maybe_add_svc(shk, SHK_ID_FOOD);
@@ -1290,15 +1289,23 @@ struct monst *shk;
             maybe_add_svc(shk, SHK_PROP);
     }
     
-    /* Charging services */
+    /* Charging services: If these shops offer charging, they
+     * always offer both basic and premium. However, they
+     * are restricted to their own specialty of items. */
     if (     (shk_class_match(WAND_CLASS, shk) == SHK_MATCH) 
           || (shk_class_match(TOOL_CLASS, shk) == SHK_MATCH)
-          || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)
-          || (shk_class_match(RANDOM_CLASS, shk) == SHK_MATCH)) {
-        if (!rn2(4)) 
+          || (shk_class_match(RING_CLASS, shk) == SHK_MATCH)) {
+        if (!rn2(4)) {
             maybe_add_svc(shk, SHK_CHG_BAS);
+            maybe_add_svc(shk, SHK_CHG_PRE);
+        }
     }
 
+    /* General/junk stores can only offer basic charging, 
+     * but they can charge anything. */
+    if (shk_class_match(RANDOM_CLASS, shk) == SHK_GENERAL && !rn2(4))
+        maybe_add_svc(shk, SHK_CHG_BAS);
+    
     if (!strcmp(shtypes[ESHK(shk)->shoptype-SHOPBASE].name, "pet store")) {
         if (!(ESHK(shk)->services & SHK_ID_FOOD) && !rn2(2))
             maybe_add_svc(shk, SHK_ID_FOOD);

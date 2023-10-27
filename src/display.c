@@ -1812,6 +1812,9 @@ xchar x, y;
     case FORGE:
         idx = S_forge;
         break;
+    case MAGIC_CHEST:
+        idx = S_magic_chest;
+        break;
     case FOUNTAIN:
         idx = S_fountain;
         break;
@@ -2182,6 +2185,7 @@ static const char *type_names[MAX_TYPE] = {
     "STAIRS",
     "LADDER",
     "FORGE",
+    "MAGIC_CHEST",
     "FOUNTAIN",
     "VENT",
     "THRONE",

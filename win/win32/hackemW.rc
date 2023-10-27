@@ -320,8 +320,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,1,0
- PRODUCTVERSION 1,2,1,0
+ FILEVERSION 1,2,2,0
+ PRODUCTVERSION 1,2,2,0
  FILEFLAGSMASK 0x1fL
 #ifdef _DEBUG
  FILEFLAGS 0x9L
@@ -336,14 +336,14 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "FileDescription", "HackEM for Windows - Graphical Interface"
-            VALUE "FileVersion", "1.2.1"
+            VALUE "FileDescription", "Hack'EM for Windows - Graphical Interface"
+            VALUE "FileVersion", "1.2.2"
             VALUE "InternalName", "HackEMW"
             VALUE "LegalCopyright", "Copyright (C) 2022 - 2023 by Erik Lunna - a NetHack 3.6.x variant, copyright (C) 1985 - 2022.  By Stichting Mathematisch Centrum and M. Stephenson.  See license for details."
             VALUE "OriginalFilename", "HackEMW.exe"
             VALUE "PrivateBuild", "140606"
             VALUE "ProductName", "HackEM"
-            VALUE "ProductVersion", "1.2.1"
+            VALUE "ProductVersion", "1.2.2"
         END
     END
     BLOCK "VarFileInfo"

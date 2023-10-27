@@ -17,6 +17,13 @@
 # following keys for that entry.  For instance, `~orc ??m*' preceding `orc*'
 # prevents "orc mummy" and "orc zombie" from matching.
 #
+alchemy
+gem alchemy
+    A lesson without pain is meaningless. That's because no one can 
+    gain without sacrificing something. But by enduring that pain 
+    and overcoming it, he shall obtain a powerful, unmatched heart... 
+    a Fullmetal heart.
+        [ Full Metal Alchemist ]
 abbathor
 	Abbathor is the sole evil dwarven god, the great master of the
 	greed and avarice that plagues so many of that otherwise noble
@@ -1130,6 +1137,7 @@ charo*n
 	of-kin would place a coin under his tongue, to pay the ferry-
 	man.
 chest
+crystal chest
 large box
 foot locker
 	Dantes rapidly cleared away the earth around the chest.  Soon
@@ -2364,6 +2372,12 @@ magic flute
 	A man's despair with joy allay,
 	Turn bachelors old to lovers gay.
 		[ The Magic Flute, by Wolfgang Amadeus Mozart ]
+magic chest
+hidden chest
+	It would be mistaken to say the Luggage was nowhere to be seen.
+	It was somewhere to be seen, it was just that the place wasn't
+	anywhere near Rincewind.
+		[ Sourcery, by Terry Pratchett ]
 # also takes fog/vapor cloud
 fog* cloud
 	The fog comes

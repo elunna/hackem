@@ -91,6 +91,25 @@
     ((ptr) == &mons[PM_HEZROU] \
      || (ptr) == &mons[PM_SKUNK])
 
+#define immune_mgc_scare(ptr) \
+     ((ptr)->mlet == S_HUMAN \
+     || (ptr)->mlet == S_ANGEL \
+     || is_mplayer(ptr) \
+     || is_rider(ptr) \
+     || mindless(ptr) \
+     || unique_corpstat(ptr) \
+     || (ptr) == &mons[PM_HONEY_BADGER]  \
+     || (ptr) == &mons[PM_WIZARD_OF_YENDOR]  \
+     || (ptr) == &mons[PM_NEOTHELID])
+
+#define disrespects_elbereth(ptr) \
+     ((ptr)->mlet == S_HUMAN      \
+     || unique_corpstat(ptr) \
+     || (ptr) == &mons[PM_MINOTAUR] \
+     || (ptr) == &mons[PM_ELDER_MINOTAUR]  \
+     || (ptr) == &mons[PM_GIANT_PRAYING_MANTIS]  \
+     || (ptr) == &mons[PM_NEOTHELID])
+
 #define non_tameable(ptr) \
     (unique_corpstat(ptr) \
      || ((ptr)->mflags3 & M3_WANTSARTI) \
@@ -269,7 +288,9 @@
 #define carnivorous(ptr) (((ptr)->mflags1 & M1_CARNIVORE) != 0L)
 #define herbivorous(ptr) (((ptr)->mflags1 & M1_HERBIVORE) != 0L)
 #define metallivorous(ptr) (((ptr)->mflags1 & M1_METALLIVORE) != 0L)
-#define is_gem_eater(ptr)  (((ptr)->mlet == S_DRAGON || ((ptr) == &mons[PM_XORN])) != 0L)
+#define is_gem_eater(ptr) \
+        ((((ptr)->mlet == S_DRAGON && !is_pseudodragon(ptr)) \
+        || ((ptr) == &mons[PM_XORN])) != 0L)
 #define inediate(ptr) (((ptr)->mflags1 & (M1_CARNIVORE | M1_HERBIVORE \
                                           | M1_METALLIVORE)) == 0L)
 #define polyok(ptr) (((ptr)->mflags2 & M2_NOPOLY) == 0L)

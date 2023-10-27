@@ -18,8 +18,9 @@ STATIC_DCL void NDECL(do_positionbar);
 STATIC_DCL void FDECL(regen_hp, (int));
 STATIC_DCL void FDECL(interrupt_multi, (const char *));
 STATIC_DCL void FDECL(debug_fields, (const char *));
+STATIC_DCL void NDECL(init_mchest);
 STATIC_DCL void NDECL(pickup_spirits);
-
+STATIC_DCL void NDECL(update_monclock);
 
 #ifdef EXTRAINFO_FN
 static long prev_dgl_extrainfo = 0;
@@ -158,8 +159,6 @@ boolean resuming;
     struct obj *pobj, *aobj;
     int moveamt = 0, wtcap = 0, change = 0;
     /* don't make it obvious when monsters will start speeding up */
-    int timeout_start = rnd(10000) + 25000;
-    int past_clock;
     boolean monscanmove = FALSE;
     boolean elf_regen = elf_can_regen();
     boolean orc_regen = orc_can_regen();
@@ -205,6 +204,7 @@ boolean resuming;
            clairvoyance (wizard with cornuthaum perhaps?); without this,
            first "random" occurrence would always kick in on turn 1 */
         context.seer_turn = (long) rnd(30);
+        init_mchest();
         u.umovement = NORMAL_SPEED;  /* giants and tortles put their best foot forward */
     }
     context.botlx = TRUE; /* for STATUS_HILITES */
@@ -256,10 +256,11 @@ boolean resuming;
                             break; /* it's now your turn */
                     } while (monscanmove);
                     context.mon_moving = FALSE;
-                } else if (youmonst.movement < NORMAL_SPEED) {
+                } else if (u.umovement < NORMAL_SPEED) {
                     /* If a scroll of time has been read, we want the player's
                      * current turn to be extended. */
                     u.utimestop = FALSE;
+                    continue;
                 }
                 if (!monscanmove && u.umovement < NORMAL_SPEED) {
                     /* both hero and monsters are out of steam this round */
@@ -273,57 +274,9 @@ boolean resuming;
                        been purged at end of their previous round of moving */
                     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon)
                         mtmp->movement += mcalcmove(mtmp);
-
-                    /* From SporkHack & UnNetHack (modified)
-                     * Vanilla generates a critter every 70-ish turns.
-                     * The rate accelerates to every 50 or so below the Castle,
-                     * and 'round every 25 turns once you've done the Invocation.
-                     * 
-                     * (From EvilHack)
-                     * We will push it even further.  Monsters post-Invocation
-                     * will almost always appear on the stairs (if present), and
-                     * much more frequently; this, along with the extra intervene()
-                     * calls, should certainly make it seem like you're wading back
-                     * through the teeming hordes.
-                     *
-                     * Aside from that, a more general clock should be put on things;
-                     * after about 50,000 turns, the frequency rate of appearance
-                     * and difficulty of monsters generated will slowly increase until
-                     * it reaches the point it will be at as if you were post-Invocation.
-                     *
-                     * The rate increases linearly with turns.  The rule of thumb is that
-                     * at turn x the rate is approximately (x / 30.0000) times the normal
-                     * rate.  Maximal rate is 8x the normal rate.
-                     * -------------------------------------------------------------------
-                     * In Hack'EM - we are going to put Yet Another Twist on monster generation
-                     * and use it to "punish" wishes. For every wish the player makes, the 
-                     * rate will increase! This lets the player have their wishes at the cost
-                     * of a harder game later.
-                     */
-                    monclock = MIN_MONGEN_RATE;
-                    /* Don't let wishes influence the fuzzer */
-                    if (!iflags.debug_fuzzer) {
-                        past_clock = moves - timeout_start;
-                        if (past_clock > 0)
-                            monclock = MIN_MONGEN_RATE * TURN_THRESHOLD / (past_clock + TURN_THRESHOLD);
-                        if (monclock > MIN_MONGEN_RATE / 2 && (u.uconduct.wishes >= 2L))
-                            monclock = MIN_MONGEN_RATE / 2;
-                        if (monclock > MIN_MONGEN_RATE / 3 && (u.uconduct.wishes >= 3L))
-                            monclock = MIN_MONGEN_RATE / 3;
-                        if (monclock > MIN_MONGEN_RATE / 4 && (u.uconduct.wishes >= 4L))
-                            monclock = MIN_MONGEN_RATE / 4;
-                        if (monclock > MIN_MONGEN_RATE / 5 && (u.uconduct.wishes >= 5L))
-                            monclock = MIN_MONGEN_RATE / 5;
-                        if (monclock > MIN_MONGEN_RATE / 6 && (u.uconduct.wishes >= 6L))
-                            monclock = MIN_MONGEN_RATE / 6;
-                        if (u.uconduct.wishes >= 7L)
-                            monclock = MAX_MONGEN_RATE;
-                    }
-		            /* make sure we don't fall off the bottom */
-                    if (monclock < MAX_MONGEN_RATE)
-                        monclock = MAX_MONGEN_RATE;
-                    if (monclock > MIN_MONGEN_RATE)
-                        monclock = MIN_MONGEN_RATE;
+                    
+                    /* Handle monster spawn rates */
+                    update_monclock();
 
                     if (!rn2(monclock)) {
                         if (u.uevent.invoked && xupstair && rn2(10))
@@ -878,6 +831,15 @@ boolean resuming;
 }
 
 #define U_CAN_REGEN() (Regeneration || (Sleepy && u.usleep))
+
+STATIC_OVL void
+init_mchest()
+{
+    mchest = mksobj(HIDDEN_CHEST, FALSE, FALSE);
+    mchest->olocked = 1;
+    mchest->where = OBJ_SOMEWHERE;
+    return;
+}
 
 /* maybe recover some lost health (or lose some when an eel out of water) */
 STATIC_OVL void
@@ -1439,24 +1401,18 @@ wishluck()
     /* Don't let this affect the fuzzer */
     if (iflags.debug_fuzzer)
         return 0;
-    switch (u.uconduct.wishes) {
-    case 2:
-        return -1;
-    case 3:
-        return -2;
-    case 5:
-        return -3;
-    case 7:
-        return -4;
-    case 11:
-        return -5;
-    }
+    if (u.uconduct.wishes < 2)
+        return 0;
+    
+    /* For synchronizing monster spawn rates with wishes */
+    update_monclock();
+    
     /* Technically we can only get the player to -10, 
      * so we force them to carry a virtual cursed luckstone. */
-    if (u.uconduct.wishes >= 13)
+    if (u.uconduct.wishes < 13)
+        return -(u.uconduct.wishes);
+    else
         return -10;
-
-    return 0;
 }
 
 STATIC_OVL void
@@ -1492,6 +1448,53 @@ pickup_spirits()
             }
         }
     }
+}
 
+STATIC_OVL void 
+update_monclock()
+{
+    /* From SporkHack & UnNetHack (modified)
+     * Vanilla generates a critter every 70-ish turns.
+     * The rate accelerates to every 50 or so below the Castle,
+     * and 'round every 25 turns once you've done the Invocation.
+     * 
+     * (From EvilHack)
+     * We will push it even further.  Monsters post-Invocation
+     * will almost always appear on the stairs (if present), and
+     * much more frequently; this, along with the extra intervene()
+     * calls, should certainly make it seem like you're wading back
+     * through the teeming hordes.
+     *
+     * Aside from that, a more general clock should be put on things;
+     * after about 50,000 turns, the frequency rate of appearance
+     * and difficulty of monsters generated will slowly increase until
+     * it reaches the point it will be at as if you were post-Invocation.
+     *
+     * The rate increases linearly with turns.  The rule of thumb is that
+     * at turn x the rate is approximately (x / 30.0000) times the normal
+     * rate.  Maximal rate is 8x the normal rate.
+     * -------------------------------------------------------------------
+     * In Hack'EM - we are going to put Yet Another Twist on monster generation
+     * and use it to "punish" wishes. For every wish the player makes, the 
+     * rate will increase! This lets the player have their wishes at the cost
+     * of a harder game later.
+     */
+    monclock = MIN_MONGEN_RATE;
+/* Don't let wishes influence the fuzzer */
+    if (!iflags.debug_fuzzer) {
+        for (long i = 2; i <= 7; i++) {
+            if (monclock > MIN_MONGEN_RATE / i && (u.uconduct.wishes >= i)) {
+                monclock = MIN_MONGEN_RATE / i;
+            }
+        }
+        if (u.uconduct.wishes >= 8L) {
+            monclock = MAX_MONGEN_RATE;
+        }
+    }
+    /* make sure we don't fall off the bottom */
+    if (monclock < MAX_MONGEN_RATE)
+        monclock = MAX_MONGEN_RATE;
+    if (monclock > MIN_MONGEN_RATE)
+        monclock = MIN_MONGEN_RATE;
 }
 /*allmain.c*/

@@ -17,6 +17,8 @@ STATIC_DCL void FDECL(skill_advance, (int));
 static int dmgval_core(struct obj*, struct monst*, struct damage_info_t*);
 static void FDECL(mon_ignite_lightsaber, (struct obj *, struct monst *));
 STATIC_PTR int NDECL(practice);
+static int FDECL(skill_crosstrain_bonus, (int));
+static void FDECL(rnd_crosstrain, (int));
 
 /*WAC practicing needs a delay counter*/
 static NEARDATA schar delay;            /* moves left for practice */
@@ -482,7 +484,7 @@ struct damage_info_t *damage_info)
         tmp += otmp->spe;
 
         /* adjust for various materials */
-        if (otmp->material == GLASS || otmp->material == GEMSTONE) {
+        if (otmp->material == GLASS) {
             /* glass is extremely sharp */
             if (objects[otmp->otyp].oc_dir & PIERCE) {
                 tmp += 3;
@@ -1952,8 +1954,9 @@ static const struct skill_range {
 int
 enhance_weapon_skill()
 {
-    int pass, i, n, len, longest, to_advance, eventually_advance, maxxed_cnt;
-    char buf[BUFSZ], sklnambuf[BUFSZ], maxsklnambuf[BUFSZ], percentbuf[BUFSZ];
+    int pass, i, n,  len, longest, crosstrain, to_advance, 
+        eventually_advance, maxxed_cnt;
+    char buf[BUFSZ], sklnambuf[BUFSZ], maxsklnambuf[BUFSZ], percentbuf[BUFSZ], crosstrainbuf[BUFSZ];
     const char *prefix;
     menu_item *selected;
     anything any;
@@ -1964,7 +1967,7 @@ enhance_weapon_skill()
         speedy = TRUE;
 
     do {
-        /* find longest available skill name, count those that can advance */
+        /* count skills that can advance */
         to_advance = eventually_advance = maxxed_cnt = 0;
         for (longest = 0, i = 0; i < P_NUM_SKILLS; i++) {
             if (P_RESTRICTED(i))
@@ -2041,6 +2044,12 @@ enhance_weapon_skill()
                             ? "    "
                             : "";
 
+                crosstrain = skill_crosstrain_bonus(i);
+                if (crosstrain > 1 && P_SKILL(i) < P_MAX_SKILL(i))
+                    Sprintf(crosstrainbuf, " x%d", crosstrain);
+                else
+                    Strcpy(crosstrainbuf, "    ");
+                
                 (void) skill_level_name(P_SKILL(i), sklnambuf);
                 (void) skill_level_name(P_MAX_SKILL(i), maxsklnambuf);
 
@@ -2053,26 +2062,26 @@ enhance_weapon_skill()
 
                 if (wizard) {
                     if (!iflags.menu_tab_sep)
-                        Sprintf(buf, " %s%-*s %-12s %5d(%4d)", prefix,
+                        Sprintf(buf, " %s%-*s %-12s %5d(%4d)%s", prefix,
                                 longest, P_NAME(i), sklnambuf, P_ADVANCE(i),
-                                practice_needed_to_advance(P_SKILL(i)));
+                                practice_needed_to_advance(P_SKILL(i)),crosstrainbuf);
                     else
-                        Sprintf(buf, " %s%s\t%s\t%5d(%4d)", prefix, P_NAME(i),
-                                sklnambuf, P_ADVANCE(i),
-                                practice_needed_to_advance(P_SKILL(i)));
+                        Sprintf(buf, " %s%s\t%s\t%5d(%4d)%s", prefix,
+                                P_NAME(i), sklnambuf, P_ADVANCE(i), 
+                                practice_needed_to_advance(P_SKILL(i)), crosstrainbuf);
                 } else {
                     if (!iflags.menu_tab_sep) {
                         if (Role_if(PM_MONK))
-                            Sprintf(buf, " %s %-*s [ %12s / %-12s ] %4s", prefix,
+                            Sprintf(buf, " %s %-*s [ %12s / %-12s ] %4s%s", prefix,
                                     longest, P_NAME(i), sklnambuf, maxsklnambuf,
-                                    percentbuf);
+                                    percentbuf, crosstrainbuf);
                         else
-                            Sprintf(buf, " %s %-*s [ %9s / %-9s ] %4s", prefix,
+                            Sprintf(buf, " %s %-*s [ %9s / %-9s ] %4s%s", prefix,
                                     longest, P_NAME(i), sklnambuf, maxsklnambuf,
-                                    percentbuf);
+                                    percentbuf, crosstrainbuf);
                     } else {
-                        Sprintf(buf, " %s%s\t[ %s\t /%s ] %4s", prefix, P_NAME(i),
-                                sklnambuf, maxsklnambuf, percentbuf);
+                        Sprintf(buf, " %s%s\t[ %s\t /%s ] %4s%s", prefix, P_NAME(i),
+                                sklnambuf, maxsklnambuf, percentbuf, crosstrainbuf);
                     }
                 }
                 any.a_int = can_advance(i, speedy) ? i + 1 : 0;
@@ -2147,7 +2156,8 @@ int degree;
         if (using_oprop(ITEM_PROWESS))
             degree *= 2;
 
-        P_ADVANCE(skill) += degree;
+        P_ADVANCE(skill) += degree * skill_crosstrain_bonus(skill);
+        rnd_crosstrain(skill);
         if (!advance_before && can_advance(skill, FALSE))
             give_may_advance_msg(skill);
     }
@@ -2343,18 +2353,10 @@ struct obj *weapon;
         default:
             impossible(bad_skill, P_SKILL(type)); /* fall through */
         case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            bonus = -4;
-            break;
-        case P_BASIC:
-            bonus = 0;
-            break;
-        case P_SKILLED:
-            bonus = 3;
-            break;
-        case P_EXPERT:
-            bonus = 5;
-            break;
+        case P_UNSKILLED:   bonus = -4;break;
+        case P_BASIC:       bonus = 0; break;
+        case P_SKILLED:     bonus = 3; break;
+        case P_EXPERT:      bonus = 5; break;
         }
     } else if (type == P_TWO_WEAPON_COMBAT) {
         skill = P_SKILL(P_TWO_WEAPON_COMBAT);
@@ -2364,53 +2366,12 @@ struct obj *weapon;
         default:
             impossible(bad_skill, skill); /* fall through */
         case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            bonus = -9;
-            break;
-        case P_BASIC:
-            bonus = -5;
-            break;
-        case P_SKILLED:
-            bonus = -3;
-            break;
-        case P_EXPERT:
-            bonus = 0; /* if you're an expert, there shouldn't be a penalty */
-            break;
+        case P_UNSKILLED:   bonus = -9; break;
+        case P_BASIC:       bonus = -5; break;
+        case P_SKILLED:     bonus = -3; break;
+        /* if you're an expert, there shouldn't be a penalty */
+        case P_EXPERT:      bonus = 0;  break;
         }
-        
-#if 0 /* This was introduced in EvilHack - we are disabling it to allow more 
-       * freedom with two-weaponing */
-        /* Heavy things are hard to use in your offhand unless you're
-           very good at what you're doing, or are very strong (see below) */
-        switch (P_SKILL(P_TWO_WEAPON_COMBAT)) {
-        default:
-            impossible(bad_skill, P_SKILL(P_TWO_WEAPON_COMBAT)); /* fall through */
-        case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            maxweight = 20; /* can use tridents/javelins, crysknives, unicorn horns
-                               or anything lighter */
-            break;
-        case P_BASIC:
-            maxweight = 30; /* can use short swords/spears or a mace */
-            break;
-        case P_SKILLED:
-            maxweight = 40; /* can use sabers/long swords */
-            break;
-        case P_EXPERT:
-            maxweight = 70; /* expert level can offhand any one-handed weapon */
-            break;
-        }
-
-        /* basically no restrictions if you're a giant, or have giant strength */
-        if ((uarmg && uarmg->otyp == GAUNTLETS_OF_POWER)
-            || maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT)))
-            maxweight = 200;
-
-        if (uswapwep && uswapwep->owt > maxweight) {
-            /* feedback handled in attack() */
-            bonus = -30;
-        }
-#endif
     } else if (type == P_BARE_HANDED_COMBAT) {
         /*
          *        b.h. m.a. giant b.h. m.a.
@@ -2436,16 +2397,11 @@ struct obj *weapon;
     if (u.usteed) {
         switch (P_SKILL(P_RIDING)) {
         case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            bonus -= 2;
-            break;
-        case P_BASIC:
-            bonus -= 1;
-            break;
-        case P_SKILLED:
-            break;
-        case P_EXPERT:
-            break;
+        case P_UNSKILLED:bonus -= 2; break;
+        case P_BASIC:    bonus -= 1; break;
+        case P_SKILLED:              break;
+        /* but an expert can use the added momentum */
+        case P_EXPERT:   bonus += 2; break;
         }
         if (u.twoweap)
             bonus -= 2;
@@ -2494,19 +2450,11 @@ struct obj *weapon;
         default:
             impossible("weapon_dam_bonus: bad skill %d", P_SKILL(type));
         /* fall through */
-        case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            bonus = -2;
-            break;
-        case P_BASIC:
-            bonus = 0;
-            break;
-        case P_SKILLED:
-            bonus = 1;
-            break;
-        case P_EXPERT:
-            bonus = 2;
-            break;
+        case P_ISRESTRICTED:bonus = -5;break;
+        case P_UNSKILLED:   bonus = -2;break;
+        case P_BASIC:       bonus = 0; break;
+        case P_SKILLED:     bonus = 1; break;
+        case P_EXPERT:      bonus = 3; break;
         }
     } else if (type == P_TWO_WEAPON_COMBAT) {
         skill = P_SKILL(P_TWO_WEAPON_COMBAT);
@@ -2515,18 +2463,10 @@ struct obj *weapon;
         switch (skill) {
         default:
         case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            bonus = -3;
-            break;
-        case P_BASIC:
-            bonus = -1;
-            break;
-        case P_SKILLED:
-            bonus = 0;
-            break;
-        case P_EXPERT:
-            bonus = 1;
-            break;
+        case P_UNSKILLED:   bonus = -3;break;
+        case P_BASIC:       bonus = -1;break;
+        case P_SKILLED:     bonus = 0; break;
+        case P_EXPERT:      bonus = 2; break;
         }
     } else if (type == P_BARE_HANDED_COMBAT) {
         /*
@@ -2548,34 +2488,21 @@ struct obj *weapon;
     if ((u.usteed || Race_if(PM_CENTAUR))
         && type != P_TWO_WEAPON_COMBAT) {
         switch (P_SKILL(P_RIDING)) {
-        case P_ISRESTRICTED:
-        case P_UNSKILLED:
-            break;
-        case P_BASIC:
-            break;
-        case P_SKILLED:
-            bonus += 1;
-            break;
-        case P_EXPERT:
-            bonus += 2;
-            break;
+        case P_ISRESTRICTED:break;
+        case P_UNSKILLED:   break;
+        case P_BASIC:       break;
+        case P_SKILLED:     bonus += 2; break;
+        case P_EXPERT:      bonus += 5; break;
         }
     }
     
     /* Jedi are simply better */
     if (Role_if(PM_JEDI) && weapon && is_lightsaber(weapon)) {
         switch (P_SKILL(type)) {
-        case P_EXPERT: 
-            bonus += 4; 
-            break; /* fall through removed by Amy */
-        case P_SKILLED: 
-            bonus += 2; 
-            break;
-        case P_BASIC: 
-            bonus += 1; 
-            break;
-        case P_UNSKILLED: 
-            break;
+        case P_EXPERT:  bonus += 4; break;
+        case P_SKILLED: bonus += 2; break;
+        case P_BASIC:   bonus += 1; break;
+        case P_UNSKILLED:           break;
         default: 
             impossible("unknown lightsaber skill for a jedi"); 
             break;
@@ -2770,4 +2697,154 @@ practice()
     You("finish your practice session.");
     return 0;
 }
+
+
+/*
+ * Weapon skill groups:
+ * Advanced skills will cross-train lesser skills they share a group with.
+ * A weapon skill may belong to more than one group.
+ */
+#define PG_SHORT_BLADES		0x00000001L
+#define PG_CHOPPING_BLADES	0x00000002L
+#define PG_SWORDS		    0x00000004L
+#define PG_BLUDGEONS		0x00000008L
+#define PG_FLAILS		    0x00000010L
+#define PG_POLEARMS		    0x00000020L
+#define PG_LAUNCHERS		0x00000040L
+#define PG_THROWN		    0x00000080L
+#define PG_OFFENSIVE		0x00000100L
+#define PG_DEFENSIVE		0x00000200L
+#define PG_MYSTICAL		    0x00000400L
+
+const long weapon_skill_groups[] = {
+        /* P_DAGGER */		    PG_SHORT_BLADES,
+        /* P_KNIFE */		    PG_SHORT_BLADES,
+        /* P_AXE */			    PG_CHOPPING_BLADES,
+        /* P_PICK_AXE */		PG_CHOPPING_BLADES,
+        /* P_SHORT_SWORD */		PG_SHORT_BLADES | PG_SWORDS,
+        /* P_BROAD_SWORD */		PG_CHOPPING_BLADES | PG_SWORDS,
+        /* P_LONG_SWORD */		PG_SWORDS,
+        /* P_TWO_HANDED_SWORD */PG_SWORDS,
+        /* PN_SABER */		    PG_SWORDS,
+        /* P_CLUB */		    PG_BLUDGEONS,
+        /* P_MACE */		    PG_BLUDGEONS,
+        /* P_MORNING_STAR */	PG_BLUDGEONS | PG_FLAILS,
+        /* P_FLAIL */		    PG_BLUDGEONS | PG_FLAILS,
+        /* PN_HAMMER */		    PG_BLUDGEONS,
+        /* P_QUARTERSTAFF */	PG_BLUDGEONS | PG_POLEARMS,
+        /* PN_POLEARMS */		PG_POLEARMS,
+        /* P_SPEAR */		    PG_POLEARMS,
+        /* P_TRIDENT */		    PG_POLEARMS,
+        /* PN_LIGHTSABER */		PG_SWORDS,
+        /* P_LANCE */		    PG_POLEARMS,
+        /* P_BOW */			    PG_LAUNCHERS,
+        /* P_SLING */		    PG_LAUNCHERS | PG_THROWN,
+        /* PN_FIREARMS */		PG_LAUNCHERS,
+        /* P_CROSSBOW */		PG_LAUNCHERS,
+        /* P_DART */		    PG_THROWN,
+        /* P_SHURIKEN */		PG_THROWN,
+        /* P_BOOMERANG */		PG_THROWN,
+        /* P_WHIP */		    PG_FLAILS,
+        /* P_UNICORN_HORN */	PG_POLEARMS,
+
+        /* PN_ATTACK_SPELL */       PG_OFFENSIVE,
+        /* PN_HEALING_SPELL */      PG_DEFENSIVE,
+        /* PN_DIVINATION_SPELL */   PG_MYSTICAL,
+        /* PN_ENCHANTMENT_SPELL */  PG_OFFENSIVE | PG_MYSTICAL,
+        /* PN_NECRO_SPELL */        PG_OFFENSIVE,
+        /* PN_ESCAPE_SPELL */       PG_DEFENSIVE,
+        /* PN_MATTER_SPELL */       PG_OFFENSIVE | PG_DEFENSIVE,
+};
+
+/*
+ * How much to accelerate training of a skill based on related skills.
+ *
+ * Cross-training should never punish the player for advancing a skill,
+ * so the amount is based on the greater of its training points and its
+ * advancement level.
+ */
+STATIC_OVL int 
+skill_crosstrain_bonus(int skill)
+{
+    int base_skill, highest_skill, i;
+
+    if (skill < P_FIRST_WEAPON || skill > P_LAST_SPELL)
+        return 1;
+
+    /* find greatest skill level based solely on training points */
+    base_skill = P_UNSKILLED;
+    for (i = P_EXPERT; i > P_UNSKILLED; i--) {
+        /* getting the training points for the _current_ level is awkward */
+        if (P_ADVANCE(skill) >= practice_needed_to_advance(i - 1)) {
+            base_skill = i;
+            break;
+        }
+    }
+    /* if advancement level exceeds points (e.g. wizard mode), catch it too */
+    if (base_skill < P_SKILL(skill))
+        base_skill = P_SKILL(skill);
+
+    /* find highest related weapon skill advancement */
+    highest_skill = P_ISRESTRICTED;
+    for (i = P_FIRST_WEAPON; i <= P_LAST_SPELL; i++) {
+        if (i == skill)
+            continue;
+        if ((weapon_skill_groups[(long) skill - P_FIRST_WEAPON] &
+             weapon_skill_groups[(long) i - P_FIRST_WEAPON]) == 0)
+            continue;
+        if (P_SKILL(i) > highest_skill)
+            highest_skill = P_SKILL(i);
+    }
+
+    return max(highest_skill - base_skill + 1, 1);
+}
+
+STATIC_OVL void
+rnd_crosstrain(int skill)
+{
+    if (skill < P_FIRST_WEAPON || skill > P_LAST_SPELL)
+        return;
+    switch (P_SKILL(skill)) {
+        case P_EXPERT:
+            if (rn2(3))
+                return;
+            break;
+        case P_SKILLED:
+            if (skill <= P_LAST_WEAPON ? rn2(7) : rn2(5))
+                return;
+            break;
+        case P_BASIC:
+            if (skill <= P_LAST_WEAPON ? rn2(13) : rn2(7))
+                return;
+            break;
+        default:
+            impossible("rnd_crosstrain: bad skill %d", P_SKILL(skill)); 
+            /* fall through */
+        case P_ISRESTRICTED:
+        case P_UNSKILLED:
+            return;
+    }
+
+    for (int i = P_FIRST_WEAPON; i <= P_LAST_SPELL; i++) {
+        if (i == skill)
+            continue;
+        /* Is the potential skill maxxed out? */
+        if (P_SKILL(i) >= P_MAX_SKILL(i))
+            continue;
+        if (!can_practice(i))
+            continue;
+        /* Players need to advance once a skill reaches 100% to keep benefiting */
+        if ((int) P_ADVANCE(i) >= 
+              practice_needed_to_advance(P_SKILL(i)))
+            continue;
+        /* Fudge factor to spread out the skills */
+        if (Luck > 2 ? !rn2(4) : rn2(4))
+            continue;
+        if ((weapon_skill_groups[(long) skill - P_FIRST_WEAPON] &
+             weapon_skill_groups[(long) i - P_FIRST_WEAPON]) != 0) {
+            P_ADVANCE(i) += 1;
+        }
+    }
+}
+
 /*weapon.c*/

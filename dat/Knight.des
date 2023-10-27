@@ -61,8 +61,9 @@ DOOR:closed,(04,12)
 DOOR:closed,(45,12)
 # King Arthur
 MONSTER:('@',"King Arthur"),(09,07)
-# The treasure of King Arthur
-OBJECT:('(',"chest"),(09,07)
+
+MAGIC_CHEST:(07,07)
+
 # knight guards for the watchrooms
 MONSTER:('@',"knight"),(04,02),peaceful
 MONSTER:('@',"knight"),(04,13),peaceful

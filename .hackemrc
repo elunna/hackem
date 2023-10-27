@@ -177,7 +177,7 @@ OPTIONS=ctrlkick
 OPTIONS=runmode:teleport
 
 # Safe-wait: We turn it off because it's annoying when something is next to you and you search.
-#OPTIONS=!safe_wait
+OPTIONS=!safe_wait
 
 # Display piles of items on the floor: 
 # 0=always, 1=never, other value is the size of the threshold. 
@@ -277,16 +277,15 @@ AUTOPICKUP_EXCEPTION="<.*papyrus spellbook"
 # Amulets of Strangulation, Oilskin Cloaks, etc)
 
 # This mostly covers items you cannot type-name. It's understood you name the rest.
-# In general,don't end item-type lines with *
+# In general, don't end item-type lines with *
 # we want to be able to override that for individual items.
-
-
 
 # #unidentified magical armor
 # # Usually, a "plumed helmet" is new, but a "helmet called plain" isn't.
 # AUTOPICKUP_EXCEPTION="<*faded pall"
 AUTOPICKUP_EXCEPTION="<.*apron"
 AUTOPICKUP_EXCEPTION="<.*polished silver shield"
+
 # # blind
 
 # Helms
@@ -360,7 +359,6 @@ AUTOPICKUP_EXCEPTION="<.*pyramid ring"
 AUTOPICKUP_EXCEPTION="<.*rhombus ring"
 AUTOPICKUP_EXCEPTION="<.*teardrop ring"
 AUTOPICKUP_EXCEPTION="<.*knotted ring"
-
 AUTOPICKUP_EXCEPTION="<.*glittery ring"
 AUTOPICKUP_EXCEPTION="<.*mobius ring"
 AUTOPICKUP_EXCEPTION="<.*infinity ring"
@@ -368,8 +366,6 @@ AUTOPICKUP_EXCEPTION="<.*viney ring"
 AUTOPICKUP_EXCEPTION="<.*braided ring"
 AUTOPICKUP_EXCEPTION="<.*antique ring"
 AUTOPICKUP_EXCEPTION="<.*scaled"
-
-
 AUTOPICKUP_EXCEPTION="<.*crescent ring"
 AUTOPICKUP_EXCEPTION="<.*chunky ring"
 AUTOPICKUP_EXCEPTION="<.*tribal ring"
@@ -443,41 +439,6 @@ AUTOPICKUP_EXCEPTION=">.*ring of sleeping"
 AUTOPICKUP_EXCEPTION=">.*ring of displacement"
 AUTOPICKUP_EXCEPTION=">.*ring of protection from shape changers"
 
-
-# Informal naming
-AUTOPICKUP_EXCEPTION=">.*ring called adornment"
-AUTOPICKUP_EXCEPTION=">.*ring called gain con*"
-AUTOPICKUP_EXCEPTION=">.*ring called gain str*"
-AUTOPICKUP_EXCEPTION=">.*ring called (increase|) accuracy"
-AUTOPICKUP_EXCEPTION=">.*ring called (increase|) damage"
-AUTOPICKUP_EXCEPTION=">.*ring called protection"
-AUTOPICKUP_EXCEPTION=">.*ring called reg*"
-AUTOPICKUP_EXCEPTION=">.*ring called search*"
-AUTOPICKUP_EXCEPTION=">.*ring called stealth"
-AUTOPICKUP_EXCEPTION=">.*ring called sustain*"
-AUTOPICKUP_EXCEPTION=">.*ring called lev*"
-AUTOPICKUP_EXCEPTION=">.*ring called hunger"
-AUTOPICKUP_EXCEPTION=">.*ring called aggr[oa]*"
-AUTOPICKUP_EXCEPTION=">.*ring called con*"
-AUTOPICKUP_EXCEPTION=">.*ring called warn*"
-AUTOPICKUP_EXCEPTION=">.*ring called poison*"
-AUTOPICKUP_EXCEPTION=">.*ring called fire*"
-AUTOPICKUP_EXCEPTION=">.*ring called cold*"
-AUTOPICKUP_EXCEPTION=">.*ring called sonic*"
-AUTOPICKUP_EXCEPTION=">.*ring called shock*"
-AUTOPICKUP_EXCEPTION=">.*ring called free*"
-AUTOPICKUP_EXCEPTION=">.*ring called slow*"
-AUTOPICKUP_EXCEPTION=">.*ring called tele"
-AUTOPICKUP_EXCEPTION=">.*ring called tele(port|) control"
-AUTOPICKUP_EXCEPTION=">.*ring called poly"
-AUTOPICKUP_EXCEPTION=">.*ring called poly(morph|) control"
-AUTOPICKUP_EXCEPTION=">.*ring called inv*"
-AUTOPICKUP_EXCEPTION=">.*ring called see*"
-AUTOPICKUP_EXCEPTION=">.*ring called protection from*"
-AUTOPICKUP_EXCEPTION=">.*ring called mood"
-AUTOPICKUP_EXCEPTION=">.*ring called sleep*"
-
-
 # #unidentified amulets
 # #amulets show up properly when blind
 AUTOPICKUP_EXCEPTION="<.*circular amulet"
@@ -536,8 +497,8 @@ AUTOPICKUP_EXCEPTION="<whetstone"
 AUTOPICKUP_EXCEPTION="<.*can of grease"
 AUTOPICKUP_EXCEPTION="<.*magic whistle"
 
-# Autopickup of potions and scrolls - I assume that people like to either pickup
-# ALL of these or none of them.
+# Autopickup of potions and scrolls - assumes that people 
+# like to either pickup ALL of these or none of them.
 
 # Unidentified wands
 # I also assume that everyone will want to pickup EVERY un-identified wand.
@@ -578,9 +539,6 @@ AUTOPICKUP_EXCEPTION="<.*wand of poison gas"
 AUTOPICKUP_EXCEPTION="<.*wand of corrosion"
 AUTOPICKUP_EXCEPTION="<.*wand of noise"
 AUTOPICKUP_EXCEPTION="<.*wand of deluge"
-
-
-
 
 # Gem autopickup
 # Unidentified gems
@@ -690,7 +648,8 @@ OPTIONS=quick_farsight
 
 #	- History settings
 # Maximize the history (full=messages printed least recent first)
-OPTIONS=msg_window:single
+OPTIONS=msg_window:reversed
+
 # For the TTY, X11 and Gem ports the minimum is 20 and maximum 60. 
 OPTIONS=msghistory:60
 
@@ -876,6 +835,7 @@ MENUCOLOR=" pill"=brown
 MENUCOLOR=" holy wafer"=brown
 MENUCOLOR=" brown pudding"=brown
 MENUCOLOR=" blood pudding"=brown
+
 # Note: Black/Blood Puddings are not vegetarian.
 MENUCOLOR="gray ooze"=brown
 
@@ -1141,6 +1101,7 @@ MENUCOLOR=" 100% "=red
 
 # Forgotten spells
 MENUCOLOR=" \(gone\)"=red
+
 # -----------------------------------------------------------------------------
 # I) MSGTYPE settings
 #	- Mundane messages/spam
@@ -1243,6 +1204,9 @@ MSGTYPE=hide "The Book of the Dead .*"
 
 ## Don't miss #enhance!
 MSGTYPE=alert "You feel more confident *"
+
+# Don't miss spells being forgotten!
+MSGTYPE=alert ".* spell is fading!"
 
 ## Warn when Zapping an empty wand (disable if wresting).
 MSGTYPE=stop "Nothing happens."
@@ -1372,7 +1336,7 @@ SYMBOLS=S_golem:8
 SYMBOLS=S_lava:~
 SYMBOLS=S_pool:~
 SYMBOLS=S_water:~
-# SYMBOLS=S_sink:#
+SYMBOLS=S_sink:#
 
 OPTIONS=boulder:0
 
@@ -1513,3 +1477,5 @@ OPTIONS=tombstone
 #	Updated wielding/wearing colors to include secondary quivered/tethered/ready weapons.
 #	Added underlining for crysknife
 
+# 3.0 (10/27/2023) - Some updates for new ring appearances.
+#   Many other changes have been applied since 2.0.

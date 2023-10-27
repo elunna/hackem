@@ -1678,9 +1678,14 @@ level_difficulty()
              */
 #endif /*0*/
     }
-    if ((uamul && uamul->otyp == AMULET_OF_DANGER)
-          || using_oprop(ITEM_DANGER))
+    if ((uamul && uamul->otyp == AMULET_OF_DANGER) || using_oprop(ITEM_DANGER)) {
         res += 15;
+    }
+    /* Wishes increase difficulty (unless fuzzing) */
+    if (u.uconduct.wishes > 1 && !iflags.debug_fuzzer) {
+        int bump = (u.uconduct.wishes - 1) * 2;
+        res += (bump > 20) ? 20 : bump;
+    }
     return (xchar) res;
 }
 
@@ -2371,9 +2376,19 @@ d_level *lev;
 }
 
 #define INTEREST(feat)                                                   \
-    ((feat).nfount || (feat).nsink || (feat).nthrone || (feat).naltar    \
-     || (feat).ngrave || (feat).ntree || (feat).nshop || (feat).ntemple  \
-     || (feat).nforge || (feat).ntoilet || (feat).nvent || (feat).ndeadtree)
+    ((feat).nfount \
+    || (feat).nsink \
+    || (feat).nthrone \
+    || (feat).naltar \
+    || (feat).ngrave  \
+    || (feat).ntree \
+    || (feat).nshop \
+    || (feat).ntemple \
+    || (feat).nforge \
+    || (feat).nmagicchest \
+    || (feat).ntoilet \
+    || (feat).nvent \
+    || (feat).ndeadtree)
   /* || (feat).water || (feat).ice || (feat).lava */
 
 /* returns true if this level has something interesting to print out */
@@ -2604,6 +2619,11 @@ recalc_mapseen()
                 count = mptr->feat.nforge + 1;
                 if (count <= 3)
                     mptr->feat.nforge = count;
+                break;
+            case MAGIC_CHEST:
+                count = mptr->feat.nmagicchest + 1;
+                if (count <= 3)
+                    mptr->feat.nmagicchest = count;
                 break;
             case GRAVE:
                 count = mptr->feat.ngrave + 1;
@@ -3068,6 +3088,7 @@ boolean printdun;
         }
         ADDNTOBUF("throne", mptr->feat.nthrone);
         ADDNTOBUF("forge", mptr->feat.nforge);
+        ADDNTOBUF("magic chest", mptr->feat.nmagicchest);
         ADDNTOBUF("fountain", mptr->feat.nfount);
         ADDNTOBUF("sink", mptr->feat.nsink);
         ADDNTOBUF("toilet", mptr->feat.ntoilet);

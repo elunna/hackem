@@ -20,7 +20,7 @@ WIZARDS=*
 # Which users can use explore mode (aka discover mode; accessed via '-X'
 # command line flag or OPTIONS=playmode:explore in runtime options file or
 # via '#exploremode' command during normal play).  Same syntax as WIZARDS.
-EXPLORERS=nobody
+EXPLORERS=*
 
 # Users allowed to use the '!' (shell escape) and '^Z' (suspend process)
 # commands to temporarily leave the game and enter a shell process.
@@ -41,7 +41,7 @@ EXPLORERS=nobody
 
 # Use the player name for matching WIZARDS, EXPLORERS and SHELLERS,
 # instead of the user's login name.
-#CHECK_PLNAME=1
+CHECK_PLNAME=1
 
 # Limit the number of simultaneous games (see also nethack.sh).
 # Valid values are 0-25.
@@ -86,13 +86,13 @@ PERSMAX=50
 # Maximum entries in the record file.
 ENTRYMAX=2000
 # Minimum points to get an entry.
-#POINTSMIN=1
+POINTSMIN=1
 # Determine identity of "person" in the score file with name (0) or
 # numeric (1) user id.
 #PERS_IS_UID=1
 
 # Maximum number of score file entries to use for random statue names
-#MAX_STATUENAME_RANK=10
+MAX_STATUENAME_RANK=50
 
 # Use "Live logging" for in-game progress (achievements, wishes, etc)
 # Bitmask for kinds of things you want to log - combine the following values
@@ -170,40 +170,61 @@ PANICTRACE_LIBC=2
 # default values.  Unlike the SYSCF values above, individual users can
 # still choose their own option settings via NETHACKOPTIONS in their
 # environment or via ~/.hackemrc run-time configuration file.
-#OPTIONS=!autopickup,fruit:tomato,symset:DECgraphics
-# The following are the NAO defaults for 3.6.0 according to paxed
-OPTIONS=bones
-OPTIONS=color
-OPTIONS=lit_corridor
-OPTIONS=dark_room
-OPTIONS=autodig
-OPTIONS=autoopen
+
+# Basic options
 OPTIONS=disclose:yi ya yv yg yc yo
-OPTIONS=boulder:0
-OPTIONS=autopickup
-OPTIONS=pickup_types:$!?"=/~
-OPTIONS=pickup_burden:unencumbered
-OPTIONS=hilite_pet
-OPTIONS=hilite_pile
-OPTIONS=msg_window:reversed
-OPTIONS=number_pad:0
-OPTIONS=sortloot:full
-OPTIONS=time
-OPTIONS=paranoid_confirmation:attack pray quit Remove swim wand-break
+OPTIONS=bones,color,lit_corridor,dark_room,autodig,autoopen
+OPTIONS=boulder:0,pickup_burden:unencumbered,sparkle:5
+OPTIONS=!autopickup,hilite_pet,hilite_pile,time,use_darkgray
+OPTIONS=msg_window:reversed,number_pad:0,sortloot:full
+OPTIONS=menu_objsyms,perm_invent,hitpointbar,quick_farsight
+# realtime options (wallclock time / play time / disabled)
+OPTIONS=realtime:wallclock time 
 
-#OPTIONS=showdmg
-#OPTIONS=invweight
+# hilite_status - allowed colors are black, red, green, brown, blue,
+# magenta, cyan, gray, orange, lightgreen, yellow, lightblue, lightmagenta,
+# lightcyan, and white.
+OPTIONS=statushilites
+OPTIONS=hilite_status: hitpoints-max/green&normal
+OPTIONS=hilite_status: hitpoints/100%/green&normal
+OPTIONS=hilite_status: hitpoints/<100%/lightgreen&normal
+OPTIONS=hilite_status: hitpoints/<76%/yellow&normal
+OPTIONS=hilite_status: hitpoints/<51%/orange&normal
+OPTIONS=hilite_status: hitpoints/<26%/red&normal
+OPTIONS=hilite_status: hitpoints/<11%/black&normal
+OPTIONS=hilite_status: power-max/green&normal
+OPTIONS=hilite_status: power/100%/green&normal
+OPTIONS=hilite_status: power/<100%/lightgreen&normal
+OPTIONS=hilite_status: power/<76%/yellow&normal
+OPTIONS=hilite_status: power/<51%/orange&normal
+OPTIONS=hilite_status: power/<26%/red&normal
+OPTIONS=hilite_status: power/<11%/black&normal
+OPTIONS=hilite_status: gold/always/yellow&normal
+OPTIONS=hilite_status: hunger/satiated/brown&normal
+OPTIONS=hilite_status: hunger/hungry/orange&normal
+OPTIONS=hilite_status: hunger/weak/red&normal
+OPTIONS=hilite_status: hunger/fainting/black&normal
+OPTIONS=hilite_status: hunger/fainted/black&normal
+OPTIONS=hilite_status: condition/conf/orange&normal
+OPTIONS=hilite_status: condition/stun/red&normal
+OPTIONS=hilite_status: condition/blind/black&normal
+OPTIONS=hilite_status: condition/deaf/cyan&normal
+OPTIONS=hilite_status: condition/foodpois/lightgreen&normal
+OPTIONS=hilite_status: condition/termill/lightgreen&normal
+OPTIONS=hilite_status: condition/slime/lightgreen&normal
+OPTIONS=hilite_status: condition/wither/green&normal
+OPTIONS=hilite_status: condition/hallu/magenta&normal
+OPTIONS=hilite_status: condition/strngl/red&normal
+OPTIONS=hilite_status: condition/stone/brown&bold&normal
+OPTIONS=hilite_status: condition/movement/lightblue&normal
+OPTIONS=hilite_status: carrying-capacity/burdened/yellow&normal
+OPTIONS=hilite_status: carrying-capacity/stressed/orange&normal
+OPTIONS=hilite_status: carrying-capacity/strained/red&normal
+OPTIONS=hilite_status: carrying-capacity/overtaxed/red&normal
+OPTIONS=hilite_status: carrying-capacity/overloaded/black&normal
 
-# For fuzzing
-BIND=v:wizmakemap
-
-# For bug-finding
-#OPTIONS=sanity_check
-
-# Make testing curses easier
-#OPTIONS=windowtype:curses
-#OPTIONS=align_message:top
-#OPTIONS=align_status:bottom
-#OPTIONS=perm_invent
+# Various MSGTYPE examples
+MSGTYPE=hide "Unknown command *"
+MSGTYPE=alert "The (couatl|.*eel|kraken) swings itself around you!"
 
 #eof

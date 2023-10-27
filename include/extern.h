@@ -119,8 +119,8 @@ E void FDECL(Sting_effects_offhand, (int));
 E int FDECL(retouch_object, (struct obj **, BOOLEAN_P, BOOLEAN_P));
 E void FDECL(retouch_equipment, (int));
 E void NDECL(mkot_trap_warn);
-E boolean FDECL(is_magic_key, (struct monst *, struct obj *));
-E struct obj *FDECL(has_magic_key, (struct monst *));
+E boolean FDECL(is_roguish_key, (struct monst *, struct obj *));
+E struct obj *FDECL(has_roguish_key, (struct monst *));
 E boolean FDECL(wielding_artifact, (int));
 E boolean FDECL(wearing_artifact, (int));
 E struct obj *FDECL(using_oprop, (long));
@@ -2395,7 +2395,7 @@ E boolean FDECL(cant_revive, (int *, BOOLEAN_P, struct obj *));
 E boolean NDECL(create_particular);
 E int FDECL(mon_to_zombie, (int));
 E boolean maybe_process_scales(struct obj *, struct obj *);
-
+E void FDECL(handle_new_property, (struct obj *));
 /* ### rect.c ### */
 
 E void NDECL(init_rect);
@@ -2702,6 +2702,7 @@ E void FDECL(cast_reflection, (struct monst *));
 E int FDECL(spelleffects, (int, BOOLEAN_P, BOOLEAN_P));
 E int FDECL(tport_spell, (int));
 E void NDECL(losespells);
+E void NDECL(forget_spell);
 E int NDECL(dovspell);
 E void FDECL(initialspell, (struct obj *));
 E boolean NDECL(studyspell);
@@ -2711,6 +2712,8 @@ E boolean FDECL(force_learn_spell, (SHORT_P));
 E int NDECL (num_spells);
 E void NDECL(dump_spells);
 E void FDECL(cast_sphere, (short otyp));
+E void NDECL(spell_nag);
+E boolean NDECL(max_spells_learned);
 
 /* ### steal.c ### */
 
@@ -2764,6 +2767,7 @@ E void FDECL(learntech, (SHORT_P,long,int));
 E void NDECL(dump_techniques);
 E int FDECL(do_pickpocket, (struct monst *));
 E int FDECL(do_breakrock, (int, int));
+E int FDECL(dazzle_chance, (struct permonst *));
 
 /* ### teleport.c ### */
 
@@ -3410,7 +3414,8 @@ E void bomb_explode(struct obj *, int, int, boolean);
 E void FDECL(wandfear, (struct obj *));
 E int FDECL(freeze_tile, (struct rm *, int, int, int));
 E boolean destroyable_oclass(char);
-int FDECL(delugehitsm, (struct monst *, int));
+E int FDECL(delugehitsm, (struct monst *, int));
+E void FDECL(scatter_chains, (int, int));
 
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */
 

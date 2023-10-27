@@ -207,6 +207,9 @@ int x, y;
         if (verbose)
             pline_The("altar is too hard to break apart.");
         return FALSE;
+    } else if (IS_MAGIC_CHEST(levl[x][y].typ)) {
+        pline_The("magic chest is unaffected.");
+        return FALSE;
     } else if (Is_airlevel(&u.uz)) {
         if (verbose)
             You("cannot %s thin air.", verb);
@@ -616,6 +619,8 @@ int ttyp;
     } else if (IS_FORGE(lev->typ)) {
         breakforge(x, y);
         return;
+    } else if (IS_MAGIC_CHEST(lev->typ)) {
+        return;
     } else if (lev->typ == DRAWBRIDGE_DOWN
                || (is_drawbridge_wall(x, y) >= 0)) {
         int bx = x, by = y;
@@ -909,6 +914,9 @@ coord *cc;
 
     } else if (IS_ALTAR(old_typ)) {
         pline_The("altar is too hard to break apart.");
+
+    } else if (IS_MAGIC_CHEST(old_typ)) {
+        pline_The("magic chest is unaffected.");
 
     } else {
         typ = fillholetyp(dig_x, dig_y, FALSE);
@@ -1816,6 +1824,8 @@ char *msg;
         else if (ltyp == DRAWBRIDGE_DOWN   /* "lowered drawbridge" */
                  || ltyp == DBWALL)        /* "raised drawbridge" */
             supporting = "drawbridge";
+        else if (IS_MAGIC_CHEST(ltyp))
+            supporting = "magic chest";
 
         if (supporting) {
             Sprintf(msg, "The %s%ssupporting structures remain intact.",

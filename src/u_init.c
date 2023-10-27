@@ -222,7 +222,7 @@ struct trobj Ranger[] = {
 struct trobj Rogue[] = {
 #define R_DAGGERS 1
 #define R_DARTS   2
-    { SHORT_SWORD, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { SHORT_SWORD, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
     { DAGGER, 0, WEAPON_CLASS, 10, 0 }, /* quan is variable */
     { DART, 0, WEAPON_CLASS, 25, UNDEF_BLESS },
     { LIGHT_ARMOR, 1, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -236,7 +236,7 @@ struct trobj Rogue[] = {
 struct trobj Samurai[] = {
 #define S_ARROWS 3
     { KATANA, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
-    { SHORT_SWORD, 0, WEAPON_CLASS, 1, UNDEF_BLESS }, /* wakizashi */
+    { SHORT_SWORD, 3, WEAPON_CLASS, 1, UNDEF_BLESS }, /* wakizashi */
     { YUMI, 0, WEAPON_CLASS, 1, UNDEF_BLESS },
     { YA, 0, WEAPON_CLASS, 25, UNDEF_BLESS }, /* variable quan */
     { SPLINT_MAIL, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
@@ -656,7 +656,7 @@ static const struct def_skill Skill_J[] = {
     { P_ENCHANTMENT_SPELL, P_SKILLED }, /* special spell is charm monster */
     { P_RIDING, P_SKILLED },
     { P_TWO_WEAPON_COMBAT, P_BASIC }, 
-    { P_MARTIAL_ARTS, P_EXPERT },
+    { P_BARE_HANDED_COMBAT, P_EXPERT },
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_K[] = {
@@ -904,7 +904,7 @@ static const struct def_skill Skill_U[] = {
     { P_ENCHANTMENT_SPELL, P_SKILLED },
     { P_ESCAPE_SPELL, P_SKILLED },
     { P_MATTER_SPELL, P_BASIC },
-    { P_MARTIAL_ARTS, P_MASTER }, /* Buffy the Vampire Slayer */
+    { P_BARE_HANDED_COMBAT, P_MASTER }, /* Buffy the Vampire Slayer */
     { P_TWO_WEAPON_COMBAT, P_BASIC },
     { P_SHIELD, P_EXPERT },
     { P_NONE, 0 }
@@ -1730,6 +1730,7 @@ u_init()
     if (Role_if(PM_CAVEMAN) || Role_if(PM_CAVEWOMAN)) {
         mons[PM_VELOCIRAPTOR].geno &= ~(G_NOGEN);
         mons[PM_T_REX].geno &= ~(G_NOGEN);
+        mons[PM_COMPSOGNATHUS].geno &= ~(G_NOGEN);
     }
     
     /* If we have at least one spell, force starting Pw to be 5,
@@ -2157,11 +2158,15 @@ register struct trobj *origtrop;
             && valid_obj_material(obj, COPPER))
             set_material(obj, COPPER);
 
-        /* Do the same for orcs and mithril objects.
-           Currently not a concern, but may be in the future */
+        /* Do the same for orcs and mithril objects */
         if (Race_if(PM_ORC) && obj->material == MITHRIL
             && valid_obj_material(obj, IRON))
             set_material(obj, IRON);
+
+        /* Do the same for vampires and silver objects */
+        if (Race_if(PM_VAMPIRE) && obj->material == SILVER
+            && valid_obj_material(obj, BONE))
+            set_material(obj, BONE);
         
         /* Holy wafers do damage to chaotic players */
         if (u.ualign.type == A_CHAOTIC && obj->otyp == HOLY_WAFER)
@@ -2306,8 +2311,8 @@ register struct trobj *origtrop;
         if (obj->oclass == AMULET_CLASS)
             setworn(obj, W_AMUL);
 
-        if (obj->oclass == TOOL_CLASS &&
-            obj->otyp == LENSES && !ublindf)
+        if (obj->oclass == TOOL_CLASS && !ublindf
+            && (obj->otyp == LENSES || obj->otyp == GOGGLES))
             setworn(obj, W_TOOL);
         
         /* Don't allow gear with object properties

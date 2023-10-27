@@ -49,6 +49,7 @@ STATIC_PTR void specified_id(void);
 STATIC_PTR void seffect_cloning(struct obj **);
 STATIC_PTR void NDECL(do_acquirement);
 
+
 STATIC_OVL boolean
 learnscrolltyp(scrolltyp)
 short scrolltyp;
@@ -818,7 +819,7 @@ struct monst *mtmp;
     is_blessed = curse_bless > 0;
     
     /* Scrolls of charging now ID charge count, as well as doing
-               the charging, unless cursed. */
+       the charging, unless cursed. */
     if (is_blessed)
         obj->known = 1;
     
@@ -901,7 +902,7 @@ struct monst *mtmp;
                               : 0; /* monsters wear but don't charge rings */
 
         /* destruction depends on current state, not adjustment */
-        if (obj->spe > rn2(7) || obj->spe <= -5) {
+        if (obj->spe > rn2(6) + 3 || (is_cursed && obj->spe <= -5)) {
             if (yours) {
                 pline("%s momentarily, then %s!", Yobjnam2(obj, "pulsate"),
                       otense(obj, "explode"));
@@ -918,8 +919,7 @@ struct monst *mtmp;
                 else
                     You_hear("an explosion.");
                 m_useup(mtmp, obj);
-                mtmp->mhp -= 3 * abs(obj->spe);
-                if (mtmp->mhp <= 0) {
+                if (damage_mon(mtmp, 3 * abs(obj->spe), AD_ELEC)) {
                     if (canseemon(mtmp))
                         pline("%s is killed by the explosion!",
                               Monnam(mtmp));
@@ -2197,12 +2197,12 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             else
                 pline("Time slows down to a crawl around you!");
             bonus = 50 + bcsign(sobj) * 25;
-            youmonst.movement += bonus;
+            u.umovement += bonus;
             u.utimestop = TRUE;
         }
         /* Time is an illusion. Lunchtime doubly so. 
          * ― Douglas Adams, The Hitchhiker's Guide to the Galaxy */
-        morehungry(rn1(30, abs(bonus) * 5));
+        morehungry(rn1(30, abs(bonus) * 2));
         break;
     }
     case SCR_TELEPORTATION:
@@ -2360,20 +2360,27 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 otmp->oprops = 0;
                 otmp->oprops_known = 0;
             }
-            /* Maybe change or add a property. Depends on luck.
+            /* Maybe change or add a property. 
+             * 
+             * Adding to a magical item depends on luck.
              * The percent is chance of success:
              *  LUCK:     <0      0     +2     +5     +8    +11
              * 	SUCCESS: 0.5%  20.0%  39.5%  59.0%  78.5%  98.0%
              * 	
              * 	If cursed the property is always wiped.
              */
-            else if ((sblessed || otmp->oprops) && rnl(5) == 0) {
+            else if (sblessed || otmp->oprops) {
+                if (objects[otmp->otyp].oc_magic && !rnl(5) == 0) {
+                    pline1(nothing_happens);
+                    break;
+                }
                 pline("%s with a fluorescent blue light!", Yobjnam2(otmp, "glow"));
-                otmp->oprops = 0;
-                otmp->oprops_known = 0;
-                create_oprop(otmp, TRUE);
+                handle_new_property(otmp);
+                /* Reveal the property */
+                otmp->oprops_known = otmp->oprops;
             } else {
                 pline1(nothing_happens);
+                break;
             }
         } else if (scursed) {
             pline("%s with a sickly green light!", Yobjnam2(otmp, "glow"));
@@ -2381,7 +2388,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             otmp->oerodeproof = 0;
             if (valid_obj_material(otmp, PLASTIC)) {
                 otmp->material = PLASTIC;
-                costly_alteration(otmp, COST_DRAIN);
+                costly_alteration(otmp, COST_TRANSMOGRIFY);
             } else
                 warp_material(otmp, TRUE);
             break;
@@ -2391,6 +2398,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             pline("%s with a strange yellow light!", Yobjnam2(otmp, "glow"));
             warp_material(otmp, TRUE);
         }
+        known = TRUE;
         update_inventory();
         break;
     }
@@ -2546,7 +2554,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 pline("Where do you want to center the explosion?");
                 getpos_sethilite(display_stinking_cloud_positions,
                                  get_valid_stinking_cloud_pos);
-                (void) getpos(&cc, TRUE, "the desired position");
+                (void) getpos(&cc, FALSE, "the desired position");
                 if (!is_valid_stinking_cloud_pos(cc.x, cc.y, FALSE)) {
                     /* try to reach too far, get burned */
                     cc.x = u.ux;
@@ -2603,6 +2611,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         known = TRUE;
         if (confused || sblessed) {
             You_feel("culpable.");
+            hold_another_object(mksobj(IRON_CHAIN, FALSE, FALSE),
+                                "It slips away from you.", (char*)0, (char*)0);
             break;
         }
         punish(sobj);
@@ -2633,7 +2643,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         cc.y = u.uy;
         getpos_sethilite(display_stinking_cloud_positions,
                          get_valid_stinking_cloud_pos);
-        if (getpos(&cc, TRUE, "the desired position") < 0) {
+        if (getpos(&cc, FALSE, "the desired position") < 0) {
             pline1(Never_mind);
             break;
         }
@@ -2772,10 +2782,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         dam += d(3, 3);
                     if (!rn2(3))
                         (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
-                    /* mtmp->mhp -= dam;*/
-                    damage_mon(mtmp, dam, AD_COLD);
-            
-                    if (DEADMONSTER(mtmp)) {
+
+                    if (damage_mon(mtmp, dam, AD_COLD)) {
                         killed(mtmp);
                     }
                 }
@@ -3040,14 +3048,16 @@ mwand_explode(mon, obj)
 register struct monst *mon;
 register struct obj *obj;
 {
+    int dmg = 0;
     if (canseemon(mon))
         pline("%s %s vibrates violently and explodes!",
               s_suffix(Monnam(mon)), xname(obj));
     else if (!Deaf)
         You_hear("an explosion.");
-    mon->mhp -= rnd(2 * (mon->mhpmax + 1) / 3);
+    dmg = rnd(2 * (mon->mhpmax + 1) / 3);
     m_useup(mon, obj);
-    if (mon->mhp <= 0) {
+    
+    if (damage_mon(mon, dmg, AD_MAGM)) {
     	if (canseemon(mon))
             pline("%s is killed by the explosion!", Monnam(mon));
         mondied(mon);
@@ -4292,4 +4302,45 @@ struct obj *otmp, *sobj;
     return TRUE;
 }
 
+void
+handle_new_property(otmp)
+struct obj *otmp;
+{
+    long old_wornmask = otmp->owornmask;
+    long old_oprops = otmp->oprops;
+    boolean was_twoweap = u.twoweap;
+    
+    remove_worn_item(otmp, FALSE);
+    otmp->oprops = 0;
+    otmp->oprops_known = 0;
+
+    /* Do our best to add a property. */
+    for (int i = 0; i < 1000; i++) {
+        create_oprop(otmp, TRUE);
+        if (otmp->oprops && otmp->oprops != old_oprops)
+            break;
+    }
+
+    if (old_wornmask) {
+        /* wearslot() returns a mask which might have multiple bits set;
+           narrow that down to the bit(s) currently in use */
+        /* if the new form can be worn in the same slot, make it so */
+        if ((old_wornmask & W_WEP) != 0L) {
+            setuwep(otmp);
+            if (was_twoweap && uwep && !bimanual(uwep))
+                u.twoweap = TRUE;
+        } else if ((old_wornmask & W_SWAPWEP) != 0L) {
+            setuswapwep(otmp);
+            if (was_twoweap && uswapwep)
+                u.twoweap = TRUE;
+        } else if ((old_wornmask & W_QUIVER) != 0L) {
+            setuqwep(otmp);
+        } else {
+            setworn(otmp, old_wornmask);
+        }
+        set_wear(otmp);
+    }
+    /* Handle burden property */
+    otmp->owt = weight(otmp);
+}
 /*read.c*/

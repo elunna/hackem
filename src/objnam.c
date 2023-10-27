@@ -44,12 +44,12 @@ struct Jitem {
 #define Strcasecpy(dst, src) (void) strcasecpy(dst, src)
 
 /* true for gems/rocks that should have " stone" appended to their names */
-#define GemStone(typ)                                                  \
+#define GemStone(typ) \
     (typ == FLINT                                                      \
-     || (objects[typ].oc_material == GEMSTONE                          \
+     || ((objects[typ].oc_material == GEMSTONE                         \
          && (typ != DILITHIUM_CRYSTAL && typ != RUBY && typ != DIAMOND \
              && typ != SAPPHIRE && typ != BLACK_OPAL && typ != EMERALD \
-             && typ != OPAL)))
+             && typ != OPAL)) && objects[typ].oc_class == GEM_CLASS))
 
 STATIC_OVL struct Jitem Japanese_items[] = { 
     { SHORT_SWORD, "wakizashi" },
@@ -603,12 +603,6 @@ boolean has_of;
                 Strcpy(of, " and");
         }
     }
-    if (props & ITEM_TOUGH) {
-        if ((props_known & ITEM_TOUGH) || dump_prop_flag) {
-            Strcat(buf, of), Strcat(buf, " toughness"),
-                    Strcpy(of, " and");
-        }
-    }
     if (props & ITEM_PROWESS) {
         if ((props_known & ITEM_PROWESS) || dump_prop_flag) {
             Strcat(buf, of), Strcat(buf, " prowess"),
@@ -826,7 +820,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
                 && !objects[obj->otyp].oc_name_known)
             || (obj->oartifact && not_fully_identified(obj))))
         Strcat(buf, "magical ");
-
+    
     switch (obj->oclass) {
     case AMULET_CLASS:
         if (obj->material != objects[typ].oc_material && dknown) {
@@ -917,7 +911,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             && ((obj->oprops_known & ITEM_OILSKIN)
                 || dump_prop_flag))
             Strcat(buf, "oilskin ");
-
+            
         if ((obj->material != objects[typ].oc_material
              || force_material_name(typ)) && dknown) {
             Strcat(buf, materialnm[obj->material]);
@@ -1383,7 +1377,10 @@ char *prefix;
                is_glass(obj) ? "fractured " :
                is_corrodeable(obj) ? "corroded " : "rotted ");
     }
-    if (rknown && obj->oerodeproof) {
+    if (obj->dknown && (obj->oprops & ITEM_TOUGH)
+         && ((obj->oprops_known & ITEM_TOUGH) || dump_prop_flag))
+        Strcat(prefix, "tough ");
+    else if (rknown && obj->oerodeproof) {
         if (iscrys)
             Strcat(prefix, "fixed ");
         else if (is_glass(obj))
@@ -3734,6 +3731,7 @@ const char *str;
         "bat from hell", /* not the "bat" monster */
         "jedi jump",     /* not the "jedi" monster */
         "Thiefbane",     /* not the "thief" rank */
+        "sling bullet",     /* not the "thief" rank */
         "Houchou",       /* not something... */
     };
     int i;
@@ -4623,14 +4621,19 @@ struct obj *no_wish;
      * and tins), or append something--anything at all except for
      * " object", but " trap" is suggested--to either the trap
      * name or the object name.
+     * Similarly, wishing for a "magic chest" will give the terrain
+     * unless specifically wishing for a "magic chest object."
      */
-    if (wizard && (!strncmpi(bp, "bear", 4) || !strncmpi(bp, "land", 4))) {
+    if (wizard && (!strncmpi(bp, "bear", 4) || !strncmpi(bp, "land", 4)
+        || !strncmpi (bp, "magic chest", 11))) {
         boolean beartrap = (lowc(*bp) == 'b');
-        char *zp = bp + 4; /* skip "bear"/"land" */
+        boolean landmine = (lowc(*bp) == 'l');
+        boolean four = (beartrap || landmine);
+        char *zp = bp + (four ? 4 : 11); /* skip "bear"/"land" */
 
         if (*zp == ' ')
             ++zp; /* embedded space is optional */
-        if (!strncmpi(zp, beartrap ? "trap" : "mine", 4)) {
+        if (four && !strncmpi(zp, beartrap ? "trap" : "mine", 4)) {
             zp += 4;
             if (trapped == 2 || !strcmpi(zp, " object")) {
                 /* "untrapped <foo>" or "<foo> object" */
@@ -4646,6 +4649,14 @@ struct obj *no_wish;
             }
             /* [no prefix or suffix; we're going to end up matching
                the object name and getting a disarmed trap object] */
+        } else {
+            if (!strcmpi(zp, "object")) {
+                typ = HIDDEN_CHEST;
+                goto typfnd;
+            } else {
+                Strcpy(bp, "magic chest");
+                goto wiztrap;
+            }
         }
     }
 
@@ -4902,6 +4913,11 @@ struct obj *no_wish;
             lev->typ = TOILET;
             level.flags.ntoilets++;
             pline("A toilet.");
+            madeterrain = TRUE;
+        } else if (!BSTRCMPI(bp, p - 11, "magic chest")) {
+            lev->typ = MAGIC_CHEST;
+            level.flags.nmagicchests++;
+            pline("A magic chest.");
             madeterrain = TRUE;
         } else if (!BSTRCMPI(bp, p - 5, "forge")) {
             lev->typ = FORGE;
@@ -5424,7 +5440,11 @@ struct obj *no_wish;
 
         if (otmp->oclass == ARMOR_CLASS || otmp->oclass == RING_CLASS)
             objprops &= ~ONLY_WEP_PROPS;
-
+        
+        /* Burden doesn't really affect ring weight much */
+        if (otmp->oclass == RING_CLASS)
+            objprops &= ~ITEM_BURDEN;
+        
         objprops = rm_redundant_oprops(otmp, objprops);
 
         /* The player cannot wish for properties */

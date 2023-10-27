@@ -70,7 +70,8 @@ struct obj {
 #define OBJ_MIGRATING 5 /* object sent off to another level */
 #define OBJ_BURIED 6    /* object buried */
 #define OBJ_ONBILL 7    /* object on shk bill */
-#define NOBJ_STATES 8
+#define OBJ_SOMEWHERE 8 /* for magic chest */
+#define NOBJ_STATES 9
 
 #define WP_MODE_AUTO	0	/* Max firing speed */
 #define WP_MODE_BURST	1	/* 1/3 of max rate */
@@ -365,8 +366,7 @@ struct obj {
 #define Is_container(o) ((o)->otyp == MEDICAL_KIT || \
                          ((o)->otyp >= LARGE_BOX && (o)->otyp <= BAG_OF_TRICKS))
 #define Is_nonprize_container(o) (Is_container(o) && !is_soko_prize_flag(o))
-#define Is_box(o) ((o)->otyp == LARGE_BOX || (o)->otyp == CHEST \
-                   || (o)->otyp == IRON_SAFE || (o)->otyp == CRYSTAL_CHEST)
+#define Is_box(o) ((o)->otyp >= LARGE_BOX && (o)->otyp <= HIDDEN_CHEST)
 #define Is_mbag(o) ((o)->otyp == BAG_OF_HOLDING \
                     || ((o)->otyp == BAG_OF_TRICKS && (o)->spe > 0) \
                     || ((o)->otyp == BAG_OF_RATS  && (o)->spe > 0))
@@ -598,8 +598,7 @@ struct obj {
 #define ITEM_SLEEP     0x00000080L /* sleep resistance */
 #define ITEM_FLEX      0x00000100L /* stoning resistance */
 #define ITEM_FILTH     0x00000200L /* sickness resistance */
-#define ITEM_TOUGH     0x00000400L /* disintegration res 
-                                    * Makes items erosionproof and indestructible */
+#define ITEM_TOUGH     0x00000400L /* Makes items erosionproof and indestructible */
 #define ITEM_OILSKIN   0x00000800L /* permanently greased */
 #define ITEM_ESP       0x00001000L /* telepathy */
 #define ITEM_SEARCH    0x00002000L /* searching */
@@ -635,11 +634,11 @@ struct obj {
 /* Positive properties */
 #define ITEM_GOOD_PROPS (ITEM_OILSKIN | ITEM_ESP | ITEM_SEARCH \
                          | ITEM_VIGIL | ITEM_EXCEL | ITEM_SUSTAIN \
-                         | ITEM_STEALTH | ITEM_INSIGHT | ITEM_BURDEN \
-                         | ITEM_SURF | ITEM_SWIM | ITEM_RAGE | ITEM_TOUGH)
+                         | ITEM_STEALTH | ITEM_INSIGHT | ITEM_SURF \
+                         | ITEM_SWIM | ITEM_RAGE | ITEM_TOUGH)
 /* Negative properties */
 #define ITEM_BAD_PROPS (ITEM_FUMBLE | ITEM_HUNGER | ITEM_STENCH \
-                        | ITEM_TELE | ITEM_SLOW | ITEM_DANGER)
+                        | ITEM_TELE | ITEM_SLOW | ITEM_DANGER | ITEM_BURDEN)
 
 #define NON_WEP_PROPS (ITEM_FLEX)
 #define ONLY_WEP_PROPS (ITEM_RAGE | ITEM_PROWESS)

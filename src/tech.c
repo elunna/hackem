@@ -147,8 +147,9 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
 
 /* Roles */
 static const struct innate_tech
-    arc_tech[] = { 
-        { 1, T_RESEARCH, 1 },
+    arc_tech[] = {
+        { 1, T_APPRAISAL, 1 },
+        { 3, T_RESEARCH, 1 },
         { 0, 0, 0 } 
     },
     bar_tech[] = { 
@@ -234,7 +235,6 @@ static const struct innate_tech
         { 0, 0, 0 } 
     },
     pir_tech[] = {
-        { 1, T_PRACTICE, 1 },
         { 1, T_TUMBLE, 1 },
         { 5, T_SUNDER, 1 },
         { 0, 0, 0 } 
@@ -951,27 +951,27 @@ int tech_no;
                 return 0;
             res = blitz_pummel();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_BLITZ:
             res = doblitz();
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(1000, 1500); /* Premium tech */
             break;
         case T_E_FIST:
             res = blitz_e_fist();;
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_CHI_STRIKE:
             res = blitz_chi_strike();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_CHI_HEALING:
             res = tech_chiheal();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_G_SLAM:
             /* Called outside of blitz_pummel to work with doblitz */
@@ -979,7 +979,7 @@ int tech_no;
                 return 0;
             res = blitz_g_slam();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_UPPERCUT:
             /* Called outside of blitz_pummel to work with doblitz */
@@ -987,7 +987,7 @@ int tech_no;
                 return 0;
             res = blitz_uppercut();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_DASH:
             /* Called outside of blitz_pummel to work with doblitz */
@@ -995,20 +995,21 @@ int tech_no;
                 return 0;
             res = blitz_dash();
             if (res)
-                t_timeout = rn1(50, 25);
+                t_timeout = rn1(100, 100);
             break;
         case T_POWER_SURGE:
             res = blitz_power_surge();
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(1000, 1500);
             break;
         case T_SPIRIT_BOMB:
             /* Called outside of blitz_pummel to work with doblitz */
             if (!getdir(NULL))
                 return 0;
             res = blitz_spirit_bomb();
+            /* Also costs potentially all your energy */
             if (res)
-                t_timeout = rn1(250, 250);
+                t_timeout = rn1(500, 1000);
             break;
 
             /* --- REGULAR TECHS --- */
@@ -1016,30 +1017,28 @@ int tech_no;
         case T_RESEARCH:
             res = tech_research();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_EVISCERATE:
             res = tech_eviscerate();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_BERSERK:
             res = tech_berserk();
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_ICEARMOR:
             res = tech_icearmor();
             if (res) {
-                t_timeout = rn1(500, 500);
-                if (carrying_arti(ART_STORM_WHISTLE))
-                    t_timeout /= 2;
+                t_timeout = rn1(500, 1000);
             }
             break;
         case T_REINFORCE:
             res = tech_reinforce();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_FLURRY:
             res = tech_flurry();
@@ -1049,134 +1048,142 @@ int tech_no;
         case T_APPRAISAL:
             res = tech_appraisal();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(100, 100);
             break;
         case T_PRACTICE:
             res = tech_practice();
+            /* This costs time, but for the roles that get this tech, 
+             * we don't want it to have an overly high timeout */
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(100, 100); /* Utility tech */
             break;
         case T_SURGERY:
             res = tech_surgery();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_HEAL_HANDS:
             res = tech_healhands();
             if (res)
-                t_timeout = rn1(500, 500);;
+                t_timeout = rn1(500, 1000);;
             break;
         case T_KIII:
             res = tech_kiii();
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_CALM_STEED:
             res = tech_calmsteed();
             if (res)
-                t_timeout = 250;
+                t_timeout = rn1(100, 100); /* Utility tech */
             break;
         case T_TURN_UNDEAD:
             /* Due to Undead Slayer Vampire being a playable combination */
             if (Race_if(PM_VAMPIRIC)) {
                 You("shudder at the thought."); 
             } else {
+                /* No timeout, since there was none for #turn */
                 res = turn_undead();
             }
             break;
         case T_VANISH:
             res = tech_vanish();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_CRIT_STRIKE:
             res = tech_critstrike();
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_CUTTHROAT:
             res = tech_cutthroat();
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_BLESSING:
             res = tech_blessing();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_CURSE:
             res = tech_curse();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_PRIMAL_ROAR:
             res = tech_primalroar();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_LIQUID_LEAP:
             res = tech_liquidleap();
             if (res)
-                t_timeout = rn1(250, 250);
+                t_timeout = rn1(500, 500);
             break;
         case T_RAISE_ZOMBIES:
             res = tech_raisezombies();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_WHISTLE_UNDEAD:
             res = tech_whistledead();
-            if (res)
-                t_timeout = rn1(100, 100);
+            /* No timeout - nice perk for necromancers */
             break;
         case T_REVIVE:
             res = tech_revive();
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_TINKER:
             res = tech_tinker();
-            /* No timeout */
+            /* No timeout - this costs time */
             break;
         case T_RAGE:
             res = tech_rage();
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_BLINK:
             res = tech_blink();
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_DRAW_ENERGY:
             res = tech_drawenergy();
             if (res)
-                t_timeout = rn1(1000, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_PICKPOCKET:
             res = tech_pickpocket();
-            /* No timeout */
+            /* No timeout - the cost is failure 
+             * or possibly angering peacefuls */
             break;
         case T_DISARM:
-            res = tech_disarm(); /* No timeout */
+            res = tech_disarm();
+            /* No timeout - the cost is failure 
+             * or possibly angering peacefuls */
             break;
         case T_DAZZLE:
             res = tech_dazzle();
             if (res)
-                t_timeout = rn1(50, 25);
+                t_timeout = rn1(100, 100); /* Utility tech */
             break;
         case T_SPIRIT_TEMPEST:
             res = tech_spirittempest();
+            /* This also costs potentially all of our energy */
             if (res)
-                t_timeout = rn1(250, 250);
+                t_timeout = rn1(500, 1000);
             break;
         case T_DRAW_BLOOD:
-            res = tech_drawblood(); /* No timeout */
+            res = tech_drawblood();
+            /* No timeout - This costs a phial and an XP level */
             break;
         case T_JEDI_JUMP:
             res = tech_jedijump();
+            /* This also costs 10 energy */
             if (res)
-                t_timeout = rn1(50, 25);
+                t_timeout = rn1(100, 100);
             break;
         case T_BOOZE:
             res = tech_booze();
@@ -1185,53 +1192,56 @@ int tech_no;
             break;
         case T_SOULEATER:
             res = tech_souleater();
+            /* This also costs half of our HP */
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_POWER_SHIELD:
             res = tech_shieldblock();
+            /* While active this costs energy for each block */
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_TELEKINESIS:
             /* Set t_inuse=1 temporarily so the use of telekinesis can be seen in shk.c */
             tech_list[tech_no].t_inuse = 1;
             res = tech_telekinesis();
             tech_list[tech_no].t_inuse = 0;
-
             if (res)
-                t_timeout = 250;
+                t_timeout = rn1(100, 100);
             break;
         case T_FORCE_PUSH:
             res = tech_forcepush();
             if (res)
-                t_timeout = rn1(250, 250);
+                t_timeout = rn1(500, 500);
             break;
         case T_CHARGE_SABER:
             res = tech_chargesaber();
             if (res)
-                t_timeout = rn1(500, 500);
+                t_timeout = rn1(500, 1000);
             break;
         case T_TUMBLE:
             res = tech_tumble();
             if (res)
-                t_timeout = rn1(50, 25);
+                t_timeout = rn1(100, 100); /* Utility tech */
             break;
         case T_SUNDER:
             res = tech_sunder();
             if (res)
-                t_timeout = rn1(50, 25);
+                t_timeout = rn1(500, 500);
             break;
         case T_BLOOD_MAGIC:
             res = tech_bloodmagic();
+            /* This potentially costs lots of HP! */
             if (res)
-                t_timeout = rn1(250, 250);
+                t_timeout = rn1(500, 1000);
             break;
         case T_BREAK_ROCK:
             if (!getdir(NULL))
                 return 0;
             res = do_breakrock(u.dx + u.ux, u.dy + u.uy);
-            /* No timeout */
+            /* No timeout - this can take a little time 
+             * and requires training */
             break;
         default:
             pline("Error!  No such effect (%i)", tech_no);
@@ -1273,6 +1283,7 @@ int dam;
         if (mtmp)
             You("%s the attack with your shield.",
                 rn2(2) ? "block" : "deflect");
+        use_skill(P_SHIELD, 1);
         /* The projectile blocking has a message in thitu */
     } else if (mtmp) {
         if (rn2(2))
@@ -1363,6 +1374,7 @@ void
 tech_timeout()
 {
     int i;
+    
     for (i = 0; i < MAXTECH; i++) {
         if (techid(i) == NO_TECH)
               continue;
@@ -1449,6 +1461,9 @@ tech_timeout()
             }
         }
 
+        if (!u.uacted)
+            continue; /* No timeout for doing nothing */
+            
         if (techtout(i) == 1) {
               pline("Your %s technique is ready to be used!", techname(i));
               stop_occupation();
@@ -1470,7 +1485,7 @@ tech_timeout()
             || (u.uhunger > (Race_if(PM_HOBBIT) ? 3000 : 1000))
             || (u.uhunger < 50))
             && rn2(10))
-              return;
+              continue;
 
         if (techtout(i) > 0)
               techtout(i)--;
@@ -2905,24 +2920,17 @@ tech_flurry()
 }
 
 int
-tech_appraisal()
-{
+tech_appraisal() {
     if (!uwep) {
-         You("are not wielding anything!");
-    } else if (weapon_type(uwep) == P_NONE) {
-         You("examine %s.", doname(uwep));
-         uwep->known = TRUE;
-         You("discover it is %s.", doname(uwep));
-         update_inventory();
-         return 1;
-    } else {
-        You("examine %s.", doname(uwep));
-        uwep->known = TRUE;
-        You("discover it is %s.", doname(uwep));
-        update_inventory();
-        return 1;
+        You("are not wielding anything!");
+        return 0;
     }
-    return 0;
+    You("examine %s.", doname(uwep));
+    uwep->known = TRUE;
+    uwep->oprops_known = TRUE;
+    You("discover it is %s.", doname(uwep));
+    update_inventory();
+    return 1;
 }
 
 int
@@ -3535,6 +3543,23 @@ tech_dazzle()
     }
     return 1;
 }
+
+int
+dazzle_chance(pm)
+struct permonst * pm;
+{
+    int d1, d2, combos = 0;
+    int daznum = techlev(get_tech_no(T_DAZZLE)) - pm->mlevel;
+    
+    for (d1 = 0; d1 < 6; d1++) {
+        for (d2 = 0; d2 < 6; d2++) {
+            if ((d1 + d2 + daznum) > 10)
+                combos++;
+        }
+    }
+    return (100*combos) / 36;
+}
+
 
 int
 tech_drawblood()

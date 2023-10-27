@@ -240,8 +240,6 @@ long mask;
         }
         EFearless |= mask;
     }
-    if (props & ITEM_TOUGH)
-        EDisint_resistance |= mask;
     if (props & ITEM_OILSKIN) {
         pline("%s very tightly.", Tobjnam(otmp, "fit"));
         otmp->oprops_known |= ITEM_OILSKIN;
@@ -290,6 +288,10 @@ long mask;
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             pline("This %s will not silence someone %s.",
                   xname(otmp), rn2(2) ? "as large as you" : "of your stature");
+            otmp->oprops_known |= ITEM_STEALTH;
+            EStealth &= ~mask;
+        } else if (Stomping) {
+            pline("This %s will not silence your stomping!", xname(otmp));
             otmp->oprops_known |= ITEM_STEALTH;
             EStealth &= ~mask;
         } else
@@ -347,8 +349,6 @@ long mask;
         EInfravision &= ~mask;
     if (props & ITEM_RAGE)
         EFearless &= ~mask;
-    if (props & ITEM_TOUGH)
-        EDisint_resistance &= ~mask;
     if (props & ITEM_OILSKIN)
         otmp->oprops_known |= ITEM_OILSKIN;
     if (props & ITEM_ESP) {
@@ -452,7 +452,7 @@ Boots_on(VOID_ARGS)
         }
         break;
     case STOMPING_BOOTS:
-        if (!Stealth && !Levitation && !Flying) {
+        if (Stomping && !Flying) {
             You("begin stomping around very loudly.");
             makeknown(uarmf->otyp);
         }
@@ -461,6 +461,10 @@ Boots_on(VOID_ARGS)
         if (maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
             pline("This %s will not silence someone %s.",
                   xname(uarmf), rn2(2) ? "as large as you" : "of your stature");
+            makeknown(uarmf->otyp);
+            EStealth &= ~W_ARMF;
+        } else if (Stomping) {
+            pline("This %s will not silence your stomping!", xname(uarmf));
             makeknown(uarmf->otyp);
             EStealth &= ~W_ARMF;
         } else {
@@ -530,7 +534,7 @@ Boots_off(VOID_ARGS)
         }
         break;
     case STOMPING_BOOTS:
-        if (!Stealth && !Levitation && !Flying) {
+        if (!Levitation && !Flying) {
             Your("footsteps become considerably less violent.");
             makeknown(otyp);
         }
@@ -1825,6 +1829,10 @@ register struct obj *obj;
                   xname(obj), rn2(2) ? "as large as you" : "of your stature");
             learnring(obj, TRUE);
             EStealth &= ~W_RING;
+        } else if (Stomping) {
+            pline("This %s will not silence your stomping!", xname(obj));
+            learnring(obj, TRUE);
+            EStealth &= ~W_RING;
         } else {
             toggle_stealth(obj, oldprop, TRUE);
         }
@@ -2068,6 +2076,8 @@ struct obj *otmp;
             pline("With madness comes clarity.");
             post_hallucination();
         }
+        if (ublindf)
+            curse(ublindf);
     }
 
     if (ublindf && ublindf->otyp == MASK)

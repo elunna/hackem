@@ -107,6 +107,7 @@ const struct propname {
     { WITHERING, "withering away" },
     { STABLE,    "extraodinarily stable" },
     { LIFESAVED, "life will be saved" },
+    { STOMPING, "stomping" },
     {  0, 0 },
 };
 
@@ -639,7 +640,12 @@ nh_timeout()
     
     /* WAC -- check for timeout of specials */
 	tech_timeout();
-
+    
+    /* This helps track if the player merely waited or searched
+     * during their turn. If they didn't do anything else, we won't
+     * reward them with expiring their tech cooldowns. */
+    u.uacted = TRUE;
+    
     if (HPasses_walls)
         phasing_dialogue();
     if (u.uinvulnerable)
@@ -998,6 +1004,7 @@ nh_timeout()
             }
         }
 
+    spell_nag();
     run_timers();
 }
 
@@ -2861,6 +2868,7 @@ struct obj *obj;
     switch (obj->where) {
     case OBJ_INVENT:
     case OBJ_MIGRATING:
+    case OBJ_SOMEWHERE:
         return FALSE;
     case OBJ_FLOOR:
     case OBJ_BURIED:

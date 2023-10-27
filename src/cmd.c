@@ -1441,7 +1441,9 @@ wiz_map_levltyp(VOID_ARGS)
         if (level.flags.nforges)
             Sprintf(eos(dsc), " %c:%d", defsyms[S_forge].sym,
                     (int) level.flags.nforges);
-        
+        if (level.flags.nmagicchests)
+            Sprintf(eos(dsc), " %c:%d", defsyms[S_magic_chest].sym,
+                    (int) level.flags.nmagicchests);
         if (level.flags.has_vault)
             Strcat(dsc, " vault");
         if (level.flags.has_shop)
@@ -1561,6 +1563,7 @@ static const char *levltyp[] = {
     "stairs",
     "ladder",
     "forge",
+    "magic chest",
     "fountain",
     "vent",
     "throne",
@@ -3315,7 +3318,7 @@ int final;
     }
 
     if (monclock > 0) {
-        Sprintf(buf, "%2.2fx", (float) MIN_MONGEN_RATE / monclock);
+        Sprintf(buf, "%2.0fx", (float) MIN_MONGEN_RATE / monclock);
         enl_msg("Monster generation rate ", "is ", "was ", buf, "");
     }
 
@@ -3532,6 +3535,8 @@ int final;
         you_are("displaced", from_what(DISPLACED));
     if (Stealth)
         you_are("stealthy", from_what(STEALTH));
+    if (Stomping)
+        you_are("stomping around", from_what(STOMPING));
     if (Aggravate_monster)
         enl_msg("You aggravate", "", "d", " monsters",
                 from_what(AGGRAVATE_MONSTER));
@@ -3951,6 +3956,14 @@ int final;
     if (!u.uconduct.gnostic)
         you_have_been("an atheist");
 
+    if (!u.ugifts)
+        you_have_never("received any gifts");
+    else {
+        Sprintf(buf, "recieved %d gift%s", u.ugifts,
+                (u.ugifts > 1L) ? "es" : "");
+        you_have_X(buf);
+    }
+
     if (!u.uconduct.weaphit) {
         you_have_never("hit with a wielded weapon");
     } else if (wizard) {
@@ -4024,7 +4037,7 @@ int final;
     if (!u.uconduct.artitouch) {
         you_have_never("touched an artifact");
     }
-
+    
     if (!u.uconduct.wishes) {
         you_have_X("used no wishes");
     } else {
@@ -4056,7 +4069,7 @@ int final;
             enl_msg(You_, "have not wished", "did not wish",
                     " for any artifacts", "");
     }
-
+    
     if (!u.uconduct.pets)
        you_have_never("owned a pet");
     
@@ -5047,6 +5060,10 @@ wiz_show_stats()
     obj_chain(win, "buried", level.buriedobjlist, FALSE,
               &total_obj_count, &total_obj_size);
     obj_chain(win, "migrating obj", migrating_objs, FALSE,
+              &total_obj_count, &total_obj_size);
+    /* just showing mchest isn't very informative.
+       mchest items are not counted as "contained" later */
+    obj_chain(win, "magic chest contents", mchest->cobj, FALSE,
               &total_obj_count, &total_obj_size);
     obj_chain(win, "billobjs", billobjs, FALSE,
               &total_obj_count, &total_obj_size);
@@ -6445,6 +6462,9 @@ boolean doit;
     if (IS_FORGE(typ)) {
         add_herecmd_menuitem(win, dodrink, "Really drink the lava from the forge?");
     }
+    if (IS_MAGIC_CHEST(typ)) {
+        add_herecmd_menuitem(win, doloot, "Loot magic chest");
+    }
     if (IS_FOUNTAIN(typ) || IS_FORGE(typ)) {
         Sprintf(buf, "Dip something into the %s",
                 defsyms[IS_FOUNTAIN(typ) ? S_fountain : S_forge].explanation);
@@ -6575,12 +6595,14 @@ int x, y, mod;
             /* here */
             if (IS_FOUNTAIN(levl[u.ux][u.uy].typ)
                 || IS_SINK(levl[u.ux][u.uy].typ)
-                || IS_TOILET(levl[u.ux][u.uy].typ)
-                || IS_FORGE(levl[u.ux][u.uy].typ)) {
+                || IS_TOILET(levl[u.ux][u.uy].typ)) {
                 cmd[0] = cmd_from_func(mod == CLICK_1 ? dodrink : dodip);
                 return cmd;
             } else if (IS_FORGE(levl[u.ux][u.uy].typ)) {
                 cmd[0] = cmd_from_func(mod == CLICK_1 ? doforging : dodip);
+                return cmd;
+            } else if (IS_MAGIC_CHEST(levl[u.ux][u.uy].typ)) {
+                cmd[0] = cmd_from_func(doloot);
                 return cmd;
             } else if (IS_THRONE(levl[u.ux][u.uy].typ)) {
                 cmd[0] = cmd_from_func(dosit);
