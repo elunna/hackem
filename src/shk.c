@@ -4586,7 +4586,7 @@ const char *slang;
 struct monst *shkp;
 {
     register struct obj *obj;
-    int charge = 1000; /* Gnomes are greedy */
+    int charge = 500; /* Gnomes are greedy */
     int res = 0;
 
     if (!(obj = getobj(identify_types, "have tinkered")))
