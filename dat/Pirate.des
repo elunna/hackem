@@ -199,8 +199,6 @@ OBJECT: ('?', "scare monster"), (52,14), cursed, 0
 # Dread Pirate (ret.)
 MONSTER: ('@', "Mayor Cummerbund"), (51,10)
 
-MAGIC_CHEST:(52,10)
-
 # Guards for the audience chamber
 MONSTER: ('@', "pirate crewmate"), (22,05)
 MONSTER: ('@', "pirate crewmate"), (27,05)
