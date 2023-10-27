@@ -7396,7 +7396,10 @@ makewish()
                        "wished for \"%s\"", bufcpy);
 
     if ((adjust = wishluck())) {
-        change_luck(adjust == -10 ? -10 : -1);
+        if (adjust == -2 || adjust == -10)
+            change_luck(adjust);
+        else
+             change_luck(-1);
         set_moreluck();
     }
     if (otmp != &zeroobj) {
