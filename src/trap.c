@@ -6521,10 +6521,15 @@ in_hell_effects()
     if (likes_lava(youmonst.data))
         return FALSE;
 
+    /* Small break for Ice Mages or other races that 
+     * are intrinsically vulnerable to fire */
+    if (EFire_resistance)
+        dmg -= 1;
+    
     usurvive = how_resistant(FIRE_RES) == 100 || (dmg < u.uhp);
-
+    
     if (how_resistant(FIRE_RES) < 100) {
-        if (how_resistant(FIRE_RES) > 50) {
+        if (how_resistant(FIRE_RES) >= 50) {
             if (rn2(3))
                 pline_The("flames of hell are slowly %s you alive!",
                           rn2(2) ? "roasting" : "burning");
