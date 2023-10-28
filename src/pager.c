@@ -1839,7 +1839,7 @@ char *usr_text;
                         OBJ_NAME(objects[precipe->typ1]),
                         OBJ_NAME(objects[precipe->typ2]),
                         OBJ_NAME(objects[precipe->result_typ]),
-                        precipe->chance == 1 ? "" : "(1/3)" );
+                        precipe->chance == 1 ? "" : " (1/3)" );
                 OBJPUTSTR(buf);
             }
         }
