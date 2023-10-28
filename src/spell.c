@@ -2057,12 +2057,9 @@ percent_success(spell)
 int spell;
 {
     /* Intrinsic and learned ability are combined to calculate
-     * the probability of player's success at cast a given spell.
+     * the probability of player's success at casting a given spell.
      */
-    int chance, splcaster, special, statused;
-    int difficulty;
-    int skill;
-    int dex_adjust;
+    int chance, splcaster, special, statused, difficulty, skill, dex_adjust;
     boolean paladin_bonus, is_spellcaster, non_casters;
 
     /* Calculate intrinsic ability (splcaster) */
@@ -2167,6 +2164,18 @@ int spell;
 
     if (wielding_artifact(ART_ORIGIN))
         splcaster -= 3;
+    
+    /* Elemental bonus */
+    if (Role_if(PM_FLAME_MAGE)) {
+        if (spellid(spell) == SPE_FLAME_SPHERE
+            || spellid(spell) == SPE_FIREBALL
+            || spellid(spell) == SPE_FIRE_BOLT)
+            splcaster -= 1;
+    } else if (Role_if(PM_ICE_MAGE)) {
+        if (spellid(spell) == SPE_FREEZE_SPHERE
+            || spellid(spell) == SPE_CONE_OF_COLD)
+            splcaster -= 1;
+    }
     
     if (splcaster > 20)
         splcaster = 20;
