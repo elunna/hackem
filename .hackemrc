@@ -151,8 +151,6 @@ OPTIONS=news
 # Show damage being dealt
 #OPTIONS=showdmg
 
-# Show inventory item weights
-OPTIONS=invweight
 # -----------------------------------------------------------------------------
 # C) Gameplay settings
 # These settings directly affect how you interact with the dungeon or the game.
