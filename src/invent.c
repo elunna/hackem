@@ -1371,7 +1371,7 @@ register int type;
 
     for (otmp = invent; otmp; otmp = otmp->nobj)
         if (otmp->otyp == type)
-            return  otmp;
+            return otmp;
     return (struct obj *) 0;
 }
 

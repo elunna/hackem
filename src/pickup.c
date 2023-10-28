@@ -1806,6 +1806,14 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
                    but don't give that away by suggesting them (same logic
                    as with crystal chests [see below comment]) */
                 unlocktool = carrying(MAGIC_KEY);
+                if (!unlocktool)
+                    unlocktool = carrying_arti(ART_KEY_OF_LAW);
+                if (!unlocktool)
+                    unlocktool = carrying_arti(ART_KEY_OF_CHAOS);
+                if (!unlocktool)
+                    unlocktool = carrying_arti(ART_KEY_OF_NEUTRALITY);
+                if (!unlocktool)
+                    unlocktool = carrying_arti(ART_KEY_OF_ACCESS);
                 break;
             default:
                 /* Don't prompt for crystal chest; only artifact unlocking
