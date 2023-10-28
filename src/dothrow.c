@@ -893,6 +893,7 @@ int x, y;
                    && Sokoban) {
             /* air currents overcome the recoil in Sokoban;
                when jumping, caller performs last step and enters trap */
+            sokoban_guilt();
             if (!via_jumping)
                 dotrap(ttmp, 0);
             *range = 0;
