@@ -3789,7 +3789,7 @@ NEARDATA struct permonst mons[] = {
         M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE,
         M4_VULNERABLE_COLD, 0, 2, CLR_RED),
     MON("orange mold", S_FUNGUS,
-        LVL(1, 0, 9, 0, 0), (G_GENO | 1),
+        LVL(5, 0, 9, 0, 0), (G_GENO | 1),
         A(ATTK(AT_NONE, AD_SLEE, 0, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(50, 30, MS_SILENT, MZ_SMALL),
@@ -3797,7 +3797,7 @@ NEARDATA struct permonst mons[] = {
         M1_BREATHLESS | M1_NOEYES | M1_NOLIMBS | M1_NOHEAD
         | M1_MINDLESS | M1_NOTAKE,
         M2_HOSTILE | M2_NEUTER, M3_INFRAVISIBLE,
-        M4_VULNERABLE_COLD, 0, 3, CLR_ORANGE),
+        M4_VULNERABLE_COLD, 0, 5, CLR_ORANGE),
     MON("shrieker", S_FUNGUS,
         LVL(3, 1, 7, 0, 0), (G_GENO | 1),
         A(NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
