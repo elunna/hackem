@@ -1749,13 +1749,19 @@ draw_energy(VOID_ARGS)
                  break;
              case CLOUD:    /* Air */
              case TREE:     /* Earth */
-             case LAVAPOOL: /* Fire */
-             case ICE:      /* Water - most ordered form */
                  powbonus = 5;
                  break;
-             case AIR:
+             case LAVAPOOL: /* Fire */
+                 if (Role_if(PM_FLAME_MAGE))
+                     powbonus = d(4, 6);
+                 break;
+             case ICE:      
+                 if (Role_if(PM_ICE_MAGE))
+                     powbonus = d(4, 6);
+                break;
+             case AIR:  /* Air */
              case MOAT: /* Doesn't freeze */
-             case WATER:
+             case WATER: /* Water - most ordered form */
                  powbonus = 4;
                  break;
              case POOL: /* Can dry up */
@@ -1778,10 +1784,9 @@ draw_energy(VOID_ARGS)
                     powbonus = -2;
                  break;
              case GRAVE:
-                 if (Role_if(PM_NECROMANCER)) {
+                 if (Role_if(PM_NECROMANCER)) 
                     powbonus = (u.uenmax > 36 ? u.uenmax / 6 : 6);
-                    break;
-                 }
+                 break;
                  /* FALLTHROUGH */
              case DEADTREE:
                  powbonus = -4;
