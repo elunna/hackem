@@ -6518,7 +6518,7 @@ in_hell_effects()
     int dmg = resist_reduce(d(1, 6), FIRE_RES);
     boolean usurvive, boil_away;
 
-    if (likes_lava(youmonst.data))
+    if (likes_lava(youmonst.data) || Race_if(PM_VAMPIRIC))
         return FALSE;
 
     /* Small break for Ice Mages or other races that 
