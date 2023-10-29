@@ -8063,7 +8063,7 @@ struct permonst _mons2[] = {
           ATTK(AT_MAGC, AD_SPEL, 0, 0), 
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(WT_HUMAN, 400, MS_NEMESIS, MZ_HUMAN), 
-        MR_POISON | MR_ELEC | MR_STONE, 0,
+        MR_POISON | MR_ELEC | MR_STONE | MR_DRAIN, 0,
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_PNAME | M2_STRONG | M2_MALE | M2_HOSTILE |
             M2_NASTY | M2_COLLECT | M2_MAGIC,
