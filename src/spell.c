@@ -41,7 +41,7 @@ STATIC_DCL boolean FDECL(confused_book, (struct obj *));
 STATIC_DCL void FDECL(deadbook, (struct obj *));
 STATIC_PTR int NDECL(learn);
 STATIC_DCL boolean NDECL(rejectcasting);
-STATIC_DCL boolean FDECL(getspell, (int *));
+STATIC_DCL boolean FDECL(getspell, (int *, const char *));
 STATIC_PTR int FDECL(CFDECLSPEC spell_cmp, (const genericptr,
                                             const genericptr));
 STATIC_DCL void NDECL(sortspells);
@@ -746,11 +746,12 @@ rejectcasting()
  * parameter.  Otherwise return FALSE.
  */
 STATIC_OVL boolean
-getspell(spell_no)
+getspell(spell_no, descr)
 int *spell_no;
+const char *descr;
 {
     int nspells, idx;
-    char ilet, lets[BUFSZ], qbuf[QBUFSZ];
+    char ilet, lets[BUFSZ], qbuf[QBUFSZ], buf[BUFSZ];
 
     if (spellid(0) == NO_SPELL) {
         You("don't know any spells right now.");
@@ -780,7 +781,8 @@ int *spell_no;
             Sprintf(lets, "a-zA-Z0-%c", '9' + nspells - 11);
 
         for (;;) {
-            Sprintf(qbuf, "Cast which spell? [%s *?]", lets);
+            Sprintf(qbuf, "%s which spell? [%s *?]", descr, lets);
+            qbuf[0] = highc(qbuf[0]);
             ilet = yn_function(qbuf, (char *) 0, '\0');
             if (ilet == '*' || ilet == '?')
                 break; /* use menu mode */
@@ -796,8 +798,8 @@ int *spell_no;
             return TRUE;
         }
     }
-    return dospellmenu("Choose which spell to cast", SPELLMENU_CAST,
-                       spell_no);
+    Sprintf(buf, "Choose which spell to %s", descr);
+    return dospellmenu(buf, SPELLMENU_CAST, spell_no);
 }
 
 /* the 'Z' command -- cast a spell */
@@ -806,7 +808,7 @@ docast()
 {
     int spell_no;
 
-    if (getspell(&spell_no))
+    if (getspell(&spell_no, "cast"))
         return spelleffects(spell_no, FALSE, FALSE);
     return 0;
 }
@@ -1731,16 +1733,32 @@ losespells()
 void
 forget_spell()
 {
-    int n, lastspell;
-
-    for (n = 0; n < MAXSPELL; ++n)
+    int n, spell_no;
+    boolean found = FALSE;
+    if (!getspell(&spell_no, "forget"))
+        return;
+    
+    for (n = 0; n < MAXSPELL; ++n) {
+        if (n == spell_no) {
+            Your("%s spell has been forgotten.", spellname(spell_no));
+            spellknow(n) = 0;
+            spellid(n) = NO_SPELL;
+            found = TRUE;
+        }
+        if (found && spellid(n+1) != NO_SPELL) {
+            /* Move the next spell down one slot */
+            spl_book[n].sp_id = spl_book[n+1].sp_id;
+            spl_book[n].sp_lev = spl_book[n+1].sp_lev;
+            spl_book[n].sp_know = spl_book[n+1].sp_know;
+            /* Remove it too */
+            spellknow(n+1) = 0;
+            spellid(n+1) = NO_SPELL;
+        }
         if (spellid(n) == NO_SPELL)
             break;
-    lastspell = n - 1;
+    }
     
-    Your("%s spell has been forgotten.", spellname(lastspell));
-    spellknow(lastspell) = 0;
-    spellid(lastspell) = NO_SPELL;
+    
 }
 /*
  * Allow player to sort the list of known spells.  Manually swapping
@@ -2384,7 +2402,7 @@ studyspell()
     /*Vars are for studying spells 'W', 'F', 'I', 'N'*/
     int spell_no;
     
-    if (getspell(&spell_no)) {
+    if (getspell(&spell_no, "study")) {
         if (spellknow(spell_no) <= 0) {
             You("are unable to focus your memory of the spell.");
             return (FALSE);

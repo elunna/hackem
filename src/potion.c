@@ -927,7 +927,7 @@ register struct obj *otmp;
         newuhs(FALSE);
         
         if (otmp->blessed && ACURR(A_INT) > 12 && num_spells() > 0) {
-            if (yn("Do you want to forget your last spell?") != 'y') {
+            if (yn("Do you want to forget a spell?") != 'y') {
                 goto forget_routine;
             } else {
                 forget_spell();
