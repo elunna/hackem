@@ -2778,6 +2778,12 @@ boolean pick;
         /* release doname's obuf, just in case */
         maybereleaseobuf(tmp);
     }
+    if (IS_MAGIC_CHEST(levl[u.ux][u.uy].typ) && !Levitation) {
+        if (!Blind)
+            You("see here a magic chest.");
+        else
+            You("feel here a magic chest.");
+    }
  spotdone:
     if (!--inspoteffects) {
         spotterrain = STONE; /* 0 */
