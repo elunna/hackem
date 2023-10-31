@@ -795,8 +795,9 @@ dodrink()
                 quan++;
             }
             You("down the entire keg! You are incredibly drunk!");
-            if (quan > 5 && !maybe_polyd(is_dwarf(youmonst.data) || is_giant(youmonst.data), 
-                Race_if(PM_DWARF))) {
+            if (quan > 5
+                && !maybe_polyd(is_dwarf(youmonst.data), Race_if(PM_DWARF))
+                && !maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
                 u.uhp = 0;
                 losehp(1, "drinking too much booze", KILLED_BY);
             }
