@@ -1199,7 +1199,7 @@ int pm;
     if (mons[pm].mlet == S_TROLL) {
         if (!Regeneration)
             You_feel("invigorated!");
-        incr_itimeout(&HRegeneration, d(2, 6));
+        incr_itimeout(&HRegeneration, d(4, 6));
     }
 
     switch (pm) {
@@ -1415,7 +1415,7 @@ int pm;
         incr_itimeout(&HDisplaced, d(6, 6));
         break;
     case PM_PHASE_SPIDER:
-        set_itimeout(&HPasses_walls, (long) (d(4, 4) + 4)); /* 8..20 */
+        set_itimeout(&HPasses_walls, (long) (d(4, 4) + 6)); /* 8..20 */
         break;
     case PM_DISENCHANTER:
         /* picks an intrinsic at random and removes it; there's
