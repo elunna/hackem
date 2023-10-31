@@ -4586,7 +4586,7 @@ const char *slang;
 struct monst *shkp;
 {
     register struct obj *obj;
-    int charge = 500; /* Gnomes are greedy */
+    int charge = 450; /* Gnomes are greedy */
     int res = 0;
 
     if (!(obj = getobj(identify_types, "have tinkered")))
@@ -4597,7 +4597,7 @@ struct monst *shkp;
     }
 
     if (ACURR(A_INT) < 13) {
-       charge += 1000;
+       charge += 750;
     }
     if (ACURR(A_INT) < 18) {
         charge += 500;
@@ -4615,7 +4615,7 @@ struct monst *shkp;
         return 0;
     }
 
-    shk_smooth_charge(&charge, 25, 7500);
+    shk_smooth_charge(&charge, 25, 5000);
     if (shk_offer_price(slang, charge, shkp) == FALSE) 
         return 0;
 
