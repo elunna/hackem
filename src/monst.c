@@ -938,7 +938,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(600, 300, MS_GROWL, MZ_LARGE), MR_POISON | MR_DRAIN, 0,
         M1_NOHANDS | M1_POIS | M1_REGEN | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE,
-        M3_INFRAVISIBLE, 0, MH_WERE, 9, CLR_YELLOW),
+        M3_INFRAVISIBLE, 0, MH_WERE, 9, CLR_ORANGE),
     MON("saber-toothed cat", S_FELINE,                         /* Slash'EM */
         LVL(9, 12, 6, 0, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 4), 
@@ -984,7 +984,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK),
         SIZ(750, 400, MS_GROWL, MZ_LARGE), MR_SLEEP, MR_SLEEP,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
-        M3_INFRAVISIBLE, 0, 0, 13, CLR_ORANGE),
+        M3_INFRAVISIBLE, 0, 0, 13, CLR_BRIGHT_GREEN),
     MON("saber-toothed tiger", S_FELINE,                        /* EvilHack */
         LVL(12, 14, 2, 0, 0), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 4, 4), 
@@ -6150,7 +6150,7 @@ struct permonst _mons2[] = {
         MR_POISON | MR_DRAIN, 0,
         M1_HUMANOID | M1_POIS | M1_REGEN | M1_OMNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_COLLECT,
-        M3_INFRAVISIBLE, 0, MH_HUMAN | MH_WERE, 8, CLR_YELLOW),
+        M3_INFRAVISIBLE, 0, MH_HUMAN | MH_WERE, 8, CLR_ORANGE),
     MON("Grey-elf", S_HUMAN,
         LVL(6, 12, 10, 10, 7), (G_GENO | G_SGROUP | 2),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 4), 
