@@ -2960,6 +2960,7 @@ E int FDECL(flash_hits_mon, (struct monst *, struct obj *));
 E void FDECL(light_hits_gremlin, (struct monst *, int));
 E boolean NDECL(dbl_dmg);
 E void FDECL(steal_it, (struct monst *, struct attack *));
+E int FDECL(shield_dmg, ( struct obj *, struct monst *));
 
 /* ### unixmain.c ### */
 

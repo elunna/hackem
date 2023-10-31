@@ -1267,6 +1267,7 @@ struct monst *mtmp;
 int dam;
 {
     int res = 0, cost = dam;
+    int counter_dmg;
     int tech_no = get_tech_no(T_POWER_SHIELD);
     int skillpoints = P_SKILL(P_SHIELD) + techlev(tech_no);
 
@@ -1286,16 +1287,24 @@ int dam;
         use_skill(P_SHIELD, 1);
         /* The projectile blocking has a message in thitu */
     } else if (mtmp) {
+        counter_dmg = shield_dmg(uarms, mtmp);
         if (rn2(2))
             You("force your shield into the %s attack!",
                 s_suffix(mon_nam(mtmp)));
         else
-            You("smash the %s with your shield!", mon_nam(mtmp));
-            
-        res = damage_mon(mtmp, dam, AD_PHYS);
-        if (res)
+            You("smash the %s with your %s!", mon_nam(mtmp), xname(uarms));
+        
+        /* Property effects */
+        if (uarms->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK 
+            | ITEM_VENOM | ITEM_SIZZLE | ITEM_SCREAM | ITEM_DECAY)) {
+            artifact_hit(&youmonst, mtmp, uarms, &counter_dmg, rnd(20));
+        } 
+        
+        damage_mon(mtmp, counter_dmg, AD_PHYS);
+        
+        if (DEADMONSTER(mtmp))
             xkilled(mtmp, XKILL_GIVEMSG);
-        else if (!mtmp->mconf) {
+        else if (!mtmp->mconf && !rn2(7)) {
             if (canseemon(mtmp))
                 pline("%s looks dazed.", Monnam(mtmp));
             mtmp->mconf = 1;

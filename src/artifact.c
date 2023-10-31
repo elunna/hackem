@@ -761,7 +761,8 @@ struct obj *otmp;
         return TRUE;
 
     if (!weap && otmp->oprops
-        && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))) {
+        && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp) 
+            || (uarms && otmp == uarms))) {
         if (adtyp == AD_FIRE && (otmp->oprops & ITEM_FIRE))
             return TRUE;
         if (adtyp == AD_COLD && (otmp->oprops & ITEM_FROST))
@@ -1403,7 +1404,8 @@ int tmp;
     spec_dbon_applies = FALSE;
 
     if (!weap && otmp->oprops
-        && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp))) {
+        && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp) 
+            || (uarms && otmp == uarms))) {
         /* until we know otherwise... */
         if ((attacks(adtype = AD_FIRE, otmp)
             && ((yours) ? !(Fire_resistance || Underwater)
@@ -1864,8 +1866,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                           : can_vaporize(mdef->data) ? "vaporizes part of"
                                                      : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
-            } else if (otmp->oclass == WEAPON_CLASS
-                       && (otmp->oprops & ITEM_FIRE)) {
+            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
+                       && otmp->oprops & ITEM_FIRE) {
                 pline_The("%s %s %s%c", distant_name(otmp, xname),
                           !spec_dbon_applies         ? "hits"
                           : can_vaporize(mdef->data) ? "vaporizes part of"
@@ -1941,8 +1943,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                   ? "freezes part of"
                                   : "freezes",
                           hittee,  !spec_dbon_applies ? '.' : '!');
-            } else if (otmp->oclass == WEAPON_CLASS
-                       && (otmp->oprops & ITEM_FROST)) {
+            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
+                       && otmp->oprops & ITEM_FROST) {
                 pline_The("%s %s %s%c",
                           distant_name(otmp, xname),
                           !spec_dbon_applies
@@ -1977,8 +1979,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               ? ""
                               : "!  Lightning strikes",
                           hittee, !spec_dbon_applies ? '.' : '!');
-            } else if (otmp->oclass == WEAPON_CLASS
-                       && (otmp->oprops & ITEM_SHOCK)) {
+            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
+                       && otmp->oprops & ITEM_SHOCK) {
                 pline_The("%s %s %s%c",
                           distant_name(otmp, xname),
                           !spec_dbon_applies
@@ -2022,8 +2024,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                magr->my, mdx, mdy, TRUE);
                     }
                 }
-            } else if (otmp->oclass == WEAPON_CLASS
-                       && (otmp->oprops & ITEM_SCREAM)) {
+            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
+                       && otmp->oprops & ITEM_SCREAM) {
                 if (!youattack && magr && cansee(magr->mx, magr->my)) {
                     if (!spec_dbon_applies) {
                         if (!youdefend)
@@ -2222,8 +2224,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                           : mon_underwater(mdef)    ? "hits"
                                                     : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
-            } else if (otmp->oclass == WEAPON_CLASS
-                       && (otmp->oprops & ITEM_SIZZLE)) {
+            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
+                       && otmp->oprops & ITEM_SIZZLE) {
                 pline_The("acidic %s %s %s%c",
                           distant_name(otmp, xname),
                           !spec_dbon_applies        ? "hits"
@@ -2246,7 +2248,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* Sixth basic attack - poison */
     if (attacks(AD_DRST, otmp)) {
         if (realizes_damage) {
-            if (otmp->oclass == WEAPON_CLASS && (otmp->oprops & ITEM_VENOM)) {
+            if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
+            && otmp->oprops & ITEM_VENOM) {
                 pline_The("%s %s %s%c", distant_name(otmp, xname),
                           (resists_poison(mdef) || defended(mdef, AD_DRST))
                               ? "hits"
@@ -2449,8 +2452,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     pline_The("staff sprays a %s %s at %s!", rndcolor(),
                               (rn2(2) ? "gas" : "mist"), hittee);
                 }
-            } else if (otmp->oclass == WEAPON_CLASS
-                      && (otmp->oprops & ITEM_SLEEP)) {
+            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
+                      && otmp->oprops & ITEM_SLEEP) {
                 pline_The("%s %s %s%c", distant_name(otmp, xname),
                           (resists_sleep(mdef) || defended(mdef, AD_SLEE))
                           ? "hits"
@@ -3055,8 +3058,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 else if (otmp->oartifact == ART_LIFESTEALER)
                     pline_The("massive sword draws the %s from %s!",
                               life, mon_nam(mdef));
-                else if (otmp->oclass == WEAPON_CLASS
-                         && (otmp->oprops & ITEM_DECAY))
+                else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
+                         && otmp->oprops & ITEM_DECAY)
                     pline_The("deadly %s draws the %s from %s!",
                           distant_name(otmp, xname), life,
                           mon_nam(mdef));
@@ -3100,8 +3103,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 pline_The("%s blade drains your %s!", hcolor(NH_BLACK), life);
             else if (otmp->oartifact == ART_LIFESTEALER)
                 pline_The("massive sword drains your %s!", life);
-            else if (otmp->oclass == WEAPON_CLASS
-                     && (otmp->oprops & ITEM_DECAY))
+            else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
+                     && otmp->oprops & ITEM_DECAY)
                 pline_The("deadly %s drains your %s!",
                           distant_name(otmp, xname), life);
             /* The Staff of Aesculapius */

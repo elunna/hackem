@@ -1679,25 +1679,19 @@ int dieroll;
                 case SHIELD_OF_LIGHT:
                 case SHIELD_OF_MOBILITY:
                 case RESONANT_SHIELD:
-                    if (uarms && P_SKILL(P_SHIELD) >= P_BASIC) {
-                         /* dmgval for shields is just one point,
-                            plus whatever material damage applies */
-                        tmp = dmgval(obj, mon);
-
-                        /* add extra damage based on the type
-                           of shield */
-                        if (obj->otyp == SMALL_SHIELD)
-                            tmp += rn2(3) + 1;
-                        else if (obj->otyp == TOWER_SHIELD)
-                            tmp += rn2(12) + 1;
-                        else
-                            tmp += rn2(6) + 2;
-
-                        /* sprinkle on a bit more damage if
-                           shield skill is high enough */
-                        if (P_SKILL(P_SHIELD) >= P_EXPERT)
-                            tmp += rnd(4);
+                    if (obj && (obj == uarms) && is_shield(obj)) {
+                        You("bash %s with %s%s",
+                            mon_nam(mon), ysimple_name(obj),
+                            canseemon(mon) ? exclam(tmp) : ".");
+                        tmp = shield_dmg(obj, mon);
+                        /* Property effects */
+                        if (obj->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK
+                                           | ITEM_VENOM | ITEM_SIZZLE | ITEM_SCREAM
+                                           | ITEM_DECAY) && !rn2(4)) {
+                            artifact_hit(&youmonst, mon, uarms, &tmp, dieroll);
+                        }
                     }
+                    
                     if (mon_hates_material(mon, obj->material)) {
                         /* dmgval() already added damage, but track hated_obj */
                         hated_obj = obj;
@@ -2212,9 +2206,6 @@ int dieroll;
                 canseemon(mon) ? exclam(tmp) : ".");
         } else {
             if (obj && (obj == uarms) && is_shield(obj)) {
-                You("bash %s with %s%s",
-                    mon_nam(mon), ysimple_name(obj),
-                    canseemon(mon) ? exclam(tmp) : ".");
                 /* placing this here, because order of events */
                 if (!rn2(10) && P_SKILL(P_SHIELD) >= P_EXPERT 
                       && (!(resists_stun(mon->data) || defended(mon, AD_STUN)))) {
@@ -5952,6 +5943,34 @@ u_bloodthirsty()
         return TRUE;
     return FALSE;
     
+}
+
+int
+shield_dmg(obj, mon)
+struct monst *mon;
+struct obj *obj;
+{
+    int tmp;
+    if (uarms && P_SKILL(P_SHIELD) >= P_BASIC) {
+        /* dmgval for shields is just one point,
+           plus whatever material damage applies */
+        tmp = dmgval(obj, mon);
+
+        /* add extra damage based on the type
+           of shield */
+        if (obj->otyp == SMALL_SHIELD)
+            tmp += rn2(3) + 1;
+        else if (obj->otyp == TOWER_SHIELD)
+            tmp += rn2(12) + 1;
+        else
+            tmp += rn2(6) + 2;
+
+        /* sprinkle on a bit more damage if
+           shield skill is high enough */
+        if (P_SKILL(P_SHIELD) >= P_EXPERT)
+            tmp += rnd(4);
+    }
+    return tmp;
 }
 
 /*uhitm.c*/
