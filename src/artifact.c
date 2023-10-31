@@ -4138,8 +4138,9 @@ struct obj *obj;
 {
     int ad_type = 0, oprops;
 
-    /* Only weapons work this way ("attacking" the water) */
-    if (!((obj->oclass == WEAPON_CLASS) || is_weptool(obj)))
+    /* Only weapons/shields work this way ("attacking" the water) */
+    if (!((obj->oclass == WEAPON_CLASS) || is_weptool(obj)
+            || is_shield(obj)))
         return FALSE;
 
     if (obj->oartifact)
