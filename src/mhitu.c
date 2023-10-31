@@ -1071,7 +1071,8 @@ register struct monst *mtmp;
                         }
                     } else {
                         missmu(mtmp, tmp, j, mattk);
-                        if (uarms && !rn2(7))
+                        /* Shield enchantment helps train */
+                        if (uarms && rn2(3) && rn2(8) <= uarms->spe)
                             use_skill(P_SHIELD, 1);
                         /* if the attacker dies from a glancing blow off
                            of a piece of the player's armor, and said armor
@@ -1125,7 +1126,7 @@ register struct monst *mtmp;
                         sum[i] = gulpmu(mtmp, mattk);
                     } else {
                         missmu(mtmp, tmp, j, mattk);
-                        if (uarms && !rn2(7))
+                        if (uarms && rn2(3) && rn2(8) <= uarms->spe)
                             use_skill(P_SHIELD, 1);
                     }
                 } else if (is_swallower(mtmp->data)) {
@@ -1221,7 +1222,7 @@ register struct monst *mtmp;
                         sum[i] = hitmu(mtmp, mattk);
                     } else {
                         missmu(mtmp, tmp, j, mattk);
-                        if (uarms && !rn2(7))
+                        if (uarms && rn2(3) && rn2(8) <= uarms->spe)
                             use_skill(P_SHIELD, 1);
                     }
                     /* KMH -- Don't accumulate to-hit bonuses */
