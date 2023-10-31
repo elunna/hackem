@@ -356,7 +356,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("Grimtooth", ORCISH_DAGGER,
       (SPFX_RESTR | SPFX_WARN | SPFX_DFLAGH | SPFX_DEFN), 0, MH_ELF, 
       DISE(5, 6), DFNS(AD_DISE), NO_CARY, 0, 
-      A_CHAOTIC, NON_PM, PM_ORC, 1500L, CLR_RED, DEFAULT_MAT),
+      A_CHAOTIC, PM_ROGUE, PM_ORC, 1500L, CLR_RED, DEFAULT_MAT),
     
     /* Auto-explode code in dothrow.c, uhitm.c */
     A("Hellfire", CROSSBOW, 
