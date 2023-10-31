@@ -1734,7 +1734,6 @@ aligntyp alignment;
             mon->weapon_check = NEED_HTH_WEAPON;
             (void) mon_wield_item(mon);
         }
-        u.ugifts++;
         u.uconduct.pets++;
 
 	switch ((int)alignment) {
