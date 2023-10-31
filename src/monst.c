@@ -985,7 +985,6 @@ NEARDATA struct permonst mons[] = {
         SIZ(750, 400, MS_GROWL, MZ_LARGE), MR_SLEEP, MR_SLEEP,
         M1_ANIMAL | M1_NOHANDS | M1_CARNIVORE, M2_HOSTILE,
         M3_INFRAVISIBLE, 0, 0, 13, CLR_ORANGE),
-
     MON("saber-toothed tiger", S_FELINE,                        /* EvilHack */
         LVL(12, 14, 2, 0, 0), (G_GENO | 2),
         A(ATTK(AT_CLAW, AD_PHYS, 4, 4), 
@@ -3015,9 +3014,9 @@ NEARDATA struct permonst mons[] = {
         M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION | M3_NOTAME, 
         0, MH_ANGEL, 25, DRAGON_SILVER),
     MON("Archon", S_ANGEL,
-        LVL(19, 16, -6, 80, 15), (G_NOHELL | G_NOCORPSE | 1),
+        LVL(22, 16, -6, 80, 15), (G_NOHELL | G_NOCORPSE | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 4), 
-          ATTK(AT_WEAP, AD_PHYS, 2, 4),
+          ATTK(AT_WEAP, AD_PHYS, 4, 4),
           ATTK(AT_GAZE, AD_BLND, 2, 6), 
           ATTK(AT_CLAW, AD_PHYS, 1, 8),
           ATTK(AT_MAGC, AD_SPEL, 4, 6), 
@@ -3027,9 +3026,9 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_HUMANOID | M1_SEE_INVIS | M1_REGEN,
         M2_NOPOLY | M2_MINION | M2_STALK | M2_STRONG | M2_NASTY | M2_LORD
             | M2_COLLECT | M2_MAGIC | M2_FLANK,
-        M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_ANGEL, 26, HI_LORD),
+        M3_ACCURATE | M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_ANGEL, 30, HI_LORD),
     MON("Planetar", S_ANGEL,                                    /* Slash'EM */
-        LVL(29, 16, -10, 80, 15), (G_NOHELL | G_NOCORPSE | 1),
+        LVL(29, 16, -12, 90, 15), (G_NOHELL | G_NOCORPSE | 1),
         A(ATTK(AT_WEAP, AD_PHYS, 4, 4), 
           ATTK(AT_WEAP, AD_PHYS, 4, 4),
           ATTK(AT_GAZE, AD_BLND, 3, 6), 
@@ -3041,11 +3040,11 @@ NEARDATA struct permonst mons[] = {
         0, M1_FLY | M1_HUMANOID | M1_SEE_INVIS | M1_REGEN,
         M2_NOPOLY | M2_MINION | M2_STALK | M2_STRONG | M2_NASTY 
             | M2_LORD | M2_COLLECT | M2_MAGIC | M2_FLANK, 
-        M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_ANGEL, 38, CLR_CYAN),
+        M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_ANGEL, 40, CLR_CYAN),
     MON("Solar", S_ANGEL,                                       /* Slash'EM */
-        LVL(39, 16, -10, 80, 15), (G_NOHELL | G_NOCORPSE | 1),
-        A(ATTK(AT_WEAP, AD_PHYS, 5, 4), 
-        ATTK(AT_WEAP, AD_PHYS, 5, 4),
+        LVL(39, 16, -14, 95, 15), (G_NOHELL | G_NOCORPSE | 1),
+        A(ATTK(AT_WEAP, AD_PHYS, 6, 4), 
+          ATTK(AT_WEAP, AD_PHYS, 6, 4),
           ATTK(AT_GAZE, AD_BLND, 5, 6), 
           ATTK(AT_CLAW, AD_PHYS, 5, 8),
           ATTK(AT_MAGC, AD_SPEL, 5, 6), 
@@ -3055,7 +3054,7 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_HUMANOID | M1_SEE_INVIS | M1_REGEN,
         M2_NOPOLY | M2_MINION | M2_STALK | M2_STRONG | M2_NASTY 
             | M2_LORD | M2_COLLECT | M2_MAGIC | M2_FLANK, 
-        M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_ANGEL, 49, CLR_BROWN),
+        M3_INFRAVISIBLE | M3_INFRAVISION, 0, MH_ANGEL, 50, CLR_BROWN),
     /*
      * Bats
      */
