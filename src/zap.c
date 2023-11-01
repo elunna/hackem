@@ -4576,6 +4576,10 @@ struct obj **pobj; /* object tossed/used, set to NULL
                 t->tseen = TRUE;
                 newsym(bhitpos.x, bhitpos.y);
             }
+            if (iflags.returning_missile) {
+                iflags.returning_missile = (genericptr_t) 0;
+                docrt();
+            }
             break;
         }
         
