@@ -1756,12 +1756,13 @@ const char *objphrase; /* "Your widget glows" or "Steed's saddle/barding glows" 
     if (!potion || potion->otyp != POT_WATER)
         return FALSE;
 
-    if (potion->otyp == POT_AMNESIA) {
+    if (targobj->otyp == POT_AMNESIA) {
         /* Diluting a !ofAmnesia just gives water... */
-        Your("%s flat.", aobjnam(potion, "become"));
-        potion->odiluted = 0;
-        potion->otyp = POT_WATER;
+        Your("%s flat.", aobjnam(targobj, "become"));
+        targobj->odiluted = 0;
+        targobj->otyp = POT_WATER;
         costchange = COST_alter;
+        res = TRUE;
     } else if (potion->blessed) {
         if (targobj->cursed) {
             func = uncurse;
@@ -3063,9 +3064,7 @@ boolean ourfault;
             Your("%s to sparkle.", aobjnam(targobj, "start"));
             targobj->odiluted = 0;
             targobj->otyp = POT_AMNESIA;
-            used = TRUE;
-            break;
-            return FALSE;
+            return TRUE;
         }
 
         if (targobj->otyp == POT_ACID) {
@@ -3078,8 +3077,7 @@ boolean ourfault;
             forget(2 + rn2(3));
 
             makeknown(targobj->otyp);
-            used = TRUE;
-            break;
+            return TRUE;
         }
         pline("%s%s completely.", Your_buf, aobjnam(targobj, "dilute"));
         if (targobj->unpaid && costly_spot(u.ux, u.uy)) {
@@ -3093,8 +3091,7 @@ boolean ourfault;
         targobj->blessed = FALSE;
         targobj->cursed = FALSE;
         targobj->otyp = POT_WATER;
-        used = TRUE;
-        break;
+        return TRUE;
     case SCROLL_CLASS:
         if (targobj->otyp != SCR_BLANK_PAPER && targobj->otyp != SCR_AMNESIA) {
             if (!Blind) {
@@ -3106,7 +3103,7 @@ boolean ourfault;
                 bill_dummy_object(targobj);
             }
             cancel_item(targobj);
-            used = TRUE;
+            return TRUE;
         }
         break;
     case SPBOOK_CLASS:
@@ -3128,14 +3125,14 @@ boolean ourfault;
             }
             cancel_item(targobj);
         }
-        used = TRUE;
-        break;
+        return TRUE;
     case GEM_CLASS:
         if (targobj->otyp == LUCKSTONE
                         || targobj->otyp == LOADSTONE
                         || targobj->otyp == HEALTHSTONE
-                        || targobj->otyp == TOUCHSTONE)
+                        || targobj->otyp == TOUCHSTONE) {
             downgrade_obj(targobj, FLINT, &used);
+        }
         break;
     case TOOL_CLASS:
         /* Artifacts aren't downgraded by amnesia */
@@ -3181,13 +3178,9 @@ boolean ourfault;
                 downgrade_obj(targobj, SACK, &used);
                 break;
             case MASK:
-                /* Masks are magical and therefore subject to amnesia. */
                 pre_downgrade_obj(targobj, &used);
-                if (targobj->where == OBJ_INVENT)
-                    Your("%s transforms into something ordinary!", xname(targobj));
-                else
-                    pline_The("%s transforms into something ordinary!", xname(targobj));
                 targobj->corpsenm = -1;
+                break;
             }
         }
 
@@ -3205,20 +3198,28 @@ boolean ourfault;
     /* Just "fall through" to generic rustprone check for now. */
     /* fall through */
     default:
-        if (artifact_wet(targobj))
-            return TRUE;
-
         if (targobj->spe > 0) {
             pre_downgrade_obj(targobj, &used);
             drain_item(targobj, ourfault);
-            if (targobj->spe < 0)
-                targobj->spe = 0;
-        } else if (targobj->age > 0) {
-            if (is_lightsaber(targobj))
+        }
+        if (targobj->spe < 0) {
+            pre_downgrade_obj(targobj, &used);
+            targobj->spe = 0;
+        }
+        
+        if (targobj->age > 0) {
+            if (is_lightsaber(targobj)) {
+                pre_downgrade_obj(targobj, &used);
                 targobj->age -= rn1(450, 300);
+            }
             if (targobj->age < 0)
                 targobj->age = 0;
         }
+        
+        if (targobj->otyp == CRYSKNIFE) {
+            downgrade_obj(targobj, WORM_TOOTH, &used);
+        }
+            
         /* We're able to use the water_damage function, but some things still
          * need handling specifically. This has to come after most of the
          * cancel effects, otherwise the messages and effects don't really
@@ -3229,10 +3230,12 @@ boolean ourfault;
             used = TRUE;
             if (targobj->unpaid && costly_spot(u.ux, u.uy) && !used) {
                 You("damage it, you pay for it.");
-                /*bill_dummy_object(targobj);*/
+                bill_dummy_object(targobj);
             }
-        } else if (res == ER_DESTROYED)
+        } else if (res == ER_DESTROYED) {
+            bill_dummy_object(targobj);
             return TRUE;
+        }
         break;
     }
     /* !ofAmnesia might strip away fooproofing... */
@@ -3242,7 +3245,7 @@ boolean ourfault;
     }
 
     /* !ofAmnesia might strip away properties... */
-    if (targobj->oprops && !rn2(13)) {
+    if (targobj->oprops && (!rn2(13) || ourfault)) {
         pre_downgrade_obj(targobj, &used);
         targobj->oprops = 0L;
         targobj->oprops_known = 0L;
@@ -3252,7 +3255,6 @@ boolean ourfault;
         if (targobj->blessed || targobj->otyp == POT_WATER)
             pre_downgrade_obj(targobj, &used);
         else if (!used) {
-            Your("%s for a moment.", aobjnam(targobj, "sparkle"));
             used = TRUE;
         }
         uncurse(targobj);
@@ -3262,15 +3264,12 @@ boolean ourfault;
         /* sterilized */
         kill_egg(targobj);
         targobj->corpsenm = NON_PM;
-        if (!used) {
-            Your("%s for a moment.", aobjnam(targobj, "sparkle"));
-            used = TRUE;
-        }
+        pre_downgrade_obj(targobj, &used);
     }
 
-    if (used)
+    if (used) {
         update_inventory();
-    else
+    } else
         pline("%s%s wet.", Your_buf, aobjnam(targobj,"get"));
 
     return used;
