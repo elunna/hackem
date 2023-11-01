@@ -2909,10 +2909,15 @@ register struct monst *mtmp;
                 }
             } else {
                 int num = d(4, 8);
-                if (thitm(0, mtmp, (struct obj *)0, num, FALSE))
+                if (thitm(0, mtmp, (struct obj *) 0, num, FALSE))
                     trapkilled = TRUE;
-                else if (!rn2(2))
+                else if (!rn2(2)) {
                     (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
+                }
+                if (rn2(2)) {
+                    mon_adjust_speed(mtmp, -1, (struct obj *) 0);
+                    check_gear_next_turn(mtmp); /* might want speed boots */
+                }
             }
             if (see_it) 
                 seetrap(trap);
