@@ -2422,8 +2422,11 @@ struct obj *obj, *otmp;
                     struct obj *o;
 
                     /* view contents (not recursively) */
-                    for (o = obj->cobj; o; o = o->nobj)
+                    for (o = obj->cobj; o; o = o->nobj) {
                         o->dknown = 1; /* "seen", even if blind */
+                        if (o->oprops)
+                            o->oprops_known = o->oprops;
+                    }
                     (void) display_cinventory(obj);
                 }
                 res = 1;
