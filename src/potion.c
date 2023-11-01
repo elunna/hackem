@@ -777,6 +777,7 @@ dodrink()
 
     
     if (otmp->otyp == KEG) {
+        
         if (yn("Really drink the entire keg at once?") == 'n') {
             pline("Perhaps not.");
             return 0;
@@ -791,7 +792,8 @@ dodrink()
                     healup(1, 0, FALSE, FALSE);
                 if (!otmp->blessed)
                     make_confused(itimeout_incr(HConfusion, d(3, 8)), FALSE);
-                u.uhunger += 10 * (2 + bcsign(otmp));
+                u.uhunger += (otmp->odiluted ? 40 : 130) + 10 * (2 + bcsign(otmp));
+                make_fearless(itimeout_incr(HFearless, d(8, otmp->blessed ? 6 : 3)), FALSE);
                 quan++;
             }
             You("down the entire keg! You are incredibly drunk!");
