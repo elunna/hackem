@@ -618,21 +618,21 @@
 
 #define likes_ice(ptr) \
     ((ptr) == &mons[PM_FROST_SALAMANDER] \
-    (ptr) == &mons[PM_FROST_GIANT] \
-    (ptr) == &mons[PM_FREEZING_SPHERE] \
-    (ptr) == &mons[PM_ICE_NYMPH] \
-    (ptr) == &mons[PM_ICE_VORTEX] \
-    (ptr) == &mons[PM_ICE_ELEMENTAL] \
-    (ptr) == &mons[PM_ICE_TROLL] \
-    (ptr) == &mons[PM_ICE_DEVIL] \
-    (ptr) == &mons[PM_ICE_MAGE] \
-    (ptr) == &mons[PM_FROSTER] \
-    (ptr) == &mons[PM_SNOW_ANT] \
-    (ptr) == &mons[PM_SNOW_ORC] \
-    (ptr) == &mons[PM_SNOW_GOLEM] \
-    (ptr) == &mons[PM_BABY_WHITE_DRAGON] \
-    (ptr) == &mons[PM_WHITE_DRAGON] \
-    (ptr) == &mons[PM_HIGH_ICE_MAGE])
+    || (ptr) == &mons[PM_FROST_GIANT] \
+    || (ptr) == &mons[PM_FREEZING_SPHERE] \
+    || (ptr) == &mons[PM_ICE_NYMPH] \
+    || (ptr) == &mons[PM_ICE_VORTEX] \
+    || (ptr) == &mons[PM_ICE_ELEMENTAL] \
+    || (ptr) == &mons[PM_ICE_TROLL] \
+    || (ptr) == &mons[PM_ICE_DEVIL] \
+    || (ptr) == &mons[PM_ICE_MAGE] \
+    || (ptr) == &mons[PM_FROSTER] \
+    || (ptr) == &mons[PM_SNOW_ANT] \
+    || (ptr) == &mons[PM_SNOW_ORC] \
+    || (ptr) == &mons[PM_SNOW_GOLEM] \
+    || (ptr) == &mons[PM_BABY_WHITE_DRAGON] \
+    || (ptr) == &mons[PM_WHITE_DRAGON] \
+    || (ptr) == &mons[PM_HIGH_ICE_MAGE])
 
 #define touch_petrifies(ptr) ( \
     (ptr) == &mons[PM_COCKATRICE] || \
