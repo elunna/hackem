@@ -488,22 +488,30 @@ boolean allow_detrimental;
     }
 
     /* Fix it up as necessary */
-    if (otmp->oprops
-        && (otmp->oclass == WEAPON_CLASS || otmp->oclass == ARMOR_CLASS)
-        && !(otmp->oprops & ITEM_BAD_PROPS)) {
+    if (otmp->oprops && !(otmp->oprops & ITEM_BAD_PROPS)) {
         if (!rn2(8)) {
             blessorcurse(otmp, 8);
-            if (otmp->cursed)
-                otmp->spe = -rne(3);
-            else
-                otmp->spe = rne(3);
+            if (otmp->cursed) {
+                if (!otmp->spe)
+                    otmp->spe = -rne(3);
+                else
+                    otmp->spe -= rnd(2); /* Item already exists? */
+            } else {
+                if (!otmp->spe)
+                    otmp->spe = rne(3);
+                else if (otmp->spe <= 3) 
+                    otmp->spe += rnd(2); /* Item already exists? */
+            }
         }
     }
 
     if (otmp->oprops & (ITEM_BAD_PROPS)) {
         if (!otmp->cursed)
             curse(otmp);
-        otmp->spe = -rne(3);
+        if (!otmp->spe)
+            otmp->spe = -rne(3);
+        else
+            otmp->spe -= rnd(2); /* Item already exists? */
     }
     return otmp;
 }
