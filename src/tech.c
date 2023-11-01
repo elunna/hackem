@@ -931,6 +931,10 @@ int tech_no;
         pline("This technique is already active!");
         return 0;
     }
+    if (u.uinshell) {
+        You("cannot perform techniques while enshelled.");
+        return 0;
+    }
     if (techtout(tech_no)) {
         You("have to wait %s before using your technique again.",
             (techtout(tech_no) > 100) ?
