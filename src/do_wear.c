@@ -1904,7 +1904,11 @@ register struct obj *obj;
         toggle_displacement(obj, oldprop, TRUE);
         break;
     }
-
+    /* Properties */
+    if (uleft == obj)
+        oprops_on(uleft, LEFT_RING);
+    else if (uright == obj)
+        oprops_on(uright, RIGHT_RING);
 }
 
 STATIC_OVL void
@@ -1916,6 +1920,12 @@ boolean gone;
     int old_attrib, which;
     boolean observable;
 
+    /* Remove properties */
+    if (uleft == obj)
+        oprops_off(uleft, LEFT_RING);
+    else if (uright == obj)
+        oprops_off(uright, RIGHT_RING);
+    
     context.takeoff.mask &= ~mask;
     if (gone)
         setnotworn(obj);
