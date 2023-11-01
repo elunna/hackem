@@ -4339,7 +4339,7 @@ struct monst *shkp;
     if (obj->oprops) {
         verbalize("Your %s already has a property, I could *try* to remove it...", xname(obj));
         charge = 250;
-        shk_smooth_charge(&charge, 250, NOBOUND);
+        shk_smooth_charge(&charge, 250, 5000);
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
         if (!rn2(4)) {
