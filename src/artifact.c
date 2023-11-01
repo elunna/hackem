@@ -469,7 +469,11 @@ boolean allow_detrimental;
         else if ((otmp->oclass == WEAPON_CLASS || is_weptool(otmp))
             && (j & (NON_WEP_PROPS | ITEM_OILSKIN)))
             continue;
-
+        
+        /* Oilskin property can only appear on cloth items */
+        if (j & ITEM_OILSKIN && otmp->material != CLOTH)
+            continue;
+        
         if ((otmp->oclass == ARMOR_CLASS || otmp->oclass == RING_CLASS)
               && (j & ONLY_WEP_PROPS))
             continue;
