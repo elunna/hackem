@@ -2107,8 +2107,9 @@ struct obj *box;	/* at the moment only for floor traps */
     if (how_resistant(COLD_RES) > 50) {
         shieldeff(u.ux, u.uy);
         num = rn2(3);
-        if (!rn2(3)) {
+        if (!rn2(3) && HCold_resistance) {
             pline("Mist flash-freezes around you as your heat is sucked away!");
+            HCold_resistance = HCold_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
             decr_resistance(&HCold_resistance, rnd(25) + 25);
             You_feel("alarmingly cooler.");
             lost_resistance = TRUE;

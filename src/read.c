@@ -2753,7 +2753,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 }
                 if (scursed && how_resistant(COLD_RES) > 50) {
                     pline("Mist flash-freezes around you as your heat is sucked away!");
-                    decr_resistance(&HCold_resistance, rnd(50) + 50);
+                    HCold_resistance = HCold_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
+                    decr_resistance(&HCold_resistance, rnd(25) + 25);
                     You_feel("alarmingly cooler.");
                 }
             }
