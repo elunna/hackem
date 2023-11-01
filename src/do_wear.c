@@ -2149,9 +2149,11 @@ struct obj *otmp;
         } else if (otmp->blessed) {
             otmp->blessed = 0;
             Your("mask seems more brittle.");
+            update_inventory();
         } else if (!otmp->blessed && !otmp->cursed && !rn2(3)) {
             otmp->cursed = 1;
             pline("This mask is about to break.");
+            update_inventory();
         }
         /* rehumanize(); */
     }
