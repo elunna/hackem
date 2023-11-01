@@ -1445,6 +1445,15 @@ unsigned doname_flags;
     char tmpbuf[PREFIX + 1]; /* for when we have to add something at
                                 the start of prefix instead of the
                                 end (Strcat is used on the end) */
+    /* tourists get a special identification service for shop items */
+    if (Role_if(PM_TOURIST) && !Hallucination) {
+        int nochrg = 0;
+        long price = get_cost_of_shop_item(obj, &nochrg);
+        if (price > 0) {
+            discover_object(obj->otyp, TRUE, FALSE);
+        }
+    }
+    
     bp = xname(obj);
     
     if (iflags.override_ID) {
