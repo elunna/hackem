@@ -2716,10 +2716,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     case SCR_ICE: {
-        int dam, dist;
-        int madepool = 0;
-        int stilldry = -1;
-        int x, y, mx, my, safe_pos = 0;
+        int dam = d(4, 8), dist, madepool = 0, stilldry = -1;
+        int mx, my;
         struct rm *lev = &levl[u.ux][u.uy];
         
         if (Underwater) {
@@ -2742,24 +2740,21 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             /* Ice random tiles around the player */
             do_clear_area(u.ux, u.uy, 5 - 2 * bcsign(sobj), do_iceflood,
                           (genericptr_t)&madepool, TRUE);
-
-            /* check if there are safe tiles around the player */
-            for (x = u.ux - 1; x <= u.ux + 1; x++) {
-                for (y = u.uy - 1; y <= u.uy + 1; y++) {
-                    if (x != u.ux && y != u.uy
-                        && goodpos(x, y, &youmonst, 0)) {
-                        safe_pos++;
-                    }
-                }
-            }
+            
             if (!sblessed) { /* Deal damage to player */
                 if (how_resistant(COLD_RES) == 100) {
                     shieldeff(u.ux, u.uy);
                     monstseesu(M_SEEN_COLD);
                 } else {
-                    pline_The("scroll blasts your %s with freezing air!",
+                    pline_The("scroll blasts your %s with freezing mist!",
                               makeplural(body_part(HAND)));
-                    losehp(d(scursed ? 1 : 2, 3), "scroll of ice", KILLED_BY_AN);
+                    resist_reduce(dam, COLD_RES);
+                    losehp(dam, "scroll of ice", KILLED_BY_AN);
+                }
+                if (scursed && how_resistant(COLD_RES) > 50) {
+                    pline("Mist flash-freezes around you as your heat is sucked away!");
+                    decr_resistance(&HCold_resistance, rnd(50) + 50);
+                    You_feel("alarmingly cooler.");
                 }
             }
             
@@ -2771,12 +2766,22 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 dist = distmin(u.ux, u.uy, mx, my);
                     
                 if (cansee(mx, my) && dist <= (sblessed ? 5 : 3)) {
-                    if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
-                        /*sho_shieldeff = TRUE;*/
-                        continue;
+                    if (resists_cold(mtmp)) {
+                        if (canseemon(mtmp)) {
+                            shieldeff(mtmp->mx,mtmp->my);
+                            if (!rn2(3)) {
+                                if (mtmp->mintrinsics & MR_COLD) {
+                                    mtmp->mintrinsics &= ~MR_COLD;
+                                    pline("%s momentarily %s.", Monnam(mtmp),
+                                          makeplural(locomotion(mtmp->data, "stumble")));
+                                }
+                            } else
+                                pline("%s is uninjured.", Monnam(mtmp));
+                        }
                     }
-                    dam = sblessed ? d(3, 6) : d(scursed ? 1 : 2, 3);
-                    pline("%s is covered in frost!", Monnam(mtmp));
+                    if (defended(mtmp, AD_COLD))
+                        continue;
+                    pline("A freezing cloud surrounds the %s!", mon_nam(mtmp));
                     
                     if (resists_fire(mtmp))
                         dam += d(3, 3);

@@ -1795,11 +1795,11 @@ coord *tm;
                 break;
             case STATUE_TRAP:
             case POLY_TRAP:
-            case ICE_TRAP:
                 if (lvl < 8)
                     kind = NO_TRAP;
                 break;
             case MAGIC_BEAM_TRAP:
+            case ICE_TRAP:
                 if (lvl < 16)
                     kind = NO_TRAP;
                 if (tm && (is_puddle(tm->x, tm->y)

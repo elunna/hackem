@@ -2104,16 +2104,14 @@ struct obj *box;	/* at the moment only for floor traps */
     }
 
     pline("A freezing cloud shoots up from the %s!", surface(u.ux, u.uy));
-    if (how_resistant(COLD_RES) > 90) {
+    if (how_resistant(COLD_RES) > 50) {
         shieldeff(u.ux, u.uy);
         num = rn2(3);
         if (!rn2(3)) {
             pline("Mist flash-freezes around you as your heat is sucked away!");
-            if (HCold_resistance && !Fixed_abil) {
-                decr_resistance(&HCold_resistance, rnd(25) + 25);
-                You_feel("alarmingly cooler.");
-                lost_resistance = TRUE;
-            }
+            decr_resistance(&HCold_resistance, rnd(25) + 25);
+            You_feel("alarmingly cooler.");
+            lost_resistance = TRUE;
         }
     }
 
