@@ -4216,8 +4216,7 @@ boolean wouldhavehit;
                 pline("%s %s %s your attack.",
                       s_suffix(Monnam(mdef)),
                       (is_dragon(mdef->data) ? "scaly hide"
-                                             : (mdef->data == &mons[PM_GIANT_TURTLE]
-                                                || is_tortle(mdef->data))
+                                             : is_tortle(mdef->data)
                                                  ? "protective shell"
                                                  : "thick hide"),
                       (rn2(2) ? "blocks" : "deflects"));

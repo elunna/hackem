@@ -239,8 +239,7 @@ struct attack *mattk;
                 && rn2(2)) {
                 Your("%s %s %s attack.",
                      (is_dragon(youmonst.data) ? "scaly hide"
-                                               : (youmonst.data == &mons[PM_GIANT_TURTLE]
-                                                  || Race_if(PM_TORTLE))
+                                               : is_tortle(youmonst.data)
                                                    ? "protective shell"
                                                    : "thick hide"),
                       (rn2(2) ? "blocks" : "deflects"),

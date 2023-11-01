@@ -7323,7 +7323,7 @@ struct permonst _mons2[] = {
         M1_ANIMAL | M1_THICK_HIDE | M1_NOHANDS | M1_HERBIVORE
             | M1_AMPHIBIOUS | M1_SWIM,
         M2_HOSTILE | M2_STRONG, 0,
-        M4_VULNERABLE_COLD, 0, 8, CLR_BRIGHT_GREEN),
+        M4_VULNERABLE_COLD, MH_TORTLE, 8, CLR_BRIGHT_GREEN),
     MON("gila monster", S_LIZARD,                               /* Slash'EM */
         LVL(6, 6, 6, 10, 0), (G_NOHELL | G_GENO | 1),
         A(ATTK(AT_BITE, AD_DRST, 2, 6), 
@@ -7469,7 +7469,7 @@ struct permonst _mons2[] = {
         SIZ(WT_HUMAN, 400, MS_HUMANOID, MZ_HUMAN), 0, 0,
         M1_HUMANOID | M1_OMNIVORE,
         M2_NOPOLY | M2_STRONG | M2_COLLECT | M2_HOSTILE,
-        M3_INFRAVISIBLE, 0,  MH_HUMAN, 12, HI_DOMESTIC),
+        M3_INFRAVISIBLE, 0, MH_HUMAN, 12, HI_DOMESTIC),
     MON("caveman", S_HUMAN,
         LVL(10, 12, 10, 0, 1), (1),
         A(ATTK(AT_WEAP, AD_PHYS, 2, 4), 

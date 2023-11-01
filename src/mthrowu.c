@@ -92,8 +92,7 @@ const char *name; /* if null, then format `*objp' */
                  || (!Upolyd && Race_if(PM_TORTLE))) && rn2(2)) {
                 Your("%s %s %s.",
                      (is_dragon(youmonst.data) ? "scaly hide"
-                                               : (youmonst.data == &mons[PM_GIANT_TURTLE]
-                                                  || Race_if(PM_TORTLE))
+                                               : is_tortle(youmonst.data)
                                                    ? "protective shell"
                                                    : "thick hide"),
                       (rn2(2) ? "blocks" : "deflects"), onm);
