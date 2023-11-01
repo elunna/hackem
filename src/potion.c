@@ -3954,6 +3954,7 @@ long timeout;
         if (potion->where == OBJ_INVENT) {
             pline("%s %s.", Yobjnam2(potion, "turn"),
                   hcolor(OBJ_DESCR(objects[new_otyp])));
+            update_inventory();
         }
         else if (potion->where == OBJ_FLOOR) {
             You_see("%s turn %s.", an(xname(potion)),
