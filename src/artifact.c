@@ -4275,7 +4275,7 @@ struct obj *otmp;
     else if (artilist[(int) otmp->oartifact].cost)
         return artilist[(int) otmp->oartifact].cost;
     else
-        return (100L * (long) objects[otmp->otyp].oc_cost);
+        return (20L * (long) objects[otmp->otyp].oc_cost);
 }
 
 STATIC_OVL uchar
