@@ -4880,8 +4880,11 @@ int dx, dy;
                 break;
             } else { /* we catch it */
                 tmp_at(DISP_END, 0);
-                if (m_shot.i == m_shot.n)
+                if (m_shot.i == m_shot.n) {
                     You("skillfully catch the %s.", obj->otyp == BOOMERANG ? "boomerang" : "chakram");
+                    retouch_object(&obj, !uarmg, FALSE);
+                }
+                
                 return &youmonst;
             }
         }

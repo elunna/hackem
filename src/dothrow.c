@@ -1560,6 +1560,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
         if (mon == &youmonst) { /* the thing was caught */
             exercise(A_DEX, TRUE);
             obj = return_throw_to_inv(obj, wep_mask, twoweap, oldslot);
+            retouch_object(&obj, !uarmg, FALSE);
             clear_thrownobj = TRUE;
             goto throwit_return;
         }
