@@ -29,7 +29,7 @@ REGION: (08,07,74,11), lit, "black market", filled
 REGION: (01,01,05,03), lit, "ordinary", unfilled
 REGION: (01,03,05,07), lit, "ordinary", unfilled
 REGION: (01,08,05,11), lit, "ordinary", unfilled
-#REGION: (01,12,05,16), lit, "ordinary", unfilled
+REGION: (08,01,33,05), lit, "ordinary", unfilled
 
 BRANCH: (03,01,03,01), (0,0,0,0)
 
