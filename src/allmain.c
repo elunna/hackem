@@ -1418,7 +1418,6 @@ wishluck()
 STATIC_OVL void
 pickup_spirits()
 {
-    char *p;
     /* Autopickup spirits for Necromancer */
     if (Role_if(PM_NECROMANCER)) {
         struct obj *obj;
@@ -1436,8 +1435,7 @@ pickup_spirits()
                     if (obj->otyp == SPIRIT) {
                         /* Don't allow auto-pickup of spirits in shops unless
                          * the shop is abandoned. */
-                        if (inside_shop(x, y) && *(p = in_rooms(x, y, SHOPBASE))
-                            && tended_shop(&rooms[*p - ROOMOFFSET]))
+                        if (costly_spot(x, y))
                             continue;
 
                         pickup_object(obj, obj->quan, TRUE);
