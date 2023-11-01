@@ -4414,6 +4414,10 @@ shk_charge(const char *slang, struct monst *shkp, boolean premier)
             return 0;
         }
     }
+    if (obj->oclass == WEAPON_CLASS || obj->oclass == ARMOR_CLASS) {
+        verbalize("I can't charge that!");
+        return 0;
+    }
         
     /*
     ** Wand shops can offer special service!
