@@ -632,6 +632,8 @@
     || (ptr) == &mons[PM_SNOW_GOLEM] \
     || (ptr) == &mons[PM_BABY_WHITE_DRAGON] \
     || (ptr) == &mons[PM_WHITE_DRAGON] \
+    || (ptr) == &mons[PM_WINTER_WOLF_CUB] \
+    || (ptr) == &mons[PM_WINTER_WOLF] \
     || (ptr) == &mons[PM_HIGH_ICE_MAGE])
 
 #define touch_petrifies(ptr) ( \

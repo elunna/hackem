@@ -1427,9 +1427,12 @@ unsigned trflags;
         seetrap(trap);
         dofiretrap((struct obj *) 0);
         break;
+        
     case ICE_TRAP:
         seetrap(trap);
         doicetrap((struct obj*)0);
+        if (!rn2(7))
+            deltrap(trap);
         break;
         
     case PIT:
@@ -2104,6 +2107,11 @@ struct obj *box;	/* at the moment only for floor traps */
     }
 
     pline("A freezing cloud shoots up from the %s!", surface(u.ux, u.uy));
+    if (likes_ice(youmonst.data)) {
+        You_feel("quite refreshed!");
+        healup(num, 0, FALSE, FALSE);
+        return;
+    }
     if (how_resistant(COLD_RES) > 50) {
         shieldeff(u.ux, u.uy);
         num = rn2(3);
@@ -2876,6 +2884,17 @@ register struct monst *mtmp;
                 You_see("a freezing cloud shoot from the %s!",
                     surface(mtmp->mx, mtmp->my));
             
+            if (likes_ice(mtmp->data)) {
+                mtmp->mhp += d(4, 8);
+                if (mtmp->mhp > mtmp->mhpmax)
+                    mtmp->mhp = mtmp->mhpmax;
+                if (canseemon(mtmp)) {
+                    pline("%s looks a lot better.", Monnam(mtmp));
+                }
+                if (!rn2(7))
+                    deltrap(trap);
+                break;
+            }
             if (resists_cold(mtmp)) {
                 if (in_sight) {
                     shieldeff(mtmp->mx,mtmp->my);
