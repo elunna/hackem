@@ -2755,11 +2755,10 @@ register struct obj *o1, *o2;
     if (o1->oclass == POTION_CLASS
         && (o2typ == POT_GAIN_LEVEL 
             || o2typ == POT_GAIN_ENERGY
-            || o2typ == POT_HEALING 
-            || o2typ == POT_EXTRA_HEALING
-            || o2typ == POT_FULL_HEALING 
-            || o2typ == POT_ENLIGHTENMENT
-            || o2typ == POT_FRUIT_JUICE)) {
+            || o2typ == POT_SPEED
+            || o2typ == POT_SICKNESS
+            || o2typ == POT_BLOOD
+            || o2typ == POT_ENLIGHTENMENT)) {
         /* swap o1 and o2 */
         o1typ = o2->otyp;
         o2typ = o1->otyp;
@@ -2790,58 +2789,49 @@ register struct obj *o1, *o2;
 /* potion alchemy recipes */
 const struct PotionRecipe potionrecipes[] = {
     /* ranged weapons */
-    { POT_EXTRA_HEALING,    POT_HEALING, POT_SPEED,         1 },
-    { POT_EXTRA_HEALING,    POT_HEALING, POT_GAIN_LEVEL,    1 },
-    { POT_EXTRA_HEALING,    POT_HEALING, POT_GAIN_ENERGY,   1 },
+    { POT_EXTRA_HEALING,    POT_SPEED, POT_HEALING,          1 },
+    { POT_EXTRA_HEALING,    POT_GAIN_LEVEL, POT_HEALING,     1 },
+    { POT_EXTRA_HEALING,    POT_GAIN_ENERGY, POT_HEALING,    1 },
+
+    { POT_FULL_HEALING,     POT_GAIN_LEVEL, POT_EXTRA_HEALING, 1 },
+    { POT_FULL_HEALING,     POT_GAIN_ENERGY, POT_EXTRA_HEALING, 1 },
+
+    { POT_GAIN_ABILITY,     POT_GAIN_LEVEL, POT_FULL_HEALING,1 },
+    { POT_GAIN_ABILITY,     POT_GAIN_ENERGY, POT_FULL_HEALING,  1 },
+
+    { POT_GAIN_LEVEL,       POT_ENLIGHTENMENT, POT_LEVITATION, 3 },
     
-    { POT_FULL_HEALING,     POT_EXTRA_HEALING, POT_GAIN_LEVEL, 1 },
-    { POT_FULL_HEALING,     POT_EXTRA_HEALING, POT_GAIN_ENERGY,1 },
+    { POT_ENLIGHTENMENT,    POT_GAIN_LEVEL, POT_CONFUSION,   3 },
+    { POT_ENLIGHTENMENT,    POT_GAIN_ENERGY, POT_CONFUSION,  3 },
+    
+    { POT_SEE_INVISIBLE,    POT_GAIN_LEVEL, POT_FRUIT_JUICE, 1 },
+    { POT_SEE_INVISIBLE,    POT_GAIN_ENERGY, POT_FRUIT_JUICE,   1 },
+
+    { POT_HALLUCINATION,    POT_GAIN_LEVEL, POT_BOOZE,       1 },
+    { POT_HALLUCINATION,    POT_GAIN_ENERGY, POT_BOOZE,      1 },
+    
+    { POT_SICKNESS,         POT_SICKNESS, POT_FRUIT_JUICE,   1 },
    
-    { POT_GAIN_ABILITY,     POT_FULL_HEALING, POT_GAIN_LEVEL,  1 },
-    { POT_GAIN_ABILITY,     POT_FULL_HEALING, POT_GAIN_ENERGY, 1 },
+    { POT_CONFUSION,        POT_ENLIGHTENMENT, POT_BOOZE,       1 },
+
+    { POT_BOOZE,            POT_ENLIGHTENMENT, POT_FRUIT_JUICE, 1 },
+    { POT_BOOZE,            POT_SPEED, POT_FRUIT_JUICE,         1 },
+    { POT_BOOZE,            POT_GAIN_LEVEL, POT_CONFUSION,   1 },
+    { POT_BOOZE,            POT_GAIN_ENERGY, POT_CONFUSION,  1 },
+
+    { POT_BLOOD,            POT_BLOOD, POT_FRUIT_JUICE,      1 },
+    { POT_VAMPIRE_BLOOD,    POT_BLOOD, POT_VAMPIRE_BLOOD,    1 },
+    { POT_VAMPIRE_BLOOD,    POT_VAMPIRE_BLOOD, POT_FRUIT_JUICE, 1 },
+    { POT_VAMPIRE_BLOOD,    POT_FRUIT_JUICE, POT_VAMPIRE_BLOOD, 1 },
     
     { POT_FRUIT_JUICE,      UNICORN_HORN, POT_SICKNESS,      1 },
+    { POT_FRUIT_JUICE,      AMETHYST,     POT_BOOZE,         1 },
+
     { POT_WATER,            UNICORN_HORN, POT_HALLUCINATION, 1 },
     { POT_WATER,            UNICORN_HORN, POT_BLINDNESS,     1 },
     { POT_WATER,            UNICORN_HORN, POT_CONFUSION,     1 },
     { POT_WATER,            UNICORN_HORN, POT_BLOOD,         1 },
     { POT_WATER,            UNICORN_HORN, POT_VAMPIRE_BLOOD, 1 },
-    
-    { POT_FRUIT_JUICE,      AMETHYST,     POT_BOOZE,         1 },
-    
-    { POT_ENLIGHTENMENT,    POT_GAIN_LEVEL, POT_CONFUSION,   3 },
-        /* If not enlightenment, than booze */
-    { POT_BOOZE,            POT_GAIN_LEVEL, POT_CONFUSION,   1 },
-    { POT_EXTRA_HEALING,    POT_GAIN_LEVEL, POT_HEALING,     1 },
-    { POT_FULL_HEALING,     POT_GAIN_LEVEL, POT_EXTRA_HEALING, 1 },
-    { POT_GAIN_ABILITY,     POT_GAIN_LEVEL, POT_FULL_HEALING,1 },
-    { POT_SEE_INVISIBLE,    POT_GAIN_LEVEL, POT_FRUIT_JUICE, 1 },
-    { POT_HALLUCINATION,    POT_GAIN_LEVEL, POT_BOOZE,       1 },
-
-    { POT_ENLIGHTENMENT,    POT_GAIN_ENERGY, POT_CONFUSION,  3 },
-        /* If not enlightenment, than booze */
-    { POT_BOOZE,            POT_GAIN_ENERGY, POT_CONFUSION,  1 },
-    { POT_EXTRA_HEALING,    POT_GAIN_ENERGY, POT_HEALING,    1 },
-    { POT_FULL_HEALING,     POT_GAIN_ENERGY, POT_EXTRA_HEALING, 1 },
-    { POT_GAIN_ABILITY,     POT_GAIN_ENERGY, POT_FULL_HEALING,  1 },
-    { POT_SEE_INVISIBLE,    POT_GAIN_ENERGY, POT_FRUIT_JUICE,   1 },
-    { POT_HALLUCINATION,    POT_GAIN_ENERGY, POT_BOOZE,      1 },
-    
-    { POT_SICKNESS,         POT_FRUIT_JUICE, POT_SICKNESS,   1 },
-    { POT_BLOOD,            POT_FRUIT_JUICE, POT_BLOOD,      1 },
-    { POT_VAMPIRE_BLOOD,    POT_FRUIT_JUICE, POT_VAMPIRE_BLOOD, 1 },
-    { POT_BOOZE,            POT_FRUIT_JUICE, POT_ENLIGHTENMENT, 1 },
-    { POT_BOOZE,            POT_FRUIT_JUICE, POT_SPEED,      1 },
-    { POT_SEE_INVISIBLE,    POT_FRUIT_JUICE, POT_GAIN_LEVEL, 1 },
-    { POT_SEE_INVISIBLE,    POT_FRUIT_JUICE, POT_GAIN_ENERGY,1 },
-
-    { POT_VAMPIRE_BLOOD,    POT_BLOOD, POT_VAMPIRE_BLOOD, 1 },
-    
-    { POT_GAIN_LEVEL,       POT_ENLIGHTENMENT, POT_LEVITATION, 3 },
-    { POT_BOOZE,            POT_ENLIGHTENMENT, POT_FRUIT_JUICE, 1 },
-    { POT_CONFUSION,        POT_ENLIGHTENMENT, POT_BOOZE,       1 },
-    
-    { ELVEN_DAGGER,         POT_GAIN_ENERGY, KNIFE,         1 },
     { 0, 0, 0, 0 }
 };
 
