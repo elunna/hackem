@@ -668,7 +668,8 @@ int dieroll;
         long oldweaphit = u.uconduct.weaphit;
 
         /* KMH, conduct */
-        if (weapon && (weapon->oclass == WEAPON_CLASS || is_weptool(weapon)))
+        if (weapon && (weapon->oclass == WEAPON_CLASS || is_weptool(weapon)) 
+              && !is_launcher(weapon))
             u.uconduct.weaphit++;
 
         /* we hit the monster; be careful: it might die or
