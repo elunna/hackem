@@ -403,7 +403,7 @@ rndcurse()
 {
     int nobj = 0;
     int cnt, onum;
-    struct obj *otmp;
+    struct obj *otmp, *ohorn;
     static const char mal_aura[] = "feel a malignant aura surround %s.";
 
     if (wielding_artifact(ART_MAGICBANE) && rn2(20)) {
@@ -423,6 +423,14 @@ rndcurse()
             curse(otmp);
         update_inventory();
         return;
+    }
+    /* Nighthorn will happily absorb curses */
+    if ((ohorn = carrying_arti(ART_NIGHTHORN))) {
+        if (!ohorn->cursed && rn2(20)) {
+            You(mal_aura, "the Nighthorn");
+            curse(ohorn);
+            return;
+        }
     }
 
     if (Antimagic) {
@@ -492,7 +500,7 @@ register struct monst *mtmp;
 
   	boolean resists = resist(mtmp, 0, 0, FALSE),
                 vis = couldsee(mtmp->mx, mtmp->my);
-
+    
   	if (vis && MON_WEP(mtmp) &&
   	    (MON_WEP(mtmp)->oartifact == ART_MAGICBANE) && rn2(20)) {
   	    You(mal_aura, "the magic-absorbing staff");
@@ -506,7 +514,8 @@ register struct monst *mtmp;
 
   	for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj) {
   	    /* gold isn't subject to being cursed or blessed */
-  	    if (otmp->oclass == COIN_CLASS) continue;
+  	    if (otmp->oclass == COIN_CLASS) 
+              continue;
   	    nobj++;
   	}
   	if (nobj) {
