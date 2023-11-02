@@ -1880,7 +1880,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                           hittee, !spec_dbon_applies ? '.' : '!');
             } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
                        && otmp->oprops & ITEM_FIRE) {
-                pline_The("%s %s %s%c", distant_name(otmp, xname),
+                pline_The("%s %s %s%c", makesingular(distant_name(otmp, xname)),
                           !spec_dbon_applies         ? "hits"
                           : can_vaporize(mdef->data) ? "vaporizes part of"
                           : mon_underwater(mdef)     ? "hits" : "burns",
@@ -1958,7 +1958,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
                        && otmp->oprops & ITEM_FROST) {
                 pline_The("%s %s %s%c",
-                          distant_name(otmp, xname),
+                          makesingular(distant_name(otmp, xname)),
                           !spec_dbon_applies
                               ? "hits"
                               : can_freeze(mdef->data)
@@ -1994,7 +1994,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
                        && otmp->oprops & ITEM_SHOCK) {
                 pline_The("%s %s %s%c",
-                          distant_name(otmp, xname),
+                          makesingular(distant_name(otmp, xname)),
                           !spec_dbon_applies
                               ? "hits"
                               : rn2(2) ? "jolts" : "shocks",
@@ -2043,16 +2043,16 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                         if (!youdefend)
                             ;
                         else
-                            pline_The("%s hits %s.",
-                                      distant_name(otmp, xname), hittee);
+                            pline_The("%s hits %s.", makesingular(distant_name(otmp, xname)), 
+                                      hittee);
                     } else {
                         pline_The("%s blasts %s%c",
-                                  distant_name(otmp, xname), hittee, 
+                                  makesingular(distant_name(otmp, xname)), hittee, 
                                   !spec_dbon_applies ? '.' : '!');
                     }
                 } else {
                     pline_The("%s %s %s%c",
-                              distant_name(otmp, xname),
+                              makesingular(distant_name(otmp, xname)),
                               !spec_dbon_applies ? "hits" : "blasts",
                               hittee, !spec_dbon_applies ? '.' : '!');
                 }
@@ -2239,7 +2239,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
                        && otmp->oprops & ITEM_SIZZLE) {
                 pline_The("acidic %s %s %s%c",
-                          distant_name(otmp, xname),
+                          makesingular(distant_name(otmp, xname)),
                           !spec_dbon_applies        ? "hits"
                           : can_corrode(mdef->data) ? "eats away part of"
                           : mon_underwater(mdef)    ? "hits"
@@ -2262,7 +2262,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         if (realizes_damage) {
             if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
             && otmp->oprops & ITEM_VENOM) {
-                pline_The("%s %s %s%c", distant_name(otmp, xname),
+                pline_The("%s %s %s%c", makesingular(distant_name(otmp, xname)),
                           (resists_poison(mdef) || defended(mdef, AD_DRST))
                               ? "hits"
                           : rn2(2) ? "infects"
