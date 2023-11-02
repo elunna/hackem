@@ -2256,7 +2256,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             if (sblessed)
                 specified_id();
         }
-        You_feel("more knowledgeable.");
         if (!already_known)
             (void) learnscrolltyp(SCR_KNOWLEDGE);
         break;
