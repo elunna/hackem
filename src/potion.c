@@ -1276,12 +1276,14 @@ forget_routine:
         }
         see_monsters();
         break;
-    case POT_INVULNERABILITY:
-        incr_itimeout(&Invulnerable, 
-                      rn1(4, (otmp->odiluted ? 4 : 8) + 4 * bcsign(otmp)));
+    case POT_INVULNERABILITY: {
+        int timeout = rn1(4, (otmp->odiluted ? 4 : 8) + 4 * bcsign(otmp));
+        incr_itimeout(&Invulnerable, timeout);
+        make_fearless(itimeout_incr(HFearless, timeout), FALSE);
         You_feel(Hallucination ?
                  "like a super-duper hero!" : "invulnerable!");
         break;
+    }
     case POT_GAIN_ABILITY:
         if (otmp->cursed) {
             pline("Ulch!  That potion tasted foul!");
