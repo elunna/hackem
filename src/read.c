@@ -4129,9 +4129,6 @@ int class_type;
 
     if (item->otyp == GOLD_PIECE) {
         item->quan = rnd(1000);
-    } else if (item->otyp == MAGIC_LAMP) {
-        item->otyp = OIL_LAMP;
-        item->age = 1500L;
     } else if (item->otyp == MAGIC_MARKER) {
         item->recharged = 1;
     }
