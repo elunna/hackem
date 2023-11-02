@@ -1134,7 +1134,7 @@ gcrownu()
     if (!Is_astralevel(&u.uz)) {
         pline("The altar cracks in two and is destroyed!");
         levl[u.ux][u.uy].typ = ROOM;
-        livelog_write_string(LL_ACHIEVE, "cracked an altar in two!");
+        livelog_write_string(LL_ACHIEVE, "cracked an altar in two");
     }
     
     /* lastly, confer an extra skill slot/credit beyond the
@@ -2372,19 +2372,21 @@ dosacrifice()
                         makeknown(otmp->otyp);
                         discover_artifact(otmp->oartifact);
                     }
-                    if (!Role_if(PM_INFIDEL) && u.ugifts > 2
-                        && (rnd(6 + u.ugifts) <= u.ugifts)
-                        && !Is_astralevel(&u.uz)) {
-                        pline("The altar cracks in two and is destroyed!");
-                        levl[u.ux][u.uy].typ = ROOM;
-                        livelog_write_string(LL_ACHIEVE, "cracked an altar in two!");
-                    }
                     livelog_printf(LL_DIVINEGIFT | LL_ARTIFACT,
                                    "had %s bestowed upon %s by %s",
                                    otmp->oartifact
-                                        ? artiname(otmp->oartifact)
-                                        : an(xname(otmp)),
+                                   ? artiname(otmp->oartifact)
+                                   : an(xname(otmp)),
                                    uhim(), align_gname(u.ualign.type));
+                    
+                    if (!Role_if(PM_INFIDEL) && u.ugifts > 2
+                        && (rnd(100) < (30 + u.ugifts * 5))
+                        && !Is_astralevel(&u.uz)) {
+                        pline("The altar cracks in two and is destroyed!");
+                        levl[u.ux][u.uy].typ = ROOM;
+                        livelog_write_string(LL_ACHIEVE, "cracked an altar in two");
+                    }
+
                     return 1;
                 }
             }
