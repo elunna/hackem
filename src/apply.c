@@ -1511,7 +1511,7 @@ struct obj *obj;
         begin_burn(obj, FALSE);
         return TRUE;
     }
-    if (is_bomb(obj)) {
+    if (is_bomb(obj) && rn2(3)) {
         handle_bomb(obj, carried(obj));
         return TRUE;
     }
