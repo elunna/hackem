@@ -4994,7 +4994,6 @@ int
 doapply()
 {
     struct obj *obj;
-    struct obj *otmp = NULL;
     register int res = 1;
     char class_list[MAXOCLASSES + 2];
 
@@ -5208,21 +5207,7 @@ doapply()
         apply_medkit(obj);
         break;
     case KEG:
-        if (obj->spe > 0) {
-            consume_obj_charge(obj, TRUE);
-            /*check_unpaid(obj);*/
-            otmp = mksobj(POT_BOOZE, FALSE, FALSE);
-            otmp->blessed = obj->blessed;
-            otmp->cursed = obj->cursed;
-            /* u.uconduct.alcohol++; */
-            You("chug some booze from %s.",
-                yname(obj));
-            (void) peffects(otmp);
-            obfree(otmp, (struct obj *) 0);
-        } else if (Hallucination) 
-            pline("Where has the rum gone?");
-        else
-            pline("It's empty.");
+        use_keg(obj);
         break;
     case HORN_OF_PLENTY: /* not a musical instrument */
         (void) hornoplenty(obj, FALSE, (struct obj *) 0);
@@ -5473,6 +5458,36 @@ struct obj *obj;
                 add_damage(u.ux, u.uy, 0L);             
             }
         }
+    }
+}
+
+
+void
+use_keg(obj)
+struct obj *obj;
+{
+    struct obj *otmp = NULL;
+    if (obj->spe > 0) {
+        consume_obj_charge(obj, TRUE);
+        /*check_unpaid(obj);*/
+        
+        otmp = mksobj(POT_BOOZE, FALSE, FALSE);
+        otmp->blessed = obj->blessed;
+        otmp->cursed = obj->cursed;
+        /* u.uconduct.alcohol++; */
+        
+        You("chug some booze from %s.",
+            yname(obj));
+        (void) peffects(otmp);
+        obfree(otmp, (struct obj *) 0);
+    } else if (Hallucination)
+        pline("Where has the rum gone?");
+    else {
+        if (rn2(2))
+            pline("It's empty.");
+        else
+            pline("Unfortunately, your keg is dry as a desert.");
+
     }
 }
 /*apply.c*/

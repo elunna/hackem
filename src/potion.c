@@ -774,39 +774,9 @@ dodrink()
         remove_worn_item(otmp, FALSE);
     }
     otmp->in_use = TRUE; /* you've opened the stopper */
-
     
     if (otmp->otyp == KEG) {
-        
-        if (yn("Really drink the entire keg at once?") == 'n') {
-            pline("Perhaps not.");
-            return 0;
-        }
-        if (otmp->spe) {
-            int quan = 0;
-            while (otmp->spe) {
-                /* u.uconduct.alcohol++; */
-                consume_obj_charge(otmp, TRUE);
-                check_unpaid(otmp);
-                if (!otmp->cursed)
-                    healup(1, 0, FALSE, FALSE);
-                if (!otmp->blessed)
-                    make_confused(itimeout_incr(HConfusion, d(3, 8)), FALSE);
-                u.uhunger += (otmp->odiluted ? 40 : 130) + 10 * (2 + bcsign(otmp));
-                make_fearless(itimeout_incr(HFearless, d(8, otmp->blessed ? 6 : 3)), FALSE);
-                quan++;
-            }
-            You("down the entire keg! You are incredibly drunk!");
-            if (quan > 5
-                && !maybe_polyd(is_dwarf(youmonst.data), Race_if(PM_DWARF))
-                && !maybe_polyd(is_giant(youmonst.data), Race_if(PM_GIANT))) {
-                u.uhp = 0;
-                losehp(1, "drinking too much booze", KILLED_BY);
-            }
-        } else {
-            pline("Unfortunately, your keg is dry as a desert.");
-            return 0;
-        }
+        use_keg(otmp);
         return 1;
     } else if (otmp->oclass != POTION_CLASS) {
         pline(silly_thing_to, "drink");
