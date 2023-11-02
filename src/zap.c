@@ -777,6 +777,8 @@ struct monst *mtmp;
             } else if (otmp->otyp == TIN && !otmp->known) {
                 otmp->known = 1;
             }
+            if (otmp->oprops)
+                otmp->oprops_known = otmp->oprops;
         }
         (void) display_minventory(mtmp, MINV_ALL | MINV_NOLET | PICK_NONE,
                                   (char *) 0);
@@ -3350,6 +3352,8 @@ boolean ordinary;
                     otmp->cknown = 1;
             } else if (otmp->otyp == TIN)
                 otmp->known = 1;
+            if (otmp->oprops)
+                otmp->oprops_known = otmp->oprops;
         }
         update_inventory();
         learn_it = TRUE;
