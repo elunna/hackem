@@ -751,6 +751,7 @@ struct obj *otmp;
 boolean calc_costly;
 {
     struct autopickup_exception *ape;
+    struct trap *t;
     static boolean costly = FALSE;
     const char *otypes = flags.pickup_types;
     boolean pickit;
@@ -763,7 +764,13 @@ boolean calc_costly;
     /* first check: reject if an unpaid item in a shop */
     if (costly && !otmp->no_charge)
         return FALSE;
-
+    
+    /* Don't autopickup statues on statue traps */
+    if (otmp->otyp == STATUE 
+        && (t = t_at(bhitpos.x, bhitpos.y)) && t->ttyp == STATUE_TRAP)
+        return FALSE;
+        
+    
     /* check for pickup_types */
     pickit = (!*otypes || index(otypes, otmp->oclass));
 
