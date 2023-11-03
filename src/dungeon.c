@@ -3027,7 +3027,8 @@ boolean printdun;
             Sprintf(buf, "%s: levels %d to %d",
                     dungeons[dnum].dname, depthstart,
                     depthstart + dungeons[dnum].dunlev_ureached - 1);
-        putstr(win, !final ? ATR_INVERSE : ATR_SUBHEAD, buf);
+        /*putstr(win, !final ? ATR_INVERSE : ATR_SUBHEAD, buf);*/
+        putstr(win, ATR_SUBHEAD, buf);
     }
 
     /* calculate level number */
@@ -3048,12 +3049,16 @@ boolean printdun;
     /* [perhaps print custom annotation on its own line when it's long] */
     if (mptr->custom)
         Sprintf(eos(buf), " \"%s\"", mptr->custom);
-    if (on_level(&u.uz, &mptr->lev))
-        Sprintf(eos(buf), " <- You %s here.",
-                (!final || (final == 1 && how == ASCENDED)) ? "are"
-                  : (final == 1 && how == ESCAPED) ? "left from"
-                    : "were");
-    putstr(win, !final ? ATR_BOLD : ATR_PREFORM, buf);
+    if (on_level(&u.uz, &mptr->lev)) {
+        Sprintf(eos(buf), " <- YOU %s HERE.",
+                (!final || (final == 1 && how == ASCENDED))
+                ? "ARE"
+                : (final == 1 && how == ESCAPED) ? "LEFT FROM"
+                                                 : "WERE");
+        putstr(win, !final ? ATR_INVERSE : ATR_PREFORM, buf);
+    }
+    else 
+        putstr(win, !final ? ATR_BOLD : ATR_PREFORM, buf);
 
     if (mptr->flags.forgot)
         return;
