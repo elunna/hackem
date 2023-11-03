@@ -2324,12 +2324,12 @@ NEARDATA struct permonst mons[] = {
             | M1_CARNIVORE, M2_HOSTILE, 
         0, 0, 0, 10, CLR_CYAN),
     MON("phase spider", S_SPIDER,                               /* Slash'EM */
-        LVL(8, 12, 2, 0, -4), (G_GENO | 1),
-        A(ATTK(AT_BITE, AD_DRST, 3, 4),
+        LVL(8, 12, -2, 0, -4), (G_GENO | 1),
+        A(ATTK(AT_BITE, AD_DRST, 3, 8),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(100, 100, MS_SILENT, MZ_SMALL), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_TPORT
-            | M1_CARNIVORE | M3_SKITTISH,
+            | M1_CARNIVORE | M1_WALLWALK,
         M2_HOSTILE | M2_STRONG,
         0, 0, MH_SPIDER, 10, CLR_BLUE),
     MON("monstrous spider", S_SPIDER,                         /* SpliceHack */
