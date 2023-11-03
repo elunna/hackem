@@ -7676,17 +7676,17 @@ struct permonst _mons2[] = {
  * KMH -- Monsters of the aligned key quests
  */
     MON("Nightmare", S_UNICORN, 
-        LVL(12, 24, -2, 70, 15), (G_UNIQ | G_NOGEN | G_NOCORPSE),
+        LVL(30, 24, -2, 70, 15), (G_UNIQ | G_NOGEN | G_NOCORPSE),
         A(ATTK(AT_BUTT, AD_PHYS, 3, 12), 
-          ATTK(AT_KICK, AD_PHYS, 3, 6),
+          ATTK(AT_KICK, AD_PHYS, 3, 12),
           ATTK(AT_SCRE, AD_FEAR, 2, 4),
           NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(1500, 300, MS_NEIGH, MZ_LARGE),
         MR_POISON | MR_FIRE | MR_COLD | MR_ELEC | MR_DRAIN,
         MR_POISON | MR_FIRE | MR_COLD | MR_ELEC,
         M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE,
-        M2_NOPOLY | M2_PNAME | M2_FEMALE | M2_HOSTILE | M2_NASTY | M2_STALK |
-            M2_WANDER | M2_STRONG,
+        M2_NOPOLY | M2_PNAME | M2_FEMALE | M2_HOSTILE 
+            | M2_NASTY | M2_STALK | M2_WANDER | M2_STRONG,
         M3_WAITFORU | M3_CLOSE | M3_WANTSALL, 0, 0, 20, CLR_RED),
     MON("Beholder", S_EYE, LVL(22, 9, -8, 70, 0),  
         (G_UNIQ | G_NOGEN | G_NOCORPSE),
