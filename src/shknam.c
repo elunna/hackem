@@ -1200,6 +1200,9 @@ struct monst *shk;
         /* 1 in 10 offer firearms training */
         if (!rn2(10) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
+        if (!rn2(7))
+            maybe_add_svc(shk, SHK_PROP);
+    }
     }
 
     /* Each shop type offers it's own identify service */
