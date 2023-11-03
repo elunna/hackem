@@ -1203,7 +1203,6 @@ struct monst *shk;
         if (!rn2(7))
             maybe_add_svc(shk, SHK_PROP);
     }
-    }
 
     /* Each shop type offers it's own identify service */
     if (shk_class_match(WEAPON_CLASS, shk) == SHK_MATCH) {
