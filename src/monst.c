@@ -2297,7 +2297,7 @@ NEARDATA struct permonst mons[] = {
         SIZ(100, 100, MS_BARK, MZ_SMALL), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS
             | M1_CARNIVORE, M2_HOSTILE,
-        0, 0, MH_SPIDER, 7, CLR_ORANGE),
+        0, 0, MH_SPIDER, 7, CLR_BROWN),
     MON("giant spider", S_SPIDER,
         LVL(5, 15, 4, 0, 0), (G_GENO | 1),
         A(ATTK(AT_BITE, AD_DRST, 2, 4), 
