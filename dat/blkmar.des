@@ -49,17 +49,19 @@ ENGRAVING: (03,10), engrave, "Sorry about the mess. Remember, ask if you need he
 # Add your favorite monsters here.  Make them peaceful and named,
 # otherwise they will not behave like assistants.
 # from The Hobbit (Tolkien)
-MONSTER: ('T', "rock troll"),  (20,07), "William", asleep, peaceful
-MONSTER: ('T', "rock troll"),  (25,07), "Thomas", asleep, peaceful
+[50%]: MONSTER: ('T', "rock troll"),  (20,07), "William", asleep, peaceful
+[50%]: MONSTER: ('T', "rock troll"),  (25,07), "Thomas", asleep, peaceful
+
 # from the Bible
-MONSTER: ('H', "frost giant"), (30,07), "Goliath", asleep, peaceful
+[10%]: MONSTER: ('H', "frost giant"), (30,07), "Goliath", asleep, peaceful
+
 # from Greek mythology & high-energy physics
-MONSTER: ('n', "wood nymph"),  (35,07), "Daphne",  asleep, peaceful
+[10%]: MONSTER: ('n', "wood nymph"),  (35,07), "Daphne",  asleep, peaceful
+
 # Add your favorite monsters here.  Make them peaceful and named,
 # otherwise they will not behave like assistants.
-MONSTER: ('&', "balrog"),  (40,07), "Njalnohaar",  asleep, peaceful
-MONSTER: ('&', "pit fiend"),  (45,07), "Hilvuuloth",  asleep, peaceful
-MONSTER: ('c', "cockatrice"),  (50,07), "Wilbur",  asleep, peaceful
-MONSTER: ('c', "cockatrice"),  (55,07), "Simon",  asleep, peaceful
-MONSTER: (':', "rhaumbusun"),  (60,07), "Izzy",  asleep, peaceful
-
+[10%]: MONSTER: ('&', "balrog"),  (40,07), "Njalnohaar",  asleep, peaceful
+[10%]: MONSTER: ('&', "pit fiend"),  (45,07), "Hilvuuloth",  asleep, peaceful
+[10%]: MONSTER: ('c', "cockatrice"),  (50,07), "Wilbur",  asleep, peaceful
+[10%]: MONSTER: ('c', "cockatrice"),  (55,07), "Simon",  asleep, peaceful
+[50%]: MONSTER: (':', "rhaumbusun"),  (60,07), "Izzy",  asleep, peaceful
