@@ -136,8 +136,8 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_STNG, AD_DRST, 3, 4),
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(20, 5, MS_ANT, MZ_TINY), MR_POISON, MR_POISON,
-        M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE, M2_HOSTILE,
-        0, M4_VULNERABLE_ACID, 0, 6, CLR_BLUE),
+        M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE, 
+        M2_HOSTILE | M2_FLANK, 0, M4_VULNERABLE_ACID, 0, 6, CLR_BLUE),
     MON("ichneumon larva", S_ANT,                             /* SpliceHack */
         LVL(3, 18, -1, 0, 0), (G_GENO),
         A(ATTK(AT_STNG, AD_DRDX, 2, 3), 
@@ -190,7 +190,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(20, 5, MS_ANT, MZ_TINY), MR_POISON, MR_POISON,
         M1_ANIMAL | M1_NOHANDS | M1_OVIPAROUS | M1_POIS | M1_CARNIVORE,
-        M2_HOSTILE, 0, 0, 0, 11, CLR_GRAY),
+        M2_HOSTILE | M2_FLANK, 0, 0, 0, 11, CLR_GRAY),
     MON("gibberslug", S_ANT,                             /* SpliceHack */
         LVL(5, 12, 10, 0, -2), (G_HELL | G_GENO | G_SGROUP | 1),
         A(ATTK(AT_STNG, AD_DRDX, 4, 3), 
