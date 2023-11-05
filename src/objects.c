@@ -362,7 +362,7 @@ WEAPON("triple-headed flail", None,                            /* EvilHack */
         /* +d4 small, +3d6 large */
 /* many-piece */
 WEAPON("spiked chain", None, /* Originally P|S */              /* SpliceHack */
-       1, 0, 0, 1,  3,  50,  80,  6,  4, 1, S,   P_FLAIL, IRON, HI_METAL),
+       1, 0, 0, 0,  3,  50,  80,  6,  4, 1, S,   P_FLAIL, IRON, HI_METAL),
 
 /* misc */
 WEAPON("bullwhip", None,
@@ -371,7 +371,7 @@ WEAPON("flaming lash", None,                                   /* SpliceHack */
        1, 0, 0, 0,  0, 180,   4, 12, 12, 0, 0,   P_WHIP, DRAGON_HIDE, CLR_RED),
 /* Good to-hit and small damage, but low large damage */
 WEAPON("fly swatter", None,                                /* Slash'EM */
-	1, 0, 0, 0,  2,  10,   3, 10,  2, 2, B,   P_WHIP, PLASTIC, CLR_GREEN),
+	   1, 0, 0, 0,  2,  10,   3, 10,  2, 2, B,   P_WHIP, PLASTIC, CLR_GREEN),
 
 
 /* LIGHTSABERS */
