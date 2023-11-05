@@ -3166,6 +3166,10 @@ doeat()
     if (!is_edible(otmp)) {
         You("cannot eat that!");
         return 0;
+    } else if (otmp->otyp == EGG && otmp->corpsenm == PM_PHOENIX){
+        pline("This egg starts cracking as you attempt to eat it!");
+        hatch_faster(otmp);
+        return 1;
     } else if ((otmp->owornmask & (W_ARMOR | W_TOOL | W_AMUL | W_SADDLE))
                != 0) {
         /* let them eat rings */
