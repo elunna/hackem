@@ -3171,7 +3171,7 @@ NEARDATA struct permonst mons[] = {
           NO_ATTK, NO_ATTK),
         SIZ(40, 20, MS_SQAWK, MZ_SMALL), MR_FIRE, MR_FIRE,
         M1_FLY | M1_ANIMAL | M1_NOHANDS | M1_HERBIVORE | M1_OVIPAROUS,
-        M2_WANDER | M2_STRONG | M2_NASTY, 
+        M2_WANDER | M2_STRONG | M2_NASTY | M2_NOPOLY, 
         M3_INFRAVISIBLE, 0, 0, 20, CLR_ORANGE),
     MON("byakhee", S_BAT,                                       /* Slash'EM */
         LVL(11, 20, 1, 25, -4), (G_GENO | 2 | G_SGROUP),

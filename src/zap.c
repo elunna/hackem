@@ -412,6 +412,14 @@ struct obj *otmp;
                 for (obj = mtmp->minvent; obj; obj = obj->nobj)
                     bypass_obj(obj);
 
+            /* Phoenixes resist polymorph by just dying and exploding */
+            if (mtmp->data == &mons[PM_PHOENIX]) {
+                shieldeff(mtmp->mx, mtmp->my);
+                mtmp->mhp = 0;
+                killed(mtmp);
+                break;
+            }
+            
             /* natural shapechangers aren't affected by system shock
                (unless protection from shapechangers is interfering
                with their metabolism...) */
@@ -1369,8 +1377,11 @@ register struct obj *obj;
 
     if (otyp == EGG) {
         /* sterilized */
-        kill_egg(obj);
-        obj->corpsenm = NON_PM;
+        if (obj->corpsenm != -1 && (rn2(100) < mons[obj->corpsenm].mr)) {
+            kill_egg(obj);
+            obj->corpsenm = NON_PM;
+        } else
+            pline("The egg resists!");
     }
     
     switch (otyp) {
@@ -1834,6 +1845,12 @@ int id;
 
     if (obj->otyp == BOULDER)
         sokoban_guilt();
+    
+    /* Prevent polymorphing phoenix eggs because otherwise when a 
+     * phoenix explodes from poly beams, the egg is also polyd. */
+    if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX)
+        return obj;
+        
     if (id == STRANGE_OBJECT) { /* preserve symbol */
         int try_limit = 3;
         unsigned magic_obj = objects[obj->otyp].oc_magic;
