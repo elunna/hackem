@@ -1425,22 +1425,23 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
          && !impaired 
          && P_SKILL(weapon_type(obj)) >= P_SKILLED);
     
+    boolean cursed_ammo = (obj->cursed && u.ualign.type != A_NONE) /* cursed ammo */
+                          /* Priests trying to throw pointy things */
+                          || (Role_if(PM_PRIEST) && (is_pierce(obj) || is_slash(obj)));
+    boolean greased_ammo = obj->greased;
+    boolean cursed_launcher = ammo_and_launcher(obj, uwep)
+                              && (uwep->otyp == FLINTLOCK || uwep->cursed);
+    
     /* KMH -- Handle Plague here */
     if (wielding_artifact(ART_PLAGUE) &&
         ammo_and_launcher(obj, uwep) && is_poisonable(obj))
         obj->opoisoned = 1;
 
     notonhead = FALSE; /* reset potentially stale value */
-    if (((obj->cursed && u.ualign.type != A_NONE) /* cursed ammo */
-          /* Priests trying to throw pointy things */
-          || (Role_if(PM_PRIEST) && (is_pierce(obj) || is_slash(obj)))
-          /* or greased */
-          || obj->greased
-          /* or panicking */
-          || Afraid
-          /* or flintlock */
-          || (ammo_and_launcher(obj, uwep) && uwep->otyp == FLINTLOCK))
-        && (u.dx || u.dy) && !rn2(7)) {
+
+    
+    if ((cursed_ammo || greased_ammo || Afraid || cursed_launcher)
+          && (u.dx || u.dy) && !rn2(7)) {
         boolean slipok = TRUE;
 
         if (ammo_and_launcher(obj, uwep)) {
