@@ -1367,6 +1367,12 @@ register struct obj *obj;
     boolean u_ring = (obj == uleft || obj == uright);
     int otyp = obj->otyp;
 
+    if (otyp == EGG) {
+        /* sterilized */
+        kill_egg(obj);
+        obj->corpsenm = NON_PM;
+    }
+    
     switch (otyp) {
     case RIN_GAIN_STRENGTH:
         if ((obj->owornmask & W_RING) && u_ring) {
@@ -1416,55 +1422,56 @@ register struct obj *obj;
             obj->spe = (obj->oclass == WAND_CLASS) ? -1 : 0;
         }
         switch (obj->oclass) {
-        case SCROLL_CLASS:
-            /* Have to check because we have the Marauder's Map! */
-            if (!obj->oartifact) {
-                costly_alteration(obj, COST_CANCEL);
-                obj->otyp = SCR_BLANK_PAPER;
-                obj->spe = 0;
-            }
-            /* Scrolls of amnesia are uncancelable. */
-            if (obj->otyp == SCR_AMNESIA)
+            case SCROLL_CLASS:
+                /* Have to check because we have the Marauder's Map! */
+                if (!obj->oartifact) {
+                    costly_alteration(obj, COST_CANCEL);
+                    obj->otyp = SCR_BLANK_PAPER;
+                    obj->spe = 0;
+                }
+                /* Scrolls of amnesia are uncancelable. */
+                if (obj->otyp == SCR_AMNESIA)
+                    break;
                 break;
-            break;
-        case SPBOOK_CLASS:
-            if (otyp != SPE_CANCELLATION && otyp != SPE_NOVEL
-                && otyp != SPE_BOOK_OF_THE_DEAD) {
-                costly_alteration(obj, COST_CANCEL);
-                obj->otyp = SPE_BLANK_PAPER;
-                set_material(obj, PAPER);
-            }
-            break;
-        case POTION_CLASS:
-            /* Potions of amnesia are uncancelable. */
-            if (obj->otyp == POT_AMNESIA)
+            case SPBOOK_CLASS:
+                if (otyp != SPE_CANCELLATION && otyp != SPE_NOVEL
+                    && otyp != SPE_BOOK_OF_THE_DEAD) {
+                    costly_alteration(obj, COST_CANCEL);
+                    obj->otyp = SPE_BLANK_PAPER;
+                    set_material(obj, PAPER);
+                }
                 break;
-            
-            costly_alteration(obj,
-                              (otyp != POT_WATER)
+            case POTION_CLASS:
+                /* Potions of amnesia are uncancelable. */
+                if (obj->otyp == POT_AMNESIA)
+                    break;
+
+                costly_alteration(obj,
+                                  (otyp != POT_WATER)
                                   ? COST_CANCEL
                                   : obj->cursed ? COST_UNCURS : COST_UNBLSS);
-            if (otyp == POT_SICKNESS || otyp == POT_SEE_INVISIBLE) {
-                /* sickness is "biologically contaminated" fruit juice;
-                   cancel it and it just becomes fruit juice...
-                   whereas see invisible tastes like "enchanted" fruit
-                   juice, it similarly cancels */
-                obj->otyp = POT_FRUIT_JUICE;
-            } else if (obj->otyp == POT_VAMPIRE_BLOOD) {
-                obj->otyp = POT_BLOOD;
-            } else {
-                obj->otyp = POT_WATER;
-                obj->odiluted = 0; /* same as any other water */
-            }
-            break;
-        case TOOL_CLASS:
-            /* Masks are magical and therefore subject to cancellation. */
-            if (obj->where == OBJ_INVENT)
-                Your("%s transforms into something ordinary!", xname(obj));
-            else
-                pline_The("%s transforms into something ordinary!", xname(obj));
-            if (obj->otyp == MASK)
-                obj->corpsenm = -1;
+                if (otyp == POT_SICKNESS || otyp == POT_SEE_INVISIBLE) {
+                    /* sickness is "biologically contaminated" fruit juice;
+                       cancel it and it just becomes fruit juice...
+                       whereas see invisible tastes like "enchanted" fruit
+                       juice, it similarly cancels */
+                    obj->otyp = POT_FRUIT_JUICE;
+                } else if (obj->otyp == POT_VAMPIRE_BLOOD) {
+                    obj->otyp = POT_BLOOD;
+                } else {
+                    obj->otyp = POT_WATER;
+                    obj->odiluted = 0; /* same as any other water */
+                }
+                break;
+            case TOOL_CLASS:
+                /* Masks are magical and therefore subject to cancellation. */
+                if (obj->where == OBJ_INVENT)
+                    Your("%s transforms into something ordinary!", xname(obj));
+                else
+                    pline_The("%s transforms into something ordinary!", xname(obj));
+                if (obj->otyp == MASK)
+                    obj->corpsenm = -1;
+                break;
         }
     }
     unbless(obj);
