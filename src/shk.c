@@ -4140,6 +4140,8 @@ long svc_type;
         else if (Hallucination)
             Your("tin roof, un-rusted!");
 
+        if (is_firearm(uwep))
+            uwep->obroken = 0;
         obj->oeroded = obj->oeroded2 = 0;
         obj->rknown = TRUE;
         obj->oerodeproof = TRUE;
@@ -4189,7 +4191,9 @@ long svc_type;
             update_inventory();
             break;
         }
-
+        
+        if (is_firearm(uwep) && uwep->obroken)
+            uwep->obroken = 0;
         obj->spe++;
         update_inventory();
         break;
@@ -4346,6 +4350,8 @@ struct monst *shkp;
             verbalize("Success!");
             obj->oprops = 0;
             obj->oprops_known = 0;
+            if (is_firearm(uwep))
+                uwep->obroken = 0;
         } else {
             verbalize("Sorry.  I guess it's not your lucky day.");
             return 1;
@@ -4376,6 +4382,8 @@ struct monst *shkp;
             obj->oprops_known = obj->oprops;
         }
     }
+    if (is_firearm(uwep))
+        uwep->obroken = 0;
     fully_identify_obj(obj);
     update_inventory();
 

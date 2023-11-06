@@ -1078,6 +1078,10 @@ doengrave()
                 type = ENGRAVE;
             else
                 pline("%s too dull for engraving.", Yobjnam2(otmp, "are"));
+        } else if (is_firearm(otmp)) {
+            Your("%s gets jammed!", xname(otmp));
+            otmp->obroken = 1;
+            return 0;
         }
         break;
 

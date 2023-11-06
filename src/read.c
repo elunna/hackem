@@ -2086,6 +2086,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             uwep->oerodeproof = new_erodeproof ? 1 : 0;
             break;
         }
+        
         /* Sustainable items can't have their stat changed, they are "fixed" */
         if (uwep && uwep->oprops & ITEM_SUSTAIN ) {
             pline("%s vibrates and resists the change!", Yname2(uwep));
@@ -2098,6 +2099,16 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                                  : sblessed ? rnd(3 - uwep->spe / 3)
                                    : 1))
             sobj = 0; /* nothing enchanted: strange_feeling -> useup */
+
+        /* Jam or unjam firearm as appropriate */
+        if (is_firearm(uwep)) {
+            /* Silent - there are other messages */
+            if (scursed)
+                uwep->obroken = 1;
+            else
+                uwep->obroken = 0;
+        }
+
         break;
     case SCR_TAMING:
     case SPE_CHARM_MONSTER: {

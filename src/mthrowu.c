@@ -367,7 +367,19 @@ struct obj *otmp, *mwep;
                      mtarg ? mtarg->mx : mtmp->mux,
                      mtarg ? mtarg->my : mtmp->muy),
         multishot = monmulti(mtmp, otmp, mwep);
-
+    boolean gunning = (ammo_and_launcher(otmp, mwep)
+               && weapon_type(mwep) == P_FIREARM);
+    
+    if (gunning && otmp->cursed && mwep->cursed) {
+        /* If blind? Clarify this message */
+        pline("%s suddenly explodes!", The(xname(mwep)));
+        int dmg = d(mwep->spe + 2, 6) + dmgval(otmp, mtmp);
+        explode(mtmp->mx, mtmp->my, ZT_SPELL(ZT_FIRE), dmg, WEAPON_CLASS, AD_FIRE);
+        m_useup(mtmp, mwep);
+        m_useup(mtmp, otmp);
+        return;
+    }
+    
     /*
      * Caller must have called linedup() to set up tbx, tby.
      */
@@ -401,6 +413,30 @@ struct obj *otmp, *mwep;
     }
     m_shot.n = multishot;
     for (m_shot.i = 1; m_shot.i <= m_shot.n; m_shot.i++) {
+        /* Firearms can get jammed */
+        if (gunning)
+            if ((mwep->cursed && !rn2(2)) || (otmp->cursed && !rn2(2))
+                  || ((otmp->oeroded > 0 || otmp->oeroded2 > 0) && !rn2(4))
+                  || ((mwep->oeroded > 0 || mwep->oeroded2 > 0) && !rn2(4))) {
+
+                /* Grease is the first level of protection */
+                if (mwep->greased) {
+                    if (!rn2(2)) {
+                        if (canseemon(mtmp))
+                            pline_The("grease wears off %s %s.",
+                                  s_suffix(mon_nam(mtmp)), xname(mwep));
+                        mwep->greased = 0;
+                    }
+                }
+                /* Blessed firearms resist 3 out of 4 times */
+                else if (!mwep->blessed || !rn2(4)) {
+                    if (canseemon(mtmp))
+                        pline("%s %s jams!", s_suffix(Monnam(mtmp)), xname(mwep));
+                    mwep->obroken = 1;
+                    m_useup(mtmp, otmp);
+                    break;
+                }
+            }
         m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby), dm, otmp, TRUE);
         /* conceptually all N missiles are in flight at once, but
            if mtmp gets killed (shot kills adjacent gas spore and
@@ -415,7 +451,6 @@ struct obj *otmp, *mwep;
     m_shot.n = m_shot.i = 0;
     m_shot.o = STRANGE_OBJECT;
     m_shot.s = FALSE;
-
 }
 
 /* Find a target for a ranged attack. */
@@ -804,7 +839,7 @@ register boolean verbose;
             goto cleanup_thrown;
         }
     }
-
+    
     if (MT_FLIGHTCHECK(TRUE, 0)) {
         /* MT_FLIGHTCHECK includes a call to hits_bars, which can end up
          * destroying singleobj and set it to null if it's any of certain

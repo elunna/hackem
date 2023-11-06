@@ -97,6 +97,10 @@ int shotlimit;
     }
     if (!retouch_object(&obj, !uarmg, TRUE))
         return 1;
+    if (uwep && is_firearm(uwep) && uwep->obroken) {
+        pline("%s is jammed and cannot be fired.", Ysimple_name2(uwep));
+        return 0;
+    }
     u_wipe_engr(2);
     if (!uarmg && obj->otyp == CORPSE && touch_petrifies(&mons[obj->corpsenm])
         && !Stone_resistance) {
@@ -1429,19 +1433,21 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                           /* Priests trying to throw pointy things */
                           || (Role_if(PM_PRIEST) && (is_pierce(obj) || is_slash(obj)));
     boolean greased_ammo = obj->greased;
+
     boolean cursed_launcher = ammo_and_launcher(obj, uwep)
                               && (uwep->otyp == FLINTLOCK || uwep->cursed);
+    boolean limp_wristing = (ACURR(A_STR) + ACURR(A_DEX) - rnd(5)) < 20;
     
     /* Firearms explosions */
     if (cursed_launcher && is_firearm(uwep) 
-          && (cursed_ammo || rnl(4) == 3)) {
-        int dmg;
+          && (cursed_ammo /*|| rnl(4) == 3*/)) {
         uwep->in_use = TRUE; /* in case losehp() is fatal */
         pline("%s suddenly explodes!", The(xname(uwep)));
-        dmg = d(uwep->spe + 2, 6) + dmgval(obj, &youmonst);
+        int dmg = d(uwep->spe + 2, 6) + dmgval(obj, &youmonst);
         explode(u.ux, u.uy, ZT_SPELL(ZT_FIRE), dmg, WEAPON_CLASS, AD_FIRE);
         useup(uwep);
         breakobj(obj, u.ux, u.uy, TRUE, TRUE);
+        endmultishot(TRUE);
         return;
     }
     
@@ -1451,7 +1457,6 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
         obj->opoisoned = 1;
 
     notonhead = FALSE; /* reset potentially stale value */
-
     
     if ((cursed_ammo || greased_ammo || Afraid || cursed_launcher)
           && (u.dx || u.dy) && !rn2(7)) {
@@ -1588,6 +1593,43 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
             pline("The quivered ammo doesn't fit the firearm.");
             gunning = FALSE;
         }
+
+        /* Firearms can get jammed */
+        if (gunning)
+            if ((cursed_launcher && !rn2(2))
+                  || (cursed_ammo && !rn2(2))
+                  || ((obj->oeroded > 0 || obj->oeroded2 > 0) && !rn2(4))
+                  || ((uwep->oeroded > 0 || uwep->oeroded2 > 0) && !rn2(4))
+                  /* Skill based: no skill is fairly likely */
+                  || ((P_SKILL(P_FIREARM) <= P_UNSKILLED) && rnl(8)>6)
+                  /* Higher skill: Unlikely but still possible (same as jousting) */
+                  || ((P_SKILL(P_FIREARM) >= P_BASIC) && rnl(50)==49)
+                  /* Low STR and DEX are punished */
+                  || ((limp_wristing || Fumbling) && !rn2(4))
+                  /* Bad luck and no grease */
+                  || (!uwep->greased && Luck < 0 && rnl(8)>6)) {
+
+                /* Grease is the first level of protection */
+                if (uwep->greased) {
+                    if (!rn2(2)) {
+                        pline_The("grease wears off %s.", ysimple_name(uwep));
+                        uwep->greased = 0;
+                    }
+                } 
+                /* Firearms in single mode resist jamming more often */ 
+                else if (uwep->altmode == 0 && rn2(3)) {
+                    ; /* Don't jam this time */
+                }
+                /* Blessed firearms resist 3 out of 4 times */
+                else if (!uwep->blessed || !rn2(4)) {
+                    pline("%s jams!", Ysimple_name2(uwep));
+                    uwep->obroken = 1;
+                    breakobj(obj, u.ux, u.uy, TRUE, TRUE);
+                    endmultishot(TRUE);
+                    return;
+                }
+            }
+        
         if (gunning && !objects[uwep->otyp].oc_name_known) {
             if (!Deaf)
                 pline("Boom!");

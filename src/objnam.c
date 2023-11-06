@@ -1198,22 +1198,26 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
 
     /* Firearms modes */
     if (is_firearm(obj) && obj->where == OBJ_INVENT) {
-        switch (obj->otyp) {
-        case ASSAULT_RIFLE:
-            if (obj->altmode == WP_MODE_AUTO)
-                Strcat(buf, " (auto mode)");
-            else if (obj->altmode == WP_MODE_BURST)
-                Strcat(buf, " (burst mode)");
-            else
-                Strcat(buf, " (single mode)");
-            break;
-        case AUTO_SHOTGUN:
-        case SUBMACHINE_GUN:
-            if (obj->altmode == WP_MODE_AUTO)
-                Strcat(buf, " (auto mode)");
-            else
-                Strcat(buf, " (single mode)");
-            break;
+        if (obj->obroken) {
+            Strcat(buf, " (jammed)");
+        } else {
+            switch (obj->otyp) {
+                case ASSAULT_RIFLE:
+                    if (obj->altmode == WP_MODE_AUTO)
+                        Strcat(buf, " (auto mode)");
+                    else if (obj->altmode == WP_MODE_BURST)
+                        Strcat(buf, " (burst mode)");
+                    else
+                        Strcat(buf, " (single mode)");
+                    break;
+                case AUTO_SHOTGUN:
+                case SUBMACHINE_GUN:
+                    if (obj->altmode == WP_MODE_AUTO)
+                        Strcat(buf, " (auto mode)");
+                    else
+                        Strcat(buf, " (single mode)");
+                    break;
+            }
         }
     }
 

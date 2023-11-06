@@ -914,6 +914,8 @@ boolean artif;
                     break;
                 }
             }
+            if (is_firearm(otmp) && otmp->cursed && rn2(2))
+                otmp->obroken = 1;
             break;
         case FOOD_CLASS:
             otmp->oeaten = 0;

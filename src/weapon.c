@@ -929,8 +929,10 @@ int x;
             /* never select non-cockatrice corpses */
             && !((x == CORPSE || x == EGG)
                  && !touch_petrifies(&mons[otmp->corpsenm]))
-            /* never select a weapon made of a hated material */
             && (!is_lightsaber(otmp) || otmp->age)
+           /* never select a jammed firearm */
+            && (!otmp->obroken) 
+            /* never select a weapon made of a hated material */
             && !mon_hates_material(mtmp, otmp->material)
             && (!otmp->oartifact || touch_artifact(otmp, mtmp))) {
        	        if (!obest || dmgval(otmp, &youmonst) > dmgval(obest, &youmonst))
@@ -1697,7 +1699,10 @@ int amt; /* positive: new value; negative: increment by -amt; zero: no-op */
 boolean verbose;
 {
     int newspe = (amt <= 0) ? obj->spe - amt : amt;
-
+    
+    if (obj->greased)
+        return;  /* Grease prevents wetting */
+    
     /* new state is only reported if it's an increase */
     if (newspe > obj->spe) {
         if (verbose) {

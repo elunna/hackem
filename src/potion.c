@@ -3593,6 +3593,11 @@ dodip()
              */
         } else if ((!is_rustprone(obj) && !is_corrodeable(obj))
                    || is_ammo(obj) || (!obj->oeroded && !obj->oeroded2)) {
+            if (is_firearm(obj) && obj->obroken) {
+                You("unjam %s.", ysimple_name(obj));
+                obj->obroken = 0;
+                exercise(A_INT, TRUE);
+            }
             /* uses up potion, doesn't set obj->greased */
             if (!Blind)
                 pline("%s %s with an oily sheen.", Yname2(obj),
@@ -3676,7 +3681,6 @@ dodip()
     }
     /* no return here, go for Interesting... message */
  more_dips:
-        
     /* Allow filling of MAGIC_LAMPs to prevent identification by player */
     if ((obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP)
         && (potion->otyp == POT_OIL)) {

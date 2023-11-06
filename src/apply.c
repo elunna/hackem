@@ -100,6 +100,7 @@ STATIC_OVL int
 use_towel(obj)
 struct obj *obj;
 {
+    struct obj *otmp;
     boolean drying_feedback = (obj == uwep);
 
     if (!u_handsy()) {
@@ -109,7 +110,11 @@ struct obj *obj;
         return 0;
     } else if (obj->cursed) {
         long old;
-
+        
+        if (uwep && is_firearm(uwep) && !uwep->obroken) {
+            You("cover %s in grime!", ysimple_name(uwep));
+            uwep->obroken = 1;
+        }
         switch (rn2(3)) {
         case 2:
             old = (Glib & TIMEOUT);
@@ -151,7 +156,7 @@ struct obj *obj;
             break;
         }
     }
-
+    
     if (Glib) {
         make_glib(0);
         You("wipe off your %s.",
@@ -176,6 +181,30 @@ struct obj *obj;
         return 1;
     }
 
+    /* Greased towels can fix firearms */
+    if (obj->greased) {
+        for (otmp = invent; otmp; otmp = otmp->nobj) {
+            if (is_firearm(otmp) && otmp->obroken) {
+                You("unjam %s.", ysimple_name(otmp));
+                otmp->obroken = 0;
+                if (!rn2(2)) {
+                    pline_The("grease wears off.");
+                    obj->greased = 0;
+                }
+                return 1;
+            }
+            if (is_firearm(otmp) && otmp->oeroded > 0) {
+                You("remove some rust from %s.", ysimple_name(otmp));
+                otmp->oeroded--;
+                if (!rn2(2)) {
+                    pline_The("grease wears off.");
+                    obj->greased = 0;
+                }
+                return 1;
+            }
+        }
+    }
+    
     Your("%s and %s are already clean.", body_part(FACE),
          makeplural(body_part(HAND)));
 
@@ -2844,6 +2873,11 @@ struct obj *obj;
 
         oldglib = (int) (Glib & TIMEOUT);
         if (otmp != &zeroobj) {
+            if (is_firearm(otmp) && otmp->obroken) {
+                You("unjam %s.", ysimple_name(otmp));
+                otmp->obroken = 0;
+                return;
+            }
             You("cover %s with a thick layer of grease.", yname(otmp));
             otmp->greased = 1;
             if (obj->cursed && !nohands(youmonst.data)) {
