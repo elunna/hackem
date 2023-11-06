@@ -3011,19 +3011,20 @@ firearm_range(otyp)
 int otyp;
 {
     switch(otyp) {
-    case AUTO_SHOTGUN:
-        return 4;
+
     case SHOTGUN:
         return 5;
+    case AUTO_SHOTGUN:
+        return 6;
     case FLINTLOCK:
         return 8;
-    case SUBMACHINE_GUN:
-        return 10;
     case PISTOL:
-        return 15;
+        return 10;
+    case SUBMACHINE_GUN:
+        return 12;
     case HEAVY_MACHINE_GUN:
     case ASSAULT_RIFLE:
-        return 20;
+        return 15;
     case RIFLE:
         return 22;
     case SNIPER_RIFLE:
