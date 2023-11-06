@@ -1432,6 +1432,19 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
     boolean cursed_launcher = ammo_and_launcher(obj, uwep)
                               && (uwep->otyp == FLINTLOCK || uwep->cursed);
     
+    /* Firearms explosions */
+    if (cursed_launcher && is_firearm(uwep) 
+          && (cursed_ammo || rnl(4) == 3)) {
+        int dmg;
+        uwep->in_use = TRUE; /* in case losehp() is fatal */
+        pline("%s suddenly explodes!", The(xname(uwep)));
+        dmg = d(uwep->spe + 2, 6) + dmgval(obj, &youmonst);
+        explode(u.ux, u.uy, ZT_SPELL(ZT_FIRE), dmg, WEAPON_CLASS, AD_FIRE);
+        useup(uwep);
+        breakobj(obj, u.ux, u.uy, TRUE, TRUE);
+        return;
+    }
+    
     /* KMH -- Handle Plague here */
     if (wielding_artifact(ART_PLAGUE) &&
         ammo_and_launcher(obj, uwep) && is_poisonable(obj))
