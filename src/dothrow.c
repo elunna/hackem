@@ -1502,7 +1502,10 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                     searmsg(&youmonst, &youmonst, obj, FALSE);
                     exercise(A_CON, FALSE);
                 }
-                losehp(dmg, "hitting themselves with a cursed projectile", KILLED_BY);
+                if (cursed_ammo || cursed_launcher)
+                    losehp(dmg, "hitting themselves with a cursed projectile", KILLED_BY);
+                else
+                    losehp(dmg, "hitting themselves with a projectile", KILLED_BY);
             }
             impaired = TRUE;
         }
