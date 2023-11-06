@@ -404,14 +404,14 @@ BOW("crossbow", None,          1, 1, 45, 50, 40, 0, WOOD, P_CROSSBOW, HI_WOOD),
 
 /* firearms */
 GUN("flintlock",            "broken hand-crossbow", 0, 0, 1,  10,   50,  0, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* dNetHack */
-GUN("pistol",               "broken hand-crossbow", 0, 0, 1,  20,  100,  0, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("submachine gun",    "strange broken crossbow", 0, 0, 1,  25,  250, -1, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("heavy machine gun", "strange broken crossbow", 0, 1, 1, 200, 2000, -4, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("rifle",                     "broken crossbow", 0, 1, 1,  30,  150,  1, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("assault rifle",             "broken crossbow", 0, 0, 1,  40, 1000, -2, WP_BULLET, IRON, P_FIREARM, HI_METAL),
-GUN("sniper rifle",              "broken crossbow", 0, 1, 1,  50, 4000,  4, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("shotgun",                   "broken crossbow", 0, 0, 1,  35,  200,  3,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
-GUN("auto shotgun",      "strange broken crossbow", 0, 1, 1,  60, 1500,  1,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("pistol",               "broken hand-crossbow", 0, 0, 1,  15,  100,  0, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("submachine gun",    "strange broken crossbow", 0, 1, 1,  60,  250, -1, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("heavy machine gun", "strange broken crossbow", 0, 1, 1, 500, 2000, -4, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("rifle",                     "broken crossbow", 0, 1, 1,  60,  150,  1, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("assault rifle",             "broken crossbow", 0, 1, 1, 160, 1000, -1, WP_BULLET, IRON, P_FIREARM, HI_METAL),
+GUN("sniper rifle",              "broken crossbow", 0, 1, 1, 160, 1500,  4, WP_BULLET, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("shotgun",                   "broken crossbow", 0, 0, 1,  60,  200,  3,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
+GUN("auto shotgun",      "strange broken crossbow", 0, 1, 1, 120, 1500,  1,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
 
 BULLET("bullet",          "pellet", 1, 1, 1,   5,   20, 30, 0, WP_BULLET, P, IRON, -P_FIREARM, HI_METAL), /* Slash'EM */
 BULLET("shotgun shell", "red tube", 1, 1, 2,   7,   30, 45, 0, WP_SHELL,  P, IRON, -P_FIREARM, CLR_RED), /* Slash'EM */
