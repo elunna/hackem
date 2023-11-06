@@ -326,6 +326,10 @@ struct obj *otmp, *mwep;
             if (skill == P_DAGGER)
                 multishot++;
             break;
+        case PM_BARBARIAN:
+            if (skill == P_AXE)
+                multishot++;
+            break;
         case PM_NINJA:
             if (skill == -P_SHURIKEN || skill == -P_DART)
                 multishot++;
