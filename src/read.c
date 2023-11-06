@@ -2101,7 +2101,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             sobj = 0; /* nothing enchanted: strange_feeling -> useup */
 
         /* Jam or unjam firearm as appropriate */
-        if (is_firearm(uwep)) {
+        if (uwep && is_firearm(uwep)) {
             /* Silent - there are other messages */
             if (scursed)
                 uwep->obroken = 1;
