@@ -5408,46 +5408,7 @@ xchar sx, sy;
             destroy_item(WAND_CLASS, AD_LOUD);
         break;
     case ZT_WATER:
-        dam = d(nd, 8);
-        if (Half_physical_damage)
-            dam = (dam + 1) / 2;
-        if (u.umonnum == PM_BABY_SEA_DRAGON || u.umonnum == PM_SEA_DRAGON) {
-            You("%sabsorb the blast of water into your body.",
-                Reflecting ? "partially " : "");
-            dam = 0;
-            break;
-        } else if (u.umonnum == PM_WATER_ELEMENTAL) {
-            You_feel("better!");
-            healup(d(6, 6), 0, FALSE, FALSE);
-            dam = 0;
-            break;
-        } else if (u.umonnum == PM_EARTH_ELEMENTAL) {
-            if (!Unchanging) {
-                polymon(PM_MUD_ELEMENTAL);
-                dam = 0;
-            }
-            break;
-        } else if (u.umonnum == PM_IRON_GOLEM) {
-            You("rust!");
-            rehumanize();
-            dam = 0; /* Prevent more damage after rehumanize */
-            break;
-        } else if (likes_fire(youmonst.data)) {
-            You("are being extinguished!");
-            dam += d(6, 6);
-        } else if (amphibious(youmonst.data)) {
-            You("don't mind the water.");
-            dam = 0;
-        }
-        if (!Reflecting) {
-            /* using two weapons at once makes both of them more vulnerable */
-            if (!rn2(u.twoweap ? 3 : 6))
-                water_damage(uwep, 0, TRUE, u.ux, u.uy);
-            if (u.twoweap && !rn2(3))
-                water_damage(uswapwep, 0, TRUE, u.ux, u.uy);
-            if (!rn2(6))
-                erode_armor(&youmonst, ERODE_RUST);
-        }
+        dam = delugehitsu(nd);
         break;
     }
 
@@ -5458,6 +5419,7 @@ xchar sx, sy;
     losehp(dam, fltxt, KILLED_BY_AN);
     return;
 }
+
 
 /*
  * burn objects (such as scrolls and spellbooks) on floor
@@ -7742,6 +7704,50 @@ int tmp;
     return tmp;
 }
 
+/* Hits you with a ray of water (sea dragon, wand of deluge) 
+ * returns the amount of damage dealt */
+int
+delugehitsu(nd)
+int nd;
+{
+    int dam = d(nd, 8);
+    if (Half_physical_damage)
+        dam = (dam + 1) / 2;
+    
+    if (u.umonnum == PM_BABY_SEA_DRAGON || u.umonnum == PM_SEA_DRAGON) {
+        You("%sabsorb the blast of water into your body.",
+            Reflecting ? "partially " : "");
+        dam = 0;
+    } else if (u.umonnum == PM_WATER_ELEMENTAL) {
+        You_feel("better!");
+        healup(d(6, 6), 0, FALSE, FALSE);
+    } else if (u.umonnum == PM_EARTH_ELEMENTAL) {
+        if (!Unchanging) {
+            polymon(PM_MUD_ELEMENTAL);
+            dam = 0;
+        }
+    } else if (u.umonnum == PM_IRON_GOLEM) {
+        You("rust!");
+        rehumanize();
+        dam = 0; /* Prevent more damage after rehumanize */
+    } else if (likes_fire(youmonst.data)) {
+        You("are being extinguished!");
+        dam += d(6, 6);
+    } else if (amphibious(youmonst.data)) {
+        You("don't mind the water.");
+        dam = 0;
+    }
+    if (!Reflecting) {
+        /* using two weapons at once makes both of them more vulnerable */
+        if (!rn2(u.twoweap ? 3 : 6))
+            water_damage(uwep, 0, TRUE, u.ux, u.uy);
+        if (u.twoweap && !rn2(3))
+            water_damage(uswapwep, 0, TRUE, u.ux, u.uy);
+        if (!rn2(6))
+            erode_armor(&youmonst, ERODE_RUST);
+    }
+    return dam;
+}
 
 void
 scatter_chains(x, y)

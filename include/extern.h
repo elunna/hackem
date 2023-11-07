@@ -3417,6 +3417,7 @@ E void FDECL(wandfear, (struct obj *));
 E int FDECL(freeze_tile, (struct rm *, int, int, int));
 E boolean destroyable_oclass(char);
 E int FDECL(delugehitsm, (struct monst *, int));
+E int FDECL(delugehitsu, (int));
 E void FDECL(scatter_chains, (int, int));
 
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */

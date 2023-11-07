@@ -45,6 +45,7 @@ static const char *artifact_names[] = {
 #define     LOUD(a,b)   {0,AD_LOUD,a,b}         /* Sonic attack  */
 #define     WTHR(a,b)   {0,AD_WTHR,a,b}         /* Withering attack  */
 #define     MAST(a,b)   {0,AD_MAGM,a,b}         /* magic missile attack  */
+#define     BLND(a,b)   {0,AD_BLND,a,b}         /* blinding attack  */
 
 #define DEFAULT_MAT 0 /* use base object's default material */
 /* clang-format on */
@@ -515,8 +516,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     /* Blinding mace. */
     A("Sunspot", MACE, 
-      (SPFX_RESTR | SPFX_BLIND | SPFX_DEFN), 0, 0,
-      PHYS(5, 5), DFNS(AD_BLND), NO_CARY, 0, 
+      (SPFX_RESTR | SPFX_DEFN), 0, 0,
+      BLND(5, 5), DFNS(AD_BLND), NO_CARY, 0, 
       A_NONE, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
 
     A("Thiefbane", LONG_SWORD,
@@ -835,7 +836,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 #ifndef MAKEDEFS_C
 #undef NO_ATTK
 #undef NO_DFNS
+#undef NO_CARY
 #undef DFNS
+#undef CARY
 #undef PHYS
 #undef DRLI
 #undef COLD
@@ -851,8 +854,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 #undef DETH
 #undef DISN
 #undef PLYS
+#undef SLEE
 #undef LOUD
 #undef WTHR
+#undef MAST
+#undef BLND
 #endif
 
 /*artilist.h*/
