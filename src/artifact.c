@@ -65,6 +65,7 @@ hack_artifacts()
 {
     struct artifact *art;
     int alignmnt = aligns[flags.initalign].value;
+    int i;
 
     /* Fix up the alignments of "gift" artifacts */
     for (art = artilist + 1; art->otyp; art++)
@@ -98,7 +99,40 @@ hack_artifacts()
     else if (Race_if(PM_GIANT) || Race_if(PM_CENTAUR)
              || Race_if(PM_TORTLE))
         objects[SEVERED_HAND].oc_weight = 300;
-    
+
+    /* Shamblestick is random, because what NetHack clearly needs is more randomness. */
+    artilist[ART_SHAMBLESTICK].otyp = CLUB + rn2(BASEBALL_BAT - CLUB);
+
+    /* Random alignment */
+    artilist[ART_SHAMBLESTICK].alignment = rn2(3) - 1;
+
+    /* Random role preference */
+    artilist[ART_SHAMBLESTICK].role =
+            rn2(2) ? NON_PM
+                   : (PM_ARCHEOLOGIST + rn2(PM_WIZARD - PM_ARCHEOLOGIST));
+
+    /* Random color */
+    artilist[ART_SHAMBLESTICK].acolor = rn2(CLR_MAX);
+
+    /* Random wield effects */
+    for (i = 0; i < rnd(7); i++) {
+        artilist[ART_SHAMBLESTICK].spfx |= (1 << rn2(32));
+    }
+
+    /* Random carry effects */
+    for (i = 0; i < rnd(3); i++) {
+        artilist[ART_SHAMBLESTICK].cspfx |= (1 << rn2(32));
+    }
+
+    /* Random attack type */
+    /* TODO: Add support for more/all AD_TYPES */
+    artilist[ART_SHAMBLESTICK].attk.adtyp = rn2(AD_DRLI);
+
+    /* Random damage to-hit/bonus, up to d12 seems about right. */
+    artilist[ART_SHAMBLESTICK].attk.damn = rnd(12);
+    artilist[ART_SHAMBLESTICK].attk.damd = rnd(12);
+
+
     return;
 }
 
@@ -1660,11 +1694,12 @@ char *hittee;              /* target's name: "you" or mon_nam(mdef) */
     verb = mb_verb[!!Hallucination][attack_indx];
     if (youattack || youdefend || vis) {
         result = TRUE;
-        if (mb->oartifact == ART_MAGICBANE)
-            pline_The("magic-absorbing staff %s %s!",
+        if (mb->oartifact == ART_BUTCHER)
+            pline_The("massive triple-headed flail %s %s!",
                       vtense((const char *) 0, verb), hittee);
         else
-            pline_The("massive triple-headed flail %s %s!",
+            pline_The("magic-absorbing %s %s %s!",
+                      is_blade(mb) ? "blade" : "weapon",
                       vtense((const char *) 0, verb), hittee);
         /* assume probing has some sort of noticeable feedback
            even if it is being done by one monster to another */
@@ -2515,7 +2550,15 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
         return realizes_damage;
     }
-
+    if (attacks(AD_PSYC, otmp)) {
+        if (realizes_damage)
+            pline_The("iridescent %s %s %s%c",
+                      is_blade(otmp) ? "blade" : "weapon",
+                      !spec_dbon_applies ? "hits" : "psiblasts", hittee,
+                      !spec_dbon_applies ? '.' : '!');
+        return realizes_damage;
+    }
+    
     if (attacks(AD_STUN, otmp) && dieroll <= MB_MAX_DIEROLL) {
         if (dieroll <= MB_MAX_DIEROLL)
             /* Magicbane's special attacks (possibly modifies hittee[]) */
@@ -3019,7 +3062,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
        
     if (otmp->oartifact == ART_SERPENT_S_TONGUE) {
         otmp->dknown = TRUE;
-        pline_The("twisted blade poisons %s!",
+        pline_The("twisted %s poisons %s!",
+                  is_blade(otmp) ? "blade" : "weapon",
                 youdefend ? "you" : mon_nam(mdef));
         if (youdefend ? how_resistant(POISON_RES) < 25 : resists_poison(mdef)) {
             if (youdefend)
@@ -5216,7 +5260,7 @@ boolean defend;
     case AD_STON:
         return "petrification";
     case AD_PLYS:
-        return defend ? "paralyze" : "free action";
+        return defend ? "free action" : "paralyze";
     case AD_LOUD:
         return "sonic";
     case AD_PHYS:
@@ -5235,6 +5279,10 @@ boolean defend;
         return "withering";
     case AD_WIND:
         return "wind";
+    case AD_PSYC:
+        return "psychic";
+    case AD_WATR:
+        return "deluge";
     default:
         impossible("Bad AD_TYPE!");
     }

@@ -383,6 +383,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 5), NO_DFNS, NO_CARY, 0, 
       A_CHAOTIC, PM_CONVICT, NON_PM, 3000L, NO_COLOR, METAL),
 
+    A("Shamblestick", QUARTERSTAFF,
+      (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      PHYS(0, 0), NO_DFNS, NO_CARY, 0, 
+      A_NONE, NON_PM, PM_DOPPELGANGER, 500L, CLR_MAGENTA, DEFAULT_MAT),
+
     /*
     *       This bizarre weapon acts as a cursed luckstone regardless of its
     *       BCU status. It gets bonuses to hit and damage based on the opposite
