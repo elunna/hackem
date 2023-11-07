@@ -128,6 +128,9 @@ hack_artifacts()
         r = (1 << rn2(32));
         if (!ok_spfx(r))
             continue;
+        /* Only allow reflection for wielding, avoids complications */
+        if (r == SPFX_REFLECT)
+            continue;
         artilist[ART_SHAMBLESTICK].cspfx |= r;
     }
 
@@ -1205,6 +1208,7 @@ long wp_mask;
                 || otmp->oartifact == ART_CROSSBOW_OF_CARL
                 || otmp->oartifact == ART_NIGHTHORN
                 || otmp->oartifact == ART_DRAGONBANE
+                || otmp->oartifact == ART_SHAMBLESTICK
                 || otmp->oartifact == ART_LIGHTSABER_PROTOTYPE)
             && (wp_mask & W_WEP)) { /* wielding various reflecting artifacts */
             if (on)
