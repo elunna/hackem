@@ -1443,7 +1443,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
           && (cursed_ammo /*|| rnl(4) == 3*/)) {
         uwep->in_use = TRUE; /* in case losehp() is fatal */
         pline("%s suddenly explodes!", The(xname(uwep)));
-        int dmg = d(uwep->spe + 2, 6) + dmgval(obj, &youmonst);
+        int dmg = d(abs(uwep->spe) + 2, 6) + dmgval(obj, &youmonst);
         explode(u.ux, u.uy, ZT_SPELL(ZT_FIRE), dmg, WEAPON_CLASS, AD_FIRE);
         useup(uwep);
         breakobj(obj, u.ux, u.uy, TRUE, TRUE);

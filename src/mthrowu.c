@@ -377,7 +377,7 @@ struct obj *otmp, *mwep;
     if (gunning && otmp->cursed && mwep->cursed) {
         /* If blind? Clarify this message */
         pline("%s suddenly explodes!", The(xname(mwep)));
-        int dmg = d(mwep->spe + 2, 6) + dmgval(otmp, mtmp);
+        int dmg = d(abs(mwep->spe) + 2, 6) + dmgval(otmp, mtmp);
         explode(mtmp->mx, mtmp->my, ZT_SPELL(ZT_FIRE), dmg, WEAPON_CLASS, AD_FIRE);
         m_useup(mtmp, mwep);
         m_useup(mtmp, otmp);
