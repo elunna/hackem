@@ -103,9 +103,10 @@ hack_artifacts()
     /* Shamblestick is random, because what NetHack clearly needs is more randomness. */
     artilist[ART_SHAMBLESTICK].otyp = CLUB + rn2(BASEBALL_BAT - CLUB);
 
+#if 0
     /* Random alignment */
     artilist[ART_SHAMBLESTICK].alignment = rn2(3) - 1;
-
+#endif
     /* Random role preference */
     artilist[ART_SHAMBLESTICK].role =
             rn2(2) ? NON_PM
