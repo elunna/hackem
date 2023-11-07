@@ -174,9 +174,18 @@ hack_artifacts()
         }
     }
     
-    
     /* Random invoke effect */
-    
+    if (!rn2(2)) {
+        do {
+            artilist[ART_SHAMBLESTICK].inv_prop =
+                    TAMING + (rn2(SMOKE_CLOUD - TAMING));
+            /* SEFFECT could also branch out into random scroll
+             * effects, but... not now */
+        } while (artilist[ART_SHAMBLESTICK].inv_prop == SEFFECT);
+        
+        sgranted++;
+    }
+
     /* Random attack type */
     /* TODO: Also enable support for:
      * AD_DREN
@@ -200,8 +209,10 @@ hack_artifacts()
      * This scales with how many abilities bonuses were granted.
      * */
     sgranted = 10 - sgranted * 2;
+    if (sgranted < 0)
+        sgranted = 0;
     artilist[ART_SHAMBLESTICK].attk.damn = rnd(10) + sgranted;
-    artilist[ART_SHAMBLESTICK].attk.damd = rnd(10) + sgranted;
+    artilist[ART_SHAMBLESTICK].attk.damd = rn2(11) + sgranted;
     
     
     return;
@@ -5242,35 +5253,36 @@ artifact_info(int anum)
     case UNTRAP: art_info.invoke = "Untrap"; break;
     case CHARGE_OBJ: art_info.invoke = "Charge Object"; break;
     case LEV_TELE: art_info.invoke = "Level Teleport"; break;
-    case LIGHT_AREA: art_info.invoke = "Light Area"; break;
     case CREATE_PORTAL: art_info.invoke = "Branchport"; break;
     case ENLIGHTENING: art_info.invoke = "Enlightenment"; break;
-    case SUMMON_FIRE_ELEMENTAL: art_info.invoke = "Summon Fire Elemental"; break;
-    case SUMMON_WATER_ELEMENTAL: art_info.invoke = "Summon Storm Pet"; break;
-    case LIGHTNING_BOLT: art_info.invoke = "Lightning Bolt"; break;
     case CREATE_AMMO: art_info.invoke = "Create Ammo"; break;
+    case FEAR: art_info.invoke = "Cause fear"; break;
     case PHASING: art_info.invoke = "Phasing"; break;
     case CHANNEL: art_info.invoke = "Channel"; break;
     case DEATH_GAZE: art_info.invoke = "Death Gaze"; break;
     case SUMMON_UNDEAD: art_info.invoke = "Summon Undead"; break;
+    case LIGHT_AREA: art_info.invoke = "Light Area"; break;
+    case SUMMON_FIRE_ELEMENTAL: art_info.invoke = "Summon Fire Elemental"; break;
+    case SUMMON_WATER_ELEMENTAL: art_info.invoke = "Summon Storm Pet"; break;
+    case LIGHTNING_BOLT: art_info.invoke = "Lightning Bolt"; break;
+    case SEFFECT:
+        switch (anum) {
+            case ART_IMHULLU:
+                art_info.invoke = "Scroll of Air"; break;
+            case ART_DEEP_FREEZE:
+                art_info.invoke = "Scroll of Ice + Freeze Sphere"; break;
+            case ART_FIREWALL:
+                art_info.invoke = "Flame Sphere"; break;
+        }
+        break;
+    case OBJECT_DET: art_info.invoke = "Object Detection"; break;
+    case SMOKE_CLOUD: art_info.invoke = "Smoke Cloud"; break;
     case CONFLICT: art_info.invoke = "Conflict"; break;
     case LEVITATION: art_info.invoke = "Levitation"; break;
     case INVIS: art_info.invoke = "Invisibility"; break;
     case FLYING: art_info.invoke = "Flying"; break;
     case WWALKING: art_info.invoke = "Water Walking"; break;
-    case OBJECT_DET: art_info.invoke = "Object Detection"; break;
-        /*Invoke for water-walking and an earthquake. */
-        
-    case SEFFECT: 
-        switch (anum) {
-        case ART_IMHULLU:
-            art_info.invoke = "Scroll of Air"; break;
-        case ART_DEEP_FREEZE:
-            art_info.invoke = "Scroll of Ice + Freeze Sphere"; break;
-        case ART_FIREWALL:
-            art_info.invoke = "Flame Sphere"; break;
-        }
-        break;
+
     default:
         art_info.invoke = "None"; break;
     }
