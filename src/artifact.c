@@ -66,7 +66,7 @@ hack_artifacts()
 {
     struct artifact *art;
     int alignmnt = aligns[flags.initalign].value;
-    int i;
+    int i, sgranted = 0;
     long r;
 
     /* Fix up the alignments of "gift" artifacts */
@@ -121,6 +121,7 @@ hack_artifacts()
         if (!ok_spfx(r))
             continue;
         artilist[ART_SHAMBLESTICK].spfx |= r;
+        sgranted++;
     }
 
     /* Random carry effects */
@@ -131,7 +132,20 @@ hack_artifacts()
         /* Only allow reflection for wielding, avoids complications */
         if (r == SPFX_REFLECT)
             continue;
+        /* Was this already granted in the spfx fields? 
+         * We'll either keep the wielded slot, or move it to the carried.
+         * */ 
+        if (artilist[ART_SHAMBLESTICK].spfx & r) {
+            if (!rn2(2)) {
+                continue;
+            } else {
+                artilist[ART_SHAMBLESTICK].spfx &= ~r;
+                sgranted--;
+            }
+        }
+        
         artilist[ART_SHAMBLESTICK].cspfx |= r;
+        sgranted++;
     }
 
     /* Random defensive (DFNS and CARY) */
@@ -157,9 +171,12 @@ hack_artifacts()
      */ 
     artilist[ART_SHAMBLESTICK].attk.adtyp = rn2(AD_DRLI);
     
-    /* Random damage to-hit/bonus, up to d12 seems about right. */
-    artilist[ART_SHAMBLESTICK].attk.damn = rnd(12);
-    artilist[ART_SHAMBLESTICK].attk.damd = rnd(12);
+    /* Random damage to-hit/bonus. 
+     * This scales with how many abilities bonuses were granted.
+     * */
+    sgranted = 10 - sgranted * 2;
+    artilist[ART_SHAMBLESTICK].attk.damn = rnd(10) + sgranted;
+    artilist[ART_SHAMBLESTICK].attk.damd = rnd(10) + sgranted;
     return;
 }
 
