@@ -66,7 +66,7 @@ hack_artifacts()
 {
     struct artifact *art;
     int alignmnt = aligns[flags.initalign].value;
-    int i, sgranted = 0;
+    int i, defn, sgranted = 0;
     long r;
 
     /* Fix up the alignments of "gift" artifacts */
@@ -143,12 +143,37 @@ hack_artifacts()
                 sgranted--;
             }
         }
-        
         artilist[ART_SHAMBLESTICK].cspfx |= r;
         sgranted++;
     }
 
     /* Random defensive (DFNS and CARY) */
+    int res_types [] =
+            { AD_MAGM, AD_FIRE, AD_COLD, AD_SLEE, AD_DISN,
+              AD_ELEC, AD_DRST, AD_ACID, AD_LOUD, AD_PSYC,
+              AD_BLND, AD_STUN, AD_PLYS, AD_DRLI, AD_STON,
+              AD_WERE, AD_DISE, AD_CLOB, AD_WTHR
+            };
+    for (i = 0; i < rnd(4); i++) {
+        if (!rn2(3)) {
+            artilist[ART_SHAMBLESTICK].defn.adtyp =
+                    res_types[rn2(SIZE(res_types))];
+            sgranted++;
+            break;
+        }
+    }
+    for (i = 0; i < rnd(4); i++) {
+        if (!rn2(3)) {
+            defn = res_types[rn2(SIZE(res_types))];
+            /* Don't double up */
+            if (artilist[ART_SHAMBLESTICK].defn.adtyp == defn)
+                continue;
+            artilist[ART_SHAMBLESTICK].cary.adtyp = defn;
+            sgranted++;
+            break;
+        }
+    }
+    
     
     /* Random invoke effect */
     
@@ -177,6 +202,8 @@ hack_artifacts()
     sgranted = 10 - sgranted * 2;
     artilist[ART_SHAMBLESTICK].attk.damn = rnd(10) + sgranted;
     artilist[ART_SHAMBLESTICK].attk.damd = rnd(10) + sgranted;
+    
+    
     return;
 }
 
