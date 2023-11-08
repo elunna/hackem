@@ -2014,29 +2014,11 @@ boolean at_stairs, falling, portal;
                 boolean secsaber = uswapwep && u.twoweap && is_lightsaber(uswapwep) && uswapwep->lamplit;
                 
                 if (mainsaber || secsaber) {
-                    int lrole = rnl(20);
-                    if (lrole + 5 < ACURR(A_DEX)) {
-                        You("roll and dodge your tumbling energy sword%s.", (mainsaber && secsaber) ? "s" : "");
-                    } else {
-                        You("come into contact with your energy sword%s.", 
-                            (mainsaber && secsaber && lrole >= ACURR(A_DEX)) ? "s" : "");
-                        if (mainsaber && lrole >= ACURR(A_DEX))
-                            losehp(dmgval(uwep, &youmonst), 
-                                   "falling downstairs with a lit lightsaber", KILLED_BY);
-                        if (secsaber && lrole >= ACURR(A_DEX))
-                            losehp(dmgval(uswapwep, &youmonst), 
-                                   "falling downstairs with a lit lightsaber", KILLED_BY);
-                    }
-                    if (mainsaber)
-                        lightsaber_deactivate(uwep, TRUE);
-                    if (secsaber)
-                        lightsaber_deactivate(uswapwep, TRUE);
-                } else {
                     if (rnl(20) < ACURR(A_DEX)){
-                        You("hurriedly deactivate your energy sword%s.", 
+                        You("hurriedly deactivate your lightsaber%s.", 
                             (mainsaber && secsaber) ? "s" : "");
                     } else {
-                        You("come into contact with your energy sword%s.", 
+                        You("come into contact with your lightsaber%s.", 
                             (mainsaber && secsaber) ? "s" : "");
                         if (mainsaber) 
                             losehp(dmgval(uwep, &youmonst), 
