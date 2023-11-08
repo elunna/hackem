@@ -887,6 +887,10 @@ const char *name;
     if (!strncmpi(name, "the ", 4))
         name += 4;
 
+    if (otmp->otyp == WORM_TOOTH && 
+            (!strcmpi(name, "arvon") || !strcmpi(name, "krelln")))
+        return TRUE;
+    
     /* decide what types of objects are the same as otyp;
        if it's been discovered, then only itself matches;
        otherwise, include all other undiscovered objects
