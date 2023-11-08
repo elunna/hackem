@@ -112,8 +112,6 @@ hack_artifacts()
 
     /* Random color */
     artilist[ART_SHAMBLESTICK].acolor = rn2(CLR_MAX);
-
-    /* Random material */
     
     /* Random wield effects */
     for (i = 0; i < rnd(7); i++) {
@@ -147,13 +145,15 @@ hack_artifacts()
         sgranted++;
     }
 
-    /* Random defensive (DFNS and CARY) */
+    
     int res_types [] =
             { AD_MAGM, AD_FIRE, AD_COLD, AD_SLEE, AD_DISN,
               AD_ELEC, AD_DRST, AD_ACID, AD_LOUD, AD_PSYC,
               AD_BLND, AD_STUN, AD_PLYS, AD_DRLI, AD_STON,
               AD_WERE, AD_DISE, AD_CLOB, AD_WTHR
             };
+
+    /* Random defensive wield/wear resistance */
     for (i = 0; i < rnd(4); i++) {
         if (!rn2(3)) {
             artilist[ART_SHAMBLESTICK].defn.adtyp =
@@ -162,6 +162,8 @@ hack_artifacts()
             break;
         }
     }
+
+    /* Random defensive carry resistance */
     for (i = 0; i < rnd(4); i++) {
         if (!rn2(3)) {
             defn = res_types[rn2(SIZE(res_types))];
@@ -205,9 +207,24 @@ hack_artifacts()
      */ 
     artilist[ART_SHAMBLESTICK].attk.adtyp = rn2(AD_DRLI);
     
+    /* Random bane(s) via SPFX_DFLAGH */
+    if (!rn2(4)) {
+        artilist[ART_SHAMBLESTICK].spfx |= SPFX_DALIGN;
+    } else if (!rn2(3)) {
+        for (i = 0; i < rnd(3); i++) {
+            r = (1 << rn2(23));
+            artilist[ART_SHAMBLESTICK].mtype |= r;
+            /* Bane flags */
+            artilist[ART_SHAMBLESTICK].spfx |= SPFX_DFLAGH;
+            artilist[ART_SHAMBLESTICK].spfx |= SPFX_WARN;
+            if (rn2(2))
+                break; /* Don't stack them too easily now! */
+        }         
+    }
+
     /* Random damage to-hit/bonus. 
-     * This scales with how many abilities bonuses were granted.
-     * */
+ * This scales with how many abilities bonuses were granted.
+ * */
     sgranted = 10 - sgranted * 2;
     if (sgranted < 0)
         sgranted = 0;
@@ -236,6 +253,7 @@ ok_spfx(long spfx)
         || spfx == SPFX_DCLAS
         || spfx == SPFX_DFLAG1
         || spfx == SPFX_DFLAGH
+        || spfx == SPFX_DALIGN /* Handled in attack init */
         || spfx == SPFX_DBONUS
         || spfx == SPFX_NOWISH)
         return FALSE;
