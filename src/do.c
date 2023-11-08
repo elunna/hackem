@@ -1174,8 +1174,10 @@ struct obj *obj;
             if (!context.mon_moving && !program_state.gameover)
                 costly_alteration(obj, COST_DEGRD);
             obj->otyp = WORM_TOOTH;
-            obj->oerodeproof = 0;
-            set_material(obj, objects[WORM_TOOTH].oc_material);
+            if (!obj->oartifact) {
+                obj->oerodeproof = 0;
+                set_material(obj, objects[WORM_TOOTH].oc_material);
+            }
         }
         break;
     }
