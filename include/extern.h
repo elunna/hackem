@@ -758,6 +758,7 @@ E void FDECL(recbranch_mapseen, (d_level *, d_level *));
 E void FDECL(overview_stats, (winid, const char *, long *, long *));
 E void FDECL(remdun_mapseen, (int));
 E const char *FDECL(endgamelevelname, (char *, int));
+E int dynamic_levname(void);
 E void forget_mapseen(int);
 
 /* ### eat.c ### */

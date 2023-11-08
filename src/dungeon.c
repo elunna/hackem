@@ -3238,4 +3238,108 @@ forget_mapseen(ledger_num)
             bp->bonesknown = FALSE;
     }
 }
+
+
+/* Dynamic level naming code. */
+static const char *const ownernames[] = {
+        "Yendorian",    "Pilgrim",   "Ancient",
+        "Giant",        "Seeker",    "Adventurer",
+        "Coward",       "Goblin",    "Liar",
+        "Sinner",       "Traveller", "Explorer",
+        "Hero",         "Horde",     "Demon",
+        "Beast"
+};
+
+static const char *const lev_adj[] = {
+        "Ancient",    "Ruined",   "Abandoned",
+        "Whispering", "Silent",   "Forgotten",
+        "Mysterious", "Weeping",  "Collapsed",
+        "Broken",     "Remote"
+};
+
+static const char *const fountnames[] = {
+        "Fonts",   "Pools", "Haven", "Oasis",
+        "Respite", "Rest"
+};
+
+static const char *const forgenames[] = {
+        "Foundry", "Smithy", "Hammer", "Metalworks",
+        "Forge", "Furnace", "Workshop"
+};
+
+static const char *const standardnames[] = {
+        "Way",       "Road",       "Path",
+        "Lookout",   "Hideout",    "Sorrow",
+        "Cairn",     "Peak",       "Cave",
+        "Pass",      "Point",      "Tunnel",
+        "Den",       "Folly",      "Causeway",
+        "Court",     "Run",        "Temple",
+        "Reliquary", "Cathedral",  "Chapel"
+};
+
+static const char *const bigrm_names[] = {
+        "Chamber",   "Hall",      "Treasury",
+        "Vault",     "Arena",     "Antechamber",
+        "Cell",      "Hollow"
+};
+
+int
+dynamic_levname(void) {
+    char buf[BUFSZ];
+    mapseen * mptr;
+
+    if (!(mptr = find_mapseen(&u.uz)))
+        return 0;
+
+    if (Is_special(&u.uz)) {
+        if (Is_oracle_level(&u.uz)) {
+            Sprintf(buf, "Delphi");
+            mptr->custom = dupstr(buf);
+            return 1;
+        } else if (Is_stronghold(&u.uz)) {
+            Sprintf(buf, "The Castle");
+            mptr->custom = dupstr(buf);
+            return 1;
+        } else if (Is_bigroom(&u.uz)) {
+            Sprintf(buf, "%s of the %s",
+                    bigrm_names[rn2(SIZE(bigrm_names))],
+                    ownernames[rn2(SIZE(ownernames))]);
+            mptr->custom = dupstr(buf);
+            return 1;
+        }
+    }
+    if (u.uz.dnum != 0)
+        return 0;
+
+    if (level.flags.nforges && !rn2(3)) {
+        Sprintf(buf, "%s's %s",
+                ownernames[rn2(SIZE(ownernames))],
+                forgenames[rn2(SIZE(forgenames))]);
+    } else if (level.flags.nfountains && !rn2(3)) {
+        Sprintf(buf, "%s's %s",
+                ownernames[rn2(SIZE(ownernames))],
+                fountnames[rn2(SIZE(fountnames))]);
+    } else {
+        switch (rn2(3)) {
+            case 0:
+                Sprintf(buf, "%s of the %s",
+                        standardnames[rn2(SIZE(standardnames))],
+                        ownernames[rn2(SIZE(ownernames))]);
+                break;
+            case 1:
+                Sprintf(buf, "%s %s",
+                        lev_adj[rn2(SIZE(lev_adj))],
+                        standardnames[rn2(SIZE(standardnames))]);
+                break;
+            case 2:
+                Sprintf(buf, "%s's %s",
+                        ownernames[rn2(SIZE(ownernames))],
+                        standardnames[rn2(SIZE(standardnames))]);
+                break;
+        }
+    }
+    mptr->custom = dupstr(buf);
+    return 1;
+}
+
 /*dungeon.c*/

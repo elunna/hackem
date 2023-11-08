@@ -1265,6 +1265,9 @@ skip_nonrogue:
             }
         }
     }
+
+    /* Dynamically name the level depending on the contents. */
+    dynamic_levname();
 }
 
 /*
