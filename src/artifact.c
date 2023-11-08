@@ -1534,7 +1534,7 @@ struct monst *mtmp;
         case AD_PLYS:
             return !(yours ? Free_action : has_free_action(mtmp));
         case AD_WTHR:
-            return !(nonliving(mtmp->data) && is_vampshifter(mtmp));
+            return !(nonliving(mtmp->data) || is_vampshifter(mtmp));
         case AD_BLND:
         case AD_SLOW:
         case AD_WATR:
