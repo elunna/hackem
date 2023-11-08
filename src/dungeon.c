@@ -3262,6 +3262,7 @@ static const char *const ownernames[] = {
         "Whisperer",    "Crusher",      "Rider",
         "Butcher",      "Baker",        "Tailor",
         "Ancient",      "Endless",      "Viper",
+        "Dreamer",
 };
 
 static const char *const general_adj[] = {
@@ -3278,6 +3279,10 @@ static const char *const general_adj[] = {
         "Wilding",      "Bewitched",    "Arcane",
         "Unholy",       "Severed",      "Dirty",
         "Wicked",       "Ethereal",     "Doomed",
+        "Enchanted",    "Mystic",       "Twilight",
+        "Fabled",       "Echoing",      "Starlight",
+        "Stardust",
+        
 };
 
 static const char *const nice_adj[] = {
@@ -3287,6 +3292,9 @@ static const char *const nice_adj[] = {
         "Glittering",   "Fresh",        "Radiant",
         "Gleaming",     "Prophetic",    "Decorated",
         "Wonderful",    "Powerful",     "Painted",
+        "Evergreen",    "Serenity",     "Elysian",
+        "Crystal",      "Silverleaf",   "Resplendent",
+        "Marvelous",    "Sacred",
 };
 
 static const char *const neutral_adj[] = {
@@ -3294,17 +3302,29 @@ static const char *const neutral_adj[] = {
         "Infinite",     "Dusty",        "Mossy",
         "Misty",        "Verdant",      "Noisome",
         "Damp",         "Windy",        "Fungus-covered"
-                                        "Sulphurous",   "Feral",        "Narrow",
+        "Sulphurous",   "Feral",        "Narrow",
         "Puckish",      "Viny",         "Slimy",
+        "Mistwood",     "Celestia",     "Emberfall",
+        "Dreamweaver",  "Shadowbloom",  "Secret",
+        "Hidden",
+        
 };
 static const char *const fountnames[] = {
         "Font",     "Pool", "Haven",    "Oasis",
         "Respite",  "Rest", "Tears",    "Spring",
+        "Basin",    "Gully", "Veil",    "Cascade",
+        "Arcadia",  "Waterscape",       "Wellspring",
+        "Gardens",  "Marblescape",      "Retreat",
+        "Springlands", "Tide",          "Rivulet",
+        "Mists",    "Spout",
 };
 
 static const char *const forgenames[] = {
-        "Foundry", "Smithy", "Hammer", "Metalworks",
-        "Forge", "Furnace", "Workshop",
+        "Foundry",  "Smithy",   "Hammer", "Metalworks",
+        "Forge",    "Furnace",  "Workshop", "Foothold",
+        "Enclave",  "Anvil",    "Citadel", "Crucible",
+        "Ironworks", "Bastion", "Smithery", "Domain", 
+        "Hangar",   "Grounds",
 };
 
 static const char *const standardnames[] = {
@@ -3319,6 +3339,8 @@ static const char *const standardnames[] = {
         "Caves",    "Tunnels",      "Paths",
         "Hovels",   "Table",        "Place",
         "Town",     "Burrow",       "Alley",
+        "Vale",     "Glen",         "Dell",
+        "Terrace",  "Meadows",
 };
 
 static const char *const bigrm_names[] = {
@@ -3329,6 +3351,8 @@ static const char *const bigrm_names[] = {
         "Manor",    "Gauntlet", "Lair",
         "Cathedral","Bazaar",   "Amphitheater",
         "Canyon",   "Gorge",    "Ravine",
+        "Expanse",  "Gallery",  "Vestibule",
+        "Rotunda",  "Atrium",   "Salon",
 };
 
 static const char *const propernames[] = {
