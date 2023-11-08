@@ -927,6 +927,7 @@ makelevel()
         /* check for special levels */
         if (slev && !Is_rogue_level(&u.uz)) {
             makemaz(slev->proto);
+            dynamic_levname();
             return;
         } else if (dungeons[u.uz.dnum].proto[0]) {
             makemaz("");
