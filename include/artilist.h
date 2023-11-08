@@ -114,6 +114,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(1, 1), NO_DFNS, NO_CARY, 0, 
       A_LAWFUL, NON_PM, NON_PM, 300L, NO_COLOR, DEFAULT_MAT),
 
+    A("Krelln", CRYSKNIFE,
+      (SPFX_NOWISH | SPFX_INTEL), 0, 0,
+      PHYS(0, 14), NO_DFNS, NO_CARY, 0,
+      /* We don't have Fremen; using elves as a close alternative. */
+      A_LAWFUL, NON_PM, PM_ELF, 500L, NO_COLOR, MINERAL),
+
     /* Original idea by Spicy. Prevents all monster regen. */
     A("Mortality Dial", EXECUTIONER_S_MACE, 
       (SPFX_RESTR | SPFX_REGEN), 0, 0, 
@@ -189,6 +195,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
         /*** Neutral artifacts ***/
 
+    A("Arvon", CRYSKNIFE,
+      (SPFX_NOWISH | SPFX_INTEL), 0, 0,
+      PHYS(0, 14), NO_DFNS, NO_CARY, 0,
+      /* We don't have Fremen; using elves as a close alternative. */
+      A_NEUTRAL, NON_PM, PM_ELF, 500L, NO_COLOR, MINERAL),
+      
     /* This lance does a lot of damage, and also occasionally stuns */
     A("Bradamante\'s Fury", LANCE, 
       (SPFX_RESTR), 0, 0,
@@ -454,7 +466,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR, BONE),
 
       /*** Unaligned artifacts ***/
-
+      
     /* The quasi-evil twin of Demonbane, Angelslayer is an unholy trident
      * geared towards the destruction of all angelic beings */
     A("Angelslayer", TRIDENT,
