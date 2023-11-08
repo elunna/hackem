@@ -197,7 +197,7 @@ WEAPON("stiletto", None,
 WEAPON("worm tooth", None,
        1, 1, 0, 0,  0,  20,   2,  2,  2, 0, P,   P_KNIFE, BONE, CLR_WHITE),
 WEAPON("crysknife", None,
-       1, 1, 0, 0,  0,  20, 100, 20, 30, 3, P,   P_KNIFE, BONE, CLR_WHITE),
+       1, 1, 0, 0,  0,  20, 100, 10, 10, 3, P,   P_KNIFE, BONE, CLR_WHITE),
 
 /* axes */
 WEAPON("axe", None,
