@@ -1462,7 +1462,7 @@ struct monst *mtmp;
 {
     struct permonst *ptr;
     boolean yours;
-
+    
     if (!(weap->spfx & (SPFX_DBONUS | SPFX_ATTK)))
         return (weap->attk.adtyp == AD_PHYS);
 
@@ -1589,7 +1589,10 @@ int tmp;
     boolean yours = (mon == &youmonst);
     int dbon = 0, adtype;
     spec_dbon_applies = FALSE;
-
+    
+    if (weap->otyp == CRYSKNIFE && otmp->otyp != CRYSKNIFE)
+        return 0;
+    
     if (!weap && otmp->oprops
         && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp) 
             || (uarms && otmp == uarms))) {
