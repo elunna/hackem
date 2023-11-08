@@ -154,7 +154,6 @@ spec_levs: ../util/lev_comp \
 	sea.des \
 	sokoban.des \
 	spiders.des \
-	stor.des \
 	tomb.des \
 	tower.des \
 	town.des \
@@ -188,7 +187,6 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp sea.des
 	../util/lev_comp sokoban.des
 	../util/lev_comp spiders.des
-	../util/lev_comp stor.des
 	../util/lev_comp tomb.des
 	../util/lev_comp tower.des
 	../util/lev_comp town.des

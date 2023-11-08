@@ -323,7 +323,6 @@ char **argv;
         ":dat:sokoban.des",
         ":dat:sea.des",
         ":dat:spiders.des",
-        ":dat:stor.des", 
         ":dat:tomb.des",
         ":dat:tower.des",
         ":dat:town.des",

@@ -780,7 +780,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(DAT)\rats.des \
 	$(DAT)\sokoban.des \
 	$(DAT)\spiders.des \
-	$(DAT)\stor.des \
 	$(DAT)\tomb.des \
 	$(DAT)\tower.des \
 	$(DAT)\town.des \
@@ -836,7 +835,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(U)levcomp sea.des
 	$(U)levcomp sokoban.des
 	$(U)levcomp spiders.des
-	$(U)levcomp stor.des
 	$(U)levcomp tomb.des
 	$(U)levcomp tower.des
 	$(U)levcomp town.des
@@ -1390,7 +1388,6 @@ spotless: clean
 	if exist $(DAT)\rats-?.lev	 del $(DAT)\rats-?.lev
 	if exist $(DAT)\sanctum.lev	 del $(DAT)\sanctum.lev
 	if exist $(DAT)\soko?-*.lev	 del $(DAT)\soko?-*.lev
-	if exist $(DAT)\stor-?.lev	 del $(DAT)\stor-?.lev
 	if exist $(DAT)\tomb.lev	 del $(DAT)\tomb.lev
 	if exist $(DAT)\tower?.lev	 del $(DAT)\tower?.lev
 	if exist $(DAT)\townfill.lev del $(DAT)\townfill.lev

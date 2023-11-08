@@ -1230,7 +1230,7 @@ ROOM:"rndvault", random, random, random, random {
     TERRAIN:$fill, 'L'
 }            
 
-#Perimeter room
+# Perimeter room
 LEVEL:"vlt-0073"
 FLAGS:rndvault
 MINDEPTH:8
@@ -1242,13 +1242,105 @@ ROOM:"rndvault", random, random, random, (5,5) {
     TERRAIN:rect(0, 0, 4, 4), $terr[0]
 }
 
+# Storage room
+LEVEL:"vlt-0074"
+FLAGS:rndvault
+MINDEPTH:8
+
+ROOM:"rndvault", unlit, random, random, (4,4) { 
+   OBJECT: '(', (2,2)
+   OBJECT: '(', (2,2)
+   
+   SWITCH [ 9 ] {
+    CASE 0: ENGRAVING: (2,2), burn, "Begone! Keep Off! Shoo!"
+        BREAK
+    CASE 1: ENGRAVING: (2,2), burn, "Danger! Cursed Items! Do Not Touch!"
+        BREAK
+    CASE 2: ENGRAVING: (2, 2), burn, "Property of the Wizard! Do Not Touch!"
+        BREAK
+    CASE 3: ENGRAVING: (2,2), burn, "Army of Yendor armory annex. Trespassers will be shot."
+        BREAK
+    CASE 4: ENGRAVING: (2,2), burn, "Mine, not yours.  You touch, you're dead!"
+        BREAK
+    CASE 5: ENGRAVING: (2,2), burn, "Property of the Dungeons of Doom municipal library.  Do not remove."
+        BREAK
+    CASE 6: ENGRAVING: (2,2), burn, "A Elbereth Gilthoniel, silivren penna miriel, o menel aglar elenath!"
+        BREAK
+    CASE 7: ENGRAVING: (2,2), burn, "Warning: Chest is Rigged to Explode."
+        BREAK
+    CASE 8: ENGRAVING: (2,2), burn, "Beware! A Unique Trap Guards This Chest!"
+        BREAK
+    CASE 9: ENGRAVING: (2,2), burn, "Get off this level ASAP! Whatever you do, do not touch these items! - A Friend"
+        BREAK
+    CASE 10: ENGRAVING: (2,2), burn, "elberethelberethelberethelberethelbzlx"
+        BREAK     
+   }
+   
+   CONTAINER: ('(', "chest"), (2,2) {
+       SWITCH [ 7 ] {
+       CASE 0:
+           OBJECT: '/'
+           OBJECT: '='
+           OBJECT: '"'
+           BREAK
+       CASE 1:
+           OBJECT: '/'
+           OBJECT: '='
+           OBJECT: ('=', "regeneration")
+           OBJECT: '*'
+           BREAK
+       CASE 2:
+           OBJECT: '/'
+           OBJECT: '='
+           OBJECT: '/'
+           BREAK
+       CASE 3:
+           LOOP [2] { OBJECT: '/' }
+           LOOP [8] { OBJECT: ('[', "helmet") }
+           LOOP [6] { OBJECT: ')' }
+           BREAK
+       CASE 4:
+           LOOP [2] { OBJECT: '/' }
+           LOOP [2] { OBJECT: ')' }
+           LOOP [4] { OBJECT: '%' }
+           BREAK
+       CASE 5:
+           LOOP [2] { OBJECT: '+' }
+           LOOP [2] { OBJECT: '?' }
+           BREAK
+       CASE 6:
+           OBJECT: (')', "elven broadsword")
+           OBJECT: (')', "elven dagger")
+           OBJECT: (')', "elven spear")
+           OBJECT: (')', "elven bow")
+           OBJECT: (')', "elven arrow")
+           OBJECT: (')', "elven arrow")
+           OBJECT: ('[', "elven helm")
+           OBJECT: ('[', "elven chain mail")
+           OBJECT: ('[', "elven cloak")
+           LOOP [5] { OBJECT: '*' }
+           BREAK
+       DEFAULT:
+           BREAK
+       }
+   }
+
+   # traps for the storage room, deterrents..
+   TRAP: random, random
+   TRAP: random, random
+   TRAP: random, random
+   [50%]: TRAP: random, random
+   
+   OBJECT:('%', "corpse"), random, montype:'@'
+}
+
 
 # Default room
 # Because this is the last room this will show up regardless of MINLEVEL
 # (At least that's what some testing revealed.)
 # We'll make this room add some color to the dungeon but no dangerous 
 # lava or deep water pools.
-LEVEL:"vlt-0074"
+LEVEL:"vlt-0075"
 FLAGS:rndvault
 ROOM:"rndvault", random, random, random, (3,3) {
 $terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C', ',' }

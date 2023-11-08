@@ -823,7 +823,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
     $(DAT)/rats.des \
     $(DAT)/sokoban.des \
     $(DAT)/spiders.des \
-    $(DAT)/stor.des \
     $(DAT)/tomb.des \
     $(DAT)/tower.des \
     $(DAT)/town.des \
@@ -876,7 +875,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(subst /,\,$(U)levcomp $(DAT)/rats.des
 	$(subst /,\,$(U)levcomp $(DAT)/sokoban.des)
 	$(subst /,\,$(U)levcomp $(DAT)/spiders.des
-	$(subst /,\,$(U)levcomp $(DAT)/stor.des
 	$(subst /,\,$(U)levcomp $(DAT)/tomb.des
 	$(subst /,\,$(U)levcomp $(DAT)/tower.des)
 	$(subst /,\,$(U)levcomp $(DAT)/ucastle.des)
@@ -1387,7 +1385,6 @@ ifneq "$(W_DAT)" ""
 	if exist $(W_DAT)\rats.lev	   del $(W_DAT)\rats.lev
 	if exist $(W_DAT)\sanctum.lev	   del $(W_DAT)\sanctum.lev
 	if exist $(W_DAT)\soko?-*.lev	   del $(W_DAT)\soko?-*.lev
-	if exist $(W_DAT)\stor-?.lev	   del $(W_DAT)\stor-?.lev
 	if exist $(W_DAT)\tomb.lev	       del $(W_DAT)\tomb.lev
 	if exist $(W_DAT)\tower?.lev	   del $(W_DAT)\tower?.lev
 	if exist $(W_DAT)\townfill.lev	   del $(W_DAT)\townfill.lev

@@ -77,7 +77,6 @@
     <Desfiles Include = "sea.des"/>
     <Desfiles Include = "sokoban.des"/>
     <Desfiles Include = "spiders.des"/>
-    <Desfiles Include = "stor.des"/>
     <Desfiles Include = "tomb.des"/>
     <Desfiles Include = "tower.des"/>
     <Desfiles Include = "town.des"/>
@@ -253,7 +252,6 @@
     <Levfiles Include = "soko4-17.lev"/>
     <Levfiles Include = "soko4-18.lev"/>
     <Levfiles Include = "spiders.lev"/>
-    <Levfiles Include = "stor.lev"/>
     <Levfiles Include = "tomb.lev"/>
     <Levfiles Include = "tower1.lev"/>
     <Levfiles Include = "tower2.lev"/>
