@@ -3343,7 +3343,7 @@ dynamic_levname(void) {
             return 1;
         }
     }
-    if (u.uz.dnum != 0)
+    if (u.uz.dnum != 0 || !rn2(3) || depth(&u.uz) == 1)
         return 0;
 
     if (level.flags.nforges && !rn2(3)) {
