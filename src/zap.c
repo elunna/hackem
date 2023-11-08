@@ -2616,6 +2616,7 @@ struct obj *obj, *otmp;
             res = stone_to_flesh_obj(obj);
             break;
         case SPE_FIRE_BOLT:
+        case WAN_FIREBALL:
         case WAN_FIRE:
             if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
                 hatch_faster(obj);
@@ -2946,6 +2947,10 @@ boolean ordinary;
         destroy_item(RING_CLASS, AD_ELEC);
         (void) flashburn((long) rnd(100));
         break;
+
+    case WAN_FIREBALL:
+        makeknown(WAN_FIREBALL);
+        /* FALLTHROUGH */
     case SPE_FIREBALL:
         You("explode a fireball on top of yourself!");
         explode(u.ux, u.uy, ZT_SPELL(ZT_FIRE), d(6, 6), WAND_CLASS,
@@ -4163,7 +4168,8 @@ struct obj *obj;
         zapnodir(obj);
     } else {
         /* neither immediate nor directionless */
-
+        if (otyp == WAN_FIREBALL)
+            otyp = SPE_FIREBALL;
         if (otyp == WAN_DIGGING || otyp == SPE_DIG)
             zap_dig();
         else if (otyp >= FIRST_SPELLBOOK && otyp <= LAST_SPELLBOOK)

@@ -233,7 +233,7 @@ OBJECT: (')', "orcish bow"), (39,02), uncursed, +1
 OBJECT: (')', "orcish arrow"), (39,02), uncursed, +2
 
 MONSTER: ('o', "war orc"), (39,05), hostile
-[40%]: OBJECT: ('/', "noise"), (39,05)
+[40%]: OBJECT: ('/', "fireball"), (39,05)
 OBJECT: (')', "orcish bow"), (39,05), uncursed, +2
 OBJECT: (')', "orcish arrow"), (39,05), uncursed, +1
 

@@ -1615,6 +1615,7 @@ struct monst *mtmp;
 #define MUSE_WAN_MAGIC_MISSILE  55
 /*#define MUSE_WAN_TELEPORTATION  15 also a defensive item so don't redefine */
 #define MUSE_WAN_STRIKING       57
+#define MUSE_WAN_FIREBALL       58
 #define MUSE_WAN_CANCELLATION   59
 #define MUSE_WAN_POLYMORPH      60
 #define MUSE_WAN_SLOW_MONSTER   61
@@ -1763,6 +1764,9 @@ int otyp;
     case HORN_OF_BLASTING:
         want++;
         /*FALLTHRU*/
+    case WAN_FIREBALL:
+        want++;
+        /*FALLTHRU*/
     case WAN_CORROSION:
         want++;
         /*FALLTHRU*/
@@ -1889,6 +1893,15 @@ boolean reflection_skip;
                     && can_blow(mtmp) && !m_seenres(mtmp, M_SEEN_LOUD)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_HORN_OF_BLASTING;
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
+                    m.tocharge = obj;
+                }
+            }
+            nomore(MUSE_WAN_FIREBALL);
+            if (obj->otyp == WAN_FIREBALL) {
+                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_FIRE)) {
+                    m.offensive = obj;
+                    m.has_offense = MUSE_WAN_FIREBALL;
                 } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
@@ -2556,6 +2569,7 @@ struct monst *mtmp;
         && (monnear(mtmp, mtmp->mux, mtmp->muy)
             && m.has_offense != MUSE_WAN_DEATH
             && m.has_offense != MUSE_WAN_SLEEP
+            && m.has_offense != MUSE_WAN_FIREBALL
             && m.has_offense != MUSE_WAN_FIRE
             && m.has_offense != MUSE_WAN_COLD
             && m.has_offense != MUSE_WAN_LIGHTNING)) {
@@ -2585,6 +2599,7 @@ struct monst *mtmp;
         return (DEADMONSTER(mtmp)) ? 1 : 2;
     case MUSE_WAN_DEATH:
     case MUSE_WAN_SLEEP:
+    case MUSE_WAN_FIREBALL:
     case MUSE_WAN_FIRE:
     case MUSE_WAN_COLD:
     case MUSE_WAN_LIGHTNING:
@@ -2597,11 +2612,16 @@ struct monst *mtmp;
         if (oseen)
             makeknown(otmp->otyp);
         m_using = TRUE;
-        buzz(ZT_MONWAND(otmp->otyp - WAN_MAGIC_MISSILE),
-             (otmp->otyp == WAN_MAGIC_MISSILE) ? 2 : 6, mtmp->mx, mtmp->my,
-             sgn(tbx), sgn(tby));
+        if (otmp->otyp == WAN_FIREBALL)
+            buzz(ZT_MONSPELL(ZT_FIRE), 6, mtmp->mx, mtmp->my,
+                 sgn(tbx), sgn(tby));
+        else 
+            buzz(ZT_MONWAND(otmp->otyp - WAN_MAGIC_MISSILE),
+                 (otmp->otyp == WAN_MAGIC_MISSILE) ? 2 : 6, mtmp->mx, mtmp->my,
+                 sgn(tbx), sgn(tby));
         m_using = FALSE;
         return (DEADMONSTER(mtmp)) ? 1 : 2;
+        
     case MUSE_FIRE_HORN:
     case MUSE_FROST_HORN:
     case MUSE_HORN_OF_BLASTING:
@@ -2855,6 +2875,8 @@ struct monst *mtmp;
         return 0;
     if (difficulty > 7 && !rn2(35))
         return WAN_DEATH;
+    if (difficulty > 6 && !rn2(25)) 
+        return WAN_FIREBALL;
     if (difficulty > 7 && !rn2(30))
         return WAN_POLYMORPH;
 
