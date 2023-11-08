@@ -5190,7 +5190,11 @@ artifact_info(int anum)
     
     /* Granted while wielded. */
     if (artilist[anum].defn.adtyp) {
-        Sprintf(buf, "%s resistance", adtyp_str(artilist[anum].defn.adtyp, TRUE));
+        /* TODO: Refactor this */
+        if (artilist[anum].defn.adtyp == AD_PLYS)
+            Sprintf(buf, "free action");
+        else
+            Sprintf(buf, "%s resistance", adtyp_str(artilist[anum].defn.adtyp, TRUE));
         art_info.wield_res = malloc(100);
         strcpy(art_info.wield_res, buf);
     }
