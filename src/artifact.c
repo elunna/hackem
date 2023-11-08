@@ -3907,6 +3907,7 @@ struct obj *obj;
             initedog(mtmp);
             u.uconduct.pets++;
             mtmp->msleeping = 0;
+            newsym(mtmp->mx, mtmp->my);
             break;
         case SUMMON_WATER_ELEMENTAL:
             switch (rnd(10)) {
@@ -3927,6 +3928,7 @@ struct obj *obj;
             initedog(mtmp);
             u.uconduct.pets++;
             mtmp->msleeping = 0;
+            newsym(mtmp->mx, mtmp->my);
             break;
         case LIGHTNING_BOLT: {
             struct obj* pseudo = mksobj(WAN_LIGHTNING, FALSE, FALSE);
@@ -5432,8 +5434,6 @@ artifact_info(int anum)
         
     return art_info;
 }
-
-
 
 const char *
 adtyp_str(adtyp, defend)
