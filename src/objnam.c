@@ -1920,7 +1920,8 @@ struct obj *otmp;
         return TRUE;
     if (((otmp->oprops_known & otmp->oprops) & ITEM_PROP_MASK) != otmp->oprops)
         return TRUE;
-    if (otmp->oartifact && undiscovered_artifact(otmp->oartifact))
+    if (otmp->oartifact && (undiscovered_artifact(otmp->oartifact) 
+          || otmp->otyp == WORM_TOOTH || otmp->otyp == CRYSKNIFE))
         return TRUE;
     /* otmp->rknown is the only item of interest if we reach here */
     /*
