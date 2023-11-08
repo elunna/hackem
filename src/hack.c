@@ -14,6 +14,7 @@ STATIC_DCL void NDECL(dosinkfall);
 STATIC_DCL boolean FDECL(findtravelpath, (int));
 STATIC_DCL boolean FDECL(trapmove, (int, int, struct trap *));
 STATIC_DCL struct monst *FDECL(monstinroom, (struct permonst *, int));
+STATIC_DCL void interesting_room(void);
 STATIC_DCL boolean FDECL(doorless_door, (int, int));
 STATIC_DCL void FDECL(move_update, (BOOLEAN_P));
 STATIC_DCL void FDECL(maybe_smudge_engr, (int, int, int, int));
@@ -3078,6 +3079,12 @@ register boolean newlev;
                 verbalize("Please have a look around, but don't even think about stealing anything.");
             }
             break;
+        case ARTROOM:
+            if (Blind)
+                msg_given = FALSE;
+            else
+                interesting_room();
+            break;
         case TEMPLE:
             intemple(roomno + ROOMOFFSET);
         /*FALLTHRU*/
@@ -3452,6 +3459,130 @@ lookaround()
             u.dy = y0 - u.uy;
         }
     }
+}
+
+
+/* Message for entering an art room. */
+static void
+interesting_room(void)
+{
+    static const char *const adjectives[] = {
+            "furious",          "wrathful",  "mysterious",  "ugly",
+            "beautiful", "poorly-rendered",  "large",       "lifelike",    
+            "peaceful",         "covetous",  "subservient", "lovely",
+            "misshapen",        "luminous",  "melancholic", "bold",
+            "surreal",          "brooding",  "enigmatic",   "chaotic",
+            "seething",         "frenzied",  "cheap",       "knock-off",
+            "tattered",         "distasteful", "vulgar",    "sordid",
+            "unpleasant",       "expensive", "poor-quality", "tacky",
+            "kitsch",           "tawdry",   "inferior",     "unnerving",
+            "ominous",          "eerie",    "disturbing",   "dark"
+    };
+
+    static const char *const scary_adj[] = {
+            "fearful",   "horrifying",   "sinister", "menacing",
+    };
+    
+    static const char *const art[] = {
+            "painting",   "carving",   "tapestry",  "bas-relief",
+            "photograph", "print",     "etching",   "engraving",
+            "woodcut",    "lithograph", "mosaic",   "oil painting",
+            "watercolor painting", "spray painting", "fresco",
+            "poster",     "sketching",  "pyrograph", 
+    };
+
+    int name, name2;
+    /* Modified version of rndmonnam */
+    do {
+        name = rn2(NUMMONS);
+    } while ((type_is_pname(&mons[name]) || (mons[name].geno & G_UNIQ)));
+    
+    do {
+        name2 = rn2(NUMMONS);
+    } while ((type_is_pname(&mons[name2]) || (mons[name2].geno & G_UNIQ)));
+    
+    const char* carvemon = mons[name].mname;
+    const char* carvemon2 = mons[name2].mname;
+    
+    /* Carving message */
+    switch (rnd(7)) {
+        case 1:
+            pline("%s on the ceiling portrays %s %s.",
+                  An(art[rn2(SIZE(art))]),
+                  an(adjectives[rn2(SIZE(adjectives))]), carvemon);
+            break;
+        case 2:
+            pline("There is %s of %s in this room.",
+                  an(art[rn2(SIZE(art))]), u_gname());
+            if (Afraid) {
+                pline("It calms you.");
+                make_afraid(0L, TRUE);
+            } else if (u.ualign.record > 0) {
+                pline("It shines a bright light through you!");
+                display_nhwindow(WIN_MESSAGE, FALSE);
+                enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
+                pline_The("light subsides.");
+                exercise(A_WIS, TRUE);
+            } else {
+                You("have an uneasy feeling...");
+                exercise(A_WIS, FALSE);
+            }
+            break;
+        case 3:
+            pline("%s on the wall depicts a large number of %s.",
+                  An(art[rn2(SIZE(art))]), makeplural(carvemon));
+            break;
+        case 4:
+            pline("%s in this room contains a partial map of the dungeon!",
+                  An(art[rn2(SIZE(art))]));
+            HConfusion = 1;
+            do_mapping(FALSE);
+            HConfusion = 0;
+            break;
+        case 5:
+            /* Scare the player! */
+            pline("%s on the wall portrays %s %s.",
+                  An(art[rn2(SIZE(art))]),
+                  an(scary_adj[rn2(SIZE(scary_adj))]), 
+                  carvemon);
+            if (!Fearless) {
+                switch (rnd(7)) {
+                    case 1:
+                        pline("It %s you!",  rn2(2) ? "scares" : "terrifies");
+                        break;
+                    case 2:
+                        pline("It fills you with fear!");
+                        break;
+                    case 3:
+                        pline("It gives you %s!", rn2(2) ? "the creeps" : "a fright");
+                        break;
+                    case 4:
+                        pline("It sends shivers down your spine!");
+                        break;
+                    case 5:
+                        pline("It makes your blood run cold!");
+                        break;
+                    case 6:
+                        pline("It makes you %s!", 
+                              rn2(2) ? "tremble in fear" : "quiver with fear");
+                        break;
+                    case 7:
+                        pline("It makes you feel petrified!");
+                        if (have_lizard()) {
+                            more_experienced(2, 0);
+                            return;
+                        }
+                }
+                make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), FALSE);
+            }
+            break;
+        default:
+            pline("%s in this room presents a battle between %s and %s.",
+                  An(art[rn2(SIZE(art))]),
+                  makeplural(carvemon), makeplural(carvemon2));
+    }
+    more_experienced(2, 0);
+    newexplevel();
 }
 
 /* check for a doorway which lacks its door (NODOOR or BROKEN) */
