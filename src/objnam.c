@@ -2076,7 +2076,7 @@ struct obj *obj;
 
     /* bypass object twiddling for artifacts */
     if (obj->oartifact)
-        return bare_artifactname(obj);
+            return bare_artifactname(obj);
 
     /* remember original settings for core of the object;
        oextra structs other than oname don't matter here--since they
