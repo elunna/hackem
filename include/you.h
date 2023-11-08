@@ -45,6 +45,7 @@ struct u_event {
     Bitfield(qcompleted, 1);   /* successfully completed Quest task */
     Bitfield(uheard_tune, 2);  /* 1=know about, 2=heard passtune */
     Bitfield(know_horror, 1);  /* know about shambling horror */
+    Bitfield(know_stick, 1);  /* know about shamblestick */
 
     Bitfield(entered_the_blackmarket, 1);   /* entered the Blackmarket */
     Bitfield(uopened_dbridge, 1);   /* opened the drawbridge */

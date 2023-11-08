@@ -190,6 +190,7 @@ hack_artifacts()
 
     /* Random attack type */
     /* TODO: Also enable support for:
+     * AD_DRLI - goes with spfx flag
      * AD_DREN
      * AD_SITM
      * AD_TLPT
@@ -204,6 +205,7 @@ hack_artifacts()
      * AD_WTHR
      * AD_WEBS
      * AD_CALM
+     * AD_FEAR 
      */ 
     artilist[ART_SHAMBLESTICK].attk.adtyp = rn2(AD_DRLI);
     
@@ -326,6 +328,9 @@ const char *name;
         if (!strncmpi(aname, "the ", 4))
             aname += 4;
         if (!strcmpi(name, aname)) {
+            /* Like shambling horrors, hide Shamblestick info */
+            if (index == ART_SHAMBLESTICK && !u.uevent.know_stick)
+                continue;
             obj = mksobj(a->otyp, TRUE, FALSE);
             obj->otyp = a->otyp;
             obj->oartifact = index;
@@ -339,7 +344,7 @@ const char *name;
         }
         index++;
     }
-
+    
     return obj;
 }
 
@@ -529,6 +534,7 @@ aligntyp alignment; /* target alignment, or A_NONE */
     } else if (otmp) {
         otmp = create_oprop(otmp, FALSE);
     }
+    
     return otmp;
 }
 
@@ -762,6 +768,8 @@ boolean mod;
                     fix_artifact(otmp);
                 break;
             }
+    if (otmp->oartifact == ART_SHAMBLESTICK)
+        u.uevent.know_stick = 1;
     return;
 }
 
