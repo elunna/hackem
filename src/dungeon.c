@@ -3417,12 +3417,12 @@ dynamic_levname(void) {
             return 1;
         }
     }
-    if (u.uz.dnum != 0 || !rn2(3) || depth(&u.uz) == 1)
+    if (u.uz.dnum != 0 || depth(&u.uz) < 5 || !rn2(3))
         return 0;
-
-    /* furnaces seem rare; always name them */
-    if (level.flags.nforges) {
-        switch(rn2(2)) {
+    
+    if (level.flags.nforges && !rn2(2)) {
+        /* furnaces seem rare; usually name them */
+        switch (rn2(2)) {
             case 0:
                 Sprintf(buf, "The %s's %s",
                         ownernames[rn2(SIZE(ownernames))],
@@ -3435,8 +3435,8 @@ dynamic_levname(void) {
                 break;
         }
         named = TRUE;
+    } else if (level.flags.nfountains && !rn2(5)) {
         /* fountains are somewhat special */
-    } else if (level.flags.nfountains && !rn2(2)) {
         switch (rn2(3)) {
             case 0:
                 Sprintf(buf, "The %s's %s",
@@ -3456,7 +3456,7 @@ dynamic_levname(void) {
         }
        named = TRUE;
         /* plain levels shouldn't get special names too often */
-    } else if (!rn2(3)) {
+    } else if (!rn2(5)) {
         switch (rn2(5)) {
             case 0:
                 Sprintf(buf, "The %s of the %s",
