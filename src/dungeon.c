@@ -3242,6 +3242,7 @@ forget_mapseen(ledger_num)
 
 /* Dynamic level naming code. */
 static const char *const ownernames[] = {
+        /* don't use proper nouns */
         "Yendorian",    "Pilgrim",      "Ancient",
         "Giant",        "Seeker",       "Adventurer",
         "Coward",       "Goblin",       "Liar",
@@ -3257,35 +3258,53 @@ static const char *const ownernames[] = {
         "Lost Child",   "Faerie",       "Spirit",
         "Dragon",       "Tarantula",    "Spider",
         "Leocrotta",    "Academy",      "Council",
-        "Creosote",     "Hydra",        "Onatar",
-        "Anhur",        "Lugh",         "Hermes",
+        "Devourer",     "Hydra",        "Elemental",
         "Whisperer",    "Crusher",      "Rider",
         "Butcher",      "Baker",        "Tailor",
-        "Ancient",      "Endless",      "Viper"
+        "Ancient",      "Endless",      "Viper",
 };
 
-static const char *const lev_adj[] = {
-        "Ancient",      "Ruined",   "Abandoned",
-        "Whispering",   "Silent",   "Forgotten",
-        "Mysterious",   "Weeping",  "Collapsed",
-        "Broken",       "Remote",   "Serene",
-        "Murky",        "Steaming", "Glowing",
-        "Cold",         "Misty",    "Mossy",
-        "Green",        "Blue",     "Red",
-        "Yellow",       "Gray",     "Forlorn",
-        "First",        "Last",     "Imposing",
-        "Wilding",      "Bewitched","Arcane",
-        "Unholy",       "Severed",  "Dirty"
+static const char *const general_adj[] = {
+        /* trend towards spooky, abandoned          */
+        "Ancient",      "Ruined",       "Abandoned",
+        "Whispering",   "Silent",       "Forgotten",
+        "Mysterious",   "Weeping",      "Collapsed",
+        "Broken",       "Remote",       "Uncanny",
+        "Murky",        "Steaming",     "Glowing",
+        "Cold",         "Misty",        "Mossy",
+        "Chilly",       "Yellow",       "Red",
+        "Tepid",        "Gray",         "Forlorn",
+        "First",        "Last",         "Imposing",
+        "Wilding",      "Bewitched",    "Arcane",
+        "Unholy",       "Severed",      "Dirty",
+        "Wicked",       "Ethereal",     "Doomed",
 };
 
+static const char *const nice_adj[] = {
+        /* for fountains, but maybe other things too*/
+        "Serene",       "Holy",         "Quiet",
+        "Tranquil",     "Blue",         "Green",
+        "Glittering",   "Fresh",        "Radiant",
+        "Gleaming",     "Prophetic",    "Decorated",
+        "Wonderful",    "Powerful",     "Painted",
+};
+
+static const char *const neutral_adj[] = {
+        /* natural places, forest, fountains, etc   */
+        "Infinite",     "Dusty",        "Mossy",
+        "Misty",        "Verdant",      "Noisome",
+        "Damp",         "Windy",        "Fungus-covered"
+                                        "Sulphurous",   "Feral",        "Narrow",
+        "Puckish",      "Viny",         "Slimy",
+};
 static const char *const fountnames[] = {
-        "Fonts",   "Pools", "Haven",    "Oasis",
-        "Respite", "Rest",  "Tears",
+        "Font",     "Pool", "Haven",    "Oasis",
+        "Respite",  "Rest", "Tears",    "Spring",
 };
 
 static const char *const forgenames[] = {
         "Foundry", "Smithy", "Hammer", "Metalworks",
-        "Forge", "Furnace", "Workshop"
+        "Forge", "Furnace", "Workshop",
 };
 
 static const char *const standardnames[] = {
@@ -3295,11 +3314,11 @@ static const char *const standardnames[] = {
         "Pass",     "Point",        "Tunnel",
         "Den",      "Folly",        "Causeway",
         "Court",    "Run",          "Temple",
-        "Reliquary","Cathedral",    "Chapel",
+        "Reliquary","Passage",      "Chapel",
         /* make some names rarer by duplicating "common" names */
         "Caves",    "Tunnels",      "Paths",
         "Hovels",   "Table",        "Place",
-        "Town",     "Burrow"
+        "Town",     "Burrow",       "Alley",
 };
 
 static const char *const bigrm_names[] = {
@@ -3307,16 +3326,47 @@ static const char *const bigrm_names[] = {
         "Vault",    "Arena",    "Antechamber",
         "Cell",     "Hollow",   "Valley",
         "Vista",    "Hoard",    "Battleground",
-        "Manor",    "Gauntlet"
+        "Manor",    "Gauntlet", "Lair",
+        "Cathedral","Bazaar",   "Amphitheater",
+        "Canyon",   "Gorge",    "Ravine",
+};
+
+static const char *const propernames[] = {
+        /* beings   */
+        "Marduk",   "Moloch",   "Elbereth", "Arioch",
+        /* gods     */
+        "Camaxtli", "Huhetotl", "Quetzalcoatl",
+        "Mitra",    "Crom",     "Set",
+        "Anu",      "Ishtar",   "Anshar",
+        "Athena",   "Hermes",   "Poseidon",
+        "Lugh",     "Brigit",   "Manannan Mac Lir",
+        "Huan Ti",  "Mars",     "Shan Lai Ching",
+        "Mercury",  "Venus",    "Chih Sung-tzu",
+        "Issek",    "Mog",      "Kos",
+        "Susanowo", "Raijin",   "Amaterasu Omikami",
+        "Blind Io", "The Lady", "Offler",
+        "Tyr",      "Odin",     "Loki",
+        "Ptah",     "Thoth",    "Anhur",
+        /* leaders  */
+        "Arthur",   "Neferet",  "Carnarvon",     "Sato",
+        "Pelias",   "Karnov",   "Hippocrates",  "Orion",
+        "Twoflower",    "The Arch Priest",   "The Norn",
+        "The Grand Master",     "The Master of Thieves",
+        /* misc     */
+        "The Wizard of Yendor", "The Oracle",
+        "Creosote", "Izchak",   "Vlad",
 };
 
 int
 dynamic_levname(void) {
     char buf[BUFSZ];
     mapseen * mptr;
+    boolean named = FALSE;
 
     if (!(mptr = find_mapseen(&u.uz)))
         return 0;
+
+    buf[0] = '\0';
 
     if (Is_special(&u.uz)) {
         if (Is_oracle_level(&u.uz)) {
@@ -3328,7 +3378,7 @@ dynamic_levname(void) {
             mptr->custom = dupstr(buf);
             return 1;
         } else if (Is_rogue_level(&u.uz)) {
-            Sprintf(buf, "An Older World");
+            Sprintf(buf, "an older world");
             mptr->custom = dupstr(buf);
             return 1;
         } else if (Is_stronghold(&u.uz)) {
@@ -3346,34 +3396,70 @@ dynamic_levname(void) {
     if (u.uz.dnum != 0 || !rn2(3) || depth(&u.uz) == 1)
         return 0;
 
-    if (level.flags.nforges && !rn2(3)) {
-        Sprintf(buf, "The %s's %s",
-                ownernames[rn2(SIZE(ownernames))],
-                forgenames[rn2(SIZE(forgenames))]);
-    } else if (level.flags.nfountains && !rn2(3)) {
-        Sprintf(buf, "The %s's %s",
-                ownernames[rn2(SIZE(ownernames))],
-                fountnames[rn2(SIZE(fountnames))]);
-    } else {
+    /* furnaces seem rare; always name them */
+    if (level.flags.nforges) {
+        switch(rn2(2)) {
+            case 0:
+                Sprintf(buf, "The %s's %s",
+                        ownernames[rn2(SIZE(ownernames))],
+                        forgenames[rn2(SIZE(forgenames))]);
+                break;
+            case 1:
+                Sprintf(buf, "%s of %s",
+                        forgenames[rn2(SIZE(forgenames))],
+                        propernames[rn2(SIZE(propernames))]);
+                break;
+        }
+        named = TRUE;
+        /* fountains are somewhat special */
+    } else if (level.flags.nfountains && !rn2(2)) {
         switch (rn2(3)) {
+            case 0:
+                Sprintf(buf, "The %s's %s",
+                        ownernames[rn2(SIZE(ownernames))],
+                        fountnames[rn2(SIZE(fountnames))]);
+                break;
+            case 1:
+                Sprintf(buf, "The %s %s",
+                        nice_adj[rn2(SIZE(nice_adj))],
+                        fountnames[rn2(SIZE(fountnames))]);
+                break;
+            case 2:
+                Sprintf(buf, "The %s %s",
+                        neutral_adj[rn2(SIZE(neutral_adj))],
+                        fountnames[rn2(SIZE(fountnames))]);
+                break;
+        }
+       named = TRUE;
+        /* plain levels shouldn't get special names too often */
+    } else if (!rn2(3)) {
+        switch (rn2(5)) {
             case 0:
                 Sprintf(buf, "The %s of the %s",
                         standardnames[rn2(SIZE(standardnames))],
                         ownernames[rn2(SIZE(ownernames))]);
                 break;
             case 1:
-                Sprintf(buf, "The %s %s",
-                        lev_adj[rn2(SIZE(lev_adj))],
-                        standardnames[rn2(SIZE(standardnames))]);
-                break;
-            case 2:
                 Sprintf(buf, "%s %s",
                         ownernames[rn2(SIZE(ownernames))],
                         standardnames[rn2(SIZE(standardnames))]);
                 break;
+            case 2:
+                Sprintf(buf, "The %s %s",
+                        neutral_adj[rn2(SIZE(neutral_adj))],
+                        standardnames[rn2(SIZE(standardnames))]);
+            break;
+            case 3:
+            case 4:
+                Sprintf(buf, "The %s %s",
+                        general_adj[rn2(SIZE(general_adj))],
+                        standardnames[rn2(SIZE(standardnames))]);
+                break;
         }
+        named = TRUE;
     }
-    mptr->custom = dupstr(buf);
+    if (named)
+        mptr->custom = dupstr(buf);
     return 1;
 }
 
