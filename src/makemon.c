@@ -3874,7 +3874,11 @@ int mndx, mvflagsmask, genomask;
     if (!Role_if(PM_INFIDEL)
         && (ptr == &mons[PM_AGENT] || ptr == &mons[PM_CHAMPION]))
         return FALSE;
-    if (Is_mineend_level(&u.uz) && ptr == &mons[PM_VAMPIRE_MAGE])
+    if (Is_mineend_level(&u.uz) 
+        && (ptr == &mons[PM_VAMPIRE_MAGE]
+            || ptr == &mons[PM_FIRE_VAMPIRE]
+            || ptr == &mons[PM_NOSFERATU]
+            || ptr == &mons[PM_STAR_VAMPIRE]))
         return FALSE;
     if (In_mines(&u.uz)
         && (ptr == &mons[PM_ALHOON]
