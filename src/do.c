@@ -2243,7 +2243,7 @@ boolean at_stairs, falling, portal;
 #endif
 
     if ((annotation = get_annotation(&u.uz)) != 0)
-        You(new ? "are in the %s." : "return to the %s.", annotation);
+        You(new ? "are at %s." : "return to %s.", annotation);
 
     /* assume this will always return TRUE when changing level */
     (void) in_out_region(u.ux, u.uy);

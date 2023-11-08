@@ -3242,24 +3242,45 @@ forget_mapseen(ledger_num)
 
 /* Dynamic level naming code. */
 static const char *const ownernames[] = {
-        "Yendorian",    "Pilgrim",   "Ancient",
-        "Giant",        "Seeker",    "Adventurer",
-        "Coward",       "Goblin",    "Liar",
-        "Sinner",       "Traveller", "Explorer",
-        "Hero",         "Horde",     "Demon",
-        "Beast"
+        "Yendorian",    "Pilgrim",      "Ancient",
+        "Giant",        "Seeker",       "Adventurer",
+        "Coward",       "Goblin",       "Liar",
+        "Sinner",       "Traveller",    "Explorer",
+        "Hero",         "Horde",        "Demon",
+        "Beast",        "Lover",        "Angel",
+        "Thief",        "Cat",          "Serpent",
+        "Cruel King",   "Wise Ruler",   "Old Queen",
+        "Imp",          "Goat",         "Penitent",
+        "Guardian",     "Lich",         "Villain",
+        "Hob",          "Delver",       "Witch",
+        "Soothsayer",   "Singer",       "Captain",
+        "Lost Child",   "Faerie",       "Spirit",
+        "Dragon",       "Tarantula",    "Spider",
+        "Leocrotta",    "Academy",      "Council",
+        "Creosote",     "Hydra",        "Onatar",
+        "Anhur",        "Lugh",         "Hermes",
+        "Whisperer",    "Crusher",      "Rider",
+        "Butcher",      "Baker",        "Tailor",
+        "Ancient",      "Endless",      "Viper"
 };
 
 static const char *const lev_adj[] = {
-        "Ancient",    "Ruined",   "Abandoned",
-        "Whispering", "Silent",   "Forgotten",
-        "Mysterious", "Weeping",  "Collapsed",
-        "Broken",     "Remote"
+        "Ancient",      "Ruined",   "Abandoned",
+        "Whispering",   "Silent",   "Forgotten",
+        "Mysterious",   "Weeping",  "Collapsed",
+        "Broken",       "Remote",   "Serene",
+        "Murky",        "Steaming", "Glowing",
+        "Cold",         "Misty",    "Mossy",
+        "Green",        "Blue",     "Red",
+        "Yellow",       "Gray",     "Forlorn",
+        "First",        "Last",     "Imposing",
+        "Wilding",      "Bewitched","Arcane",
+        "Unholy",       "Severed",  "Dirty"
 };
 
 static const char *const fountnames[] = {
-        "Fonts",   "Pools", "Haven", "Oasis",
-        "Respite", "Rest"
+        "Fonts",   "Pools", "Haven",    "Oasis",
+        "Respite", "Rest",  "Tears",
 };
 
 static const char *const forgenames[] = {
@@ -3268,19 +3289,25 @@ static const char *const forgenames[] = {
 };
 
 static const char *const standardnames[] = {
-        "Way",       "Road",       "Path",
-        "Lookout",   "Hideout",    "Sorrow",
-        "Cairn",     "Peak",       "Cave",
-        "Pass",      "Point",      "Tunnel",
-        "Den",       "Folly",      "Causeway",
-        "Court",     "Run",        "Temple",
-        "Reliquary", "Cathedral",  "Chapel"
+        "Way",      "Road",         "Path",
+        "Lookout",  "Hideout",      "Sorrow",
+        "Cairn",    "Peak",         "Cave",
+        "Pass",     "Point",        "Tunnel",
+        "Den",      "Folly",        "Causeway",
+        "Court",    "Run",          "Temple",
+        "Reliquary","Cathedral",    "Chapel",
+        /* make some names rarer by duplicating "common" names */
+        "Caves",    "Tunnels",      "Paths",
+        "Hovels",   "Table",        "Place",
+        "Town",     "Burrow"
 };
 
 static const char *const bigrm_names[] = {
-        "Chamber",   "Hall",      "Treasury",
-        "Vault",     "Arena",     "Antechamber",
-        "Cell",      "Hollow"
+        "Chamber",  "Hall",     "Treasury",
+        "Vault",    "Arena",    "Antechamber",
+        "Cell",     "Hollow",   "Valley",
+        "Vista",    "Hoard",    "Battleground",
+        "Manor",    "Gauntlet"
 };
 
 int
@@ -3296,12 +3323,20 @@ dynamic_levname(void) {
             Sprintf(buf, "Delphi");
             mptr->custom = dupstr(buf);
             return 1;
+        } else if (Is_medusa_level(&u.uz)) {
+            Sprintf(buf, "Medusa's Island");
+            mptr->custom = dupstr(buf);
+            return 1;
+        } else if (Is_rogue_level(&u.uz)) {
+            Sprintf(buf, "An Older World");
+            mptr->custom = dupstr(buf);
+            return 1;
         } else if (Is_stronghold(&u.uz)) {
             Sprintf(buf, "The Castle");
             mptr->custom = dupstr(buf);
             return 1;
         } else if (Is_bigroom(&u.uz)) {
-            Sprintf(buf, "%s of the %s",
+            Sprintf(buf, "The %s of the %s",
                     bigrm_names[rn2(SIZE(bigrm_names))],
                     ownernames[rn2(SIZE(ownernames))]);
             mptr->custom = dupstr(buf);
@@ -3312,27 +3347,27 @@ dynamic_levname(void) {
         return 0;
 
     if (level.flags.nforges && !rn2(3)) {
-        Sprintf(buf, "%s's %s",
+        Sprintf(buf, "The %s's %s",
                 ownernames[rn2(SIZE(ownernames))],
                 forgenames[rn2(SIZE(forgenames))]);
     } else if (level.flags.nfountains && !rn2(3)) {
-        Sprintf(buf, "%s's %s",
+        Sprintf(buf, "The %s's %s",
                 ownernames[rn2(SIZE(ownernames))],
                 fountnames[rn2(SIZE(fountnames))]);
     } else {
         switch (rn2(3)) {
             case 0:
-                Sprintf(buf, "%s of the %s",
+                Sprintf(buf, "The %s of the %s",
                         standardnames[rn2(SIZE(standardnames))],
                         ownernames[rn2(SIZE(ownernames))]);
                 break;
             case 1:
-                Sprintf(buf, "%s %s",
+                Sprintf(buf, "The %s %s",
                         lev_adj[rn2(SIZE(lev_adj))],
                         standardnames[rn2(SIZE(standardnames))]);
                 break;
             case 2:
-                Sprintf(buf, "%s's %s",
+                Sprintf(buf, "%s %s",
                         ownernames[rn2(SIZE(ownernames))],
                         standardnames[rn2(SIZE(standardnames))]);
                 break;
