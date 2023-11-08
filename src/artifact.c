@@ -3429,6 +3429,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     if (u_teleport_mon(mdef, FALSE) && u_saw_mon
                         && !(canseemon(mdef) || (u.uswallow && u.ustuck == mdef)))
                         pline("%s suddenly disappears!", nambuf);
+                    
                     if (*dmgptr >= mdef->mhp) { /* see hitmu(mhitu.c) */
                         if (mdef->mhp == 1)
                             ++mdef->mhp;

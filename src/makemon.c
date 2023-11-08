@@ -3882,6 +3882,13 @@ int mndx, mvflagsmask, genomask;
             || ptr == &mons[PM_DEEPEST_ONE]
             || ptr == &mons[PM_BANSHEE]))
         return FALSE;
+    if (ptr == &mons[PM_CAVE_TROLL] 
+        && !In_mines(&u.uz) 
+        && !In_hell(&u.uz) 
+        && !In_caves(&u.uz) 
+        && !In_giants(&u.uz) 
+        && !In_spiders(&u.uz))
+        return FALSE;
     
 #ifdef MAIL
     /* special levels might ask for random demon type; reject this one */
