@@ -4890,6 +4890,8 @@ boolean wep_was_destroyed;
         break;
     case AD_DRLI:
         if (mhit && !mon->mcan) {
+            You_feel("weaker as you make contact with %s!", 
+                     canseemon(mon) ? mon_nam(mon) : "something");
             if (Drain_resistance) {
                 shieldeff(u.ux, u.uy);
                 monstseesu(M_SEEN_DRAIN);

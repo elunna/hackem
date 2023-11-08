@@ -829,18 +829,30 @@ NEARDATA struct permonst mons[] = {
         M1_FLY | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_TPORT, M2_HOSTILE | M2_NEUTER, 
         M3_INFRAVISIBLE | M3_SKITTISH, 0, 0, 10, CLR_CYAN),
     MON("magical eye", S_EYE,                                    /* EvilHack */
-        LVL(8, 6, 0, 90, -10), (2),      
-        A(ATTK(AT_GAZE, AD_SLOW, 0, 0), 
+        LVL(8, 6, 0, 90, -10), (2),
+        A(ATTK(AT_GAZE, AD_SLOW, 0, 0),
           ATTK(AT_GAZE, AD_SLEE, 2, 6),
-          ATTK(AT_GAZE, AD_STUN, 0, 0), 
+          ATTK(AT_GAZE, AD_STUN, 0, 0),
           ATTK(AT_GAZE, AD_FIRE, 4, 6),
-          ATTK(AT_GAZE, AD_COLD, 2, 4), 
+          ATTK(AT_GAZE, AD_COLD, 2, 4),
           ATTK(AT_GAZE, AD_LUCK, 0, 0)),
         SIZ(10, 10, MS_SILENT, MZ_SMALL), MR_COLD | MR_FIRE | MR_ELEC, 0,
         M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD,
         M2_NOPOLY | M2_HOSTILE | M2_NEUTER | M2_NASTY,
-        M3_SKITTISH | M3_INFRAVISIBLE | M3_INFRAVISION | M3_NOTAME, 0, 0, 12, HI_LORD),
-
+        M3_SKITTISH | M3_INFRAVISIBLE | M3_INFRAVISION | M3_NOTAME, 0, 
+        0, 12, HI_LORD),
+    MON("dread eye", S_EYE,                                    /* EvilHack */
+        LVL(10, 8, 0, 50, -13), (2),
+        A(ATTK(AT_GAZE, AD_DRLI, 0, 0),
+          ATTK(AT_NONE, AD_ACID, 0, 4),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        SIZ(10, 10, MS_SILENT, MZ_SMALL),
+        MR_POISON | MR_DRAIN | MR_ACID, MR_POISON,
+        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD 
+            | M1_MINDLESS | M1_THICK_HIDE | M1_ACID,
+        M2_NOPOLY | M2_HOSTILE | M2_NEUTER | M2_NASTY,
+        M3_SKITTISH | M3_INFRAVISIBLE | M3_INFRAVISION | M3_NOTAME, 0,
+        0, 14, CLR_BLACK),
     /*
      * felines
      */
