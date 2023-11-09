@@ -5302,8 +5302,9 @@ doapply()
             (obj->altmode ? "semi-automatic" : "full automatic"));
         break;
     case FIRE_BOMB:
-    case GAS_BOMB:
     case SONIC_BOMB:
+    case FLASH_BOMB:
+    case GAS_BOMB:
         handle_bomb(obj, TRUE);
         break;
     case SPOON:

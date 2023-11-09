@@ -421,6 +421,7 @@ BULLET("shotgun shell", "red tube", 1, 1, 2,   7,   30, 45, 0, WP_SHELL,  P, IRO
 BULLET("rocket",              None, 1, 0,100,450,   45, 60, 0, WP_ROCKET, P, IRON, -P_FIREARM, CLR_GREEN),
 BULLET("fire bomb",         "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_GREEN), /* Slash'EM */
 BULLET("sonic bomb",        "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_BLACK), /* Slash'EM */
+BULLET("flash bomb",        "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_BLACK), /* Slash'EM */
 BULLET("gas bomb",          "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_ORANGE), /* Slash'EM */
 
 #undef P

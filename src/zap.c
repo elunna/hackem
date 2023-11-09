@@ -7587,6 +7587,9 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     } else if (obj->otyp == SONIC_BOMB) {
         ztype = ZT_SPELL(ZT_SONIC) * yours;
         expltype = EXPL_FROSTY * yours * -1;
+    } else if (obj->otyp == FLASH_BOMB) {
+        ztype = ZT_SPELL(ZT_STUN) * yours;
+        expltype = EXPL_MAGICAL * yours * -1;
     } else
         impossible("Invalid bomb otyp for bomb_explode!");
     

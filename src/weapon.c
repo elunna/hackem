@@ -946,6 +946,7 @@ int x;
 static NEARDATA const int rwep[] = {
     FIRE_BOMB, 
     SONIC_BOMB, 
+    FLASH_BOMB,
     GAS_BOMB,
     ROCKET,
     DWARVISH_SPEAR, 
