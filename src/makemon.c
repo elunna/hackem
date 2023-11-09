@@ -2021,7 +2021,7 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, LIGHT_ARMOR);
             break;
         case PM_DRAUGR:
-            mongets(mtmp, (rn2(4) ? WAR_HAMMER : RUNESWORD));
+            mongets(mtmp, (rn2(8) ? RUNESWORD : WAR_HAMMER));
             if (!rn2(4))
                 (void) mongets(mtmp, LIGHT_ARMOR);
             break;
