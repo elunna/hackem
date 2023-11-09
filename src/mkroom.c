@@ -1249,6 +1249,7 @@ int xy_flags;
              && (levl[pos->x][pos->y].typ != CORR))
             || ((levl[pos->x][pos->y].typ != ROOM)
               && (levl[pos->x][pos->y].typ != ICE)
+              && (levl[pos->x][pos->y].typ != BRIDGE)
               && (levl[pos->x][pos->y].typ != GRASS)))
             isok = FALSE;
         if ((xy_flags & 4) && (sobj_at(BOULDER, pos->x, pos->y)))
@@ -1561,6 +1562,9 @@ int sym;
         break;
     case S_ice:
         typ = ICE;
+        break;
+    case S_bridge:
+        typ = BRIDGE;
         break;
     case S_grass:
         typ = GRASS;

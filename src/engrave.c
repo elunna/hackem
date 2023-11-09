@@ -195,7 +195,7 @@ register int x, y;
         return "ice";
     else if (is_lava(x, y))
         return hliquid("lava");
-    else if (lev->typ == DRAWBRIDGE_DOWN)
+    else if (lev->typ == DRAWBRIDGE_DOWN || lev->typ == BRIDGE)
         return "bridge";
     else if (IS_ALTAR(levl[x][y].typ))
         return "altar";
