@@ -1447,9 +1447,8 @@ dobreathe()
     else if (!u.dx && !u.dy && !u.dz)
         ubreatheu(mattk);
     else if (youmonst.data == &mons[PM_CRYSTAL_GOLEM]) {
-        /* Extra handling for AD_RBRE - player might poly into a crystal
-         * golem. */
-        uchar adtyp = mattk->adtyp == AD_RBRE ? rnd(AD_WATR) : mattk->adtyp;
+        /* Extra handling for AD_RBRE - crystal golem. */
+        uchar adtyp = mattk->adtyp == AD_RBRE ? rnd(MAX_AD) : mattk->adtyp;
         buzz((int) ZT_BREATH(AD_to_ZT(adtyp)), (int) mattk->damn, u.ux, u.uy, u.dx,
              u.dy);
     } else

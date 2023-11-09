@@ -1766,8 +1766,9 @@ int damg_melee_types [] =
 
 int damg_breath_types [] =
     { AD_MAGM, AD_FIRE, AD_COLD, AD_SLEE, AD_ELEC,
-      AD_DRST, AD_WATR, AD_ACID, AD_LOUD
-    };
+      AD_DRST, AD_ACID, AD_LOUD, AD_WATR, AD_DRLI,
+	  AD_STUN
+	};
 
 int damg_spit_types [] =
     { AD_BLND, AD_ACID, AD_DRST };

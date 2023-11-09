@@ -1024,7 +1024,7 @@ struct attack *mattk;
 
     if (mattk->adtyp == AD_PHYS) {
         type = PHYS_EXPL_TYPE;
-    } else if (mattk->adtyp >= AD_MAGM && mattk->adtyp <= AD_WATR) {
+    } else if (mattk->adtyp >= AD_MAGM && mattk->adtyp <= MAX_AD) {
         /* Set it up as a 'monster breath' type for the explosions (it isn't,
          * but this is the closest analogue). */
         type = -(ZT_BREATH(mattk->adtyp - 1));

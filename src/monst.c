@@ -3482,7 +3482,7 @@ NEARDATA struct permonst mons[] = {
         0, 0, MH_DRAGON, 30, DRAGON_SILVER),
     MON("shimmering dragon", S_DRAGON,                 /* Evilhack/Slash'EM */
         LVL(17, 9, -1, 20, 4), (G_GENO | 1),
-        A(ATTK(AT_BREA, AD_MAGM, 4, 6),
+        A(ATTK(AT_BREA, AD_STUN, 4, 6),
           ATTK(AT_BITE, AD_PHYS, 4, 8),
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
@@ -3495,7 +3495,7 @@ NEARDATA struct permonst mons[] = {
         0, 0, MH_DRAGON, 30, CLR_CYAN),
     MON("deep dragon", S_DRAGON,                                /* Slash'EM */
         LVL(20, 9, -4, 20, -6), (G_GENO | 3),
-        A(ATTK(AT_BREA, AD_DRST, 4, 6),
+        A(ATTK(AT_BREA, AD_DRLI, 4, 6),
           ATTK(AT_BITE, AD_DRLI, 4, 8),
           ATTK(AT_CLAW, AD_PHYS, 4, 4),
           ATTK(AT_CLAW, AD_PHYS, 4, 4),

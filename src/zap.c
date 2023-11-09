@@ -55,6 +55,8 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "acid stream",          /*ZT_ACID*/
         "sonic beam",           /*ZT_SONIC*/
         "water stream",         /*ZT_WATER*/
+        "drain beam",         /*ZT_*/
+        "stun beam",
 
         "magic missile",
         "fireball",
@@ -66,6 +68,8 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "blast of acid",
         "sonic beam",
         "water stream",
+        "blast of dark energy", 
+        "disorienting blast",
 
         "blast of missiles",
         "blast of fire",
@@ -77,6 +81,8 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "blast of acid",
         "sonic blast",
         "blast of water",
+        "blast of dark energy", 
+        "disorienting blast"
     };
 
 /*
@@ -5169,6 +5175,27 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     case ZT_WATER:
         tmp = delugehitsm(mon, d(nd, 8));
         break;
+    case ZT_DRAIN: {
+        int drain = monhp_per_lvl(mon);
+
+        tmp = d(nd, 6);
+        if (resists_drli(mon) || defended(mon, AD_DRLI)) {
+            sho_shieldeff = TRUE;
+            /* physical damage still occurs */
+            break;
+        }
+        mon_losexp(mon, drain, TRUE);
+        break;
+    }
+    case ZT_STUN:
+        if (resists_stun(mon->data) || defended(mon, AD_STUN)) {
+            sho_shieldeff = TRUE;
+            break;
+        }
+        tmp = d(nd, 6);
+        if (!mon->mstun)
+            mon->mstun = 1;
+        break;
     }
     if (elemental_shift(mon, abstype)) {
         sho_shieldeff = TRUE;
@@ -5415,6 +5442,44 @@ xchar sx, sy;
         break;
     case ZT_WATER:
         dam = delugehitsu(nd);
+        break;
+    case ZT_DRAIN: {
+        const char *life = nonliving(youmonst.data) ? "animating force"
+                                                    : "life";
+
+        /* will still take physical damage from the force of
+           the breath attack, even if drain resistant */
+        dam = d(nd, 6);
+        if (Half_physical_damage)
+            dam = (dam + 1) / 2;
+        if (Drain_resistance) {
+            ugolemeffects(AD_DRLI, d(nd, 6));
+            break;
+        }
+
+        if (Reflecting) {
+            You("feel drained...");
+            u.uhpmax -= dam / 2 + rn2(5);
+        } else {
+            if (Blind)
+                You_feel("a dark energy blast draining your %s!",
+                         life);
+            else
+                pline_The("dark energy blast drains your %s!",
+                          life);
+            losexp("life drainage");
+        }
+        break;
+    }
+    case ZT_STUN:
+        /* will still take physical damage from the force of
+           the breath attack, even if stun resistant */
+        dam = d(nd, 6);
+        if (Half_physical_damage)
+            dam = (dam + 1) / 2;
+        if (Stun_resistance)
+            shieldeff(sx, sy); /* resistance handled in make_stunned() */
+        make_stunned((HStun & TIMEOUT) + (long) dam / (Reflecting ? 4 : 2), TRUE);
         break;
     }
 
@@ -5817,6 +5882,18 @@ boolean say; /* Announce out of sight hit/miss events if true */
                                     if (canseemon(mon))
                                         pline("%s resists the death magic, but appears drained!",
                                               Monnam(mon));
+                                }
+                                if (abstype == ZT_DRAIN) {
+                                    const char *life = nonliving(mon->data) ? "animating force"
+                                                                            : "life";
+
+                                    if (canseemon(mon)) {
+                                        if (resists_drli(mon) || defended(mon, AD_DRLI))
+                                            pline("%s appears unaffected.", Monnam(mon));
+                                        else
+                                            pline_The("blast draws the %s from %s!",
+                                                      life, mon_nam(mon));
+                                    }
                                 }
                                 print_mon_wounded(mon, saved_mhp);
                             }

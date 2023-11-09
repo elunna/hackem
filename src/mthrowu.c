@@ -22,8 +22,8 @@ STATIC_DCL int FDECL(drop_throw, (struct monst *, struct obj *, BOOLEAN_P, int, 
  */
 STATIC_OVL NEARDATA const char *breathwep[] = {
     "fragments", "fire", "frost", "sleep gas", "a disintegration blast",
-    "lightning", "poison gas", "acid", "sound",
-    "water"
+    "lightning", "poison gas", "acid", "noise", "water",
+    "a dark energy blast", "a disorienting blast", "strange breath #12"
 };
 
 extern boolean notonhead; /* for long worms */
@@ -1214,8 +1214,7 @@ breamm(mtmp, mattk, mtarg)
 struct monst *mtmp, *mtarg;
 struct attack  *mattk;
 {
-    /* if new breath types are added, change AD_ACID to max type */
-    int typ = (mattk->adtyp == AD_RBRE) ? rnd(AD_WATR) : mattk->adtyp ;
+    int typ = (mattk->adtyp == AD_RBRE) ? rnd(MAX_AD) : mattk->adtyp ;
     boolean player_resists = FALSE;
 
     if (mlined_up(mtmp, mtarg, TRUE)) {
@@ -1239,7 +1238,7 @@ struct attack  *mattk;
         }
 
         if (!mtmp->mspec_used && rn2(3)) {
-            if ((typ >= AD_MAGM) && (typ <= AD_WATR)) {
+            if ((typ >= AD_MAGM) && (typ <= MAX_AD)) {
                 if (canseemon(mtmp))
                     pline("%s breathes %s!", Monnam(mtmp), breathwep[typ - 1]);
                 dobuzz((int) -ZT_BREATH(typ - 1), (int) mattk->damn,
@@ -1479,8 +1478,7 @@ breamu(mtmp, mattk)
 struct monst *mtmp;
 struct attack *mattk;
 {
-    /* if new breath types are added, change max type */
-    int typ = (mattk->adtyp == AD_RBRE) ? rnd(AD_WATR) : mattk->adtyp;
+    int typ = (mattk->adtyp == AD_RBRE) ? rnd(MAX_AD) : mattk->adtyp;
 
     if (lined_up(mtmp)) {
         if (mtmp->mcan) {
@@ -1493,7 +1491,7 @@ struct attack *mattk;
             return 0;
         }
         if (!mtmp->mspec_used && rn2(3)) {
-            if ((typ >= AD_MAGM) && (typ <= AD_WATR)) {
+            if ((typ >= AD_MAGM) && (typ <= MAX_AD)) {
                 if (canseemon(mtmp))
                     pline("%s breathes %s!", Monnam(mtmp),
                           breathwep[typ - 1]);

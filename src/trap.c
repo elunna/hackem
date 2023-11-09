@@ -6842,25 +6842,18 @@ randomray()
 {
     /* Here we can randomize the beam type, so it isn't the same */
     /* no AD_DISN, thanks */
-    switch (rn2(10)) {
-    case 0: 
-        return -ZT_BREATH(ZT_FIRE);
-    case 1:
-        return -ZT_SPELL(ZT_COLD);
-    case 2:
-        return -ZT_SPELL(ZT_SLEEP);
-    case 3:
-        return -ZT_BREATH(ZT_LIGHTNING);
-    case 4:
-        return -ZT_BREATH(ZT_POISON_GAS);
-    case 5:
-        return -ZT_BREATH(ZT_ACID);
-    case 6:
-        return -ZT_SPELL(ZT_SONIC);
-    case 7:
-        return -ZT_SPELL(ZT_WATER);
-    default:
-        return -ZT_SPELL(ZT_MAGIC_MISSILE);
+    switch (rn2(12)) {
+    case 0: return -ZT_BREATH(ZT_FIRE);
+    case 1: return -ZT_SPELL(ZT_COLD);
+    case 2: return -ZT_SPELL(ZT_SLEEP);
+    case 3: return -ZT_BREATH(ZT_LIGHTNING);
+    case 4: return -ZT_BREATH(ZT_POISON_GAS);
+    case 5: return -ZT_BREATH(ZT_ACID);
+    case 6: return -ZT_SPELL(ZT_SONIC);
+    case 7: return -ZT_SPELL(ZT_WATER);
+    case 8: return -ZT_BREATH(ZT_DRAIN);
+    case 9: return -ZT_BREATH(ZT_STUN);
+    default: return -ZT_SPELL(ZT_MAGIC_MISSILE);
     }
 }
 

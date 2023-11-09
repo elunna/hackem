@@ -206,8 +206,11 @@ enum bhit_call_types {
 #define ZT_ACID (AD_ACID - 1)
 #define ZT_SONIC (AD_LOUD - 1)
 #define ZT_WATER (AD_WATR - 1)
+#define ZT_DRAIN (AD_DRLI - 1)
+#define ZT_STUN (AD_STUN - 1)
 
-#define MAX_ZT (ZT_WATER + 1)
+#define MAX_AD (AD_STUN)
+#define MAX_ZT (ZT_STUN + 1)
 
 #define BASE_ZT(x) ((x) % MAX_ZT)
 
