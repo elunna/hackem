@@ -5646,7 +5646,12 @@ int type; /* either hero cast spell type or 0 */
 boolean is_wand;
 {
     int chance = rn2(20);
-    int spell_bonus = type ? spell_hit_bonus(type, is_wand) : 0;
+    int spell_bonus = 0;
+
+    if (type)
+        spell_bonus = spell_hit_bonus(type, is_wand);
+    else if (ACURR(A_DEX) > 17)
+        spell_bonus = (ACURR(A_DEX) - 17);
 
     /* small chance for naked target to avoid being hit */
     if (!chance)
