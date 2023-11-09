@@ -413,11 +413,15 @@ GUN("sniper rifle",              "broken crossbow", 0, 1, 1, 160, 1500,  4, WP_B
 GUN("shotgun",                   "broken crossbow", 0, 0, 1,  60,  200,  3,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
 GUN("auto shotgun",      "strange broken crossbow", 0, 1, 1, 120, 1500,  1,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
 
+GUN("rocket launcher",                       None,  1, 1, 0, 450, 3500, -2, WP_ROCKET, IRON, P_FIREARM, HI_METAL),
+GUN("grenade launcher",                      None,  1, 1, 0,  55, 1500, -1, WP_BOMB, IRON, P_FIREARM, HI_METAL),
+
 BULLET("bullet",          "pellet", 1, 1, 1,   5,   20, 30, 0, WP_BULLET, P, IRON, -P_FIREARM, HI_METAL), /* Slash'EM */
 BULLET("shotgun shell", "red tube", 1, 1, 2,   7,   30, 45, 0, WP_SHELL,  P, IRON, -P_FIREARM, CLR_RED), /* Slash'EM */
-BULLET("fire bomb",         "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_GREEN), /* Slash'EM */
-BULLET("sonic bomb",        "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_BLACK), /* Slash'EM */
-BULLET("gas bomb",          "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_ORANGE), /* Slash'EM */
+BULLET("rocket",              None, 1, 0,100,450,   45, 60, 0, WP_ROCKET, P, IRON, -P_FIREARM, CLR_GREEN),
+BULLET("fire bomb",         "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_GREEN), /* Slash'EM */
+BULLET("sonic bomb",        "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_BLACK), /* Slash'EM */
+BULLET("gas bomb",          "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_ORANGE), /* Slash'EM */
 
 #undef P
 #undef S

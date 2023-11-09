@@ -3442,6 +3442,7 @@ static const struct alt_spellings {
     { "handgun", PISTOL },
     { "hand gun", PISTOL },
     { "revolver", PISTOL },
+    { "bazooka", ROCKET_LAUNCHER },
     { "shell", SHOTGUN_SHELL },
     { "hand grenade", FIRE_BOMB },
     { "frag grenade", FIRE_BOMB },

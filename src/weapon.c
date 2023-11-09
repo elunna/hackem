@@ -947,6 +947,7 @@ static NEARDATA const int rwep[] = {
     FIRE_BOMB, 
     SONIC_BOMB, 
     GAS_BOMB,
+    ROCKET,
     DWARVISH_SPEAR, 
     ELVEN_SPEAR, 
     SPEAR, 
@@ -1163,6 +1164,10 @@ struct monst *mtmp;
                     propellor = (oselect(mtmp, AUTO_SHOTGUN));
                     if (!propellor) 
                         propellor = (oselect(mtmp, SHOTGUN));
+                } else if ((objects[rwep[i]].w_ammotyp) == WP_ROCKET) {
+                    propellor = (oselect(mtmp, ROCKET_LAUNCHER));
+                } else if ((objects[rwep[i]].w_ammotyp) == WP_BOMB) {
+                    propellor = (oselect(mtmp, GRENADE_LAUNCHER));
                 }
                 break;
             }

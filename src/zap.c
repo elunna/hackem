@@ -4344,7 +4344,7 @@ struct obj *otmp;
             if (!Deaf)
                 pline("Kaboom!");
             explode(x, y, ZT_MAGIC_MISSILE,
-                    20 + d(3 ,6), TRAP_EXPLODE, EXPL_MAGICAL);
+                    20 + d(3,6), TRAP_EXPLODE, EXPL_MAGICAL);
             deltrap(ttmp);
             newsym(x, y);
         }

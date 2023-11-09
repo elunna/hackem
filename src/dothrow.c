@@ -1790,7 +1790,12 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
             arm_bomb(obj, TRUE);
         }
     }
-
+    if (obj && thrownobj && obj->otyp == ROCKET) {
+        explode(bhitpos.x, bhitpos.y, ZT_SPELL(ZT_FIRE),
+                d(3, 8), WEAPON_CLASS, EXPL_FIERY);
+        thrownobj = (struct obj *) 0;
+    }
+    
     if (!thrownobj) {
         /* missile has already been handled */
         if (tethered_weapon)
@@ -2285,6 +2290,10 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
         } else if (is_bomb(obj)) {
             /* arm_bomb(obj, TRUE); */
             bomb_explode(obj, bhitpos.x, bhitpos.y, TRUE);
+            return 1;
+        } else if (obj->otyp == ROCKET) {
+            explode(bhitpos.x, bhitpos.y, ZT_SPELL(ZT_FIRE),
+                    d(3,8), WEAPON_CLASS, EXPL_FIERY);
             return 1;
         } else { /* thrown non-ammo or applied polearm/grapnel */
             if (otyp == BOOMERANG || obj->otyp == CHAKRAM) /* arbitrary */
@@ -3029,6 +3038,10 @@ int otyp;
         return 22;
     case SNIPER_RIFLE:
         return 25;
+    case ROCKET_LAUNCHER:
+        return 20;
+    case GRENADE_LAUNCHER:
+        return 10;
     default:
         impossible("No firearm for firearm-range!");
         return BOLT_LIM;
@@ -3057,6 +3070,10 @@ int otyp;
         return 5;    
     case HEAVY_MACHINE_GUN:
         return 8;
+    case ROCKET_LAUNCHER:
+        return -3;
+    case GRENADE_LAUNCHER:
+        return -1;
     default:
         impossible("No firearm for rate-of-fire!");
         return 0;

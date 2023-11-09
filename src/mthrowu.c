@@ -202,15 +202,19 @@ int x, y;
             bomb_explode(obj, bhitpos.x, bhitpos.y, FALSE);
         }
     }
-    
-    /* D: Detonate crossbow bolts from Hellfire if they hit */
-    if (ohit && mwep && mwep->oartifact == ART_HELLFIRE
-        && is_ammo(obj) && ammo_and_launcher(obj, mwep)) {
+    if (obj->otyp == ROCKET) {
         if (cansee(bhitpos.x, bhitpos.y))
             pline("%s explodes in a ball of fire!", Doname2(obj));
         else
             You_hear("an explosion");
-
+        explode(bhitpos.x, bhitpos.y, ZT_MONSPELL(ZT_FIRE),
+                d(3, 8), WEAPON_CLASS, EXPL_FIERY);
+        create = 0;
+    }
+    
+    /* D: Detonate crossbow bolts from Hellfire if they hit */
+    if (ohit && mwep && mwep->oartifact == ART_HELLFIRE
+        && is_ammo(obj) && ammo_and_launcher(obj, mwep)) {
         explode(bhitpos.x, bhitpos.y, -ZT_SPELL(ZT_FIRE), d(2, 6), WEAPON_CLASS,
                 EXPL_FIERY);
 
