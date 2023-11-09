@@ -214,9 +214,7 @@ static const struct innate {
   
   dop_abil[] = { /* {   1, &(HPolymorph), "", "" },*/
                  { 1, &(HAcid_resistance), "", "" },
-                 { 5, &(HVulnerable_fire), "sensitive to heat", "less sensitive to heat" },
-                 { 5, &(HVulnerable_cold), "sensitive to cold", "less sensitive to cold" },
-                 { 9, &(HPolymorph_control), "your choices improve", "choiceless" },
+                 { 25, &(HPolymorph_control), "your choices improve", "choiceless" },
                  { 0, 0, 0, 0 } },
   
   hum_abil[] = { { 0, 0, 0, 0 } };
