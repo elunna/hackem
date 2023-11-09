@@ -5771,7 +5771,7 @@ struct permonst _mons2[] = {
         M1_BREATHLESS | M1_MINDLESS | M1_HUMANOID | M1_THICK_HIDE,
         M2_WANDER | M2_HOSTILE | M2_STRONG | M2_COLLECT
             | M2_NASTY,
-        M3_INFRAVISION, M4_VULNERABLE_FIRE, MH_UNDEAD, 15, CLR_BRIGHT_BLUE),
+        M3_INFRAVISION, 0, MH_UNDEAD, 20, CLR_BRIGHT_BLUE),
     MON("gug", S_ZOMBIE,                                        /* Slash'EM */
         LVL(15, 18, 5, 15, -4), (G_GENO | G_NOCORPSE | 1 | G_LGROUP),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 6), 

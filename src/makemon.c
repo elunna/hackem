@@ -2017,13 +2017,9 @@ register struct monst *mtmp;
         case PM_SKELETON:
             if (!rn2(4))
                 (void) mongets(mtmp, (rn2(3) ? PARAZONIUM : GLADIUS));
-            if (!rn2(4))
-                (void) mongets(mtmp, LIGHT_ARMOR);
             break;
         case PM_DRAUGR:
             mongets(mtmp, (rn2(8) ? RUNESWORD : WAR_HAMMER));
-            if (!rn2(4))
-                (void) mongets(mtmp, LIGHT_ARMOR);
             break;
         case PM_SKELETAL_PIRATE:
             otmp = rn2(2) ? mksobj(SCIMITAR, FALSE, FALSE) :
@@ -2032,16 +2028,14 @@ register struct monst *mtmp;
             if (is_flammable(otmp) || is_rustprone(otmp))
                 otmp->oeroded = 1;
             (void) mpickobj(mtmp, otmp);
-            otmp = rn2(2) ? mksobj(HIGH_BOOTS, FALSE, FALSE) :
-                          mksobj(JACKET, FALSE, FALSE);
-            curse(otmp);
-            if (is_rottable(otmp) || is_corrodeable(otmp))
-                otmp->oeroded2 = 1;
-            (void) mpickobj(mtmp, otmp);
             break;
+        case PM_REVENANT:
+            /* They shoot rockets because DOOM */
+            otmp = mksobj(ROCKET_LAUNCHER, FALSE, FALSE);
+            (void) mpickobj(mtmp, otmp);
+            m_initthrow(mtmp, ROCKET, 3 + rn2(4));
+            /* FALLTHROUGH */
         default:
-            if (!rn2(4))
-                (void) mongets(mtmp, LIGHT_ARMOR);
             if (!rn2(4))
                 (void) mongets(mtmp, (rn2(3) ? KNIFE : SHORT_SWORD));
             break;
@@ -2464,35 +2458,35 @@ register struct monst *mtmp;
             }
         }
         else if (ptr == &mons[PM_ONE_EYED_SAM]) {
-                otmp = mksobj(LONG_SWORD, FALSE, FALSE);
-                otmp = oname(otmp, artiname(ART_THIEFBANE));
-                bless(otmp);
-                otmp->oerodeproof = TRUE;
-                if (otmp->spe < 5) 
-                    otmp->spe += rnd(5);
-                (void) mpickobj(mtmp, otmp);
+            otmp = mksobj(LONG_SWORD, FALSE, FALSE);
+            otmp = oname(otmp, artiname(ART_THIEFBANE));
+            bless(otmp);
+            otmp->oerodeproof = TRUE;
+            if (otmp->spe < 5)
+                otmp->spe += rnd(5);
+            (void) mpickobj(mtmp, otmp);
 
-                otmp = mksobj(SHIELD_OF_REFLECTION, FALSE, FALSE);
-                mpickobj(mtmp, otmp);
-                if (otmp->spe < 5) 
-                    otmp->spe += rnd(5);
-                /* Replacements for GDSM */
-                otmp = mksobj(CRYSTAL_PLATE_MAIL, FALSE, FALSE);
-                mpickobj(mtmp, otmp);
-                if (otmp->spe < 5) 
-                    otmp->spe += rnd(5);
-                otmp = mksobj(CLOAK_OF_MAGIC_RESISTANCE, FALSE, FALSE);
-                mpickobj(mtmp, otmp);
-                if (otmp->spe < 5) 
-                    otmp->spe += rnd(5);
-                otmp = mksobj(SPEED_BOOTS, FALSE, FALSE);
-                mpickobj(mtmp, otmp);
-                if (otmp->spe < 5) 
-                    otmp->spe += rnd(5);
-                otmp = mksobj(AMULET_OF_LIFE_SAVING, FALSE, FALSE);
-                mpickobj(mtmp, otmp);
-                (void) mongets(mtmp, SKELETON_KEY);
-                m_initthrow(mtmp, FIRE_BOMB + rn2(3), 3);
+            otmp = mksobj(SHIELD_OF_REFLECTION, FALSE, FALSE);
+            mpickobj(mtmp, otmp);
+            if (otmp->spe < 5)
+                otmp->spe += rnd(5);
+            /* Replacements for GDSM */
+            otmp = mksobj(CRYSTAL_PLATE_MAIL, FALSE, FALSE);
+            mpickobj(mtmp, otmp);
+            if (otmp->spe < 5)
+                otmp->spe += rnd(5);
+            otmp = mksobj(CLOAK_OF_MAGIC_RESISTANCE, FALSE, FALSE);
+            mpickobj(mtmp, otmp);
+            if (otmp->spe < 5)
+                otmp->spe += rnd(5);
+            otmp = mksobj(SPEED_BOOTS, FALSE, FALSE);
+            mpickobj(mtmp, otmp);
+            if (otmp->spe < 5)
+                otmp->spe += rnd(5);
+            otmp = mksobj(AMULET_OF_LIFE_SAVING, FALSE, FALSE);
+            mpickobj(mtmp, otmp);
+            (void) mongets(mtmp, SKELETON_KEY);
+            m_initthrow(mtmp, FIRE_BOMB + rn2(3), 3);
         } else if (ptr->msound == MS_PRIEST
                    || quest_mon_represents_role(ptr, PM_PRIEST)) {
             if (!racial_giant(mtmp)) {
@@ -2638,6 +2632,37 @@ register struct monst *mtmp;
         if (rn2(7))
             (void) mongets(mtmp, MUMMY_WRAPPING);
         break;
+    case S_ZOMBIE:
+        switch (monsndx(ptr)) {
+            case PM_SKELETON:
+                if (!rn2(4))
+                    (void) mongets(mtmp, LIGHT_ARMOR);
+                break;
+            case PM_DRAUGR:
+                if (!rn2(4)) {
+                    (void) mongets(mtmp, LIGHT_ARMOR);
+                }
+                break;
+            case PM_SKELETAL_PIRATE:
+                otmp = rn2(2) ? mksobj(HIGH_BOOTS, FALSE, FALSE) :
+                       mksobj(JACKET, FALSE, FALSE);
+                curse(otmp);
+                if (is_rottable(otmp) || is_corrodeable(otmp))
+                    otmp->oeroded2 = 1;
+                (void) mpickobj(mtmp, otmp);
+                break;
+            case PM_REVENANT:
+                if (rn2(3))
+                    (void) mongets(mtmp, HIGH_BOOTS);
+                if (rn2(3))
+                    (void) mongets(mtmp, GAUNTLETS);
+                break;
+            default:
+                if (!rn2(4))
+                    (void) mongets(mtmp, LIGHT_ARMOR);
+                break;
+        }
+        break;
     case S_QUANTMECH:
         if (!rn2(20) && ptr == &mons[PM_QUANTUM_MECHANIC]) {
             struct obj *catcorpse;
@@ -2746,7 +2771,6 @@ register struct monst *mtmp;
             else
                 (void) mongets(mtmp, POT_BLOOD);
         }
-        
         break;
     	
     case S_BAT:
@@ -4243,7 +4267,8 @@ int otyp;
          * rerandomize it */
         tryct = 0;
         if (otmp->oclass == WEAPON_CLASS
-            || is_weptool(otmp) || otmp->oclass == ARMOR_CLASS
+            || is_weptool(otmp)
+            || otmp->oclass == ARMOR_CLASS
             || otmp->oclass == AMULET_CLASS
             || (otmp->oclass == TOOL_CLASS && otmp->otyp != BELL_OF_OPENING)) {
             while (mon_hates_material(mtmp, otmp->material)) {
