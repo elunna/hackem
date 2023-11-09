@@ -182,6 +182,7 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '#', "vent", C(CLR_BRIGHT_CYAN) },          /* vent */
        { '}', "water", C(CLR_BLUE) },                /* pool */
        { '.', "ice", C(CLR_CYAN) },                  /* ice */
+       { '.', "rope bridge", C(CLR_BROWN) },         /* rope bridge */
        { ',', "grass", C(CLR_GREEN) },               /* grass */
        { '}', "molten lava", C(CLR_RED) },           /* lava */
 /*40*/ { '.', "lowered drawbridge", C(CLR_BROWN) },  /* vodbridge */

@@ -311,6 +311,7 @@ E boolean FDECL(is_pool, (int, int));
 E boolean FDECL(is_lava, (int, int));
 E boolean FDECL(is_pool_or_lava, (int, int));
 E boolean FDECL(is_ice, (int, int));
+E boolean FDECL(is_bridge, (int, int));
 E boolean FDECL(is_moat, (int, int));
 E boolean FDECL(is_open_air, (int, int));
 E schar FDECL(db_under_typ, (int));
@@ -320,6 +321,9 @@ E boolean FDECL(find_drawbridge, (int *, int *));
 E boolean FDECL(create_drawbridge, (int, int, int, BOOLEAN_P));
 E void FDECL(open_drawbridge, (int, int));
 E void FDECL(close_drawbridge, (int, int));
+E void FDECL(collapse_rope_bridge, (union any *, long));
+E void FDECL(create_rope_bridge, (int, int));
+E void FDECL(destroy_rope_bridge, (xchar, xchar));
 E void FDECL(destroy_drawbridge, (int, int));
 
 /* ### decl.c ### */

@@ -1846,6 +1846,9 @@ xchar x, y;
         idx = S_grass;
         /*engr_override = TRUE;*/
         break;
+    case BRIDGE:
+        idx = S_bridge;
+        break;
     case AIR:
         idx = S_air;
         break;
@@ -2101,6 +2104,9 @@ xchar x, y;
         case ICE:
            idx = S_ice;
            break;
+        case BRIDGE:
+            idx = S_bridge;
+            break;
         case GRASS:
            idx = S_grass;
            break;
@@ -2194,6 +2200,7 @@ static const char *type_names[MAX_TYPE] = {
     "GRAVE",
     "ALTAR",
     "ICE",
+    "BRIDGE",
     "GRASS",
     "DRAWBRIDGE_DOWN",
     "AIR",

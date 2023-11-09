@@ -39,6 +39,7 @@ enum timeout_types {
     SPIRIT_FADE,
     FERMENT,
     FIXTURE_ACTIVATE,
+    COLLAPSE_ROPE_BRIDGE,
     
     NUM_TIME_FUNCS
 };

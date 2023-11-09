@@ -1475,7 +1475,7 @@ domove_core()
     register xchar x, y;
     struct trap *trap = NULL;
     int wtcap;
-    boolean on_ice;
+    boolean on_ice, on_bridge;
     boolean walk_sewage;
     xchar chainx = 0, chainy = 0,
           ballx = 0, bally = 0;         /* ball&chain new positions */
@@ -1569,6 +1569,19 @@ domove_core()
         }
         if (!walk_sewage && (HSlow & FROMOUTSIDE))
             HSlow &= ~FROMOUTSIDE;
+
+        /* check rickety bridge */
+        on_bridge = !Levitation && is_bridge(u.ux, u.uy);
+        if (on_bridge) {
+            if (Flying || is_floater(youmonst.data)
+                || is_clinger(youmonst.data) || is_whirly(youmonst.data)) {
+                    on_bridge = FALSE;
+            } else if (!rn2(5)) {
+                /* TODO: If the monster is heavy enough, then start the countdown to
+                   snapping the bridge. */
+                pline_The("bridge sways beneath you.");
+            }
+        }
 
         x = u.ux + u.dx;
         y = u.uy + u.dy;
@@ -2700,6 +2713,21 @@ boolean pick;
                                     : (time_left < 10L) ? 1
                                       : 0]);
     }
+
+    if (Warning && is_bridge(u.ux, u.uy)) {
+        static const char *const bridgewarnings[] = {
+                "The bridge creaks ominously.",
+                "You feel the bridge shudder.",
+                "The bridge creaks."
+        };
+        long time_left = spot_time_left(u.ux, u.uy, COLLAPSE_ROPE_BRIDGE);
+
+        if (time_left && time_left < 15L)
+            pline("%s", bridgewarnings[(time_left < 2L) ? 2
+                                                        : (time_left < 5L) ? 1
+                                                                           : 0]);
+    }
+    
     if ((mtmp = m_at(u.ux, u.uy)) != 0 && !u.uswallow) {
         mtmp->mundetected = mtmp->msleeping = 0;
         switch (mtmp->data->mlet) {
