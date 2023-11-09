@@ -799,7 +799,7 @@ register struct monst *mtmp;
     register int mm = monsndx(ptr);
     struct obj* received;
     struct obj *otmp = mtmp->minvent;
-    int w1, w2, randwand, quan, hbold, spe2;
+    int w1, w2, quan, hbold, spe2;
 
     if (Is_rogue_level(&u.uz))
         return;
@@ -1176,167 +1176,138 @@ register struct monst *mtmp;
             w1 = w2 = 0;
             switch (mm) {
             case PM_WATCHMAN:
+                if (!rn2(3)) {
+                    w1 = rn1(BEC_DE_CORBIN - PARTISAN + 1, PARTISAN);
+                    w2 = rn2(2) ? DAGGER : KNIFE;
+                } else w1 = rn2(2) ? SPEAR : SHORT_SWORD;
+                break;
+            case PM_WATCH_CAPTAIN:
+                w1 = rn2(2) ? LONG_SWORD : SABER;
+                break;
             case PM_SOLDIER:
+                /* Primary weapon */
                 if (racial_elf(mtmp)) {
-                    if (!rn2(3)) {
-                        mongets(mtmp, ELVEN_BOW);
-                        m_initthrow(mtmp, ELVEN_ARROW, 12);
+                    if (!rn2(3))
                         mongets(mtmp, ELVEN_DAGGER);
-                    } else
+                    else
                         w1 = rn2(2) ? ELVEN_SPEAR : ELVEN_SHORT_SWORD;
+                    break; /* They can't get metal firearms */
                 } else if (racial_dwarf(mtmp)) {
-                    if (!rn2(3)) {
+                    if (!rn2(3))
                         w1 = rn1(BEC_DE_CORBIN - PARTISAN + 1, PARTISAN);
-                        w2 = rn2(2) ? DAGGER : AXE;
-                    } else
+                    else
                         w1 = rn2(2) ? DWARVISH_SPEAR : DWARVISH_SHORT_SWORD;
                 } else if (racial_orc(mtmp)) {
-                    if (!rn2(3)) {
-                        mongets(mtmp, ORCISH_BOW);
-                        m_initthrow(mtmp, ORCISH_ARROW, 12);
-                        w1 = rn2(2) ? ORCISH_DAGGER : KNIFE;
-                    } else
-                        w1 = rn2(2) ? ORCISH_SPEAR
-                                    : rn2(2) ? ORCISH_SHORT_SWORD
-                                             : ORCISH_SCIMITAR;
-                } else {
-                    if (!rn2(3)) {
-                        w1 = rn1(BEC_DE_CORBIN - PARTISAN + 1, PARTISAN);
-                        w2 = rn2(2) ? DAGGER : KNIFE;
-                    } else
-                        w1 = rn2(2) ? SPEAR : SHORT_SWORD;
+                    w1 = rn2(3) ? ORCISH_DAGGER
+                                : rn2(2) ? ORCISH_SPEAR
+                                         : rn2(2) ? ORCISH_SHORT_SWORD
+                                                  : ORCISH_SCIMITAR;
+                } else
+                    w1 = rn2(2) ? SPEAR : SHORT_SWORD;
+                
+                if (rn2(2)) {
+                    w2 = rn2(2) ? RIFLE : SUBMACHINE_GUN;
+                    m_initthrow(mtmp, BULLET, 25);
+                    m_initthrow(mtmp, BULLET, 25);
                 }
                 break;
             case PM_SERGEANT:
                 if (racial_elf(mtmp)) {
                     w1 = rn2(2) ? ELVEN_BROADSWORD : QUARTERSTAFF;
-                    if (Is_stronghold(&u.uz)) {
-                        w2 = ELVEN_BOW;
-                        m_initthrow(mtmp, ELVEN_ARROW, 30);
-                    }
-                } else if (racial_dwarf(mtmp)) {
+                    break; /* They can't get metal firearms */
+                } else if (racial_dwarf(mtmp))
                     w1 = rn2(2) ? MORNING_STAR : DWARVISH_MATTOCK;
-                    if (Is_stronghold(&u.uz)) {
-                        w2 = BOW;
-                        m_initthrow(mtmp, ARROW, 30);
-                    }
-                } else if (racial_orc(mtmp)) {
+                else if (racial_orc(mtmp))
                     w1 = rn2(2) ? ORCISH_MORNING_STAR : ORCISH_SHORT_SWORD;
-                    if (Is_stronghold(&u.uz)) {
-                        w2 = ORCISH_BOW;
-                        m_initthrow(mtmp, ORCISH_ARROW, 30);
-                    }
-                } else if (racial_centaur(mtmp)) {
-                    mongets(mtmp, CROSSBOW);
-                    m_initthrow(mtmp, CROSSBOW_BOLT, 20);
+                else if (racial_centaur(mtmp))
                     w1 = rn2(2) ? CLUB : MACE;
-                } else if (racial_giant(mtmp)) {
+                else if (racial_giant(mtmp)) {
                     w1 = rn2(2) ? HEAVY_WAR_HAMMER : BATTLE_AXE;
                     mongets(mtmp, BOULDER);
-                } else {
-                    if (rn2(2)) {
-                        w1 = AUTO_SHOTGUN;
-                        m_initthrow(mtmp, SHOTGUN_SHELL, 10);
-                        m_initthrow(mtmp, SHOTGUN_SHELL, 10);
-                    } else if (!rn2(3)) {
-                        w1 = ASSAULT_RIFLE;
-                        m_initthrow(mtmp, BULLET, 30);
-                        m_initthrow(mtmp, BULLET, 30);
-                    } else
-                        w1 = rn2(2) ? FLAIL : MACE;
-	            if (Is_stronghold(&u.uz)) {
-                    w2 = BOW;
-                    m_initthrow(mtmp, ARROW, 30);
-                    }
+                } else
+                    w1 = rn2(2) ? FLAIL : MACE;
+                
+                if (rn2(2)) {
+                    w2 = SHOTGUN;
+                    m_initthrow(mtmp, SHOTGUN_SHELL, 10);
+                    m_initthrow(mtmp, SHOTGUN_SHELL, 10);
+                } else if (!rn2(3)) {
+                    w2 = ASSAULT_RIFLE;
+                    m_initthrow(mtmp, BULLET, 30);
+                    m_initthrow(mtmp, BULLET, 30);
                 }
                 break;
             case PM_LIEUTENANT:
                 if (racial_elf(mtmp)) {
                     w1 = rn2(2) ? ELVEN_BROADSWORD : ELVEN_LONG_SWORD;
-                    if (Is_stronghold(&u.uz)) {
-                        w2 = ELVEN_BOW;
-                        m_initthrow(mtmp, ELVEN_ARROW, 30);
-                    }
-                } else if (racial_dwarf(mtmp)) {
+                    (void) mongets(mtmp, WAN_MAGIC_MISSILE + rn2(9));
+                    break; /* They can't get metal firearms */
+                } else if (racial_dwarf(mtmp))
                     w1 = rn2(2) ? DWARVISH_SHORT_SWORD : DWARVISH_BEARDED_AXE;
-                    if (Is_stronghold(&u.uz)) {
-                        w2 = BOW;
-                        m_initthrow(mtmp, ARROW, 30);
-                    }
-                } else if (racial_orc(mtmp)) {
+                else if (racial_orc(mtmp))
                     w1 = rn2(2) ? ORCISH_LONG_SWORD : ORCISH_SCIMITAR;
-                } else if (racial_giant(mtmp)) {
+                else if (racial_giant(mtmp)) {
                     w1 = rn2(2) ? HALBERD : BATTLE_AXE;
                     mongets(mtmp, BOULDER);
-                } else {
+                } else
                     w1 = rn2(2) ? BROADSWORD : LONG_SWORD;
-                    if (Is_stronghold(&u.uz)) {
-                        if (rn2(2)) {
-                            w1 = AUTO_SHOTGUN;
-                            m_initthrow(mtmp, SHOTGUN_SHELL, 20);
-                            m_initthrow(mtmp, SHOTGUN_SHELL, 20);
-                        } else if (!rn2(3)) {
-                            w1 = HEAVY_MACHINE_GUN;
-                            m_initthrow(mtmp, BULLET, 60);
-                            m_initthrow(mtmp, BULLET, 60);
-                            m_initthrow(mtmp, BULLET, 60);
-                        } else if (!rn2(3)){
-                            w1 = ASSAULT_RIFLE;
-                            m_initthrow(mtmp, BULLET, 60);
-                            m_initthrow(mtmp, BULLET, 60);
-                        } else {
-                            w2 = CROSSBOW;
-                            m_initthrow(mtmp, CROSSBOW_BOLT, 30);
-                        }
-                    }
-
-                do {
-                    randwand = rn2(7);
-                } while (randwand > 5 && rn2(14));
-                    switch (randwand) {
-                    case 1:
-                        randwand = WAN_MAGIC_MISSILE;
-                        break;
-                    case 2:
-                        randwand = WAN_SLEEP;
-                        break;
-                    case 3:
-                        randwand = WAN_FIRE;
-                        break;
-                    case 4:
-                        randwand = WAN_COLD;
-                        break;
-                    case 5:
-                        randwand = WAN_LIGHTNING;
-                        break;
-                    case 6:
-                        randwand = WAN_DEATH;
-                        break;
-                    case 0:
-                    default:
-                        randwand = WAN_STRIKING;
-                        break;
-                    }
-                    (void) mongets(mtmp, randwand);
-                }
+                
+                if (rn2(2)) {
+                    w2 = HEAVY_MACHINE_GUN;
+                    m_initthrow(mtmp, BULLET, 50);
+                    m_initthrow(mtmp, BULLET, 50);
+                    m_initthrow(mtmp, BULLET, 50);
+                } else if (rn2(2)){
+                    w2 = SUBMACHINE_GUN;
+                    m_initthrow(mtmp, BULLET, 30);
+                    m_initthrow(mtmp, BULLET, 30);
+                } else
+                    /* Random ray-based wand */
+                    (void) mongets(mtmp, WAN_MAGIC_MISSILE + rn2(9));
+                    
                 break;
-            case PM_GENERAL:
-                (void) mongets(mtmp, rnd_offensive_item(mtmp));
-                /* FALLTHRU */
             case PM_CAPTAIN:
-            case PM_WATCH_CAPTAIN:
+            case PM_GENERAL:
             case PM_PRISON_GUARD:
-                if (racial_elf(mtmp))
+                (void) mongets(mtmp, rnd_offensive_item(mtmp));
+                if (racial_elf(mtmp)) {
                     w1 = ELVEN_LONG_SWORD;
-                else if (racial_dwarf(mtmp))
+                    (void) mongets(mtmp, WAN_MAGIC_MISSILE + rn2(9));
+                    break; /* They can't get metal firearms */
+                } else if (racial_dwarf(mtmp))
                     w1 = rn2(4) ? DWARVISH_BEARDED_AXE : BATTLE_AXE;
                 else if (racial_giant(mtmp))
                     w1 = rn2(2) ? TWO_HANDED_SWORD : BATTLE_AXE;
                 else
-                    w1 = rn2(2) ? LONG_SWORD : SABER;
+                    w1 = rn2(2) ? SABER : GLADIUS;
+                    
+                switch (rnd(5)) {
+                    case 1:
+                        w2 = AUTO_SHOTGUN;
+                        m_initthrow(mtmp, SHOTGUN_SHELL, 20);
+                        m_initthrow(mtmp, SHOTGUN_SHELL, 20);
+                        break;
+                    case 2:
+                        w2 = HEAVY_MACHINE_GUN;
+                        m_initthrow(mtmp, BULLET, 60);
+                        m_initthrow(mtmp, BULLET, 60);
+                        m_initthrow(mtmp, BULLET, 60);
+                        break;
+                    case 3:
+                        w2 = ASSAULT_RIFLE;
+                        m_initthrow(mtmp, BULLET, 60);
+                        m_initthrow(mtmp, BULLET, 60);
+                        break;
+                    case 4:
+                        w2 = ROCKET_LAUNCHER;
+                        m_initthrow(mtmp, ROCKET, 5);
+                        break;
+                    case 5:
+                        w2 = GRENADE_LAUNCHER;
+                        m_initthrow(mtmp, FIRE_BOMB + rn2(3), 5);
+                        break;
+                }
                 mongets(mtmp, SKELETON_KEY);
-                if (!racial_elf(mtmp))
-                    (void) mongets(mtmp, rn2(2) ? FIRE_BOMB : GAS_BOMB);
                 break;
             case PM_TEMPLAR:
                 w1 = rn2(2) ? LONG_SWORD : SABER;
@@ -1951,6 +1922,8 @@ register struct monst *mtmp;
             if (!rn2(3))
                 (void) mongets(mtmp, ORCISH_BOOTS);
             (void) mongets(mtmp, FIRE_BOMB);
+            if (!rn2(2))
+                (void) mongets(mtmp, FIRE_BOMB);
             break;
         default:
             if (mm != PM_ORC_SHAMAN && rn2(2))
@@ -2519,7 +2492,7 @@ register struct monst *mtmp;
                 otmp = mksobj(AMULET_OF_LIFE_SAVING, FALSE, FALSE);
                 mpickobj(mtmp, otmp);
                 (void) mongets(mtmp, SKELETON_KEY);
-                m_initthrow(mtmp, GAS_BOMB, 3);
+                m_initthrow(mtmp, FIRE_BOMB + rn2(3), 3);
         } else if (ptr->msound == MS_PRIEST
                    || quest_mon_represents_role(ptr, PM_PRIEST)) {
             if (!racial_giant(mtmp)) {
@@ -2820,8 +2793,12 @@ register struct monst *mtmp;
     /* Bomb distribution */
     if (is_pirate(ptr) && !rn2(2)) {
         (void) mongets(mtmp, FIRE_BOMB);
-    } else if (is_mercenary(ptr) && !rn2(6) && !racial_elf(mtmp)) {
-        (void) mongets(mtmp, FIRE_BOMB + rn2(3));
+        if (rn2(2))
+            (void) mongets(mtmp, FIRE_BOMB);
+    } else if (is_mercenary(ptr) && !racial_elf(mtmp) && !rn2(2)) {
+        while (rn2(3)) {
+            (void) mongets(mtmp, FIRE_BOMB + rn2(3));
+        }
     }
 
     /* ordinary soldiers rarely have access to magic (or gold :-) */
