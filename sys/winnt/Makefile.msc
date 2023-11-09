@@ -772,7 +772,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(DAT)\nkai.des \
 	$(DAT)\nymph.des \
 	$(DAT)\oracle.des \
-	$(DAT)\ozzy.des \
 	$(DAT)\qchaos.des \
 	$(DAT)\qlawful.des \
 	$(DAT)\qneutral.des \
@@ -827,7 +826,6 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	$(U)levcomp nkai.des
 	$(U)levcomp nymph.des
 	$(U)levcomp oracle.des
-	$(U)levcomp ozzy.des
 	$(U)levcomp qchaos.des
 	$(U)levcomp qlawful.des
 	$(U)levcomp qneutral.des
@@ -1379,7 +1377,6 @@ spotless: clean
 	if exist $(DAT)\oracle-?.lev	 del $(DAT)\oracle-?.lev
 	if exist $(DAT)\oracles		 del $(DAT)\oracles
 	if exist $(DAT)\orcus.lev	 del $(DAT)\orcus.lev
-	if exist $(DAT)\ozzy.lev	 del $(DAT)\ozzy.lev
 	if exist $(DAT)\rumors		 del $(DAT)\rumors
 	if exist $(DAT)\quest.dat	 del $(DAT)\quest.dat
 	if exist $(DAT)\qlawful.lev	 del $(DAT)\qlawful.lev

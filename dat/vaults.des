@@ -1334,13 +1334,44 @@ ROOM:"rndvault", unlit, random, random, (4,4) {
    OBJECT:('%', "corpse"), random, montype:'@'
 }
 
+# Ozymandias' Tomb
+LEVEL:"vlt-0075"
+FLAGS:rndvault
+MINDEPTH:20
+GEOMETRY:random
+MAP
+---------
+|.......|
+|.......|
+|.......|
+|......\|
+|.......|
+|.......|
+|.......|
+---------
+ENDMAP
+REGION:(1,1,7,7),lit,"rndvault",filled { }
+ENGRAVING: (6,4), burn, "Look on my works, ye mighty, and despair"
+
+[50%]: TRAP: "hole", (3,2)
+[80%]: TRAP: "hole", (5,3)
+[30%]: TRAP: "hole", (3,6)
+[75%]: TRAP: "web", (1,1)
+[75%]: TRAP: "web", (1,6)
+TRAP: "web", (7,6)
+
+CONTAINER:"chest", (6,1), trapped { }
+TRAP: "statue", (7,3)
+TRAP: "statue", (7,7)
+LOOP [4] { [50%]: OBJECT:('`',"statue"),random }
+
 
 # Default room
 # Because this is the last room this will show up regardless of MINLEVEL
 # (At least that's what some testing revealed.)
 # We'll make this room add some color to the dungeon but no dangerous 
 # lava or deep water pools.
-LEVEL:"vlt-0075"
+LEVEL:"vlt-0076"
 FLAGS:rndvault
 ROOM:"rndvault", random, random, random, (3,3) {
 $terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C', ',' }
