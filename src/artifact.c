@@ -1594,7 +1594,7 @@ int tmp;
     int dbon = 0, adtype;
     spec_dbon_applies = FALSE;
     
-    if (weap->otyp == CRYSKNIFE && otmp->otyp != CRYSKNIFE)
+    if (weap && weap->otyp == CRYSKNIFE && otmp->otyp != CRYSKNIFE)
         return 0;
     
     if (!weap && otmp->oprops
