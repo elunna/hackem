@@ -1293,6 +1293,7 @@ register int after;
     }
     /* Infest corpses. */
     if (is_moldier(ptr) 
+        || mtmp->data == &mons[PM_ARCH_VILE]
         || mtmp->data == &mons[PM_MAGGOT]
         || mtmp->data == &mons[PM_HELLMINTH]
         || mtmp->data == &mons[PM_LARVA])

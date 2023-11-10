@@ -28,7 +28,7 @@ enum mcast_mage_spells {
     MGC_REFLECTION,
     MGC_DEATH_TOUCH,
     MGC_CREATE_POOL,
-    MGC_CALL_UNDEAD
+    MGC_CALL_UNDEAD,
 };
 
 /* monster cleric spells */
@@ -218,11 +218,14 @@ int spellnum;
      */
     while (spellnum > 15 && rn2(16))
         spellnum = rn2(spellnum);
-
+    
     /* If we're hurt, seriously consider giving fixing ourselves priority */
     if ((mtmp->mhp * 4) <= mtmp->mhpmax)
         spellnum = 1;
 
+    if (mtmp->data == &mons[PM_ARCH_VILE] && spellnum != 1)
+        return CLC_FIRE_PILLAR;
+    
     switch (spellnum) {
     case 15:
     case 14:
@@ -247,8 +250,7 @@ int spellnum;
     case 9:
         return CLC_CURSE_ITEMS;
     case 8:
-        if ((is_demon(mtmp->data)
-             && mtmp->data != &mons[PM_LOLTH])
+        if ((is_demon(mtmp->data) && mtmp->data != &mons[PM_LOLTH])
             || mtmp->mtame || mtmp->mpeaceful)
             return CLC_VULN_YOU;
         else
@@ -1346,6 +1348,7 @@ int spellnum;
         case CLC_INSECTS:
         case CLC_CURE_SELF:
         case CLC_PROTECTION:
+        case CLC_FIRE_PILLAR:
             return TRUE;
         default:
             break;
@@ -1438,6 +1441,11 @@ int spellnum;
         if ((!haseyes(mdef->data) || mdef->mblinded)
             && spellnum == CLC_BLIND_YOU)
             return TRUE;
+        /* Don't let arch-viles spam too much */
+        if (spellnum == CLC_FIRE_PILLAR 
+            && mtmp->data == &mons[PM_ARCH_VILE] && rn2(30)) {
+            return TRUE;
+        }
     }
     return FALSE;
 }
@@ -1578,6 +1586,11 @@ int spellnum;
         /* blindness spell on blinded player */
         if (Blinded && spellnum == CLC_BLIND_YOU)
             return TRUE;
+        /* Don't let arch-viles spam too much */
+        if (spellnum == CLC_FIRE_PILLAR
+            && mtmp->data == &mons[PM_ARCH_VILE] && rn2(30)) {
+            return TRUE;
+        }
     }
     return FALSE;
 }

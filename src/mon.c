@@ -1816,8 +1816,9 @@ minfestcorpse(struct monst *mtmp)
                 return;
             }
             if (cansee(mtmp->mx,mtmp->my) && flags.verbose)
-                pline("%s infests %s!", Monnam(mtmp),
-                  distant_name(otmp,doname));
+                pline("%s %s %s!", Monnam(mtmp),
+                      mtmp->data == &mons[PM_ARCH_VILE] ? "resurrects" : "infests",
+                      distant_name(otmp,doname));
             else if (!Deaf && flags.verbose)
                 You_hear("an unsettling writhing noise.");
             
@@ -1826,7 +1827,11 @@ minfestcorpse(struct monst *mtmp)
             if (mtmp->data == &mons[PM_MAGGOT]) {
                 if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_GIANT_MOSQUITO]))
                     makemon(&mons[PM_GIANT_MOSQUITO ], cc.x, cc.y, NO_MINVENT);
-            } 
+            }
+            if (mtmp->data == &mons[PM_ARCH_VILE]) {
+                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[otmp->corpsenm]))
+                    makemon(&mons[otmp->corpsenm], cc.x, cc.y, NO_MINVENT);
+            }
             else if (mtmp->data == &mons[PM_HELLMINTH]) {
                 if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_WORM_THAT_WALKS]))
                     makemon(&mons[rn2(4) ? PM_GIBBERSLUG : PM_WORM_THAT_WALKS], cc.x, cc.y, NO_MINVENT);
