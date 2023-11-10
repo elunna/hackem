@@ -1370,7 +1370,7 @@ LOOP [4] { [50%]: OBJECT:('`',"statue"),random }
 # Steam room
 LEVEL:"vlt-0076"
 FLAGS:rndvault
-MINDEPTH:5
+MINDEPTH:1
 GEOMETRY:random
 MAP
 -----------
@@ -1386,7 +1386,11 @@ MAP
 -----------
 ENDMAP
 REGION:(1,1,1,1),random,"rndvault",irregular {
-  LOOP [5] { [75%]: TERRAIN: random,'V' }
+    $fill = selection: filter(60%, floodfill(1,1))
+    TERRAIN:$fill, ','
+  
+    $fill = selection: filter(5%, floodfill(1,1))
+    TERRAIN:$fill, 'V'
 }
 
 # Kitchen
