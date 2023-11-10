@@ -1388,13 +1388,66 @@ REGION:(1,1,1,1),random,"rndvault",irregular {
   LOOP [5] { [75%]: TERRAIN: random,'V' }
 }
 
+# Kitchen
+LEVEL:"vlt-0077"
+FLAGS:rndvault
+MINDEPTH:5
+ROOM:"rndvault", random, random, random, (10,2) {
+    # -- cookware and other useful things...
+    TERRAIN: random,'K'
+    TERRAIN: random,'K'
+    [50%]: TERRAIN: random,'U'
+    [50%]: OBJECT:('(', "ice box"), random
+    LOOP [3] { [50%]: OBJECT: ('[', "dented pot"), random }
+    LOOP [3] { [50%]: OBJECT: (')', "knife"), random }
+    [70%]: OBJECT:('(', "tin opener"), random
+    [20%]: OBJECT:('(', "tinning kit"), random
+    [20%]: OBJECT:('(', "towel"), random
+    [20%]: OBJECT:('[', "alchemy smock"), random
+    
+    # -- sauces and stocks...
+    LOOP [3] { [50%]: OBJECT: ('!', "oil"), random }
+    LOOP [3] { [50%]: OBJECT: ('!', "fruit juice"), random }
+    LOOP [3] { [50%]: OBJECT: ('!', "booze"), random }
+
+    # -- raw ingredients...
+    LOOP [4] { [50%]: OBJECT: ('%', "tin"), random }
+    
+    $ingredients = OBJECT: {
+        ('%', "meatball"),           
+        ('%', "apple"),
+        ('%', "orange"),
+        ('%', "mushroom"),
+        ('%', "pear"),
+        ('%', "asian pear"),
+        ('%', "melon"),
+        ('%', "banana"),
+        ('%', "egg"),
+        ('%', "carrot"),
+        ('%', "clove of garlic"),
+        ('%', "pineapple"),
+        ('%', "cream pie"),
+        ('%', "kelp frond"),
+        ('%', "slice of cake"),
+        ('%', "pumpkin pie"),
+        ('%', "apple pie"),
+        ('%', "egg"),
+        ('%', "cheese"),
+        ('%', "lump of royal jelly")
+    }
+    LOOP [1d4 + 5] { OBJECT: $ingredients[1d20], random }
+    
+    # And some unfortunate cooking accidents...
+    LOOP [3] { [50%]: MONSTER:'%',random }
+}
+
 
 # Default room
 # Because this is the last room this will show up regardless of MINLEVEL
 # (At least that's what some testing revealed.)
 # We'll make this room add some color to the dungeon but no dangerous 
 # lava or deep water pools.
-LEVEL:"vlt-0077"
+LEVEL:"vlt-0078"
 FLAGS:rndvault
 ROOM:"rndvault", random, random, random, (3,3) {
 $terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C', ',' }
