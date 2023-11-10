@@ -1369,7 +1369,7 @@ LOOP [4] { [50%]: OBJECT:('`',"statue"),random }
 # Steam room
 LEVEL:"vlt-0076"
 FLAGS:rndvault
-MINDEPTH:1
+MINDEPTH:5
 GEOMETRY:random
 MAP
 -----------
