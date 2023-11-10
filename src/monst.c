@@ -853,9 +853,23 @@ NEARDATA struct permonst mons[] = {
         M2_NOPOLY | M2_HOSTILE | M2_NEUTER | M2_NASTY,
         M3_SKITTISH | M3_INFRAVISIBLE | M3_INFRAVISION | M3_NOTAME, 0,
         0, 14, CLR_BLACK),
-    /*
-     * felines
-     */
+    MON("Xanathar", S_EYE, LVL(22, 9, -8, 70, 0),
+        (G_UNIQ | G_NOGEN | G_NOCORPSE),
+        A(ATTK(AT_MAGC, AD_CLRC, 4, 6),
+          ATTK(AT_GAZE, AD_SLEE, 2, 25),
+          ATTK(AT_GAZE, AD_DISN, 0, 0),
+          ATTK(AT_GAZE, AD_STON, 0, 0),
+          ATTK(AT_GAZE, AD_CNCL, 4, 4),
+          ATTK(AT_BITE, AD_PHYS, 8, 8)),
+        SIZ(800, 200, MS_SILENT, MZ_LARGE),
+        MR_COLD | MR_ELEC | MR_POISON | MR_STONE, MR_POISON,
+        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_REGEN,
+        M2_NOPOLY | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_NEUTER,
+        M3_SKITTISH | M3_INFRAVISIBLE, 0, 0, 20, HI_LORD),
+        
+        /*
+         * felines
+         */
     MON("serval", S_FELINE,                                   /* SpliceHack */
         LVL(0, 13, 8, 0, 0), (G_GENO | 2),
         A(ATTK(AT_BITE, AD_PHYS, 1, 2), 

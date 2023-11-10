@@ -3491,6 +3491,13 @@ long mmflags;
             otmp->blessed = otmp->cursed = 0;
             mpickobj(mtmp, otmp);
         }
+    } else if (mndx == PM_XANATHAR) {
+        otmp = oname(mksobj(RIN_DISPLACEMENT, TRUE, FALSE),
+                     artiname(ART_XANATHAR_S_RING_OF_PROOF));
+        if (otmp) {
+            otmp->blessed = otmp->cursed = 0;
+            mpickobj(mtmp, otmp);
+        }
     } else if (mndx == PM_GHOST && !(mmflags & MM_NONAME)) {
         mtmp = christen_monst(mtmp, rndghostname());
     } else if (mndx == urole.ldrnum) {

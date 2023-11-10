@@ -887,13 +887,18 @@ struct permonst *
 guildmon()
 {
     int mtyp, trycnt = 0;
+    int i;
 
     /* Same monsters within a level, different ones between levels */
     do {
         /* We don't want to fill the room with player monsters, ok if it's 
          * a bit sparse. */
+        i = rn2(60) + rn2(3 * level_difficulty());
+        
         if (!rn2(3))
             mtyp = PM_ARCHEOLOGIST + rn2(22); 
+        else if (i > 143)
+            mtyp = PM_XANATHAR;
         else {
             /* They have some pets to help them */
             switch (rn2(5)) {

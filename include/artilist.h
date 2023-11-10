@@ -63,7 +63,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("", STRANGE_OBJECT, 0, 0, 0, NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 0L, NO_COLOR, DEFAULT_MAT),
 
-        /*** Lawful artifacts ***/
+    /*** Lawful artifacts ***/
 
     /* Balmung shreds the armor of opponents. */
     A("Balmung", BROADSWORD, 
@@ -192,8 +192,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       SPFX_RESTR, 0, 0, PHYS(9, 2), NO_DFNS, NO_CARY, 0, 
       A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR, DEFAULT_MAT),
 
-
-        /*** Neutral artifacts ***/
+    /*** Neutral artifacts ***/
 
     A("Arvon", CRYSKNIFE,
       (SPFX_NOWISH | SPFX_INTEL), 0, 0,
@@ -321,8 +320,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR | SPFX_STLTH), SPFX_LUCK, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0,
       A_NEUTRAL, PM_TOURIST, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
-
-        /*** Chaotic artifacts ***/
+      
+    /*** Chaotic artifacts ***/
 
     A("Bat from Hell", BASEBALL_BAT,
       (SPFX_RESTR), 0, 0,
@@ -566,7 +565,14 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 10), DFNS(AD_WERE), NO_CARY, 0, 
       A_NONE, NON_PM, NON_PM, 1500L, NO_COLOR, SILVER),
 
+    /* Xanathar's eyestalk ring of proof against detection and location */
+    A("Xanathar's Ring of Proof", RIN_DISPLACEMENT,
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR), SPFX_WARN, 0,
+      NO_ATTK, DFNS(AD_MAGM), NO_CARY,
+      0, A_NONE, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
+      
     /*** Alignment quest artifacts ***/
+        
     A("Nighthorn", UNICORN_HORN,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_REFLECT
         | SPFX_DEFN), 0, 0,
