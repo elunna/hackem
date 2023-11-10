@@ -1366,12 +1366,35 @@ TRAP: "statue", (7,7)
 LOOP [4] { [50%]: OBJECT:('`',"statue"),random }
 
 
+# Steam room
+LEVEL:"vlt-0076"
+FLAGS:rndvault
+MINDEPTH:1
+GEOMETRY:random
+MAP
+-----------
+|.........|
+|.........|
+|.........|
+|.........|
+|.........|
+|.........|
+|.........|
+|.........|
+|.........|
+-----------
+ENDMAP
+REGION:(1,1,1,1),random,"rndvault",irregular {
+  LOOP [5] { [75%]: TERRAIN: random,'V' }
+}
+
+
 # Default room
 # Because this is the last room this will show up regardless of MINLEVEL
 # (At least that's what some testing revealed.)
 # We'll make this room add some color to the dungeon but no dangerous 
 # lava or deep water pools.
-LEVEL:"vlt-0076"
+LEVEL:"vlt-0077"
 FLAGS:rndvault
 ROOM:"rndvault", random, random, random, (3,3) {
 $terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C', ',' }
