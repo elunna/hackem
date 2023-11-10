@@ -5159,7 +5159,7 @@ struct permonst _mons2[] = {
         M3_INFRAVISIBLE | M3_INFRAVISION | M3_TRAITOR,
         M4_VULNERABLE_ELEC, MH_TROLL, 13, CLR_BLUE),
     MON("grave troll", S_TROLL,                               /* SpliceHack */
-        LVL(11, 8, 0, 60, 0), (G_GENO | 1),
+        LVL(11, 8, 0, 60, 0), (G_NOGEN | 1),
         A(ATTK(AT_CLAW, AD_PHYS, 2, 6),
           ATTK(AT_CLAW, AD_PHYS, 2, 6),
           ATTK(AT_BITE, AD_DISE, 2, 6),

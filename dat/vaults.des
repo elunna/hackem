@@ -1133,6 +1133,7 @@ ROOM:"rndvault", unlit, random, random, random {
 GRAVE:random
 [20%]: GRAVE:random, random
 MONSTER: '&', random
+[50%]: MONSTER: ('T', "grave troll"), random
 }
 
 # watcher in the water

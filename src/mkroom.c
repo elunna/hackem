@@ -806,6 +806,8 @@ morguemon()
 
     if (hd > 8 && i > 85)
         return mkclass(S_VAMPIRE, 0);
+    if (hd > 7 && i > 75 && !rn2(4))
+        return &mons[PM_GRAVE_TROLL];
     if (In_vecna_branch(&u.uz) && hd > 8 && i > 80)
         return &mons[PM_SHADE];
 
