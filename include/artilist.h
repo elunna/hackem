@@ -575,9 +575,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
         
     A("Nighthorn", UNICORN_HORN,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_REFLECT
-        | SPFX_DEFN), 0, 0,
+        | SPFX_DEFN | SPFX_INTEL), 0, 0,
       PHYS(1, 3), DFNS(AD_STUN), NO_CARY, 0, 
-      A_LAWFUL, NON_PM, NON_PM, 10000L, NO_COLOR, DEFAULT_MAT),
+      A_LAWFUL, NON_PM, NON_PM, 10000L, NO_COLOR, GEMSTONE),
     
     A("The Eye of the Beholder", EYEBALL,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_WARN), 0, 0,
