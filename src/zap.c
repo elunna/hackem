@@ -5797,7 +5797,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
 
         if (mon) {
             int saved_mhp;
-            if (type == ZT_SPELL(ZT_FIRE))
+            if (type == ZT_SPELL(ZT_FIRE) || type == ZT_MONSPELL(ZT_FIRE))
                 break;
             if (type >= 0)
                 mon->mstrategy &= ~STRAT_WAITMASK;

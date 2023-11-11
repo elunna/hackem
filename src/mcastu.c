@@ -1660,7 +1660,7 @@ register struct attack *mattk;
             if (canseemon(mtmp))
                 pline("%s zaps %s with a %s!", Monnam(mtmp),
                       mon_nam(mdef), flash_types[AD_to_ZT(mattk->adtyp)]);
-            dobuzz(-AD_to_SPELL(mattk->adtyp), (int) mattk->damn, mtmp->mx,
+            dobuzz(ZT_MONSPELL(AD_to_ZT(mattk->adtyp)), (int) mattk->damn, mtmp->mx,
                    mtmp->my, sgn(tbx), sgn(tby), FALSE);
         } else
             impossible("Monster spell %d cast", mattk->adtyp - 1);
