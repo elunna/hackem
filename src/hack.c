@@ -4028,6 +4028,13 @@ saving_grace(int dmg)
         && (u.uhp * 100 / u.uhpmax) > 90) {
         dmg = u.uhp - 1;
         u.usaving_grace = TRUE; /* used up */
+        context.travel = context.travel1 = context.mv = context.run = 0;
+        if (multi > 0)
+            multi = 0;
+        if (u.usleep)
+            unmul("Suddenly you wake up!");
+        if (is_fainted())
+            reset_faint();
     }
     return dmg;
 }
