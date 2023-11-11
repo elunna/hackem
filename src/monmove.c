@@ -210,7 +210,7 @@ struct monst *mtmp;
      * Vecna, monster players, demon lords and princes,
      * honey badgers, shopkeepers inside their own shop, anything that
      * is mindless, priests inside their own temple, the quest leaders
-     * and nemesis, neothelids
+     * and nemesis, neothelids, beholders, other unique creatures
      */
     if (mtmp->iswiz
         || is_lminion(mtmp)

@@ -853,7 +853,7 @@ NEARDATA struct permonst mons[] = {
         M2_NOPOLY | M2_HOSTILE | M2_NEUTER | M2_NASTY,
         M3_SKITTISH | M3_INFRAVISIBLE | M3_INFRAVISION | M3_NOTAME, 0,
         0, 14, CLR_BLACK),
-    MON("Xanathar", S_EYE, LVL(22, 9, -8, 70, 0),
+    MON("Xanathar", S_EYE, LVL(22, 6, -8, 50, -10),
         (G_UNIQ | G_NOGEN | G_NOCORPSE),
         A(ATTK(AT_MAGC, AD_CLRC, 4, 6),
           ATTK(AT_GAZE, AD_SLEE, 2, 25),
@@ -863,8 +863,9 @@ NEARDATA struct permonst mons[] = {
           ATTK(AT_BITE, AD_PHYS, 8, 8)),
         SIZ(800, 200, MS_SILENT, MZ_LARGE),
         MR_COLD | MR_ELEC | MR_POISON | MR_STONE, MR_POISON,
-        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_REGEN,
-        M2_NOPOLY | M2_HOSTILE | M2_PNAME | M2_NASTY | M2_NEUTER,
+        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_REGEN,
+        M2_NOPOLY | M2_HOSTILE | M2_NASTY | M2_NEUTER 
+            | M2_PNAME  | M2_GREEDY | M2_JEWELS,
         M3_SKITTISH | M3_INFRAVISIBLE, 0, 0, 20, HI_LORD),
         
         /*
@@ -7742,9 +7743,9 @@ struct permonst _mons2[] = {
           ATTK(AT_BITE, AD_PHYS, 8, 8)),
         SIZ(800, 200, MS_SILENT, MZ_LARGE), 
         MR_COLD | MR_ELEC | MR_POISON | MR_STONE, MR_POISON,
-        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_MINDLESS | M1_REGEN,
-        M2_NOPOLY | M2_STALK | M2_HOSTILE | M2_PNAME | M2_MAGIC | M2_NASTY 
-            | M2_NEUTER,
+        M1_FLY | M1_BREATHLESS | M1_NOLIMBS | M1_NOHEAD | M1_REGEN,
+        M2_NOPOLY | M2_HOSTILE | M2_NASTY | M2_NEUTER  | M2_GREEDY 
+            | M2_JEWELS | M2_PNAME | M2_MAGIC | M2_STALK ,
         M3_WANTSBOOK | M3_WAITFORU | M3_CLOSE | M3_INFRAVISION, 0, 0, 
         20, CLR_GRAY),
     
