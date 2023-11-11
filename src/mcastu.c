@@ -1428,8 +1428,10 @@ int spellnum;
             && spellnum == MGC_ACID_BLAST) {
             return TRUE;
         }
-        if ((spellnum == MGC_ICE_BOLT || spellnum == MGC_FIRE_BOLT
-            || spellnum == MGC_ACID_BLAST || spellnum == MGC_CANCELLATION)
+        if ((spellnum == MGC_ICE_BOLT 
+            || spellnum == MGC_FIRE_BOLT
+            || spellnum == MGC_ACID_BLAST 
+            || spellnum == MGC_CANCELLATION)
             && mtmp->mpeaceful) {
             return TRUE;
         }
@@ -1440,6 +1442,11 @@ int spellnum;
         /* blindness spell on blinded player */
         if ((!haseyes(mdef->data) || mdef->mblinded)
             && spellnum == CLC_BLIND_YOU)
+            return TRUE;
+        
+        if (spellnum == CLC_FIRE_PILLAR && mtmp->mpeaceful)
+            return TRUE;
+        if (m_seenres(mtmp, M_SEEN_FIRE) && spellnum == CLC_FIRE_PILLAR)
             return TRUE;
         /* Don't let arch-viles spam too much */
         if (spellnum == CLC_FIRE_PILLAR 
@@ -1585,6 +1592,12 @@ int spellnum;
             return TRUE;
         /* blindness spell on blinded player */
         if (Blinded && spellnum == CLC_BLIND_YOU)
+            return TRUE;
+
+        if (m_seenres(mtmp, M_SEEN_FIRE) && spellnum == CLC_FIRE_PILLAR) {
+            return TRUE;
+        }
+        if (spellnum == CLC_FIRE_PILLAR && (mtmp->mpeaceful || u.uinvulnerable))
             return TRUE;
         /* Don't let arch-viles spam too much */
         if (spellnum == CLC_FIRE_PILLAR
