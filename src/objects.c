@@ -1308,7 +1308,7 @@ WAND("extra healing",  "bronze",  90, 300, 1, IMMEDIATE, COPPER,   CLR_YELLOW), 
 WAND("opening",          "zinc",  75, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("locking",      "aluminum",  75, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("probing",       "uranium",  90, 150, 1, IMMEDIATE, METAL, HI_METAL),
-WAND("fireball",       "forked",   5, 300, 1, RAY, WOOD,  HI_WOOD),/* Slash'EM */
+WAND("fireball",       "forked",  15, 300, 1, RAY, WOOD,  HI_WOOD),/* Slash'EM */
 WAND("digging",          "iron", 165, 150, 1, RAY, IRON,  HI_METAL),
 
 /* Ray wands have to come last, and in this order. */
