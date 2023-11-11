@@ -4554,8 +4554,9 @@ struct permonst _mons2[] = {
         0, MH_UNDEAD, 21, HI_LORD),
     MON("arch-vile", S_LICH,
         LVL(22, 24, 0, 90, -15), (G_HELL | G_GENO | G_NOCORPSE | 1),
-        A(ATTK(AT_MAGC, AD_CLRC, 4, 6),
-          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
+        A(ATTK(AT_CLAW, AD_FIRE, 3, 6),
+          ATTK(AT_MAGC, AD_CLRC, 4, 6),
+          NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
         SIZ(800, 100, MS_MUMBLE, MZ_HUMAN),
         MR_FIRE | MR_COLD | MR_ELEC | MR_SLEEP | MR_POISON
         | MR_DRAIN | MR_SICK, MR_FIRE | MR_COLD,
