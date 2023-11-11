@@ -1798,7 +1798,7 @@ minfestcorpse(struct monst *mtmp)
     register struct obj *otmp;
     coord cc;
     /* If a pet, eating is handled separately, in dog.c */
-    if (mtmp->mtame) 
+    if (mtmp->mtame && mtmp->data != &mons[PM_ARCH_VILE]) 
         return;
 
     /* Infest topmost corpse if it is there */

@@ -1704,6 +1704,10 @@ int after; /* this is extra fast monster movement */
         ;
     }
 
+    if (mtmp->data == &mons[PM_ARCH_VILE]) {
+        minfestcorpse(mtmp);
+    }
+    
     /* Pet hasn't attacked anything but is considering moving -
      * now's the time for ranged attacks. Note that the pet can move
      * after it performs its ranged attack. Should this be changed?
@@ -1790,7 +1794,7 @@ int after; /* this is extra fast monster movement */
 
         struct obj *floor_obj;
         struct obj *obj2;
-        
+
         if (mtmp->data == &mons[PM_DROID]) {
             /* Scan all the items at the location */
             for (floor_obj = level.objects[mtmp->mx][mtmp->my]; 
