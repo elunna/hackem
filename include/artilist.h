@@ -774,7 +774,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       A_NEUTRAL, PM_VALKYRIE, NON_PM, 3500L, NO_COLOR, DEFAULT_MAT),
 #endif
 
-    A("Gjallar", TOOLED_HORN,
+        A("Gjallar", TOOLED_HORN,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
         (SPFX_WARN | SPFX_HPHDAM | SPFX_LUCK), 0, 
       NO_ATTK, NO_DFNS, NO_CARY, LEV_TELE, 
