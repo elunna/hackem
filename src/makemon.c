@@ -1602,8 +1602,7 @@ register struct monst *mtmp;
             if (rn2(2))
                 (void) mongets(mtmp, CORNUTHAUM);
             if (rn2(2))
-                (void) mongets(mtmp, rn2(4) ? (rn2(2) ? AMULET_OF_GUARDING : AMULET_OF_LIFE_SAVING)
-                                            : AMULET_OF_MAGIC_RESISTANCE);
+                (void) mongets(mtmp, rn1(AMULET_OF_FLYING - AMULET_OF_ESP + 1, AMULET_OF_ESP));
         }
         break;
     case S_GHOST:
