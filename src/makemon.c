@@ -1594,7 +1594,7 @@ register struct monst *mtmp;
                 set_material(received, GOLD);
         } else if (mm == PM_WIZARD_OF_YENDOR) {
             otmp = mksobj(rn2(3) ? ATHAME : QUARTERSTAFF, FALSE, FALSE);
-            otmp->oprops = (rn2(3) ? ITEM_FIRE : rn2(2) ? ITEM_FROST : ITEM_VENOM);
+            otmp->oprops = (1 << rn2(7));
             otmp->spe = rnd(4) + 1;
             (void) mpickobj(mtmp, otmp);
             if (rn2(2))
