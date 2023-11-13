@@ -197,6 +197,7 @@ spec_levs: ../util/lev_comp \
 quest_levs: ../util/lev_comp \
 	Arch.des \
 	Barb.des \
+	Cart.des \
 	Caveman.des \
 	Convict.des \
 	Flame.des \
@@ -219,6 +220,7 @@ quest_levs: ../util/lev_comp \
 	Yeoman.des
 	../util/lev_comp Arch.des
 	../util/lev_comp Barb.des
+	../util/lev_comp Cart.des
 	../util/lev_comp Caveman.des
 	../util/lev_comp Convict.des
 	../util/lev_comp Flame.des

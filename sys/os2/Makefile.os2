@@ -1280,6 +1280,7 @@ $(GAMEDIR)\dungeon : $(DAT)\dungeon.def $(TEMP)\makedefs.exe $(TEMP)\dgn_comp.ex
 
 AFILES = $(GAMEDIR)\Arc-goal.lev
 BFILES = $(GAMEDIR)\Bar-goal.lev
+BFILES = $(GAMEDIR)\Car-goal.lev
 CFILES = $(GAMEDIR)\Cav-goal.lev
 HFILES = $(GAMEDIR)\Hea-goal.lev
 IFILES = $(GAMEDIR)\Inf-goal.lev
@@ -1389,6 +1390,8 @@ $(AFILES) : $(DAT)\Arch.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Arc QF=Arch do_quest
 $(BFILES) : $(DAT)\Barb.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Bar QF=Barb do_quest
+$(BFILES) : $(DAT)\Cart.des $(TEMP)\lev_comp.exe
+    $(MAKEB) QQ=Car QF=Cart do_quest
 $(CFILES) : $(DAT)\Caveman.des $(TEMP)\lev_comp.exe
 	$(MAKEB) QQ=Cav QF=Caveman do_quest
 $(HFILES) : $(DAT)\Flame.des $(TEMP)\lev_comp.exe

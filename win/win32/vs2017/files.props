@@ -30,6 +30,7 @@
   <ItemGroup>
     <Desfiles Include = "arch.des"/>
     <Desfiles Include = "barb.des"/>
+    <Desfiles Include = "cart.des"/>
     <Desfiles Include = "caveman.des"/>
     <Desfiles Include = "convict.des"/>
     <Desfiles Include = "flame.des"/>
@@ -354,6 +355,11 @@
     <Levfiles Include = "bar-goal.lev"/>
     <Levfiles Include = "bar-loca.lev"/>
     <Levfiles Include = "bar-strt.lev"/>
+    <Levfiles Include = "car-fila.lev"/>
+    <Levfiles Include = "car-filb.lev"/>
+    <Levfiles Include = "car-goal.lev"/>
+    <Levfiles Include = "car-loca.lev"/>
+    <Levfiles Include = "car-strt.lev"/>
     <Levfiles Include = "cav-fila.lev"/>
     <Levfiles Include = "cav-filb.lev"/>
     <Levfiles Include = "cav-goal.lev"/>

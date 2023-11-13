@@ -1423,12 +1423,19 @@ mcalcdistress()
         }
 
         if (mtmp->msummoned && mtmp->msummoned == 1) {
-            if (canseemon(mtmp))
-                pline(Hallucination ? "%s folds in on itself!"
-                                    : "%s winks out of existence.", Monnam(mtmp));
+            if (canseemon(mtmp)) {
+                if (Hallucination)
+                    pline("%s %s", Monnam(mtmp), rn2(2) 
+                        ? "folds in on itself!" 
+                        : "explodes into multicolored polygons!");
+                else
+                    pline("%s %s", Monnam(mtmp), rn2(2) 
+                        ? "winks out of existence."
+                        : "vanishes in a puff of smoke.");
+            }
             for (obj = mtmp->minvent; obj; obj = otmp) {
                 otmp = obj->nobj;
-                obj_extract_self(obj);
+                /*obj_extract_self(obj);*/
                 if (mtmp->mx) {
                     mdrop_obj(mtmp, obj, FALSE);
                 }
@@ -3703,6 +3710,16 @@ register struct monst *mtmp;
         }
     }
     
+    /* Anything killed while playing as a cartomancer has 
+     * a chance of leaving behind a monster card. */
+    if (Role_if(PM_CARTOMANCER) && !(mtmp->data->geno & G_UNIQ)
+          && !mtmp->mtame && rn2(2)) {
+        otmp = mksobj(SCR_CREATE_MONSTER, FALSE, FALSE);
+        otmp->corpsenm = monsndx(mtmp->data);
+        place_object(otmp, mtmp->mx, mtmp->my);
+        newsym(mtmp->mx, mtmp->my);
+    }
+
     /* dead vault guard is actually kept at coordinate <0,0> until
        his temporary corridor to/from the vault has been removed;
        need to do this after life-saving and before m_detach() */
@@ -6640,6 +6657,7 @@ struct permonst *mdat;
         case PM_CAVEWOMAN:
         case PM_BARBARIAN:
         case PM_NEANDERTHAL:
+        case PM_CARTOMANCER:
             You("smell body odor.");
             msg_given = TRUE;
             break;
@@ -6845,6 +6863,9 @@ short mndx;
     case PM_BARBARIAN:
         permitted |= (MH_CENTAUR | MH_DWARF | MH_GIANT | MH_ORC
                       | MH_TORTLE | MH_VAMPIRE);
+        break;
+    case PM_CARTOMANCER:
+        permitted |= (MH_DWARF | MH_ELF | MH_GNOME | MH_HOBBIT);
         break;
     case PM_CAVEMAN:
     case PM_CAVEWOMAN:

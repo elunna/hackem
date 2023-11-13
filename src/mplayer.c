@@ -262,6 +262,11 @@ int mndx;
         /* flags for all barbarians regardless of race */
         rptr->mflags3 |= M3_BERSERK;
         break;
+    case PM_CARTOMANCER:
+        rptr->mattk[0].adtyp = AD_SAMU;
+        rptr->mattk[1].aatyp = AT_MAGC;
+        rptr->mattk[1].adtyp = AD_SPEL;
+        break;
     case PM_CAVEMAN:
     case PM_CAVEWOMAN:
         /* flags for all cavepersons regardless of race */
@@ -486,6 +491,17 @@ struct obj *obj;
             armor = rnd_class(PLATE_MAIL, CHAIN_MAIL);
         if (helm == HELM_OF_BRILLIANCE)
             helm = STRANGE_OBJECT;
+        break;
+    case PM_CARTOMANCER:
+        weapon = !rn2(3) ? SHURIKEN : STRANGE_OBJECT;
+        armor = ROBE;
+        if (rn2(2)) {
+            cloak = CLOAK_OF_MAGIC_RESISTANCE;
+        }
+        if (rn2(4))
+            helm = HELM_OF_BRILLIANCE;
+        shield = STRANGE_OBJECT;
+        (void) mongets(mtmp, SCR_CREATE_MONSTER);
         break;
     case PM_CAVEMAN:
     case PM_CAVEWOMAN:

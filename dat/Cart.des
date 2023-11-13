@@ -1,0 +1,300 @@
+# NetHack 3.6	Car.des	$NHDT-Date: 1432512784 2015/05/25 00:13:04 $  $NHDT-Branch: master $:$NHDT-Revision: 1.10 $
+#	Copyright (c) 1989 by Jean-Christophe Collet
+#	Copyright (c) 1991 by M. Stephenson
+# NetHack may be freely redistributed.  See license for details.
+#
+#	The "start" level for the quest.
+#
+#	Here you meet your (besieged) class leader, Lord Carnarvon
+#	and receive your quest assignment.
+#
+MAZE: "Car-strt",' '
+FLAGS: noteleport,hardfloor
+GEOMETRY:center,center
+#0        1         2         3         4         5         6
+#1234567890123456789012345678901234567890123456789012345678901234567890
+MAP
+............................................................................
+............................................................................
+............................................................................
+...................................|..|.....................................
+............|-----------------------++-----------------------|..............
+............|......................+..+......................|..............
+............|......................|..|.}}}}}}}}}}}}}}}}}}}}.|..............
+............|......................|..|.}..................}.|..............
+............|......................|..|.}..................}.|..............
+............|-----------+----------|..|.}..................}.|..............
+............|......................S..S....................}.|..............
+............|......................|..|.}..................}.|..............
+............|......................|..|.}..................}.|..............
+............|......................|..|.}..................}.|..............
+............|......................|..|.}}}}}}}}}}}}}}}}}}}}.|..............
+............|......................|..|......................|..............
+............|-----------------------++-----------------------|..............
+...................................|..|.....................................
+............................................................................
+............................................................................
+ENDMAP
+# Dungeon Description
+REGION: (00,00,75,19),lit,"ordinary"
+
+# Stairs
+STAIR:(24,12),down
+
+# Portal arrival point
+BRANCH:(07,17,07,17),(0,0,0,0)
+
+# Non diggable walls
+NON_DIGGABLE:(00,00,75,19)
+
+# Doors
+DOOR:locked,(24,09)
+DOOR:locked,(36,04)
+DOOR:locked,(37,04)
+DOOR:locked,(35,05)
+DOOR:locked,(38,05)
+DOOR:locked,(35,10)
+DOOR:locked,(38,10)
+DOOR:locked,(36,16)
+DOOR:locked,(37,16)
+
+# The Lord of the Cards
+MONSTER:('@',"King of Games"),(17,08)
+
+# The treasure of the Lord of the Cards
+MAGIC_CHEST:(18,05)
+
+# students of the card training school
+MONSTER:('@',"student"),(47,07)
+MONSTER:('@',"student"),(47,13)
+MONSTER:('@',"student"),(18,07)
+MONSTER:('@',"student"),(19,13)
+MONSTER:('@',"student"),(20,07)
+MONSTER:('@',"student"),(21,13)
+MONSTER:('@',"student"),(22,07)
+MONSTER:('@',"student"),(23,13)
+
+# Random traps
+TRAP:random,random
+TRAP:random,random
+TRAP:random,random
+TRAP:random,random
+TRAP:random,random
+TRAP:random,random
+
+# Monsters on siege duty.
+MONSTER: ('N',"guardian naga"),(22, 08)
+MONSTER: ('S',"cobra"),(08, 20)
+MONSTER: ('N',"guardian naga"),(21,08)
+MONSTER: ('S',"cobra"),(03,14)
+MONSTER: ('S',"cobra"),(05,14)
+MONSTER: ('S',"cobra"),(07,14)
+MONSTER: ('S',"cobra"),random
+MONSTER: ('N',"guardian naga"),(55,15)
+MONSTER: ('S',"cobra"),random
+MONSTER: ('S',"cobra"),random
+MONSTER: ('S',"cobra"),random
+MONSTER: ('S',"cobra"),random
+
+
+#
+#	The "locate" level for the quest.
+#
+#
+
+MAZE: "Car-loca",' '
+FLAGS: hardfloor, noteleport
+INIT_MAP: mines, '.', ' ', true, true, lit, true
+NOMAP
+
+#REGION: (00,00,75,19),lit
+
+STAIR: random, up
+STAIR: random, down
+
+# Non diggable walls
+NON_DIGGABLE:(00,00,75,19)
+
+LOOP [15] { OBJECT: random, random }
+
+MONSTER: ('N',"guardian naga"),(17,07)
+MONSTER: ('N',"guardian naga"),(18,08)
+MONSTER: ('N',"guardian naga"),(18,09)
+MONSTER: ('N',"guardian naga"),(17,10)
+
+LOOP [5] { MONSTER: 'N', random }
+LOOP [9] { MONSTER: 'S', random }
+
+# Skeletons and corpses of past students
+LOOP [7] { [50%]: MONSTER: ('Z',"skeleton"),random }
+LOOP [5] { [50%]: MONSTER: ('Z',"human zombie"),random }
+
+LOOP [13] { OBJECT: ('%', "corpse"), random, montype:"student",0 }
+
+
+LOOP [6] { TRAP: random, random }
+
+#
+#	The "goal" level for the quest.
+#
+#	Here you meet Dal Zethire your nemesis monster.  You have to
+#	defeat Dal Zethire in combat to gain the artifact you have
+#	been assigned to retrieve.
+#
+
+MAZE: "Car-goal", ' '
+GEOMETRY:center,center
+#0        1         2         3         
+#123456789012345678901234567890123456789
+MAP
+LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+LLLLL.............................LLLLL
+LL...................................LL
+LL...................................LL
+LL............,,,,,,,,,,.............LL
+L.............,,,,,,,,,,,.............L
+L.............,,,,,,,,,,,.............L
+L.............,,,,LLL,,,,.............L
+L.............,,,LLLLL,,,.............L
+L.............,.,LLLLL,,,.............L
+L.............,,,,LLL,,,,.............L
+L.............,,,,,,,,,,,.............L
+L..............,,,,,,,,,,.............L
+LL............,,,,,,,,,,,............LL
+LL...................................LL
+LL...................................LL
+LLLLL.............................LLLLL
+LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+ENDMAP
+# Dungeon Description
+REGION:(00,00,75,19),lit,"ordinary"
+
+# Grass paddy
+TERRAIN:fillrect (21,4,22,5), '.'
+
+# Stairs
+STAIR:(19,01),up
+
+# Non diggable walls
+NON_DIGGABLE:(00,00,75,19)
+
+# Objects
+OBJECT:('(',"credit card"),(32,10),blessed,1,name:"The Holographic Void Lily"
+LOOP [6] { OBJECT:random,random }
+
+# Random traps
+TRAP:random,random
+TRAP:random,random
+TRAP:random,random
+
+# Random monsters.
+MONSTER:('@',"Dal Zethire"),(32,10)
+MONSTER:'N',random
+MONSTER:'N',random
+
+# Rubble
+LOOP [5] { [50%]: OBJECT: ('`', "boulder"), random }
+LOOP [10] { [50%]: OBJECT: ('*', "rock"), random }
+LOOP [5] { [50%]: OBJECT: ('*', "flint"), random }
+
+LOOP [3] { OBJECT: ('%', "corpse"), random, montype:"student",0 }
+
+WALLIFY
+
+#
+#	The "fill" levels for the quest.
+#
+#	These levels are used to fill out any levels not occupied by specific
+#	levels as defined above. "filla" is the upper filler, between the
+#	start and locate levels, and "fillb" the lower between the locate
+#	and goal levels.
+#
+
+LEVEL: "Car-fila"
+#
+ROOM: "ordinary" , random, random, random, random {
+  STAIR: random, up
+  OBJECT: random,random
+  MONSTER: 'N', random, hostile
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  OBJECT: random,random
+  MONSTER: 'N', random, hostile
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  TRAP: random, random
+  OBJECT: random,random
+  MONSTER: ('S', "cobra"), random, hostile
+  MONSTER: ('S', "cobra"), random, hostile
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  STAIR: random, down
+  OBJECT: random, random
+  TRAP: random, random
+  MONSTER: 'S', random
+  MONSTER: ('N', "guardian naga"), random, hostile
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  OBJECT: random, random
+  TRAP: random, random
+  MONSTER: 'S', random, hostile
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  TRAP: random, random
+  MONSTER: 'N', random, hostile
+}
+
+RANDOM_CORRIDORS
+
+LEVEL: "Car-filb"
+#
+ROOM: "ordinary" , random, random, random, random {
+  STAIR: random, up
+  OBJECT: random,random
+  MONSTER: 'S', random
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  OBJECT: random,random
+  MONSTER: 'N', random
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  TRAP: random, random
+  OBJECT: random,random
+  MONSTER: 'Z', random
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  STAIR: random, down
+  OBJECT: random, random
+  TRAP: random, random
+  MONSTER: 'S', random
+  MONSTER: ('N', "guardian naga"), random
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  OBJECT: random, random
+  TRAP: random, random
+  MONSTER: 'S', random
+}
+
+ROOM: "ordinary" , random, random, random, random {
+  OBJECT: random, random
+  TRAP: random, random
+  MONSTER: ('S', "pit viper"), random
+}
+
+RANDOM_CORRIDORS

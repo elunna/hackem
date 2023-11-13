@@ -733,6 +733,7 @@ recover: $(U)recover.exe
 $(O)sp_lev.tag: $(O)utility.tag \
     $(DAT)\arch.des \
 	$(DAT)\barb.des \
+	$(DAT)\cart.des \
 	$(DAT)\caveman.des \
 	$(DAT)\convict.des \
 	$(DAT)\flame.des \
@@ -789,6 +790,7 @@ $(O)sp_lev.tag: $(O)utility.tag \
 	cd $(DAT)
 	$(U)levcomp arch.des
     $(U)levcomp barb.des
+    $(U)levcomp cart.des
     $(U)levcomp caveman.des
     $(U)levcomp convict.des
     $(U)levcomp flame.des

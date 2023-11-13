@@ -277,6 +277,7 @@ char **argv;
         "lev_comp", /* dummy argv[0] */
         ":dat:Arch.des",
         ":dat:Barb.des",
+        ":dat:Cart.des",
         ":dat:Caveman.des",
         ":dat:Convict.des",
         ":dat:Flame.des",

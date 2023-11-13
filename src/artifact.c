@@ -1287,7 +1287,8 @@ long wp_mask;
         }
     }
     if (spfx & SPFX_REFLECT) {
-        if (otmp->oartifact == ART_MAGIC_MIRROR_OF_MERLIN) {
+        if (otmp->oartifact == ART_MAGIC_MIRROR_OF_MERLIN
+                || otmp->oartifact == ART_HOLOGRAPHIC_VOID_LILY) {
             if (on)
                 EReflecting |= wp_mask;
             else
@@ -4121,6 +4122,10 @@ struct obj *obj;
             incr_itimeout(&HPasses_walls, (50 + rnd(100)));
             obj->age += HPasses_walls; /* Time begins after phasing ends */
             break;
+        case SUMMONING: {
+            create_critters(rnd(10), (struct permonst *) 0, TRUE);
+            break;
+        }
         case SMOKE_CLOUD: {
             coord cc;
             cc.x = u.ux;
@@ -5372,6 +5377,7 @@ artifact_info(int anum)
     case LIGHT_AREA: art_info.invoke = "Light Area"; break;
     case SUMMON_FIRE_ELEMENTAL: art_info.invoke = "Summon Fire Elemental"; break;
     case SUMMON_WATER_ELEMENTAL: art_info.invoke = "Summon Storm Pet"; break;
+    case SUMMONING: art_info.invoke = "Summon a horde of spell beings"; break;
     case LIGHTNING_BOLT: art_info.invoke = "Lightning Bolt"; break;
     case SEFFECT:
         switch (anum) {

@@ -79,7 +79,8 @@ enum invoke_prop_types {
     LIGHTNING_BOLT,
     SEFFECT,
     OBJECT_DET,
-    SMOKE_CLOUD
+    SMOKE_CLOUD,
+    SUMMONING
 };
 
 #endif /* ARTIFACT_H */

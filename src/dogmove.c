@@ -1230,7 +1230,7 @@ struct monst *mtmp, *mtarg;
         }
         /* And pets will hesitate to attack vastly stronger foes.
            This penalty will be discarded if master's in trouble. */
-        if (mtarg->m_lev > mtmp_lev + 4L)
+        if ((mtarg->m_lev > mtmp_lev + 4L) && !mtmp->msummoned)
             score -= (mtarg->m_lev - mtmp_lev) * 20L;
         /* All things being the same, go for the beefiest monster. This
            bonus should not be large enough to override the pet's aversion

@@ -4012,7 +4012,7 @@ const char *str;
     } else if (has_reflection(mon)) {
         /* specifically for the monster spell MGC_REFLECTION */
         if (str)
-                pline(str, s_suffix(mon_nam(mon)), "shimmering globe");
+            pline(str, s_suffix(mon_nam(mon)), "shimmering globe");
         return TRUE;
     } else if (mon->data == &mons[PM_NIGHTMARE]) {
         pline(str, s_suffix(mon_nam(mon)), "horn");

@@ -1312,6 +1312,7 @@
 				"$(NH_UTIL_DIR)/lev_comp",
 				"$(NH_DAT_DIR)/Arch.des",
 				"$(NH_DAT_DIR)/Barb.des",
+				"$(NH_DAT_DIR)/Cart.des",
 				"$(NH_DAT_DIR)/Caveman.des",
 				"$(NH_DAT_DIR)/Convict.des",
 				"$(NH_DAT_DIR)/Flame.des",
@@ -1341,7 +1342,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd ${NH_DAT_DIR}\n${NH_UTIL_DIR}/lev_comp Arch.des\n${NH_UTIL_DIR}/lev_comp Barb.des\n${NH_UTIL_DIR}/lev_comp Caveman.des\n${NH_UTIL_DIR}/lev_comp Convict.des\n${NH_UTIL_DIR}/lev_comp Flame.des\n${NH_UTIL_DIR}/lev_comp Healer.des\n${NH_UTIL_DIR}/lev_comp Ice.des\n${NH_UTIL_DIR}/lev_comp Infidel.des\n${NH_UTIL_DIR}/lev_comp Jedi.des\n${NH_UTIL_DIR}/lev_comp Knight.des\n${NH_UTIL_DIR}/lev_comp Monk.des\n${NH_UTIL_DIR}/lev_comp Necro.des\n${NH_UTIL_DIR}/lev_comp Pirate.des\n${NH_UTIL_DIR}/lev_comp Priest.des\n${NH_UTIL_DIR}/lev_comp Ranger.des\n${NH_UTIL_DIR}/lev_comp Rogue.des\n${NH_UTIL_DIR}/lev_comp Samurai.des\n${NH_UTIL_DIR}/lev_comp Slayer.des\n${NH_UTIL_DIR}/lev_comp Tourist.des\n${NH_UTIL_DIR}/lev_comp Valkyrie.des\n${NH_UTIL_DIR}/lev_comp Wizard.des\ntouch quest_levs\n";
+			shellScript = "cd ${NH_DAT_DIR}\n${NH_UTIL_DIR}/lev_comp Arch.des\n${NH_UTIL_DIR}/lev_comp Barb.des\n${NH_UTIL_DIR}/lev_comp Cart.des\n${NH_UTIL_DIR}/lev_comp Caveman.des\n${NH_UTIL_DIR}/lev_comp Convict.des\n${NH_UTIL_DIR}/lev_comp Flame.des\n${NH_UTIL_DIR}/lev_comp Healer.des\n${NH_UTIL_DIR}/lev_comp Ice.des\n${NH_UTIL_DIR}/lev_comp Infidel.des\n${NH_UTIL_DIR}/lev_comp Jedi.des\n${NH_UTIL_DIR}/lev_comp Knight.des\n${NH_UTIL_DIR}/lev_comp Monk.des\n${NH_UTIL_DIR}/lev_comp Necro.des\n${NH_UTIL_DIR}/lev_comp Pirate.des\n${NH_UTIL_DIR}/lev_comp Priest.des\n${NH_UTIL_DIR}/lev_comp Ranger.des\n${NH_UTIL_DIR}/lev_comp Rogue.des\n${NH_UTIL_DIR}/lev_comp Samurai.des\n${NH_UTIL_DIR}/lev_comp Slayer.des\n${NH_UTIL_DIR}/lev_comp Tourist.des\n${NH_UTIL_DIR}/lev_comp Valkyrie.des\n${NH_UTIL_DIR}/lev_comp Wizard.des\ntouch quest_levs\n";
 		};
 		317E7C4E21A3697300F6E4E5 /* Build options and headers */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1475,6 +1476,11 @@
 				"$(NH_DAT_DIR)/Bar-goal.lev",
 				"$(NH_DAT_DIR)/Bar-loca.lev",
 				"$(NH_DAT_DIR)/Bar-strt.lev",
+                "$(NH_DAT_DIR)/Car-fila.lev",
+                "$(NH_DAT_DIR)/Car-filb.lev",
+                "$(NH_DAT_DIR)/Car-goal.lev",
+                "$(NH_DAT_DIR)/Car-loca.lev",
+                "$(NH_DAT_DIR)/Car-strt.lev",
 				"$(NH_DAT_DIR)/Cav-fila.lev",
 				"$(NH_DAT_DIR)/Cav-filb.lev",
 				"$(NH_DAT_DIR)/Cav-goal.lev",
