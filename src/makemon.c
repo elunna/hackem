@@ -1603,15 +1603,12 @@ register struct monst *mtmp;
                 (void) mongets(mtmp, CORNUTHAUM);
             if (rn2(2)) {
                 int ammy;
-                while (TRUE) {
+                for (int x = 0; x < 3000; x++) {
                     ammy = rn1(AMULET_OF_FLYING - AMULET_OF_ESP + 1, AMULET_OF_ESP);
                     /* Make sure Rodney doesn't get a useless amulet */
-                    if (ammy != AMULET_OF_STRANGULATION
-                        && ammy != AMULET_OF_NAUSEA
-                        && ammy != AMULET_OF_RESTFUL_SLEEP
-                        && ammy != AMULET_VERSUS_POISON
-                        && ammy != AMULET_OF_DANGER
-                        && ammy != AMULET_OF_CHANGE)
+                    if (ammy != AMULET_OF_STRANGULATION && ammy != AMULET_OF_NAUSEA
+                        && ammy != AMULET_OF_RESTFUL_SLEEP && ammy != AMULET_VERSUS_POISON
+                        && ammy != AMULET_OF_DANGER && ammy != AMULET_OF_CHANGE)
                         break;
                 }
                 (void) mongets(mtmp, ammy);
