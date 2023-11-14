@@ -862,6 +862,10 @@ TOOL("magic lamp",        "lamp", 0, 0, 1, 0,   1,  20,1000, COPPER, CLR_YELLOW)
 /* other tools */
 TOOL("expensive camera",    None, 1, 0, 0, 1,  15,  12, 200, PLASTIC, CLR_BLACK),
 TOOL("mirror",   "looking glass", 0, 0, 0, 0,  45,  13,  10, GLASS, HI_SILVER),
+TOOL("playing card deck", "pack of cards", 
+                                  0, 0, 0, 0,  20,  10,  80, LEATHER, HI_LEATHER),
+TOOL("deck of fate", "pack of cards", 
+                                  0, 0, 1, 0,   5,  10, 300, LEATHER, HI_LEATHER),
 TOOL("keg",      "wooden barrel", 1, 0, 0, 1,   5, 100,  50, WOOD,  HI_WOOD),       /* SpliceHack */
 TOOL("crystal ball", "glass orb", 0, 0, 1, 1,  15, 150,  60, GLASS, HI_GLASS),
 TOOL("eight ball", "plastic orb", 0, 0, 0, 0,   0,  20,  30, PLASTIC, CLR_BLACK),   /* EvilHack */
