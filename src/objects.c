@@ -1116,7 +1116,7 @@ SCROLL("cloning",               "TOYL ENT RUBLE",  1,   5, 300),  /* SpliceHack 
             /* Fire burn and cauldron bubble. */
 SCROLL("stinking cloud",             "VELOX NEB",  1,  15, 300),
 SCROLL("acquirement",       "HZLRC KSTSBD MPFNG",  1,  10, 300),
-SCROLL("ice",		           "OOBID IBBOB",  1,  10, 200), /* SlashTHEM */
+SCROLL("ice",		               "OOBID IBBOB",  1,  10, 200), /* SlashTHEM */
 SCROLL("magic detection",        "FOOBIE BLETCH",  1,  25, 300), /* EvilHack */
     /* Extra descriptions, shuffled into use at start of new game.
      * Code in win/share/tilemap.c depends on SCR_MAGIC_DETECTION preceding

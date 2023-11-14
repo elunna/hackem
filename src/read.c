@@ -2012,6 +2012,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 break;
             } else if (state == MAKE_EM_TAME) {
                 initedog(mtmp);
+                newsym(mtmp->mx, mtmp->my);
             } else if (state == MAKE_EM_PEACEFUL) {
                 mtmp->mpeaceful = 1;
             } else if (state == MAKE_EM_HOSTILE) {
