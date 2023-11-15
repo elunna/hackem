@@ -694,7 +694,9 @@ curses_character_dialog(const char **choices, const char *prompt)
                 curletter = toupper(curletter);
             }
         }
-
+        /* Kludge for Cartomancer, since c's are taken */
+        if (!strcmp(choices[count], "Cartomancer"))
+            curletter = 'M';
         identifier.a_int = (count + 1); /* Must be non-zero */
         curses_add_menu(wid, NO_GLYPH, &identifier, curletter, 0,
                         A_NORMAL, choices[count], FALSE);
