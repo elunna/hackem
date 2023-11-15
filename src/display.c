@@ -1842,13 +1842,14 @@ xchar x, y;
     case ICE:
         idx = S_ice;
         break;
+    case BRIDGE:
+        idx = S_bridge;
+        break;
     case GRASS:
         idx = S_grass;
         /*engr_override = TRUE;*/
         break;
-    case BRIDGE:
-        idx = S_bridge;
-        break;
+
     case AIR:
         idx = S_air;
         break;
@@ -1896,7 +1897,6 @@ xchar x, y;
         idx = S_room;
         break;
     }
-
     return cmap_to_glyph(idx);
 }
 
@@ -1976,6 +1976,7 @@ back_to_defsym(xchar x, xchar y)
     case THRONE:        idx = S_throne; break;
     case LAVAPOOL:      idx = S_lava; break;
     case ICE:           idx = S_ice; break;
+    case BRIDGE:        idx = S_bridge; break;
     case GRASS:         idx = S_grass; break;
     case AIR:           idx = S_air; break;
     case CLOUD:         idx = S_cloud; break;
