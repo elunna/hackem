@@ -552,8 +552,8 @@ doread()
                        ? card_msgs[SIZE(card_msgs) - 1]
                        : card_msgs[scroll->o_id % (SIZE(card_msgs) - 1)];
                 pline("\"%s\"", mesg);
-            } 
-            maybe_learn_elbereth(mesg);
+                maybe_learn_elbereth(mesg);
+            }
         }
         /* Make a credit card number */
         pline("\"%d0%d %ld%d1 0%d%d0\"%s",
