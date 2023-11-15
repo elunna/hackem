@@ -3710,16 +3710,6 @@ register struct monst *mtmp;
         }
     }
     
-    /* Anything killed while playing as a cartomancer has 
-     * a chance of leaving behind a monster card. */
-    if (Role_if(PM_CARTOMANCER) && !(mtmp->data->geno & G_UNIQ)
-          && !mtmp->mtame && rn2(2)) {
-        otmp = mksobj(SCR_CREATE_MONSTER, FALSE, FALSE);
-        otmp->corpsenm = monsndx(mtmp->data);
-        place_object(otmp, mtmp->mx, mtmp->my);
-        newsym(mtmp->mx, mtmp->my);
-    }
-
     /* dead vault guard is actually kept at coordinate <0,0> until
        his temporary corridor to/from the vault has been removed;
        need to do this after life-saving and before m_detach() */
@@ -3890,6 +3880,7 @@ struct monst *magr;    /* killer, if swallowed */
 boolean was_swallowed; /* digestion */
 {
     struct permonst *mdat = mon->data;
+    struct obj *otmp;
     int i, tmp, x, y;
     boolean artdial = wielding_artifact(ART_MORTALITY_DIAL);
     
@@ -3950,7 +3941,18 @@ boolean was_swallowed; /* digestion */
         }
         return FALSE;
     }
-
+    
+    /* Anything killed while playing as a cartomancer has 
+     * a chance of leaving behind a monster card. */
+    if (Role_if(PM_CARTOMANCER) && !(mon->data->geno & G_UNIQ)
+        && !mon->mtame && rn2(2)) {
+        otmp = mksobj(SCR_CREATE_MONSTER, FALSE, FALSE);
+        otmp->corpsenm = monsndx(mon->data);
+        place_object(otmp, mon->mx, mon->my);
+        newsym(mon->mx, mon->my);
+        return FALSE;
+    }
+    
     /* Corpses don't hover in midair in the presence of gravity */
     if (is_open_air(mon->mx, mon->my)) {
         if (cansee(mon->mx, mon->my) && !no_corpse(mdat))
