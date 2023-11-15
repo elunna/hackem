@@ -517,7 +517,7 @@ struct obj *obj;
             weapon = FLAIL;
         break;
     case PM_FLAME_MAGE:
-        cloak = ROBE;
+        armor = ROBE;
         if (!rn2(2))
             weapon = rn2(2) ? QUARTERSTAFF : AXE;
         break;
@@ -532,7 +532,7 @@ struct obj *obj;
             shield = STRANGE_OBJECT;
         break;
     case PM_ICE_MAGE:
-        cloak = ROBE;
+        armor = ROBE;
         if (!rn2(2))
             weapon = rn2(2) ? STILETTO : ATHAME;
         break;
@@ -571,8 +571,7 @@ struct obj *obj;
         break;
     case PM_MONK:
         weapon = !rn2(3) ? SHURIKEN : STRANGE_OBJECT;
-        armor = STRANGE_OBJECT;
-        cloak = ROBE;
+        armor = ROBE;
         if (rn2(2))
             shield = STRANGE_OBJECT;
         break;
