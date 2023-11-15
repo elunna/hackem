@@ -172,7 +172,7 @@ OPTIONS=ctrlkick
 
 # Traveling: Update map after every step? 
 #  (walk goes slow, run goes fast, teleport=instant)
-OPTIONS=runmode:teleport
+OPTIONS=runmode:run
 
 # Safe-wait: We turn it off because it's annoying when something is next to you and you search.
 OPTIONS=!safe_wait
@@ -251,12 +251,13 @@ AUTOPICKUP_EXCEPTION="<K-ration"
 AUTOPICKUP_EXCEPTION="<lembas wafer"
 AUTOPICKUP_EXCEPTION="<royal jelly"
 #AUTOPICKUP_EXCEPTION="<egg"
-#  Tins are usually worth it (unless they are troll meat)
+#  Tins are usually worth it
 AUTOPICKUP_EXCEPTION="< tin"
-AUTOPICKUP_EXCEPTION="> tin.*troll"
+AUTOPICKUP_EXCEPTION="> tin opener"
 
 
-# #storytelling items
+
+# storytelling items
 #AUTOPICKUP_EXCEPTION=">.*cheap plastic imitation of the Amulet of Yendor"
 #AUTOPICKUP_EXCEPTION=">.*cheap plastic imitation of the Amulet of Yendor named ?*"
 AUTOPICKUP_EXCEPTION=">.*Amulet of Yendor"
@@ -537,6 +538,7 @@ AUTOPICKUP_EXCEPTION="<.*wand of poison gas"
 AUTOPICKUP_EXCEPTION="<.*wand of corrosion"
 AUTOPICKUP_EXCEPTION="<.*wand of noise"
 AUTOPICKUP_EXCEPTION="<.*wand of deluge"
+AUTOPICKUP_EXCEPTION="<.*wand of fireball"
 
 # Gem autopickup
 # Unidentified gems
@@ -649,7 +651,7 @@ OPTIONS=quick_farsight
 OPTIONS=msg_window:reversed
 
 # For the TTY, X11 and Gem ports the minimum is 20 and maximum 60. 
-OPTIONS=msghistory:60
+OPTIONS=msghistory:1000
 
 # -----------------------------------------------------------------------------
 # G) Status Bar Settings
@@ -762,8 +764,9 @@ MENUCOLOR="gunyoki"=lightgreen
 MENUCOLOR="lembas wafer"=lightgreen
 MENUCOLOR=" melon"=lightgreen
 MENUCOLOR=" carrot"=lightgreen
-MENUCOLOR=" oranges?$"=lightgreen
-MENUCOLOR=" pears?$"=lightgreen
+MENUCOLOR=" oranges?"=lightgreen
+MENUCOLOR=" pears?"=lightgreen
+MENUCOLOR=" asian pears?$"=lightgreen
 MENUCOLOR=" apple"=lightgreen
 MENUCOLOR=" banana"=lightgreen
 MENUCOLOR=" kelp"=lightgreen
@@ -810,8 +813,6 @@ MENUCOLOR="red moldier corpse"=lightgreen
 MENUCOLOR="orange moldier corpse"=lightgreen
 MENUCOLOR="gray moldier corpse"=lightgreen
 MENUCOLOR="black moldier corpse"=lightgreen
-
-
 
 # Note: Un-green anything blessed that isn't vegan 
 # (because blessed items all will be green)
@@ -902,14 +903,12 @@ MENUCOLOR="crystal wand"=orange&underline
 MENUCOLOR="bamboo wand"=orange&underline
 MENUCOLOR="maple wand"=orange&underline
 MENUCOLOR="crusty wand"=orange&underline
-
 MENUCOLOR="pine wand"=orange&underline
 MENUCOLOR="oak wand"=orange&underline
 MENUCOLOR="plastic wand"=orange&underline
 MENUCOLOR="green wand"=orange&underline
 MENUCOLOR="ebony wand"=orange&underline
 MENUCOLOR="marble wand"=orange&underline
-
 MENUCOLOR="tin wand"=orange&underline
 MENUCOLOR="brass wand"=orange&underline
 MENUCOLOR="copper wand"=orange&underline
@@ -996,8 +995,8 @@ MENUCOLOR=" aquamarine stone"=cyan&bold
 MENUCOLOR=" citrine stone"=yellow&bold
 MENUCOLOR=" chrysoberyl stone"=yellow&bold
 MENUCOLOR=" dilithium"=magenta&bold
-MENUCOLOR=" diamonds?$"=white&bold
-MENUCOLOR=" emeralds?$"=green&bold
+MENUCOLOR=" diamonds?"=white&bold
+MENUCOLOR=" emeralds?"=green&bold
 MENUCOLOR=" fluorite stones?"=magenta&bold
 MENUCOLOR=" garnet stone"=red
 MENUCOLOR=" jacinth stones?"=orange&bold
@@ -1005,10 +1004,10 @@ MENUCOLOR=" jasper stone"=red&bold
 MENUCOLOR=" jade stone"=green
 MENUCOLOR=" jet stone"=white&bold
 MENUCOLOR=" obsidian stone"=blue&dim
-MENUCOLOR=" opals?$"=white&bold
-MENUCOLOR=" ruby$"=red&bold
+MENUCOLOR=" opals?"=white&bold
+MENUCOLOR=" ruby"=red&bold
 MENUCOLOR=" rubies"=red&bold
-MENUCOLOR=" sapphires?$"=lightblue&bold
+MENUCOLOR=" sapphires?"=lightblue&bold
 MENUCOLOR=" topaz stone"=brown&bold
 MENUCOLOR=" turquoise stone"=cyan&bold
 # Unknown gems are just dull
@@ -1099,6 +1098,10 @@ MENUCOLOR=" 100% "=red
 
 # Forgotten spells
 MENUCOLOR=" \(gone\)"=red
+
+
+MENUCOLOR="Level .* \""=green
+MENUCOLOR="YOU ARE HERE"=magenta
 
 # -----------------------------------------------------------------------------
 # I) MSGTYPE settings
@@ -1390,9 +1393,6 @@ OPTIONS=use_inverse
 
 # use colour in non-map areas (true)
 #OPTIONS=guicolor
-
-# Display inventory window permanently on right of screen (false)
-OPTIONS=perm_invent
 
 # Window alignment (msg:top, status:bottom)
 # note: align_status:left/right displays a more verbose window, arranged vertically
