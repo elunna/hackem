@@ -804,7 +804,7 @@ lack of a deck?"
 "Tsk tsk tsk, %c. I really expected better from you."
 %E
 %Cp Car 00062
-"%l only cast me from the school because I was too skillful!"
+"%lC only cast me from the school because I was too skillful!"
 %E
 %Cp Car 00063
 "Love for your cards? Don't make me laugh. I shall defeat you through

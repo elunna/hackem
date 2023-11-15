@@ -194,7 +194,6 @@ const char *orig;
     orig = replace(orig, "read the scroll", "play the spell card");
     orig = replace(orig, " reads a", " plays a");
     orig = replace(orig, "scroll", "spell card");
-    orig = replace(orig, "scroll of genocide", "forbidden spell card");
     return orig;
 }
 

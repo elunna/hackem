@@ -4247,7 +4247,7 @@ STATIC_VAR NEARDATA const char *names[] = {
 };
 static NEARDATA const char *carnames[] = {
     0, "Illegal objects", "Weapons", "Armor", "Rings", "Amulets", "Tools",
-    "Comestibles", "Potions", "Spell Cards", "Spellbooks", "Wands", "Coins", 
+    "Comestibles", "Potions", "Spell Cards", "Rulebooks", "Wands", "Coins", 
     "Gems/Stones", "Boulders/Statues", "Iron balls", "Chains", "Venoms",
     "Spirits"
 };

@@ -92,14 +92,33 @@ STATIC_OVL struct Jitem Pirate_items[] = {
     { ROBE, "long clothes" },
     { 0, "" } 
 };
+
 static struct Jitem Cartomancer_items[] = {
-    { LARGE_BOX, "deck box" },
-    { LOCK_PICK, "worthless card" },
+    /*{ LARGE_BOX, "deck box" },*/
+    /*{ LOCK_PICK, "worthless card" },*/
+    
     { SHURIKEN, "razor card" },
+    { BOOMERANG, "warped card" },
+    
     { HAWAIIAN_SHIRT, "graphic tee" },
+    
     { EXPENSIVE_CAMERA, "holographic card" },
     { CREDIT_CARD, "banned card" },
+    
     { SACK, "card bag" },
+    { OILSKIN_SACK, "waterproof deckbox" },
+    { BAG_OF_HOLDING, "professional deckbox" },
+    { BAG_OF_RATS, "tricky card bag" },
+    { BAG_OF_TRICKS, "ratty card bag" },
+#if 0
+    { LUCKSTONE, "lucky card" },
+    { HEALTHSTONE, "health insurance card" },
+    { LOADSTONE, "heavy card" },
+    { TOUCHSTONE, "siliceous card" },
+    { WHETSTONE, "diamond coated card" },
+    { FLINT, "flint card" },
+    { SLING_BULLET, "heavy die" },
+#endif
     { 0, "" } 
 };
 
@@ -232,17 +251,14 @@ register int otyp;
         Strcpy(buf, Role_if(PM_PIRATE) ? "bottle": "potion");
         break;
     case SCROLL_CLASS:
-        if (Role_if(PM_CARTOMANCER))
-            Strcpy(buf, "spell card");
-        else
-            Strcpy(buf, "scroll");
+        Strcpy(buf, Role_if(PM_CARTOMANCER) ? "card": "scroll");
         break;
     case WAND_CLASS:
         Strcpy(buf, "wand");
         break;
     case SPBOOK_CLASS:
         if (otyp != SPE_NOVEL) {
-            Strcpy(buf, "spellbook");
+            Strcpy(buf, Role_if(PM_CARTOMANCER) ? "rulebook": "spellbook");
         } else {
             Strcpy(buf, !nn ? "book" : "novel");
             nn = 0;
@@ -300,7 +316,11 @@ register int otyp;
         
     if (Role_if(PM_PIRATE))
         buf = (char *) replace(buf, "potion", "bottle");
-        
+
+    if (Role_if(PM_CARTOMANCER)) {
+        buf = (char *) replace(buf, "scroll", "card");
+        buf = (char *) replace(buf, "spellbook", "rulebook");
+    }
     return buf;
 }
 
@@ -1085,7 +1105,14 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         break;
     case SCROLL_CLASS:
         if (Role_if(PM_CARTOMANCER)) {
-            Strcpy(buf, Cartomancer_rarity(typ));
+            if (!dknown || obj->corpsenm != NON_PM)
+                Strcpy(buf, Cartomancer_rarity(typ));
+            else
+                Strcpy(buf, "card");
+            if (obj->quan > 1) {
+                Strcat(buf, "s");
+                pluralize = FALSE;
+            }
         } else
             Strcpy(buf, "scroll");
         if (!dknown)
@@ -1129,15 +1156,19 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             break;
             /* end of tribute */
         } else if (!dknown) {
-            Strcpy(buf, "spellbook");
+            Strcpy(buf, Role_if(PM_CARTOMANCER) 
+                ? "rulebook": "spellbook");
         } else if (nn) {
             if (typ != SPE_BOOK_OF_THE_DEAD)
-                Strcat(buf, "spellbook of ");
+                Strcat(buf, Role_if(PM_CARTOMANCER) 
+                    ? "rulebook of ": "spellbook of ");
             Strcat(buf, actualn);
         } else if (un) {
-            xcalled(buf, BUFSZ - PREFIX, "spellbook", un);
+            xcalled(buf, BUFSZ - PREFIX, Role_if(PM_CARTOMANCER) 
+                ? "rulebook": "spellbook", un);
         } else
-            Sprintf(eos(buf), "%s spellbook", dn);
+            Sprintf(eos(buf), "%s %s", dn, Role_if(PM_CARTOMANCER) 
+                ? "rulebook": "spellbook");
         break;
     case RING_CLASS:
         if (dknown) {
@@ -5856,17 +5887,17 @@ Cartomancer_rarity(int otyp)
 {
     int price = objects[otyp].oc_cost;
     if (otyp == SCR_CREATE_MONSTER)
-        return "monster card";
+        return "summon card";
     else if (price < 60)
-        return flags.verbose ? "common spell card" : "common card";
+        return "common card";
     else if (price < 100)
-        return flags.verbose ? "uncommon spell card" : "uncommon card";
+        return "uncommon card";
     else if (price < 200)
-        return flags.verbose ? "rare spell card" : "rare card";
+        return "rare card";
     else if (price < 300)
-        return flags.verbose ? "legendary spell card" : "legendary card";
+        return "legendary card";
     else
-        return flags.verbose ? "mythic spell card" : "mythic card";
+        return "mythic card";
     
 }
 /*objnam.c*/
