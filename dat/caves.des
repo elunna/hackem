@@ -495,7 +495,7 @@ $mon_names = MONSTER: {
 
 # 15 baby dragons
 # 1d13 covers the above list (don't need to worry about 0 index)
-LOOP [15] { MONSTER: $mon_names[1d13], random, hostile }
+LOOP [15] { MONSTER: $mon_names[1d14], random, hostile }
 
 # 20 random dragon eggs
 LOOP [20] { OBJECT: ('%', "egg"), random, montype:'D' }

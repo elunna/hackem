@@ -373,6 +373,7 @@ struct obj *obj; /* quest artifact; possibly null if carrying Amulet */
         if (!alignabuse && u.ualign.abuse > -13) {
             flags.quest_boon = TRUE;
             change_luck(10);
+            u.usaving_grace = FALSE; /* ONE more chance! */
             pline("Before departing, you hear some strange whispering. You feel your luck changing!");
         }
     }

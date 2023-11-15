@@ -64,6 +64,7 @@ E void FDECL(fig_transform, (ANY_P *, long));
 E int FDECL(unfixable_trouble_count, (BOOLEAN_P));
 E void FDECL(handle_bomb, (struct obj *, BOOLEAN_P));
 E void FDECL(use_keg, (struct obj *));
+E void use_deck(struct obj *);
 
 /* ### artifact.c ### */
 
@@ -311,6 +312,7 @@ E boolean FDECL(is_pool, (int, int));
 E boolean FDECL(is_lava, (int, int));
 E boolean FDECL(is_pool_or_lava, (int, int));
 E boolean FDECL(is_ice, (int, int));
+E boolean FDECL(is_bridge, (int, int));
 E boolean FDECL(is_moat, (int, int));
 E boolean FDECL(is_open_air, (int, int));
 E schar FDECL(db_under_typ, (int));
@@ -320,6 +322,9 @@ E boolean FDECL(find_drawbridge, (int *, int *));
 E boolean FDECL(create_drawbridge, (int, int, int, BOOLEAN_P));
 E void FDECL(open_drawbridge, (int, int));
 E void FDECL(close_drawbridge, (int, int));
+E void FDECL(collapse_rope_bridge, (union any *, long));
+E void FDECL(create_rope_bridge, (int, int));
+E void FDECL(destroy_rope_bridge, (xchar, xchar));
 E void FDECL(destroy_drawbridge, (int, int));
 
 /* ### decl.c ### */
@@ -726,6 +731,8 @@ E boolean FDECL(Can_rise_up, (int, int, d_level *));
 E boolean FDECL(has_ceiling, (d_level *));
 E boolean FDECL(In_quest, (d_level *));
 E boolean FDECL(In_mines, (d_level *));
+E boolean FDECL(In_giants, (d_level *));
+E boolean FDECL(In_spiders, (d_level *));
 E boolean FDECL(In_caves, (d_level *));
 E boolean FDECL(In_vecna_branch, (d_level *));
 E branch *FDECL(dungeon_branch, (const char *));
@@ -756,6 +763,7 @@ E void FDECL(recbranch_mapseen, (d_level *, d_level *));
 E void FDECL(overview_stats, (winid, const char *, long *, long *));
 E void FDECL(remdun_mapseen, (int));
 E const char *FDECL(endgamelevelname, (char *, int));
+E int dynamic_levname(void);
 E void forget_mapseen(int);
 
 /* ### eat.c ### */
@@ -1028,6 +1036,7 @@ E boolean FDECL(crawl_destination, (int, int));
 E int NDECL(monster_nearby);
 E void FDECL(nomul, (int));
 E void FDECL(unmul, (const char *));
+E int saving_grace(int);
 E void FDECL(showdmg, (int, BOOLEAN_P));
 E void FDECL(losehp, (int, const char *, BOOLEAN_P));
 E int NDECL(weight_cap);
@@ -3417,6 +3426,7 @@ E void FDECL(wandfear, (struct obj *));
 E int FDECL(freeze_tile, (struct rm *, int, int, int));
 E boolean destroyable_oclass(char);
 E int FDECL(delugehitsm, (struct monst *, int));
+E int FDECL(delugehitsu, (int));
 E void FDECL(scatter_chains, (int, int));
 
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */

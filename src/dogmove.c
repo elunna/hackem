@@ -1230,7 +1230,7 @@ struct monst *mtmp, *mtarg;
         }
         /* And pets will hesitate to attack vastly stronger foes.
            This penalty will be discarded if master's in trouble. */
-        if (mtarg->m_lev > mtmp_lev + 4L)
+        if ((mtarg->m_lev > mtmp_lev + 4L) && !mtmp->msummoned)
             score -= (mtarg->m_lev - mtmp_lev) * 20L;
         /* All things being the same, go for the beefiest monster. This
            bonus should not be large enough to override the pet's aversion
@@ -1704,6 +1704,10 @@ int after; /* this is extra fast monster movement */
         ;
     }
 
+    if (mtmp->data == &mons[PM_ARCH_VILE]) {
+        minfestcorpse(mtmp);
+    }
+    
     /* Pet hasn't attacked anything but is considering moving -
      * now's the time for ranged attacks. Note that the pet can move
      * after it performs its ranged attack. Should this be changed?
@@ -1790,7 +1794,7 @@ int after; /* this is extra fast monster movement */
 
         struct obj *floor_obj;
         struct obj *obj2;
-        
+
         if (mtmp->data == &mons[PM_DROID]) {
             /* Scan all the items at the location */
             for (floor_obj = level.objects[mtmp->mx][mtmp->my]; 

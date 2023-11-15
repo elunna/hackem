@@ -1681,10 +1681,11 @@ int dieroll;
                 case SHIELD_OF_MOBILITY:
                 case RESONANT_SHIELD:
                     if (obj && (obj == uarms) && is_shield(obj)) {
+                        tmp = shield_dmg(obj, mon);
                         You("bash %s with %s%s",
                             mon_nam(mon), ysimple_name(obj),
                             canseemon(mon) ? exclam(tmp) : ".");
-                        tmp = shield_dmg(obj, mon);
+                        
                         /* Property effects */
                         if (obj->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK
                                            | ITEM_VENOM | ITEM_SIZZLE | ITEM_SCREAM
@@ -4890,6 +4891,8 @@ boolean wep_was_destroyed;
         break;
     case AD_DRLI:
         if (mhit && !mon->mcan) {
+            You_feel("weaker as you make contact with %s!", 
+                     canseemon(mon) ? mon_nam(mon) : "something");
             if (Drain_resistance) {
                 shieldeff(u.ux, u.uy);
                 monstseesu(M_SEEN_DRAIN);

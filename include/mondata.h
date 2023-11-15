@@ -219,6 +219,8 @@
 #define is_swallower(ptr) \
     ((is_dragon(ptr) && (ptr) != &mons[PM_SEA_DRAGON]) \
      || is_animal(ptr))
+#define is_beholder(ptr) ((ptr) == &mons[PM_BEHOLDER] \
+        || (ptr) == &mons[PM_XANATHAR])
 #define slithy(ptr) (((ptr)->mflags1 & M1_SLITHY) != 0L)
 #define is_wooden(ptr) ((ptr) == &mons[PM_WOOD_GOLEM])
 #define thick_skinned(ptr) (((ptr)->mflags1 & M1_THICK_HIDE) != 0L)

@@ -197,7 +197,7 @@ WEAPON("stiletto", None,
 WEAPON("worm tooth", None,
        1, 1, 0, 0,  0,  20,   2,  2,  2, 0, P,   P_KNIFE, BONE, CLR_WHITE),
 WEAPON("crysknife", None,
-       1, 1, 0, 0,  0,  20, 100, 20, 30, 3, P,   P_KNIFE, BONE, CLR_WHITE),
+       1, 1, 0, 0,  0,  20, 100, 10, 10, 3, P,   P_KNIFE, BONE, CLR_WHITE),
 
 /* axes */
 WEAPON("axe", None,
@@ -327,10 +327,10 @@ WEAPON("war hammer", None,
         /* +1 small */
 WEAPON("heavy war hammer", None,                               /* EvilHack */
        1, 0, 0, 0, 10,  60,  10,  8, 10, 0, B,   P_HAMMER, IRON, HI_METAL),
-WEAPON("club", None,
-       1, 0, 0, 0, 12,  30,   3,  6,  3, 0, B,   P_CLUB, WOOD, HI_WOOD),
 WEAPON("rubber hose", None,
        1, 0, 0, 0,  0,  20,   3,  4,  3, 0, B,   P_WHIP, PLASTIC, CLR_BROWN),
+WEAPON("club", None,
+       1, 0, 0, 0, 12,  30,   3,  6,  3, 0, B,   P_CLUB, WOOD, HI_WOOD),
 WEAPON("quarterstaff", "staff",
        0, 0, 0, 1, 11,  40,   5,  6,  6, 0, B,   P_QUARTERSTAFF, WOOD, HI_WOOD),
 WEAPON("silver capped staff", None,
@@ -413,11 +413,16 @@ GUN("sniper rifle",              "broken crossbow", 0, 1, 1, 160, 1500,  4, WP_B
 GUN("shotgun",                   "broken crossbow", 0, 0, 1,  60,  200,  3,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
 GUN("auto shotgun",      "strange broken crossbow", 0, 1, 1, 120, 1500,  1,  WP_SHELL, IRON, P_FIREARM, HI_METAL), /* Slash'EM */
 
+GUN("rocket launcher",                       None,  1, 1, 0, 450, 3500, -2, WP_ROCKET, IRON, P_FIREARM, HI_METAL),
+GUN("grenade launcher",                      None,  1, 1, 0,  55, 1500, -1, WP_BOMB, IRON, P_FIREARM, HI_METAL),
+
 BULLET("bullet",          "pellet", 1, 1, 1,   5,   20, 30, 0, WP_BULLET, P, IRON, -P_FIREARM, HI_METAL), /* Slash'EM */
 BULLET("shotgun shell", "red tube", 1, 1, 2,   7,   30, 45, 0, WP_SHELL,  P, IRON, -P_FIREARM, CLR_RED), /* Slash'EM */
-BULLET("fire bomb",         "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_GREEN), /* Slash'EM */
-BULLET("sonic bomb",        "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_BLACK), /* Slash'EM */
-BULLET("gas bomb",          "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, P_NONE, CLR_ORANGE), /* Slash'EM */
+BULLET("rocket",              None, 1, 0,100,450,   45, 60, 0, WP_ROCKET, P, IRON, -P_FIREARM, CLR_GREEN),
+BULLET("fire bomb",         "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_GREEN), /* Slash'EM */
+BULLET("sonic bomb",        "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_BLACK), /* Slash'EM */
+BULLET("flash bomb",        "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_BLACK), /* Slash'EM */
+BULLET("gas bomb",          "bomb", 0, 1,10,  50,    0,  0, 0, WP_BOMB,   B, IRON, -P_FIREARM, CLR_ORANGE), /* Slash'EM */
 
 #undef P
 #undef S
@@ -857,6 +862,10 @@ TOOL("magic lamp",        "lamp", 0, 0, 1, 0,   1,  20,1000, COPPER, CLR_YELLOW)
 /* other tools */
 TOOL("expensive camera",    None, 1, 0, 0, 1,  15,  12, 200, PLASTIC, CLR_BLACK),
 TOOL("mirror",   "looking glass", 0, 0, 0, 0,  45,  13,  10, GLASS, HI_SILVER),
+TOOL("playing card deck", "pack of cards", 
+                                  0, 0, 0, 0,  20,  10,  80, LEATHER, HI_LEATHER),
+TOOL("deck of fate", "pack of cards", 
+                                  0, 0, 1, 0,   5,  10, 300, LEATHER, HI_LEATHER),
 TOOL("keg",      "wooden barrel", 1, 0, 0, 1,   5, 100,  50, WOOD,  HI_WOOD),       /* SpliceHack */
 TOOL("crystal ball", "glass orb", 0, 0, 1, 1,  15, 150,  60, GLASS, HI_GLASS),
 TOOL("eight ball", "plastic orb", 0, 0, 0, 0,   0,  20,  30, PLASTIC, CLR_BLACK),   /* EvilHack */
@@ -1107,7 +1116,7 @@ SCROLL("cloning",               "TOYL ENT RUBLE",  1,   5, 300),  /* SpliceHack 
             /* Fire burn and cauldron bubble. */
 SCROLL("stinking cloud",             "VELOX NEB",  1,  15, 300),
 SCROLL("acquirement",       "HZLRC KSTSBD MPFNG",  1,  10, 300),
-SCROLL("ice",		           "OOBID IBBOB",  1,  10, 200), /* SlashTHEM */
+SCROLL("ice",		               "OOBID IBBOB",  1,  10, 200), /* SlashTHEM */
 SCROLL("magic detection",        "FOOBIE BLETCH",  1,  25, 300), /* EvilHack */
     /* Extra descriptions, shuffled into use at start of new game.
      * Code in win/share/tilemap.c depends on SCR_MAGIC_DETECTION preceding
@@ -1303,9 +1312,11 @@ WAND("extra healing",  "bronze",  90, 300, 1, IMMEDIATE, COPPER,   CLR_YELLOW), 
 WAND("opening",          "zinc",  75, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("locking",      "aluminum",  75, 150, 1, IMMEDIATE, METAL, HI_METAL),
 WAND("probing",       "uranium",  90, 150, 1, IMMEDIATE, METAL, HI_METAL),
+WAND("fireball",       "forked",  15, 300, 1, RAY, WOOD,  HI_WOOD),/* Slash'EM */
+WAND("digging",          "iron", 165, 150, 1, RAY, IRON,  HI_METAL),
+
 /* Ray wands have to come last, and in this order. */
 /* This is extremely kludgy, but that's what zap.c expects. */
-WAND("digging",          "iron", 165, 150, 1, RAY, IRON,  HI_METAL),
 WAND("magic missile",   "steel", 150, 150, 1, RAY, METAL, HI_METAL),
 WAND("fire",        "hexagonal", 120, 175, 1, RAY, GLASS, HI_METAL),
 WAND("cold",            "short", 120, 175, 1, RAY, IRON,  HI_METAL),
@@ -1319,7 +1330,6 @@ WAND("deluge",      "driftwood", 100, 175, 1, RAY, WOOD,  HI_WOOD), /* SpliceHac
 /* extra descriptions, shuffled into use at start of new game */
 WAND(None,             "spiked",   0, 150, 1, 0,   IRON,     HI_METAL),
 WAND(None,            "jeweled",   0, 150, 1, 0,   IRON,     HI_MINERAL),
-WAND(None,             "forked",   0, 150, 1, 0,   WOOD,     HI_WOOD),
 WAND(None,             "quartz",   0, 150, 1, 0,   GLASS,    HI_GLASS),
 WAND(None,             "walnut",   0, 150, 1, 0,   WOOD,     HI_WOOD),
 WAND(None,           "mahogany",   0, 150, 1, 0,   WOOD,     HI_WOOD),

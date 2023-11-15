@@ -48,13 +48,15 @@
 #define AD_DRST 7   /* drains str (poison) */
 #define AD_ACID 8   /* acid damage */
 #define AD_LOUD 9   /* sound damage */
-#define AD_WATR 10  /* water (physical) attack     (prev AD_SPC1 of buzz() */
-#define AD_PSYC 11  /* psionic attack               (prev AD_SPC2 of buzz() */
-#define AD_BLND 12  /* blinds (yellow light) */
-#define AD_STUN 13  /* stuns */
-#define AD_SLOW 14  /* slows */
-#define AD_PLYS 15  /* paralyses */
-#define AD_DRLI 16  /* drains life levels (Vampire) */
+#define AD_WATR 10  /* water (physical) attack */
+#define AD_DRLI 11  /* drains life levels (Vampire) */
+#define AD_STUN 12  /* stuns */
+/* End of ray attacks */
+
+#define AD_PSYC 13  /* psionic attack */
+#define AD_BLND 14  /* blinds (yellow light) */
+#define AD_SLOW 15  /* slows */
+#define AD_PLYS 16  /* paralyses */
 #define AD_DREN 17  /* drains magic energy */
 #define AD_LEGS 18  /* damages legs (xan) */
 #define AD_STON 19  /* petrifies (Medusa, cockatrice) */

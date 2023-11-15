@@ -220,14 +220,16 @@ xchar x, y;
     int trycnt = 100;
 
     do {
-        pm = &mons[mnum];
-        mtmp = makemon(pm, x, y,
-                       MM_EDOG | MM_IGNOREWATER | NO_MINVENT);
+        if (mnum != NON_PM)
+            pm = &mons[mnum];
+        else
+            pm = rndmonst();
+        mtmp = makemon(pm, x, y, MM_EDOG | MM_IGNOREWATER | NO_MINVENT);
     } while (!mtmp && --trycnt > 0);
 
     if (!mtmp)
         return (struct monst *) 0; /* genocided */
-
+    
     initedog(mtmp);
     u.uconduct.pets++;
     mtmp->msleeping = 0;
@@ -239,6 +241,7 @@ xchar x, y;
         mtmp->weapon_check = NEED_HTH_WEAPON;
         (void) mon_wield_item(mtmp);
     }
+    
     return mtmp;
 }
 
@@ -301,6 +304,8 @@ makedog()
             petname = "Hachi"; /* Shibuya Station */
         if (Role_if(PM_BARBARIAN))
             petname = "Idefix"; /* Obelix */
+        if (Role_if(PM_CARTOMANCER))
+            petname = "Joey"; /* Obscure SpliceHack reference (tm) */
         if (Role_if(PM_RANGER))
             petname = "Sirius"; /* Orion's dog */
     } else if (!*petname && pettype == PM_SEWER_RAT) {

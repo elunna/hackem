@@ -164,6 +164,7 @@ int shotlimit;
             if (skill == -P_SLING || skill == P_SPEAR)
                 multishot++;
             break;
+        case PM_CARTOMANCER:
         case PM_MONK:
             /* allow higher volley count despite skill limitation */
             if (skill == -P_SHURIKEN)
@@ -1434,8 +1435,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                           || (Role_if(PM_PRIEST) && (is_pierce(obj) || is_slash(obj)));
     boolean greased_ammo = obj->greased;
 
-    boolean cursed_launcher = ammo_and_launcher(obj, uwep)
-                              && (uwep->otyp == FLINTLOCK || uwep->cursed);
+    boolean cursed_launcher = ammo_and_launcher(obj, uwep) && uwep->cursed;
     boolean limp_wristing = (ACURR(A_STR) + ACURR(A_DEX) - rnd(5)) < 20;
     
     /* Firearms explosions */
@@ -1458,8 +1458,8 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
 
     notonhead = FALSE; /* reset potentially stale value */
     
-    if ((cursed_ammo || greased_ammo || Afraid || cursed_launcher)
-          && (u.dx || u.dy) && !rn2(7)) {
+    if ((cursed_ammo || greased_ammo || Afraid || cursed_launcher 
+        || uwep->otyp == FLINTLOCK) && (u.dx || u.dy) && !rn2(7)) {
         boolean slipok = TRUE;
 
         if (ammo_and_launcher(obj, uwep)) {
@@ -1598,33 +1598,57 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
         }
 
         /* Firearms can get jammed */
-        if (gunning)
-            if ((cursed_launcher && !rn2(2))
-                  || (cursed_ammo && !rn2(2))
-                  || ((obj->oeroded > 0 || obj->oeroded2 > 0) && !rn2(4))
-                  || ((uwep->oeroded > 0 || uwep->oeroded2 > 0) && !rn2(4))
-                  /* Skill based: no skill is fairly likely */
-                  || ((P_SKILL(P_FIREARM) <= P_UNSKILLED) && rnl(8)>6)
-                  /* Higher skill: Unlikely but still possible (same as jousting) */
-                  || ((P_SKILL(P_FIREARM) >= P_BASIC) && rnl(50)==49)
-                  /* Low STR and DEX are punished */
-                  || ((limp_wristing || Fumbling) && !rn2(4))
-                  /* Bad luck and no grease */
-                  || (!uwep->greased && Luck < 0 && rnl(8)>6)) {
+        if (gunning) {
+            boolean jam = FALSE;
+            if (cursed_launcher && !rn2(2)) {
+                if (wizard) pline("Firearm jam: cursed_launcher.");
+                jam = TRUE;
+            } else if (cursed_ammo && !rn2(2)) {
+                if (wizard) pline("Firearm jam: cursed_ammo.");
+                jam = TRUE;
+            } else if ((obj->oeroded > 0 || obj->oeroded2 > 0) && !rn2(4)) {
+                if (wizard) pline("Firearm jam: eroded ammo.");
+                jam = TRUE;
+            } else if ((uwep->oeroded > 0 || uwep->oeroded2 > 0) && !rn2(4)) {
+                if (wizard) pline("Firearm jam: eroded firearm.");
+                jam = TRUE;
+            } else if ((limp_wristing || Fumbling) && !rn2(4)) {
+                if (wizard) pline("Firearm jam: limp_wristing.");
+                /* Low STR and DEX are punished */
+                jam = TRUE;
+            } else if (!uwep->greased && Luck < 0 && rnl(8) > 6) {
+                if (wizard) pline("Firearm jam: Bad luck and no grease.");
+                /* Bad luck and no grease */
+                jam = TRUE;
+            } else if ((P_SKILL(P_FIREARM) <= P_UNSKILLED) && rnl(8) > 6) {
+                if (wizard) pline("Firearm jam: low skill.");
+                /* Skill based: no skill is fairly likely 
+                  * LUCK:  −11	    −8  	−5	    −2	     0	    +2
+                  * CHANCE: 61.3%	49.1%	36.9%	24.7%	12.5%	0.3% */
+                jam = TRUE;
+            } else if ((P_SKILL(P_FIREARM) >= P_BASIC) && rnl(50) == 49) {
+                if (wizard) pline("Firearm jam: standard use.");
+                /* Higher skill: Unlikely but still possible (same as jousting) 
+                  *  LUCK:  −11	 −8  	−5	    −2	     0	    +2
+                  *  CHANCE:4.71%	3.53%	2.35%	1.18%	0.4%	0.01% */
+                jam = TRUE;
+            }
 
-                /* Grease is the first level of protection */
+            if (jam) {
                 if (uwep->greased) {
+                    /* Grease is the first level of protection */
+                    if (wizard) pline("Cancel jam: grease.");
                     if (!rn2(2)) {
                         pline_The("grease wears off %s.", ysimple_name(uwep));
                         uwep->greased = 0;
                     }
-                } 
-                /* Firearms in single mode resist jamming more often */ 
-                else if (uwep->altmode == 0 && rn2(3)) {
-                    ; /* Don't jam this time */
-                }
-                /* Blessed firearms resist 3 out of 4 times */
-                else if (!uwep->blessed || !rn2(4)) {
+                } else if (uwep->altmode == 0 && rn2(3)) {
+                    /* Firearms in single mode resist jamming more often */
+                    if (wizard) pline("Cancel jam: singlemode.");
+                } else if (uwep->blessed && rn2(4)) {
+                    /* Blessed firearms resist 3 out of 4 times */
+                    if (wizard) pline("Cancel jam: blessed 3/4 chance.");
+                } else {
                     pline("%s jams!", Ysimple_name2(uwep));
                     uwep->obroken = 1;
                     breakobj(obj, u.ux, u.uy, TRUE, TRUE);
@@ -1632,6 +1656,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                     return;
                 }
             }
+        }
         
         if (gunning && !objects[uwep->otyp].oc_name_known) {
             if (!Deaf)
@@ -1790,7 +1815,12 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
             arm_bomb(obj, TRUE);
         }
     }
-
+    if (obj && thrownobj && obj->otyp == ROCKET) {
+        explode(bhitpos.x, bhitpos.y, ZT_SPELL(ZT_FIRE),
+                d(3, 8), WEAPON_CLASS, EXPL_FIERY);
+        thrownobj = (struct obj *) 0;
+    }
+    
     if (!thrownobj) {
         /* missile has already been handled */
         if (tethered_weapon)
@@ -2285,6 +2315,10 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
         } else if (is_bomb(obj)) {
             /* arm_bomb(obj, TRUE); */
             bomb_explode(obj, bhitpos.x, bhitpos.y, TRUE);
+            return 1;
+        } else if (obj->otyp == ROCKET) {
+            explode(bhitpos.x, bhitpos.y, ZT_SPELL(ZT_FIRE),
+                    d(3,8), WEAPON_CLASS, EXPL_FIERY);
             return 1;
         } else { /* thrown non-ammo or applied polearm/grapnel */
             if (otyp == BOOMERANG || obj->otyp == CHAKRAM) /* arbitrary */
@@ -3029,6 +3063,10 @@ int otyp;
         return 22;
     case SNIPER_RIFLE:
         return 25;
+    case ROCKET_LAUNCHER:
+        return 20;
+    case GRENADE_LAUNCHER:
+        return 10;
     default:
         impossible("No firearm for firearm-range!");
         return BOLT_LIM;
@@ -3057,6 +3095,10 @@ int otyp;
         return 5;    
     case HEAVY_MACHINE_GUN:
         return 8;
+    case ROCKET_LAUNCHER:
+        return -3;
+    case GRENADE_LAUNCHER:
+        return -1;
     default:
         impossible("No firearm for rate-of-fire!");
         return 0;

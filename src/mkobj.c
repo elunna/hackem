@@ -3687,6 +3687,12 @@ static const struct icp unihorn_materials[] = {
         { 5, SILVER},
 };
 
+static const struct icp crysknife_materials[] = {
+        {100, 0}, /* use base material */
+        {0, MINERAL},
+};
+
+
 static const struct icp sling_bullet_materials[] = {
     {65, IRON},
     {15, METAL},
@@ -3717,7 +3723,6 @@ struct obj* obj;
         case BULLWHIP:
         case FLAMING_LASH:
         case WORM_TOOTH:
-        case CRYSKNIFE:
         case PENCIL:
         case STAFF_OF_DIVINATION:
         case STAFF_OF_HEALING:
@@ -3826,6 +3831,8 @@ struct obj* obj;
             return shiny_materials;
         case UNICORN_HORN:
             return unihorn_materials;
+        case CRYSKNIFE:
+            return crysknife_materials;
         default:
             break;
     }

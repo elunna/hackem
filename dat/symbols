@@ -82,6 +82,7 @@ start: NHAccess
 	S_sewage: \042 
 	S_pool: \042
 	S_ice: \042
+	S_bridge: \042
 	S_grass: \044
 	S_lava: \035
 	S_vodbridge: \035
@@ -220,6 +221,7 @@ start: Blank
         S_humanoid: \032
         S_hwall: \032
         S_ice: \032
+        S_bridge: \032
         S_grass: \044
         S_imp: \032
         S_invisible: \032
@@ -366,6 +368,7 @@ start: IBMgraphics
 	S_sewage: \xf7			# meta-w, approx. equals
 	S_pool: \xf7			# meta-w, approx. equals
 	S_ice: \xfa			    # meta-z, centered dot
+	S_bridge: \xfa		# meta-z, centered dot
 	S_grass: \xfa			# meta-z, comma
 	S_lava: \xf7			# meta-w, approx. equals
 	S_vodbridge: \xfa		# meta-z, centered dot
@@ -586,6 +589,7 @@ start: curses
 	S_corr: \xe1			# meta-a, solid block
 	S_litcorr: \xe1			# meta-a, solid block
 	S_ice: \xfe			    # meta-z, centered dot
+	S_bridge: \xfe		    # meta-z, centered dot
 	S_grass: \xfe			# meta-z, comma
 	S_vodbridge: \xfe		# meta-z, centered dot
 	S_hodbridge: \xfe		# meta-z, centered dot
@@ -626,6 +630,7 @@ start: DECgraphics
 	S_sewage: \xe0			# meta-\, diamond
 	S_pool: \xe0			# meta-\, diamond
 	S_ice: \xfe			    # meta-~, centered dot
+	S_bridge: \xfe      # meta-~, centered dot
 	S_grass: \xfe			# meta-~, comma
 	S_lava: \xe0			# meta-\, diamond
 	S_vodbridge: \xfe		# meta-~, centered dot

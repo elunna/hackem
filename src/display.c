@@ -539,7 +539,7 @@ struct monst *mon;
     if (mon_warning(mon)) {
         tmp = (int) (mon->m_lev / 4);    /* match display.h */
         wl = (tmp > WARNCOUNT - 1) ? WARNCOUNT - 1 : tmp;
-        if (mon->data == &mons[PM_BEHOLDER])
+        if (is_beholder(mon->data))
             wl = 5;
         if (is_zombie(mon->data) && mon->m_lev < 5)
             wl = 1;
@@ -1846,6 +1846,9 @@ xchar x, y;
         idx = S_grass;
         /*engr_override = TRUE;*/
         break;
+    case BRIDGE:
+        idx = S_bridge;
+        break;
     case AIR:
         idx = S_air;
         break;
@@ -2101,6 +2104,9 @@ xchar x, y;
         case ICE:
            idx = S_ice;
            break;
+        case BRIDGE:
+            idx = S_bridge;
+            break;
         case GRASS:
            idx = S_grass;
            break;
@@ -2194,6 +2200,7 @@ static const char *type_names[MAX_TYPE] = {
     "GRAVE",
     "ALTAR",
     "ICE",
+    "BRIDGE",
     "GRASS",
     "DRAWBRIDGE_DOWN",
     "AIR",

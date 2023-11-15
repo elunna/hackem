@@ -19,6 +19,7 @@ STATIC_DCL void FDECL(mktoilet,(struct mkroom *));
 STATIC_DCL void FDECL(mkaltar, (struct mkroom *));
 STATIC_DCL void FDECL(mkgrave, (struct mkroom *));
 STATIC_DCL void NDECL(makevtele);
+STATIC_DCL void NDECL(mkchasms);
 STATIC_DCL void mkgrass(void);
 STATIC_DCL void NDECL(clear_level_structures);
 STATIC_DCL void NDECL(makelevel);
@@ -818,6 +819,67 @@ post_process_level()
     place_axe();
 }
 
+static void
+mkchasms(void)
+{
+    int x, y, x2, y2;
+    boolean cells[COLNO][ROWNO];
+    boolean cells2[COLNO][ROWNO];
+    int passes, wallcnt;
+    int maxpasses = 5;
+    int pooltyp = CORR;
+
+    /* Initial pass; randomly fill level. */
+    for (x = 0; x < COLNO; x++) {
+        for (y = 0; y < ROWNO; y++) {
+            if (rn2(100) < 45) { cells[x][y] = 1; }
+            else cells[x][y] = 0;
+            cells2[x][y] = 0;
+        }
+    }
+
+    /* Cellular automata */
+    for (passes = 0; passes < maxpasses; passes++) {
+        for (x = 2; x < COLNO - 2; x++) {
+            for (y = 2; y < ROWNO - 2; y++) {
+                wallcnt = 0;
+                for (x2 = x - 1; x2 <= x + 1; x2++) {
+                    for (y2 = y - 1; y2 <= y + 1; y2++) {
+                        if (cells[x2][y2]) wallcnt += 1;
+                    }
+                }
+                if (wallcnt >= 5) cells2[x][y] = 1;
+                else cells2[x][y] = 0;
+            }
+        }
+        /* Transfer array */
+        for (x = 0; x < COLNO; x++) {
+            for (y = 0; y < ROWNO; y++) {
+                cells[x][y] = cells2[x][y];
+            }
+        }
+    }
+
+    /* Transfer cells to map */
+    if (depth(&u.uz) >= 24)
+        pooltyp = rn2(2) ? MOAT : LAVAPOOL;
+    for (x = 0; x < COLNO; x++) {
+        for (y = 0; y < ROWNO; y++) {
+            if (cells[x][y]) {
+                if (levl[x][y].typ == CORR || levl[x][y].typ == SCORR) {
+                    levl[x][y].typ = pooltyp;
+                    create_rope_bridge(x, y);
+                }
+                else if (levl[x][y].typ == STONE) {
+                    levl[x][y].typ = pooltyp;
+                    if (pooltyp == CORR) maketrap(x, y, HOLE);
+                }
+                levl[x][y].lit = 1;
+            }
+        }
+    }
+}
+
 /* clear out various globals that keep information on the current level.
  * some of this is only necessary for some types of levels (maze, normal,
  * special) but it's easier to put it all in one place than make sure
@@ -927,6 +989,7 @@ makelevel()
         /* check for special levels */
         if (slev && !Is_rogue_level(&u.uz)) {
             makemaz(slev->proto);
+            dynamic_levname();
             return;
         } else if (dungeons[u.uz.dnum].proto[0]) {
             makemaz("");
@@ -1028,6 +1091,11 @@ makelevel()
     if (!rn2(5))
         make_ironbarwalls(rn2(20) ? rn2(20) : rn2(50));
 
+    /* Generate chasms. We do this before generating vaults, since that way
+    the lit flag will carry over. */
+    if (rn2(3) && depth(&u.uz) > 14)
+        mkchasms();
+    
     /* make a secret treasure vault, not connected to the rest */
     if (do_vault()) {
         xchar w, h;
@@ -1250,6 +1318,10 @@ makelevel()
             }
         }
 
+        /* Maybe decorate the walls */
+        if (croom->rtype == OROOM && depth(&u.uz) > 1 && !rn2(27))
+            croom->rtype = ARTROOM;
+        
 skip_nonrogue:
         if (!rn2(3)) {
             if (somexyspace(croom, &pos, 0))
@@ -1265,6 +1337,9 @@ skip_nonrogue:
             }
         }
     }
+
+    /* Dynamically name the level depending on the contents. */
+    dynamic_levname();
 }
 
 /*

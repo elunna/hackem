@@ -1106,6 +1106,14 @@ int race, gend, algn; /* all ROLE_NONE for !filtering case */
         thisch = lowc(*roles[i].name.m);
         if (thisch == lastch)
             thisch = highc(thisch);
+        
+        if (thisch == 'c') {
+            if (!strcmp(roles[i].name.m, "Cartomancer"))
+                thisch = 'M';
+            else
+                lastch = 0;
+        }
+        
         Strcpy(rolenamebuf, roles[i].name.m);
         if (roles[i].name.f) {
             /* role has distinct name for female (C,P) */
@@ -1118,6 +1126,7 @@ int race, gend, algn; /* all ROLE_NONE for !filtering case */
                 Strcat(rolenamebuf, roles[i].name.f);
             }
         }
+
         /* !filtering implies reset_role_filtering() where we want to
            mark this role as preseleted if current filter excludes it */
         add_menu(win, NO_GLYPH, &any, thisch, 0, ATR_NONE, an(rolenamebuf),

@@ -72,6 +72,10 @@ static int NDECL(tech_tumble);
 static int NDECL(tech_sunder);
 static int NDECL(tech_bloodmagic);
 
+static int NDECL(tech_heartcards);
+static int NDECL(tech_cardcombo);
+static int NDECL(tech_cardcardcapture);
+
 static NEARDATA schar delay;            /* moves left for tinker/energy draw */
 
 /* Duplicated from apply.c */
@@ -130,7 +134,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "jedi jump",        /* 42 */
     "charge saber",     /* 43 */
     "telekinesis",      /* 44 */
-    "whistle undead",      /* 45 */
+    "whistle undead",   /* 45 */
     "spirit tempest",   /* 46 */
     "force push",       /* 47 */
     "curse",            /* 48 */
@@ -141,7 +145,9 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "break rock",       /* 53 */
     "uppercut",         /* 54 */
     "ice armor",        /* 55 */
-    "",                 /* 56 */
+    "heart of the cards",/* 56 */
+    "card combo",       /* 57 */
+    "card capture",     /* 58 */
     ""
 };
 
@@ -156,6 +162,12 @@ static const struct innate_tech
         { 1, T_BERSERK, 1 },
         { 5, T_RAGE, 1 },
         { 0, 0, 0 } 
+    },
+    car_tech[] = {
+        { 1, T_HEART_CARDS, 1 },
+        { 5, T_CARD_COMBO, 1 },
+        {15, T_CARD_CAPTURE, 1 },
+        { 0, 0, 0}
     },
     cav_tech[] = { 
         { 1, T_PRIMAL_ROAR, 1 },
@@ -1247,6 +1259,21 @@ int tech_no;
             /* No timeout - this can take a little time 
              * and requires training */
             break;
+        case T_HEART_CARDS:
+            res = tech_heartcards();
+            if (res)
+                t_timeout = rn1(1000, 500);
+            break;
+        case T_CARD_COMBO:
+            res = tech_cardcombo();
+            if (res)
+                t_timeout = rn1(1000, 500);
+            break;
+        case T_CARD_CAPTURE:
+            res = tech_cardcardcapture();
+            if (res)
+                t_timeout = rn1(500, 500);
+            break;
         default:
             pline("Error!  No such effect (%i)", tech_no);
             return 0;
@@ -1545,6 +1572,8 @@ role_tech()
         return arc_tech;
     case PM_BARBARIAN:
         return bar_tech;
+    case PM_CARTOMANCER:
+        return car_tech;
     case PM_CAVEMAN:
         return cav_tech;
     case PM_FLAME_MAGE:
@@ -4001,6 +4030,124 @@ tech_bloodmagic()
     int tech_no = get_tech_no(T_BLOOD_MAGIC);
     You("invite a dark power into your heart!");
     techt_inuse(tech_no) = (int) (techlev(tech_no) * 6 + 1) + 2;
+    return 1;
+}
+
+
+int
+tech_heartcards()
+{
+    int i = 0, j = 0;
+    /* The Cartomancer's backup #pray */
+    if (Slimed) {
+        j = SCR_FIRE;
+    } else if (critically_low_hp(FALSE)) {
+        /* Some different escape methods */
+        switch (rnd(7)) {
+            case 1:     j = SCR_AIR; break;
+            case 2:     j = SCR_TIME; break;
+            case 3:     j = SCR_GENOCIDE; break; /* uncursed */
+            case 4:     j = SCR_SCARE_MONSTER; break;
+            case 5:     j = SCR_TAMING; break;
+            default:    j = SCR_TELEPORTATION; break;
+        }
+    } else if (region_danger()) {
+        j = SCR_TELEPORTATION;
+    } else if (Strangled || welded(uwep) || Punished) {
+        j = SCR_REMOVE_CURSE;
+    }
+#if 0 /* This actually eliminates the chance of getting a 
+       * scroll of acquirement (when starving), which would 
+       * be much more useful */
+    else if (u.uhs >= WEAK) {
+        j = SCR_FOOD_DETECTION;
+    }
+#endif
+    
+    if (!j) {
+        for (i = 0; i < 5000; i++) {
+            j = rn1(SCR_MAGIC_DETECTION - SCR_ENCHANT_ARMOR + 1, SCR_ENCHANT_ARMOR);
+            /* Skip obviously bad scrolls */
+            if (Luck >= 0) {
+                if (j == SCR_AMNESIA || j == SCR_PUNISHMENT
+                    || j == SCR_DESTROY_ARMOR)
+                    continue;
+                else if (j == SCR_ENCHANT_WEAPON && uwep->spe > 5)
+                    continue;
+            }
+            if (j)
+                break;
+        }
+    }
+
+    struct obj* pseudo = mksobj(j, FALSE, FALSE);
+    if (pseudo) {
+        pseudo->blessed = TRUE;
+        pseudo->cursed = FALSE;
+        if (pseudo->otyp == SCR_GENOCIDE)
+            pseudo->blessed = FALSE;
+        pseudo->quan = 20L; /* do not let useup get it */
+        pseudo->ox = u.ux, pseudo->oy = u.uy;
+
+        pline("With a flourish, you pull a card from beyond!");
+        You("shout the incantation on the card!");
+        seffects(pseudo);
+        obfree(pseudo, (struct obj *) 0); /* now, get rid of it */
+        return 1;
+    } else
+        pline1(nothing_happens);
+    return 0;
+}
+
+int
+tech_cardcombo()
+{
+    int tech_no = get_tech_no(T_CARD_COMBO);
+    int i, combos;
+    combos = max(1, techlev(tech_no) / 2);
+    combos = min(5, combos) + 1;
+    
+    pline("You unleash a wicked combo! [max %d cards]", combos);
+    for (i = 0; i < combos ; i++) {
+        if (!doread()) {
+            if (i == 0)
+                return 0;
+            break;
+        }
+    }
+    pline("Your combo ends.");
+    return 1;
+}
+
+int
+tech_cardcardcapture()
+{
+    struct monst *mtmp;
+    struct obj *otmp;
+    
+    if (!getdir((char *) 0) || !isok(u.ux + u.dx, u.uy + u.dy))
+        return 0;
+    if (!u.dx && !u.dy) {
+        return 0;
+    }
+    
+    mtmp = m_at(u.ux + u.dx, u.uy + u.dy);
+    if (!mtmp) {
+        You("menacingly shuffle your cards!");
+        return 0;
+    }
+    pline("You reach out and attempt to capture %s.", mon_nam(mtmp));
+    
+    if (tamedog(mtmp, (struct obj *) 0) == TRUE) {
+        pline("%s transforms into a spell card!", Monnam(mtmp));
+        otmp = mksobj_at(SCR_CREATE_MONSTER, mtmp->mx, mtmp->my, FALSE, FALSE);
+        otmp->corpsenm = monsndx(mtmp->data);
+        mongone(mtmp);
+    } else if (Hallucination) {
+        pline("Aww! It appeared to be caught!");
+    } else {
+        pline("%s resists your encapsulation.", Monnam(mtmp));
+    }
     return 1;
 }
 

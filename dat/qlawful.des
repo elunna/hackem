@@ -240,7 +240,7 @@ REGION: (64,09,68,13), unlit, "swamp"
 OBJECT: ('[', "gray dragon scales"), (66,11), cursed, -9
 TRAP: "statue", (66,11)
 CONTAINER: ('`', "statue"), (66,11), montype:"arch-lich", 0 {
-  OBJECT: ('/', "deluge")
+  OBJECT: ('/', "fireball")
   OBJECT: ('/', "create horde"), uncursed, 1
   OBJECT: ('/', "speed monster"), uncursed, 1
   OBJECT: ('/', "make invisible"), uncursed, 1

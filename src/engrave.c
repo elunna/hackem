@@ -195,7 +195,7 @@ register int x, y;
         return "ice";
     else if (is_lava(x, y))
         return hliquid("lava");
-    else if (lev->typ == DRAWBRIDGE_DOWN)
+    else if (lev->typ == DRAWBRIDGE_DOWN || lev->typ == BRIDGE)
         return "bridge";
     else if (IS_ALTAR(levl[x][y].typ))
         return "altar";
@@ -996,6 +996,17 @@ doengrave()
                 if (!objects[otmp->otyp].oc_name_known) {
                     if (flags.verbose && !wonder)
                         pline("This %s is a wand of fire!", xname(otmp));
+                    preknown = TRUE;
+                }
+                Strcpy(post_engr_text, Blind ? "You feel the wand heat up."
+                                             : "Flames fly from the wand.");
+                break;
+            case WAN_FIREBALL:
+                ptext = TRUE;
+                type  = BURN;
+                if (!objects[otmp->otyp].oc_name_known) {
+                    if (flags.verbose)
+                        pline("This %s is a wand of fireballs!", xname(otmp));
                     preknown = TRUE;
                 }
                 Strcpy(post_engr_text, Blind ? "You feel the wand heat up."

@@ -395,6 +395,7 @@ int x, y, gloc;
                      || glyph_to_cmap(glyph) == S_tree
                      || glyph_to_cmap(glyph) == S_bars
                      || glyph_to_cmap(glyph) == S_ice
+                     || glyph_to_cmap(glyph) == S_bridge
                      || glyph_to_cmap(glyph) == S_grass
                      || glyph_to_cmap(glyph) == S_air
                      || glyph_to_cmap(glyph) == S_cloud
@@ -1381,6 +1382,11 @@ const char *name;
                         (void) makemon(&mons[PM_GREEN_ELF], u.ux, u.uy, MM_ADJACENTOK | MM_ANGRY);
                     if (rn2(3))
                         (void) makemon(&mons[PM_GREEN_ELF], u.ux, u.uy, MM_ADJACENTOK | MM_ANGRY);
+                    if (rn2(3) && (obj->oartifact == ART_ARVON || obj->oartifact == ART_KRELLN))
+                        (void) makemon(&mons[PM_ELVEN_ROYAL], u.ux, u.uy, MM_ADJACENTOK | MM_ANGRY);
+                    if (rn2(3) && (obj->oartifact == ART_ARVON || obj->oartifact == ART_KRELLN))
+                        (void) makemon(&mons[PM_ELVEN_ROYAL], u.ux, u.uy, MM_ADJACENTOK | MM_ANGRY);
+                    
                     mtmp->msleeping = 0;
                     m_dowear(mtmp, TRUE);
                     mon_wield_item(mtmp);

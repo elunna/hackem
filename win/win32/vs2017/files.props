@@ -30,6 +30,7 @@
   <ItemGroup>
     <Desfiles Include = "arch.des"/>
     <Desfiles Include = "barb.des"/>
+    <Desfiles Include = "cart.des"/>
     <Desfiles Include = "caveman.des"/>
     <Desfiles Include = "convict.des"/>
     <Desfiles Include = "flame.des"/>
@@ -69,7 +70,6 @@
     <Desfiles Include = "nkai.des"/>
     <Desfiles Include = "nymph.des"/>
     <Desfiles Include = "oracle.des"/>
-    <Desfiles Include = "ozzy.des"/>
     <Desfiles Include = "qchaos.des"/>
     <Desfiles Include = "qlawful.des"/>
     <Desfiles Include = "qneutral.des"/>
@@ -77,7 +77,6 @@
     <Desfiles Include = "sea.des"/>
     <Desfiles Include = "sokoban.des"/>
     <Desfiles Include = "spiders.des"/>
-    <Desfiles Include = "stor.des"/>
     <Desfiles Include = "tomb.des"/>
     <Desfiles Include = "tower.des"/>
     <Desfiles Include = "town.des"/>
@@ -130,7 +129,6 @@
     <Levfiles Include = "hellc-3.lev"/>
     <Levfiles Include = "hellfill.lev"/>
     <Levfiles Include = "orcus.lev"/>
-    <Levfiles Include = "ozzy.lev"/>
     <Levfiles Include = "sanctum.lev"/>
     <Levfiles Include = "valley.lev"/>
     <Levfiles Include = "giants.lev"/>
@@ -253,7 +251,6 @@
     <Levfiles Include = "soko4-17.lev"/>
     <Levfiles Include = "soko4-18.lev"/>
     <Levfiles Include = "spiders.lev"/>
-    <Levfiles Include = "stor.lev"/>
     <Levfiles Include = "tomb.lev"/>
     <Levfiles Include = "tower1.lev"/>
     <Levfiles Include = "tower2.lev"/>
@@ -358,6 +355,11 @@
     <Levfiles Include = "bar-goal.lev"/>
     <Levfiles Include = "bar-loca.lev"/>
     <Levfiles Include = "bar-strt.lev"/>
+    <Levfiles Include = "car-fila.lev"/>
+    <Levfiles Include = "car-filb.lev"/>
+    <Levfiles Include = "car-goal.lev"/>
+    <Levfiles Include = "car-loca.lev"/>
+    <Levfiles Include = "car-strt.lev"/>
     <Levfiles Include = "cav-fila.lev"/>
     <Levfiles Include = "cav-filb.lev"/>
     <Levfiles Include = "cav-goal.lev"/>

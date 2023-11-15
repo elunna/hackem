@@ -45,6 +45,7 @@ struct u_event {
     Bitfield(qcompleted, 1);   /* successfully completed Quest task */
     Bitfield(uheard_tune, 2);  /* 1=know about, 2=heard passtune */
     Bitfield(know_horror, 1);  /* know about shambling horror */
+    Bitfield(know_stick, 1);  /* know about shamblestick */
 
     Bitfield(entered_the_blackmarket, 1);   /* entered the Blackmarket */
     Bitfield(uopened_dbridge, 1);   /* opened the drawbridge */
@@ -374,7 +375,7 @@ struct you {
     Bitfield(uinvulnerable, 1); /* you're invulnerable (praying) */
     Bitfield(uburied, 1);       /* you're buried */
     Bitfield(uedibility, 1);    /* blessed food detect; sense unsafe food */
-    /* 1 free bit! */
+    Bitfield(usaving_grace, 1); /* prevents death once */
 
     unsigned udg_cnt;           /* how long you have been demigod */
     struct u_achieve uachieve;  /* achievements */

@@ -55,6 +55,8 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "acid stream",          /*ZT_ACID*/
         "sonic beam",           /*ZT_SONIC*/
         "water stream",         /*ZT_WATER*/
+        "drain beam",         /*ZT_*/
+        "stun beam",
 
         "magic missile",
         "fireball",
@@ -66,6 +68,8 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "blast of acid",
         "sonic beam",
         "water stream",
+        "blast of dark energy", 
+        "disorienting blast",
 
         "blast of missiles",
         "blast of fire",
@@ -77,6 +81,8 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "blast of acid",
         "sonic blast",
         "blast of water",
+        "blast of dark energy", 
+        "disorienting blast"
     };
 
 /*
@@ -2616,6 +2622,7 @@ struct obj *obj, *otmp;
             res = stone_to_flesh_obj(obj);
             break;
         case SPE_FIRE_BOLT:
+        case WAN_FIREBALL:
         case WAN_FIRE:
             if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
                 hatch_faster(obj);
@@ -2946,6 +2953,10 @@ boolean ordinary;
         destroy_item(RING_CLASS, AD_ELEC);
         (void) flashburn((long) rnd(100));
         break;
+
+    case WAN_FIREBALL:
+        makeknown(WAN_FIREBALL);
+        /* FALLTHROUGH */
     case SPE_FIREBALL:
         You("explode a fireball on top of yourself!");
         explode(u.ux, u.uy, ZT_SPELL(ZT_FIRE), d(6, 6), WAND_CLASS,
@@ -4163,7 +4174,8 @@ struct obj *obj;
         zapnodir(obj);
     } else {
         /* neither immediate nor directionless */
-
+        if (otyp == WAN_FIREBALL)
+            otyp = SPE_FIREBALL;
         if (otyp == WAN_DIGGING || otyp == SPE_DIG)
             zap_dig();
         else if (otyp >= FIRST_SPELLBOOK && otyp <= LAST_SPELLBOOK)
@@ -4338,7 +4350,7 @@ struct obj *otmp;
             if (!Deaf)
                 pline("Kaboom!");
             explode(x, y, ZT_MAGIC_MISSILE,
-                    20 + d(3 ,6), TRAP_EXPLODE, EXPL_MAGICAL);
+                    20 + d(3,6), TRAP_EXPLODE, EXPL_MAGICAL);
             deltrap(ttmp);
             newsym(x, y);
         }
@@ -5163,6 +5175,27 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     case ZT_WATER:
         tmp = delugehitsm(mon, d(nd, 8));
         break;
+    case ZT_DRAIN: {
+        int drain = monhp_per_lvl(mon);
+
+        tmp = d(nd, 6);
+        if (resists_drli(mon) || defended(mon, AD_DRLI)) {
+            sho_shieldeff = TRUE;
+            /* physical damage still occurs */
+            break;
+        }
+        mon_losexp(mon, drain, TRUE);
+        break;
+    }
+    case ZT_STUN:
+        if (resists_stun(mon->data) || defended(mon, AD_STUN)) {
+            sho_shieldeff = TRUE;
+            break;
+        }
+        tmp = d(nd, 6);
+        if (!mon->mstun)
+            mon->mstun = 1;
+        break;
     }
     if (elemental_shift(mon, abstype)) {
         sho_shieldeff = TRUE;
@@ -5408,46 +5441,45 @@ xchar sx, sy;
             destroy_item(WAND_CLASS, AD_LOUD);
         break;
     case ZT_WATER:
-        dam = d(nd, 8);
+        dam = delugehitsu(nd);
+        break;
+    case ZT_DRAIN: {
+        const char *life = nonliving(youmonst.data) ? "animating force"
+                                                    : "life";
+
+        /* will still take physical damage from the force of
+           the breath attack, even if drain resistant */
+        dam = d(nd, 6);
         if (Half_physical_damage)
             dam = (dam + 1) / 2;
-        if (u.umonnum == PM_BABY_SEA_DRAGON || u.umonnum == PM_SEA_DRAGON) {
-            You("%sabsorb the blast of water into your body.",
-                Reflecting ? "partially " : "");
-            dam = 0;
+        if (Drain_resistance) {
+            ugolemeffects(AD_DRLI, d(nd, 6));
             break;
-        } else if (u.umonnum == PM_WATER_ELEMENTAL) {
-            You_feel("better!");
-            healup(d(6, 6), 0, FALSE, FALSE);
-            dam = 0;
-            break;
-        } else if (u.umonnum == PM_EARTH_ELEMENTAL) {
-            if (!Unchanging) {
-                polymon(PM_MUD_ELEMENTAL);
-                dam = 0;
-            }
-            break;
-        } else if (u.umonnum == PM_IRON_GOLEM) {
-            You("rust!");
-            rehumanize();
-            dam = 0; /* Prevent more damage after rehumanize */
-            break;
-        } else if (likes_fire(youmonst.data)) {
-            You("are being extinguished!");
-            dam += d(6, 6);
-        } else if (amphibious(youmonst.data)) {
-            You("don't mind the water.");
-            dam = 0;
         }
-        if (!Reflecting) {
-            /* using two weapons at once makes both of them more vulnerable */
-            if (!rn2(u.twoweap ? 3 : 6))
-                water_damage(uwep, 0, TRUE, u.ux, u.uy);
-            if (u.twoweap && !rn2(3))
-                water_damage(uswapwep, 0, TRUE, u.ux, u.uy);
-            if (!rn2(6))
-                erode_armor(&youmonst, ERODE_RUST);
+
+        if (Reflecting) {
+            You("feel drained...");
+            u.uhpmax -= dam / 2 + rn2(5);
+        } else {
+            if (Blind)
+                You_feel("a dark energy blast draining your %s!",
+                         life);
+            else
+                pline_The("dark energy blast drains your %s!",
+                          life);
+            losexp("life drainage");
         }
+        break;
+    }
+    case ZT_STUN:
+        /* will still take physical damage from the force of
+           the breath attack, even if stun resistant */
+        dam = d(nd, 6);
+        if (Half_physical_damage)
+            dam = (dam + 1) / 2;
+        if (Stun_resistance)
+            shieldeff(sx, sy); /* resistance handled in make_stunned() */
+        make_stunned((HStun & TIMEOUT) + (long) dam / (Reflecting ? 4 : 2), TRUE);
         break;
     }
 
@@ -5458,6 +5490,7 @@ xchar sx, sy;
     losehp(dam, fltxt, KILLED_BY_AN);
     return;
 }
+
 
 /*
  * burn objects (such as scrolls and spellbooks) on floor
@@ -5613,7 +5646,12 @@ int type; /* either hero cast spell type or 0 */
 boolean is_wand;
 {
     int chance = rn2(20);
-    int spell_bonus = type ? spell_hit_bonus(type, is_wand) : 0;
+    int spell_bonus = 0;
+
+    if (type)
+        spell_bonus = spell_hit_bonus(type, is_wand);
+    else if (ACURR(A_DEX) > 17)
+        spell_bonus = (ACURR(A_DEX) - 17);
 
     /* small chance for naked target to avoid being hit */
     if (!chance)
@@ -5759,7 +5797,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
 
         if (mon) {
             int saved_mhp;
-            if (type == ZT_SPELL(ZT_FIRE))
+            if (type == ZT_SPELL(ZT_FIRE) || type == ZT_MONSPELL(ZT_FIRE))
                 break;
             if (type >= 0)
                 mon->mstrategy &= ~STRAT_WAITMASK;
@@ -5849,6 +5887,18 @@ boolean say; /* Announce out of sight hit/miss events if true */
                                     if (canseemon(mon))
                                         pline("%s resists the death magic, but appears drained!",
                                               Monnam(mon));
+                                }
+                                if (abstype == ZT_DRAIN) {
+                                    const char *life = nonliving(mon->data) ? "animating force"
+                                                                            : "life";
+
+                                    if (canseemon(mon)) {
+                                        if (resists_drli(mon) || defended(mon, AD_DRLI))
+                                            pline("%s appears unaffected.", Monnam(mon));
+                                        else
+                                            pline_The("blast draws the %s from %s!",
+                                                      life, mon_nam(mon));
+                                    }
                                 }
                                 print_mon_wounded(mon, saved_mhp);
                             }
@@ -6018,7 +6068,8 @@ const char *msg;
 
     if (!msg)
         msg = "The ice crackles and melts.";
-    if (lev->typ == DRAWBRIDGE_UP || lev->typ == DRAWBRIDGE_DOWN) {
+    if (lev->typ == DRAWBRIDGE_UP || lev->typ == DRAWBRIDGE_DOWN
+          || lev->typ == BRIDGE) {
         lev->drawbridgemask &= ~DB_ICE; /* revert to DB_MOAT */
     } else { /* lev->typ == ICE */
 #ifdef STUPID
@@ -6204,6 +6255,10 @@ boolean moncast;
         }
         if (is_ice(x, y)) {
             melt_ice(x, y, (char *) 0);
+        } else if (is_bridge(x, y)) {
+            if (cansee(x, y))
+                pline_The("bridge catches fire!");
+            destroy_rope_bridge(x, y);
         } else if (is_pool(x, y)) {
             const char *msgtxt = (!Deaf)
                                      ? "You hear hissing gas." /* Deaf-aware */
@@ -7537,6 +7592,9 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     } else if (obj->otyp == SONIC_BOMB) {
         ztype = ZT_SPELL(ZT_SONIC) * yours;
         expltype = EXPL_FROSTY * yours * -1;
+    } else if (obj->otyp == FLASH_BOMB) {
+        ztype = ZT_SPELL(ZT_STUN) * yours;
+        expltype = EXPL_MAGICAL * yours * -1;
     } else
         impossible("Invalid bomb otyp for bomb_explode!");
     
@@ -7604,7 +7662,7 @@ int x, y, rangemod;
 
             Strcpy(buf, waterbody_name(x, y)); /* for MOAT */
             rangemod -= 3;
-            if (lev->typ == DRAWBRIDGE_UP) {
+            if (lev->typ == DRAWBRIDGE_UP || lev->typ == BRIDGE) {
                 lev->drawbridgemask &= ~DB_UNDER; /* clear lava */
                 lev->drawbridgemask |= (lava ? DB_FLOOR : DB_ICE);
             } else {
@@ -7742,6 +7800,50 @@ int tmp;
     return tmp;
 }
 
+/* Hits you with a ray of water (sea dragon, wand of deluge) 
+ * returns the amount of damage dealt */
+int
+delugehitsu(nd)
+int nd;
+{
+    int dam = d(nd, 8);
+    if (Half_physical_damage)
+        dam = (dam + 1) / 2;
+    
+    if (u.umonnum == PM_BABY_SEA_DRAGON || u.umonnum == PM_SEA_DRAGON) {
+        You("%sabsorb the blast of water into your body.",
+            Reflecting ? "partially " : "");
+        dam = 0;
+    } else if (u.umonnum == PM_WATER_ELEMENTAL) {
+        You_feel("better!");
+        healup(d(6, 6), 0, FALSE, FALSE);
+    } else if (u.umonnum == PM_EARTH_ELEMENTAL) {
+        if (!Unchanging) {
+            polymon(PM_MUD_ELEMENTAL);
+            dam = 0;
+        }
+    } else if (u.umonnum == PM_IRON_GOLEM) {
+        You("rust!");
+        rehumanize();
+        dam = 0; /* Prevent more damage after rehumanize */
+    } else if (likes_fire(youmonst.data)) {
+        You("are being extinguished!");
+        dam += d(6, 6);
+    } else if (amphibious(youmonst.data)) {
+        You("don't mind the water.");
+        dam = 0;
+    }
+    if (!Reflecting) {
+        /* using two weapons at once makes both of them more vulnerable */
+        if (!rn2(u.twoweap ? 3 : 6))
+            water_damage(uwep, 0, TRUE, u.ux, u.uy);
+        if (u.twoweap && !rn2(3))
+            water_damage(uswapwep, 0, TRUE, u.ux, u.uy);
+        if (!rn2(6))
+            erode_armor(&youmonst, ERODE_RUST);
+    }
+    return dam;
+}
 
 void
 scatter_chains(x, y)

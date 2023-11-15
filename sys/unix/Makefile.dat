@@ -146,7 +146,6 @@ spec_levs: ../util/lev_comp \
 	nkai.des \
 	nymph.des \
 	oracle.des \
-	ozzy.des \
 	qchaos.des \
 	qlawful.des \
 	qneutral.des \
@@ -154,7 +153,6 @@ spec_levs: ../util/lev_comp \
 	sea.des \
 	sokoban.des \
 	spiders.des \
-	stor.des \
 	tomb.des \
 	tower.des \
 	town.des \
@@ -180,7 +178,6 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp nkai.des
 	../util/lev_comp nymph.des
 	../util/lev_comp oracle.des
-	../util/lev_comp ozzy.des
 	../util/lev_comp qchaos.des
 	../util/lev_comp qlawful.des
 	../util/lev_comp qneutral.des
@@ -188,7 +185,6 @@ spec_levs: ../util/lev_comp \
 	../util/lev_comp sea.des
 	../util/lev_comp sokoban.des
 	../util/lev_comp spiders.des
-	../util/lev_comp stor.des
 	../util/lev_comp tomb.des
 	../util/lev_comp tower.des
 	../util/lev_comp town.des
@@ -201,6 +197,7 @@ spec_levs: ../util/lev_comp \
 quest_levs: ../util/lev_comp \
 	Arch.des \
 	Barb.des \
+	Cart.des \
 	Caveman.des \
 	Convict.des \
 	Flame.des \
@@ -223,6 +220,7 @@ quest_levs: ../util/lev_comp \
 	Yeoman.des
 	../util/lev_comp Arch.des
 	../util/lev_comp Barb.des
+	../util/lev_comp Cart.des
 	../util/lev_comp Caveman.des
 	../util/lev_comp Convict.des
 	../util/lev_comp Flame.des

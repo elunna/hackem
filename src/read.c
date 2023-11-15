@@ -522,15 +522,37 @@ doread()
             "Yendorian Express - Platinum Card", /* must be last */
         };
 
+        /* Takeoffs of banned or broken from tcgs. */
+        static const char *tcg_msgs[] = {
+            /* MTG */
+            "Draw three cards, or force a monster to draw three cards.",
+            "Turn any monster into an 3/3 newt.",
+            "Opponent loses next turn."
+            /* YGO */
+            "Select and control one hostile monster.",
+            "Draw two cards from your deck.",
+            /* Pkmn */
+            "Birthday surprise!",
+            /* HVL */
+            "You gain 3 energy."
+        };
+
         if (Blind) {
             You_feel("the embossed numbers:");
         } else {
             if (flags.verbose)
                 pline("It reads:");
-            mesg = scroll->oartifact
-                  ? card_msgs[SIZE(card_msgs) - 1]
-                  : card_msgs[scroll->o_id % (SIZE(card_msgs) - 1)];
-            pline("\"%s\"", mesg);
+            if (Role_if(PM_CARTOMANCER)) {
+                pline("\"%s\"",
+                      scroll->oartifact
+                      ? tcg_msgs[SIZE(tcg_msgs) - 1]
+                      : tcg_msgs[scroll->o_id % (SIZE(tcg_msgs) - 1)]);
+            } else {
+                mesg = scroll->oartifact
+                       ? card_msgs[SIZE(card_msgs) - 1]
+                       : card_msgs[scroll->o_id % (SIZE(card_msgs) - 1)];
+                pline("\"%s\"", mesg);
+            } 
             maybe_learn_elbereth(mesg);
         }
         /* Make a credit card number */
@@ -708,9 +730,14 @@ doread()
         if (confused) {
             if (Hallucination)
                 pline("Being so trippy, you screw up...");
-            else
-                pline("Being confused, you %s the magic words...",
-                      silently ? "misunderstand" : "mispronounce");
+            else {
+                if (Role_if(PM_CARTOMANCER))
+                    pline("Being confused, you %s the rules text...",
+                          silently ? "misunderstand" : "misread");
+                else
+                    pline("Being confused, you %s the magic words...",
+                          silently ? "misunderstand" : "mispronounce");
+            }
         }
     }
     if (!seffects(scroll)) {
@@ -1395,10 +1422,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
 #ifdef MAIL
     case SCR_MAIL:
         known = TRUE;
-        if (sobj->spe == 2)
+        if (sobj->spe == 2) {
             /* "stamped scroll" created via magic marker--without a stamp */
-            pline("This scroll is marked \"postage due\".");
-        else if (sobj->spe)
+            if (Role_if(PM_CARTOMANCER))
+                pline("The rules on this card read \"Discard upon use\".");
+            else
+                pline("This scroll is marked \"postage due\".");
+        } else if (sobj->spe)
             /* scroll of mail obtained from bones file or from wishing;
              * note to the puzzled: the game Larn actually sends you junk
              * mail if you win!
@@ -1775,9 +1805,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (Blind)
             You("don't remember there being any magic words on this scroll.");
         else {
-            pline("This scroll seems to be blank.");
-            if (Confusion && !rn2(2))
-                pline("Being confused, you mispronounce the lack of words...");
+            if (Role_if(PM_CARTOMANCER))
+                pline("This card is useless!");
+            else {
+                pline("This scroll seems to be blank.");
+                if (Confusion && !rn2(2))
+                    pline("Being confused, you mispronounce the lack of words...");
+            }
         }
         known = TRUE;
         break;
@@ -1909,6 +1943,20 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     }
     case SCR_CREATE_MONSTER:
     case SPE_CREATE_MONSTER:
+        if (sobj->corpsenm != NON_PM) {
+            mtmp = makemon(&mons[sobj->corpsenm], u.ux, u.uy,
+                           MM_EDOG | NO_MINVENT | MM_NOCOUNTBIRTH);
+            if (!mtmp)
+                break;
+            if (!scursed) {
+                initedog(mtmp);
+                newsym(mtmp->mx, mtmp->my);
+            }
+            known = TRUE;
+            mtmp->msummoned = 15 + u.ulevel * 4;
+            break;
+        }
+        
         if (create_critters(1 + ((confused || scursed) ? 12 : 0)
                                 + ((sblessed || rn2(73)) ? 0 : rnd(4)),
                             confused ? &mons[PM_ACID_BLOB]
@@ -1964,6 +2012,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 break;
             } else if (state == MAKE_EM_TAME) {
                 initedog(mtmp);
+                newsym(mtmp->mx, mtmp->my);
             } else if (state == MAKE_EM_PEACEFUL) {
                 mtmp->mpeaceful = 1;
             } else if (state == MAKE_EM_HOSTILE) {

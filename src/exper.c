@@ -42,6 +42,7 @@ int en;
     case PM_ICE_MAGE:
     case PM_PRIEST:
     case PM_WIZARD:
+    case PM_CARTOMANCER:
         return (2 * en);
     case PM_HEALER:
     case PM_INFIDEL:

@@ -35,6 +35,7 @@ STATIC_DCL int FDECL(count_surround_traps, (int, int));
 STATIC_DCL boolean FDECL(can_we_zap, (int, int, int));
 STATIC_DCL boolean FDECL(forbidden_artifact, (struct obj *));
 STATIC_DCL boolean FDECL(is_redundant_prop, (struct obj *, int));
+STATIC_DCL boolean FDECL(ok_spfx, (long));
 
 /* The amount added to the victim's total hit points to insure that the
    victim will be killed even after damage bonus/penalty adjustments.
@@ -65,6 +66,8 @@ hack_artifacts()
 {
     struct artifact *art;
     int alignmnt = aligns[flags.initalign].value;
+    int i, defn, bonus, sgranted = 0;
+    long r;
 
     /* Fix up the alignments of "gift" artifacts */
     for (art = artilist + 1; art->otyp; art++)
@@ -98,8 +101,169 @@ hack_artifacts()
     else if (Race_if(PM_GIANT) || Race_if(PM_CENTAUR)
              || Race_if(PM_TORTLE))
         objects[SEVERED_HAND].oc_weight = 300;
+
+    /* Shamblestick is random, because what NetHack clearly needs is more randomness. */
+    artilist[ART_SHAMBLESTICK].otyp = CLUB + rn2(BASEBALL_BAT - CLUB);
+
+    /* Random role preference */
+    artilist[ART_SHAMBLESTICK].role =
+            rn2(13) ? NON_PM
+                   : (PM_ARCHEOLOGIST + rn2(PM_WIZARD - PM_ARCHEOLOGIST));
+
+    /* Random color */
+    artilist[ART_SHAMBLESTICK].acolor = rn2(CLR_MAX);
     
+    /* Random wield effects */
+    for (i = 0; i < rnd(7); i++) {
+        r = (1 << rn2(32));
+        if (!ok_spfx(r))
+            continue;
+        artilist[ART_SHAMBLESTICK].spfx |= r;
+        sgranted++;
+    }
+
+    /* Random carry effects */
+    for (i = 0; i < rnd(3); i++) {
+        r = (1 << rn2(32));
+        if (!ok_spfx(r))
+            continue;
+        /* Only allow reflection for wielding, avoids complications */
+        if (r == SPFX_REFLECT)
+            continue;
+        /* Was this already granted in the spfx fields? 
+         * We'll either keep the wielded slot, or move it to the carried.
+         * */ 
+        if (artilist[ART_SHAMBLESTICK].spfx & r) {
+            if (!rn2(2)) {
+                continue;
+            } else {
+                artilist[ART_SHAMBLESTICK].spfx &= ~r;
+                sgranted--;
+            }
+        }
+        artilist[ART_SHAMBLESTICK].cspfx |= r;
+        sgranted++;
+    }
+    
+    int res_types [] =
+            { AD_MAGM, AD_FIRE, AD_COLD, AD_SLEE, AD_DISN,
+              AD_ELEC, AD_DRST, AD_ACID, AD_LOUD, AD_PSYC,
+              AD_BLND, AD_STUN, AD_PLYS, AD_DRLI, AD_STON,
+              AD_WERE, AD_DISE, AD_CLOB, AD_WTHR
+            };
+
+    /* Random defensive wield/wear resistance */
+    for (i = 0; i < rnd(4); i++) {
+        if (!rn2(3)) {
+            artilist[ART_SHAMBLESTICK].defn.adtyp =
+                    res_types[rn2(SIZE(res_types))];
+            sgranted++;
+            break;
+        }
+    }
+
+    /* Random defensive carry resistance */
+    for (i = 0; i < rnd(4); i++) {
+        if (!rn2(3)) {
+            defn = res_types[rn2(SIZE(res_types))];
+            /* Don't double up */
+            if (artilist[ART_SHAMBLESTICK].defn.adtyp == defn)
+                continue;
+            artilist[ART_SHAMBLESTICK].cary.adtyp = defn;
+            sgranted++;
+            break;
+        }
+    }
+    
+    /* Random invoke effect */
+    if (!rn2(2)) {
+        do {
+            artilist[ART_SHAMBLESTICK].inv_prop =
+                    TAMING + (rn2(SMOKE_CLOUD - TAMING));
+            /* SEFFECT could also branch out into random scroll
+             * effects, but... not now */
+        } while (artilist[ART_SHAMBLESTICK].inv_prop == SEFFECT);
+        sgranted++;
+    }
+
+    /* Random attack type */
+    int attk_types [] =
+            { AD_PHYS, AD_MAGM, AD_FIRE, AD_COLD, AD_SLEE, 
+              AD_DISN, AD_ELEC, AD_DRST, AD_ACID, AD_LOUD, 
+              AD_WATR, AD_STUN, AD_PSYC, AD_BLND, AD_SLOW,
+              AD_PLYS, AD_DREN, AD_DISE, AD_CLOB, AD_WTHR, 
+              AD_FEAR, AD_WEBS,
+              AD_DRLI, /*goes with SPFX_DRLI spfx flag*/
+              AD_BHED, /*goes with spfx flag*/
+            };
+
+    int attk = attk_types[rn2(SIZE(attk_types))];
+    
+    switch (attk) {
+        case AD_BHED:
+            artilist[ART_SHAMBLESTICK].spfx |= SPFX_BEHEAD;
+            artilist[ART_SHAMBLESTICK].attk.adtyp = AD_PHYS;
+            break;
+        case AD_DRLI:
+            artilist[ART_SHAMBLESTICK].spfx |= SPFX_DRLI;
+            /* FALLTHROUGH */
+        default:
+            artilist[ART_SHAMBLESTICK].attk.adtyp = attk;
+    }
+    
+    /* Random bane(s) via SPFX_DFLAGH */
+    if (!rn2(3)) {
+        for (i = 0; i < rnd(3); i++) {
+            r = (1 << rn2(23));
+            if (urace.malenum == r)
+                continue; /* Don't bane our own race! */
+            artilist[ART_SHAMBLESTICK].mtype |= r;
+            /* Bane flags */
+            artilist[ART_SHAMBLESTICK].spfx |= SPFX_DFLAGH;
+            artilist[ART_SHAMBLESTICK].spfx |= SPFX_WARN;
+            if (rn2(2))
+                break; /* Don't stack them too easily now! */
+        }         
+    }
+
+    /* to-hit and damage bonus scales with abilities */
+    /* to-hit bonus */
+    sgranted = 10 - sgranted * 2;
+    bonus = rnd(10) + sgranted;
+    if (bonus < 0)
+        bonus = 0;
+    artilist[ART_SHAMBLESTICK].attk.damn = bonus;
+
+    /* damage bonus */
+    bonus = rn2(11) + sgranted;
+    bonus = bonus < 0 ? 1 : bonus; /* 0 is double damage */
+    artilist[ART_SHAMBLESTICK].attk.damd = bonus;
     return;
+}
+
+/* Filter out spfx flags for Shamblestick */
+STATIC_OVL boolean
+ok_spfx(long spfx) 
+{
+    if (spfx == SPFX_NONE
+        || spfx == SPFX_NOGEN
+        || spfx == SPFX_RESTR /* Added in artilist.h */
+        || spfx == SPFX_INTEL /* Intelligence makes it less usable */
+        || spfx == SPFX_FORGED
+        || spfx == SPFX_ATTK /* Added in artilist.h */
+        || spfx == SPFX_DEFN /* Added in artilist.h */
+        || spfx == SPFX_DRLI /* Handled in attack init  */
+        || spfx == SPFX_BEHEAD /* Handled in attack init */
+        /* Skip hated monsters for now */
+        || spfx == SPFX_DMONS
+        || spfx == SPFX_DCLAS
+        || spfx == SPFX_DFLAG1
+        || spfx == SPFX_DFLAGH
+        || spfx == SPFX_DALIGN /* This can make it unusable */
+        || spfx == SPFX_DBONUS
+        || spfx == SPFX_NOWISH)
+        return FALSE;
+    return TRUE;
 }
 
 /* zero out the artifact existence list */
@@ -168,6 +332,9 @@ const char *name;
         if (!strncmpi(aname, "the ", 4))
             aname += 4;
         if (!strcmpi(name, aname)) {
+            /* Like shambling horrors, hide Shamblestick info */
+            if (index == ART_SHAMBLESTICK && !u.uevent.know_stick)
+                continue;
             obj = mksobj(a->otyp, TRUE, FALSE);
             obj->otyp = a->otyp;
             obj->oartifact = index;
@@ -181,7 +348,7 @@ const char *name;
         }
         index++;
     }
-
+    
     return obj;
 }
 
@@ -371,6 +538,7 @@ aligntyp alignment; /* target alignment, or A_NONE */
     } else if (otmp) {
         otmp = create_oprop(otmp, FALSE);
     }
+    
     return otmp;
 }
 
@@ -604,6 +772,8 @@ boolean mod;
                     fix_artifact(otmp);
                 break;
             }
+    if (otmp->oartifact == ART_SHAMBLESTICK)
+        u.uevent.know_stick = 1;
     return;
 }
 
@@ -721,6 +891,10 @@ const char *name;
     if (!strncmpi(name, "the ", 4))
         name += 4;
 
+    if (otmp->otyp == WORM_TOOTH && 
+            (!strcmpi(name, "arvon") || !strcmpi(name, "krelln")))
+        return TRUE;
+    
     /* decide what types of objects are the same as otyp;
        if it's been discovered, then only itself matches;
        otherwise, include all other undiscovered objects
@@ -1113,7 +1287,8 @@ long wp_mask;
         }
     }
     if (spfx & SPFX_REFLECT) {
-        if (otmp->oartifact == ART_MAGIC_MIRROR_OF_MERLIN) {
+        if (otmp->oartifact == ART_MAGIC_MIRROR_OF_MERLIN
+                || otmp->oartifact == ART_HOLOGRAPHIC_VOID_LILY) {
             if (on)
                 EReflecting |= wp_mask;
             else
@@ -1123,6 +1298,7 @@ long wp_mask;
                 || otmp->oartifact == ART_CROSSBOW_OF_CARL
                 || otmp->oartifact == ART_NIGHTHORN
                 || otmp->oartifact == ART_DRAGONBANE
+                || otmp->oartifact == ART_SHAMBLESTICK
                 || otmp->oartifact == ART_LIGHTSABER_PROTOTYPE)
             && (wp_mask & W_WEP)) { /* wielding various reflecting artifacts */
             if (on)
@@ -1295,7 +1471,7 @@ struct monst *mtmp;
 {
     struct permonst *ptr;
     boolean yours;
-
+    
     if (!(weap->spfx & (SPFX_DBONUS | SPFX_ATTK)))
         return (weap->attk.adtyp == AD_PHYS);
 
@@ -1362,8 +1538,19 @@ struct monst *mtmp;
             return !(yours ? Death_resistance : immune_death_magic(ptr));
         case AD_DISN:
             return !(yours ? Disint_resistance : resists_disint(mtmp));
+        case AD_PSYC:
+            return !(yours ? Psychic_resistance : resists_psychic(mtmp));
+        case AD_PLYS:
+            return !(yours ? Free_action : has_free_action(mtmp));
         case AD_WTHR:
             return !(nonliving(mtmp->data) && is_vampshifter(mtmp));
+        case AD_BLND:
+        case AD_SLOW:
+        case AD_WATR:
+        case AD_FEAR:
+        case AD_WEBS:
+        case AD_CLOB:
+            /* We'll handle this when the hit procs */
         case AD_PHYS:
             /* Only case that uses this is slinging from David's Sling. */
             return TRUE;
@@ -1414,33 +1601,40 @@ int tmp;
     boolean yours = (mon == &youmonst);
     int dbon = 0, adtype;
     spec_dbon_applies = FALSE;
-
+    
+    if (weap && weap->otyp == CRYSKNIFE && otmp->otyp != CRYSKNIFE)
+        return 0;
+    
     if (!weap && otmp->oprops
         && (otmp->oclass == WEAPON_CLASS || is_weptool(otmp) 
             || (uarms && otmp == uarms))) {
         /* until we know otherwise... */
         if ((attacks(adtype = AD_FIRE, otmp)
-            && ((yours) ? !(Fire_resistance || Underwater)
-                        : !(resists_fire(mon) || mon_underwater(mon))))
-                || (attacks(adtype = AD_COLD, otmp)
-                    && ((yours) ? (!Cold_resistance) : (!resists_cold(mon))))
-                        || (attacks(adtype = AD_ELEC, otmp)
-                            && ((yours) ? (!Shock_resistance) : (!resists_elec(mon))))
-                                || (attacks(adtype = AD_DRST, otmp)
-                                    && ((yours) ? (!Poison_resistance) : (!resists_poison(mon))))
-                                        || (attacks(adtype = AD_SLEE, otmp)
-                                            && ((yours) ? (!Sleep_resistance) : (!resists_sleep(mon))))
-                                                || (attacks(adtype = AD_ACID, otmp)
-                                                    && ((yours) ? !(Acid_resistance || Underwater)
-                                                    : !(resists_acid(mon) || mon_underwater(mon))))
-                                                        || (attacks(adtype = AD_LOUD, otmp)
-                                                            && ((yours) ? (!Sonic_resistance) : (!resists_sonic(mon))))
-                                                                || (attacks(adtype = AD_DISE, otmp)
-                                                                    && ((yours) ? (!Sick_resistance) : (!resists_sick(mon))))
-                                                                        || (attacks(adtype = AD_DETH, otmp)
-                                                                            && ((yours) ? (!Death_resistance) : (!immune_death_magic(mon->data))))
-                                                                                || (attacks(adtype = AD_DISN, otmp)
-                                                                                    && ((yours) ? (!Disint_resistance) : (!resists_disint(mon))))) {
+                && ((yours) ? !(Fire_resistance || Underwater)
+                : !(resists_fire(mon) || mon_underwater(mon))))
+            || (attacks(adtype = AD_COLD, otmp)
+                && ((yours) ? (!Cold_resistance) : (!resists_cold(mon))))
+            || (attacks(adtype = AD_ELEC, otmp)
+                && ((yours) ? (!Shock_resistance) : (!resists_elec(mon))))
+            || (attacks(adtype = AD_DRST, otmp)
+                && ((yours) ? (!Poison_resistance) : (!resists_poison(mon))))
+            || (attacks(adtype = AD_SLEE, otmp)
+                && ((yours) ? (!Sleep_resistance) : (!resists_sleep(mon))))
+            || (attacks(adtype = AD_ACID, otmp)
+                && ((yours) ? !(Acid_resistance || Underwater)
+                : !(resists_acid(mon) || mon_underwater(mon))))
+            || (attacks(adtype = AD_LOUD, otmp)
+                && ((yours) ? (!Sonic_resistance) : (!resists_sonic(mon))))
+            || (attacks(adtype = AD_PSYC, otmp)
+                && ((yours) ? (!Psychic_resistance) : (!resists_psychic(mon))))
+            || (attacks(adtype = AD_DISE, otmp)
+                && ((yours) ? (!Sick_resistance) : (!resists_sick(mon))))
+            || (attacks(adtype = AD_DETH, otmp)
+                && ((yours) ? (!Death_resistance) : (!immune_death_magic(mon->data))))
+            || (attacks(adtype = AD_PLYS, otmp)
+                && ((yours) ? (!Free_action) : (!has_free_action(mon))))
+            || (attacks(adtype = AD_DISN, otmp)
+                && ((yours) ? (!Disint_resistance) : (!resists_disint(mon))))) {
 
             spec_dbon_applies = TRUE;
             /* majority of ITEM_VENOM damage
@@ -1660,11 +1854,12 @@ char *hittee;              /* target's name: "you" or mon_nam(mdef) */
     verb = mb_verb[!!Hallucination][attack_indx];
     if (youattack || youdefend || vis) {
         result = TRUE;
-        if (mb->oartifact == ART_MAGICBANE)
-            pline_The("magic-absorbing staff %s %s!",
+        if (mb->oartifact == ART_BUTCHER)
+            pline_The("massive triple-headed flail %s %s!",
                       vtense((const char *) 0, verb), hittee);
         else
-            pline_The("massive triple-headed flail %s %s!",
+            pline_The("magic-absorbing %s %s %s!",
+                      is_blade(mb) ? "blade" : "weapon",
                       vtense((const char *) 0, verb), hittee);
         /* assume probing has some sort of noticeable feedback
            even if it is being done by one monster to another */
@@ -1815,7 +2010,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     * currently consistent with behavior of other instakill weapons,
     * but not realizes_damage */
     boolean show_instakill = (youattack || youdefend || vis);
-    boolean realizes_damage, angel;
+    boolean realizes_damage, angel, clobbers;
     const char *wepdesc;
     static const char you[] = "you";
     char hittee[BUFSZ];
@@ -1848,8 +2043,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
      * additional check for its knockback behavior for MZ_MEDIUM and
      * smaller targets. Knockback rate is set here as well in rn2(rate).
      */
-     if (otmp->oartifact == ART_OGRESMASHER
-         && mdef->data->msize < MZ_LARGE && !rn2(5))
+    clobbers = otmp->oartifact == ART_OGRESMASHER || attacks(AD_CLOB, otmp);
+    if (clobbers && mdef->data->msize < MZ_LARGE && !rn2(5))
          hurtle_distance = MZ_LARGE - mdef->data->msize;
 
     /* incorporeal monsters are immune to various
@@ -1878,8 +2073,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                           : can_vaporize(mdef->data) ? "vaporizes part of"
                                                      : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
-            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
-                       && otmp->oprops & ITEM_FIRE) {
+            } else if (otmp->oclass == WEAPON_CLASS || otmp == uarms) {
                 pline_The("%s %s %s%c", makesingular(distant_name(otmp, xname)),
                           !spec_dbon_applies         ? "hits"
                           : can_vaporize(mdef->data) ? "vaporizes part of"
@@ -1955,8 +2149,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                   ? "freezes part of"
                                   : "freezes",
                           hittee,  !spec_dbon_applies ? '.' : '!');
-            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
-                       && otmp->oprops & ITEM_FROST) {
+            } else if (otmp->oclass == WEAPON_CLASS || otmp == uarms) {
                 pline_The("%s %s %s%c",
                           makesingular(distant_name(otmp, xname)),
                           !spec_dbon_applies
@@ -1991,8 +2184,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               ? ""
                               : "!  Lightning strikes",
                           hittee, !spec_dbon_applies ? '.' : '!');
-            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
-                       && otmp->oprops & ITEM_SHOCK) {
+            } else if (otmp->oclass == WEAPON_CLASS || otmp == uarms) {
                 pline_The("%s %s %s%c",
                           makesingular(distant_name(otmp, xname)),
                           !spec_dbon_applies
@@ -2036,8 +2228,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                                magr->my, mdx, mdy, TRUE);
                     }
                 }
-            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
-                       && otmp->oprops & ITEM_SCREAM) {
+            } else if (otmp->oclass == WEAPON_CLASS || otmp == uarms) {
                 if (!youattack && magr && cansee(magr->mx, magr->my)) {
                     if (!spec_dbon_applies) {
                         if (!youdefend)
@@ -2097,16 +2288,17 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     *dmgptr += rnd(2) * 6;
                 }
             } else if (spec_dbon_applies && !rn2(10)) {
-                pline_The("Master Sword hits %s. A hail of magic missiles strikes!", hittee);
+                pline("%s hits %s. A hail of magic missiles strikes!",
+                          artiname(otmp->oartifact), hittee);
                 *dmgptr += rnd(2) * 6;
             } else {
-                pline_The("Master Sword hits %s.", hittee);
+                pline("%s hits %s.", artiname(otmp->oartifact), hittee);
             }
 
             /* Occasionally shoot out a magic missile
              * Must be at full health: 3/4 chance of ray.
              * 2d6 - same as a wand. */
-            if (rn2(4)) {
+            if (otmp->oartifact == ART_MASTER_SWORD && rn2(4)) {
                 if (youattack && (u.uhp == u.uhpmax) && can_we_zap(u.dx, u.dy, 13)) {
                     dobuzz((int) ZT_SPELL(ZT_MAGIC_MISSILE), 2, u.ux, u.uy, u.dx,
                            u.dy, TRUE);
@@ -2236,8 +2428,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                           : mon_underwater(mdef)    ? "hits"
                                                     : "burns",
                           hittee, !spec_dbon_applies ? '.' : '!');
-            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
-                       && otmp->oprops & ITEM_SIZZLE) {
+            } else if (otmp->oclass == WEAPON_CLASS || otmp == uarms) {
                 pline_The("acidic %s %s %s%c",
                           makesingular(distant_name(otmp, xname)),
                           !spec_dbon_applies        ? "hits"
@@ -2260,8 +2451,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* Sixth basic attack - poison */
     if (attacks(AD_DRST, otmp)) {
         if (realizes_damage) {
-            if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
-            && otmp->oprops & ITEM_VENOM) {
+            if (otmp->oclass == WEAPON_CLASS || otmp == uarms) {
                 pline_The("%s %s %s%c", makesingular(distant_name(otmp, xname)),
                           (resists_poison(mdef) || defended(mdef, AD_DRST))
                               ? "hits"
@@ -2357,7 +2547,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         if (!rn2(12) && !resistant) {
             /* instant disintegration. */
             if (show_instakill)
-                pline_The("deadly blade disintegrates %s!", hittee);
+                pline_The("deadly %s disintegrates %s!", 
+                            is_blade(otmp) ? "blade" : "weapon", hittee);
             if (youdefend) {
                 u.ugrave_arise = (NON_PM - 2); /* no corpse */
                 killer.format = NO_KILLER_PREFIX;
@@ -2398,7 +2589,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         if (realizes_damage) {
             /* currently the only object that uses this
                is the Sword of Annihilation artifact */
-            pline_The("deadly blade %s %s!",
+            pline_The("deadly %s %s %s!", is_blade(otmp) ? "blade" : "weapon",
                       resistant ? "hits" : "partially disintegrates", hittee);
         }
 
@@ -2464,8 +2655,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     pline_The("staff sprays a %s %s at %s!", rndcolor(),
                               (rn2(2) ? "gas" : "mist"), hittee);
                 }
-            } else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
-                      && otmp->oprops & ITEM_SLEEP) {
+            } else if ((youdefend || mdef->mcanmove) &&
+                    (otmp->oclass == WEAPON_CLASS || otmp == uarms)) {
                 pline_The("%s %s %s%c", distant_name(otmp, xname),
                           (resists_sleep(mdef) || defended(mdef, AD_SLEE))
                           ? "hits"
@@ -2515,7 +2706,138 @@ int dieroll; /* needed for Magicbane and vorpal blades */
         }
         return realizes_damage;
     }
+    
+    if (attacks(AD_WATR, otmp)) {
+        if (realizes_damage) {
+            pline_The("wet %s %s %s%c",
+                      is_blade(otmp) ? "blade" : "weapon",
+                      !spec_dbon_applies ? "hits" : "splashes", hittee,
+                      !spec_dbon_applies ? '.' : '!');
+            if (youdefend)
+                *dmgptr += delugehitsu(4);
+            else
+                *dmgptr += delugehitsm(mdef, 4);
+        }
+        return realizes_damage;
+    }
 
+    if (attacks(AD_DREN, otmp)) {
+        if (realizes_damage) {
+            pline_The("magical %s %s %s%c",
+                      is_blade(otmp) ? "blade" : "weapon",
+                      !spec_dbon_applies ? "hits" : "drains", hittee,
+                      !spec_dbon_applies ? '.' : '!');
+            if (youdefend && !rn2(4)) {
+                    drain_en(*dmgptr);
+            } else if (!rn2(4)) {
+                xdrainenergym(mdef, TRUE);
+            }
+        }
+        return realizes_damage;
+    }
+    if (attacks(AD_PSYC, otmp)) {
+        if (realizes_damage) {
+            pline_The("iridescent %s %s %s%c",
+                      is_blade(otmp) ? "blade" : "weapon",
+                      !spec_dbon_applies ? "hits" : "psiblasts", hittee,
+                      !spec_dbon_applies ? '.' : '!');
+            if (youdefend) {
+                if (mindless(youmonst.data)) {
+                    You("are unaffected by the psionic energy!");
+                    *dmgptr = 0;
+                } else if (Blind_telepat || Unblind_telepat) {
+                    *dmgptr *= 2; /* You are more sensitive */
+                    pline("%s locks on to your telepathic mind!", Monnam(magr));
+                }
+                if (*dmgptr && !rn2(4)) {
+                    make_confused(HConfusion + d(3, 4), FALSE);
+                }
+            } else {
+                if (mindless(mdef->data)) {
+                    *dmgptr = 0;
+                    pline("%s is immune to the psychic blast.",
+                          Monnam(mdef));
+                } else if (has_telepathy(mdef)) {
+                    *dmgptr *= 2;
+                    if (!Deaf)
+                        pline("%s cries out in anguish!", Monnam(mdef));
+                }
+                if (*dmgptr > 6)
+                    mdef->mconf = 1;
+            }
+        }
+        return realizes_damage;
+    }
+    
+    if (attacks(AD_SLOW, otmp)) {
+        if (realizes_damage && !rn2(3)) {
+            pline_The("lethargic %s %s %s%c",
+                      is_blade(otmp) ? "blade" : "weapon",
+                      !spec_dbon_applies ? "hits" : "bashes", hittee,
+                      !spec_dbon_applies ? '.' : '!');
+            
+            if (youdefend) {
+                if (!Slow && !defended(&youmonst, AD_SLOW)
+                      && !resists_slow(youmonst.data))
+                    u_slow_down();
+                stop_occupation();
+            } else {
+                if (mdef->mspeed != MSLOW) {
+                    mon_adjust_speed(mdef, -1, (struct obj *) 0);
+                }
+            }
+        }
+        return realizes_damage;
+    }
+
+    if (attacks(AD_FEAR, otmp)) {
+        if (realizes_damage && !rn2(3)) {
+            pline_The("fearsome %s %s %s%c",
+                      is_blade(otmp) ? "blade" : "weapon",
+                      !spec_dbon_applies ? "hits" : "scares", hittee,
+                      !spec_dbon_applies ? '.' : '!');
+
+            if (youdefend) {
+                if (!Afraid && !Fearless)
+                    make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), FALSE);
+                stop_occupation();
+            } else if (!mdef->mflee || mdef->mfleetim) {
+                monflee(mdef, 0, FALSE, TRUE);
+            }
+        }
+        return realizes_damage;
+    }
+
+    if (attacks(AD_WEBS, otmp)) {
+        if (realizes_damage && !rn2(3)) {
+            pline_The("sticky %s %s %s%c",
+                      is_blade(otmp) ? "blade" : "weapon",
+                      !spec_dbon_applies ? "hits" : "entangles", hittee,
+                      !spec_dbon_applies ? '.' : '!');
+            if (youdefend) {
+                if (!t_at(u.ux, u.uy)) {
+                    struct trap *web = maketrap(u.ux, u.uy, WEB);
+                    if (web) {
+                        pline("%s entangles you in a web%s",
+                              Monnam(magr),
+                              is_giant(youmonst.data)
+                              ? ", but you rip through it!"
+                              : webmaker(youmonst.data) ? ", but you easily disentangle yourself."
+                                                        : "!");
+                        dotrap(web, NOWEBMSG);
+                        if (u.usteed && u.utrap)
+                            dismount_steed(DISMOUNT_FELL);
+                    }
+                }
+            } else if (!t_at(mdef->mx, mdef->my)) {
+                struct trap *web = maketrap(mdef->mx, mdef->my, WEB);
+                if (web) {
+                    mintrap(mdef);
+                }
+            }
+        }
+    }
+    
     if (attacks(AD_STUN, otmp) && dieroll <= MB_MAX_DIEROLL) {
         if (dieroll <= MB_MAX_DIEROLL)
             /* Magicbane's special attacks (possibly modifies hittee[]) */
@@ -2544,9 +2866,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
      */
     atmp = &artilist[(unsigned char) otmp->oartifact];
 
-    if (atmp->spfx & (SPFX_DFLAGH | SPFX_DCLAS)) {
-	j = !rn2(10); /* 10% chance of instakill for some artifacts */
+    if (atmp->spfx & (SPFX_DFLAGH | SPFX_DCLAS) || clobbers) {
+        j = !rn2(10); /* 10% chance of instakill for some artifacts */
         k = !rn2(20); /* 5% chance if same weapon is used against the player */
+        
         switch (otmp->oartifact) {
             case ART_WEREBANE:
                 if (youattack && is_were(mdef->data) && j) {
@@ -2576,7 +2899,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               Monnam(magr), mon_nam(mdef));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_giant(youmonst.data),
-                           Race_if(PM_GIANT)) && k) {
+                                                    Race_if(PM_GIANT)) && k) {
                     pline_The("magical spear eviscerates you!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                     /* player returns to their original form if poly'd */
@@ -2584,6 +2907,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     return FALSE;
                 return TRUE;
             case ART_OGRESMASHER:
+            case ART_SHAMBLESTICK: /* Can randomly get AD_CLOB too */
                 if (youattack && is_ogre(mdef->data) && j) {
                     You("crush %s skull!", s_suffix(mon_nam(mdef)));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
@@ -2600,7 +2924,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 } else if (hurtle_distance) {
                     if (youattack) {
                         You("smash %s backwards%s", mon_nam(mdef),
-                            canseemon(mdef) ? exclam(4 * hurtle_distance) : ".");                        mhurtle(mdef, u.dx, u.dy, hurtle_distance);
+                            canseemon(mdef) ? exclam(4 * hurtle_distance) : ".");
+                        mhurtle(mdef, u.dx, u.dy, hurtle_distance);
                     } else if (!youattack && !youdefend) {
                         if (show_instakill)
                             pline("%s smashes %s backwards!", Monnam(magr), mon_nam(mdef));
@@ -2612,7 +2937,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                         /* Update monster's knowledge of your position */
                         magr->mux = u.ux;
                         magr->muy = u.uy;
-                        return TRUE;}
+                        return TRUE;
+                    }
                 } else
                     return FALSE;
                 return TRUE;
@@ -2644,7 +2970,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               Monnam(magr), s_suffix(mon_nam(mdef)));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_orc(youmonst.data),
-                           Race_if(PM_ORC)) && k) {
+                                                    Race_if(PM_ORC)) && k) {
                     You_feel("Orcrist slice deep across your neck!");
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                     /* player returns to their original form if poly'd */
@@ -2657,12 +2983,12 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (!youattack && !youdefend
                            && magr && racial_elf(mdef) && j) {
-                     if (show_instakill)
+                    if (show_instakill)
                         pline("%s slices open %s throat!",
                               Monnam(magr), s_suffix(mon_nam(mdef)));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_elf(youmonst.data),
-                           Race_if(PM_ELF)) && k) {
+                                                    Race_if(PM_ELF)) && k) {
                     You_feel("%s slice deep across your neck!", artiname(otmp->oartifact));
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                     /* player returns to their original form if poly'd */
@@ -2687,7 +3013,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                               Monnam(magr), s_suffix(mon_nam(mdef)));
                     *dmgptr = (2 * mdef->mhp + FATAL_DAMAGE_MODIFIER);
                 } else if (youdefend && maybe_polyd(is_orc(youmonst.data),
-                           Race_if(PM_ORC)) && k) {
+                                                    Race_if(PM_ORC)) && k) {
                     You_feel("%s stab deep into your heart!", artiname(otmp->oartifact));
                     *dmgptr = (2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER);
                 } else
@@ -2710,7 +3036,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     if (mdef->isvecna) {
                         if (show_instakill)
                             pline("%s flares brightly, severely wounding %s!",
-                              artiname(otmp->oartifact), mon_nam(mdef));
+                                  artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr *= 3;
                         return TRUE;
                     } else {
@@ -2761,7 +3087,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                            && magr && is_demon(mdef->data) && j) {
                     if (!is_ndemon(mdef->data)) {
                         if (show_instakill)
-                            pline("%s gravely wounds %s!", 
+                            pline("%s gravely wounds %s!",
                                   artiname(otmp->oartifact), mon_nam(mdef));
                         *dmgptr *= 3;
                         return TRUE;
@@ -2847,8 +3173,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 
             if (youattack && u.uswallow && mdef == u.ustuck)
                 return FALSE;
-            wepdesc = artilist[otmp->oartifact == ART_VORPAL_BLADE 
-                ? ART_VORPAL_BLADE : ART_THIEFBANE].name;
+            wepdesc = artilist[(int) otmp->oartifact].name;
                 
             if (!youdefend) {
                 if (!has_head(mdef->data) || notonhead || u.uswallow) {
@@ -2942,8 +3267,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
             return TRUE;
         }
     }
-
-    if (spec_ability(otmp, SPFX_BLIND) && !rn2(3)) {
+    
+    if (attacks(AD_BLND, otmp) && !rn2(3)) {
         if (!youdefend) {
             if (mdef->mcansee) {
                 pline("%s blinds %s!", The(distant_name(otmp, xname)),
@@ -3019,7 +3344,8 @@ int dieroll; /* needed for Magicbane and vorpal blades */
        
     if (otmp->oartifact == ART_SERPENT_S_TONGUE) {
         otmp->dknown = TRUE;
-        pline_The("twisted blade poisons %s!",
+        pline_The("twisted %s poisons %s!",
+                  is_blade(otmp) ? "blade" : "weapon",
                 youdefend ? "you" : mon_nam(mdef));
         if (youdefend ? how_resistant(POISON_RES) < 25 : resists_poison(mdef)) {
             if (youdefend)
@@ -3070,8 +3396,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 else if (otmp->oartifact == ART_LIFESTEALER)
                     pline_The("massive sword draws the %s from %s!",
                               life, mon_nam(mdef));
-                else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
-                         && otmp->oprops & ITEM_DECAY)
+                else if (otmp->oclass == WEAPON_CLASS || otmp == uarms)
                     pline_The("deadly %s draws the %s from %s!",
                           distant_name(otmp, xname), life,
                           mon_nam(mdef));
@@ -3115,8 +3440,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                 pline_The("%s blade drains your %s!", hcolor(NH_BLACK), life);
             else if (otmp->oartifact == ART_LIFESTEALER)
                 pline_The("massive sword drains your %s!", life);
-            else if ((otmp->oclass == WEAPON_CLASS || otmp == uarms)
-                     && otmp->oprops & ITEM_DECAY)
+            else if (otmp->oclass == WEAPON_CLASS || otmp == uarms)
                 pline_The("deadly %s drains your %s!",
                           distant_name(otmp, xname), life);
             /* The Staff of Aesculapius */
@@ -3140,16 +3464,18 @@ int dieroll; /* needed for Magicbane and vorpal blades */
     /* Chains of Malcanthet */
     if (attacks(AD_PLYS, otmp) && !rn2(5)) {
         if (realizes_damage) {
-            pline_The("slithering chains bind %s!", hittee);
-        }
-        if (youdefend && Free_action) {
-            pline_The("slithering chains cannot seem to keep a hold on you.");
-        } else if (youdefend) {
-            nomul(-4);
-            multi_reason = "bound by the Chains of Malcanthet";
-            nomovemsg = You_can_move_again;
-        } else if (mdef->mcanmove && !has_free_action(mdef)) {
-            paralyze_monst(mdef, rnd(4));
+            if (otmp->oartifact == ART_CHAINS_OF_MALCANTHET)
+                pline_The("slithering chains bind %s!", hittee);
+            else
+                pline_The("%s paralyzes %s!", artiname(otmp->oartifact), hittee);
+                
+            if (youdefend) {
+                nomul(-4);
+                multi_reason = "bound by a paralyzing weapon";
+                nomovemsg = You_can_move_again;
+            } else if (mdef->mcanmove && !has_free_action(mdef)) {
+                paralyze_monst(mdef, rnd(4));
+            }
         }
         return realizes_damage;
     }
@@ -3176,6 +3502,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
                     if (u_teleport_mon(mdef, FALSE) && u_saw_mon
                         && !(canseemon(mdef) || (u.uswallow && u.ustuck == mdef)))
                         pline("%s suddenly disappears!", nambuf);
+                    
                     if (*dmgptr >= mdef->mhp) { /* see hitmu(mhitu.c) */
                         if (mdef->mhp == 1)
                             ++mdef->mhp;
@@ -3661,6 +3988,7 @@ struct obj *obj;
             initedog(mtmp);
             u.uconduct.pets++;
             mtmp->msleeping = 0;
+            newsym(mtmp->mx, mtmp->my);
             break;
         case SUMMON_WATER_ELEMENTAL:
             switch (rnd(10)) {
@@ -3681,6 +4009,7 @@ struct obj *obj;
             initedog(mtmp);
             u.uconduct.pets++;
             mtmp->msleeping = 0;
+            newsym(mtmp->mx, mtmp->my);
             break;
         case LIGHTNING_BOLT: {
             struct obj* pseudo = mksobj(WAN_LIGHTNING, FALSE, FALSE);
@@ -3793,6 +4122,22 @@ struct obj *obj;
             incr_itimeout(&HPasses_walls, (50 + rnd(100)));
             obj->age += HPasses_walls; /* Time begins after phasing ends */
             break;
+        case SUMMONING: {
+            /* Roughly copied from make_sphere */
+            for (int i = 0; i < rn1(7, 4); i++) {
+                mtmp = make_helper(NON_PM, u.ux, u.uy);
+                if (!mtmp) {
+                    pline("But it quickly fades away.");
+                    break;
+                } else {
+                    mtmp->mtame = 10;
+                    /* Same lifetime as reading a spell-card */
+                    mtmp->msummoned = 15 + u.ulevel * 4;
+                    mtmp->uexp = 1;
+                }
+            }
+            break;
+        }
         case SMOKE_CLOUD: {
             coord cc;
             cc.x = u.ux;
@@ -4298,21 +4643,22 @@ long *abil;
         long *abil;
         uchar adtyp;
     } abil2adtyp[] = {
-        { &EFire_resistance, AD_FIRE },
-        { &ECold_resistance, AD_COLD },
-        { &EShock_resistance, AD_ELEC },
-        { &EAntimagic, AD_MAGM },
-        { &EDisint_resistance, AD_DISN },
-        { &EPoison_resistance, AD_DRST },
-        { &ESleep_resistance, AD_SLEE },
-        { &EDrain_resistance, AD_DRLI },
-        { &EStable, AD_CLOB },
-        { &EAcid_resistance, AD_ACID },
-        { &EStone_resistance, AD_STON },
-        { &ESick_resistance, AD_DISE },
-        { &EDeath_resistance, AD_DETH },
-        { &ESonic_resistance, AD_LOUD },
-        { &EStun_resistance, AD_STUN },
+        { &EFire_resistance,    AD_FIRE },
+        { &ECold_resistance,    AD_COLD },
+        { &EShock_resistance,   AD_ELEC },
+        { &EAntimagic,          AD_MAGM },
+        { &EDisint_resistance,  AD_DISN },
+        { &EPoison_resistance,  AD_DRST },
+        { &ESleep_resistance,   AD_SLEE },
+        { &EDrain_resistance,   AD_DRLI },
+        { &EStable,             AD_CLOB },
+        { &EAcid_resistance,    AD_ACID },
+        { &EStone_resistance,   AD_STON },
+        { &ESick_resistance,    AD_DISE },
+        { &EDeath_resistance,   AD_DETH },
+        { &ESonic_resistance,   AD_LOUD },
+        { &EPsychic_resistance, AD_PSYC },
+        { &EStun_resistance,    AD_STUN },
         /* AD_WTHR has no Withering Resistance */
     };
     int k;
@@ -4943,7 +5289,7 @@ artifact_info(int anum)
     
     /* Granted while wielded. */
     if (artilist[anum].defn.adtyp) {
-        Sprintf(buf, "%s resistance", adtyp_str(artilist[anum].defn.adtyp, TRUE));
+        Sprintf(buf, "%s", adtyp_str(artilist[anum].defn.adtyp, TRUE));
         art_info.wield_res = malloc(100);
         strcpy(art_info.wield_res, buf);
     }
@@ -4990,7 +5336,7 @@ artifact_info(int anum)
     }
     /* Granted while carried. */
     if (artilist[anum].cary.adtyp) {
-        Sprintf(buf, "%s resistance", adtyp_str(artilist[anum].cary.adtyp, TRUE));
+        Sprintf(buf, "%s", adtyp_str(artilist[anum].cary.adtyp, TRUE));
         art_info.carr_res = malloc(100);
         strcpy(art_info.carr_res, buf);
     } 
@@ -5032,35 +5378,37 @@ artifact_info(int anum)
     case UNTRAP: art_info.invoke = "Untrap"; break;
     case CHARGE_OBJ: art_info.invoke = "Charge Object"; break;
     case LEV_TELE: art_info.invoke = "Level Teleport"; break;
-    case LIGHT_AREA: art_info.invoke = "Light Area"; break;
     case CREATE_PORTAL: art_info.invoke = "Branchport"; break;
     case ENLIGHTENING: art_info.invoke = "Enlightenment"; break;
-    case SUMMON_FIRE_ELEMENTAL: art_info.invoke = "Summon Fire Elemental"; break;
-    case SUMMON_WATER_ELEMENTAL: art_info.invoke = "Summon Storm Pet"; break;
-    case LIGHTNING_BOLT: art_info.invoke = "Lightning Bolt"; break;
     case CREATE_AMMO: art_info.invoke = "Create Ammo"; break;
+    case FEAR: art_info.invoke = "Cause fear"; break;
     case PHASING: art_info.invoke = "Phasing"; break;
     case CHANNEL: art_info.invoke = "Channel"; break;
     case DEATH_GAZE: art_info.invoke = "Death Gaze"; break;
     case SUMMON_UNDEAD: art_info.invoke = "Summon Undead"; break;
+    case LIGHT_AREA: art_info.invoke = "Light Area"; break;
+    case SUMMON_FIRE_ELEMENTAL: art_info.invoke = "Summon Fire Elemental"; break;
+    case SUMMON_WATER_ELEMENTAL: art_info.invoke = "Summon Storm Pet"; break;
+    case SUMMONING: art_info.invoke = "Summon a horde of spell beings"; break;
+    case LIGHTNING_BOLT: art_info.invoke = "Lightning Bolt"; break;
+    case SEFFECT:
+        switch (anum) {
+            case ART_IMHULLU:
+                art_info.invoke = "Scroll of Air"; break;
+            case ART_DEEP_FREEZE:
+                art_info.invoke = "Scroll of Ice + Freeze Sphere"; break;
+            case ART_FIREWALL:
+                art_info.invoke = "Flame Sphere"; break;
+        }
+        break;
+    case OBJECT_DET: art_info.invoke = "Object Detection"; break;
+    case SMOKE_CLOUD: art_info.invoke = "Smoke Cloud"; break;
     case CONFLICT: art_info.invoke = "Conflict"; break;
     case LEVITATION: art_info.invoke = "Levitation"; break;
     case INVIS: art_info.invoke = "Invisibility"; break;
     case FLYING: art_info.invoke = "Flying"; break;
     case WWALKING: art_info.invoke = "Water Walking"; break;
-    case OBJECT_DET: art_info.invoke = "Object Detection"; break;
-        /*Invoke for water-walking and an earthquake. */
-        
-    case SEFFECT: 
-        switch (anum) {
-        case ART_IMHULLU:
-            art_info.invoke = "Scroll of Air"; break;
-        case ART_DEEP_FREEZE:
-            art_info.invoke = "Scroll of Ice + Freeze Sphere"; break;
-        case ART_FIREWALL:
-            art_info.invoke = "Flame Sphere"; break;
-        }
-        break;
+
     default:
         art_info.invoke = "None"; break;
     }
@@ -5181,62 +5529,39 @@ artifact_info(int anum)
     return art_info;
 }
 
-
-
 const char *
 adtyp_str(adtyp, defend)
 int adtyp;
 boolean defend;
 {
     switch (adtyp) {
-    case AD_FIRE:
-        return "fire";
-    case AD_COLD:
-        return "cold";
-    case AD_ELEC:
-        return "shock";
-    case AD_DRST:
-        return "poison";
-    case AD_MAGM:
-        return defend ? "magic" : "magic missile";
-    case AD_DRLI:
-        return "drain life";
-    case AD_CLOB:
-        return defend ? "clobber" : "extreme stability";
-    case AD_DISE:
-        return "disease";
-    case AD_SLEE:
-        return "sleep";
-    case AD_DISN:
-        return "disintegration";
-    case AD_SLOW:
-        return "slow";
-    case AD_ACID:
-        return "acid";
-    case AD_STON:
-        return "petrification";
-    case AD_PLYS:
-        return defend ? "paralyze" : "free action";
-    case AD_LOUD:
-        return "sonic";
-    case AD_PHYS:
-        return "physical";
-    case AD_WERE:
-        return "lycanthropy";
-    case AD_BLND:
-        return "blinding";
-    case AD_STUN:
-        return defend ? "stun" : "stuns/magic";
-    case AD_DETH:
-        return "death";
-    case AD_DREN:
-        return "drain energy";
-    case AD_WTHR:
-        return "withering";
-    case AD_WIND:
-        return "wind";
-    default:
-        impossible("Bad AD_TYPE!");
+        case AD_ACID: return defend ? "acid resistance" : "acid";
+        case AD_BLND: return defend ? "blinding resistance" : "blinding";
+        case AD_CLOB: return defend ? "extreme stability" : "clobber";
+        case AD_COLD: return defend ? "cold resistance" : "cold";
+        case AD_DETH: return defend ? "death resistance" : "death";
+        case AD_DISE: return defend ? "sickness resistance" : "disease";
+        case AD_DISN: return defend ? "disintegration resistance" : "disintegration";
+        case AD_DREN: return "drain energy";
+        case AD_DRLI: return defend ? "drain resistance" : "drain life";
+        case AD_DRST: return defend ? "poison resistance" : "poison";
+        case AD_ELEC: return defend ? "shock resistance" : "shock";
+        case AD_FEAR: return defend ? "fearlessness" : "fear";
+        case AD_FIRE: return defend ? "fire resistance" : "fire";
+        case AD_LOUD: return defend ? "sonic resistance" : "sonic";
+        case AD_MAGM: return defend ? "magic resistance" : "magic missile";
+        case AD_PHYS: return "physical";
+        case AD_PLYS: return defend ? "free action" : "paralyze";
+        case AD_PSYC: return defend ? "psychic resistance" : "psychic";
+        case AD_SLEE: return defend ? "sleep resistance" : "sleep";
+        case AD_SLOW: return "slow";
+        case AD_STON: return defend ? "petrification resistance" : "petrification";
+        case AD_STUN: return defend ? "stun resistance" : "stuns/magic";
+        case AD_WATR: return "deluge";
+        case AD_WEBS: return "webs";
+        case AD_WERE: return defend ? "lycanthropy resistance" : "lycanthropy";
+        case AD_WTHR: return defend ? "withering resistance" : "withering";
+        default:impossible("adtyp_str: Bad AD_TYPE! [%d]", adtyp);
     }
     return "";
 }

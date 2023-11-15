@@ -725,9 +725,9 @@ static const char * damagetypes[] = {
     "shock",
     "strength poison",
     "acid",
-    "sonic",    /* prev AD_SPC2  */
+    "sonic",
     "water", 
-    "psionic",  /* prev AD_SPC1  */
+    "psionic",
     "blind",
     "stun",
     "slow",
@@ -1195,9 +1195,8 @@ char *usr_text;
         if (skill == 0) {
             /* TODO: We can't use is_bomb(dummy) or is_bomb(&dummy) */
             if ((obj && is_bomb(obj)) ||
-                    (otyp == FIRE_BOMB                               \
-                     || otyp == SONIC_BOMB                              \
-                     || otyp == GAS_BOMB) )
+                    (otyp == FIRE_BOMB || otyp == SONIC_BOMB                              \
+                     || otyp == FLASH_BOMB || otyp == GAS_BOMB))
                 Sprintf(buf, "Thrown bomb using no specific skill.");
             else
                 Sprintf(buf, "%s-handed weapon%s using no weapon skill.",

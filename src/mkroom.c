@@ -806,6 +806,8 @@ morguemon()
 
     if (hd > 8 && i > 85)
         return mkclass(S_VAMPIRE, 0);
+    if (hd > 7 && i > 75 && !rn2(4))
+        return &mons[PM_GRAVE_TROLL];
     if (In_vecna_branch(&u.uz) && hd > 8 && i > 80)
         return &mons[PM_SHADE];
 
@@ -885,13 +887,18 @@ struct permonst *
 guildmon()
 {
     int mtyp, trycnt = 0;
+    int i;
 
     /* Same monsters within a level, different ones between levels */
     do {
         /* We don't want to fill the room with player monsters, ok if it's 
          * a bit sparse. */
+        i = rn2(60) + rn2(3 * level_difficulty());
+        
         if (!rn2(3))
             mtyp = PM_ARCHEOLOGIST + rn2(22); 
+        else if (i > 143)
+            mtyp = PM_XANATHAR;
         else {
             /* They have some pets to help them */
             switch (rn2(5)) {
@@ -1249,6 +1256,7 @@ int xy_flags;
              && (levl[pos->x][pos->y].typ != CORR))
             || ((levl[pos->x][pos->y].typ != ROOM)
               && (levl[pos->x][pos->y].typ != ICE)
+              && (levl[pos->x][pos->y].typ != BRIDGE)
               && (levl[pos->x][pos->y].typ != GRASS)))
             isok = FALSE;
         if ((xy_flags & 4) && (sobj_at(BOULDER, pos->x, pos->y)))
@@ -1561,6 +1569,9 @@ int sym;
         break;
     case S_ice:
         typ = ICE;
+        break;
+    case S_bridge:
+        typ = BRIDGE;
         break;
     case S_grass:
         typ = GRASS;

@@ -1399,7 +1399,7 @@ int
 wishluck()
 {
     /* Don't let this affect the fuzzer */
-    if (iflags.debug_fuzzer)
+    if (iflags.debug_fuzzer || wizard)
         return 0;
     if (u.uconduct.wishes < 2)
         return 0;
