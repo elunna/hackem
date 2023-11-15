@@ -3972,6 +3972,10 @@ register struct obj *otmp, *obj;
         && (obj->oeaten != otmp->oeaten || obj->orotten != otmp->orotten))
         return FALSE;
 
+    if (obj->oclass == SCROLL_CLASS
+        && (obj->corpsenm != NON_PM && obj->corpsenm != otmp->corpsenm))
+        return FALSE;
+    
     if (obj->dknown != otmp->dknown
         || (obj->bknown != otmp->bknown && !Role_if(PM_PRIEST))
         || obj->oeroded != otmp->oeroded 
