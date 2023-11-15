@@ -617,7 +617,7 @@ int expltype;
         }
         if (adtyp == AD_STUN) {
             make_stunned((HStun & TIMEOUT) + (long) damu, FALSE);
-            if (can_blnd(mtmp, &youmonst, AT_EXPL, (struct obj *) 0)) {
+            if (can_blnd((struct monst *) 0, &youmonst, AT_EXPL, (struct obj *) 0)) {
                 if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
                     Your("shaded visor protects you from the flash.");
                 } else if (!Blind) {
