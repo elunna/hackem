@@ -3358,27 +3358,61 @@ static const char *const bigrm_names[] = {
 static const char *const propernames[] = {
         /* beings   */
         "Marduk",   "Moloch",   "Elbereth", "Arioch",
-        /* gods     */
-        "Camaxtli", "Huhetotl", "Quetzalcoatl",
-        "Mitra",    "Crom",     "Set",
-        "Anu",      "Ishtar",   "Anshar",
-        "Athena",   "Hermes",   "Poseidon",
-        "Lugh",     "Brigit",   "Manannan Mac Lir",
-        "Huan Ti",  "Mars",     "Shan Lai Ching",
-        "Mercury",  "Venus",    "Chih Sung-tzu",
-        "Issek",    "Mog",      "Kos",
-        "Susanowo", "Raijin",   "Amaterasu Omikami",
-        "Blind Io", "The Lady", "Offler",
-        "Tyr",      "Odin",     "Loki",
-        "Ptah",     "Thoth",    "Anhur",
-        /* leaders  */
-        "Arthur",   "Neferet",  "Carnarvon",     "Sato",
-        "Pelias",   "Karnov",   "Hippocrates",  "Orion",
-        "Twoflower",    "The Arch Priest",   "The Norn",
-        "The Grand Master",     "The Master of Thieves",
+        
+        /* Role gods and leaders */
+        "Camaxtli", "Huhetotl", "Quetzalcoatl", /* Archeologist */
+        "Carnarvon",
+        "Mitra",    "Crom",     "Set",          /* Barbarian */
+        "Pelias",
+        "Anu",      "Ishtar",   "Anshar",       /* Caveman */
+        "Karnov",
+        "Ilmater", "Grumbar", "_Tymora",	    /* Convict */
+        "Robert the Lifer",
+        "Earth", "Fire", "Ash",                 /* Flame Mage */
+        "High Flame Mage",
+        "Athena",   "Hermes",   "Poseidon",     /* Healer */
+        "Hippocrates",
+        "Air", "Frost", "Smoke",                /* Ice mage */
+        "High Ice Mage",
+        "Archbishop of Moloch",                 /* Infidel */
+        "the Light Side", "the Force", "the Dark Side", /* Jedi */
+        "Jedi Master",
+        "Lugh",     "Brigit",   "Manannan Mac Lir", /* Knight */
+        "Arthur",
+        "Huan Ti",  "Mars",     "Shan Lai Ching",   /* Monk */
+        "The Grand Master",
+        "Johnny", "Spike", "Timmy",             /* Cartomancer */
+        "King of Games",
+        "Nyarlathotep", "Zugguthobal", "Gothuulbe", /* Necromancer */
+        "Dark Lord",
+        "Arch Priest"                           /* Priest */
+        "Davy Jones", "_the deep blue sea", "_the storm", /* Pirate */
+        "Major Cummerbund",
+        "Issek",    "Mog",      "Kos",          /* Rogue */
+        "The Master of Thieves",
+        "Mercury",  "Venus",    "Chih Sung-tzu",/* Ranger */
+        "Orion",
+        "Susanowo", "Raijin",   "Amaterasu Omikami",/* Samurai */
+        "Sato",
+        "Blind Io", "The Lady", "Offler",       /* Tourist */
+        "Twoflower",
+        "Seeker", "Osiris", "Seth",             /* Undead Slayer */
+        "Van Helsing",
+        "Tyr",      "Odin",     "Loki",         /* Valkyrie */
+        "The Norn",
+        "Ptah",     "Thoth",    "Anhur",        /* Wizard */
+        "Neferet",
+        "His Majesty", "His Holiness", "The Commons", /* Yeoman */
+        "Yeoman Warder",
+        
         /* misc     */
-        "The Wizard of Yendor", "The Oracle",
-        "Creosote", "Izchak",   "Vlad",
+        "The Wizard", "The Oracle", "Creosote", "Croesus",
+        "Izchak", "Vlad","Medusa", "Cerberus",
+        "Xanathar", "Kroo", "Aphrodite", "Grund",
+        "Jumbo", "Catoblepas", "Girtab", "Shelob",
+        "Ruggo", "The Largest Giant", "Father Dagon", "Mother Hydra",
+        "Vecna", "One-eyed Sam", "Charon", "Rat King",
+        "Nightmare", "Beholder"
 };
 
 int
