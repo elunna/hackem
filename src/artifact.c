@@ -4123,7 +4123,19 @@ struct obj *obj;
             obj->age += HPasses_walls; /* Time begins after phasing ends */
             break;
         case SUMMONING: {
-            create_critters(rnd(10), (struct permonst *) 0, TRUE);
+            /* Roughly copied from make_sphere */
+            for (int i = 0; i < rn1(7, 4); i++) {
+                mtmp = make_helper(NON_PM, u.ux, u.uy);
+                if (!mtmp) {
+                    pline("But it quickly fades away.");
+                    break;
+                } else {
+                    mtmp->mtame = 10;
+                    /* Same lifetime as reading a spell-card */
+                    mtmp->msummoned = 15 + u.ulevel * 4;
+                    mtmp->uexp = 1;
+                }
+            }
             break;
         }
         case SMOKE_CLOUD: {
