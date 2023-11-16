@@ -3953,6 +3953,10 @@ boolean was_swallowed; /* digestion */
         return FALSE;
     }
     
+    /* Spell-beings can't leave corpses */
+    if (mon->msummoned)
+        return FALSE;
+    
     /* Corpses don't hover in midair in the presence of gravity */
     if (is_open_air(mon->mx, mon->my)) {
         if (cansee(mon->mx, mon->my) && !no_corpse(mdat))
