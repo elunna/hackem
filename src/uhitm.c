@@ -1714,7 +1714,8 @@ int dieroll;
                 case EXPENSIVE_CAMERA:
                     You("succeed in destroying %s.  Congratulations!",
                         ysimple_name(obj));
-                    release_camera_demon(obj, u.ux, u.uy);
+                    if (!Role_if(PM_CARTOMANCER))
+                        release_camera_demon(obj, u.ux, u.uy);
                     useup(obj);
                     return TRUE;
                 case CORPSE: /* fixed by polder@cs.vu.nl */

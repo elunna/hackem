@@ -2755,7 +2755,8 @@ boolean from_invent;
         /* monster breathing isn't handled... [yet?] */
         break;
     case EXPENSIVE_CAMERA:
-        release_camera_demon(obj, x, y);
+        if (!Role_if(PM_CARTOMANCER))
+            release_camera_demon(obj, x, y);
         break;
     case EGG:
         /* breaking your own eggs is bad luck */
@@ -2817,6 +2818,9 @@ struct obj *obj;
         return 1;
     switch (obj->oclass == POTION_CLASS ? POT_WATER : obj->otyp) {
     case EXPENSIVE_CAMERA:
+        if (Role_if(PM_CARTOMANCER))
+            return 0;
+        /* FALLTHROUGH */
     case POT_WATER: /* really, all potions */
     case CREAM_PIE:
     case APPLE_PIE:
