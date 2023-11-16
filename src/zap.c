@@ -3825,8 +3825,8 @@ boolean youattack, allow_cancel_kill, self_cancel;
         if (is_were(mdef->data) && !is_human(mdef->data))
             were_change(mdef);
 
-        if (mdef->data == &mons[PM_CLAY_GOLEM]) {
-            if (canseemon(mdef))
+        if (mdef->data == &mons[PM_CLAY_GOLEM] || mdef->msummoned) {
+            if (canseemon(mdef) && !mdef->msummoned)
                 pline(writing_vanishes, s_suffix(mon_nam(mdef)));
             /* !allow_cancel_kill is for Magicbane, where clay golem
                will be killed somewhere back up the call/return chain... */

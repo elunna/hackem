@@ -1890,7 +1890,7 @@ char *hittee;              /* target's name: "you" or mon_nam(mdef) */
                     You("lose magical energy!");
                 }
             } else {
-                if (mdef->data == &mons[PM_CLAY_GOLEM])
+                if (mdef->data == &mons[PM_CLAY_GOLEM] || mdef->msummoned)
                     mdef->mhp = 1; /* cancelled clay golems will die */
                 if (youattack && attacktype(mdef->data, AT_MAGC)) {
                     u.uenmax++;
