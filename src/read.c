@@ -4403,15 +4403,19 @@ struct obj *sobj;
 int x, y;
 {
     struct monst *mtmp;
+    struct permonst *mptr = (struct permonst *) 0;
     coord cc;
     cc.x = x, cc.y = y;
     
-    if (!is_moncard(sobj))
-        impossible("use_moncard: Non-summon card used! [%d]", sobj->otyp);
-    /* Check isok? */
+    if (sobj->otyp != SCR_CREATE_MONSTER)
+        impossible("use_moncard: Non-SCR_CREATE_MONSTER card used! [%d]", sobj->otyp);
 
-    if (enexto(&cc, x, y, &mons[sobj->corpsenm]))
-        mtmp = makemon(&mons[sobj->corpsenm],  cc.x, cc.y,
+    if (sobj->corpsenm != NON_PM) {
+        mptr = &mons[sobj->corpsenm];
+    }
+    
+    if (enexto(&cc, x, y, mptr))
+        mtmp = makemon(mptr,  cc.x, cc.y,
                        MM_EDOG | NO_MINVENT | MM_NOCOUNTBIRTH);
     if (!mtmp)
         return;
