@@ -2374,13 +2374,17 @@ register struct trobj *origtrop;
             && (obj->otyp == LENSES || obj->otyp == GOGGLES))
             setworn(obj, W_TOOL);
         
-        /* Don't allow gear with object properties
-         * to be start scummed for. One exception! */
+
         if (Role_if(PM_UNDEAD_SLAYER) && Race_if(PM_VAMPIRIC) 
                 && is_suit(obj)) {
             obj->oprops |= ITEM_FIRE;
             obj->oprops_known |= ITEM_FIRE;
+        } else if (Role_if(PM_CARTOMANCER) 
+                && obj->otyp == HAWAIIAN_SHIRT && !rn2(2)) {
+            obj->oprops |= ITEM_STENCH;
+            obj->oprops_known |= ITEM_STENCH;
         }
+        /* Object properties cannot be start scummed for. */
         else
             obj->oprops = obj->oprops_known = 0L;
 
