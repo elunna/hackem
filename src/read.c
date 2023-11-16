@@ -1943,20 +1943,11 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     }
     case SCR_CREATE_MONSTER:
     case SPE_CREATE_MONSTER:
-        if (sobj->corpsenm != NON_PM) {
-            mtmp = makemon(&mons[sobj->corpsenm], u.ux, u.uy,
-                           MM_EDOG | NO_MINVENT | MM_NOCOUNTBIRTH);
-            if (!mtmp)
-                break;
-            if (!scursed) {
-                initedog(mtmp);
-                newsym(mtmp->mx, mtmp->my);
-            }
+        if (is_moncard(sobj)) {
+            use_moncard(sobj, u.ux, u.uy);
             known = TRUE;
-            mtmp->msummoned = 15 + u.ulevel * 4;
             break;
         }
-        
         if (create_critters(1 + ((confused || scursed) ? 12 : 0)
                                 + ((sblessed || rn2(73)) ? 0 : rnd(4)),
                             confused ? &mons[PM_ACID_BLOB]
@@ -4404,5 +4395,35 @@ struct obj *otmp;
     }
     /* Handle burden property */
     otmp->owt = weight(otmp);
+}
+
+void
+use_moncard(sobj, x, y)
+struct obj *sobj;
+int x, y;
+{
+    struct monst *mtmp;
+    coord cc;
+    cc.x = x, cc.y = y;
+    
+    if (!is_moncard(sobj))
+        impossible("use_moncard: Non-summon card used! [%d]", sobj->otyp);
+    /* Check isok? */
+
+    if (enexto(&cc, x, y, &mons[sobj->corpsenm]))
+        mtmp = makemon(&mons[sobj->corpsenm],  cc.x, cc.y,
+                       MM_EDOG | NO_MINVENT | MM_NOCOUNTBIRTH);
+    if (!mtmp)
+        return;
+    if (!sobj->cursed) {
+        initedog(mtmp);
+        newsym(mtmp->mx, mtmp->my);
+    }
+    /* Longer for blessed cards */
+    mtmp->msummoned = 15 + u.ulevel * (sobj->blessed ? 6 : 4);
+    if (canseemon(mtmp)) {
+        pline("%s suddenly appears!", Amonnam(mtmp));
+    }
+    /* useup is taken care of elsewhere! */
 }
 /*read.c*/

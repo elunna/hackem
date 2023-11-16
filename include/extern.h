@@ -2406,6 +2406,8 @@ E boolean NDECL(create_particular);
 E int FDECL(mon_to_zombie, (int));
 E boolean maybe_process_scales(struct obj *, struct obj *);
 E void FDECL(handle_new_property, (struct obj *));
+E void FDECL(use_moncard, (struct obj *, int, int));
+
 /* ### rect.c ### */
 
 E void NDECL(init_rect);

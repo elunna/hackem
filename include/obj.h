@@ -228,6 +228,10 @@ struct obj {
     ((o)->oclass == TOOL_CLASS && objects[(o)->otyp].oc_skill != P_NONE)
         /* towel is not a weptool:  spe isn't an enchantment, cursed towel
            doesn't weld to hand, and twoweapon won't work with one */
+
+
+#define is_moncard(otmp) \
+    (otmp->otyp == SCR_CREATE_MONSTER && otmp->corpsenm != NON_PM)
 #define touches_body(otmp) \
     (  otmp->otyp == PEA_WHISTLE \
     || otmp->otyp == MAGIC_WHISTLE \

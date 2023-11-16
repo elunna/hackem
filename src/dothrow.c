@@ -1417,6 +1417,9 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                         || Hallucination || Fumbling || Afraid);
     boolean tethered_weapon = (obj->otyp == AKLYS && (wep_mask & W_WEP) != 0);
     
+    boolean carding = Role_if(PM_CARTOMANCER) 
+            && obj->otyp == SCR_CREATE_MONSTER;
+    
     /* 5lo: This gets used a lot, so put it here
      * hackem: Updated so that the lightsaber only auto-returns if thrown from
      * the Jedi's primary hand. Otherwise we run into issues later when re-
@@ -1532,7 +1535,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
        will be left with a stale pointer. */
     if (is_bomb(obj))
         arm_bomb(obj, TRUE);
-        
+    
     if (u.uswallow) {
         if (obj == uball) {
             uball->ox = uchain->ox = u.ux;
@@ -1820,7 +1823,12 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
                 d(3, 8), WEAPON_CLASS, EXPL_FIERY);
         thrownobj = (struct obj *) 0;
     }
-    
+
+    if (obj && thrownobj && carding) {
+        use_moncard(obj, bhitpos.x, bhitpos.y);
+        thrownobj = (struct obj *) 0;
+    }
+
     if (!thrownobj) {
         /* missile has already been handled */
         if (tethered_weapon)
@@ -2283,6 +2291,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
        miss(xname(obj), mon);
    } else if (obj->oclass == WEAPON_CLASS 
                || is_weptool(obj)
+               || is_moncard(obj)
                || obj->otyp == SPIKE
                || obj->oclass == GEM_CLASS) {
         if (hmode == HMON_KICKED) {
@@ -2319,6 +2328,11 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
         } else if (obj->otyp == ROCKET) {
             explode(bhitpos.x, bhitpos.y, ZT_SPELL(ZT_FIRE),
                     d(3,8), WEAPON_CLASS, EXPL_FIERY);
+            return 1;
+        } else if (is_moncard(obj)) {
+            use_moncard(obj, bhitpos.x, bhitpos.y);
+            /*useup(obj);*/
+            /*obfree(obj, (struct obj *) 0);*/
             return 1;
         } else { /* thrown non-ammo or applied polearm/grapnel */
             if (otyp == BOOMERANG || obj->otyp == CHAKRAM) /* arbitrary */
