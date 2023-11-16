@@ -270,6 +270,9 @@ found:
     if (Role_if(PM_CARTOMANCER) && paper->oclass == SCROLL_CLASS) {
         You("feel incredibly guilty about forging a card!");
         adjalign(-10);
+        
+        if (u.uevent.qcompleted)
+            call_kops((struct monst *) 0, FALSE);
     }
     
     /* we're really going to write now, so calculate cost

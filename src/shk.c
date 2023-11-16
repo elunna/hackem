@@ -12,7 +12,6 @@
 #define PAY_BROKE (-2)
 
 STATIC_DCL void FDECL(makekops, (coord *));
-STATIC_DCL void FDECL(call_kops, (struct monst *, BOOLEAN_P));
 STATIC_DCL void FDECL(kops_gone, (BOOLEAN_P));
 
 #define NOTANGRY(mon) ((mon)->mpeaceful)
@@ -361,7 +360,7 @@ register struct monst *shkp;
 }
 
 
-STATIC_OVL void
+void
 call_kops(shkp, nearshop)
 register struct monst *shkp;
 register boolean nearshop;
@@ -372,10 +371,7 @@ register boolean nearshop;
     coord mm;
 
     Strcpy(kopname, "Keystone Kops");
-
-    if (!shkp)
-        return;
-
+    
     if (!Deaf)
         pline("An alarm sounds!");
     
@@ -403,8 +399,9 @@ register boolean nearshop;
 
     if (nokops)
         return;
-
-    if (nearshop)
+    
+    /* Also handle kops when the Cartomancer forges cards */
+    if (!shkp || nearshop)
         if (!Is_blackmarket(&u.uz)) {
             /* Create swarm around you, if you merely "stepped out" */
             if (flags.verbose)
