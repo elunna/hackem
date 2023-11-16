@@ -1230,8 +1230,7 @@ struct monst *mtmp;
         struct permonst *pm = 0, *fish = 0;
         int cnt = 1;
         struct monst *mon;
-        boolean known = FALSE;
-
+        boolean known = FALSE;         
         if (!rn2(73))
             cnt += rnd(4);
         if (mtmp->mconf || otmp->cursed)
@@ -1240,6 +1239,10 @@ struct monst *mtmp;
             pm = fish = &mons[PM_ACID_BLOB];
         else if (is_pool(mtmp->mx, mtmp->my))
             fish = &mons[u.uinwater ? PM_GIANT_EEL : PM_CROCODILE];
+        if (is_moncard(otmp)) {
+            pm = &mons[otmp->corpsenm];
+            cnt = 1; /* Same as for player */
+        }
         mreadmsg(mtmp, otmp);
         while (cnt--) {
             /* `fish' potentially gives bias towards water locations;
