@@ -108,8 +108,8 @@ static struct Jitem Cartomancer_items[] = {
     { SACK, "card bag" },
     { OILSKIN_SACK, "waterproof deckbox" },
     { BAG_OF_HOLDING, "professional deckbox" },
-    { BAG_OF_RATS, "tricky card bag" },
-    { BAG_OF_TRICKS, "ratty card bag" },
+    { BAG_OF_RATS, "ratty card bag" },
+    { BAG_OF_TRICKS, "card trick bag" },
 #if 0
     { LUCKSTONE, "lucky card" },
     { HEALTHSTONE, "health insurance card" },
