@@ -2251,6 +2251,8 @@ register struct trobj *origtrop;
                 || (mons[i].geno & G_UNIQ) 
                 || (mons[i].geno & G_NOGEN)));
             obj->corpsenm = i;
+            if (rn2(2))
+                bless(obj);
         }
 
         /* nudist gets no armor */
