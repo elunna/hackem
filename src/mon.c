@@ -3945,7 +3945,7 @@ boolean was_swallowed; /* digestion */
     /* Anything killed while playing as a cartomancer has 
      * a chance of leaving behind a monster card. */
     if (Role_if(PM_CARTOMANCER) && !(mon->data->geno & G_UNIQ)
-        && !mon->mtame && rn2(2)) {
+        && !mon->mtame && !mon->msummoned && rn2(2)) {
         otmp = mksobj(SCR_CREATE_MONSTER, FALSE, FALSE);
         otmp->corpsenm = monsndx(mon->data);
         place_object(otmp, mon->mx, mon->my);
