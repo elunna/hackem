@@ -550,6 +550,10 @@ boolean verbosely; /* usually True; False if caller has given drop message */
         pline("%s %s the %s.", Doname2(obj), otense(obj, "hit"),
               surface(u.ux, u.uy));
 
+    if (is_moncard(obj)) {
+        use_moncard(obj, bhitpos.x, bhitpos.y);
+        return;
+    }
     if (hero_breaks(obj, u.ux, u.uy, BRK_FROM_INV))
         return;
     if (ship_object(obj, u.ux, u.uy, FALSE))
@@ -1232,6 +1236,9 @@ boolean hitsroof;
 
     if (obj->oclass == POTION_CLASS) {
         potionhit(&youmonst, obj, POTHIT_HERO_THROW);
+    } else if (is_moncard(obj)) {
+        use_moncard(obj, bhitpos.x, bhitpos.y);
+        obj = 0; /* it's now gone */
     } else if (breaktest(obj)) {
         int otyp = obj->otyp;
         int blindinc;
@@ -2331,8 +2338,6 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             return 1;
         } else if (is_moncard(obj)) {
             use_moncard(obj, bhitpos.x, bhitpos.y);
-            /*useup(obj);*/
-            /*obfree(obj, (struct obj *) 0);*/
             return 1;
         } else { /* thrown non-ammo or applied polearm/grapnel */
             if (otyp == BOOMERANG || obj->otyp == CHAKRAM) /* arbitrary */
