@@ -552,6 +552,7 @@ boolean verbosely; /* usually True; False if caller has given drop message */
 
     if (is_moncard(obj)) {
         use_moncard(obj, bhitpos.x, bhitpos.y);
+        obfree(obj, (struct obj *) 0);
         return;
     }
     if (hero_breaks(obj, u.ux, u.uy, BRK_FROM_INV))
@@ -1238,7 +1239,7 @@ boolean hitsroof;
         potionhit(&youmonst, obj, POTHIT_HERO_THROW);
     } else if (is_moncard(obj)) {
         use_moncard(obj, bhitpos.x, bhitpos.y);
-        obj = 0; /* it's now gone */
+        obfree(obj, (struct obj *) 0);
     } else if (breaktest(obj)) {
         int otyp = obj->otyp;
         int blindinc;
@@ -1833,6 +1834,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
 
     if (obj && thrownobj && carding) {
         use_moncard(obj, bhitpos.x, bhitpos.y);
+        obfree(obj, (struct obj *) 0);
         thrownobj = (struct obj *) 0;
     }
 
@@ -2338,6 +2340,7 @@ register struct obj *obj; /* thrownobj or kickedobj or uwep */
             return 1;
         } else if (is_moncard(obj)) {
             use_moncard(obj, bhitpos.x, bhitpos.y);
+            obfree(obj, (struct obj *) 0);
             return 1;
         } else { /* thrown non-ammo or applied polearm/grapnel */
             if (otyp == BOOMERANG || obj->otyp == CHAKRAM) /* arbitrary */
