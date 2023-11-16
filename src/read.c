@@ -2023,6 +2023,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     }
     case SPE_SUMMON_UNDEAD: {
         int cnt = 1, oldmulti = multi;
+        struct permonst *pm;
         multi = 0;
 
         if (!rn2(73) && !sobj->blessed) 
@@ -2037,29 +2038,28 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
 
             switch (rn2(10) + 1) {
                 case 1:
-                    mtmp = makemon(mkclass(S_VAMPIRE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    pm = mkclass(S_VAMPIRE, 0);
                     break;
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                    mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                case 2: case 3: case 4: case 5:
+                    pm = mkclass(S_ZOMBIE, 0);
                     break;
-                case 6:
-                case 7:
-                case 8:
-                    mtmp = makemon(mkclass(S_MUMMY, 0), u.ux, u.uy, NO_MM_FLAGS);
+                case 6: case 7: case 8:
+                    pm = mkclass(S_MUMMY, 0);
                     break;
                 case 9:
-                    mtmp = makemon(mkclass(S_GHOST, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    pm = mkclass(S_GHOST, 0);
                     break;
                 case 10:
-                    mtmp = makemon(mkclass(S_WRAITH, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    pm = mkclass(S_WRAITH, 0);
                     break;
                 default:
-                    mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    pm = mkclass(S_ZOMBIE, 0);
                     break;
                 }
+                if (Role_if(PM_CARTOMANCER))
+                    mtmp = make_msummoned(pm, &youmonst, FALSE, u.ux, u.uy);
+                else
+                    mtmp = makemon(pm, u.ux, u.uy, NO_MM_FLAGS);
                 /* WAC Give N a shot at controlling the beasties
                  * (if not cursed <g>).  Check curse status in case
                  * this ever becomes a scroll
@@ -2074,9 +2074,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                         setmangry(mtmp, FALSE);
                 }
                 multi = oldmulti;
-                if (Role_if(PM_CARTOMANCER)) {
-                    mtmp->msummoned = 15 + u.ulevel * 4;
-                }
             }
 
             /* WAC Give those who know command undead a shot at control.
@@ -4403,40 +4400,21 @@ struct obj *otmp;
     otmp->owt = weight(otmp);
 }
 
+/* This handles a scroll of create monster that is keyed to a
+ * specific monster. Used when playing as a cartomancer */
 void
 use_moncard(sobj, x, y)
 struct obj *sobj;
 int x, y;
 {
-    struct monst *mtmp;
-    struct permonst *mptr = (struct permonst *) 0;
-    coord cc;
-    cc.x = x, cc.y = y;
+    struct permonst *pm = sobj->corpsenm == NON_PM
+            ? rndmonst() : &mons[sobj->corpsenm];
     
-    if (sobj->otyp != SCR_CREATE_MONSTER && sobj->otyp != SPE_CREATE_MONSTER)
-        impossible("use_moncard: Non-CREATE_MONSTER item used! [%d]", sobj->otyp);
-    
-    
-    if (sobj->corpsenm != NON_PM) {
-        mptr = &mons[sobj->corpsenm];
-    }
-    
-    if (enexto(&cc, x, y, mptr))
-        mtmp = makemon(mptr,  cc.x, cc.y,
-                       MM_EDOG | NO_MINVENT | MM_NOCOUNTBIRTH);
-    if (!mtmp) {
+    (void) make_msummoned(pm, &youmonst, 
+                          sobj->cursed ? FALSE : TRUE, x, y);
+   
+    if (sobj->oclass == SCROLL_CLASS)
         obfree(sobj, (struct obj *) 0);
-        return;
-    }
-    if (!sobj->cursed) {
-        initedog(mtmp);
-        newsym(mtmp->mx, mtmp->my);
-    }
-    /* Longer for blessed cards */
-    mtmp->msummoned = 15 + u.ulevel * (sobj->blessed ? 6 : 4);
-    if (canseemon(mtmp)) {
-        pline("%s suddenly appears!", Amonnam(mtmp));
-    }
-    obfree(sobj, (struct obj *) 0);
 }
+
 /*read.c*/

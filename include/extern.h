@@ -607,7 +607,7 @@ E void FDECL(free_edog, (struct monst *));
 E void FDECL(initedog, (struct monst *));
 E struct monst *FDECL(make_familiar,
                       (struct obj *, XCHAR_P, XCHAR_P, BOOLEAN_P));
-E struct monst *FDECL(make_helper, (int, XCHAR_P, XCHAR_P));
+E struct monst *FDECL(make_msummoned, (struct permonst *, struct monst *, BOOLEAN_P, XCHAR_P, XCHAR_P));
 E struct monst *NDECL(makedog);
 E void NDECL(update_mlstmv);
 E void NDECL(losedogs);

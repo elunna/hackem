@@ -4125,12 +4125,7 @@ struct obj *obj;
         case SUMMONING: {
             /* Roughly copied from make_sphere */
             for (int i = 0; i < rn1(7, 4); i++) {
-                mtmp = make_helper(NON_PM, u.ux, u.uy);
-                if (mtmp) {
-                    mtmp->mtame = 10;
-                    mtmp->msummoned = 15 + u.ulevel * 4;
-                    mtmp->uexp = 1;
-                }
+                mtmp = make_msummoned((struct permonst *) 0, &youmonst, TRUE, u.ux, u.uy);
             }
             break;
         }

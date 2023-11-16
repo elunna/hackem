@@ -3730,20 +3730,14 @@ boolean neverask, friendly;
         if (!mptr && u.uinwater && enexto(&c, x, y, &mons[PM_GIANT_EEL]))
             x = c.x, y = c.y;
         
-        if (Role_if(PM_CARTOMANCER) && friendly) {
-            mon = make_helper(NON_PM, u.ux, u.uy);
-            if (mon) {
-                mon->mtame = 10;
-                /* Same lifetime as reading a spell-card */
-                mon->msummoned = 15 + u.ulevel * 4;
-                mon->uexp = 1;
-            }
+        if (Role_if(PM_CARTOMANCER)) {
+            /* Without adding a new parameter for the caster/causer of
+             * create critters, we will just use the hero's level to determine
+             * the lifetime. 
+             */
+            mon = make_msummoned(mptr, &youmonst, friendly, u.ux, u.uy);
         } else {
             mon = makemon(mptr, x, y, NO_MM_FLAGS);
-            if (Role_if(PM_CARTOMANCER)) {
-                mon->msummoned = 15 + u.ulevel * 4;
-                mon->uexp = 1;
-            }
         }
         if (mon && canspotmon(mon))
             known = TRUE;

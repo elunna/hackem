@@ -197,9 +197,6 @@ boolean quietly;
         /* if figurine has been named, give same name to the monster */
         if (has_oname(otmp) && !idol)
             mtmp = christen_monst(mtmp, ONAME(otmp));
-    } else if (Role_if(PM_CARTOMANCER)) {
-        /* Spell familiars are spell beings for the cartomancer */
-        mtmp->msummoned = 15 + u.ulevel * 4;
     }
     
     set_malign(mtmp); /* more alignment changes */
@@ -213,29 +210,49 @@ boolean quietly;
     return mtmp;
 }
 
-/* from Slash'EM */
+/* Creates a temporary spell-being monster with a pre-determined
+ * lifetime. Returns the monst struct of the monster created, or
+ * a null pointer if unsuccessful.
+ * 
+ * This being does not generate with items and does not
+ * count toward the monster's birth count, and it does not leave
+ * a corpse or give much XP.
+ * 
+ * The msummoned must start with a lifespan. To determine this
+ * depends on knowing who cast it, so we need to receive the caster.
+ * 
+ * (mnum, caster, tame, x, y)
+ */
 struct monst *
-make_helper(mnum, x, y)
-int mnum;
+make_msummoned(pm, caster, tame, x, y)
+struct permonst *pm;
+struct monst *caster;
+boolean tame;
 xchar x, y;
 {
-    struct permonst *pm;
-    struct monst *mtmp = 0;
+    struct monst *mtmp;
     int trycnt = 100;
-
+    coord cc;
+    cc.x = x, cc.y = y;
     do {
-        if (mnum != NON_PM)
-            pm = &mons[mnum];
-        else
+        if (!pm)
             pm = rndmonst();
-        mtmp = makemon(pm, x, y, MM_EDOG | MM_IGNOREWATER | NO_MINVENT);
+
+        /* MM_IGNOREWATER ? */
+        if (enexto(&cc, x, y, pm))
+            mtmp = makemon(pm, cc.x, cc.y,
+                           MM_EDOG | NO_MINVENT | MM_NOCOUNTBIRTH);
     } while (!mtmp && --trycnt > 0);
 
     if (!mtmp)
         return (struct monst *) 0; /* genocided */
     
-    initedog(mtmp);
-    u.uconduct.pets++;
+    if (tame) {
+        initedog(mtmp);
+        mtmp->mtame = 10;
+        mtmp->uexp = 1; /* You get experience for its kills */
+        u.uconduct.pets++;
+    }
     mtmp->msleeping = 0;
     set_malign(mtmp); /* more alignment changes */
     newsym(mtmp->mx, mtmp->my);
@@ -246,6 +263,15 @@ xchar x, y;
         (void) mon_wield_item(mtmp);
     }
     
+    /* Spell-being lifetime */
+    if (caster == &youmonst)
+        mtmp->msummoned = 15 + u.ulevel * 4;
+    else
+        mtmp->msummoned = 15 + mtmp->m_lev * 4;
+    
+    if (canseemon(mtmp)) {
+        pline("%s suddenly appears!", Amonnam(mtmp));
+    }
     return mtmp;
 }
 

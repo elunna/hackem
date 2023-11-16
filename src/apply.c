@@ -4888,13 +4888,7 @@ struct obj *obj;
                     || obj->otyp == WAN_CREATE_HORDE) {
             /* u.ux,u.uy creates it near you--x,y might create it in rock */
             if (Role_if(PM_CARTOMANCER)) {
-                struct monst *mtmp;
-                mtmp = make_helper(NON_PM, u.ux, u.uy);
-                if (mtmp) {
-                    mtmp->mtame = 10;
-                    mtmp->msummoned = 15 + u.ulevel * 4;
-                    mtmp->uexp = 1;
-                }
+                (void) make_msummoned((struct permonst *) 0, &youmonst, TRUE, u.ux, u.uy);
             } else 
                 (void) makemon((struct permonst *) 0, u.ux, u.uy, NO_MM_FLAGS);
             continue;
