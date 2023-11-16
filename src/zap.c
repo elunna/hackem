@@ -2044,8 +2044,13 @@ int id;
         break;
 
     case SCROLL_CLASS:
-        while (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT)
+        while (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT) {
             otmp->otyp = rnd_class(SCR_ENCHANT_ARMOR, SCR_MAGIC_DETECTION);
+        }
+        if (Role_if(PM_CARTOMANCER)) {
+            You("feel guilty about defacing a card!");
+            adjalign(-5);
+        }
         break;
         
     case SPBOOK_CLASS:
