@@ -1469,7 +1469,7 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
     notonhead = FALSE; /* reset potentially stale value */
     
     if ((cursed_ammo || greased_ammo || Afraid || cursed_launcher 
-        || uwep->otyp == FLINTLOCK) && (u.dx || u.dy) && !rn2(7)) {
+        || (uwep && uwep->otyp == FLINTLOCK)) && (u.dx || u.dy) && !rn2(7)) {
         boolean slipok = TRUE;
 
         if (ammo_and_launcher(obj, uwep)) {
