@@ -4412,9 +4412,11 @@ int x, y;
     
     (void) make_msummoned(pm, &youmonst, 
                           sobj->cursed ? FALSE : TRUE, x, y);
-   
-    if (sobj->oclass == SCROLL_CLASS)
+
+    if (sobj->oclass == SCROLL_CLASS) {
+        obj_extract_self(sobj);
         obfree(sobj, (struct obj *) 0);
+    }
 }
 
 /*read.c*/
