@@ -4416,6 +4416,7 @@ int x, y;
     if (sobj->otyp != SCR_CREATE_MONSTER && sobj->otyp != SPE_CREATE_MONSTER)
         impossible("use_moncard: Non-CREATE_MONSTER item used! [%d]", sobj->otyp);
     
+    
     if (sobj->corpsenm != NON_PM) {
         mptr = &mons[sobj->corpsenm];
     }
@@ -4423,8 +4424,10 @@ int x, y;
     if (enexto(&cc, x, y, mptr))
         mtmp = makemon(mptr,  cc.x, cc.y,
                        MM_EDOG | NO_MINVENT | MM_NOCOUNTBIRTH);
-    if (!mtmp)
+    if (!mtmp) {
+        obfree(sobj, (struct obj *) 0);
         return;
+    }
     if (!sobj->cursed) {
         initedog(mtmp);
         newsym(mtmp->mx, mtmp->my);
@@ -4434,6 +4437,6 @@ int x, y;
     if (canseemon(mtmp)) {
         pline("%s suddenly appears!", Amonnam(mtmp));
     }
-    /* useup is taken care of elsewhere! */
+    obfree(sobj, (struct obj *) 0);
 }
 /*read.c*/
