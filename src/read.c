@@ -1943,7 +1943,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     }
     case SCR_CREATE_MONSTER:
     case SPE_CREATE_MONSTER:
-        if (is_moncard(sobj)) {
+        if (is_moncard(sobj) || (Role_if(PM_CARTOMANCER)
+                && sobj->otyp == SPE_CREATE_MONSTER)) {
             use_moncard(sobj, u.ux, u.uy);
             known = TRUE;
             break;
@@ -1952,7 +1953,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                                 + ((sblessed || rn2(73)) ? 0 : rnd(4)),
                             confused ? &mons[PM_ACID_BLOB]
                                      : (struct permonst *) 0,
-                            FALSE))
+                            FALSE, !scursed))
             known = TRUE;
         /* no need to flush monsters; we ask for identification only if the
          * monsters are not visible
@@ -2009,6 +2010,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             } else if (state == MAKE_EM_HOSTILE) {
                 mtmp->mpeaceful = 0;
             }
+            if (mtmp && Role_if(PM_CARTOMANCER))
+                mtmp->msummoned = 15 + u.ulevel * 4;
         }
         known = TRUE;
         if (Hallucination) {
@@ -2033,46 +2036,49 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         #endif
 
             switch (rn2(10) + 1) {
-            case 1:
-                mtmp = makemon(mkclass(S_VAMPIRE, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            case 6:
-            case 7:
-            case 8:
-                mtmp = makemon(mkclass(S_MUMMY, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            case 9:
-                mtmp = makemon(mkclass(S_GHOST, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            case 10:
-                mtmp = makemon(mkclass(S_WRAITH, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            default:
-                mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            }
-            /* WAC Give N a shot at controlling the beasties
-             * (if not cursed <g>).  Check curse status in case
-             * this ever becomes a scroll
-             */
-            if (mtmp) {
-                if (!sobj->cursed && Role_if(PM_NECROMANCER)) {
-                    if (!resist(mtmp, sobj->oclass, 0, TELL)) {
-                        /* mtmp = tamedog(mtmp, (struct obj *) 0); */
-                        if (tamedog(mtmp, (struct obj *) 0))
-                            You("dominate %s!", mon_nam(mtmp));
-                    }
-                } else
-                    setmangry(mtmp, FALSE);
+                case 1:
+                    mtmp = makemon(mkclass(S_VAMPIRE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                    mtmp = makemon(mkclass(S_MUMMY, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+                case 9:
+                    mtmp = makemon(mkclass(S_GHOST, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+                case 10:
+                    mtmp = makemon(mkclass(S_WRAITH, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+                default:
+                    mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
+                    break;
+                }
+                /* WAC Give N a shot at controlling the beasties
+                 * (if not cursed <g>).  Check curse status in case
+                 * this ever becomes a scroll
+                 */
+                if (mtmp) {
+                    if (!sobj->cursed && Role_if(PM_NECROMANCER)) {
+                        if (!resist(mtmp, sobj->oclass, 0, TELL)) {
+                            if (tamedog(mtmp, (struct obj *) 0))
+                                You("dominate %s!", mon_nam(mtmp));
+                        }
+                    } else
+                        setmangry(mtmp, FALSE);
                 }
                 multi = oldmulti;
+                if (Role_if(PM_CARTOMANCER)) {
+                    mtmp->msummoned = 15 + u.ulevel * 4;
+                }
             }
+
             /* WAC Give those who know command undead a shot at control.
                  * Since spell is area affect, do this after all undead
                  * are summoned
@@ -2227,7 +2233,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             /* could be scroll of create monster, don't set known ...*/
             (void) create_critters(d(1,2), 
                        !scursed ? &mons[PM_YELLOW_LIGHT] 
-                                : &mons[PM_BLACK_LIGHT], TRUE);
+                                : &mons[PM_BLACK_LIGHT], TRUE, !scursed);
         }
         break;
     case SCR_CLONING:
@@ -2351,7 +2357,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (confused) {
             /* could be scroll of create monster, don't set known ...*/
             (void) create_critters(d(1, 3), !scursed ? &mons[PM_WHIRLING_SPHERE]
-                                               : &mons[PM_AIR_ELEMENTAL], TRUE);
+                                               : &mons[PM_AIR_ELEMENTAL], TRUE, !scursed);
             break;
         }
         else if (scursed) {
@@ -2782,7 +2788,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             /* could be scroll of create monster, don't set known ...*/
             (void) create_critters(d(1, 3), 
                                    !scursed ? &mons[PM_FREEZING_SPHERE] 
-                                            : &mons[PM_ICE_ELEMENTAL], TRUE);
+                                            : &mons[PM_ICE_ELEMENTAL], TRUE, !scursed);
             break;
         } else {
             if (!already_known)
@@ -4407,9 +4413,9 @@ int x, y;
     coord cc;
     cc.x = x, cc.y = y;
     
-    if (sobj->otyp != SCR_CREATE_MONSTER)
-        impossible("use_moncard: Non-SCR_CREATE_MONSTER card used! [%d]", sobj->otyp);
-
+    if (sobj->otyp != SCR_CREATE_MONSTER && sobj->otyp != SPE_CREATE_MONSTER)
+        impossible("use_moncard: Non-CREATE_MONSTER item used! [%d]", sobj->otyp);
+    
     if (sobj->corpsenm != NON_PM) {
         mptr = &mons[sobj->corpsenm];
     }

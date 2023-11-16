@@ -1427,7 +1427,7 @@ boolean need_dir;
             if (!rn2(17)) {
                 /* Spew some sewage out */
                 dogushforth(FALSE, TRUE);
-                if (create_critters(rn1(2, 3), &mons[PM_GIANT_COCKROACH], TRUE)) {
+                if (create_critters(rn1(2, 3), &mons[PM_GIANT_COCKROACH], TRUE, FALSE)) {
                     if (!Blind) {
                         if (!Hallucination)
                             pline("Eww! Some cockroaches crawl out of the toilet!");

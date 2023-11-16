@@ -3705,17 +3705,17 @@ int mndx;
 /* used for wand/scroll/spell of create monster */
 /* returns TRUE iff you know monsters have been created */
 boolean
-create_critters(cnt, mptr, neverask)
+create_critters(cnt, mptr, neverask, friendly)
 int cnt;
 struct permonst *mptr; /* usually null; used for confused reading */
-boolean neverask;
+boolean neverask, friendly;
 {
     coord c;
     int x, y;
     struct monst *mon;
     boolean known = FALSE;
     boolean ask = (wizard && !neverask);
-
+    
     while (cnt--) {
         if (ask) {
             if (create_particular()) {
@@ -3729,8 +3729,22 @@ boolean neverask;
            by finding and then specifying another wet location */
         if (!mptr && u.uinwater && enexto(&c, x, y, &mons[PM_GIANT_EEL]))
             x = c.x, y = c.y;
-
-        mon = makemon(mptr, x, y, NO_MM_FLAGS);
+        
+        if (Role_if(PM_CARTOMANCER) && friendly) {
+            mon = make_helper(NON_PM, u.ux, u.uy);
+            if (mon) {
+                mon->mtame = 10;
+                /* Same lifetime as reading a spell-card */
+                mon->msummoned = 15 + u.ulevel * 4;
+                mon->uexp = 1;
+            }
+        } else {
+            mon = makemon(mptr, x, y, NO_MM_FLAGS);
+            if (Role_if(PM_CARTOMANCER)) {
+                mon->msummoned = 15 + u.ulevel * 4;
+                mon->uexp = 1;
+            }
+        }
         if (mon && canspotmon(mon))
             known = TRUE;
     }
@@ -4746,20 +4760,20 @@ int
 bagotricks(bag)
 struct obj *bag;
 {
-    if (!bag || (bag->otyp != BAG_OF_TRICKS && bag->otyp != BAG_OF_RATS)) {
+    struct monst *mtmp;
+    
+    if (!bag || (bag->otyp != BAG_OF_TRICKS 
+              && bag->otyp != BAG_OF_RATS)) {
         impossible("bad bag o' tricks");
     } else if (bag->spe < 1) {
         /* if lootable, reveal charges */
         if (objects[bag->otyp].oc_name_known) 
             bag->known = 1;
         return use_container(&bag, 1, FALSE);
-    } 
-    
-    else {
+    } else {
         boolean gotone = TRUE;
         int cnt;
         int choice = -1;
-        struct monst *mtmp;
         struct obj *otmp = NULL;
 
         consume_obj_charge(bag, TRUE);
@@ -4883,10 +4897,13 @@ struct obj *bag;
             else if (!rn2(23)) 
                 cnt += rn1(7, 1);
             while (cnt-- > 0) {
-                if (makemon(bag->otyp == BAG_OF_TRICKS ?
+                if ((mtmp = makemon(bag->otyp == BAG_OF_TRICKS ?
                       (struct permonst *) 0 : &mons[PM_SEWER_RAT + rn2(2)],
-                       u.ux, u.uy, NO_MM_FLAGS))
+                       u.ux, u.uy, NO_MM_FLAGS))) {
+                    if (mtmp && Role_if(PM_CARTOMANCER))
+                        mtmp->msummoned = 15 + u.ulevel * 4;
                     gotone = TRUE;
+                }
             }
             if (gotone) {
                 if (bag->otyp == BAG_OF_TRICKS)

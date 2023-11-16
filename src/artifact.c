@@ -4126,12 +4126,8 @@ struct obj *obj;
             /* Roughly copied from make_sphere */
             for (int i = 0; i < rn1(7, 4); i++) {
                 mtmp = make_helper(NON_PM, u.ux, u.uy);
-                if (!mtmp) {
-                    pline("But it quickly fades away.");
-                    break;
-                } else {
+                if (mtmp) {
                     mtmp->mtame = 10;
-                    /* Same lifetime as reading a spell-card */
                     mtmp->msummoned = 15 + u.ulevel * 4;
                     mtmp->uexp = 1;
                 }

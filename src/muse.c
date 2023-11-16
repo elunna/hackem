@@ -1196,6 +1196,8 @@ struct monst *mtmp;
             return 0;
         mzapwand(mtmp, otmp, FALSE);
         mon = makemon((struct permonst *) 0, cc.x, cc.y, NO_MM_FLAGS);
+        if (mon && Role_if(PM_CARTOMANCER))
+            mon->msummoned = 15 + mtmp->m_lev * 4;
         if (mon && canspotmon(mon) && oseen)
             makeknown(WAN_CREATE_MONSTER);
         return 2;
@@ -1216,6 +1218,8 @@ struct monst *mtmp;
             if (!enexto(&cc, mtmp->mx, mtmp->my, pm)) 
                 continue;
             mon = makemon(rndmonst(), cc.x, cc.y, NO_MM_FLAGS);
+            if (mon && Role_if(PM_CARTOMANCER))
+                mon->msummoned = 15 + mtmp->m_lev * 4;
             if (mon) 
                 newsym(mon->mx,mon->my);
         }
@@ -1243,6 +1247,8 @@ struct monst *mtmp;
             if (!enexto(&cc, mtmp->mx, mtmp->my, fish))
                 break;
             mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
+            if (mon && Role_if(PM_CARTOMANCER))
+                mon->msummoned = 15 + mtmp->m_lev * 4;
             if (mon && canspotmon(mon))
                 known = TRUE;
         }
@@ -1275,6 +1281,8 @@ struct monst *mtmp;
         mbagmsg(mtmp, otmp);
         otmp->spe--;
         mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
+        if (mon && Role_if(PM_CARTOMANCER))
+            mon->msummoned = 15 + mtmp->m_lev * 4;
         if (mon && canspotmon(mon) && oseen)
             makeknown(otmp->otyp);
         return 2;
@@ -1298,13 +1306,13 @@ struct monst *mtmp;
         /* Pick an elemental time... */
         if (mtmp->mconf) {
             switch(rn2(4)) {
-                case  0: /* Air */
+                case 0: /* Air */
                     pm = &mons[PM_GAS_SPORE];
                     break;
-                case  1: /* Fire */
+                case 1: /* Fire */
                     pm = &mons[PM_FLAMING_SPHERE];
                     break;
-                case  2: /* Water */
+                case 2: /* Water */
                     pm = &mons[PM_FREEZING_SPHERE];
                     break;
                 case  3: /* Earth */
@@ -1320,6 +1328,8 @@ struct monst *mtmp;
             if (!enexto(&cc, mtmp->mx, mtmp->my, fish)) 
                 break;
             mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
+            if (mon && Role_if(PM_CARTOMANCER))
+                mon->msummoned = 15 + mtmp->m_lev * 4;
             if (mon && canspotmon(mon)) 
                 known = TRUE;
         }
@@ -1640,7 +1650,7 @@ struct monst *mtmp;
 #define MUSE_POT_HALLUCINATION  78
 #define MUSE_POT_POLYMORPH_THROW 79
 #define MUSE_POT_OIL            80
-#define MUSE_POT_AMNESIA        81 /* Lethe */
+#define MUSE_POT_AMNESIA        81
 #define MUSE_FROST_HORN         82
 #define MUSE_FIRE_HORN          83
 #define MUSE_HORN_OF_BLASTING   84

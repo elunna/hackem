@@ -197,7 +197,11 @@ boolean quietly;
         /* if figurine has been named, give same name to the monster */
         if (has_oname(otmp) && !idol)
             mtmp = christen_monst(mtmp, ONAME(otmp));
+    } else if (Role_if(PM_CARTOMANCER)) {
+        /* Spell familiars are spell beings for the cartomancer */
+        mtmp->msummoned = 15 + u.ulevel * 4;
     }
+    
     set_malign(mtmp); /* more alignment changes */
     newsym(mtmp->mx, mtmp->my);
 
