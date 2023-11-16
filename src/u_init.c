@@ -529,7 +529,7 @@ static const struct def_skill Skill_Car[] = {
     
     { P_DIVINATION_SPELL, P_EXPERT },
     { P_ENCHANTMENT_SPELL, P_SKILLED },
-    { P_ENCHANTMENT_SPELL, P_SKILLED },
+    { P_NECROMANCY_SPELL, P_SKILLED },
     { P_ESCAPE_SPELL, P_SKILLED },
     { P_MATTER_SPELL, P_SKILLED },
     { P_RIDING, P_EXPERT },         /* Card games on motorcycles. */
