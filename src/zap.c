@@ -6834,6 +6834,8 @@ int osym, dmgtyp;
     /* Potions of invulnerability are... invulnerable */
     if (obj->otyp == POT_INVULNERABILITY)
         return;
+    if (obj->oprops & ITEM_TOUGH)
+        return;
     
     physical_damage = FALSE;
     xresist = skip = 0;
