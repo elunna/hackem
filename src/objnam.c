@@ -1105,7 +1105,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         break;
     case SCROLL_CLASS:
         if (Role_if(PM_CARTOMANCER)) {
-            if (!dknown || obj->corpsenm != NON_PM)
+            if (!nn)
                 Strcpy(buf, Cartomancer_rarity(typ));
             else
                 Strcpy(buf, "card");
