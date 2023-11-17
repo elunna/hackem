@@ -2867,8 +2867,7 @@ dozap()
             current_wand = 0;
         }
         obfree(pseudo, NULL);
-        obj_extract_self(obj);
-        obfree(obj, (struct obj *) 0);
+        useup(obj);
         return 1;
     }
     
