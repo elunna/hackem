@@ -4072,13 +4072,13 @@ tech_heartcards()
                 if (j == SCR_AMNESIA || j == SCR_PUNISHMENT
                     || j == SCR_DESTROY_ARMOR)
                     continue;
-                else if (j == SCR_ZAPPING) /* Too random? */
-                    continue;
                 else if (j == SCR_ENCHANT_WEAPON && !uwep)
                     continue;
                 else if (j == SCR_ENCHANT_WEAPON && uwep && uwep->spe > 5)
                     continue;
             }
+            if (j == SCR_ZAPPING) /* Too random? */
+                continue;
             if (j)
                 break;
         }
