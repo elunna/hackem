@@ -230,7 +230,7 @@ struct monst *caster;
 boolean tame;
 xchar x, y;
 {
-    struct monst *mtmp;
+    struct monst *mtmp = (struct monst *) 0;
     int trycnt = 100;
     coord cc;
     cc.x = x, cc.y = y;
