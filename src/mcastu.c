@@ -1617,7 +1617,7 @@ register struct attack *mattk;
 {
     /* don't print constant stream of curse messages for 'normal'
        spellcasting monsters at range */
-    if (mattk->adtyp >= AD_PSYC)
+    if (mattk->adtyp > AD_STUN)
         return 0;
 
     if (mtmp->mcan) {
@@ -1647,7 +1647,7 @@ register struct attack *mattk;
 {
     /* don't print constant stream of curse messages for 'normal'
        spellcasting monsters at range */
-    if (mattk->adtyp > AD_PSYC)
+    if (mattk->adtyp > AD_STUN)
         return 0;
 
     if (mtmp->mcan) {
