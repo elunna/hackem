@@ -3946,7 +3946,7 @@ boolean was_swallowed; /* digestion */
      * a chance of leaving behind a monster card. */
     if (Role_if(PM_CARTOMANCER) && !(mon->data->geno & G_UNIQ)
           && !mon->mtame && !mon->msummoned && rn2(2)) {
-        switch (rnd(3)) {
+        switch (rnd(2)) {
             case 1: { /* Wand zap card */
                 int otyp;
                 do {
