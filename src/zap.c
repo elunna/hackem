@@ -1912,6 +1912,9 @@ int id;
             if (rn2(100))
                 otmp->otyp = SPE_BLANK_PAPER;
             break;
+        case SCR_ZAPPING:
+            otmp->corpsenm = NON_PM;
+            break;
         case POT_WATER:
         case POT_AMNESIA:
             if (rn2(100))
@@ -2044,7 +2047,8 @@ int id;
         break;
 
     case SCROLL_CLASS:
-        while (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT) {
+        while (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT
+                || otmp->otyp == SCR_ZAPPING) {
             otmp->otyp = rnd_class(SCR_ENCHANT_ARMOR, SCR_MAGIC_DETECTION);
         }
         if (Role_if(PM_CARTOMANCER)) {
