@@ -4105,7 +4105,15 @@ struct obj **sobjp;
         otmp2->quan = 1;
         
         /* Weight could change due to material/type */
-        otmp2->owt = weight(otmp2); 
+        otmp2->owt = weight(otmp2);
+
+        /* cartomancers feel guilty for counterfeiting */
+        if (Role_if(PM_CARTOMANCER) && otmp2->oclass == SCROLL_CLASS) {
+            You("feel incredibly guilty about forging a card!");
+            adjalign(-10);
+            if (u.uevent.qcompleted)
+                call_kops((struct monst *) 0, FALSE);
+        }
         
         obj_extract_self(otmp2);
         (void) hold_another_object(otmp2, "Whoops! %s out of your grasp.",
