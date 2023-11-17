@@ -54,6 +54,7 @@ struct trobj Barbarian[] = {
 };
 static struct trobj Cartomancer[] = {
     { DAGGER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { FEDORA, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { HAWAIIAN_SHIRT, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
     { SHURIKEN, 0, GEM_CLASS, 60, UNDEF_BLESS },
     { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 4, UNDEF_BLESS },
