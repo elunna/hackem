@@ -2660,6 +2660,7 @@ register struct monst *shkp; /* if angry, impose a surcharge */
             divisor *= 3L;
         }
     }
+
     /* adjust for different material */
     if (obj->oclass != RING_CLASS && obj->oclass != AMULET_CLASS) {
         multiplier *= matprices[obj->material];
@@ -4857,6 +4858,10 @@ boolean shk_buying;
 {
     register long tmp = (long) objects[obj->otyp].oc_cost;
 
+    /* Scale summon card price with monster difficulty */
+    if (obj->otyp == SCR_CREATE_MONSTER && obj->corpsenm != NON_PM) {
+        tmp = 10L * mons[obj->corpsenm].difficulty;
+    }
     if (obj->oartifact) {
         tmp = arti_cost(obj);
         if (shk_buying)
