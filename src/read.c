@@ -1941,6 +1941,27 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         update_inventory();
         break;
     }
+    case SCR_ZAPPING: {
+        struct obj *pseudo;
+        if (sobj->corpsenm == NON_PM)
+            impossible("seffects: SCR_WAND_ZAP has no zap type!");
+        
+        pseudo = mksobj(sobj->corpsenm, FALSE, FALSE);
+        pseudo->blessed = pseudo->cursed = 0;
+        pseudo->dknown = pseudo->obroken = 1; /* Don't id it */
+        
+        if (!(objects[pseudo->otyp].oc_dir == NODIR) && !getdir((char *) 0)) {
+            if (!Blind)
+                pline("%s glows and fades.", The(xname(sobj)));
+        } else {
+            current_wand = pseudo;
+            weffects(pseudo);
+            pseudo = current_wand;
+            current_wand = 0;
+        }
+        obfree(pseudo, NULL);
+        break;
+    }
     case SCR_CREATE_MONSTER:
     case SPE_CREATE_MONSTER:
         if (is_moncard(sobj) || (Role_if(PM_CARTOMANCER)

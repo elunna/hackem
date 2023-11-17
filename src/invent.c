@@ -1710,6 +1710,8 @@ register const char *let, *word;
                     && (!is_lightsaber(otmp) || !otmp->lamplit)))
              || (!strcmp(word, "tin")
                  && (otyp != CORPSE || !tinnable(otmp)))
+             || (!strcmp(word, "zap")
+                 && (otmp->oclass == SCROLL_CLASS && otyp != SCR_ZAPPING))
              || (!strcmp(word, "rub")
                  && ((otmp->oclass == TOOL_CLASS && otyp != OIL_LAMP
                       && otyp != MAGIC_LAMP && otyp != LANTERN)

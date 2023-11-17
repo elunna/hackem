@@ -1428,6 +1428,19 @@ struct obj *oldslot; /* for thrown-and-return used with !fixinv */
     boolean carding = Role_if(PM_CARTOMANCER) 
             && obj->otyp == SCR_CREATE_MONSTER;
     
+    /* Handle a thrown effect cards here */
+    if (obj->otyp == SCR_ZAPPING) {
+        struct obj *pseudo = mksobj(obj->corpsenm, FALSE, FALSE);
+        pseudo->blessed = pseudo->cursed = 0;
+        pseudo->dknown = pseudo->obroken = 1; /* Don't id it */
+        current_wand = pseudo;
+        weffects(pseudo);
+        pseudo = current_wand;
+        current_wand = 0;
+        obfree(pseudo, NULL);
+        obfree(obj, (struct obj *) 0);
+        return;
+    }
     /* 5lo: This gets used a lot, so put it here
      * hackem: Updated so that the lightsaber only auto-returns if thrown from
      * the Jedi's primary hand. Otherwise we run into issues later when re-

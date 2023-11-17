@@ -3945,9 +3945,23 @@ boolean was_swallowed; /* digestion */
     /* Anything killed while playing as a cartomancer has 
      * a chance of leaving behind a monster card. */
     if (Role_if(PM_CARTOMANCER) && !(mon->data->geno & G_UNIQ)
-        && !mon->mtame && !mon->msummoned && rn2(2)) {
-        otmp = mksobj(SCR_CREATE_MONSTER, FALSE, FALSE);
-        otmp->corpsenm = monsndx(mon->data);
+          && !mon->mtame && !mon->msummoned && rn2(2)) {
+        switch (rnd(3)) {
+            case 1: { /* Wand zap card */
+                int otyp;
+                do {
+                    otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
+                } while (otyp == WAN_WISHING || otyp == WAN_NOTHING);
+                
+                otmp = mksobj(SCR_ZAPPING, FALSE, FALSE);
+                otmp->corpsenm = otyp;
+                break;
+            }
+            default: /* Monster summon card */
+                otmp = mksobj(SCR_CREATE_MONSTER, FALSE, FALSE);
+                otmp->corpsenm = monsndx(mon->data);
+                break;
+        }
         place_object(otmp, mon->mx, mon->my);
         newsym(mon->mx, mon->my);
         return FALSE;

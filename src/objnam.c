@@ -1117,9 +1117,16 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Strcpy(buf, "scroll");
         if (!dknown)
             break;
-        if (nn && obj->corpsenm != NON_PM) {
+        
+        /* Cartomancer special cards */
+        if (nn && obj->otyp == SCR_CREATE_MONSTER 
+               && obj->corpsenm != NON_PM) {
             Strcat(buf, " - ");
             Strcat(buf, mons[obj->corpsenm].mname);
+        } else if (nn && obj->otyp == SCR_ZAPPING 
+               && obj->corpsenm != NON_PM) {
+            Strcat(buf, " - ");
+            Strcat(buf, OBJ_NAME(objects[obj->corpsenm]));
         } else if (nn) {
             Strcat(buf, " of ");
             Strcat(buf, actualn);
@@ -5175,6 +5182,9 @@ struct obj *no_wish;
     /* obviously don't allow wishing for scrolls of wishing --Amy */
     if (typ == SCR_ACQUIREMENT && !wizard) 
         typ = SCR_BLANK_PAPER;
+
+    if (typ == SCR_ZAPPING)
+        otmp->corpsenm = WAN_WONDER;
     
     /* if player specified a reasonable count, maybe honor it */
     if (cnt > 1 && objects[typ].oc_merge
@@ -5888,6 +5898,8 @@ Cartomancer_rarity(int otyp)
     int price = objects[otyp].oc_cost;
     if (otyp == SCR_CREATE_MONSTER)
         return "summon card";
+    else if (otyp == SCR_ZAPPING)
+        return "zap card";
     else if (price < 60)
         return "common card";
     else if (price < 100)

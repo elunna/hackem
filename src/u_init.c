@@ -1218,6 +1218,7 @@ u_init()
     case PM_CARTOMANCER:
         ini_inv(Cartomancer);
         skill_init(Skill_Car);
+            knows_object(SCR_ZAPPING);
         break;
     case PM_FLAME_MAGE:
         switch (rnd(2)) {                

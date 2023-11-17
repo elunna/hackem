@@ -2709,6 +2709,9 @@ int
 zappable(wand)
 register struct obj *wand;
 {
+    if (wand->otyp == SCR_ZAPPING)
+        return TRUE;
+    
     int wrestchance = (wand->blessed ? 7 : (wand->cursed ? 121 : 23));
     if (wand->spe < 0 || (wand->spe == 0 && rn2(wrestchance)))
         return 0;
@@ -2821,7 +2824,7 @@ struct obj *otmp;
     useup(otmp);
 }
 
-static NEARDATA const char zap_syms[] = { WAND_CLASS, 0 };
+static NEARDATA const char zap_syms[] = { WAND_CLASS, SCROLL_CLASS, 0 };
 
 /* 'z' command (or 'y' if numbed_pad==-1) */
 int
@@ -2837,9 +2840,34 @@ dozap()
         return 0;
     if (!u_handsy())
         return 0;
-
+    
     check_unpaid(obj);
 
+    /* Handle a zapped effect cards here */
+    if (obj->otyp == SCR_ZAPPING) {
+        struct obj *pseudo;
+        if (obj->corpsenm == NON_PM)
+            impossible("seffects: SCR_WAND_ZAP has no zap type!");
+
+        pseudo = mksobj(obj->corpsenm, FALSE, FALSE);
+        pseudo->blessed = pseudo->cursed = 0;
+        pseudo->dknown = pseudo->obroken = 1; /* Don't id it */
+        
+        if (!(objects[pseudo->otyp].oc_dir == NODIR) && !getdir((char *) 0)) {
+            if (!Blind)
+                pline("%s glows and fades.", The(xname(obj)));
+        } else {
+            current_wand = pseudo;
+            weffects(pseudo);
+            pseudo = current_wand;
+            current_wand = 0;
+        }
+        obfree(pseudo, NULL);
+        obj_extract_self(obj);
+        obfree(obj, (struct obj *) 0);
+        return 1;
+    }
+    
     /* zappable addition done by GAN 11/03/86 */
     if (!zappable(obj))
         pline1(nothing_happens);
@@ -4197,7 +4225,9 @@ struct obj *obj;
         obj->otyp = WAN_WONDER;
         disclose = TRUE;
     }
-    if (disclose) {
+    
+    /* This obroken check is a hack so we don't identify scrolls of zapping */
+    if (disclose && !obj->obroken) {
         learnwand(obj);
         if (was_unkn)
             more_experienced(0, 10);
