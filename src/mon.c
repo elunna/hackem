@@ -3943,9 +3943,9 @@ boolean was_swallowed; /* digestion */
     }
     
     /* Anything killed while playing as a cartomancer has 
-     * a chance of leaving behind a monster card. */
+     * a chance of leaving behind a card. */
     if (Role_if(PM_CARTOMANCER) && !(mon->data->geno & G_UNIQ)
-          && !mon->mtame && !mon->msummoned && rn2(2)) {
+          && !mon->mtame && !mon->msummoned && !rn2(3)) {
         switch (rnd(2)) {
             case 1: { /* Wand zap card */
                 int otyp;
