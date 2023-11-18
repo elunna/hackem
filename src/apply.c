@@ -5686,16 +5686,31 @@ struct obj *obj;
                     break;
                 } else if (Hallucination) {
                     You("have an out of body experience.");
+                    break;
+                } else if (Antimagic) {
+                    int dmg = d(8, 6);
+                    /* Magic resistance or half spell damage will
+                       cut this in half */
+                    if (Antimagic || Half_spell_damage) {
+                        shieldeff(u.ux, u.uy);
+                        monstseesu(M_SEEN_MAGR);
+                        dmg /= 2;
+                    }
+                    You_feel("drained...");
+                    u.uhpmax -= dmg / 3 + rn2(5);
+                    losehp(dmg, "touch of death", KILLED_BY_AN);
+                    break;
                 }
+                
                 if (!u.usaving_grace && Luck > 0) {
                     pline("A graceful force intervenes - the hand retreats!");
                     u.usaving_grace = TRUE;
                     break;
                 }
+                
+                /* No protection = dead */
                 Sprintf(killer.name, "the card of Death");
                 killer.format = NO_KILLER_PREFIX;
-                /* They might survive with an amulet of life saving */
-                /* TODO: Enable saving grace, death by damage? */
                 done(DIED);
                 break;
             case 6: /* Judgment */
