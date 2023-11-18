@@ -1215,6 +1215,7 @@ register struct obj *obj;
         if (flags.verbose)
             You("cover it in filth.");
         obj->opoisoned = TRUE;
+        update_inventory();
     }
     if (obj->oclass == FOOD_CLASS) {
         if (flags.verbose)
