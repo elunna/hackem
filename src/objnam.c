@@ -1462,8 +1462,12 @@ char *prefix;
             Strcat(prefix, "rustproof ");
         else if (is_corrodeable(obj))
             Strcat(prefix, "corrodeproof ");
-        else if (is_flammable(obj))
-            Strcat(prefix, "fireproof ");
+        else if (is_flammable(obj)) {
+            if (Role_if(PM_CARTOMANCER) && obj->oclass == SCROLL_CLASS)
+                Strcat(prefix, "sleeved ");
+            else
+                Strcat(prefix, "fireproof ");
+        }
     }
 }
 
@@ -1747,6 +1751,9 @@ unsigned doname_flags;
         if (obj->otyp == POT_FRUIT_JUICE && obj->corpsenm)
             Strcat(bp, " (fermenting)");
         break;
+    case SCROLL_CLASS:
+        add_erosion_words(obj, prefix);
+        break;
     case RING_CLASS:
         add_erosion_words(obj, prefix);
  ring:
@@ -1999,8 +2006,7 @@ struct obj *otmp;
      *  `rknown' ID only matters if xname() will provide the info about it.
      */
     if (otmp->rknown
-        || otmp->oclass == SCROLL_CLASS || otmp->oclass == SPBOOK_CLASS
-        || otmp->oclass == POTION_CLASS)
+        || otmp->oclass == SPBOOK_CLASS || otmp->oclass == POTION_CLASS)
         return FALSE;
     else /* lack of `rknown' only matters for vulnerable objects */
         return (boolean) (is_rustprone(otmp) || is_corrodeable(otmp)

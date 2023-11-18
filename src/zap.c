@@ -5558,11 +5558,14 @@ boolean u_caused;
             continue;
         }
         
-        if (obj->oclass == SCROLL_CLASS 
-            || obj->oclass == SPBOOK_CLASS
-            || (obj->oclass == FOOD_CLASS
-                && obj->otyp == GLOB_OF_GREEN_SLIME)) {
-            if (obj->otyp == SCR_FIRE || obj->otyp == SPE_FIREBALL
+        if (obj->oclass == SCROLL_CLASS || obj->oclass == SPBOOK_CLASS
+            || (obj->oclass == FOOD_CLASS && obj->otyp == GLOB_OF_GREEN_SLIME)) {
+            if (obj->otyp == SCR_FIRE 
+                || obj->otyp == SPE_FLAME_SPHERE
+                || obj->otyp == SPE_FIRE_BOLT
+                || obj->otyp == SPE_FIREBALL
+                   /* Sleeved */
+                || (obj->oclass == SCROLL_CLASS && obj->oerodeproof)
                 || obj_resists(obj, 2, 100))
                 continue;
             scrquan = obj->quan; /* number present */
@@ -6855,12 +6858,15 @@ int osym, dmgtyp;
             skip++;
         break;
     case AD_FIRE:
-        xresist = (how_resistant(FIRE_RES) == 100 && obj->oclass != POTION_CLASS
+        xresist = (how_resistant(FIRE_RES) == 100
+                   && obj->oclass != POTION_CLASS
                    && obj->otyp != GLOB_OF_GREEN_SLIME);
         if (obj->otyp == SCR_FIRE 
             || obj->otyp == SPE_FLAME_SPHERE
             || obj->otyp == SPE_FIRE_BOLT
-            || obj->otyp == SPE_FIREBALL)
+            || obj->otyp == SPE_FIREBALL
+            /* Sleeved */
+            || (obj->oclass == SCROLL_CLASS && obj->oerodeproof))
             skip++;
         if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
             skip++;

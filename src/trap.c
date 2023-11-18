@@ -4351,6 +4351,7 @@ xchar x, y;
         if (obj->otyp == SCR_BLANK_PAPER
             || obj->otyp == SCR_FLOOD
             || obj->otyp == SCR_ICE
+            || obj->oerodeproof /* "sleeved" */
 #ifdef MAIL
             || obj->otyp == SCR_MAIL
 #endif

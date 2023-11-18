@@ -71,10 +71,10 @@ static int NDECL(tech_chargesaber);
 static int NDECL(tech_tumble);
 static int NDECL(tech_sunder);
 static int NDECL(tech_bloodmagic);
-
 static int NDECL(tech_heartcards);
 static int NDECL(tech_cardcombo);
 static int NDECL(tech_cardcardcapture);
+static int NDECL(tech_cardsleeve);
 
 static NEARDATA schar delay;            /* moves left for tinker/energy draw */
 
@@ -148,6 +148,7 @@ STATIC_OVL NEARDATA const char *tech_names[] = {
     "heart of the cards",/* 56 */
     "card combo",       /* 57 */
     "card capture",     /* 58 */
+    "sleeve card",      /* 59 */
     ""
 };
 
@@ -165,6 +166,7 @@ static const struct innate_tech
     },
     car_tech[] = {
         { 1, T_HEART_CARDS, 1 },
+        { 1, T_CARD_SLEEVE, 1 },
         { 5, T_CARD_COMBO, 1 },
         {15, T_CARD_CAPTURE, 1 },
         { 0, 0, 0}
@@ -1268,6 +1270,11 @@ int tech_no;
             res = tech_cardcombo();
             if (res)
                 t_timeout = rn1(1000, 500);
+            break;
+        case T_CARD_SLEEVE:
+            res = tech_cardsleeve();
+            if (res)
+                t_timeout = rn1(500, 500);
             break;
         case T_CARD_CAPTURE:
             res = tech_cardcardcapture();
@@ -4120,6 +4127,22 @@ tech_cardcombo()
         }
     }
     pline("Your combo ends.");
+    return 1;
+}
+
+static NEARDATA const char cards[] = { SCROLL_CLASS, 0 };
+
+int
+tech_cardsleeve()
+{
+    int tech_no = get_tech_no(T_CARD_SLEEVE);
+    struct obj *card;
+    card = getobj(cards, "sleeve");
+    if (!card)
+        return 0;
+    card->oerodeproof = 1;
+    card->rknown = 1;
+    Your("%s is now safely sleeved!", xname(card));
     return 1;
 }
 
