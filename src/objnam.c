@@ -1105,10 +1105,7 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         break;
     case SCROLL_CLASS:
         if (Role_if(PM_CARTOMANCER)) {
-            if (!nn)
-                Strcpy(buf, Cartomancer_rarity(typ));
-            else
-                Strcpy(buf, "card");
+            Strcpy(buf, Cartomancer_rarity(typ));
             if (obj->quan > 1) {
                 Strcat(buf, "s");
                 pluralize = FALSE;
@@ -5904,18 +5901,21 @@ Cartomancer_rarity(int otyp)
     int price = objects[otyp].oc_cost;
     if (otyp == SCR_CREATE_MONSTER)
         return "summon card";
-    else if (otyp == SCR_ZAPPING)
+    if (otyp == SCR_ZAPPING)
         return "zap card";
-    else if (price < 60)
-        return "common card";
-    else if (price < 100)
-        return "uncommon card";
-    else if (price < 200)
-        return "rare card";
-    else if (price < 300)
-        return "legendary card";
-    else
-        return "mythic card";
     
+    /* Don't show the rarity if we have identified the card.
+     * We could, but it takes up inventory real-estate. */
+    if (objects[otyp].oc_name_known)
+        return "card";
+        
+    if (price < 100)
+        return "common card";
+    if (price < 200)
+        return "uncommon card";
+    if (price < 300)
+        return "rare card";
+    return "legendary card";
 }
+
 /*objnam.c*/
