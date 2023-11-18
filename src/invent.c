@@ -3975,7 +3975,8 @@ register struct obj *otmp, *obj;
         return FALSE;
 
     if (obj->oclass == SCROLL_CLASS
-        && (obj->corpsenm != NON_PM && obj->corpsenm != otmp->corpsenm))
+        && ((obj->corpsenm != NON_PM && obj->corpsenm != otmp->corpsenm)
+         || (obj->oerodeproof != otmp->oerodeproof)))
         return FALSE;
     
     if (obj->dknown != otmp->dknown
