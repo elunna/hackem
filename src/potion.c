@@ -4151,11 +4151,11 @@ int *res;
     case FIRE_HORN:
     case HORN_OF_BLASTING:
     case MAGIC_HARP:
-        obj->spe = rn1(5,10); 
+        obj->spe = rn1(5, 10); 
         obj->known = 0;
         break;
     case TINNING_KIT:
-        obj->spe = rn1(30,70);
+        obj->spe = rn1(30, 70);
         obj->known = 0;
         break;
     case CRYSTAL_BALL:
@@ -4168,6 +4168,12 @@ int *res;
         break;
     case LEASH:
         obj->corpsenm = 0;
+        break;
+    default:
+        /* Avoid weird situations with spe/charges, like bags of holding
+         * with charges lingering from bags of tricks */
+        if (!is_chargeable(obj))
+            obj->spe = 0;    
         break;
     }
     
@@ -4233,9 +4239,7 @@ int *res;
         set_wear(obj);
     }
     
-     if ((obj->otyp == BAG_OF_HOLDING || Bad_bag(obj)) 
-          && Has_contents(obj)) {
-        
+     if (Is_mbag(obj) && Has_contents(obj)) {
         /* In the strange case that an upgraded sack has charged... */
         if (Bad_bag(obj))
             explodes = TRUE;

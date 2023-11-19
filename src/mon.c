@@ -2134,7 +2134,6 @@ boolean vismon;
 
     if (!container || !Has_contents(container) || container->olocked)
         return res; /* 0 */
-    /* FIXME: handle cursed bag of holding */
     if ((Is_mbag(container) && container->cursed) || Bad_bag(container))
         return res; /* 0 */
     /* levitating/floating monsters can't reach containers
