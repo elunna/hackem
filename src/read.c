@@ -4241,9 +4241,9 @@ int class_type;
 }
 
 static void do_acquirement() {
-    winid win = create_nhwindow(NHW_MENU);
+    winid win;
     anything any;
-    int i;
+    int i, tries = 0;
     char ch = 'q';
     char item_chars[] = { 'r', '"', ')', '[', '%', '?', '+', '!', '=', '/', '(', '*' };
     menu_item *pick_list = NULL;
@@ -4251,7 +4251,9 @@ static void do_acquirement() {
             "Random item",  "Amulet", "Weapon", "Armor", "Comestible", "Scroll",
             "Spellbook", "Potion", "Ring", "Wand", "Tool", "Gem"
     };
-    
+
+    retry:
+    win = create_nhwindow(NHW_MENU);
     start_menu(win);
     
     for (i = 0; i < (int) sizeof(item_chars); i++) {
@@ -4261,14 +4263,12 @@ static void do_acquirement() {
     }
 
     end_menu(win, "Select a type of item to create:");
-
-    
     if (select_menu(win, PICK_ONE, &pick_list) > 0) {
         ch = pick_list->item.a_char;
         free(pick_list);
     }
     destroy_nhwindow(win);
-
+    
     switch (ch) {
         case 'r': mk_acquired_item(RANDOM_CLASS); break;
         case ')': mk_acquired_item(WEAPON_CLASS); break;
@@ -4282,6 +4282,14 @@ static void do_acquirement() {
         case '/': mk_acquired_item(WAND_CLASS); break;
         case '(': mk_acquired_item(TOOL_CLASS); break;
         case '*': mk_acquired_item(GEM_CLASS); break;
+        default:
+            if (++tries < 5) {
+                pline("Try again.");
+                goto retry;
+            } else {
+                pline1(thats_enough_tries);
+            }
+            break;
     }
 }
 
