@@ -353,8 +353,8 @@
      || (ptr) == &mons[PM_WEREBEAR] \
      || (ptr) == &mons[PM_GRIZZLY_BEAR] \
      || (ptr) == &mons[PM_HELLBEAR] \
+     || (ptr) == &mons[PM_POLAR_BEAR] \
      || (ptr) == &mons[PM_BLACK_BEAR])
-
 # define is_rat(ptr) \
     ((ptr) == &mons[PM_BLACK_RAT] \
      || (ptr) == &mons[PM_ENORMOUS_RAT] \
