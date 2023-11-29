@@ -1319,7 +1319,7 @@ makelevel()
         }
 
         /* Maybe decorate the walls */
-        if (croom->rtype == OROOM && depth(&u.uz) > 1 && !rn2(27))
+        if (croom->rtype == OROOM && depth(&u.uz) > 1 && !rn2(69))
             croom->rtype = ARTROOM;
         
 skip_nonrogue:
