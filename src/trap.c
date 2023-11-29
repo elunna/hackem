@@ -4467,9 +4467,9 @@ xchar x, y;
             if (in_invent)
                 update_inventory();
             return ER_DAMAGED;
-        } else if (obj->otyp != POT_WATER && obj->otyp != POT_OIL) {
+        } else if (obj->otyp != POT_WATER) {
             if (in_invent)
-                Your("%s %s.", ostr, vtense(ostr, "dilute"));
+                pline("Your %s %s.", ostr, vtense(ostr, "dilute"));
 
             obj->odiluted++;
             if (in_invent)
