@@ -2646,6 +2646,7 @@ register struct obj *obj;
         current_container->owt = weight(current_container);
     }
     
+
     /* gold needs this, and freeinv() many lines above may cause
      * the encumbrance to disappear from the status, so just always
      * update status immediately.
@@ -3941,10 +3942,11 @@ boolean *cancelled;
     for (otmp = invent; otmp; otmp = otmp->nobj) {
         if (otmp == box)
             continue;
-        /* skip non-containers; bag of tricks and rats are not eligible if they 
-         * have charges. There is some info leakage here, but these bags are so
-         * easy to identify anyway. */
-        if (!Is_container(otmp) || Bad_bag(otmp))
+        /* skip non-containers; bag of tricks passes Is_container() test,
+           only include it if it isn't known to be a bag of tricks */
+        if (!Is_container(otmp)
+            || ((otmp->otyp == BAG_OF_TRICKS || otmp->otyp == BAG_OF_RATS) && otmp->dknown
+                && objects[otmp->otyp].oc_name_known))
             continue;
         if (!n_conts++)
             hands_available = u_handsy(); /* might issue message */
@@ -3967,7 +3969,9 @@ boolean *cancelled;
             continue;
         /* skip non-containers; bag of tricks passes Is_container() test,
            only include it if it isn't known to be a bag of tricks */
-        if (!Is_container(otmp) || Bad_bag(otmp))
+        if (!Is_container(otmp)
+            || ((otmp->otyp == BAG_OF_TRICKS || otmp->otyp == BAG_OF_RATS) && otmp->dknown
+                && objects[otmp->otyp].oc_name_known))
             continue;
         if (!n_conts++)
             hands_available = u_handsy(); /* might issue message */
@@ -4012,8 +4016,13 @@ boolean allowempty;    /* affects result when box is empty */
 {
     boolean bag = box->otyp == BAG_OF_TRICKS || box->otyp == BAG_OF_RATS;
     
-    /* Uncharged bags of tricks or rats are now acceptable as
-     * a container-to-container destination. */
+    /* undiscovered bag of tricks is acceptable as a container-to-container
+       destination but it can't receive items; it has to be opened in
+       preparation so apply it once before even trying to tip source box */
+    if (targetbox && (targetbox->otyp == BAG_OF_TRICKS || targetbox->otyp == BAG_OF_RATS)) {
+        bagotricks(targetbox);
+        return TIPCHECK_CANNOT;
+    }
 
     /* caveat: this assumes that cknown, lknown, olocked, and otrapped
        fields haven't been overloaded to mean something special for the
