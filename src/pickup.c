@@ -3909,7 +3909,7 @@ boolean *cancelled;
     anything any;
     char buf[BUFSZ];
     menu_item *pick_list = (menu_item *) 0;
-    struct obj dummyobj, *otmp, *obj2;
+    struct obj dummyobj, *otmp;
     boolean hands_available = TRUE, exclude_it;
 
 #if 0   /* [skip potential early return so that menu response is needed
@@ -3959,32 +3959,7 @@ boolean *cancelled;
         add_menu(win, NO_GLYPH, &any, !exclude_it ? otmp->invlet : 0, 0,
                  ATR_NONE, buf, MENU_UNSELECTED);
     }
-    
-    /* TODO: This is just duplicated from above for containers on the floor. 
-     * Maybe refactor to not be copy/paste */
-    for (otmp = level.objects[u.ux][u.uy]; otmp; otmp = obj2) {
-        obj2 = otmp->nexthere;
-        
-        if (otmp == box)
-            continue;
-        /* skip non-containers; bag of tricks passes Is_container() test,
-           only include it if it isn't known to be a bag of tricks */
-        if (!Is_container(otmp)
-            || ((otmp->otyp == BAG_OF_TRICKS || otmp->otyp == BAG_OF_RATS) && otmp->dknown
-                && objects[otmp->otyp].oc_name_known))
-            continue;
-        if (!n_conts++)
-            hands_available = u_handsy(); /* might issue message */
-        /* container-to-container tip requires free hands;
-           exclude container as possible target when known to be locked */
-        exclude_it = !hands_available || (otmp->olocked && otmp->lknown);
-        any = zeroany;
-        any.a_obj = !exclude_it ? otmp : 0;
-        Sprintf(buf, "%s%s (on the floor)", !exclude_it ? "" : "    ", doname(otmp));
-        add_menu(win, NO_GLYPH, &any, !exclude_it ? otmp->invlet : 0, 0,
-                 ATR_NONE, buf, MENU_UNSELECTED);
-    }
-    
+
     Sprintf(buf, "Where to tip the contents of %s", doname(box));
     end_menu(win, buf);
     n = select_menu(win, PICK_ONE, &pick_list);
