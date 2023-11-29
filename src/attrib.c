@@ -475,10 +475,6 @@ void
 change_luck(n)
 register schar n;
 {
-    if (u.uconduct.wishes >= 13) {
-        u.uluck = LUCKMIN;
-        return;
-    }
     u.uluck += n;
     if (u.uluck < 0 && u.uluck < LUCKMIN)
         u.uluck = LUCKMIN;
@@ -524,9 +520,6 @@ set_moreluck()
     else if (stone_luck(TRUE) >= 0)
         u.moreluck = LUCKADD;
     else
-        u.moreluck = -LUCKADD;
-    
-    if (u.uconduct.wishes >= 13)
         u.moreluck = -LUCKADD;
 }
 

@@ -590,8 +590,6 @@ nh_timeout()
         baseluck -= 4;
     if (flags.quest_boon)
         baseluck += 1;
-    if (u.uconduct.wishes)
-        baseluck += wishluck();
     
     if (u.uluck != baseluck) {
         int timeout = 600;

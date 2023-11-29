@@ -193,8 +193,6 @@ boolean resuming;
     if (flags.quest_boon) {
         change_luck(1); /* silent */
     }
-    if (u.uconduct.wishes)
-        change_luck(wishluck());
 
     if (!resuming) { /* new game */
         context.rndencode = rnd(9000);
@@ -1392,27 +1390,6 @@ const char *opts;
         iflags.debug.immediateflips = negated ? FALSE : TRUE;
 #endif
     return;
-}
-
-/* Calculate the "wishing pain" luck penalty for wishes */
-int
-wishluck()
-{
-    /* Don't let this affect the fuzzer */
-    if (iflags.debug_fuzzer || wizard)
-        return 0;
-    if (u.uconduct.wishes < 2)
-        return 0;
-    
-    /* For synchronizing monster spawn rates with wishes */
-    update_monclock();
-    
-    /* Technically we can only get the player to -10, 
-     * so we force them to carry a virtual cursed luckstone. */
-    if (u.uconduct.wishes < 13)
-        return -(u.uconduct.wishes);
-    else
-        return -10;
 }
 
 STATIC_OVL void

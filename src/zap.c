@@ -7452,7 +7452,7 @@ makewish()
     char promptbuf[BUFSZ];
     char bufcpy[BUFSZ];
     struct obj *otmp, nothing;
-    int tries = 0, adjust = 0;
+    int tries = 0;
     int prev_artwish = u.uconduct.wisharti;
 
     promptbuf[0] = '\0';
@@ -7533,14 +7533,7 @@ makewish()
     else
         livelog_printf(LL_WISH | (prev_artwish < u.uconduct.wisharti ? LL_ARTIFACT : 0),
                        "wished for \"%s\"", bufcpy);
-
-    if ((adjust = wishluck())) {
-        if (adjust == -2 || adjust == -10)
-            change_luck(adjust);
-        else
-             change_luck(-1);
-        set_moreluck();
-    }
+    
     if (otmp != &zeroobj) {
         const char
             *verb = ((Is_airlevel(&u.uz) || u.uinwater) ? "slip" : "drop"),
