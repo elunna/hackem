@@ -1130,13 +1130,6 @@ gcrownu()
     }
     update_inventory();
     
-    /* The altar can't handle the transference of all that power! */
-    if (!Is_astralevel(&u.uz)) {
-        pline("The altar cracks in two and is destroyed!");
-        levl[u.ux][u.uy].typ = ROOM;
-        livelog_write_string(LL_ACHIEVE, "cracked an altar in two");
-    }
-    
     /* lastly, confer an extra skill slot/credit beyond the
        up-to-29 you can get from gaining experience levels */
     add_weapon_skill(1);
@@ -2378,14 +2371,6 @@ dosacrifice()
                                    ? artiname(otmp->oartifact)
                                    : an(xname(otmp)),
                                    uhim(), align_gname(u.ualign.type));
-                    
-                    if (!Role_if(PM_INFIDEL) && u.ugifts > 2
-                        && (rnd(100) < (30 + u.ugifts * 5))
-                        && !Is_astralevel(&u.uz)) {
-                        pline("The altar cracks in two and is destroyed!");
-                        levl[u.ux][u.uy].typ = ROOM;
-                        livelog_write_string(LL_ACHIEVE, "cracked an altar in two");
-                    }
 
                     return 1;
                 }
