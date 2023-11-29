@@ -1187,8 +1187,8 @@ struct obj *obj;
     if (non_tameable(mtmp->data))
         return FALSE;
 
-    /* Taming is much harder on the Astral Plane! */
-    if (Is_astralevel(&u.uz) && rn2(10))
+    /* Taming is harder on the Astral Plane! */
+    if (Is_astralevel(&u.uz) && rn2(3))
         return FALSE;
 
     /* No taming in the Black Market! */
