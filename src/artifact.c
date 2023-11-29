@@ -487,12 +487,6 @@ aligntyp alignment; /* target alignment, or A_NONE */
                 if (exist_artifact(SCR_MAGIC_MAPPING, artiname(ART_MARAUDER_S_MAP)))
                     return (struct obj *) 0;
                 continue; /* pirates are not gifted artifacts */
-            } else if (by_align && Role_if(PM_INFIDEL)) {
-                obfree(otmp, (struct obj *) 0);
-                /* No further gifts for Infidels! */
-                if (exist_artifact(KNIFE, artiname(ART_SECESPITA)))
-                    return (struct obj *) 0;
-                continue;
             }
             /* found something to consider for random selection */
             if (a->alignment != A_NONE || u.ugifts > 0) {
