@@ -326,10 +326,7 @@ int x, y;
 {
     register struct engr *ep = engr_at(x, y);
     int sensed = 0;
-
-    /* We're running, we don't want to look at engravings. */
-    if (context.run)
-        return;
+    
         
     /* Sensing an engraving does not require sight,
      * nor does it necessarily imply comprehension (literacy).
@@ -345,6 +342,9 @@ int x, y;
             break;
         case ENGRAVE:
         case HEADSTONE:
+            /* We're running, we don't want to look at engravings. */
+            if (context.run && ep->engr_type == HEADSTONE)
+                return;
             if (!Blind || can_reach_floor(TRUE)) {
                 sensed = 1;
                 pline("%s is engraved here on the %s.", Something,
