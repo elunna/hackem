@@ -931,7 +931,7 @@ int wtcap;
                 && tech_inuse(T_CHI_HEALING)) {
                 u.uen--;
                 heal++;
-		    }
+            }
             if (heal && !(Withering && heal > 0)) {
                 context.botl = TRUE;
                 u.uhp += heal;

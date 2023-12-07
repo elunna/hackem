@@ -102,7 +102,7 @@ static const struct innate {
                  { 0, 0, 0, 0 } },
 
   pir_abil[] = {  { 1, &(HSwimming), "", "" },
-                  { 7, &(HStealth), "stealthy", "" },	/* with cat-like tread ... */
+                  { 7, &(HStealth), "stealthy", "" }, /* with cat-like tread ... */
                   { 11, &(HFast), "quick", "slow" },
                   { 0, 0, 0, 0 } },
 
@@ -500,7 +500,7 @@ boolean parameter; /* So I can't think up of a good name.  So sue me. --KAA */
             else if (parameter)
                 bonchance += otmp->quan;
         }
-	
+
     return sgn((int) bonchance);
 }
 
