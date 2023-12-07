@@ -385,18 +385,12 @@ boolean resuming;
                     }
 #endif
                     
-                    if (u.ukinghill) {
+                    if (pobj = carrying_arti(ART_TREASURY_OF_PROTEUS)) {
                         if (u.protean > 0)
                             u.protean--;
                         else {
-                            for (pobj = invent; pobj; pobj = pobj->nobj)
-                                if (pobj->oartifact == ART_TREASURY_OF_PROTEUS)
-                                    break;
-                            if (!pobj) 
-                                impossible("Treasury not actually in inventory??");
-                            else if (pobj->cobj) {
+                            if (pobj->cobj)
                                 arti_poly_contents(pobj);
-                            }
                             u.protean = rnz(100) + d(3, 10);
                             update_inventory();
                         }

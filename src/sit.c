@@ -412,15 +412,11 @@ rndcurse()
     if (wielding_artifact(ART_MAGICBANE) && rn2(20)) {
         You(mal_aura, "the magic-absorbing staff");
         return;
-    } else if (u.ukinghill && rn2(20)) {
+    }
+    if ((otmp = carrying_arti(ART_TREASURY_OF_PROTEUS)) && rn2(20)) {
    	    You(mal_aura, "the cursed treasure chest");
-        otmp = 0;
-        for (otmp = invent; otmp; otmp = otmp->nobj)
-            if (otmp->oartifact == ART_TREASURY_OF_PROTEUS)
-                break;
-        if (!otmp) 
-            impossible("Treasury not actually in inventory??");
-        else if (otmp->blessed)
+        /* for non-Pirates, it becomes cursed outright */
+        if (otmp->blessed && is_quest_artifact(otmp))
             unbless(otmp);
         else
             curse(otmp);
