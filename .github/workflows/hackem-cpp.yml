@@ -2,7 +2,7 @@ name: HackEM
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ master, dev ]
     tags:
       - '*' # won't work on tags containing /
   pull_request:
