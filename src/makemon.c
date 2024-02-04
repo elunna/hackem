@@ -1710,7 +1710,7 @@ register struct monst *mtmp;
             case PM_GNOLL_WARRIOR:
                 if(!rn2(2)) 
                     (void) mongets(mtmp, ORCISH_HELM);
-                else if (rn2(3))
+                if (rn2(3))
                     (void) mongets(mtmp, SCALE_MAIL);
                 else
                     (void) mongets(mtmp, SPLINT_MAIL);
