@@ -3568,8 +3568,27 @@ gethungry()
         if (HConflict || (EConflict & (~W_ARTI)))
             u.uhunger--;
         /* +0 charged rings don't do anything, so don't affect hunger.
-           Slow digestion cancels move hunger but still causes ring hunger. */
+         * Slow digestion cancels move hunger but still causes ring hunger. 
+         *
+         * [If wearing duplicate rings whose effects don't stack,
+         * should they both consume nutrition, or just one of them?
+         * Two +0 rings of protection are treated as if only one,
+         * but this could apply to most rings.]
+           */
         switch (accessorytime) { /* note: use even cases among 0..19 only */
+        case 0:
+            /* 3.7: if not wearing a ring of slow digestion, obtaining
+               that property from worn armor (white dragon scales/mail)
+               causes the armor to burn nutrition; since it's not
+               actually a ring, we don't check for it on the ring
+               turns; because of that, wearing two (non-slow digestion)
+               rings plus the armor consumes more nutrition that one
+               non-slow digestion ring plus ring of slow digestion */
+            if (Slow_digestion
+                && (!uright || uright->otyp != RIN_SLOW_DIGESTION)
+                && (!uleft || uleft->otyp != RIN_SLOW_DIGESTION))
+                u.uhunger--;
+            break;
         case 4:
             if (uleft && (uleft->spe || !objects[uleft->otyp].oc_charged))
                 u.uhunger--;
