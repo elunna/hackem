@@ -318,6 +318,14 @@ int shotlimit;
                 remove_worn_item(otmp, FALSE);
             oldslot = obj->nobj;
         }
+
+        // If was_thrown flag is set, the item is not in inventory
+        // and thus can't be thrown again. This largely matters
+        // for multishot, returnable projectiles like Windrider.
+        if (otmp->was_thrown) {
+            break;
+        }
+
         freeinv(otmp);
         throwit(otmp, wep_mask, twoweap, oldslot);
     }
