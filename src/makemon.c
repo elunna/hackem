@@ -4295,6 +4295,9 @@ int otyp;
             /* otmp was freed via merging with something else */
             otmp = (struct obj *) 0;
         }
+        else {
+            obfree(otmp, (struct obj *) 0);
+        }
         return spe;
     } else
         otmp = (struct obj *) 0; /* obj wasn't able to get created? */
