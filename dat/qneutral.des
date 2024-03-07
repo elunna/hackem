@@ -83,7 +83,6 @@ LOOP [14]  { MONSTER: ('e', "gas spore"), (08,14) }
 LOOP [15] 	{ MONSTER: ('e', "gas spore"), random }
 LOOP [3]  	{ MONSTER: random, random }
 
-[50%]: MONSTER: ('e', "beholder"), random
 [50%]: MONSTER: ('e', "magical eye"), random
 
 LOOP [2] 	{ [50%]: MONSTER: ('e', "flaming sphere"), random }
