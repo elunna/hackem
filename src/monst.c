@@ -2710,7 +2710,7 @@ NEARDATA struct permonst mons[] = {
         M1_ANIMAL | M1_SWIM | M1_SLITHY | M1_NOLIMBS | M1_ACID | M1_CARNIVORE,
         M2_NOPOLY | M2_HOSTILE | M2_STRONG | M2_NASTY | M2_NEUTER,
         M3_TRAITOR, 0, MH_ILLITHID, 36, CLR_MAGENTA), /* can be mistaken for a purple worm */
-    MON("hellminth", S_WORM,                                       /* Slash'EM */
+    MON("hellminth", S_WORM,
         LVL(3, 16, -1, 0, 0), (G_NOGEN),
         A(ATTK(AT_BITE, AD_PHYS, 2, 6), 
           NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK, NO_ATTK),
