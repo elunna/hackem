@@ -955,11 +955,11 @@ time_t when; /* date+time at end of game */
 	putstr(0, 0, pbuf);
 	Sprintf(pbuf, " Damage Dealt: %d", u.uconduct.damagedealt);
 	putstr(0, 0, pbuf);
-	if (u.uconduct.wishes) {
-		putstr(0, ATR_HEADING, "Wishes Made:");
-		putstr(0, ATR_PREFORM, u.uconduct.wishlist);
-		putstr(NHW_DUMPTXT, 0, "");
-	}
+	//if (u.uconduct.wishes) {
+	//	putstr(0, ATR_HEADING, "Wishes Made:");
+	//	putstr(0, ATR_PREFORM, u.uconduct.wishlist);
+	//	putstr(NHW_DUMPTXT, 0, "");
+	//}
     show_conduct((how >= PANICKED) ? 1 : 2);
     putstr(NHW_DUMPTXT, 0, "");
     show_overview((how >= PANICKED) ? 1 : 2, how);

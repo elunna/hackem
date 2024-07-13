@@ -7415,11 +7415,11 @@ makewish()
                             ? "Oops!  %s away from you!"
                             : "Oops!  %s to the floor!");
 
-		if (hadwish) {
-			Sprintf(u.uconduct.wishlist, "%s\n%s", u.uconduct.wishlist, bufcpy);
-		} else {
-			Sprintf(u.uconduct.wishlist, bufcpy);
-		}
+		//if (hadwish) {
+		//	Sprintf(u.uconduct.wishlist, "%s\n%s", u.uconduct.wishlist, bufcpy);
+		//} else {
+		//	Sprintf(u.uconduct.wishlist, "%s", bufcpy);
+		//}
 #ifdef WISH_TRACKER
          /* write it out to our universal wishtracker file */
         trackwish(bufcpy);
