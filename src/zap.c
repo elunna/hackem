@@ -7415,11 +7415,16 @@ makewish()
                             ? "Oops!  %s away from you!"
                             : "Oops!  %s to the floor!");
 
-		//if (hadwish) {
-		//	Sprintf(u.uconduct.wishlist, "%s\n%s", u.uconduct.wishlist, bufcpy);
-		//} else {
-		//	Sprintf(u.uconduct.wishlist, "%s", bufcpy);
-		//}
+		char bigbuf[512];
+		Sprintf(bigbuf, "wished for %s on turn %ld", bufcpy, moves);
+		if (strlen(bigbuf) + strlen(u.uconduct.wishlist) < 10000) {
+			if (hadwish) {
+				strcat(u.uconduct.wishlist, "\n");
+				strcat(u.uconduct.wishlist, bigbuf);
+			} else {
+				strcpy(u.uconduct.wishlist, bigbuf);
+			}
+		}
 #ifdef WISH_TRACKER
          /* write it out to our universal wishtracker file */
         trackwish(bufcpy);

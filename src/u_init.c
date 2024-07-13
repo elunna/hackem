@@ -40,6 +40,7 @@ struct trobj Archeologist[] = {
     /*{ PICK_AXE, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },*/
     { TINNING_KIT, UNDEF_SPE, TOOL_CLASS, 1, UNDEF_BLESS },
     { TOUCHSTONE, 0, GEM_CLASS, 1, 0 },
+    { SACK, 0, TOOL_CLASS, 1, 0 },
     { 0, 0, 0, 0, 0 }
 };
 struct trobj Barbarian[] = {

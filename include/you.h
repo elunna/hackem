@@ -115,7 +115,7 @@ struct u_conduct {     /* number of times... */
     long uncelibate;   /* interacted with a foocubus */
     long techuse;      /* Used your techniques */
     long shk;       /* Did business with a shopkeeper */
-	char wishlist[1500];
+	char wishlist[10000];
 	int damagedealt;
 	int damagetaken;
     /* genocides already listed at end of game */

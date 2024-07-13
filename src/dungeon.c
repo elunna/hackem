@@ -1681,11 +1681,13 @@ level_difficulty()
     if ((uamul && uamul->otyp == AMULET_OF_DANGER) || using_oprop(ITEM_DANGER)) {
         res += 15;
     }
-    /* Wishes increase difficulty (unless fuzzing) */
-    if (u.uconduct.wishes > 1 && !iflags.debug_fuzzer) {
-        int bump = (u.uconduct.wishes - 1) * 2;
-        res += (bump > 20) ? 20 : bump;
-    }
+	if (u.uconduct.wishes > 2 && !iflags.debug_fuzzer && !wizard) {
+		/* Wishes increase difficulty after the 2nd wish, but by much less than previously */
+		if (u.uconduct.wishes > 1) {
+		    int bump = u.uconduct.wishes - 1;
+		    res += (bump > 20) ? 20 : bump;
+		}
+	}
     return (xchar) res;
 }
 
