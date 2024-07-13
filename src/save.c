@@ -88,6 +88,13 @@ dosave()
         if (multi > 0)
             nomul(0);
     } else {
+		/* make sure an object in inventory isn't bugged with the in_use flag */
+		struct obj *otmp;
+
+	    for (otmp = invent; otmp; otmp = otmp->nobj)
+		    if (otmp->in_use)
+			    otmp->in_use = FALSE;
+
         clear_nhwindow(WIN_MESSAGE);
         pline("Saving...");
 #if defined(UNIX) || defined(VMS) || defined(__EMX__)
