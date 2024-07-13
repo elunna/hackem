@@ -436,7 +436,6 @@ int tlevel;
                 return;
             }
         }
-		int wast = tlevel;
 		if (u.tempulevel) {
 			tlevel = u.tempulevel ? u.tempulevel - tlevel : 0;
 		} else {
