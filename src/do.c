@@ -218,7 +218,7 @@ const char *verb;
                         /* normally we'd use ohitmon() but it can call
                            drop_throw() which calls flooreffects() */
                         damage = dmgval(obj, mtmp);
-                        if (damage_mon(mtmp, damage, AD_PHYS)) {
+                        if (damage_mon(mtmp, damage, AD_PHYS, FALSE)) {
                             if (canspotmon(mtmp))
                                 pline("%s is %s!", Monnam(mtmp),
                                       (nonliving(mtmp->data)
@@ -725,9 +725,9 @@ register struct obj *obj;
         case RIN_WARNING:
             pline_The("sink glows %s for a moment.", hcolor(NH_WHITE));
             break;
-        case RIN_MOOD:
-			pline_The("sink looks groovy.");
-			break;
+        //case RIN_MOOD:
+		//	pline_The("sink looks groovy.");
+		//	break;
         case RIN_TELEPORT_CONTROL:
             pline_The("sink looks like it is being beamed aboard somewhere.");
             break;

@@ -1119,10 +1119,6 @@ struct monst *magr, *mdef;
     if (mdef->mtrapped)
         return FALSE;
 
-    /* can't swallow something if riding / being ridden */
-    if (magr->rider_id || mdef->rider_id)
-        return FALSE;
-
     /* (hypothetical) engulfers who can pass through walls aren't
      limited by rock|trees|bars */
     if ((magr == &youmonst) ? Passes_walls : passes_walls(magr->data))
@@ -2841,7 +2837,7 @@ msickness:
         tmp *= 2; /* Double Damage! */
     }
 
-    if (damage_mon(mdef, tmp, mattk->adtyp)) {
+    if (damage_mon(mdef, tmp, mattk->adtyp, FALSE)) {
         if (m_at(mdef->mx, mdef->my) == magr) { /* see gulpmm() */
             remove_monster(mdef->mx, mdef->my);
             mdef->mhp = 1; /* otherwise place_monster will complain */
@@ -2934,7 +2930,7 @@ int dmg;
 
             dmg += (mdef->mhpmax + 1) / 2;
             
-            if (damage_mon(mdef, dmg, AD_PHYS)) {
+            if (damage_mon(mdef, dmg, AD_PHYS, FALSE)) {
                 if (magr == &youmonst)
                     xkilled(mdef, XKILL_GIVEMSG | XKILL_NOCORPSE);
                 else
@@ -3093,7 +3089,7 @@ struct obj *mwep;
                         if (!rn2(3)) {
                             if (canseemon(magr))
                                 pline("%s staggers from the poison!", Monnam(magr));
-                            damage_mon(magr, rnd(4), AD_DRST);
+                            damage_mon(magr, rnd(4), AD_DRST, FALSE);
                         }
                     } else {
                         if (canseemon(magr))
@@ -3146,7 +3142,7 @@ struct obj *mwep;
                             if (rn2(40)) {
                                 if (canseemon(magr))
                                     pline("%s partially disintegrates!", Monnam(magr));
-                                damage_mon(magr, rnd(4), AD_PHYS);
+                                damage_mon(magr, rnd(4), AD_PHYS, FALSE);
                             } else {
                                 if (canseemon(magr))
                                     pline("%s is disintegrated completely!", Monnam(magr));
@@ -3187,12 +3183,12 @@ struct obj *mwep;
                         if (!rn2(3)) {
                             if (canseemon(magr))
                                 pline("%s flinches from the cold!", Monnam(magr));
-                            damage_mon(magr, rnd(4), AD_COLD);
+                            damage_mon(magr, rnd(4), AD_COLD, FALSE);
                         }
                     } else {
                         if (canseemon(magr))
                             pline("%s is frozen solid!", Monnam(magr));
-                        damage_mon(magr, d(6, 6), AD_COLD);
+                        damage_mon(magr, d(6, 6), AD_COLD, FALSE);
                     }
                     if (magr->mhp < 1) {
                         if (canseemon(magr))
@@ -3209,12 +3205,12 @@ struct obj *mwep;
                         if (!rn2(3)) {
                             if (canseemon(magr))
                                 pline("%s is burned!", Monnam(magr));
-                            damage_mon(magr, rnd(4), AD_FIRE);
+                            damage_mon(magr, rnd(4), AD_FIRE, FALSE);
                         }
                     } else {
                         if (canseemon(magr))
                             pline("%s is severely burned!", Monnam(magr));
-                        damage_mon(magr, d(6, 6), AD_FIRE);
+                        damage_mon(magr, d(6, 6), AD_FIRE, FALSE);
                     }
                     if (magr->mhp < 1) {
                         if (canseemon(magr))
@@ -3231,12 +3227,12 @@ struct obj *mwep;
                         if (!rn2(3)) {
                             if (canseemon(magr))
                                 pline("%s is seared!", Monnam(magr));
-                            damage_mon(magr, rnd(4), AD_ACID);
+                            damage_mon(magr, rnd(4), AD_ACID, FALSE);
                         }
                     } else {
                         if (canseemon(magr))
                             pline("%s is critically seared!", Monnam(magr));
-                        damage_mon(magr, d(6, 6), AD_ACID);
+                        damage_mon(magr, d(6, 6), AD_ACID, FALSE);
                     }
                     if (magr->mhp < 1) {
                         if (canseemon(magr))
@@ -3252,12 +3248,12 @@ struct obj *mwep;
                         if (!rn2(3)) {
                             if (canseemon(magr))
                                 pline("%s gets zapped!", Monnam(magr));
-                            damage_mon(magr, rnd(4), AD_ELEC);
+                            damage_mon(magr, rnd(4), AD_ELEC, FALSE);
                         }
                     } else {
                         if (canseemon(magr))
                             pline("%s is jolted with electricity!", Monnam(magr));
-                        damage_mon(magr, d(2, 24), AD_ELEC);
+                        damage_mon(magr, d(2, 24), AD_ELEC, FALSE);
                     }
                     if (magr->mhp < 1) {
                         if (canseemon(magr))
@@ -3274,12 +3270,12 @@ struct obj *mwep;
                         if (!rn2(3)) {
                             if (canseemon(magr))
                                 pline("%s gets blasted by noise!", Monnam(magr));
-                            damage_mon(magr, rnd(6), AD_LOUD);
+                            damage_mon(magr, rnd(6), AD_LOUD, FALSE);
                         }
                     } else {
                         if (canseemon(magr))
                             pline("%s is sonically assaulted!", Monnam(magr));
-                        damage_mon(magr, d(2, 16), AD_LOUD);
+                        damage_mon(magr, d(2, 16), AD_LOUD, FALSE);
                     }
                     if (magr->mhp < 1) {
                         if (canseemon(magr))
@@ -3301,7 +3297,7 @@ struct obj *mwep;
                             }
                         } else {
                             int xtmp = d(2, 6);
-                            damage_mon(magr, xtmp, AD_DRLI);
+                            damage_mon(magr, xtmp, AD_DRLI, FALSE);
                             mon_losexp(magr, xtmp, FALSE);
                         }
                     }
@@ -3692,7 +3688,7 @@ struct obj *mwep;
         tmp = 0;
 
  assess_dmg:
-    if (damage_mon(magr, tmp, (int) mdattk[i].adtyp)) {
+    if (damage_mon(magr, tmp, (int) mdattk[i].adtyp, FALSE)) {
         if (mdef->uexp)
             mon_xkilled(magr, "", (int) mdattk[i].adtyp);
         else

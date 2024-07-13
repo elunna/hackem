@@ -1131,8 +1131,9 @@ gcrownu()
     update_inventory();
     
     /* The altar can't handle the transference of all that power! */
-    pline("The altar cracks in two and is destroyed!");
-    levl[u.ux][u.uy].typ = ROOM;
+	//no one liked altar destruction
+//    pline("The altar cracks in two and is destroyed!");
+//    levl[u.ux][u.uy].typ = ROOM;
     
     
     /* lastly, confer an extra skill slot/credit beyond the
@@ -1892,7 +1893,8 @@ dosacrifice()
                     pline(
                     "The blood floods the altar, which vanishes in %s cloud!",
                           an(hcolor(NH_BLACK)));
-                    levl[u.ux][u.uy].typ = ROOM;
+					//no one liked altar destruction
+                    //levl[u.ux][u.uy].typ = ROOM;
                     levl[u.ux][u.uy].altarmask = 0;
                     newsym(u.ux, u.uy);
                     angry_priest();
@@ -2336,8 +2338,7 @@ dosacrifice()
             /* you were already in pretty good standing */
             /* The player can gain an artifact */
             /* The chance goes down as the number of artifacts goes up */
-            if (u.ulevel > 2 && u.uluck >= 0
-                && !rn2(10 + (2 * u.ugifts * u.ugifts))) {
+            if (u.ulevel > 2 && u.uluck >= 0 && !rn2(10 + (2 * u.ugifts * u.ugifts))) { //The difficulty gets really high at order n-squared so the altar destruction doesn't really have to be a limiting factor anyway.
                 otmp = mk_artifact((struct obj *) 0, a_align(u.ux, u.uy));
                 if (otmp) {
                     if (otmp->spe < 0)
@@ -2370,11 +2371,11 @@ dosacrifice()
                         makeknown(otmp->otyp);
                         discover_artifact(otmp->oartifact);
                     }
-                    if (!Role_if(PM_INFIDEL) && u.ugifts > 2
-                        && (rnd(6 + u.ugifts) <= u.ugifts)) {
-                        pline("The altar cracks in two and is destroyed!");
-                        levl[u.ux][u.uy].typ = ROOM;
-                    }
+					//no one liked altar destruction
+//                    if (!Role_if(PM_INFIDEL) && u.ugifts > 2 && (rnd(6 + u.ugifts) <= u.ugifts)) {
+//                      pline("The altar cracks in two and is destroyed!");
+//                    levl[u.ux][u.uy].typ = ROOM;
+//                    }
                     livelog_printf(LL_DIVINEGIFT | LL_ARTIFACT,
                                    "had %s bestowed upon %s by %s",
                                    otmp->oartifact

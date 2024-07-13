@@ -73,7 +73,7 @@ static struct save_procs {
 #endif
 
 /* need to preserve these during save to avoid accessing freed memory */
-static unsigned ustuck_id = 0, usteed_id = 0, fearedmon_id = 0;
+static unsigned ustuck_id = 0, usteed_id = 0;
 static struct obj *looseball = (struct obj *) 0;  /* track uball during save and... */
 static struct obj *loosechain = (struct obj *) 0; /* track uchain since saving might free it */
 
@@ -179,17 +179,12 @@ dosave0()
 
     vision_recalc(2); /* shut down vision to prevent problems
                          in the event of an impossible() call */
-    
+
     /* undo date-dependent luck adjustments made at startup time */
     if (flags.moonphase == FULL_MOON) /* ut-sally!fletcher */
         change_luck(-1);              /* and unido!ab */
     if (flags.friday13)
         change_luck(1);
-    if (flags.quest_boon)
-        change_luck(-1);
-    if (u.uconduct.wishes)
-        change_luck(-wishluck());
-    
     if (iflags.window_inited)
         HUP clear_nhwindow(WIN_MESSAGE);
 
@@ -234,7 +229,6 @@ dosave0()
     store_plname_in_file(fd);
     ustuck_id = (u.ustuck ? u.ustuck->m_id : 0);
     usteed_id = (u.usteed ? u.usteed->m_id : 0);
-    fearedmon_id = (u.fearedmon ? u.fearedmon->m_id : 0);
     /* savelev() might save uball and uchain, releasing their memory if
        FREEING, so we need to check their status now; if hero is swallowed,
        uball and uchain will persist beyond saving map floor and inventory
@@ -259,8 +253,7 @@ dosave0()
      */
     u.ustuck = (struct monst *) 0;
     u.usteed = (struct monst *) 0;
-    u.fearedmon = (struct monst *) 0;
-    
+
     for (ltmp = (xchar) 1; ltmp <= maxledgerno(); ltmp++) {
         if (ltmp == ledger_no(&uz_save))
             continue;
@@ -366,16 +359,12 @@ register int fd, mode;
     bwrite(fd, (genericptr_t) &quest_status, sizeof quest_status);
     bwrite(fd, (genericptr_t) spl_book,
            sizeof(struct spell) * (MAXSPELL + 1));
-    bwrite(fd, (genericptr_t) tech_list,
-			sizeof(struct tech) * (MAXTECH + 1));
     save_artifacts(fd);
     save_oracles(fd, mode);
     if (ustuck_id)
         bwrite(fd, (genericptr_t) &ustuck_id, sizeof ustuck_id);
     if (usteed_id)
         bwrite(fd, (genericptr_t) &usteed_id, sizeof usteed_id);
-    if (fearedmon_id)
-        bwrite(fd, (genericptr_t) &fearedmon_id, sizeof fearedmon_id);
     bwrite(fd, (genericptr_t) pl_character, sizeof pl_character);
     bwrite(fd, (genericptr_t) pl_fruit, sizeof pl_fruit);
     savefruitchn(fd, mode);
@@ -473,7 +462,6 @@ savestateinlock()
 
             ustuck_id = (u.ustuck ? u.ustuck->m_id : 0);
             usteed_id = (u.usteed ? u.usteed->m_id : 0);
-            fearedmon_id = (u.fearedmon ? u.fearedmon->m_id : 0);
             /* if ball and/or chain aren't on floor or in invent, keep a copy
                of their pointers; not valid when on floor or in invent */
             looseball = BALL_IN_MON ? uball : 0;
@@ -1258,7 +1246,6 @@ register struct monst *mtmp;
                 context.polearm.hitmon = NULL;
             }
             mtmp->nmon = NULL;  /* nmon saved into mtmp2 */
-            
             dealloc_monst(mtmp);
         }
         mtmp = mtmp2;

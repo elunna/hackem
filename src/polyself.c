@@ -1785,7 +1785,7 @@ dogaze()
                     if (lev > rn2(25))
                         (void) destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
                     if (dmg)
-                        damage_mon(mtmp, dmg, AD_FIRE);
+                        damage_mon(mtmp, dmg, AD_FIRE, FALSE);
                     if (DEADMONSTER(mtmp))
                         killed(mtmp);
                 } else if (adtyp == AD_COLD) {
@@ -1799,7 +1799,7 @@ dogaze()
                     }
                     if (lev > rn2(20))
                         (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
-                    if (damage_mon(mtmp, dmg, AD_COLD))
+                    if (damage_mon(mtmp, dmg, AD_COLD, FALSE))
                         killed(mtmp);
                 } else if (adtyp == AD_PLYS) {
                     You("fix %s with an aberrant glare...", mon_nam(mtmp));
@@ -1846,7 +1846,7 @@ dogaze()
                         } else
                             dmg += rn1(10, 6);
                         
-                        damage_mon(mtmp, dmg, AD_DRST);
+                        damage_mon(mtmp, dmg, AD_DRST, FALSE);
                         if (DEADMONSTER(mtmp)) {
                             pline("%s dies!", Monnam(mtmp));
                             xkilled(mtmp, XKILL_NOMSG);
@@ -2050,7 +2050,7 @@ domindblast()
             You("lock in on %s %s.", s_suffix(mon_nam(mtmp)),
                 u_sen ? "telepathy"
                       : has_telepathy(mtmp) ? "latent telepathy" : "mind");
-            damage_mon(mtmp, rnd(15), AD_DRIN);
+            damage_mon(mtmp, rnd(15), AD_DRIN, FALSE);
             if (DEADMONSTER(mtmp))
                 killed(mtmp);
         }

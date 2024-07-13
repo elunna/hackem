@@ -115,6 +115,9 @@ struct u_conduct {     /* number of times... */
     long uncelibate;   /* interacted with a foocubus */
     long techuse;      /* Used your techniques */
     long shk;       /* Did business with a shopkeeper */
+	char wishlist[1500];
+	int damagedealt;
+	int damagetaken;
     /* genocides already listed at end of game */
 };
 
@@ -313,6 +316,7 @@ struct you {
     int last_str_turn;  /* 0: none, 1: half turn, 2: full turn
                            +: turn right, -: turn left */
     int ulevel;         /* 1 to MAXULEV */
+	int tempulevel; /* used when setting techniques on save */
     int ulevelmax;
     unsigned utrap;     /* trap timeout */
     unsigned utraptype; /* defined if utrap nonzero. one of utraptypes */

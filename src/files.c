@@ -4528,7 +4528,7 @@ unsigned oid; /* book identifier */
     if (!fp) {
         /* this is actually an error - cannot open tribute file! */
         if (!nowin_buf)
-            You_feel("too overwhelmed to continue!");
+            pline("You feel too overwhelmed to continue!");
         return grasped;
     }
 
@@ -4693,10 +4693,13 @@ const char *buffer;
 #define LLOG_SEP '\t' /* livelog field separator */
     FILE* livelogfile;
 
-    if(!(ll_type & sysopt.livelog)) return;
-    if((ll_type == LL_CONDUCT) && (moves < sysopt.ll_conduct_turns)) return;
-    if(lock_file(LIVELOGFILE, SCOREPREFIX, 10)) {
-        if(!(livelogfile = fopen_datafile(LIVELOGFILE, "a", SCOREPREFIX))) {
+    if (!(ll_type & sysopt.livelog))
+        return;
+    if ((ll_type == LL_CONDUCT)
+        && (moves < sysopt.ll_conduct_turns))
+        return;
+    if (lock_file(LIVELOGFILE, SCOREPREFIX, 10)) {
+        if (!(livelogfile = fopen_datafile(LIVELOGFILE, "a", SCOREPREFIX))) {
             pline("Cannot open live log file!");
         } else {
             char tmpbuf[1024+1];
@@ -4724,9 +4727,9 @@ const char *buffer;
                      moves,
                      LLOG_SEP,
                      urealtime.realtime + (getnow() - urealtime.start_timing), LLOG_SEP,
-                     (long)ubirthday,
+                     (long) ubirthday,
                      LLOG_SEP,
-                     (long)time(NULL),
+                     (long) time(NULL),
                      LLOG_SEP,
                      msgbuf);
 

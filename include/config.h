@@ -572,8 +572,8 @@ typedef unsigned char uchar;
 
 #endif /* DGAMELAUNCH */
 
-/* #define DUMPLOG */  /* End-of-game dump logs */
-/* #define DUMPHTML */ /* End-of-game HTML dumps */
+//#define DUMPLOG  /* End-of-game dump logs */
+//#define DUMPHTML /* End-of-game HTML dumps */
 #if defined(DUMPLOG) || defined(DUMPHTML)
 
 #ifndef DUMPLOG_MSG_COUNT

@@ -1116,7 +1116,7 @@ long timeout;
                     You_see("%s engulfed in an explosion!", mon_nam(mtmp));
             }
             
-            if (damage_mon(mtmp, d(2, 5), AD_PHYS)) {
+            if (damage_mon(mtmp, d(2, 5), AD_PHYS, FALSE)) {
                 if (!bomb->yours)
                     monkilled(mtmp, (silent ? "" : "explosion"), AD_PHYS);
                 else

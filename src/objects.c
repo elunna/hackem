@@ -743,7 +743,7 @@ RING("polymorph", "star",                        POLYMORPH,                300, 
 RING("polymorph control", "minimalist",          POLYMORPH_CONTROL,        300, 1, 1, 0,  8, GEMSTONE, CLR_BRIGHT_GREEN),
 RING("invisibility", "wire",                     INVIS,                    150, 1, 1, 0,  5, METAL, HI_METAL),
 RING("see invisible", "engagement",              SEE_INVIS,                150, 1, 1, 0,  5, GOLD, HI_METAL),
-RING("mood", "ridged",                           0,                        100, 1, 1, 0,  8, IRON, HI_METAL),      /* Slash'EM */
+RING("psychic resistance", "ridged",             PSYCHIC_RES,              100, 1, 1, 0,  8, IRON, HI_METAL),      /* Repaced mood ring with this */
 RING("sleeping", "wedding",                      SLEEPY,                   100, 1, 1, 0,  7, GEMSTONE, CLR_WHITE),   /* Slash'EM */
 RING("displacement", "neon",                     DISPLACED,                200, 1, 1, 0,  0, PLASTIC, CLR_BLUE),
 RING("protection from shape changers", "shiny",  PROT_FROM_SHAPE_CHANGERS, 100, 1, 1, 0,  5, PLATINUM, CLR_BRIGHT_CYAN),
@@ -961,7 +961,7 @@ FOOD("tripe ration",        140,  2, 10, 0, FLESH, 200, CLR_BROWN),
 FOOD("corpse",                0,  1,  0, 0, FLESH,   0, CLR_BROWN),
 /* body parts (currently only for base object: the Eye of Vecna) */
 FOOD("eyeball",               0,  1,  1, 0, FLESH,   5, CLR_WHITE),
-FOOD("severed hand",          0,  1,200, 0, FLESH,  40, CLR_BROWN),
+FOOD("severed hand",          0,  1, 10, 0, FLESH,  40, CLR_BROWN),
 FOOD("egg",                  85,  1,  1, 1, FLESH,  80, CLR_WHITE),
 FOOD("meatball",              0,  1,  1, 0, FLESH,   5, CLR_BROWN),
 FOOD("meat stick",            0,  1,  1, 0, FLESH,   5, CLR_BROWN),

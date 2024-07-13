@@ -256,7 +256,7 @@ struct obj *otmp;
                     dmg *= 2;
    
                 hit(zap_type_text, mtmp, exclam(dmg));
-                damage_mon(mtmp, dmg, AD_FIRE);
+                damage_mon(mtmp, dmg, AD_FIRE, TRUE);
                 
                 if (DEADMONSTER(mtmp)) {
                     killed(mtmp);
@@ -302,7 +302,7 @@ struct obj *otmp;
                     dmg += rnd(6) + 2; /* 3-8 hit points extra damage */
                 }
 
-                damage_mon(mtmp, dmg, AD_PSYC);
+                damage_mon(mtmp, dmg, AD_PSYC, TRUE);
                 if (DEADMONSTER(mtmp)) {
                     killed(mtmp);
                 } else {
@@ -555,7 +555,7 @@ struct obj *otmp;
         if (is_zombie(mtmp->data)) {
             /* Allow healing to be nasty versus zombies */
             if (!DEADMONSTER(mtmp)) {
-                damage_mon(mtmp, amt * (dbl_dmg() ? 2 : 1), AD_PHYS);
+                damage_mon(mtmp, amt * (dbl_dmg() ? 2 : 1), AD_PHYS, TRUE);
                 if (canseemon(mtmp))
                     pline("%s shudders in agony!", Monnam(mtmp));
                 if (DEADMONSTER(mtmp))
@@ -636,7 +636,7 @@ struct obj *otmp;
         } else if (is_zombie(mtmp->data)) {
             if (!DEADMONSTER(mtmp)) {
                 dmg = d(1, 8) * (dbl_dmg() ? 2 : 1);
-                damage_mon(mtmp, dmg, AD_PHYS);
+                damage_mon(mtmp, dmg, AD_PHYS, TRUE);
                 if (canseemon(mtmp))
                     pline("%s shudders in agony!", Monnam(mtmp));
                 if (DEADMONSTER(mtmp))
@@ -7233,7 +7233,7 @@ int damage, tell;
 
     if (damage) {
         int saved_mhp = mtmp->mhp;
-        damage_mon(mtmp, damage, AD_RBRE);
+        damage_mon(mtmp, damage, AD_RBRE, TRUE);
         if (DEADMONSTER(mtmp)) {
             if (m_using)
                 monkilled(mtmp, "", AD_RBRE);
@@ -7315,6 +7315,7 @@ makewish()
     struct obj *otmp, nothing;
     int tries = 0, adjust = 0;
     int prev_artwish = u.uconduct.wisharti;
+	boolean hadwish = TRUE;
 
     promptbuf[0] = '\0';
     nothing = zeroobj; /* lint suppression; only its address matters */
@@ -7385,10 +7386,11 @@ makewish()
     }
 
     /* KMH, conduct */
-    if (!u.uconduct.wishes++)
+    if (!u.uconduct.wishes++) {
+		hadwish = FALSE;
         livelog_printf(LL_CONDUCT | LL_WISH | (prev_artwish < u.uconduct.wisharti ? LL_ARTIFACT : 0),
                        "made %s first wish - \"%s\"", uhis(), bufcpy);
-    else if (!prev_artwish && u.uconduct.wisharti) /* arti conduct handled in readobjnam() above */
+    } else if (!prev_artwish && u.uconduct.wisharti) /* arti conduct handled in readobjnam() above */
         livelog_printf(LL_CONDUCT | LL_WISH | LL_ARTIFACT,
                        "made %s first artifact wish - \"%s\"", uhis(), bufcpy);
     else
@@ -7413,6 +7415,11 @@ makewish()
                             ? "Oops!  %s away from you!"
                             : "Oops!  %s to the floor!");
 
+		if (hadwish) {
+			Sprintf(u.uconduct.wishlist, "%s\n%s", u.uconduct.wishlist, bufcpy);
+		} else {
+			Sprintf(u.uconduct.wishlist, bufcpy);
+		}
 #ifdef WISH_TRACKER
          /* write it out to our universal wishtracker file */
         trackwish(bufcpy);

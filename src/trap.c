@@ -3167,7 +3167,7 @@ register struct monst *mtmp;
 
                 if (in_sight)
                     seetrap(trap);
-                damage_mon(mtmp, dmgval2, AD_MAGM);
+                damage_mon(mtmp, dmgval2, AD_MAGM, FALSE);
                 if (DEADMONSTER(mtmp))
                     monkilled(mtmp,
                               in_sight
@@ -5050,7 +5050,7 @@ boolean force_failure;
                 if (ttype == BEAR_TRAP) {
                     if (mtmp->mtame)
                         abuse_dog(mtmp);
-                    damage_mon(mtmp, rnd(4), AD_PHYS);
+                    damage_mon(mtmp, rnd(4), AD_PHYS, FALSE);
                     if (DEADMONSTER(mtmp))
                         killed(mtmp);
                 } else if (ttype == WEB) {
@@ -5994,7 +5994,7 @@ boolean disarm;
                     }
                 }
             } else {
-                if (damage_mon(mon, d(6, 6), AD_FIRE)) {
+                if (damage_mon(mon, d(6, 6), AD_FIRE, FALSE)) {
                     if (canseemon(mon))
                         pline("%s is blasted by the explosion!", Monnam(mon));
                     mondied(mon);
@@ -6013,7 +6013,7 @@ boolean disarm;
                 exercise(A_CON, FALSE);
             } else if (!(resists_poison(mon) || defended(mon, AD_DRST))) {
                 int dmg = !rn2(10) ? mon->mhp : rnd(15);
-                if (damage_mon(mon, dmg, AD_DRST)) {
+                if (damage_mon(mon, dmg, AD_DRST, FALSE)) {
                     mondied(mon);
                 }
             } else if (canseemon(mon)) {
@@ -6034,7 +6034,7 @@ boolean disarm;
                           mbodypart(mon, bodypart));
                 if (!(resists_poison(mon) || defended(mon, AD_DRST))) {
                     int dmg = !rn2(10) ?  mon->mhp : rnd(10);
-                    if (damage_mon(mon, dmg, AD_DRST))
+                    if (damage_mon(mon, dmg, AD_DRST, FALSE))
                         mondied(mon);
                 } else if (canseemon(mon)) {
                     pline("%s is unaffected!", Monnam(mon));
@@ -6126,7 +6126,7 @@ boolean disarm;
                 (void) destroy_mitem(mon, WAND_CLASS, AD_ELEC);
                 
                 if (!(resists_elec(mon) || defended(mon, AD_ELEC))) {
-                    if (damage_mon(mon, d(4, 4), AD_ELEC))
+                    if (damage_mon(mon, d(4, 4), AD_ELEC, FALSE))
                         mondied(mon);
                 } else if (canseemon(mon)) {
                     pline("%s doesn't seem to be affected.", Monnam(mon));
@@ -6475,7 +6475,7 @@ boolean nocorpse;
                 searmsg(NULL, mon, obj, TRUE);
             }
         }
-        if (damage_mon(mon, dam, AD_PHYS)) {
+        if (damage_mon(mon, dam, AD_PHYS, FALSE)) {
             int xx = mon->mx, yy = mon->my;
 
             monkilled(mon, "", nocorpse ? -AD_RBRE : AD_PHYS);

@@ -1219,7 +1219,7 @@ int dieroll;
                 }
                 /* only potions damage resistant players in destroy_item */
                 dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_FIRE);
-                damage_mon(mon, dmgbonus, AD_FIRE);
+                damage_mon(mon, dmgbonus, AD_FIRE, TRUE);
                 break;
             case 1: /* Cold */
                 if (!Blind)
@@ -1234,7 +1234,7 @@ int dieroll;
                     dmgbonus += rnd(6);
                 }
                 dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_COLD);
-                damage_mon(mon, dmgbonus, AD_COLD);
+                damage_mon(mon, dmgbonus, AD_COLD, TRUE);
                 break;
             case 2: /* Elec */
                 if (!Blind)
@@ -1254,7 +1254,7 @@ int dieroll;
                 }
                 /* only rings damage resistant players in destroy_item */
                 dmgbonus += destroy_mitem(mon, RING_CLASS, AD_ELEC);
-                damage_mon(mon, dmgbonus, AD_ELEC);
+                damage_mon(mon, dmgbonus, AD_ELEC, TRUE);
                 break;
             case 3: /* Acid */
                 if (!Blind)
@@ -1268,7 +1268,7 @@ int dieroll;
                     if (canseemon(mon))
                         pline("%s is severely burned!", Monnam(mon));
                 }
-                damage_mon(mon, dmgbonus, AD_ACID);
+                damage_mon(mon, dmgbonus, AD_ACID, TRUE);
                 break;
             case 4: /* Sonic */
                 You("hit the %s with a loud bang!", mon_nam(mon));
@@ -1285,7 +1285,7 @@ int dieroll;
                 dmgbonus += destroy_mitem(mon, RING_CLASS, AD_LOUD);
                 dmgbonus += destroy_mitem(mon, WAND_CLASS, AD_LOUD);
                 dmgbonus += destroy_mitem(mon, POTION_CLASS, AD_LOUD);
-                damage_mon(mon, dmgbonus, AD_LOUD);
+                damage_mon(mon, dmgbonus, AD_LOUD, TRUE);
                 break;
             }
         }/* Techinuse Elemental Fist */	
@@ -2144,7 +2144,7 @@ int dieroll;
             return 0;
         hittxt = TRUE;
     } else if (!already_killed)
-        damage_mon(mon, tmp, AD_PHYS);
+        damage_mon(mon, tmp, AD_PHYS, TRUE);
     /* adjustments might have made tmp become less than what
        a level draining artifact has already done to max HP */
     if (mon->mhp > mon->mhpmax)
@@ -3389,7 +3389,7 @@ int specialdmg; /* blessed and/or silver bonus against various things */
                 lesshungry(xtmp * 6);
             }
             if (xtmp) {
-                damage_mon(mdef, xtmp, AD_DRLI);
+                damage_mon(mdef, xtmp, AD_DRLI, TRUE);
                 (void) mon_losexp(mdef, xtmp, TRUE);
                 healup(xtmp, 0, FALSE, FALSE);
             }
@@ -3715,7 +3715,7 @@ do_rust:
     }
 
     mdef->mstrategy &= ~STRAT_WAITFORU; /* in case player is very fast */
-    damage_mon(mdef, tmp, mattk->adtyp);
+    damage_mon(mdef, tmp, mattk->adtyp, TRUE);
     if (DEADMONSTER(mdef)) {
         if (mdef->mtame && !cansee(mdef->mx, mdef->my)) {
             You_feel("embarrassed for a moment.");
@@ -3757,7 +3757,7 @@ register struct attack *mattk;
             if (!Deaf)
                 pline("%s cries out in pain!",
                       Monnam(mdef));
-            if (damage_mon(mdef, rnd(5), AD_PHYS))
+            if (damage_mon(mdef, rnd(5), AD_PHYS, TRUE))
                 xkilled(mdef, XKILL_GIVEMSG);
             if (mdef && DEADMONSTER(mdef)) {
                 /* Other monsters may have died too, but return 2 if the actual
@@ -3788,7 +3788,7 @@ register struct attack *mattk;
                     pline("%s cries out in anguish!", Monnam(mdef));
             }
             
-            if (damage_mon(mdef, tmp, AD_PSYC))
+            if (damage_mon(mdef, tmp, AD_PSYC, TRUE))
                 xkilled(mdef, XKILL_GIVEMSG);
             if (mdef && DEADMONSTER(mdef)) {
                 /* Other monsters may have died too, but return 2 if the actual
@@ -4108,7 +4108,7 @@ register struct attack *mattk;
                 break;
             }
             end_engulf();
-            damage_mon(mdef, dam, mattk->adtyp);
+            damage_mon(mdef, dam, mattk->adtyp, TRUE);
 
 
             if (DEADMONSTER(mdef)) {
@@ -5918,7 +5918,7 @@ int dmg;
 {
     pline("%s %s!", Monnam(mon),
           (dmg > mon->mhp / 2) ? "wails in agony" : "cries out in pain");
-    damage_mon(mon, dmg, AD_BLND);
+    damage_mon(mon, dmg, AD_BLND, TRUE);
     wake_nearto(mon->mx, mon->my, 30);
     if (DEADMONSTER(mon)) {
         if (context.mon_moving)

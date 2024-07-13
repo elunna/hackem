@@ -367,7 +367,7 @@ int amount, type;
     if (dbl_dmg())
         amount *= 2;
 
-    if (damage_mon(mtmp, amount, type)) {
+    if (damage_mon(mtmp, amount, type, TRUE)) {
         killed(mtmp);
         return TRUE;
     }
@@ -436,7 +436,12 @@ int tlevel;
                 return;
             }
         }
-        tlevel = u.ulevel ? u.ulevel - tlevel : 0;
+		int wast = tlevel;
+		if (u.tempulevel) {
+			tlevel = u.tempulevel ? u.tempulevel - tlevel : 0;
+		} else {
+			tlevel = u.ulevel ? u.ulevel - tlevel : 0;
+		}
         if (tech_list[i].t_id == NO_TECH) {
             tech_list[i].t_id = tech;
             tech_list[i].t_lev = tlevel;
@@ -1292,7 +1297,7 @@ int dam;
         else
             You("smash the %s with your shield!", mon_nam(mtmp));
             
-        res = damage_mon(mtmp, dam, AD_PHYS);
+        res = damage_mon(mtmp, dam, AD_PHYS, TRUE);
         if (res)
             xkilled(mtmp, XKILL_GIVEMSG);
         else if (!mtmp->mconf) {
@@ -1644,9 +1649,8 @@ int oldlevel, newlevel;
         for (; tech->tech_id; tech++) {
             if (oldlevel < tech->ulevel && newlevel >= tech->ulevel) {
                 if (!tech_known(tech->tech_id)) {
-                    if (tech->ulevel != 1)
-                        You("learn how to perform %s!",
-                            tech_names[tech->tech_id]);
+                    if (tech->ulevel != 1 && !u.tempulevel)
+                        You("learn how to perform %s!", tech_names[tech->tech_id]);
                     learntech(tech->tech_id, mask, tech->tech_lev);
                 }
             } else if (oldlevel >= tech->ulevel && newlevel < tech->ulevel
@@ -3676,7 +3680,7 @@ tech_souleater()
     for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
          if (couldsee(mtmp->mx, mtmp->my) && !is_flan(mtmp->data)) {
             pline("%s screams in agony!", Monnam(mtmp));
-            damage_mon(mtmp, mtmp->mhp / (dbl_dmg() ? 2 : 4), AD_PHYS);
+            damage_mon(mtmp, mtmp->mhp / (dbl_dmg() ? 2 : 4), AD_PHYS, TRUE);
             if (mtmp->mhp < 1)
                 mtmp->mhp = 1;
          }

@@ -498,7 +498,7 @@ int expltype;
                     explmask[i][j] = 0;
                 } else if (explmask[i][j] == 1) {
                     golemeffects(mtmp, (int) adtyp, dam + idamres);
-                    damage_mon(mtmp, idamnonres, adtyp);
+                    damage_mon(mtmp, idamnonres, adtyp, FALSE);
                 } else {
                     /* call resist with 0 and do damage manually so 1) we can
                      * get out the message before doing the damage, and 2) we
@@ -524,8 +524,8 @@ int expltype;
                     if (is_vegetation(mtmp->data))
                         mdam = idamres = idamnonres = 0;
                     
-                    damage_mon(mtmp, mdam, adtyp);
-                    damage_mon(mtmp, idamres + idamnonres, adtyp);
+                    damage_mon(mtmp, mdam, adtyp, FALSE);
+                    damage_mon(mtmp, idamres + idamnonres, adtyp, FALSE);
                 }
                 if (DEADMONSTER(mtmp)) {
                     int xkflg = ((adtyp == AD_FIRE

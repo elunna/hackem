@@ -33,7 +33,7 @@ struct monst *mtmp;
     wake_nearto(mtmp->mx, mtmp->my, 7 * 7);
     if (!(resists_stun(mtmp->data) || defended(mtmp, AD_STUN)))
         mtmp->mstun = 1;
-    damage_mon(mtmp, rnd(15), AD_PHYS);
+    damage_mon(mtmp, rnd(15), AD_PHYS, FALSE);
     if (DEADMONSTER(mtmp)) {
         mondied(mtmp);
         if (!DEADMONSTER(mtmp)) /* lifesaved */
@@ -829,7 +829,7 @@ register struct monst *mtmp;
                 || !rn2(10)) {
                 if (cansee(m2->mx, m2->my))
                     pline("It locks on to %s.", mon_nam(m2));
-                damage_mon(m2, rnd(15), AD_DRIN);
+                damage_mon(m2, rnd(15), AD_DRIN, FALSE);
                 if (DEADMONSTER(m2))
                     monkilled(m2, "", AD_DRIN);
                 else
@@ -1268,9 +1268,6 @@ register int after;
             return 0; /* still in trap, so didn't move */
     }
     ptr = mtmp->data; /* mintrap() can change mtmp->data -dlc */
-
-    if (mtmp->rider_id)
-        return 0;
 
     if (mtmp->meating) {
         mtmp->meating--;

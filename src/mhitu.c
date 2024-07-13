@@ -728,7 +728,7 @@ register struct monst *mtmp;
                 if (3 + find_mac(mtmp) <= rnd(20)) {
                     pline("%s is hit by a falling piercer (you)!",
                           Monnam(mtmp));
-                    if (damage_mon(mtmp, d(3, 6), AD_PHYS))
+                    if (damage_mon(mtmp, d(3, 6), AD_PHYS, FALSE))
                         killed(mtmp);
                 } else
                     pline("%s is almost hit by a falling piercer (you)!",
@@ -4886,7 +4886,7 @@ struct attack *mattk;
             tmp += destroy_mitem(mtmp, WEAPON_CLASS, AD_FIRE);
         tmp += destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
         
-        if (damage_mon(mtmp, tmp, AD_FIRE)) {
+        if (damage_mon(mtmp, tmp, AD_FIRE, FALSE)) {
             xkilled(mtmp, 0);
             return 2;
         } else {
@@ -4913,7 +4913,7 @@ struct attack *mattk;
                 tmp += destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
             
             showdmg(tmp, FALSE);
-            if (damage_mon(mtmp, tmp, AD_COLD)) {
+            if (damage_mon(mtmp, tmp, AD_COLD, FALSE)) {
                 xkilled(mtmp, 0);
                 return 2;
             } else {
@@ -4933,7 +4933,7 @@ struct attack *mattk;
                 if (!rn2(3)) {
                     if (canseemon(mtmp))
                         pline("%s staggers from the poison!", Monnam(mtmp));
-                    damage_mon(mtmp, rnd(4), AD_DRST);
+                    damage_mon(mtmp, rnd(4), AD_DRST, FALSE);
                 }
             } else {
                 if (canseemon(mtmp))
@@ -4964,7 +4964,7 @@ struct attack *mattk;
                     }
                 } else {
                     int xtmp = d(2, 6);
-                    damage_mon(mtmp, xtmp, AD_DRLI);
+                    damage_mon(mtmp, xtmp, AD_DRLI, FALSE);
                     mon_losexp(mtmp, xtmp, TRUE);
                 }
             }
@@ -5007,7 +5007,7 @@ struct attack *mattk;
                     if (rn2(40)) {
                         if (canseemon(mtmp))
                             pline("%s partially disintegrates!", Monnam(mtmp));
-                        if (damage_mon(mtmp, rnd(4), AD_PHYS))
+                        if (damage_mon(mtmp, rnd(4), AD_PHYS, FALSE))
                             xkilled(mtmp, XKILL_NOMSG | XKILL_NOCORPSE);
                     } else {
                         if (canseemon(mtmp))
@@ -5173,12 +5173,12 @@ struct attack *mattk;
                 if (!rn2(3)) {
                     if (canseemon(mtmp))
                         pline("%s flinches from the cold!", Monnam(mtmp));
-                    damage_mon(mtmp, rnd(4), AD_COLD);
+                    damage_mon(mtmp, rnd(4), AD_COLD, FALSE);
                 }
             } else {
                 if (canseemon(mtmp))
                     pline("%s is frozen solid!", Monnam(mtmp));
-                damage_mon(mtmp, d(6, 6), AD_COLD);
+                damage_mon(mtmp, d(6, 6), AD_COLD, FALSE);
             }
 
             /* Item Destruction */
@@ -5203,12 +5203,12 @@ struct attack *mattk;
                 if (!rn2(3)) {
                     if (canseemon(mtmp))
                         pline("%s is burned!", Monnam(mtmp));
-                    damage_mon(mtmp, rnd(4), AD_FIRE);
+                    damage_mon(mtmp, rnd(4), AD_FIRE, FALSE);
                 }
             } else {
                 if (canseemon(mtmp))
                     pline("%s is severely burned!", Monnam(mtmp));
-                damage_mon(mtmp, d(6, 6), AD_FIRE);
+                damage_mon(mtmp, d(6, 6), AD_FIRE, FALSE);
             }
 
             if (!rn2(2) && burnarmor(mtmp)) {
@@ -5243,11 +5243,11 @@ struct attack *mattk;
                 if (rn2(20)) {
                     if (canseemon(mtmp))
                         pline("%s gets zapped!", Monnam(mtmp));
-                    damage_mon(mtmp, rnd(4), AD_ELEC);
+                    damage_mon(mtmp, rnd(4), AD_ELEC, FALSE);
                 } else {
                     if (canseemon(mtmp))
                         pline("%s is jolted with electricity!", Monnam(mtmp));
-                    damage_mon(mtmp, d(2, 24), AD_ELEC);
+                    damage_mon(mtmp, d(2, 24), AD_ELEC, FALSE);
                 }
                 tmp += destroy_mitem(mtmp, WAND_CLASS, AD_ELEC);
                 /* only rings damage resistant players in destroy_item */
@@ -5277,11 +5277,11 @@ struct attack *mattk;
                 if (rn2(20)) {
                     if (canseemon(mtmp))
                         pline("%s gets blasted by noise!", Monnam(mtmp));
-                    damage_mon(mtmp, rnd(6), AD_LOUD);
+                    damage_mon(mtmp, rnd(6), AD_LOUD, FALSE);
                 } else {
                     if (canseemon(mtmp))
                         pline("%s is sonically assaulted!", Monnam(mtmp));
-                    damage_mon(mtmp, d(2, 16), AD_LOUD);
+                    damage_mon(mtmp, d(2, 16), AD_LOUD, FALSE);
                 }
                 tmp += destroy_mitem(mtmp, POTION_CLASS, AD_LOUD);
                 tmp += destroy_mitem(mtmp, RING_CLASS, AD_LOUD);
@@ -5305,12 +5305,12 @@ struct attack *mattk;
                 if (!rn2(3)) {
                     if (canseemon(mtmp))
                         pline("%s is seared!", Monnam(mtmp));
-                    damage_mon(mtmp, rnd(4), AD_ACID);
+                    damage_mon(mtmp, rnd(4), AD_ACID, FALSE);
                 }
             } else {
                 if (canseemon(mtmp))
                     pline("%s is critically seared!", Monnam(mtmp));
-                damage_mon(mtmp, d(6, 6), AD_ACID);
+                damage_mon(mtmp, d(6, 6), AD_ACID, FALSE);
             }
             if (mtmp->mhp < 1) {
                 if (canseemon(mtmp))
@@ -5684,7 +5684,7 @@ struct attack *mattk;
         tmp = 0;
 
  assess_dmg:
-    if (damage_mon(mtmp, tmp, youmonst.data->mattk[i].adtyp)) {
+    if (damage_mon(mtmp, tmp, youmonst.data->mattk[i].adtyp, FALSE)) {
         pline("%s dies!", Monnam(mtmp));
         xkilled(mtmp, XKILL_NOMSG);
         if (!DEADMONSTER(mtmp))

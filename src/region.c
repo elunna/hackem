@@ -1047,7 +1047,7 @@ genericptr_t p2;
             }
             if (resists_poison(mtmp) || defended(mtmp, AD_DRST))
                 return FALSE;
-            damage_mon(mtmp, rnd(dam) + 5, AD_DRST);
+            damage_mon(mtmp, rnd(dam) + 5, AD_DRST, FALSE);
             if (DEADMONSTER(mtmp)) {
                 if (heros_fault(reg))
                     killed(mtmp);

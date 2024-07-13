@@ -1853,7 +1853,7 @@ struct attack *mattk;
     }
 
     if (dmg) {
-        if (damage_mon(mdef, dmg, mattk->adtyp))
+        if (damage_mon(mdef, dmg, mattk->adtyp, FALSE))
             monkilled(mdef, "", mattk->adtyp);
     }
 
@@ -2050,7 +2050,7 @@ struct attack *mattk;
     }
 
     if (dmg) {
-        if (damage_mon(mdef, dmg, mattk->adtyp))
+        if (damage_mon(mdef, dmg, mattk->adtyp, FALSE))
             killed(mdef);
     }
 
@@ -2283,7 +2283,7 @@ int spellnum;
             /* monsters don't have strength, so drain max hp instead */
             mdef->mhpmax -= dmg;
             
-            if (damage_mon(mdef, dmg, AD_DRLI)) {
+            if (damage_mon(mdef, dmg, AD_DRLI, FALSE)) {
                 if (yours)
                     killed(mdef);
                 else monkilled(mdef, "", AD_SPEL);
@@ -2419,7 +2419,7 @@ int spellnum;
     }
 
     if (dmg) {
-        if (damage_mon(mdef, dmg, AD_SPEL)) {
+        if (damage_mon(mdef, dmg, AD_SPEL, FALSE)) {
             if (yours)
                 killed(mdef);
             else
@@ -2748,7 +2748,7 @@ int spellnum;
     }
 
     if (dmg) {
-        if (damage_mon(mdef, dmg, AD_CLRC)) {
+        if (damage_mon(mdef, dmg, AD_CLRC, FALSE)) {
             if (yours)
                 killed(mdef);
             else

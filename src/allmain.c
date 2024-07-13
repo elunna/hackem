@@ -158,6 +158,7 @@ boolean resuming;
 #endif
     struct obj *pobj, *aobj;
     int moveamt = 0, wtcap = 0, change = 0;
+	int i;
     /* don't make it obvious when monsters will start speeding up */
     boolean monscanmove = FALSE;
     boolean elf_regen = elf_can_regen();
@@ -190,6 +191,11 @@ boolean resuming;
         pline("Watch out!  Bad things can happen on Friday the 13th.");
         change_luck(-1);
     }
+    for (i = 1; i <= u.ulevel; i++) {
+		u.tempulevel = i;
+		adjtech(i - 1, i);
+	}
+	u.tempulevel = 0;
     if (flags.quest_boon) {
         change_luck(1); /* silent */
     }
@@ -1399,9 +1405,9 @@ int
 wishluck()
 {
     /* Don't let this affect the fuzzer */
-    if (iflags.debug_fuzzer)
+    if (iflags.debug_fuzzer || wizard)
         return 0;
-    if (u.uconduct.wishes < 2)
+    if (u.uconduct.wishes < 3)
         return 0;
     
     /* For synchronizing monster spawn rates with wishes */
@@ -1410,7 +1416,7 @@ wishluck()
     /* Technically we can only get the player to -10, 
      * so we force them to carry a virtual cursed luckstone. */
     if (u.uconduct.wishes < 13)
-        return -(u.uconduct.wishes);
+        return -((u.uconduct.wishes - 2));
     else
         return -10;
 }
@@ -1479,15 +1485,18 @@ update_monclock()
      * rate will increase! This lets the player have their wishes at the cost
      * of a harder game later.
      */
+	 int wishminus2 = u.uconduct.wishes - 2;
     monclock = MIN_MONGEN_RATE;
+
+	if (wishminus2 > 0) {
 /* Don't let wishes influence the fuzzer */
-    if (!iflags.debug_fuzzer) {
+    if (!iflags.debug_fuzzer && !wizard) {
         for (long i = 2; i <= 7; i++) {
-            if (monclock > MIN_MONGEN_RATE / i && (u.uconduct.wishes >= i)) {
+            if (monclock > MIN_MONGEN_RATE / i && (wishminus2 >= i)) {
                 monclock = MIN_MONGEN_RATE / i;
             }
         }
-        if (u.uconduct.wishes >= 8L) {
+        if (wishminus2 >= 8L) {
             monclock = MAX_MONGEN_RATE;
         }
     }
@@ -1496,5 +1505,6 @@ update_monclock()
         monclock = MAX_MONGEN_RATE;
     if (monclock > MIN_MONGEN_RATE)
         monclock = MIN_MONGEN_RATE;
+	}
 }
 /*allmain.c*/

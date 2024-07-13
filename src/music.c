@@ -429,7 +429,7 @@ int force;
                            within a pit from jostling too */
                         mselftouch(mtmp, "Falling, ", TRUE);
                         if (!DEADMONSTER(mtmp)) {
-                            damage_mon(mtmp, rnd(m_already_trapped ? 4 : 6), AD_PHYS);
+                            damage_mon(mtmp, rnd(m_already_trapped ? 4 : 6), AD_PHYS, FALSE);
                             if (DEADMONSTER(mtmp)) {
                                 if (!cansee(x, y)) {
                                     pline("It is destroyed!");

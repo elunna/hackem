@@ -105,7 +105,7 @@ int which;
      * as do monster resistances */
     if (u.uprops[which].extrinsic
         || (u.uprops[which].intrinsic & (FROMEXPER | FROMRACE | FROMFORM))) {
-        val = 100;
+        return 100;
     } else {
         val = (u.uprops[which].intrinsic & TIMEOUT);
         if (val > 100) {
@@ -115,7 +115,7 @@ int which;
         }
     }
 
-    /* vulnerability will affect things... */
+    /* vulnerability will affect things unless you have the extrinsic ... */
     switch (which) {
     case FIRE_RES:
         if (Vulnerable_fire)
@@ -1941,7 +1941,7 @@ int how;
                       buf);
         }
         if (rn2(5) && mon->mhp > 1 && !hit_saddle && !hit_barding)
-            damage_mon(mon, 1, AD_PHYS);
+            damage_mon(mon, 1, AD_PHYS, FALSE);
     }
 
     /* oil doesn't instantly evaporate; Neither does a saddle/barding hit */
@@ -2220,7 +2220,7 @@ int how;
                           is_silent(mon->data) ? "writhes" : "shrieks");
                     if (!is_silent(mon->data))
                         wake_nearto(tx, ty, mon->data->mlevel * 10);
-                    damage_mon(mon, d(2, 6), AD_ACID);
+                    damage_mon(mon, d(2, 6), AD_ACID, FALSE);
                     /* should only be by you */
                     if (DEADMONSTER(mon))
                         killed(mon);
@@ -2243,7 +2243,7 @@ int how;
             } else if (mon->data == &mons[PM_IRON_GOLEM]) {
                 if (canseemon(mon))
                     pline("%s rusts.", Monnam(mon));
-                damage_mon(mon, d(1, 6), AD_PHYS);
+                damage_mon(mon, d(1, 6), AD_PHYS, FALSE);
                 /* should only be by you */
                 if (DEADMONSTER(mon))
                     killed(mon);
@@ -2259,12 +2259,12 @@ int how;
                 case PM_FLAMING_SPHERE:
                     if (canseemon(mon))
                         pline("%s flickers.", Monnam(mon));
-                    damage_mon(mon, d(1, 6), AD_PHYS);
+                    damage_mon(mon, d(1, 6), AD_PHYS, FALSE);
                     break;
                 case PM_IRON_GOLEM:
                     if (canseemon(mon))
                         pline("%s rusts.", Monnam(mon));
-                    damage_mon(mon, d(1, 6), AD_PHYS);
+                    damage_mon(mon, d(1, 6), AD_PHYS, FALSE);
                     break;
                 case PM_WIZARD_OF_YENDOR:
                     if (your_fault) {
@@ -2339,7 +2339,7 @@ int how;
                       is_silent(mon->data) ? "writhes" : "shrieks");
                 if (!is_silent(mon->data))
                     wake_nearto(tx, ty, mon->data->mlevel * 10);
-                damage_mon(mon, d(obj->cursed ? 2 : 1, obj->blessed ? 4 : 8), AD_ACID);
+                damage_mon(mon, d(obj->cursed ? 2 : 1, obj->blessed ? 4 : 8), AD_ACID, FALSE);
                 if (DEADMONSTER(mon)) {
                     if (your_fault)
                         killed(mon);

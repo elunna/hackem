@@ -1,0 +1,73 @@
+38a39
+> STATIC_DCL void FDECL(restmonsteeds, (BOOLEAN_P));
+400a402,408
+>         /* erid - steed */
+>         mread(fd, (genericptr_t) &buflen, sizeof(buflen));
+>         if (buflen > 0) {
+>             newerid(mtmp);
+>             mread(fd, (genericptr_t) ERID(mtmp), sizeof(struct erid));
+>         }
+>         /* edog - pet */
+672a681
+>     restmonsteeds(FALSE);
+694c703
+<     if (!uwep || uwep->otyp == PICK_AXE || uwep->otyp == GRAPPLING_HOOK || uwep->otyp == FISHING_POLE)
+---
+>     if (!uwep || uwep->otyp == PICK_AXE || uwep->otyp == GRAPPLING_HOOK)
+731a741,788
+> STATIC_OVL void
+> restmonsteeds(ghostly)
+> boolean ghostly;
+> {
+>     register struct monst *mtmp;
+>     register struct monst *mon;
+>     unsigned int steed_id;
+> 
+>     for (mon = fmon; mon; mon = mon->nmon) {
+>         if (mon->mextra && ERID(mon)) {
+>             /* The steed id will change on loading a bones file */
+>             if (ghostly) {
+>                 lookup_id_mapping(ERID(mon)->mid, &steed_id);
+>             } else {
+>                 steed_id = ERID(mon)->mid;
+>             }
+> 
+>             for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+>                 if (mtmp->m_id == steed_id)
+>                     break;
+>             }
+> 
+>             if (!mtmp) {
+>                 /* can't use free_erid since pointer from savefile is stale */
+>                 free((genericptr_t) ERID(mon));
+>                 ERID(mon) = (struct erid *) 0;
+>                 impossible("steed ID %d (ridden by %s [%s]) does not exist?",
+>                            steed_id, an(mon->data->mname),
+>                            fmt_ptr((genericptr_t) mon));
+>             } else {
+>                 ERID(mon)->mon_steed = mtmp;
+>             }
+>         }
+>     }
+> 
+>     for (mon = migrating_mons; mon; mon = mon->nmon) {
+>         if (mon->mextra && ERID(mon)) {
+>             for (mtmp = migrating_mons; mtmp; mtmp = mtmp->nmon) {
+>                 if (mtmp->m_id == ERID(mon)->mid)
+>                     break;
+>             }
+>             if (!mtmp)
+>                 panic("Cannot find monster steed.");
+>             ERID(mon)->mon_steed = mtmp;
+>         }
+>     }
+> }
+> 
+1116a1174
+>     restmonsteeds(ghostly);
+1142c1200,1202
+< 		place_monster(mtmp, mtmp->mx, mtmp->my);
+---
+>         if (!mtmp->ridden_by) {
+>             place_monster(mtmp, mtmp->mx, mtmp->my);
+>         }

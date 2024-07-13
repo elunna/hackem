@@ -386,22 +386,22 @@ doread()
             pline("Perhaps you should put it on first.");
             return 0;
         }
-        if (scroll->otyp == RIN_MOOD) {
-            /* To read a mood ring, you must be wearing it, it must 
-            not be cursed, and you must not be blind or hallucinating. 
-            When read, the ring will glow a different color depending 
-            on your alignment: */
-            if (u.ualign.record >= PIOUS)
-                clr = "bright green";	/* well-pleased */
-            else if (u.ualign.record >= DEVOUT)
-                clr = "green";	/* well-pleased */
-            else if (u.ualign.record >= STRIDENT)
-                clr = "yellow";	/* pleased */
-            else if (u.ualign.record >= 0)
-                clr = "orange";	/* satisfied */
-            else
-                clr = "red";	/* you've been naughty */
-        }
+//        if (scroll->otyp == RIN_MOOD) {
+//            /* To read a mood ring, you must be wearing it, it must 
+//            not be cursed, and you must not be blind or hallucinating. 
+//            When read, the ring will glow a different color depending 
+//            on your alignment: */
+//            if (u.ualign.record >= PIOUS)
+//                clr = "bright green";	/* well-pleased */
+//            else if (u.ualign.record >= DEVOUT)
+//                clr = "green";	/* well-pleased */
+//            else if (u.ualign.record >= STRIDENT)
+//                clr = "yellow";	/* pleased */
+//            else if (u.ualign.record >= 0)
+//                clr = "orange";	/* satisfied */
+//            else
+//                clr = "red";	/* you've been naughty */
+//        }
         if (!clr)
             There("seems to be nothing special about this ring.");
         else if (scroll->cursed)
@@ -919,7 +919,7 @@ struct monst *mtmp;
                 else
                     You_hear("an explosion.");
                 m_useup(mtmp, obj);
-                if (damage_mon(mtmp, 3 * abs(obj->spe), AD_ELEC)) {
+                if (damage_mon(mtmp, 3 * abs(obj->spe), AD_ELEC, FALSE)) {
                     if (canseemon(mtmp))
                         pline("%s is killed by the explosion!",
                               Monnam(mtmp));
@@ -2783,7 +2783,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     if (!rn2(3))
                         (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
 
-                    if (damage_mon(mtmp, dam, AD_COLD)) {
+                    if (damage_mon(mtmp, dam, AD_COLD, FALSE)) {
                         killed(mtmp);
                     }
                 }
@@ -2964,7 +2964,7 @@ boolean confused, byu;
                           xname(helmet), mhim(mtmp));
             }
         }
-        damage_mon(mtmp, mdmg, AD_PHYS);
+        damage_mon(mtmp, mdmg, AD_PHYS, FALSE);
         if (DEADMONSTER(mtmp)) {
             if (byu) {
                 killed(mtmp);
@@ -3057,7 +3057,7 @@ register struct obj *obj;
     dmg = rnd(2 * (mon->mhpmax + 1) / 3);
     m_useup(mon, obj);
     
-    if (damage_mon(mon, dmg, AD_MAGM)) {
+    if (damage_mon(mon, dmg, AD_MAGM, FALSE)) {
     	if (canseemon(mon))
             pline("%s is killed by the explosion!", Monnam(mon));
         mondied(mon);

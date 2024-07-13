@@ -3606,10 +3606,15 @@ showdmg(n, yours)
 int n;
 boolean yours;
 {
-    if (!iflags.showdmg)
+    if (yours)
+		u.uconduct.damagetaken += n;
+	else
+		u.uconduct.damagedealt += n;
+
+    if (!iflags.showdmg || n < 1) /* don't show zero damage results */
         return;
     if (yours)
-        pline("(%d pt%s)", n, (n > 1 ? "s" : ""));
+        pline("(%d pt%s)", n, (n > 1 ? "s" : "")); /* added "u" for extra ease in seeing damage you are taking */
     else
         pline("[%d pt%s]", n, (n > 1 ? "s" : ""));
     return;

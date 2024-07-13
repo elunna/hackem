@@ -204,7 +204,7 @@ struct obj *obj;
                         ? "nearby" : "in the distance");
         }
         m_useup(mon, obj);
-        damage_mon(mon, dam, AD_RBRE);
+        damage_mon(mon, dam, AD_RBRE, FALSE);
         if (DEADMONSTER(mon)) {
             monkilled(mon, "", AD_RBRE);
             return 1;
@@ -645,7 +645,7 @@ struct monst *mtmp;
             if ((t = t_at(xx, yy)) == 0
                 || (!ignore_boulders && sobj_at(BOULDER, xx, yy))
                 || onscary(xx, yy, mtmp)
-                || mtmp->rider_id)
+                )
                 continue;
             /* use trap if it's the correct type */
             if (is_hole(t->ttyp)
@@ -2740,7 +2740,7 @@ struct monst *mtmp;
                         continue;
                     if (resists_cold(mtmp2)) /* natural resistance */
                         num *= 3;
-                    if (damage_mon(mtmp2, num, AD_FIRE)) {
+                    if (damage_mon(mtmp2, num, AD_FIRE, FALSE)) {
                         mondied(mtmp2);
                         break;
                     }
@@ -4169,7 +4169,7 @@ boolean stoning; /* True: stop petrification, False: cure stun && confusion */
     /* obj is now gone */
 
     if (acid && !tinned && !(resists_acid(mon) || defended(mon, AD_ACID))) {
-        damage_mon(mon, rnd(15), AD_ACID);
+        damage_mon(mon, rnd(15), AD_ACID, FALSE);
         if (vis)
             pline("%s has a very bad case of stomach acid.", Monnam(mon));
         if (DEADMONSTER(mon)) {

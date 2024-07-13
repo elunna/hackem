@@ -667,7 +667,7 @@ boolean verbose;    /* give message(s) even when you can't see what happened */
         }
 
         if (!DEADMONSTER(mtmp)) { /* might already be dead (if petrified) */
-            damage_mon(mtmp, damage, AD_ACID);
+            damage_mon(mtmp, damage, AD_ACID, FALSE);
             if (DEADMONSTER(mtmp)) {
                 if (vis || (verbose && !target))
                     pline("%s is %s!", Monnam(mtmp),

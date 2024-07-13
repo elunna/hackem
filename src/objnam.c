@@ -268,8 +268,8 @@ register int otyp;
         if (ocl->oc_unique)
             Strcpy(buf, actualn); /* avoid spellbook of Book of the Dead */
         /* KMH -- "mood ring" instead of "ring of mood" */
-        else if (otyp == RIN_MOOD)
-            Sprintf(buf, "%s ring", actualn);
+        //else if (otyp == RIN_MOOD)
+        //    Sprintf(buf, "%s ring", actualn);
         else
             Sprintf(eos(buf), " of %s", actualn);
     }
@@ -1117,9 +1117,9 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             Strcpy(buf, "ring");
         else if (nn) {
             /* KMH -- "mood ring" instead of "ring of mood" */
-            if (typ == RIN_MOOD)
-                Sprintf(buf, "%s ring", actualn);
-            else
+            //if (typ == RIN_MOOD)
+             //   Sprintf(buf, "%s ring", actualn);
+            //else
                 Sprintf(eos(buf), "ring of %s", actualn);
 
             propnames(buf, obj->oprops, obj->oprops_known,
@@ -5448,8 +5448,7 @@ struct obj *no_wish;
         objprops = rm_redundant_oprops(otmp, objprops);
 
         /* The player cannot wish for properties */
-        if (wizard)
-            otmp->oprops |= objprops;
+		otmp->oprops |= objprops;
     }
 
     if (halfeaten && otmp->oclass == FOOD_CLASS) {
@@ -5470,7 +5469,6 @@ struct obj *no_wish;
 
     return otmp;
 }
-
 
 int
 rnd_class(first, last)

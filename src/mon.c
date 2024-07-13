@@ -156,10 +156,8 @@ mon_sanity_check()
             if (x != u.ux || y != u.uy)
                 impossible("steed (%s) claims to be at <%d,%d>?",
                            fmt_ptr((genericptr_t) mtmp), x, y);
-        } else if (mtmp->rider_id) {
-            continue;
         } else if (mtmp != (m = level.monsters[x][y])) {
-            if (!m || m->rider_id != mtmp->m_id)
+            if (!m)
                 impossible("mon (%s) at <%d,%d> is not there!",
                        fmt_ptr((genericptr_t) mtmp), x, y);
         } else if (mtmp->wormno) {
@@ -180,7 +178,7 @@ mon_sanity_check()
                     impossible("steed (%s) is on the map at <%d,%d>!",
                                fmt_ptr((genericptr_t) mtmp), x, y);
                 else if ((mtmp->mx != x || mtmp->my != y)
-                         && mtmp->data != &mons[PM_LONG_WORM] && !mtmp->rider_id)
+                         && mtmp->data != &mons[PM_LONG_WORM])
                     impossible("map mon (%s) at <%d,%d> is found at <%d,%d>?",
                                fmt_ptr((genericptr_t) mtmp),
                                mtmp->mx, mtmp->my, x, y);
@@ -1033,7 +1031,7 @@ register struct monst *mtmp;
 
         if (cansee(mtmp->mx, mtmp->my))
             pline("%s rusts.", Monnam(mtmp));
-        damage_mon(mtmp, dam, AD_PHYS); /* Not quite accurate but no resistance to rusting */
+        damage_mon(mtmp, dam, AD_PHYS, FALSE); /* Not quite accurate but no resistance to rusting */
         if (mtmp->mhpmax > dam)
             mtmp->mhpmax -= dam;
         if (DEADMONSTER(mtmp)) {
@@ -1060,7 +1058,7 @@ register struct monst *mtmp;
         if (mtmp->mhpmax > dam)
             mtmp->mhpmax -= (dam + 1) / 2;
         
-        if (damage_mon(mtmp, dam, AD_PHYS)) {
+        if (damage_mon(mtmp, dam, AD_PHYS, FALSE)) {
             if (canseemon(mtmp))
                 pline("%s dies.", Monnam(mtmp));
             mondead(mtmp);
@@ -1094,7 +1092,7 @@ register struct monst *mtmp;
                 else
                     xkilled(mtmp, XKILL_NOMSG);
             } else {
-                damage_mon(mtmp, 1, AD_FIRE);
+                damage_mon(mtmp, 1, AD_FIRE, FALSE);
                 if (DEADMONSTER(mtmp)) {
                     if (cansee(mtmp->mx, mtmp->my))
                         pline("%s surrenders to the fire.", Monnam(mtmp));
@@ -1179,7 +1177,7 @@ register struct monst *mtmp;
             && !(is_puddle(mtmp->mx, mtmp->my) || is_sewage(mtmp->mx, mtmp->my))) {
             /* as mhp gets lower, the rate of further loss slows down */
             if (mtmp->mhp > 1 && rn2(mtmp->mhp) > rn2(8))
-                damage_mon(mtmp, 1, AD_PHYS);
+                damage_mon(mtmp, 1, AD_PHYS, FALSE);
             
             if (mtmp->data != &mons[PM_GIANT_CRAB])
                 monflee(mtmp, 2, FALSE, FALSE);
@@ -1410,7 +1408,7 @@ mcalcdistress()
         /* wither away */
         if (mtmp->mwither) {
             wither = rnd(2) - (regenerates(mtmp->data) ? 1 : 0);
-            if (damage_mon(mtmp, wither, AD_WTHR)) {
+            if (damage_mon(mtmp, wither, AD_WTHR, FALSE)) {
                 if (canspotmon(mtmp))
                     pline("%s withers away completely!", Monnam(mtmp));
 
@@ -3212,7 +3210,7 @@ struct monst *mtmp, *mtmp2;
     relmon(mtmp, (struct monst **) 0);
 
     /* finish adding its replacement */
-    if (mtmp != u.usteed && !mtmp->rider_id) /* don't place steed onto the map */
+    if (mtmp != u.usteed) /* don't place steed onto the map */
         place_monster(mtmp2, mtmp2->mx, mtmp2->my);
     if (mtmp2->wormno)      /* update level.monsters[wseg->wx][wseg->wy] */
         place_wsegs(mtmp2, NULL); /* locations to mtmp2 not mtmp. */
@@ -3951,7 +3949,7 @@ boolean was_swallowed; /* digestion */
                 } else {
                     if (!Deaf)
                         You_hear("an explosion.");
-                    damage_mon(magr, tmp, AD_PHYS);
+                    damage_mon(magr, tmp, AD_PHYS, FALSE);
                     if (DEADMONSTER(magr))
                         mondied(magr);
                     if (DEADMONSTER(magr)) { /* maybe lifesaved */
@@ -6476,16 +6474,18 @@ int damtype, dam;
  * Returns whether mon should have died or not.
  */
 boolean
-damage_mon(mon, amount, type)
+damage_mon(mon, amount, type, byyou)
 struct monst* mon;
 int amount;
 int type;
+int byyou;
 {
     if (vulnerable_to(mon, type))
         amount = ((amount * 3) + 1) / 2;
 
     mon->mhp -= amount;
-    showdmg(amount, FALSE);
+	if (byyou)
+		showdmg(amount, FALSE);
     return (mon->mhp < 1);
 }
 
