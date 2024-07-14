@@ -2185,7 +2185,7 @@ int dieroll;
         }
     }
 
-    if (!hittxt /*( thrown => obj exists )*/
+    if (!hittxt && obj /*( thrown => obj exists but I'm checking anyway )*/
         && (!destroyed
             || (thrown && m_shot.n > 1 && m_shot.o == obj->otyp))) {
         if (thrown)
@@ -2274,13 +2274,15 @@ int dieroll;
             }
             tmp += destroy_mitem(mon, POTION_CLASS, AD_FIRE);
 
-            if (obj->otyp == TORCH) {
-                if (mdat == &mons[PM_WATER_ELEMENTAL]) {
-                    Your("%s goes out.", xname(obj));
-                    end_burn(obj, TRUE);
-                } else {
-                    burn_faster(obj); /* Use up the torch more quickly */
-                }
+            if (obj && obj->otyp == TORCH) {
+				if (obj->lamplit) {
+	                if (mdat == &mons[PM_WATER_ELEMENTAL]) {
+	                    Your("%s goes out.", xname(obj));
+	                    end_burn(obj, TRUE);
+	                } else {
+	                    burn_faster(obj); /* Use up the torch more quickly */
+	                }
+				}
             }
         }
     }
@@ -2315,7 +2317,7 @@ int dieroll;
        them. The more powerful a weapon, the lower this chance is. This
        way, there is uncertainty about when a weapon will ID, but spoiled
        players can make an educated guess. */
-    if (destroyed && (obj == uwep) && uwep
+    if (destroyed && obj && (obj == uwep) && uwep
         && (uwep->oclass == WEAPON_CLASS || is_weptool(uwep))
         && !uwep->known) {
         uwep->wep_kills++;
@@ -2332,7 +2334,7 @@ int dieroll;
        obj->opoisoned was cleared above and any message referring to
        "poisoned <obj>" has now been given; we want just "<obj>" for
        last message, so reformat while obj is still accessible */
-    if (unpoisonmsg)
+    if (unpoisonmsg && obj)
         Strcpy(saved_oname, cxname(obj));
 
     /* [note: thrown obj might go away during killed()/xkilled() call
