@@ -3705,10 +3705,10 @@ int mndx;
 /* used for wand/scroll/spell of create monster */
 /* returns TRUE iff you know monsters have been created */
 boolean
-create_critters(cnt, mptr, neverask, friendly)
+create_critters(cnt, mptr, neverask)
 int cnt;
 struct permonst *mptr; /* usually null; used for confused reading */
-boolean neverask, friendly;
+boolean neverask;
 {
     coord c;
     int x, y;
@@ -3730,15 +3730,8 @@ boolean neverask, friendly;
         if (!mptr && u.uinwater && enexto(&c, x, y, &mons[PM_GIANT_EEL]))
             x = c.x, y = c.y;
         
-        if (Role_if(PM_CARTOMANCER)) {
-            /* Without adding a new parameter for the caster/causer of
-             * create critters, we will just use the hero's level to determine
-             * the lifetime. 
-             */
-            mon = make_msummoned(mptr, &youmonst, friendly, u.ux, u.uy);
-        } else {
-            mon = makemon(mptr, x, y, NO_MM_FLAGS);
-        }
+        mon = makemon(mptr, x, y, NO_MM_FLAGS);
+        
         if (mon && canspotmon(mon))
             known = TRUE;
     }
@@ -4894,8 +4887,6 @@ struct obj *bag;
                 if ((mtmp = makemon(bag->otyp == BAG_OF_TRICKS ?
                       (struct permonst *) 0 : &mons[PM_SEWER_RAT + rn2(2)],
                        u.ux, u.uy, NO_MM_FLAGS))) {
-                    if (mtmp && Role_if(PM_CARTOMANCER))
-                        mtmp->msummoned = 15 + u.ulevel * 4;
                     gotone = TRUE;
                 }
             }

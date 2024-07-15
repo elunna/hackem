@@ -1340,7 +1340,7 @@ E void FDECL(copy_mextra, (struct monst *, struct monst *));
 E void FDECL(dealloc_mextra, (struct monst *));
 E struct monst *FDECL(makemon, (struct permonst *, int, int, long));
 E struct monst *FDECL(unmakemon, (struct monst *, int));
-E boolean FDECL(create_critters, (int, struct permonst *, BOOLEAN_P, BOOLEAN_P));
+E boolean FDECL(create_critters, (int, struct permonst *, BOOLEAN_P));
 E struct permonst *NDECL(rndmonst);
 E struct permonst *FDECL(mkclass, (CHAR_P, int));
 E struct permonst *FDECL(mkclass_aligned, (CHAR_P, int, ALIGNTYP_P));

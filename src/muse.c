@@ -1195,10 +1195,7 @@ struct monst *mtmp;
         if (!enexto(&cc, mtmp->mx, mtmp->my, pm))
             return 0;
         mzapwand(mtmp, otmp, FALSE);
-        if (Role_if(PM_CARTOMANCER))
-            mon = make_msummoned((struct permonst *) 0, mtmp, FALSE, cc.x, cc.y);
-        else
-            mon = makemon((struct permonst *) 0, cc.x, cc.y, NO_MM_FLAGS);
+        mon = makemon((struct permonst *) 0, cc.x, cc.y, NO_MM_FLAGS);
         if (mon && canspotmon(mon) && oseen)
             makeknown(WAN_CREATE_MONSTER);
         return 2;
@@ -1218,10 +1215,7 @@ struct monst *mtmp;
             struct monst *mon;
             if (!enexto(&cc, mtmp->mx, mtmp->my, pm)) 
                 continue;
-            if (Role_if(PM_CARTOMANCER))
-                mon = make_msummoned(rndmonst(), mtmp, FALSE, cc.x, cc.y);
-            else
-                mon = makemon(rndmonst(), cc.x, cc.y, NO_MM_FLAGS);
+            mon = makemon(rndmonst(), cc.x, cc.y, NO_MM_FLAGS);
             if (mon) 
                 newsym(mon->mx,mon->my);
         }
@@ -1251,10 +1245,7 @@ struct monst *mtmp;
                `pm' is what to actually create (0 => random) */
             if (!enexto(&cc, mtmp->mx, mtmp->my, fish))
                 break;
-            if (Role_if(PM_CARTOMANCER))
-                mon = make_msummoned(pm, mtmp, FALSE, cc.x, cc.y);
-            else
-                mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
+            mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
             if (mon && canspotmon(mon))
                 known = TRUE;
         }
@@ -1286,10 +1277,7 @@ struct monst *mtmp;
             return 0;
         mbagmsg(mtmp, otmp);
         otmp->spe--;
-        if (Role_if(PM_CARTOMANCER))
-            mon = make_msummoned(pm, mtmp, FALSE, cc.x, cc.y);
-        else
-            mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
+        mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
         if (mon && canspotmon(mon) && oseen)
             makeknown(otmp->otyp);
         return 2;
@@ -1334,10 +1322,7 @@ struct monst *mtmp;
                `pm' is what to actually create (0 => random) */
             if (!enexto(&cc, mtmp->mx, mtmp->my, fish)) 
                 break;
-            if (Role_if(PM_CARTOMANCER))
-                mon = make_msummoned(pm, mtmp, FALSE, cc.x, cc.y);
-            else
-                mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
+            mon = makemon(pm, cc.x, cc.y, NO_MM_FLAGS);
             if (mon && canspotmon(mon)) 
                 known = TRUE;
         }

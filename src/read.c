@@ -1974,7 +1974,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                                 + ((sblessed || rn2(73)) ? 0 : rnd(4)),
                             confused ? &mons[PM_ACID_BLOB]
                                      : (struct permonst *) 0,
-                            FALSE, !scursed))
+                            FALSE))
             known = TRUE;
         /* no need to flush monsters; we ask for identification only if the
          * monsters are not visible
@@ -2031,8 +2031,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             } else if (state == MAKE_EM_HOSTILE) {
                 mtmp->mpeaceful = 0;
             }
-            if (mtmp && Role_if(PM_CARTOMANCER))
-                mtmp->msummoned = 15 + u.ulevel * 4;
         }
         known = TRUE;
         if (Hallucination) {
@@ -2077,10 +2075,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                     pm = mkclass(S_ZOMBIE, 0);
                     break;
                 }
-                if (Role_if(PM_CARTOMANCER))
-                    mtmp = make_msummoned(pm, &youmonst, FALSE, u.ux, u.uy);
-                else
-                    mtmp = makemon(pm, u.ux, u.uy, NO_MM_FLAGS);
+                mtmp = makemon(pm, u.ux, u.uy, NO_MM_FLAGS);
                 /* WAC Give N a shot at controlling the beasties
                  * (if not cursed <g>).  Check curse status in case
                  * this ever becomes a scroll
@@ -2251,7 +2246,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             /* could be scroll of create monster, don't set known ...*/
             (void) create_critters(d(1,2), 
                        !scursed ? &mons[PM_YELLOW_LIGHT] 
-                                : &mons[PM_BLACK_LIGHT], TRUE, !scursed);
+                                : &mons[PM_BLACK_LIGHT], TRUE);
         }
         break;
     case SCR_CLONING:
@@ -2375,7 +2370,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (confused) {
             /* could be scroll of create monster, don't set known ...*/
             (void) create_critters(d(1, 3), !scursed ? &mons[PM_WHIRLING_SPHERE]
-                                               : &mons[PM_AIR_ELEMENTAL], TRUE, !scursed);
+                                               : &mons[PM_AIR_ELEMENTAL], TRUE);
             break;
         }
         else if (scursed) {
@@ -2806,7 +2801,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             /* could be scroll of create monster, don't set known ...*/
             (void) create_critters(d(1, 3), 
                                    !scursed ? &mons[PM_FREEZING_SPHERE] 
-                                            : &mons[PM_ICE_ELEMENTAL], TRUE, !scursed);
+                                            : &mons[PM_ICE_ELEMENTAL], TRUE);
             break;
         } else {
             if (!already_known)
