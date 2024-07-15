@@ -391,7 +391,7 @@ boolean resuming;
                     }
 #endif
                     
-                    if (pobj = carrying_arti(ART_TREASURY_OF_PROTEUS)) {
+                    if ((pobj = carrying_arti(ART_TREASURY_OF_PROTEUS))) {
                         if (u.protean > 0)
                             u.protean--;
                         else {

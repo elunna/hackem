@@ -529,7 +529,7 @@ register struct monst *mtmp;
             }
             /* the !otmp case should never happen; picking an already
                cursed item happens--avoid "resists" message in that case */
-            if (!otmp || otmp->cursed)
+            if (!otmp || otmp->cursed) {
                 continue; /* next target */
 
                 if (otmp->oartifact && spec_ability(otmp, SPFX_INTEL) &&
@@ -543,6 +543,7 @@ register struct monst *mtmp;
                     unbless(otmp);
                 else
                     curse(otmp);
+            }
         }
         update_inventory();
     }

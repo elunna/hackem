@@ -4138,7 +4138,6 @@ static NEARDATA const char cards[] = { SCROLL_CLASS, 0 };
 int
 tech_cardsleeve()
 {
-    int tech_no = get_tech_no(T_CARD_SLEEVE);
     struct obj *card;
     card = getobj(cards, "sleeve");
     if (!card)

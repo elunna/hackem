@@ -494,8 +494,8 @@ boolean parameter; /* So I can't think up of a good name.  So sue me. --KAA */
     for (otmp = invent; otmp; otmp = otmp->nobj)
         if (confers_luck(otmp)) {
             /* Pirates' quest artifact never counts as cursed for them */
-            if (otmp->cursed && !(Role_if(PM_PIRATE) && is_quest_artifact(otmp))
-                || wielding_artifact(ART_LUCKLESS_FOLLY))
+            if ((otmp->cursed && (!Role_if(PM_PIRATE) && is_quest_artifact(otmp)))
+                    || wielding_artifact(ART_LUCKLESS_FOLLY))
                 bonchance -= otmp->quan;
             else if (otmp->blessed)
                 bonchance += otmp->quan;
