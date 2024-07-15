@@ -848,12 +848,9 @@ BOOLEAN_P centered_on_stairs;
 
                 /* this honors genocide but overrides extinction; it ignores
                    inside-hell-only (G_HELL) & outside-hell-only (G_NOHELL) */
-                if (Role_if(PM_CARTOMANCER))
-                    mtmp = make_msummoned(&mons[makeindex], summoner, FALSE, bypos.x, bypos.y);
-                else
-                    mtmp = makemon(&mons[makeindex], bypos.x, bypos.y, MM_ADJACENTOK);
-                
-                if (mtmp) {
+                if ((mtmp = makemon(&mons[makeindex], bypos.x, bypos.y,
+                                    MM_ADJACENTOK))
+                    != 0) {
                     mtmp->msleeping = mtmp->mpeaceful = mtmp->mtame = 0;
                     set_malign(mtmp);
                 } else {
