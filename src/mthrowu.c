@@ -22,8 +22,8 @@ STATIC_DCL int FDECL(drop_throw, (struct monst *, struct obj *, BOOLEAN_P, int, 
  */
 STATIC_OVL NEARDATA const char *breathwep[] = {
     "fragments", "fire", "frost", "sleep gas", "a disintegration blast",
-    "lightning", "poison gas", "acid", "sound",
-    "water"
+    "lightning", "poison gas", "acid", "noise", "water",
+    "a dark energy blast", "a disorienting blast", "strange breath #12"
 };
 
 extern boolean notonhead; /* for long worms */
@@ -92,8 +92,7 @@ const char *name; /* if null, then format `*objp' */
                  || (!Upolyd && Race_if(PM_TORTLE))) && rn2(2)) {
                 Your("%s %s %s.",
                      (is_dragon(youmonst.data) ? "scaly hide"
-                                               : (youmonst.data == &mons[PM_GIANT_TURTLE]
-                                                  || Race_if(PM_TORTLE))
+                                               : is_tortle(youmonst.data)
                                                    ? "protective shell"
                                                    : "thick hide"),
                       (rn2(2) ? "blocks" : "deflects"), onm);
@@ -203,15 +202,19 @@ int x, y;
             bomb_explode(obj, bhitpos.x, bhitpos.y, FALSE);
         }
     }
-    
-    /* D: Detonate crossbow bolts from Hellfire if they hit */
-    if (ohit && mwep && mwep->oartifact == ART_HELLFIRE
-        && is_ammo(obj) && ammo_and_launcher(obj, mwep)) {
+    if (obj->otyp == ROCKET) {
         if (cansee(bhitpos.x, bhitpos.y))
             pline("%s explodes in a ball of fire!", Doname2(obj));
         else
             You_hear("an explosion");
-
+        explode(bhitpos.x, bhitpos.y, ZT_MONSPELL(ZT_FIRE),
+                d(3, 8), WEAPON_CLASS, EXPL_FIERY);
+        create = 0;
+    }
+    
+    /* D: Detonate crossbow bolts from Hellfire if they hit */
+    if (ohit && mwep && mwep->oartifact == ART_HELLFIRE
+        && is_ammo(obj) && ammo_and_launcher(obj, mwep)) {
         explode(bhitpos.x, bhitpos.y, -ZT_SPELL(ZT_FIRE), d(2, 6), WEAPON_CLASS,
                 EXPL_FIERY);
 
@@ -327,6 +330,10 @@ struct obj *otmp, *mwep;
             if (skill == P_DAGGER)
                 multishot++;
             break;
+        case PM_BARBARIAN:
+            if (skill == P_AXE)
+                multishot++;
+            break;
         case PM_NINJA:
             if (skill == -P_SHURIKEN || skill == -P_DART)
                 multishot++;
@@ -368,7 +375,19 @@ struct obj *otmp, *mwep;
                      mtarg ? mtarg->mx : mtmp->mux,
                      mtarg ? mtarg->my : mtmp->muy),
         multishot = monmulti(mtmp, otmp, mwep);
-
+    boolean gunning = (ammo_and_launcher(otmp, mwep)
+               && weapon_type(mwep) == P_FIREARM);
+    
+    if (gunning && otmp->cursed && mwep->cursed) {
+        /* If blind? Clarify this message */
+        pline("%s suddenly explodes!", The(xname(mwep)));
+        int dmg = d(abs(mwep->spe) + 2, 6) + dmgval(otmp, mtmp);
+        explode(mtmp->mx, mtmp->my, ZT_SPELL(ZT_FIRE), dmg, WEAPON_CLASS, AD_FIRE);
+        m_useup(mtmp, mwep);
+        m_useup(mtmp, otmp);
+        return;
+    }
+    
     /*
      * Caller must have called linedup() to set up tbx, tby.
      */
@@ -402,6 +421,30 @@ struct obj *otmp, *mwep;
     }
     m_shot.n = multishot;
     for (m_shot.i = 1; m_shot.i <= m_shot.n; m_shot.i++) {
+        /* Firearms can get jammed */
+        if (gunning)
+            if ((mwep->cursed && !rn2(2)) || (otmp->cursed && !rn2(2))
+                  || ((otmp->oeroded > 0 || otmp->oeroded2 > 0) && !rn2(4))
+                  || ((mwep->oeroded > 0 || mwep->oeroded2 > 0) && !rn2(4))) {
+
+                /* Grease is the first level of protection */
+                if (mwep->greased) {
+                    if (!rn2(2)) {
+                        if (canseemon(mtmp))
+                            pline_The("grease wears off %s %s.",
+                                  s_suffix(mon_nam(mtmp)), xname(mwep));
+                        mwep->greased = 0;
+                    }
+                }
+                /* Blessed firearms resist 3 out of 4 times */
+                else if (!mwep->blessed || !rn2(4)) {
+                    if (canseemon(mtmp))
+                        pline("%s %s jams!", s_suffix(Monnam(mtmp)), xname(mwep));
+                    mwep->obroken = 1;
+                    m_useup(mtmp, otmp);
+                    break;
+                }
+            }
         m_throw(mtmp, mtmp->mx, mtmp->my, sgn(tbx), sgn(tby), dm, otmp, TRUE);
         /* conceptually all N missiles are in flight at once, but
            if mtmp gets killed (shot kills adjacent gas spore and
@@ -416,7 +459,6 @@ struct obj *otmp, *mwep;
     m_shot.n = m_shot.i = 0;
     m_shot.o = STRANGE_OBJECT;
     m_shot.s = FALSE;
-
 }
 
 /* Find a target for a ranged attack. */
@@ -805,7 +847,7 @@ register boolean verbose;
             goto cleanup_thrown;
         }
     }
-
+    
     if (MT_FLIGHTCHECK(TRUE, 0)) {
         /* MT_FLIGHTCHECK includes a call to hits_bars, which can end up
          * destroying singleobj and set it to null if it's any of certain
@@ -1172,8 +1214,7 @@ breamm(mtmp, mattk, mtarg)
 struct monst *mtmp, *mtarg;
 struct attack  *mattk;
 {
-    /* if new breath types are added, change AD_ACID to max type */
-    int typ = (mattk->adtyp == AD_RBRE) ? rnd(AD_WATR) : mattk->adtyp ;
+    int typ = (mattk->adtyp == AD_RBRE) ? rnd(MAX_AD) : mattk->adtyp ;
     boolean player_resists = FALSE;
 
     if (mlined_up(mtmp, mtarg, TRUE)) {
@@ -1197,7 +1238,7 @@ struct attack  *mattk;
         }
 
         if (!mtmp->mspec_used && rn2(3)) {
-            if ((typ >= AD_MAGM) && (typ <= AD_WATR)) {
+            if ((typ >= AD_MAGM) && (typ <= MAX_AD)) {
                 if (canseemon(mtmp))
                     pline("%s breathes %s!", Monnam(mtmp), breathwep[typ - 1]);
                 dobuzz((int) -ZT_BREATH(typ - 1), (int) mattk->damn,
@@ -1437,8 +1478,7 @@ breamu(mtmp, mattk)
 struct monst *mtmp;
 struct attack *mattk;
 {
-    /* if new breath types are added, change max type */
-    int typ = (mattk->adtyp == AD_RBRE) ? rnd(AD_WATR) : mattk->adtyp;
+    int typ = (mattk->adtyp == AD_RBRE) ? rnd(MAX_AD) : mattk->adtyp;
 
     if (lined_up(mtmp)) {
         if (mtmp->mcan) {
@@ -1451,7 +1491,7 @@ struct attack *mattk;
             return 0;
         }
         if (!mtmp->mspec_used && rn2(3)) {
-            if ((typ >= AD_MAGM) && (typ <= AD_WATR)) {
+            if ((typ >= AD_MAGM) && (typ <= MAX_AD)) {
                 if (canseemon(mtmp))
                     pline("%s breathes %s!", Monnam(mtmp),
                           breathwep[typ - 1]);

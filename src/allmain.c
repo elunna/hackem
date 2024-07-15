@@ -199,8 +199,6 @@ boolean resuming;
     if (flags.quest_boon) {
         change_luck(1); /* silent */
     }
-    if (u.uconduct.wishes)
-        change_luck(wishluck());
 
     if (!resuming) { /* new game */
         context.rndencode = rnd(9000);
@@ -393,18 +391,12 @@ boolean resuming;
                     }
 #endif
                     
-                    if (u.ukinghill) {
+                    if (pobj = carrying_arti(ART_TREASURY_OF_PROTEUS)) {
                         if (u.protean > 0)
                             u.protean--;
                         else {
-                            for (pobj = invent; pobj; pobj = pobj->nobj)
-                                if (pobj->oartifact == ART_TREASURY_OF_PROTEUS)
-                                    break;
-                            if (!pobj) 
-                                impossible("Treasury not actually in inventory??");
-                            else if (pobj->cobj) {
+                            if (pobj->cobj)
                                 arti_poly_contents(pobj);
-                            }
                             u.protean = rnz(100) + d(3, 10);
                             update_inventory();
                         }
@@ -945,7 +937,7 @@ int wtcap;
                 && tech_inuse(T_CHI_HEALING)) {
                 u.uen--;
                 heal++;
-		    }
+            }
             if (heal && !(Withering && heal > 0)) {
                 context.botl = TRUE;
                 u.uhp += heal;
@@ -1424,7 +1416,6 @@ wishluck()
 STATIC_OVL void
 pickup_spirits()
 {
-    char *p;
     /* Autopickup spirits for Necromancer */
     if (Role_if(PM_NECROMANCER)) {
         struct obj *obj;
@@ -1442,8 +1433,7 @@ pickup_spirits()
                     if (obj->otyp == SPIRIT) {
                         /* Don't allow auto-pickup of spirits in shops unless
                          * the shop is abandoned. */
-                        if (inside_shop(x, y) && *(p = in_rooms(x, y, SHOPBASE))
-                            && tended_shop(&rooms[*p - ROOMOFFSET]))
+                        if (costly_spot(x, y))
                             continue;
 
                         pickup_object(obj, obj->quan, TRUE);

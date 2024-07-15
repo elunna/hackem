@@ -198,6 +198,7 @@ boolean quietly;
         if (has_oname(otmp) && !idol)
             mtmp = christen_monst(mtmp, ONAME(otmp));
     }
+    
     set_malign(mtmp); /* more alignment changes */
     newsym(mtmp->mx, mtmp->my);
 
@@ -209,27 +210,49 @@ boolean quietly;
     return mtmp;
 }
 
-/* from Slash'EM */
+/* Creates a temporary spell-being monster with a pre-determined
+ * lifetime. Returns the monst struct of the monster created, or
+ * a null pointer if unsuccessful.
+ * 
+ * This being does not generate with items and does not
+ * count toward the monster's birth count, and it does not leave
+ * a corpse or give much XP.
+ * 
+ * The msummoned must start with a lifespan. To determine this
+ * depends on knowing who cast it, so we need to receive the caster.
+ * 
+ * (mnum, caster, tame, x, y)
+ */
 struct monst *
-make_helper(mnum, x, y)
-int mnum;
+make_msummoned(pm, caster, tame, x, y)
+struct permonst *pm;
+struct monst *caster;
+boolean tame;
 xchar x, y;
 {
-    struct permonst *pm;
-    struct monst *mtmp = 0;
+    struct monst *mtmp = (struct monst *) 0;
     int trycnt = 100;
-
+    coord cc;
+    cc.x = x, cc.y = y;
     do {
-        pm = &mons[mnum];
-        mtmp = makemon(pm, x, y,
-                       MM_EDOG | MM_IGNOREWATER | NO_MINVENT);
+        if (!pm)
+            pm = rndmonst();
+
+        /* MM_IGNOREWATER ? */
+        if (enexto(&cc, x, y, pm))
+            mtmp = makemon(pm, cc.x, cc.y,
+                           MM_EDOG | NO_MINVENT | MM_NOCOUNTBIRTH);
     } while (!mtmp && --trycnt > 0);
 
     if (!mtmp)
         return (struct monst *) 0; /* genocided */
-
-    initedog(mtmp);
-    u.uconduct.pets++;
+    
+    if (tame) {
+        initedog(mtmp);
+        mtmp->mtame = 10;
+        mtmp->uexp = 1; /* You get experience for its kills */
+        u.uconduct.pets++;
+    }
     mtmp->msleeping = 0;
     set_malign(mtmp); /* more alignment changes */
     newsym(mtmp->mx, mtmp->my);
@@ -238,6 +261,16 @@ xchar x, y;
     if (mtmp->mtame && attacktype(mtmp->data, AT_WEAP)) {
         mtmp->weapon_check = NEED_HTH_WEAPON;
         (void) mon_wield_item(mtmp);
+    }
+    
+    /* Spell-being lifetime */
+    if (caster == &youmonst)
+        mtmp->msummoned = 15 + u.ulevel * 4;
+    else
+        mtmp->msummoned = 15 + mtmp->m_lev * 4;
+    
+    if (canseemon(mtmp)) {
+        pline("%s suddenly appears!", Amonnam(mtmp));
     }
     return mtmp;
 }
@@ -301,6 +334,8 @@ makedog()
             petname = "Hachi"; /* Shibuya Station */
         if (Role_if(PM_BARBARIAN))
             petname = "Idefix"; /* Obelix */
+        if (Role_if(PM_CARTOMANCER))
+            petname = "Joey"; /* Obscure SpliceHack reference (tm) */
         if (Role_if(PM_RANGER))
             petname = "Sirius"; /* Orion's dog */
     } else if (!*petname && pettype == PM_SEWER_RAT) {
@@ -1152,8 +1187,8 @@ struct obj *obj;
     if (non_tameable(mtmp->data))
         return FALSE;
 
-    /* Taming is much harder on the Astral Plane! */
-    if (Is_astralevel(&u.uz) && rn2(10))
+    /* Taming is harder on the Astral Plane! */
+    if (Is_astralevel(&u.uz) && rn2(3))
         return FALSE;
 
     /* No taming in the Black Market! */

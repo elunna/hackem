@@ -1871,7 +1871,8 @@ boolean shop_floor_obj;
     if (breaktest(otmp)) {
         const char *result;
 
-        if (otmp->material == GLASS || otmp->otyp == EXPENSIVE_CAMERA) {
+        if (otmp->material == GLASS ||
+                (otmp->otyp == EXPENSIVE_CAMERA && !Role_if(PM_CARTOMANCER))) {
             if (otmp->otyp == MIRROR)
                 change_luck(-2);
             result = "crash";

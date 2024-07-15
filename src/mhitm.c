@@ -206,8 +206,7 @@ int target, roll;
                 fmt = "%s %s %s";
                 Sprintf(buf, fmt, s_suffix(Monnam(mdef)),
                         (is_dragon(mdef->data) ? "scaly hide"
-                                               : (mdef->data == &mons[PM_GIANT_TURTLE]
-                                                  || is_tortle(mdef->data))
+                                               : is_tortle(mdef->data)
                                                    ? "protective shell"
                                                    : "thick hide"),
                         (rn2(2) ? "blocks" : "deflects"));
@@ -1928,7 +1927,7 @@ post_stone:
                         You(brief_feeling, "peculiarly sad");
                     return (MM_DEF_DIED | (grow_up(magr, mdef)
                             ? 0 : MM_AGR_DIED));
-                } else if (magr->data == &mons[PM_BEHOLDER] && !rn2(3)) {
+                } else if (is_beholder(magr->data) && !rn2(3)) {
                     if (vis) {
                         if (mdef->data->mlet == S_MIMIC
                             && M_AP_TYPE(mdef) != M_AP_NOTHING)

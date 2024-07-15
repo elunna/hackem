@@ -28,6 +28,7 @@ short otyp;
     case SCR_AMNESIA:
     case SCR_FIRE:
     case SCR_EARTH:
+    case SCR_ZAPPING:
         return 8;
     case SCR_DESTROY_ARMOR:
     case SCR_CREATE_MONSTER:
@@ -266,6 +267,15 @@ found:
         return 1;
     }
 
+    /* cartomancers feel guilty for counterfeiting */
+    if (Role_if(PM_CARTOMANCER) && paper->oclass == SCROLL_CLASS) {
+        You("feel incredibly guilty about forging a card!");
+        adjalign(-10);
+        
+        if (u.uevent.qcompleted)
+            call_kops((struct monst *) 0, FALSE);
+    }
+    
     /* we're really going to write now, so calculate cost
      */
     actualcost = rn1(basecost / 2, basecost / 2);
@@ -366,6 +376,11 @@ found:
            1: from bones or wishing; 2: written with marker */
         new_obj->spe = 2;
 #endif
+    
+    /* Only allow writing scrolls of zapping keyed to wonder */
+    if (new_obj->otyp == SCR_ZAPPING)
+        new_obj->corpsenm = WAN_WONDER;
+    
     /* unlike alchemy, for example, a successful result yields the
        specifically chosen item so hero recognizes it even if blind;
        the exception is for being lucky writing an undiscovered scroll,

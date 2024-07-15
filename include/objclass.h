@@ -148,7 +148,7 @@ struct objclass {
 #define WP_BULLET	1
 #define WP_SHELL	2
 #define WP_ROCKET	3
-#define WP_BOMB         4
+#define WP_BOMB     4
 #define oc_hitbon oc_oc1 /* weapons: "to hit" bonus */
 #define w_acbon oc_oc2 /* weapons: ac bonus */
 

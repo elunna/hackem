@@ -201,6 +201,9 @@ dosit()
         You(sit_message, defsyms[S_ice].explanation);
         if (how_resistant(COLD_RES) < 100)
             pline_The("ice feels cold.");
+    } else if (typ == BRIDGE) {
+        You(sit_message, "bridge");
+        pline_The("bridge sways.");
     } else if (typ == DRAWBRIDGE_DOWN) {
         You(sit_message, "drawbridge");
     } else if (IS_THRONE(typ)) {
@@ -289,7 +292,7 @@ dosit()
                 verbalize("By thine Imperious order, %s...",
                           flags.female ? "Dame" : "Sire");
                 /* Dungeon wide */
-                do_genocide(5, FALSE);	/* REALLY|ONTHRONE, see do_genocide() */
+                do_genocide(5, FALSE); /* REALLY|ONTHRONE, see do_genocide() */
                 break;
             case 9:
                 /* Magical voice not affected by deafness */
@@ -403,26 +406,30 @@ rndcurse()
 {
     int nobj = 0;
     int cnt, onum;
-    struct obj *otmp;
+    struct obj *otmp, *ohorn;
     static const char mal_aura[] = "feel a malignant aura surround %s.";
 
     if (wielding_artifact(ART_MAGICBANE) && rn2(20)) {
         You(mal_aura, "the magic-absorbing staff");
         return;
-    } else if (u.ukinghill && rn2(20)) {
-   	    You(mal_aura, "the cursed treasure chest");
-        otmp = 0;
-        for (otmp = invent; otmp; otmp = otmp->nobj)
-            if (otmp->oartifact == ART_TREASURY_OF_PROTEUS)
-                break;
-        if (!otmp) 
-            impossible("Treasury not actually in inventory??");
-        else if (otmp->blessed)
+    }
+    if ((otmp = carrying_arti(ART_TREASURY_OF_PROTEUS)) && rn2(20)) {
+        You(mal_aura, "the cursed treasure chest");
+        /* for non-Pirates, it becomes cursed outright */
+        if (otmp->blessed && is_quest_artifact(otmp))
             unbless(otmp);
         else
             curse(otmp);
         update_inventory();
         return;
+    }
+    /* Nighthorn will happily absorb curses */
+    if ((ohorn = carrying_arti(ART_NIGHTHORN))) {
+        if (!ohorn->cursed && rn2(20)) {
+            You(mal_aura, "the Nighthorn");
+            curse(ohorn);
+            return;
+        }
     }
 
     if (Antimagic) {
@@ -481,62 +488,64 @@ rndcurse()
     }
 }
 
+/* curse a few inventory items at random! */
 void
-mrndcurse(mtmp)			/* curse a few inventory items at random! */
+mrndcurse(mtmp)
 register struct monst *mtmp;
 {
-  	int	nobj = 0;
-  	int	cnt, onum;
-  	struct	obj	*otmp;
-  	static const char mal_aura[] = "feel a malignant aura surround %s.";
+    int nobj = 0;
+    int cnt, onum;
+    struct obj *otmp;
+    static const char mal_aura[] = "feel a malignant aura surround %s.";
 
-  	boolean resists = resist(mtmp, 0, 0, FALSE),
+    boolean resists = resist(mtmp, 0, 0, FALSE),
                 vis = couldsee(mtmp->mx, mtmp->my);
+    
+    if (vis && MON_WEP(mtmp) &&
+        (MON_WEP(mtmp)->oartifact == ART_MAGICBANE) && rn2(20)) {
+        You(mal_aura, "the magic-absorbing staff");
+        return;
+    }
 
-  	if (vis && MON_WEP(mtmp) &&
-  	    (MON_WEP(mtmp)->oartifact == ART_MAGICBANE) && rn2(20)) {
-  	    You(mal_aura, "the magic-absorbing staff");
-  	    return;
-  	}
+    if (vis && resists) {
+        shieldeff(mtmp->mx, mtmp->my);
+        You(mal_aura, mon_nam(mtmp));
+    }
 
-  	if (vis && resists) {
-  	    shieldeff(mtmp->mx, mtmp->my);
-  	    You(mal_aura, mon_nam(mtmp));
-  	}
+    for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj) {
+        /* gold isn't subject to being cursed or blessed */
+        if (otmp->oclass == COIN_CLASS) 
+               continue;
+        nobj++;
+    }
+    if (nobj) {
+        for (cnt = rnd(6/((!!resists) + 1));
+             cnt > 0; cnt--)  {
+            onum = rnd(nobj);
+            for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj) {
+                /* as above */
+                if (otmp->oclass == COIN_CLASS) continue;
+                if (--onum == 0) break; /* found the target */
+            }
+            /* the !otmp case should never happen; picking an already
+               cursed item happens--avoid "resists" message in that case */
+            if (!otmp || otmp->cursed)
+                continue; /* next target */
 
-  	for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj) {
-  	    /* gold isn't subject to being cursed or blessed */
-  	    if (otmp->oclass == COIN_CLASS) continue;
-  	    nobj++;
-  	}
-  	if (nobj) {
-  	    for (cnt = rnd(6/((!!resists) + 1));
-  		      cnt > 0; cnt--)  {
-        		onum = rnd(nobj);
-        		for (otmp = mtmp->minvent; otmp; otmp = otmp->nobj) {
-        		    /* as above */
-        		    if (otmp->oclass == COIN_CLASS) continue;
-        		    if (--onum == 0) break;	/* found the target */
-        		}
-        		/* the !otmp case should never happen; picking an already
-        		   cursed item happens--avoid "resists" message in that case */
-        		if (!otmp || otmp->cursed)
-                continue;	/* next target */
+                if (otmp->oartifact && spec_ability(otmp, SPFX_INTEL) &&
+                    rn2(10) < 8) {
+                    if (vis)
+                        pline("%s!", Tobjnam(otmp, "resist"));
+                    continue;
+                }
 
-        		if (otmp->oartifact && spec_ability(otmp, SPFX_INTEL) &&
-        		    rn2(10) < 8) {
-                            if (vis)
-                                pline("%s!", Tobjnam(otmp, "resist"));
-        		    continue;
-        		}
-
-        		if (otmp->blessed)
-        			  unbless(otmp);
-        		else
-        			  curse(otmp);
-  	    }
-  	    update_inventory();
-  	}
+                if (otmp->blessed)
+                    unbless(otmp);
+                else
+                    curse(otmp);
+        }
+        update_inventory();
+    }
 }
 
 /* remove a random INTRINSIC ability */
@@ -546,8 +555,8 @@ attrcurse()
     switch (rnd(14)) {
     case 1:
         if (HFire_resistance) {
-	    HFire_resistance = HFire_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
-	    decr_resistance(&HFire_resistance, rnd(50) + 50);
+        HFire_resistance = HFire_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
+        decr_resistance(&HFire_resistance, rnd(50) + 50);
             You_feel("warmer.");
             break;
         }
@@ -561,8 +570,8 @@ attrcurse()
         /*FALLTHRU*/
     case 3:
         if (HPoison_resistance) {
-	    HPoison_resistance = HPoison_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
-	    decr_resistance(&HPoison_resistance, rnd(50) + 50);
+        HPoison_resistance = HPoison_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
+        decr_resistance(&HPoison_resistance, rnd(50) + 50);
             You_feel("a little sick!");
             break;
         }
@@ -578,8 +587,8 @@ attrcurse()
         /*FALLTHRU*/
     case 5:
         if (HCold_resistance) {
-	    HCold_resistance = HCold_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
-	    decr_resistance(&HCold_resistance, rnd(50) + 50);
+        HCold_resistance = HCold_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
+        decr_resistance(&HCold_resistance, rnd(50) + 50);
             You_feel("cooler.");
             break;
         }
@@ -632,27 +641,27 @@ attrcurse()
         /*FALLTHRU*/
     case 12:
         if (HSleep_resistance) {
-	    HSleep_resistance = HSleep_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
-	    decr_resistance(&HSleep_resistance, rnd(50) + 50);
-	    You_feel("a little tired.");
-	    break;
-	}
+        HSleep_resistance = HSleep_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
+        decr_resistance(&HSleep_resistance, rnd(50) + 50);
+        You_feel("a little tired.");
+        break;
+    }
         /*FALLTHRU*/
     case 13:
         if (HDisint_resistance) {
-	    HDisint_resistance = HDisint_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
-	    decr_resistance(&HDisint_resistance, rnd(50) + 50);
-	    You_feel("less firm.");
-	    break;
-	}
+        HDisint_resistance = HDisint_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
+        decr_resistance(&HDisint_resistance, rnd(50) + 50);
+        You_feel("less firm.");
+        break;
+    }
         /*FALLTHRU*/
     case 14:
         if (HShock_resistance) {
-	    HShock_resistance = HShock_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
-	    decr_resistance(&HShock_resistance, rnd(50) + 50);
-	    You_feel("more conductive.");
-	    break;
-	}
+        HShock_resistance = HShock_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
+        decr_resistance(&HShock_resistance, rnd(50) + 50);
+        You_feel("more conductive.");
+        break;
+    }
         /*FALLTHRU*/
     default:
         break;

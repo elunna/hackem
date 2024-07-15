@@ -93,6 +93,36 @@ STATIC_OVL struct Jitem Pirate_items[] = {
     { 0, "" } 
 };
 
+static struct Jitem Cartomancer_items[] = {
+    /*{ LARGE_BOX, "deck box" },*/
+    /*{ LOCK_PICK, "worthless card" },*/
+    
+    { SHURIKEN, "razor card" },
+    { BOOMERANG, "warped card" },
+    
+    { HAWAIIAN_SHIRT, "graphic tee" },
+    
+    { EXPENSIVE_CAMERA, "holographic card" },
+    { CREDIT_CARD, "banned card" },
+    
+    { SACK, "card bag" },
+    { OILSKIN_SACK, "waterproof deckbox" },
+    { BAG_OF_HOLDING, "professional deckbox" },
+    { BAG_OF_RATS, "ratty card bag" },
+    { BAG_OF_TRICKS, "card trick bag" },
+#if 0
+    { LUCKSTONE, "lucky card" },
+    { HEALTHSTONE, "health insurance card" },
+    { LOADSTONE, "heavy card" },
+    { TOUCHSTONE, "siliceous card" },
+    { WHETSTONE, "diamond coated card" },
+    { FLINT, "flint card" },
+    { SLING_BULLET, "heavy die" },
+#endif
+    { 0, "" } 
+};
+
+static const char *Cartomancer_rarity(int otyp);
 static const char *Alternate_item_name(int i, struct Jitem *);
 
 STATIC_OVL char *
@@ -202,10 +232,16 @@ register int otyp;
     const char *un = ocl->oc_uname;
     int nn = ocl->oc_name_known;
 
-    if (Role_if(PM_SAMURAI) && Alternate_item_name(otyp, Japanese_items))
+    if (Role_if(PM_SAMURAI) 
+            && Alternate_item_name(otyp, Japanese_items))
         actualn = Alternate_item_name(otyp, Japanese_items);
-    else if (Role_if(PM_PIRATE) && Alternate_item_name(otyp, Pirate_items))
+    else if (Role_if(PM_PIRATE) 
+            && Alternate_item_name(otyp, Pirate_items))
      	actualn = Alternate_item_name(otyp, Pirate_items);
+    else if (Role_if(PM_CARTOMANCER) 
+            && Alternate_item_name(otyp, Cartomancer_items))
+        actualn = Alternate_item_name(otyp,Cartomancer_items);
+    
     buf[0] = '\0';
     switch (ocl->oc_class) {
     case COIN_CLASS:
@@ -215,14 +251,14 @@ register int otyp;
         Strcpy(buf, Role_if(PM_PIRATE) ? "bottle": "potion");
         break;
     case SCROLL_CLASS:
-        Strcpy(buf, "scroll");
+        Strcpy(buf, Role_if(PM_CARTOMANCER) ? "card": "scroll");
         break;
     case WAND_CLASS:
         Strcpy(buf, "wand");
         break;
     case SPBOOK_CLASS:
         if (otyp != SPE_NOVEL) {
-            Strcpy(buf, "spellbook");
+            Strcpy(buf, Role_if(PM_CARTOMANCER) ? "rulebook": "spellbook");
         } else {
             Strcpy(buf, !nn ? "book" : "novel");
             nn = 0;
@@ -280,7 +316,11 @@ register int otyp;
         
     if (Role_if(PM_PIRATE))
         buf = (char *) replace(buf, "potion", "bottle");
-        
+
+    if (Role_if(PM_CARTOMANCER)) {
+        buf = (char *) replace(buf, "scroll", "card");
+        buf = (char *) replace(buf, "spellbook", "rulebook");
+    }
     return buf;
 }
 
@@ -760,10 +800,15 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
     boolean known, dknown, bknown;
 
     buf = nextobuf() + PREFIX; /* leave room for "17 -3 " */
-    if (Role_if(PM_SAMURAI) && Alternate_item_name(typ, Japanese_items))
+    if (Role_if(PM_SAMURAI) 
+            && Alternate_item_name(typ, Japanese_items))
         actualn = Alternate_item_name(typ, Japanese_items);
-    else if (Role_if(PM_PIRATE) && Alternate_item_name(typ, Pirate_items))
+    else if (Role_if(PM_PIRATE) 
+            && Alternate_item_name(typ, Pirate_items))
      	actualn = Alternate_item_name(typ, Pirate_items);
+    else if (Role_if(PM_CARTOMANCER)
+            && Alternate_item_name(typ, Cartomancer_items))
+        actualn = Alternate_item_name(typ, Cartomancer_items);
     
     /* As of 3.6.2: this used to be part of 'dn's initialization, but it
        needs to come after possibly overriding 'actualn' */
@@ -1059,10 +1104,27 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
         }
         break;
     case SCROLL_CLASS:
-        Strcat(buf, "scroll");
+        if (Role_if(PM_CARTOMANCER)) {
+            Strcpy(buf, Cartomancer_rarity(typ));
+            if (obj->quan > 1) {
+                Strcat(buf, "s");
+                pluralize = FALSE;
+            }
+        } else
+            Strcpy(buf, "scroll");
         if (!dknown)
             break;
-        if (nn) {
+        
+        /* Cartomancer special cards */
+        if (nn && obj->otyp == SCR_CREATE_MONSTER 
+               && obj->corpsenm != NON_PM) {
+            Strcat(buf, " - ");
+            Strcat(buf, mons[obj->corpsenm].mname);
+        } else if (nn && obj->otyp == SCR_ZAPPING 
+               && obj->corpsenm != NON_PM) {
+            Strcat(buf, " - ");
+            Strcat(buf, OBJ_NAME(objects[obj->corpsenm]));
+        } else if (nn) {
             Strcat(buf, " of ");
             Strcat(buf, actualn);
         } else if (un) {
@@ -1098,15 +1160,19 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
             break;
             /* end of tribute */
         } else if (!dknown) {
-            Strcpy(buf, "spellbook");
+            Strcpy(buf, Role_if(PM_CARTOMANCER) 
+                ? "rulebook": "spellbook");
         } else if (nn) {
             if (typ != SPE_BOOK_OF_THE_DEAD)
-                Strcat(buf, "spellbook of ");
+                Strcat(buf, Role_if(PM_CARTOMANCER) 
+                    ? "rulebook of ": "spellbook of ");
             Strcat(buf, actualn);
         } else if (un) {
-            xcalled(buf, BUFSZ - PREFIX, "spellbook", un);
+            xcalled(buf, BUFSZ - PREFIX, Role_if(PM_CARTOMANCER) 
+                ? "rulebook": "spellbook", un);
         } else
-            Sprintf(eos(buf), "%s spellbook", dn);
+            Sprintf(eos(buf), "%s %s", dn, Role_if(PM_CARTOMANCER) 
+                ? "rulebook": "spellbook");
         break;
     case RING_CLASS:
         if (dknown) {
@@ -1198,22 +1264,26 @@ unsigned cxn_flags; /* bitmask of CXN_xxx values */
 
     /* Firearms modes */
     if (is_firearm(obj) && obj->where == OBJ_INVENT) {
-        switch (obj->otyp) {
-        case ASSAULT_RIFLE:
-            if (obj->altmode == WP_MODE_AUTO)
-                Strcat(buf, " (auto mode)");
-            else if (obj->altmode == WP_MODE_BURST)
-                Strcat(buf, " (burst mode)");
-            else
-                Strcat(buf, " (single mode)");
-            break;
-        case AUTO_SHOTGUN:
-        case SUBMACHINE_GUN:
-            if (obj->altmode == WP_MODE_AUTO)
-                Strcat(buf, " (auto mode)");
-            else
-                Strcat(buf, " (single mode)");
-            break;
+        if (obj->obroken) {
+            Strcat(buf, " (jammed)");
+        } else {
+            switch (obj->otyp) {
+                case ASSAULT_RIFLE:
+                    if (obj->altmode == WP_MODE_AUTO)
+                        Strcat(buf, " (auto mode)");
+                    else if (obj->altmode == WP_MODE_BURST)
+                        Strcat(buf, " (burst mode)");
+                    else
+                        Strcat(buf, " (single mode)");
+                    break;
+                case AUTO_SHOTGUN:
+                case SUBMACHINE_GUN:
+                    if (obj->altmode == WP_MODE_AUTO)
+                        Strcat(buf, " (auto mode)");
+                    else
+                        Strcat(buf, " (single mode)");
+                    break;
+            }
         }
     }
 
@@ -1389,8 +1459,12 @@ char *prefix;
             Strcat(prefix, "rustproof ");
         else if (is_corrodeable(obj))
             Strcat(prefix, "corrodeproof ");
-        else if (is_flammable(obj))
-            Strcat(prefix, "fireproof ");
+        else if (is_flammable(obj)) {
+            if (Role_if(PM_CARTOMANCER) && obj->oclass == SCROLL_CLASS)
+                Strcat(prefix, "sleeved ");
+            else
+                Strcat(prefix, "fireproof ");
+        }
     }
 }
 
@@ -1445,6 +1519,15 @@ unsigned doname_flags;
     char tmpbuf[PREFIX + 1]; /* for when we have to add something at
                                 the start of prefix instead of the
                                 end (Strcat is used on the end) */
+    /* tourists get a special identification service for shop items */
+    if (Role_if(PM_TOURIST) && !Hallucination) {
+        int nochrg = 0;
+        long price = get_cost_of_shop_item(obj, &nochrg);
+        if (price > 0) {
+            discover_object(obj->otyp, TRUE, FALSE);
+        }
+    }
+    
     bp = xname(obj);
     
     if (iflags.override_ID) {
@@ -1664,6 +1747,9 @@ unsigned doname_flags;
             Strcat(bp, " (lit)");
         if (obj->otyp == POT_FRUIT_JUICE && obj->corpsenm)
             Strcat(bp, " (fermenting)");
+        break;
+    case SCROLL_CLASS:
+        add_erosion_words(obj, prefix);
         break;
     case RING_CLASS:
         add_erosion_words(obj, prefix);
@@ -1907,7 +1993,8 @@ struct obj *otmp;
         return TRUE;
     if (((otmp->oprops_known & otmp->oprops) & ITEM_PROP_MASK) != otmp->oprops)
         return TRUE;
-    if (otmp->oartifact && undiscovered_artifact(otmp->oartifact))
+    if (otmp->oartifact && (undiscovered_artifact(otmp->oartifact) 
+          || otmp->otyp == WORM_TOOTH || otmp->otyp == CRYSKNIFE))
         return TRUE;
     /* otmp->rknown is the only item of interest if we reach here */
     /*
@@ -1916,8 +2003,7 @@ struct obj *otmp;
      *  `rknown' ID only matters if xname() will provide the info about it.
      */
     if (otmp->rknown
-        || otmp->oclass == SCROLL_CLASS || otmp->oclass == SPBOOK_CLASS
-        || otmp->oclass == POTION_CLASS)
+        || otmp->oclass == SPBOOK_CLASS || otmp->oclass == POTION_CLASS)
         return FALSE;
     else /* lack of `rknown' only matters for vulnerable objects */
         return (boolean) (is_rustprone(otmp) || is_corrodeable(otmp)
@@ -2063,7 +2149,7 @@ struct obj *obj;
 
     /* bypass object twiddling for artifacts */
     if (obj->oartifact)
-        return bare_artifactname(obj);
+            return bare_artifactname(obj);
 
     /* remember original settings for core of the object;
        oextra structs other than oname don't matter here--since they
@@ -2593,9 +2679,11 @@ static const char *wrp[] = {
     "potion",
     "bottle", 
     "scroll",
+    "card",
     "gem",
     "amulet",
     "spellbook",
+    "rulebook",
     "spell book",
     /* for non-specific wishes */
     "weapon",
@@ -2610,8 +2698,10 @@ static const char wrpsym[] = {
     POTION_CLASS,
     POTION_CLASS,
     SCROLL_CLASS,
+    SCROLL_CLASS,
     GEM_CLASS,
     AMULET_CLASS,
+    SPBOOK_CLASS,
     SPBOOK_CLASS,
     SPBOOK_CLASS,
     WEAPON_CLASS,
@@ -2787,6 +2877,7 @@ static struct sing_plur one_off[] = {
     { "serum", "sera" },
     { "staff", "staves" },
     { "tooth", "teeth" },
+    { "worm that walks", "worms that walk" },
     { 0, 0 }
 };
 
@@ -3428,6 +3519,7 @@ static const struct alt_spellings {
     { "handgun", PISTOL },
     { "hand gun", PISTOL },
     { "revolver", PISTOL },
+    { "bazooka", ROCKET_LAUNCHER },
     { "shell", SHOTGUN_SHELL },
     { "hand grenade", FIRE_BOMB },
     { "frag grenade", FIRE_BOMB },
@@ -3701,6 +3793,12 @@ const char * in_str;
         }
     } else if (Role_if(PM_PIRATE)) {
         for (ji = Pirate_items; ji->item != 0; ji++) {
+            if (!strcmpi(in_str, ji->name)) {
+                return ji->item;
+            }
+        }
+    } else if (Role_if(PM_CARTOMANCER)) {
+        for (ji = Cartomancer_items; ji->item != 0; ji++) {
             if (!strcmpi(in_str, ji->name)) {
                 return ji->item;
             }
@@ -4736,7 +4834,7 @@ struct obj *no_wish;
     typ = 0;
 
     if (actualn) {
-        struct Jitem *j[] = { Japanese_items, Pirate_items };
+        struct Jitem *j[] = { Japanese_items, Pirate_items, Cartomancer_items };
         for (i = 0; (unsigned long) i < sizeof(j) / sizeof(j[0]); i++)
         {
             while (j[i]->item) {
@@ -5091,6 +5189,9 @@ struct obj *no_wish;
     /* obviously don't allow wishing for scrolls of wishing --Amy */
     if (typ == SCR_ACQUIREMENT && !wizard) 
         typ = SCR_BLANK_PAPER;
+
+    if (typ == SCR_ZAPPING)
+        otmp->corpsenm = WAN_WONDER;
     
     /* if player specified a reasonable count, maybe honor it */
     if (cnt > 1 && objects[typ].oc_merge
@@ -5289,8 +5390,7 @@ struct obj *no_wish;
     if (isgreased)
         otmp->greased = 1;
 
-    if (isdiluted && otmp->oclass == POTION_CLASS && otmp->otyp != POT_WATER
-        && otmp->otyp != POT_OIL)
+    if (isdiluted && otmp->oclass == POTION_CLASS && otmp->otyp != POT_WATER)
         otmp->odiluted = 1;
 
     /* set tin variety */
@@ -5795,4 +5895,28 @@ long objprops;
     
     return objprops;
 }
+
+static const char*
+Cartomancer_rarity(int otyp)
+{
+    int price = objects[otyp].oc_cost;
+    if (otyp == SCR_CREATE_MONSTER)
+        return "summon card";
+    if (otyp == SCR_ZAPPING)
+        return "zap card";
+    
+    /* Don't show the rarity if we have identified the card.
+     * We could, but it takes up inventory real-estate. */
+    if (objects[otyp].oc_name_known)
+        return "card";
+        
+    if (price < 100)
+        return "common card";
+    if (price < 200)
+        return "uncommon card";
+    if (price < 300)
+        return "rare card";
+    return "legendary card";
+}
+
 /*objnam.c*/

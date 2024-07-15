@@ -277,6 +277,7 @@ char **argv;
         "lev_comp", /* dummy argv[0] */
         ":dat:Arch.des",
         ":dat:Barb.des",
+        ":dat:Cart.des",
         ":dat:Caveman.des",
         ":dat:Convict.des",
         ":dat:Flame.des",
@@ -315,7 +316,6 @@ char **argv;
         ":dat:nkai.des",
         ":dat:nymph.des",
         ":dat:oracle.des",
-        ":dat:ozzy.des",
         ":dat:qchaos.des",
         ":dat:qlawful.des",
         ":dat:qneutral.des",
@@ -323,7 +323,6 @@ char **argv;
         ":dat:sokoban.des",
         ":dat:sea.des",
         ":dat:spiders.des",
-        ":dat:stor.des", 
         ":dat:tomb.des",
         ":dat:tower.des",
         ":dat:town.des",

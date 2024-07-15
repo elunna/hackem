@@ -262,6 +262,11 @@ int mndx;
         /* flags for all barbarians regardless of race */
         rptr->mflags3 |= M3_BERSERK;
         break;
+    case PM_CARTOMANCER:
+        rptr->mattk[0].adtyp = AD_SAMU;
+        rptr->mattk[1].aatyp = AT_MAGC;
+        rptr->mattk[1].adtyp = AD_SPEL;
+        break;
     case PM_CAVEMAN:
     case PM_CAVEWOMAN:
         /* flags for all cavepersons regardless of race */
@@ -487,6 +492,17 @@ struct obj *obj;
         if (helm == HELM_OF_BRILLIANCE)
             helm = STRANGE_OBJECT;
         break;
+    case PM_CARTOMANCER:
+        weapon = !rn2(3) ? SHURIKEN : STRANGE_OBJECT;
+        armor = ROBE;
+        if (rn2(2)) {
+            cloak = CLOAK_OF_MAGIC_RESISTANCE;
+        }
+        if (rn2(4))
+            helm = HELM_OF_BRILLIANCE;
+        shield = STRANGE_OBJECT;
+        (void) mongets(mtmp, SCR_CREATE_MONSTER);
+        break;
     case PM_CAVEMAN:
     case PM_CAVEWOMAN:
         if (rn2(4))
@@ -501,7 +517,7 @@ struct obj *obj;
             weapon = FLAIL;
         break;
     case PM_FLAME_MAGE:
-        cloak = ROBE;
+        armor = ROBE;
         if (!rn2(2))
             weapon = rn2(2) ? QUARTERSTAFF : AXE;
         break;
@@ -516,7 +532,7 @@ struct obj *obj;
             shield = STRANGE_OBJECT;
         break;
     case PM_ICE_MAGE:
-        cloak = ROBE;
+        armor = ROBE;
         if (!rn2(2))
             weapon = rn2(2) ? STILETTO : ATHAME;
         break;
@@ -555,8 +571,7 @@ struct obj *obj;
         break;
     case PM_MONK:
         weapon = !rn2(3) ? SHURIKEN : STRANGE_OBJECT;
-        armor = STRANGE_OBJECT;
-        cloak = ROBE;
+        armor = ROBE;
         if (rn2(2))
             shield = STRANGE_OBJECT;
         break;

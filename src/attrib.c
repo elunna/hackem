@@ -37,10 +37,14 @@ static const struct innate {
                  { 15, &(HStealth), "stealthy", "" },
                  { 0, 0, 0, 0 } },
 
+  car_abil[] = { { 1, &(HSearching), "perceptive", "unaware" },
+                 { 7, &(HWarning), "in touch with the cards", "insensitive" },
+                 { 0, 0, 0, 0 } },
+
   cav_abil[] = { { 7, &(HFast), "quick", "slow" },
                  { 15, &(HWarning), "sensitive", "" },
                  { 0, 0, 0, 0 } },
-
+                 
   con_abil[] = { { 1, &(HSick_resistance), "", "" },
                  { 7, &(HPoison_resistance), "healthy", "" },
                  { 20, &(HSearching), "perceptive", "unaware" },
@@ -98,7 +102,7 @@ static const struct innate {
                  { 0, 0, 0, 0 } },
 
   pir_abil[] = {  { 1, &(HSwimming), "", "" },
-                  { 7, &(HStealth), "stealthy", "" },	/* with cat-like tread ... */
+                  { 7, &(HStealth), "stealthy", "" }, /* with cat-like tread ... */
                   { 11, &(HFast), "quick", "slow" },
                   { 0, 0, 0, 0 } },
 
@@ -473,10 +477,6 @@ void
 change_luck(n)
 register schar n;
 {
-    if (u.uconduct.wishes >= 13) {
-        u.uluck = LUCKMIN;
-        return;
-    }
     u.uluck += n;
     if (u.uluck < 0 && u.uluck < LUCKMIN)
         u.uluck = LUCKMIN;
@@ -493,14 +493,16 @@ boolean parameter; /* So I can't think up of a good name.  So sue me. --KAA */
 
     for (otmp = invent; otmp; otmp = otmp->nobj)
         if (confers_luck(otmp)) {
-            if (otmp->cursed || wielding_artifact(ART_LUCKLESS_FOLLY))
+            /* Pirates' quest artifact never counts as cursed for them */
+            if (otmp->cursed && !(Role_if(PM_PIRATE) && is_quest_artifact(otmp))
+                || wielding_artifact(ART_LUCKLESS_FOLLY))
                 bonchance -= otmp->quan;
             else if (otmp->blessed)
                 bonchance += otmp->quan;
             else if (parameter)
                 bonchance += otmp->quan;
         }
-	
+
     return sgn((int) bonchance);
 }
 
@@ -522,9 +524,6 @@ set_moreluck()
     else if (stone_luck(TRUE) >= 0)
         u.moreluck = LUCKADD;
     else
-        u.moreluck = -LUCKADD;
-    
-    if (u.uconduct.wishes >= 13)
         u.moreluck = -LUCKADD;
 }
 
@@ -879,6 +878,7 @@ int r;
     } roleabils[] = {
         { PM_ARCHEOLOGIST, arc_abil },
         { PM_BARBARIAN, bar_abil },
+        { PM_CARTOMANCER, car_abil },
         { PM_CAVEMAN, cav_abil },
         { PM_CONVICT, con_abil},
         { PM_FLAME_MAGE, fla_abil },

@@ -522,16 +522,38 @@ doread()
             "Yendorian Express - Platinum Card", /* must be last */
         };
 
+        /* Takeoffs of banned or broken from tcgs. */
+        static const char *tcg_msgs[] = {
+            /* MTG */
+            "Draw three cards, or force a monster to draw three cards.",
+            "Turn any monster into an 3/3 newt.",
+            "Opponent loses next turn."
+            /* YGO */
+            "Select and control one hostile monster.",
+            "Draw two cards from your deck.",
+            /* Pkmn */
+            "Birthday surprise!",
+            /* HVL */
+            "You gain 3 energy."
+        };
+
         if (Blind) {
             You_feel("the embossed numbers:");
         } else {
             if (flags.verbose)
                 pline("It reads:");
-            mesg = scroll->oartifact
-                  ? card_msgs[SIZE(card_msgs) - 1]
-                  : card_msgs[scroll->o_id % (SIZE(card_msgs) - 1)];
-            pline("\"%s\"", mesg);
-            maybe_learn_elbereth(mesg);
+            if (Role_if(PM_CARTOMANCER)) {
+                pline("\"%s\"",
+                      scroll->oartifact
+                      ? tcg_msgs[SIZE(tcg_msgs) - 1]
+                      : tcg_msgs[scroll->o_id % (SIZE(tcg_msgs) - 1)]);
+            } else {
+                mesg = scroll->oartifact
+                       ? card_msgs[SIZE(card_msgs) - 1]
+                       : card_msgs[scroll->o_id % (SIZE(card_msgs) - 1)];
+                pline("\"%s\"", mesg);
+                maybe_learn_elbereth(mesg);
+            }
         }
         /* Make a credit card number */
         pline("\"%d0%d %ld%d1 0%d%d0\"%s",
@@ -708,9 +730,14 @@ doread()
         if (confused) {
             if (Hallucination)
                 pline("Being so trippy, you screw up...");
-            else
-                pline("Being confused, you %s the magic words...",
-                      silently ? "misunderstand" : "mispronounce");
+            else {
+                if (Role_if(PM_CARTOMANCER))
+                    pline("Being confused, you %s the rules text...",
+                          silently ? "misunderstand" : "misread");
+                else
+                    pline("Being confused, you %s the magic words...",
+                          silently ? "misunderstand" : "mispronounce");
+            }
         }
     }
     if (!seffects(scroll)) {
@@ -1395,10 +1422,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
 #ifdef MAIL
     case SCR_MAIL:
         known = TRUE;
-        if (sobj->spe == 2)
+        if (sobj->spe == 2) {
             /* "stamped scroll" created via magic marker--without a stamp */
-            pline("This scroll is marked \"postage due\".");
-        else if (sobj->spe)
+            if (Role_if(PM_CARTOMANCER))
+                pline("The rules on this card read \"Discard upon use\".");
+            else
+                pline("This scroll is marked \"postage due\".");
+        } else if (sobj->spe)
             /* scroll of mail obtained from bones file or from wishing;
              * note to the puzzled: the game Larn actually sends you junk
              * mail if you win!
@@ -1775,9 +1805,13 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         if (Blind)
             You("don't remember there being any magic words on this scroll.");
         else {
-            pline("This scroll seems to be blank.");
-            if (Confusion && !rn2(2))
-                pline("Being confused, you mispronounce the lack of words...");
+            if (Role_if(PM_CARTOMANCER))
+                pline("This card is useless!");
+            else {
+                pline("This scroll seems to be blank.");
+                if (Confusion && !rn2(2))
+                    pline("Being confused, you mispronounce the lack of words...");
+            }
         }
         known = TRUE;
         break;
@@ -1907,8 +1941,35 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         update_inventory();
         break;
     }
+    case SCR_ZAPPING: {
+        struct obj *pseudo;
+        if (sobj->corpsenm == NON_PM)
+            impossible("seffects: SCR_WAND_ZAP has no zap type!");
+        
+        pseudo = mksobj(sobj->corpsenm, FALSE, FALSE);
+        pseudo->blessed = pseudo->cursed = 0;
+        pseudo->dknown = pseudo->obroken = 1; /* Don't id it */
+        
+        if (!(objects[pseudo->otyp].oc_dir == NODIR) && !getdir((char *) 0)) {
+            if (!Blind)
+                pline("%s glows and fades.", The(xname(sobj)));
+        } else {
+            current_wand = pseudo;
+            weffects(pseudo);
+            pseudo = current_wand;
+            current_wand = 0;
+        }
+        obfree(pseudo, NULL);
+        break;
+    }
     case SCR_CREATE_MONSTER:
     case SPE_CREATE_MONSTER:
+        if (is_moncard(sobj) || (Role_if(PM_CARTOMANCER)
+                && sobj->otyp == SPE_CREATE_MONSTER)) {
+            use_moncard(sobj, u.ux, u.uy);
+            known = TRUE;
+            break;
+        }
         if (create_critters(1 + ((confused || scursed) ? 12 : 0)
                                 + ((sblessed || rn2(73)) ? 0 : rnd(4)),
                             confused ? &mons[PM_ACID_BLOB]
@@ -1964,6 +2025,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 break;
             } else if (state == MAKE_EM_TAME) {
                 initedog(mtmp);
+                newsym(mtmp->mx, mtmp->my);
             } else if (state == MAKE_EM_PEACEFUL) {
                 mtmp->mpeaceful = 1;
             } else if (state == MAKE_EM_HOSTILE) {
@@ -1980,6 +2042,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
     }
     case SPE_SUMMON_UNDEAD: {
         int cnt = 1, oldmulti = multi;
+        struct permonst *pm;
         multi = 0;
 
         if (!rn2(73) && !sobj->blessed) 
@@ -1993,46 +2056,42 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         #endif
 
             switch (rn2(10) + 1) {
-            case 1:
-                mtmp = makemon(mkclass(S_VAMPIRE, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            case 6:
-            case 7:
-            case 8:
-                mtmp = makemon(mkclass(S_MUMMY, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            case 9:
-                mtmp = makemon(mkclass(S_GHOST, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            case 10:
-                mtmp = makemon(mkclass(S_WRAITH, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            default:
-                mtmp = makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS);
-                break;
-            }
-            /* WAC Give N a shot at controlling the beasties
-             * (if not cursed <g>).  Check curse status in case
-             * this ever becomes a scroll
-             */
-            if (mtmp) {
-                if (!sobj->cursed && Role_if(PM_NECROMANCER)) {
-                    if (!resist(mtmp, sobj->oclass, 0, TELL)) {
-                        /* mtmp = tamedog(mtmp, (struct obj *) 0); */
-                        if (tamedog(mtmp, (struct obj *) 0))
-                            You("dominate %s!", mon_nam(mtmp));
-                    }
-                } else
-                    setmangry(mtmp, FALSE);
+                case 1:
+                    pm = mkclass(S_VAMPIRE, 0);
+                    break;
+                case 2: case 3: case 4: case 5:
+                    pm = mkclass(S_ZOMBIE, 0);
+                    break;
+                case 6: case 7: case 8:
+                    pm = mkclass(S_MUMMY, 0);
+                    break;
+                case 9:
+                    pm = mkclass(S_GHOST, 0);
+                    break;
+                case 10:
+                    pm = mkclass(S_WRAITH, 0);
+                    break;
+                default:
+                    pm = mkclass(S_ZOMBIE, 0);
+                    break;
+                }
+                mtmp = makemon(pm, u.ux, u.uy, NO_MM_FLAGS);
+                /* WAC Give N a shot at controlling the beasties
+                 * (if not cursed <g>).  Check curse status in case
+                 * this ever becomes a scroll
+                 */
+                if (mtmp) {
+                    if (!sobj->cursed && Role_if(PM_NECROMANCER)) {
+                        if (!resist(mtmp, sobj->oclass, 0, TELL)) {
+                            if (tamedog(mtmp, (struct obj *) 0))
+                                You("dominate %s!", mon_nam(mtmp));
+                        }
+                    } else
+                        setmangry(mtmp, FALSE);
                 }
                 multi = oldmulti;
             }
+
             /* WAC Give those who know command undead a shot at control.
                  * Since spell is area affect, do this after all undead
                  * are summoned
@@ -2086,6 +2145,7 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             uwep->oerodeproof = new_erodeproof ? 1 : 0;
             break;
         }
+        
         /* Sustainable items can't have their stat changed, they are "fixed" */
         if (uwep && uwep->oprops & ITEM_SUSTAIN ) {
             pline("%s vibrates and resists the change!", Yname2(uwep));
@@ -2098,6 +2158,16 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                                  : sblessed ? rnd(3 - uwep->spe / 3)
                                    : 1))
             sobj = 0; /* nothing enchanted: strange_feeling -> useup */
+
+        /* Jam or unjam firearm as appropriate */
+        if (uwep && is_firearm(uwep)) {
+            /* Silent - there are other messages */
+            if (scursed)
+                uwep->obroken = 1;
+            else
+                uwep->obroken = 0;
+        }
+
         break;
     case SCR_TAMING:
     case SPE_CHARM_MONSTER: {
@@ -2256,7 +2326,6 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             if (sblessed)
                 specified_id();
         }
-        You_feel("more knowledgeable.");
         if (!already_known)
             (void) learnscrolltyp(SCR_KNOWLEDGE);
         break;
@@ -2716,10 +2785,8 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
         }
         break;
     case SCR_ICE: {
-        int dam, dist;
-        int madepool = 0;
-        int stilldry = -1;
-        int x, y, mx, my, safe_pos = 0;
+        int dam = d(4, 8), dist, madepool = 0, stilldry = -1;
+        int mx, my;
         struct rm *lev = &levl[u.ux][u.uy];
         
         if (Underwater) {
@@ -2742,24 +2809,22 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
             /* Ice random tiles around the player */
             do_clear_area(u.ux, u.uy, 5 - 2 * bcsign(sobj), do_iceflood,
                           (genericptr_t)&madepool, TRUE);
-
-            /* check if there are safe tiles around the player */
-            for (x = u.ux - 1; x <= u.ux + 1; x++) {
-                for (y = u.uy - 1; y <= u.uy + 1; y++) {
-                    if (x != u.ux && y != u.uy
-                        && goodpos(x, y, &youmonst, 0)) {
-                        safe_pos++;
-                    }
-                }
-            }
+            
             if (!sblessed) { /* Deal damage to player */
                 if (how_resistant(COLD_RES) == 100) {
                     shieldeff(u.ux, u.uy);
                     monstseesu(M_SEEN_COLD);
                 } else {
-                    pline_The("scroll blasts your %s with freezing air!",
+                    pline_The("scroll blasts your %s with freezing mist!",
                               makeplural(body_part(HAND)));
-                    losehp(d(scursed ? 1 : 2, 3), "scroll of ice", KILLED_BY_AN);
+                    resist_reduce(dam, COLD_RES);
+                    losehp(dam, "scroll of ice", KILLED_BY_AN);
+                }
+                if (scursed && how_resistant(COLD_RES) > 50) {
+                    pline("Mist flash-freezes around you as your heat is sucked away!");
+                    HCold_resistance = HCold_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
+                    decr_resistance(&HCold_resistance, rnd(25) + 25);
+                    You_feel("alarmingly cooler.");
                 }
             }
             
@@ -2771,12 +2836,22 @@ struct obj *sobj; /* sobj - scroll or fake spellbook for spell */
                 dist = distmin(u.ux, u.uy, mx, my);
                     
                 if (cansee(mx, my) && dist <= (sblessed ? 5 : 3)) {
-                    if (resists_cold(mtmp) || defended(mtmp, AD_COLD)) {
-                        /*sho_shieldeff = TRUE;*/
-                        continue;
+                    if (resists_cold(mtmp)) {
+                        if (canseemon(mtmp)) {
+                            shieldeff(mtmp->mx,mtmp->my);
+                            if (!rn2(3)) {
+                                if (mtmp->mintrinsics & MR_COLD) {
+                                    mtmp->mintrinsics &= ~MR_COLD;
+                                    pline("%s momentarily %s.", Monnam(mtmp),
+                                          makeplural(locomotion(mtmp->data, "stumble")));
+                                }
+                            } else
+                                pline("%s is uninjured.", Monnam(mtmp));
+                        }
                     }
-                    dam = sblessed ? d(3, 6) : d(scursed ? 1 : 2, 3);
-                    pline("%s is covered in frost!", Monnam(mtmp));
+                    if (defended(mtmp, AD_COLD))
+                        continue;
+                    pline("A freezing cloud surrounds the %s!", mon_nam(mtmp));
                     
                     if (resists_fire(mtmp))
                         dam += d(3, 3);
@@ -4025,7 +4100,15 @@ struct obj **sobjp;
         otmp2->quan = 1;
         
         /* Weight could change due to material/type */
-        otmp2->owt = weight(otmp2); 
+        otmp2->owt = weight(otmp2);
+
+        /* cartomancers feel guilty for counterfeiting */
+        if (Role_if(PM_CARTOMANCER) && otmp2->oclass == SCROLL_CLASS) {
+            You("feel incredibly guilty about forging a card!");
+            adjalign(-10);
+            if (u.uevent.qcompleted)
+                call_kops((struct monst *) 0, FALSE);
+        }
         
         obj_extract_self(otmp2);
         (void) hold_another_object(otmp2, "Whoops! %s out of your grasp.",
@@ -4123,9 +4206,6 @@ int class_type;
 
     if (item->otyp == GOLD_PIECE) {
         item->quan = rnd(1000);
-    } else if (item->otyp == MAGIC_LAMP) {
-        item->otyp = OIL_LAMP;
-        item->age = 1500L;
     } else if (item->otyp == MAGIC_MARKER) {
         item->recharged = 1;
     }
@@ -4156,9 +4236,9 @@ int class_type;
 }
 
 static void do_acquirement() {
-    winid win = create_nhwindow(NHW_MENU);
+    winid win;
     anything any;
-    int i;
+    int i, tries = 0;
     char ch = 'q';
     char item_chars[] = { 'r', '"', ')', '[', '%', '?', '+', '!', '=', '/', '(', '*' };
     menu_item *pick_list = NULL;
@@ -4166,7 +4246,9 @@ static void do_acquirement() {
             "Random item",  "Amulet", "Weapon", "Armor", "Comestible", "Scroll",
             "Spellbook", "Potion", "Ring", "Wand", "Tool", "Gem"
     };
-    
+
+    retry:
+    win = create_nhwindow(NHW_MENU);
     start_menu(win);
     
     for (i = 0; i < (int) sizeof(item_chars); i++) {
@@ -4176,14 +4258,12 @@ static void do_acquirement() {
     }
 
     end_menu(win, "Select a type of item to create:");
-
-    
     if (select_menu(win, PICK_ONE, &pick_list) > 0) {
         ch = pick_list->item.a_char;
         free(pick_list);
     }
     destroy_nhwindow(win);
-
+    
     switch (ch) {
         case 'r': mk_acquired_item(RANDOM_CLASS); break;
         case ')': mk_acquired_item(WEAPON_CLASS); break;
@@ -4197,6 +4277,14 @@ static void do_acquirement() {
         case '/': mk_acquired_item(WAND_CLASS); break;
         case '(': mk_acquired_item(TOOL_CLASS); break;
         case '*': mk_acquired_item(GEM_CLASS); break;
+        default:
+            if (++tries < 5) {
+                pline("Try again.");
+                goto retry;
+            } else {
+                pline1(thats_enough_tries);
+            }
+            break;
     }
 }
 
@@ -4343,4 +4431,25 @@ struct obj *otmp;
     /* Handle burden property */
     otmp->owt = weight(otmp);
 }
+
+/* This handles a scroll of create monster that is keyed to a
+ * specific monster. Used when playing as a cartomancer */
+void
+use_moncard(sobj, x, y)
+struct obj *sobj;
+int x, y;
+{
+    struct permonst *pm = sobj->corpsenm == NON_PM
+            ? rndmonst() : &mons[sobj->corpsenm];
+    
+    (void) make_msummoned(pm, &youmonst, 
+                          sobj->cursed ? FALSE : TRUE, x, y);
+#if 0
+    if (sobj->oclass == SCROLL_CLASS) {
+        obj_extract_self(sobj);
+        obfree(sobj, (struct obj *) 0);
+    }
+#endif
+}
+
 /*read.c*/

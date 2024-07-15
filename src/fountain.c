@@ -367,6 +367,9 @@ result:
                     obj->oeroded--;
                 if (obj->oeroded2 > 0)
                     obj->oeroded2--;
+            } else if (obj->obroken) {
+                You("unjam %s.", ysimple_name(obj));
+                obj->obroken = 0;
             } else {
                 if (!Blind) {
                     Your("%s glows briefly from the heat, but looks reforged and as new as ever.",
@@ -1218,6 +1221,7 @@ register struct obj *obj;
         if (flags.verbose)
             You("cover it in filth.");
         obj->opoisoned = TRUE;
+        update_inventory();
     }
     if (obj->oclass == FOOD_CLASS) {
         if (flags.verbose)

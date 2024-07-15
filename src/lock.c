@@ -436,7 +436,7 @@ boolean opening; /* True: key, pick, or card; False: key or pick */
         } else {
             switch (o->otyp) {
             case SKELETON_KEY:
-                if (!key || is_roguish_key(&youmonst, o))
+                if (!key || is_roguish_key(&youmonst, o) || is_artikey(o))
                     key = o;
                 break;
             case MAGIC_KEY:

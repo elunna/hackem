@@ -724,6 +724,7 @@ struct monst *mtmp;
             && !(levl[x][y].wall_info & W_NONDIGGABLE)
             && !(Is_botlevel(&u.uz) || In_endgame(&u.uz))
             && !(is_ice(x, y) || is_pool(x, y) || is_lava(x, y))
+            && !(is_bridge(x, y))
             && !(mtmp->data == &mons[PM_VLAD_THE_IMPALER]
                  && In_V_tower(&u.uz))) {
             m.defensive = obj;
@@ -1225,8 +1226,7 @@ struct monst *mtmp;
         struct permonst *pm = 0, *fish = 0;
         int cnt = 1;
         struct monst *mon;
-        boolean known = FALSE;
-
+        boolean known = FALSE;         
         if (!rn2(73))
             cnt += rnd(4);
         if (mtmp->mconf || otmp->cursed)
@@ -1235,6 +1235,10 @@ struct monst *mtmp;
             pm = fish = &mons[PM_ACID_BLOB];
         else if (is_pool(mtmp->mx, mtmp->my))
             fish = &mons[u.uinwater ? PM_GIANT_EEL : PM_CROCODILE];
+        if (is_moncard(otmp)) {
+            pm = &mons[otmp->corpsenm];
+            cnt = 1; /* Same as for player */
+        }
         mreadmsg(mtmp, otmp);
         while (cnt--) {
             /* `fish' potentially gives bias towards water locations;
@@ -1297,13 +1301,13 @@ struct monst *mtmp;
         /* Pick an elemental time... */
         if (mtmp->mconf) {
             switch(rn2(4)) {
-                case  0: /* Air */
+                case 0: /* Air */
                     pm = &mons[PM_GAS_SPORE];
                     break;
-                case  1: /* Fire */
+                case 1: /* Fire */
                     pm = &mons[PM_FLAMING_SPHERE];
                     break;
-                case  2: /* Water */
+                case 2: /* Water */
                     pm = &mons[PM_FREEZING_SPHERE];
                     break;
                 case  3: /* Earth */
@@ -1615,6 +1619,7 @@ struct monst *mtmp;
 #define MUSE_WAN_MAGIC_MISSILE  55
 /*#define MUSE_WAN_TELEPORTATION  15 also a defensive item so don't redefine */
 #define MUSE_WAN_STRIKING       57
+#define MUSE_WAN_FIREBALL       58
 #define MUSE_WAN_CANCELLATION   59
 #define MUSE_WAN_POLYMORPH      60
 #define MUSE_WAN_SLOW_MONSTER   61
@@ -1638,7 +1643,7 @@ struct monst *mtmp;
 #define MUSE_POT_HALLUCINATION  78
 #define MUSE_POT_POLYMORPH_THROW 79
 #define MUSE_POT_OIL            80
-#define MUSE_POT_AMNESIA        81 /* Lethe */
+#define MUSE_POT_AMNESIA        81
 #define MUSE_FROST_HORN         82
 #define MUSE_FIRE_HORN          83
 #define MUSE_HORN_OF_BLASTING   84
@@ -1761,6 +1766,9 @@ int otyp;
         want++;
         /*FALLTHRU*/   
     case HORN_OF_BLASTING:
+        want++;
+        /*FALLTHRU*/
+    case WAN_FIREBALL:
         want++;
         /*FALLTHRU*/
     case WAN_CORROSION:
@@ -1889,6 +1897,15 @@ boolean reflection_skip;
                     && can_blow(mtmp) && !m_seenres(mtmp, M_SEEN_LOUD)) {
                     m.offensive = obj;
                     m.has_offense = MUSE_HORN_OF_BLASTING;
+                } else if (obj->spe < 1 && pick_to_charge(obj)) {
+                    m.tocharge = obj;
+                }
+            }
+            nomore(MUSE_WAN_FIREBALL);
+            if (obj->otyp == WAN_FIREBALL) {
+                if (obj->spe > 0 && !m_seenres(mtmp, M_SEEN_FIRE)) {
+                    m.offensive = obj;
+                    m.has_offense = MUSE_WAN_FIREBALL;
                 } else if (obj->spe < 1 && pick_to_charge(obj)) {
                     m.tocharge = obj;
                 }
@@ -2556,6 +2573,7 @@ struct monst *mtmp;
         && (monnear(mtmp, mtmp->mux, mtmp->muy)
             && m.has_offense != MUSE_WAN_DEATH
             && m.has_offense != MUSE_WAN_SLEEP
+            && m.has_offense != MUSE_WAN_FIREBALL
             && m.has_offense != MUSE_WAN_FIRE
             && m.has_offense != MUSE_WAN_COLD
             && m.has_offense != MUSE_WAN_LIGHTNING)) {
@@ -2585,6 +2603,7 @@ struct monst *mtmp;
         return (DEADMONSTER(mtmp)) ? 1 : 2;
     case MUSE_WAN_DEATH:
     case MUSE_WAN_SLEEP:
+    case MUSE_WAN_FIREBALL:
     case MUSE_WAN_FIRE:
     case MUSE_WAN_COLD:
     case MUSE_WAN_LIGHTNING:
@@ -2597,11 +2616,16 @@ struct monst *mtmp;
         if (oseen)
             makeknown(otmp->otyp);
         m_using = TRUE;
-        buzz(ZT_MONWAND(otmp->otyp - WAN_MAGIC_MISSILE),
-             (otmp->otyp == WAN_MAGIC_MISSILE) ? 2 : 6, mtmp->mx, mtmp->my,
-             sgn(tbx), sgn(tby));
+        if (otmp->otyp == WAN_FIREBALL)
+            buzz(ZT_MONSPELL(ZT_FIRE), 6, mtmp->mx, mtmp->my,
+                 sgn(tbx), sgn(tby));
+        else 
+            buzz(ZT_MONWAND(otmp->otyp - WAN_MAGIC_MISSILE),
+                 (otmp->otyp == WAN_MAGIC_MISSILE) ? 2 : 6, mtmp->mx, mtmp->my,
+                 sgn(tbx), sgn(tby));
         m_using = FALSE;
         return (DEADMONSTER(mtmp)) ? 1 : 2;
+        
     case MUSE_FIRE_HORN:
     case MUSE_FROST_HORN:
     case MUSE_HORN_OF_BLASTING:
@@ -2855,6 +2879,8 @@ struct monst *mtmp;
         return 0;
     if (difficulty > 7 && !rn2(35))
         return WAN_DEATH;
+    if (difficulty > 6 && !rn2(25)) 
+        return WAN_FIREBALL;
     if (difficulty > 7 && !rn2(30))
         return WAN_POLYMORPH;
 
@@ -3989,7 +4015,7 @@ const char *str;
     } else if (has_reflection(mon)) {
         /* specifically for the monster spell MGC_REFLECTION */
         if (str)
-                pline(str, s_suffix(mon_nam(mon)), "shimmering globe");
+            pline(str, s_suffix(mon_nam(mon)), "shimmering globe");
         return TRUE;
     } else if (mon->data == &mons[PM_NIGHTMARE]) {
         pline(str, s_suffix(mon_nam(mon)), "horn");

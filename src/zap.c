@@ -55,6 +55,8 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "acid stream",          /*ZT_ACID*/
         "sonic beam",           /*ZT_SONIC*/
         "water stream",         /*ZT_WATER*/
+        "drain beam",         /*ZT_*/
+        "stun beam",
 
         "magic missile",
         "fireball",
@@ -66,6 +68,8 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "blast of acid",
         "sonic beam",
         "water stream",
+        "blast of dark energy", 
+        "disorienting blast",
 
         "blast of missiles",
         "blast of fire",
@@ -77,6 +81,8 @@ const char *const flash_types[] =       /* also used in buzzmu(mcastu.c) */
         "blast of acid",
         "sonic blast",
         "blast of water",
+        "blast of dark energy", 
+        "disorienting blast"
     };
 
 /*
@@ -412,6 +418,14 @@ struct obj *otmp;
                 for (obj = mtmp->minvent; obj; obj = obj->nobj)
                     bypass_obj(obj);
 
+            /* Phoenixes resist polymorph by just dying and exploding */
+            if (mtmp->data == &mons[PM_PHOENIX]) {
+                shieldeff(mtmp->mx, mtmp->my);
+                mtmp->mhp = 0;
+                killed(mtmp);
+                break;
+            }
+            
             /* natural shapechangers aren't affected by system shock
                (unless protection from shapechangers is interfering
                with their metabolism...) */
@@ -777,6 +791,8 @@ struct monst *mtmp;
             } else if (otmp->otyp == TIN && !otmp->known) {
                 otmp->known = 1;
             }
+            if (otmp->oprops)
+                otmp->oprops_known = otmp->oprops;
         }
         (void) display_minventory(mtmp, MINV_ALL | MINV_NOLET | PICK_NONE,
                                   (char *) 0);
@@ -1365,6 +1381,15 @@ register struct obj *obj;
     boolean u_ring = (obj == uleft || obj == uright);
     int otyp = obj->otyp;
 
+    if (otyp == EGG) {
+        /* sterilized */
+        if (obj->corpsenm != -1 && (rn2(100) < mons[obj->corpsenm].mr)) {
+            kill_egg(obj);
+            obj->corpsenm = NON_PM;
+        } else
+            pline("The egg resists!");
+    }
+    
     switch (otyp) {
     case RIN_GAIN_STRENGTH:
         if ((obj->owornmask & W_RING) && u_ring) {
@@ -1414,55 +1439,56 @@ register struct obj *obj;
             obj->spe = (obj->oclass == WAND_CLASS) ? -1 : 0;
         }
         switch (obj->oclass) {
-        case SCROLL_CLASS:
-            /* Have to check because we have the Marauder's Map! */
-            if (!obj->oartifact) {
-                costly_alteration(obj, COST_CANCEL);
-                obj->otyp = SCR_BLANK_PAPER;
-                obj->spe = 0;
-            }
-            /* Scrolls of amnesia are uncancelable. */
-            if (obj->otyp == SCR_AMNESIA)
+            case SCROLL_CLASS:
+                /* Have to check because we have the Marauder's Map! */
+                if (!obj->oartifact) {
+                    costly_alteration(obj, COST_CANCEL);
+                    obj->otyp = SCR_BLANK_PAPER;
+                    obj->spe = 0;
+                }
+                /* Scrolls of amnesia are uncancelable. */
+                if (obj->otyp == SCR_AMNESIA)
+                    break;
                 break;
-            break;
-        case SPBOOK_CLASS:
-            if (otyp != SPE_CANCELLATION && otyp != SPE_NOVEL
-                && otyp != SPE_BOOK_OF_THE_DEAD) {
-                costly_alteration(obj, COST_CANCEL);
-                obj->otyp = SPE_BLANK_PAPER;
-                set_material(obj, PAPER);
-            }
-            break;
-        case POTION_CLASS:
-            /* Potions of amnesia are uncancelable. */
-            if (obj->otyp == POT_AMNESIA)
+            case SPBOOK_CLASS:
+                if (otyp != SPE_CANCELLATION && otyp != SPE_NOVEL
+                    && otyp != SPE_BOOK_OF_THE_DEAD) {
+                    costly_alteration(obj, COST_CANCEL);
+                    obj->otyp = SPE_BLANK_PAPER;
+                    set_material(obj, PAPER);
+                }
                 break;
-            
-            costly_alteration(obj,
-                              (otyp != POT_WATER)
+            case POTION_CLASS:
+                /* Potions of amnesia are uncancelable. */
+                if (obj->otyp == POT_AMNESIA)
+                    break;
+
+                costly_alteration(obj,
+                                  (otyp != POT_WATER)
                                   ? COST_CANCEL
                                   : obj->cursed ? COST_UNCURS : COST_UNBLSS);
-            if (otyp == POT_SICKNESS || otyp == POT_SEE_INVISIBLE) {
-                /* sickness is "biologically contaminated" fruit juice;
-                   cancel it and it just becomes fruit juice...
-                   whereas see invisible tastes like "enchanted" fruit
-                   juice, it similarly cancels */
-                obj->otyp = POT_FRUIT_JUICE;
-            } else if (obj->otyp == POT_VAMPIRE_BLOOD) {
-                obj->otyp = POT_BLOOD;
-            } else {
-                obj->otyp = POT_WATER;
-                obj->odiluted = 0; /* same as any other water */
-            }
-            break;
-        case TOOL_CLASS:
-            /* Masks are magical and therefore subject to cancellation. */
-            if (obj->where == OBJ_INVENT)
-                Your("%s transforms into something ordinary!", xname(obj));
-            else
-                pline_The("%s transforms into something ordinary!", xname(obj));
-            if (obj->otyp == MASK)
-                obj->corpsenm = -1;
+                if (otyp == POT_SICKNESS || otyp == POT_SEE_INVISIBLE) {
+                    /* sickness is "biologically contaminated" fruit juice;
+                       cancel it and it just becomes fruit juice...
+                       whereas see invisible tastes like "enchanted" fruit
+                       juice, it similarly cancels */
+                    obj->otyp = POT_FRUIT_JUICE;
+                } else if (obj->otyp == POT_VAMPIRE_BLOOD) {
+                    obj->otyp = POT_BLOOD;
+                } else {
+                    obj->otyp = POT_WATER;
+                    obj->odiluted = 0; /* same as any other water */
+                }
+                break;
+            case TOOL_CLASS:
+                /* Masks are magical and therefore subject to cancellation. */
+                if (obj->where == OBJ_INVENT)
+                    Your("%s transforms into something ordinary!", xname(obj));
+                else
+                    pline_The("%s transforms into something ordinary!", xname(obj));
+                if (obj->otyp == MASK)
+                    obj->corpsenm = -1;
+                break;
         }
     }
     unbless(obj);
@@ -1825,6 +1851,12 @@ int id;
 
     if (obj->otyp == BOULDER)
         sokoban_guilt();
+    
+    /* Prevent polymorphing phoenix eggs because otherwise when a 
+     * phoenix explodes from poly beams, the egg is also polyd. */
+    if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX)
+        return obj;
+        
     if (id == STRANGE_OBJECT) { /* preserve symbol */
         int try_limit = 3;
         unsigned magic_obj = objects[obj->otyp].oc_magic;
@@ -1869,36 +1901,6 @@ int id;
     }
 #endif
 
-    /* things that affect what otyp will be created by polymorph */
-    switch(obj->otyp) {
-        case SCR_BLANK_PAPER:
-        case SCR_AMNESIA:
-            if (rn2(100))
-                otmp->otyp = SCR_BLANK_PAPER;
-            break;
-        case SPE_BLANK_PAPER:
-            if (rn2(100))
-                otmp->otyp = SPE_BLANK_PAPER;
-            break;
-        case POT_WATER:
-        case POT_AMNESIA:
-            if (rn2(100))
-                otmp->otyp = POT_WATER;
-            break;
-        case POT_BLOOD:
-            if (rn2(100))
-                otmp->otyp = POT_BLOOD;
-            break;
-        case WAN_NOTHING:
-            if (rn2(100))
-                otmp->otyp = WAN_NOTHING;
-            break;
-        case WAN_WONDER:
-            if (rn2(100))
-                otmp->otyp = WAN_WONDER;
-            break;
-    }
-    
     /* avoid abusing eggs laid by you */
     if (obj->otyp == EGG && obj->spe) {
         int mnum, tryct = 100;
@@ -2012,8 +2014,14 @@ int id;
         break;
 
     case SCROLL_CLASS:
-        while (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT)
+        while (otmp->otyp == SCR_TIME || otmp->otyp == SCR_ACQUIREMENT
+                || otmp->otyp == SCR_ZAPPING) {
             otmp->otyp = rnd_class(SCR_ENCHANT_ARMOR, SCR_MAGIC_DETECTION);
+        }
+        if (Role_if(PM_CARTOMANCER)) {
+            You("feel guilty about defacing a card!");
+            adjalign(-5);
+        }
         break;
         
     case SPBOOK_CLASS:
@@ -2422,8 +2430,11 @@ struct obj *obj, *otmp;
                     struct obj *o;
 
                     /* view contents (not recursively) */
-                    for (o = obj->cobj; o; o = o->nobj)
+                    for (o = obj->cobj; o; o = o->nobj) {
                         o->dknown = 1; /* "seen", even if blind */
+                        if (o->oprops)
+                            o->oprops_known = o->oprops;
+                    }
                     (void) display_cinventory(obj);
                 }
                 res = 1;
@@ -2587,12 +2598,13 @@ struct obj *obj, *otmp;
             res = stone_to_flesh_obj(obj);
             break;
         case SPE_FIRE_BOLT:
+        case WAN_FIREBALL:
         case WAN_FIRE:
             if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
                 hatch_faster(obj);
             }
             /* Try to arm bombs on the ground */
-            if (is_bomb(obj) && !obj->oarmed) {
+            if (is_bomb(obj) && !obj->oarmed && rn2(3)) {
                 handle_bomb(obj, !context.mon_moving);
             }
             break;
@@ -2668,6 +2680,9 @@ int
 zappable(wand)
 register struct obj *wand;
 {
+    if (wand->otyp == SCR_ZAPPING)
+        return TRUE;
+    
     int wrestchance = (wand->blessed ? 7 : (wand->cursed ? 121 : 23));
     if (wand->spe < 0 || (wand->spe == 0 && rn2(wrestchance)))
         return 0;
@@ -2780,7 +2795,7 @@ struct obj *otmp;
     useup(otmp);
 }
 
-static NEARDATA const char zap_syms[] = { WAND_CLASS, 0 };
+static NEARDATA const char zap_syms[] = { WAND_CLASS, SCROLL_CLASS, 0 };
 
 /* 'z' command (or 'y' if numbed_pad==-1) */
 int
@@ -2796,9 +2811,33 @@ dozap()
         return 0;
     if (!u_handsy())
         return 0;
-
+    
     check_unpaid(obj);
 
+    /* Handle a zapped effect cards here */
+    if (obj->otyp == SCR_ZAPPING) {
+        struct obj *pseudo;
+        if (obj->corpsenm == NON_PM)
+            impossible("seffects: SCR_WAND_ZAP has no zap type!");
+
+        pseudo = mksobj(obj->corpsenm, FALSE, FALSE);
+        pseudo->blessed = pseudo->cursed = 0;
+        pseudo->dknown = pseudo->obroken = 1; /* Don't id it */
+        
+        if (!(objects[pseudo->otyp].oc_dir == NODIR) && !getdir((char *) 0)) {
+            if (!Blind)
+                pline("%s glows and fades.", The(xname(obj)));
+        } else {
+            current_wand = pseudo;
+            weffects(pseudo);
+            pseudo = current_wand;
+            current_wand = 0;
+        }
+        obfree(pseudo, NULL);
+        useup(obj);
+        return 1;
+    }
+    
     /* zappable addition done by GAN 11/03/86 */
     if (!zappable(obj))
         pline1(nothing_happens);
@@ -2917,6 +2956,10 @@ boolean ordinary;
         destroy_item(RING_CLASS, AD_ELEC);
         (void) flashburn((long) rnd(100));
         break;
+
+    case WAN_FIREBALL:
+        makeknown(WAN_FIREBALL);
+        /* FALLTHROUGH */
     case SPE_FIREBALL:
         You("explode a fireball on top of yourself!");
         explode(u.ux, u.uy, ZT_SPELL(ZT_FIRE), d(6, 6), WAND_CLASS,
@@ -3347,6 +3390,8 @@ boolean ordinary;
                     otmp->cknown = 1;
             } else if (otmp->otyp == TIN)
                 otmp->known = 1;
+            if (otmp->oprops)
+                otmp->oprops_known = otmp->oprops;
         }
         update_inventory();
         learn_it = TRUE;
@@ -3778,8 +3823,8 @@ boolean youattack, allow_cancel_kill, self_cancel;
         if (is_were(mdef->data) && !is_human(mdef->data))
             were_change(mdef);
 
-        if (mdef->data == &mons[PM_CLAY_GOLEM]) {
-            if (canseemon(mdef))
+        if (mdef->data == &mons[PM_CLAY_GOLEM] || mdef->msummoned) {
+            if (canseemon(mdef) && !mdef->msummoned)
                 pline(writing_vanishes, s_suffix(mon_nam(mdef)));
             /* !allow_cancel_kill is for Magicbane, where clay golem
                will be killed somewhere back up the call/return chain... */
@@ -4132,7 +4177,8 @@ struct obj *obj;
         zapnodir(obj);
     } else {
         /* neither immediate nor directionless */
-
+        if (otyp == WAN_FIREBALL)
+            otyp = SPE_FIREBALL;
         if (otyp == WAN_DIGGING || otyp == SPE_DIG)
             zap_dig();
         else if (otyp >= FIRST_SPELLBOOK && otyp <= LAST_SPELLBOOK)
@@ -4149,7 +4195,9 @@ struct obj *obj;
         obj->otyp = WAN_WONDER;
         disclose = TRUE;
     }
-    if (disclose) {
+    
+    /* This obroken check is a hack so we don't identify scrolls of zapping */
+    if (disclose && !obj->obroken) {
         learnwand(obj);
         if (was_unkn)
             more_experienced(0, 10);
@@ -4307,7 +4355,7 @@ struct obj *otmp;
             if (!Deaf)
                 pline("Kaboom!");
             explode(x, y, ZT_MAGIC_MISSILE,
-                    20 + d(3 ,6), TRAP_EXPLODE, EXPL_MAGICAL);
+                    20 + d(3,6), TRAP_EXPLODE, EXPL_MAGICAL);
             deltrap(ttmp);
             newsym(x, y);
         }
@@ -4575,6 +4623,10 @@ struct obj **pobj; /* object tossed/used, set to NULL
                 pline("%s gets stuck in a web!", Yname2(obj));
                 t->tseen = TRUE;
                 newsym(bhitpos.x, bhitpos.y);
+            }
+            if (iflags.returning_missile) {
+                iflags.returning_missile = (genericptr_t) 0;
+                docrt();
             }
             break;
         }
@@ -4876,8 +4928,11 @@ int dx, dy;
                 break;
             } else { /* we catch it */
                 tmp_at(DISP_END, 0);
-                if (m_shot.i == m_shot.n)
+                if (m_shot.i == m_shot.n) {
                     You("skillfully catch the %s.", obj->otyp == BOOMERANG ? "boomerang" : "chakram");
+                    retouch_object(&obj, !uarmg, FALSE);
+                }
+                
                 return &youmonst;
             }
         }
@@ -5125,6 +5180,27 @@ struct obj **ootmp; /* to return worn armor for caller to disintegrate */
     case ZT_WATER:
         tmp = delugehitsm(mon, d(nd, 8));
         break;
+    case ZT_DRAIN: {
+        int drain = monhp_per_lvl(mon);
+
+        tmp = d(nd, 6);
+        if (resists_drli(mon) || defended(mon, AD_DRLI)) {
+            sho_shieldeff = TRUE;
+            /* physical damage still occurs */
+            break;
+        }
+        mon_losexp(mon, drain, TRUE);
+        break;
+    }
+    case ZT_STUN:
+        if (resists_stun(mon->data) || defended(mon, AD_STUN)) {
+            sho_shieldeff = TRUE;
+            break;
+        }
+        tmp = d(nd, 6);
+        if (!mon->mstun)
+            mon->mstun = 1;
+        break;
     }
     if (elemental_shift(mon, abstype)) {
         sho_shieldeff = TRUE;
@@ -5370,46 +5446,45 @@ xchar sx, sy;
             destroy_item(WAND_CLASS, AD_LOUD);
         break;
     case ZT_WATER:
-        dam = d(nd, 8);
+        dam = delugehitsu(nd);
+        break;
+    case ZT_DRAIN: {
+        const char *life = nonliving(youmonst.data) ? "animating force"
+                                                    : "life";
+
+        /* will still take physical damage from the force of
+           the breath attack, even if drain resistant */
+        dam = d(nd, 6);
         if (Half_physical_damage)
             dam = (dam + 1) / 2;
-        if (u.umonnum == PM_BABY_SEA_DRAGON || u.umonnum == PM_SEA_DRAGON) {
-            You("%sabsorb the blast of water into your body.",
-                Reflecting ? "partially " : "");
-            dam = 0;
+        if (Drain_resistance) {
+            ugolemeffects(AD_DRLI, d(nd, 6));
             break;
-        } else if (u.umonnum == PM_WATER_ELEMENTAL) {
-            You_feel("better!");
-            healup(d(6, 6), 0, FALSE, FALSE);
-            dam = 0;
-            break;
-        } else if (u.umonnum == PM_EARTH_ELEMENTAL) {
-            if (!Unchanging) {
-                polymon(PM_MUD_ELEMENTAL);
-                dam = 0;
-            }
-            break;
-        } else if (u.umonnum == PM_IRON_GOLEM) {
-            You("rust!");
-            rehumanize();
-            dam = 0; /* Prevent more damage after rehumanize */
-            break;
-        } else if (likes_fire(youmonst.data)) {
-            You("are being extinguished!");
-            dam += d(6, 6);
-        } else if (amphibious(youmonst.data)) {
-            You("don't mind the water.");
-            dam = 0;
         }
-        if (!Reflecting) {
-            /* using two weapons at once makes both of them more vulnerable */
-            if (!rn2(u.twoweap ? 3 : 6))
-                water_damage(uwep, 0, TRUE, u.ux, u.uy);
-            if (u.twoweap && !rn2(3))
-                water_damage(uswapwep, 0, TRUE, u.ux, u.uy);
-            if (!rn2(6))
-                erode_armor(&youmonst, ERODE_RUST);
+
+        if (Reflecting) {
+            You("feel drained...");
+            u.uhpmax -= dam / 2 + rn2(5);
+        } else {
+            if (Blind)
+                You_feel("a dark energy blast draining your %s!",
+                         life);
+            else
+                pline_The("dark energy blast drains your %s!",
+                          life);
+            losexp("life drainage");
         }
+        break;
+    }
+    case ZT_STUN:
+        /* will still take physical damage from the force of
+           the breath attack, even if stun resistant */
+        dam = d(nd, 6);
+        if (Half_physical_damage)
+            dam = (dam + 1) / 2;
+        if (Stun_resistance)
+            shieldeff(sx, sy); /* resistance handled in make_stunned() */
+        make_stunned((HStun & TIMEOUT) + (long) dam / (Reflecting ? 4 : 2), TRUE);
         break;
     }
 
@@ -5420,6 +5495,7 @@ xchar sx, sy;
     losehp(dam, fltxt, KILLED_BY_AN);
     return;
 }
+
 
 /*
  * burn objects (such as scrolls and spellbooks) on floor
@@ -5444,16 +5520,19 @@ boolean u_caused;
             continue;
         }
         /* Try to arm bombs on the ground */
-        if (is_bomb(obj) && !obj->oarmed) {
+        if (is_bomb(obj) && !obj->oarmed && rn2(3)) {
             handle_bomb(obj, !context.mon_moving);
             continue;
         }
         
-        if (obj->oclass == SCROLL_CLASS 
-            || obj->oclass == SPBOOK_CLASS
-            || (obj->oclass == FOOD_CLASS
-                && obj->otyp == GLOB_OF_GREEN_SLIME)) {
-            if (obj->otyp == SCR_FIRE || obj->otyp == SPE_FIREBALL
+        if (obj->oclass == SCROLL_CLASS || obj->oclass == SPBOOK_CLASS
+            || (obj->oclass == FOOD_CLASS && obj->otyp == GLOB_OF_GREEN_SLIME)) {
+            if (obj->otyp == SCR_FIRE 
+                || obj->otyp == SPE_FLAME_SPHERE
+                || obj->otyp == SPE_FIRE_BOLT
+                || obj->otyp == SPE_FIREBALL
+                   /* Sleeved */
+                || (obj->oclass == SCROLL_CLASS && obj->oerodeproof)
                 || obj_resists(obj, 2, 100))
                 continue;
             scrquan = obj->quan; /* number present */
@@ -5575,7 +5654,12 @@ int type; /* either hero cast spell type or 0 */
 boolean is_wand;
 {
     int chance = rn2(20);
-    int spell_bonus = type ? spell_hit_bonus(type, is_wand) : 0;
+    int spell_bonus = 0;
+
+    if (type)
+        spell_bonus = spell_hit_bonus(type, is_wand);
+    else if (ACURR(A_DEX) > 17)
+        spell_bonus = (ACURR(A_DEX) - 17);
 
     /* small chance for naked target to avoid being hit */
     if (!chance)
@@ -5721,7 +5805,7 @@ boolean say; /* Announce out of sight hit/miss events if true */
 
         if (mon) {
             int saved_mhp;
-            if (type == ZT_SPELL(ZT_FIRE))
+            if (type == ZT_SPELL(ZT_FIRE) || type == ZT_MONSPELL(ZT_FIRE))
                 break;
             if (type >= 0)
                 mon->mstrategy &= ~STRAT_WAITMASK;
@@ -5811,6 +5895,18 @@ boolean say; /* Announce out of sight hit/miss events if true */
                                     if (canseemon(mon))
                                         pline("%s resists the death magic, but appears drained!",
                                               Monnam(mon));
+                                }
+                                if (abstype == ZT_DRAIN) {
+                                    const char *life = nonliving(mon->data) ? "animating force"
+                                                                            : "life";
+
+                                    if (canseemon(mon)) {
+                                        if (resists_drli(mon) || defended(mon, AD_DRLI))
+                                            pline("%s appears unaffected.", Monnam(mon));
+                                        else
+                                            pline_The("blast draws the %s from %s!",
+                                                      life, mon_nam(mon));
+                                    }
                                 }
                                 print_mon_wounded(mon, saved_mhp);
                             }
@@ -5980,7 +6076,8 @@ const char *msg;
 
     if (!msg)
         msg = "The ice crackles and melts.";
-    if (lev->typ == DRAWBRIDGE_UP || lev->typ == DRAWBRIDGE_DOWN) {
+    if (lev->typ == DRAWBRIDGE_UP || lev->typ == DRAWBRIDGE_DOWN
+          || lev->typ == BRIDGE) {
         lev->drawbridgemask &= ~DB_ICE; /* revert to DB_MOAT */
     } else { /* lev->typ == ICE */
 #ifdef STUPID
@@ -6166,6 +6263,10 @@ boolean moncast;
         }
         if (is_ice(x, y)) {
             melt_ice(x, y, (char *) 0);
+        } else if (is_bridge(x, y)) {
+            if (cansee(x, y))
+                pline_The("bridge catches fire!");
+            destroy_rope_bridge(x, y);
         } else if (is_pool(x, y)) {
             const char *msgtxt = (!Deaf)
                                      ? "You hear hissing gas." /* Deaf-aware */
@@ -6703,6 +6804,8 @@ int osym, dmgtyp;
     /* Potions of invulnerability are... invulnerable */
     if (obj->otyp == POT_INVULNERABILITY)
         return;
+    if (obj->oprops & ITEM_TOUGH)
+        return;
     
     physical_damage = FALSE;
     xresist = skip = 0;
@@ -6722,12 +6825,15 @@ int osym, dmgtyp;
             skip++;
         break;
     case AD_FIRE:
-        xresist = (how_resistant(FIRE_RES) == 100 && obj->oclass != POTION_CLASS
+        xresist = (how_resistant(FIRE_RES) == 100
+                   && obj->oclass != POTION_CLASS
                    && obj->otyp != GLOB_OF_GREEN_SLIME);
         if (obj->otyp == SCR_FIRE 
             || obj->otyp == SPE_FLAME_SPHERE
             || obj->otyp == SPE_FIRE_BOLT
-            || obj->otyp == SPE_FIREBALL)
+            || obj->otyp == SPE_FIREBALL
+            /* Sleeved */
+            || (obj->oclass == SCROLL_CLASS && obj->oerodeproof))
             skip++;
         if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
             skip++;
@@ -6760,7 +6866,7 @@ int osym, dmgtyp;
             }
             break;
         case WEAPON_CLASS:
-            if (is_bomb(obj) && !obj->oarmed) {
+            if (is_bomb(obj) && !obj->oarmed && rn2(3)) {
                 handle_bomb(obj, !context.mon_moving);
             }
             return; /* For now we'll just light one bomb at a time */
@@ -7075,7 +7181,7 @@ int osym, dmgtyp;
                 }
                 break;
             case WEAPON_CLASS:
-                if (is_bomb(obj) && !obj->oarmed) {
+                if (is_bomb(obj) && !obj->oarmed && rn2(3)) {
                     handle_bomb(obj, !context.mon_moving);
                 }
                 return 0; /* For now we'll just light one bomb at a time */ 
@@ -7313,7 +7419,7 @@ makewish()
     char promptbuf[BUFSZ];
     char bufcpy[BUFSZ];
     struct obj *otmp, nothing;
-    int tries = 0, adjust = 0;
+    int tries = 0;
     int prev_artwish = u.uconduct.wisharti;
 	boolean hadwish = TRUE;
 
@@ -7396,14 +7502,7 @@ makewish()
     else
         livelog_printf(LL_WISH | (prev_artwish < u.uconduct.wisharti ? LL_ARTIFACT : 0),
                        "wished for \"%s\"", bufcpy);
-
-    if ((adjust = wishluck())) {
-        if (adjust == -2 || adjust == -10)
-            change_luck(adjust);
-        else
-             change_luck(-1);
-        set_moreluck();
-    }
+    
     if (otmp != &zeroobj) {
         const char
             *verb = ((Is_airlevel(&u.uz) || u.uinwater) ? "slip" : "drop"),
@@ -7511,6 +7610,9 @@ bomb_explode(struct obj *obj, int x, int y, boolean isyou)
     } else if (obj->otyp == SONIC_BOMB) {
         ztype = ZT_SPELL(ZT_SONIC) * yours;
         expltype = EXPL_FROSTY * yours * -1;
+    } else if (obj->otyp == FLASH_BOMB) {
+        ztype = ZT_SPELL(ZT_STUN) * yours;
+        expltype = EXPL_MAGICAL * yours * -1;
     } else
         impossible("Invalid bomb otyp for bomb_explode!");
     
@@ -7578,7 +7680,7 @@ int x, y, rangemod;
 
             Strcpy(buf, waterbody_name(x, y)); /* for MOAT */
             rangemod -= 3;
-            if (lev->typ == DRAWBRIDGE_UP) {
+            if (lev->typ == DRAWBRIDGE_UP || lev->typ == BRIDGE) {
                 lev->drawbridgemask &= ~DB_UNDER; /* clear lava */
                 lev->drawbridgemask |= (lava ? DB_FLOOR : DB_ICE);
             } else {
@@ -7716,6 +7818,50 @@ int tmp;
     return tmp;
 }
 
+/* Hits you with a ray of water (sea dragon, wand of deluge) 
+ * returns the amount of damage dealt */
+int
+delugehitsu(nd)
+int nd;
+{
+    int dam = d(nd, 8);
+    if (Half_physical_damage)
+        dam = (dam + 1) / 2;
+    
+    if (u.umonnum == PM_BABY_SEA_DRAGON || u.umonnum == PM_SEA_DRAGON) {
+        You("%sabsorb the blast of water into your body.",
+            Reflecting ? "partially " : "");
+        dam = 0;
+    } else if (u.umonnum == PM_WATER_ELEMENTAL) {
+        You_feel("better!");
+        healup(d(6, 6), 0, FALSE, FALSE);
+    } else if (u.umonnum == PM_EARTH_ELEMENTAL) {
+        if (!Unchanging) {
+            polymon(PM_MUD_ELEMENTAL);
+            dam = 0;
+        }
+    } else if (u.umonnum == PM_IRON_GOLEM) {
+        You("rust!");
+        rehumanize();
+        dam = 0; /* Prevent more damage after rehumanize */
+    } else if (likes_fire(youmonst.data)) {
+        You("are being extinguished!");
+        dam += d(6, 6);
+    } else if (amphibious(youmonst.data)) {
+        You("don't mind the water.");
+        dam = 0;
+    }
+    if (!Reflecting) {
+        /* using two weapons at once makes both of them more vulnerable */
+        if (!rn2(u.twoweap ? 3 : 6))
+            water_damage(uwep, 0, TRUE, u.ux, u.uy);
+        if (u.twoweap && !rn2(3))
+            water_damage(uswapwep, 0, TRUE, u.ux, u.uy);
+        if (!rn2(6))
+            erode_armor(&youmonst, ERODE_RUST);
+    }
+    return dam;
+}
 
 void
 scatter_chains(x, y)

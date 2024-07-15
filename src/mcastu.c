@@ -28,7 +28,7 @@ enum mcast_mage_spells {
     MGC_REFLECTION,
     MGC_DEATH_TOUCH,
     MGC_CREATE_POOL,
-    MGC_CALL_UNDEAD
+    MGC_CALL_UNDEAD,
 };
 
 /* monster cleric spells */
@@ -218,11 +218,14 @@ int spellnum;
      */
     while (spellnum > 15 && rn2(16))
         spellnum = rn2(spellnum);
-
+    
     /* If we're hurt, seriously consider giving fixing ourselves priority */
     if ((mtmp->mhp * 4) <= mtmp->mhpmax)
         spellnum = 1;
 
+    if (mtmp->data == &mons[PM_ARCH_VILE] && spellnum != 1)
+        return CLC_FIRE_PILLAR;
+    
     switch (spellnum) {
     case 15:
     case 14:
@@ -247,8 +250,7 @@ int spellnum;
     case 9:
         return CLC_CURSE_ITEMS;
     case 8:
-        if ((is_demon(mtmp->data)
-             && mtmp->data != &mons[PM_LOLTH])
+        if ((is_demon(mtmp->data) && mtmp->data != &mons[PM_LOLTH])
             || mtmp->mtame || mtmp->mpeaceful)
             return CLC_VULN_YOU;
         else
@@ -1346,6 +1348,7 @@ int spellnum;
         case CLC_INSECTS:
         case CLC_CURE_SELF:
         case CLC_PROTECTION:
+        case CLC_FIRE_PILLAR:
             return TRUE;
         default:
             break;
@@ -1425,8 +1428,10 @@ int spellnum;
             && spellnum == MGC_ACID_BLAST) {
             return TRUE;
         }
-        if ((spellnum == MGC_ICE_BOLT || spellnum == MGC_FIRE_BOLT
-            || spellnum == MGC_ACID_BLAST || spellnum == MGC_CANCELLATION)
+        if ((spellnum == MGC_ICE_BOLT 
+            || spellnum == MGC_FIRE_BOLT
+            || spellnum == MGC_ACID_BLAST 
+            || spellnum == MGC_CANCELLATION)
             && mtmp->mpeaceful) {
             return TRUE;
         }
@@ -1438,6 +1443,16 @@ int spellnum;
         if ((!haseyes(mdef->data) || mdef->mblinded)
             && spellnum == CLC_BLIND_YOU)
             return TRUE;
+        
+        if (spellnum == CLC_FIRE_PILLAR && mtmp->mpeaceful)
+            return TRUE;
+        if (m_seenres(mtmp, M_SEEN_FIRE) && spellnum == CLC_FIRE_PILLAR)
+            return TRUE;
+        /* Don't let arch-viles spam too much */
+        if (spellnum == CLC_FIRE_PILLAR 
+            && mtmp->data == &mons[PM_ARCH_VILE] && rn2(30)) {
+            return TRUE;
+        }
     }
     return FALSE;
 }
@@ -1578,6 +1593,17 @@ int spellnum;
         /* blindness spell on blinded player */
         if (Blinded && spellnum == CLC_BLIND_YOU)
             return TRUE;
+
+        if (m_seenres(mtmp, M_SEEN_FIRE) && spellnum == CLC_FIRE_PILLAR) {
+            return TRUE;
+        }
+        if (spellnum == CLC_FIRE_PILLAR && (mtmp->mpeaceful || u.uinvulnerable))
+            return TRUE;
+        /* Don't let arch-viles spam too much */
+        if (spellnum == CLC_FIRE_PILLAR
+            && mtmp->data == &mons[PM_ARCH_VILE] && rn2(30)) {
+            return TRUE;
+        }
     }
     return FALSE;
 }
@@ -1591,7 +1617,7 @@ register struct attack *mattk;
 {
     /* don't print constant stream of curse messages for 'normal'
        spellcasting monsters at range */
-    if (mattk->adtyp >= AD_PSYC)
+    if (mattk->adtyp > AD_STUN)
         return 0;
 
     if (mtmp->mcan) {
@@ -1621,7 +1647,7 @@ register struct attack *mattk;
 {
     /* don't print constant stream of curse messages for 'normal'
        spellcasting monsters at range */
-    if (mattk->adtyp > AD_PSYC)
+    if (mattk->adtyp > AD_STUN)
         return 0;
 
     if (mtmp->mcan) {
@@ -1634,7 +1660,7 @@ register struct attack *mattk;
             if (canseemon(mtmp))
                 pline("%s zaps %s with a %s!", Monnam(mtmp),
                       mon_nam(mdef), flash_types[AD_to_ZT(mattk->adtyp)]);
-            dobuzz(-AD_to_SPELL(mattk->adtyp), (int) mattk->damn, mtmp->mx,
+            dobuzz(ZT_MONSPELL(AD_to_ZT(mattk->adtyp)), (int) mattk->damn, mtmp->mx,
                    mtmp->my, sgn(tbx), sgn(tby), FALSE);
         } else
             impossible("Monster spell %d cast", mattk->adtyp - 1);

@@ -725,9 +725,9 @@ static const char * damagetypes[] = {
     "shock",
     "strength poison",
     "acid",
-    "sonic",    /* prev AD_SPC2  */
+    "sonic",
     "water", 
-    "psionic",  /* prev AD_SPC1  */
+    "psionic",
     "blind",
     "stun",
     "slow",
@@ -1195,9 +1195,8 @@ char *usr_text;
         if (skill == 0) {
             /* TODO: We can't use is_bomb(dummy) or is_bomb(&dummy) */
             if ((obj && is_bomb(obj)) ||
-                    (otyp == FIRE_BOMB                               \
-                     || otyp == SONIC_BOMB                              \
-                     || otyp == GAS_BOMB) )
+                    (otyp == FIRE_BOMB || otyp == SONIC_BOMB                              \
+                     || otyp == FLASH_BOMB || otyp == GAS_BOMB))
                 Sprintf(buf, "Thrown bomb using no specific skill.");
             else
                 Sprintf(buf, "%s-handed weapon%s using no weapon skill.",
@@ -1815,7 +1814,7 @@ char *usr_text;
                     OBJPUTSTR("Forging recipes (#craft):");
                     has_recipes = TRUE;
                 }
-                Sprintf(buf, "     %d %s + %d %s = %s", 
+                Sprintf(buf, "  %d %s + %d %s = %s", 
                         recipe->quan_typ1, OBJ_NAME(objects[recipe->typ1]), 
                         recipe->quan_typ2, OBJ_NAME(objects[recipe->typ2]),
                         OBJ_NAME(objects[recipe->result_typ]));
@@ -1835,11 +1834,11 @@ char *usr_text;
                     OBJPUTSTR("Potion alchemy recipes (#dip):");
                     has_recipes = TRUE;
                 }
-                Sprintf(buf, "     %s + %s = %s%s",
+                Sprintf(buf, "  %-13s + %-13s = %s%s",
                         OBJ_NAME(objects[precipe->typ1]),
                         OBJ_NAME(objects[precipe->typ2]),
                         OBJ_NAME(objects[precipe->result_typ]),
-                        precipe->chance == 1 ? "" : "(1/3)" );
+                        precipe->chance == 1 ? "" : " (1/3)" );
                 OBJPUTSTR(buf);
             }
         }
@@ -1850,16 +1849,18 @@ char *usr_text;
         struct obj *potion = mksobj(POT_ACID, FALSE, FALSE);
         short mixture = mixtype(&dummy, potion);
         obfree(potion, (struct obj *)0);
-
+        
         if (otyp == DILITHIUM_CRYSTAL) {
             OBJPUTSTR("");
-            OBJPUTSTR( "Dipping into a potion of acid creates an explosion.");
+            OBJPUTSTR("Gem alchemy recipes (#dip):");
+            OBJPUTSTR( "  dilithium crystal + acid = an explosion.");
         } else if (mixture > 0) {
             OBJPUTSTR("");
+            OBJPUTSTR("Gem alchemy recipes (#dip):");
             identified_potion_name = OBJ_NAME(objects[mixture]);
             potion_known = objects[mixture].oc_name_known;
-            Sprintf(buf, "Dipping into %s creates %s potion.",
-                    flags.verbose ? "a potion of acid" : "acid",
+            Sprintf(buf, "  %-13s + acid = %s potion.",
+                    OBJ_NAME(objects[otyp]),
                     an(OBJ_DESCR(objects[mixture])));
             if (potion_known && identified_potion_name) {
                 Sprintf(eos(buf) - 1, " (%s).", identified_potion_name);
@@ -1867,19 +1868,18 @@ char *usr_text;
             OBJPUTSTR(buf);
         }
     }
-
+    
     if (reveal_info && (otyp == POT_ACID 
             || (usr_text && !strcmp(usr_text, "gem alchemy")))) {
         OBJPUTSTR("");
-        OBJPUTSTR("Gem alchemy recipes:");
-        OBJPUTSTR("(Dipping a gem into this can alchemize a new potion)");
+        OBJPUTSTR("Gem alchemy recipes (#dip):");
         for (i = bases[GEM_CLASS]; i <= LAST_GEM; i++) {
             const char *result = gem_to_potion(i);
             if (i == DILITHIUM_CRYSTAL)
-                OBJPUTSTR("     acid + dilithium crystal = an explosion");
+                OBJPUTSTR("  dilithium crystal + acid = an explosion");
             else if (result) {
                 struct obj *potion = mksobj(figure_out_potion(result), FALSE, FALSE);
-                Sprintf(buf, "     acid + %-12s = %s",
+                Sprintf(buf, "  %-13s + acid = %s",
                         OBJ_NAME(objects[i]),   /* The gem */
                         xname(potion));         /* The potion */
                 OBJPUTSTR(buf);
@@ -1888,27 +1888,26 @@ char *usr_text;
         }
     } else if (oc.oc_class == POTION_CLASS) {
         int gem = potion_to_gem(otyp);
-        /*if (gem && oc.oc_name_known) {*/
         if (gem && (obj || oc.oc_name_known)) {
             OBJPUTSTR("");
-            Sprintf(buf, "Dipping a %s into acid creates %s.",
+            Sprintf(buf, "  %-13s + acid = %s.",
                 OBJ_NAME(objects[gem]), an(singular(&dummy, xname)));
             OBJPUTSTR(buf);
         }
     }
     
     /* mold fermentation */
+    has_recipes = FALSE;
     if (reveal_info && otyp == POT_FRUIT_JUICE) {
         /* Display all fermenting recipes here */
         OBJPUTSTR("");
-        OBJPUTSTR("Juice fermentation recipes:");
-        OBJPUTSTR("(#dipping a mold corpse can ferment a new potion)");
+        OBJPUTSTR("Fermentation recipes (#dip):");
         for (i = PM_BROWN_MOLD; i < PM_VOLATILE_MUSHROOM; i++) {
             short result = mold_to_potion(i);
             /* Important: Display the actual potion result - NOT the
              * appearance, otherwise we directly leak info. */
             if (result) {
-                Sprintf(buf, "     fruit juice + %-15s = %s",
+                Sprintf(buf, "  %-13s + fruit juice = %s",
                         mons[i].mname,              /* The mold */
                         OBJ_NAME(objects[result]));  /* The potion */
                 OBJPUTSTR(buf);
@@ -1919,8 +1918,8 @@ char *usr_text;
         for (i = PM_BROWN_MOLD; i < PM_VOLATILE_MUSHROOM; i++) {
             if (mold_to_potion(i) == otyp) {
                 OBJPUTSTR("");
-                OBJPUTSTR("Fermentation recipes:");
-                Sprintf(buf, "#dipping a %s corpse into fruit juice ferments a potion of %s.",
+                OBJPUTSTR("Fermentation recipes (#dip):");
+                Sprintf(buf, "  %-13s + fruit juice = potion of %s.",
                         mons[i].mname,              /* The mold */
                         OBJ_NAME(objects[otyp]));  /* The potion */
                 OBJPUTSTR(buf);
@@ -1933,8 +1932,8 @@ char *usr_text;
         short result = mold_to_potion(cnum);
         if (result) {
             OBJPUTSTR("");
-            OBJPUTSTR("Fermentation recipes:");
-            Sprintf(buf, "#dipping a %s corpse into fruit juice ferments a potion of %s.",
+            OBJPUTSTR("Fermentation recipes (#dip):");
+            Sprintf(buf, "  %s + fruit juice = potion of %s.",
                     mons[cnum].mname,          /* The mold */
                     OBJ_NAME(objects[result]));  /* The potion */
             OBJPUTSTR(buf);

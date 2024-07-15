@@ -39,6 +39,18 @@ static const struct icp mkobjprobs[] = { { 10, WEAPON_CLASS },
                                          { 3, RING_CLASS },
                                          { 1, AMULET_CLASS } };
 
+static const struct icp cartprobs[] =  { { 10, WEAPON_CLASS },
+                                         { 10, ARMOR_CLASS },
+                                         { 30, FOOD_CLASS },
+                                         { 8, TOOL_CLASS },
+                                         { 8, GEM_CLASS },
+                                         { 16, POTION_CLASS },
+                                         { 8, SCROLL_CLASS },
+                                         { 4, SPBOOK_CLASS },
+                                         { 2, WAND_CLASS },
+                                         { 3, RING_CLASS },
+                                         { 1, AMULET_CLASS } };
+
 static const struct icp boxiprobs[] = { { 18, GEM_CLASS },
                                         { 15, FOOD_CLASS },
                                         { 18, POTION_CLASS },
@@ -256,7 +268,9 @@ boolean artif;
         const struct icp *iprobs = Is_rogue_level(&u.uz)
                                    ? (const struct icp *) rogueprobs
                                    : Inhell ? (const struct icp *) hellprobs
-                                            : (const struct icp *) mkobjprobs;
+                                            : Role_if(PM_CARTOMANCER) 
+                                            ? (const struct icp *) cartprobs 
+                                                    : (const struct icp *) mkobjprobs;
 
         for (tprob = rnd(100); (tprob -= iprobs->iprob) > 0; iprobs++)
             ;
@@ -914,6 +928,8 @@ boolean artif;
                     break;
                 }
             }
+            if (is_firearm(otmp) && otmp->cursed && rn2(2))
+                otmp->obroken = 1;
             break;
         case FOOD_CLASS:
             otmp->oeaten = 0;
@@ -3685,6 +3701,12 @@ static const struct icp unihorn_materials[] = {
         { 5, SILVER},
 };
 
+static const struct icp crysknife_materials[] = {
+        {100, 0}, /* use base material */
+        {0, MINERAL},
+};
+
+
 static const struct icp sling_bullet_materials[] = {
     {65, IRON},
     {15, METAL},
@@ -3715,7 +3737,6 @@ struct obj* obj;
         case BULLWHIP:
         case FLAMING_LASH:
         case WORM_TOOTH:
-        case CRYSKNIFE:
         case PENCIL:
         case STAFF_OF_DIVINATION:
         case STAFF_OF_HEALING:
@@ -3824,6 +3845,8 @@ struct obj* obj;
             return shiny_materials;
         case UNICORN_HORN:
             return unihorn_materials;
+        case CRYSKNIFE:
+            return crysknife_materials;
         default:
             break;
     }

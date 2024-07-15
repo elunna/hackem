@@ -408,6 +408,42 @@ const struct Role roles[] = {
       { 7, 2, 0, 2, 0, 2 },
       10, /* Energy */
       10, 8, -2, 2, 20, A_WIS, SPE_RESTORE_ABILITY, -4 },
+
+    { { "Cartomancer", 0 },
+      { { "Learner", 0 },
+        { "Shuffler", 0 },
+        { "Player", 0 },
+        { "Reader", 0 },
+        { "Strategist", 0 },
+        { "Deck Stacker", 0 },
+        { "Card Collector", 0 },
+        { "Deck Stacker", 0 },
+        { "King of Games", "Queen of Games" } },
+      "Johnny", "Spike", "Timmy", /* Card player archetypes */
+      "Car",
+      "the Card Training School",
+      "the Great Card Arena",
+      PM_CARTOMANCER,
+      NON_PM,
+      PM_LITTLE_DOG,
+      PM_KING_OF_GAMES,
+      PM_STUDENT, /* Reusing students to avoid redundancy */
+      PM_DAL_ZETHIRE,
+      PM_COBRA,
+      PM_GUARDIAN_NAGA,
+      S_SNAKE,
+      S_NAGA,
+      ART_HOLOGRAPHIC_VOID_LILY,
+      MH_HUMAN | MH_DWARF | MH_ELF | MH_GNOME /*| MH_DEMON | MH_UNDEAD*/,
+      ROLE_MALE | ROLE_FEMALE |
+      ROLE_LAWFUL | ROLE_NEUTRAL | ROLE_CHAOTIC,
+      /* Str Int Wis Dex Con Cha */
+      { 7, 10, 7, 7, 7, 7 },
+      { 10, 30, 10, 20, 20, 10 },
+      /* Init   Lower  Higher */
+      { 10, 0, 0, 8, 1, 0 }, /* Hit points */
+      { 4, 3, 0, 2, 0, 3 }, 12, /* Energy */
+      0, 1, 0, 3, 10, A_INT, SPE_CREATE_MONSTER, -4 },  
     { { "Necromancer", 0 }, 
       { { "Gravedigger",  0 },
         { "Embalmer", 0 },

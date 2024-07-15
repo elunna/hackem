@@ -1732,7 +1732,6 @@ aligntyp alignment;
             mon->weapon_check = NEED_HTH_WEAPON;
             (void) mon_wield_item(mon);
         }
-        u.ugifts++;
         u.uconduct.pets++;
 
 	switch ((int)alignment) {
@@ -2379,9 +2378,10 @@ dosacrifice()
                     livelog_printf(LL_DIVINEGIFT | LL_ARTIFACT,
                                    "had %s bestowed upon %s by %s",
                                    otmp->oartifact
-                                        ? artiname(otmp->oartifact)
-                                        : an(xname(otmp)),
+                                   ? artiname(otmp->oartifact)
+                                   : an(xname(otmp)),
                                    uhim(), align_gname(u.ualign.type));
+
                     return 1;
                 }
             }

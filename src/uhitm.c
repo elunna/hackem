@@ -668,7 +668,8 @@ int dieroll;
         long oldweaphit = u.uconduct.weaphit;
 
         /* KMH, conduct */
-        if (weapon && (weapon->oclass == WEAPON_CLASS || is_weptool(weapon)))
+        if (weapon && (weapon->oclass == WEAPON_CLASS || is_weptool(weapon)) 
+              && !is_launcher(weapon))
             u.uconduct.weaphit++;
 
         /* we hit the monster; be careful: it might die or
@@ -1601,7 +1602,7 @@ int dieroll;
                            them */
                         if (uwep->oartifact == ART_LONGBOW_OF_DIANA
                             || uwep->oartifact == ART_CROSSBOW_OF_CARL)
-                            tmp += rnd(6);
+                            tmp += 6;
                         /* Elves and Samurai do extra damage using
                          * their bows&arrows; they're highly trained.
                          */
@@ -1679,25 +1680,20 @@ int dieroll;
                 case SHIELD_OF_LIGHT:
                 case SHIELD_OF_MOBILITY:
                 case RESONANT_SHIELD:
-                    if (uarms && P_SKILL(P_SHIELD) >= P_BASIC) {
-                         /* dmgval for shields is just one point,
-                            plus whatever material damage applies */
-                        tmp = dmgval(obj, mon);
-
-                        /* add extra damage based on the type
-                           of shield */
-                        if (obj->otyp == SMALL_SHIELD)
-                            tmp += rn2(3) + 1;
-                        else if (obj->otyp == TOWER_SHIELD)
-                            tmp += rn2(12) + 1;
-                        else
-                            tmp += rn2(6) + 2;
-
-                        /* sprinkle on a bit more damage if
-                           shield skill is high enough */
-                        if (P_SKILL(P_SHIELD) >= P_EXPERT)
-                            tmp += rnd(4);
+                    if (obj && (obj == uarms) && is_shield(obj)) {
+                        tmp = shield_dmg(obj, mon);
+                        You("bash %s with %s%s",
+                            mon_nam(mon), ysimple_name(obj),
+                            canseemon(mon) ? exclam(tmp) : ".");
+                        
+                        /* Property effects */
+                        if (obj->oprops & (ITEM_FIRE | ITEM_FROST | ITEM_SHOCK
+                                           | ITEM_VENOM | ITEM_SIZZLE | ITEM_SCREAM
+                                           | ITEM_DECAY) && !rn2(4)) {
+                            artifact_hit(&youmonst, mon, uarms, &tmp, dieroll);
+                        }
                     }
+                    
                     if (mon_hates_material(mon, obj->material)) {
                         /* dmgval() already added damage, but track hated_obj */
                         hated_obj = obj;
@@ -1718,7 +1714,8 @@ int dieroll;
                 case EXPENSIVE_CAMERA:
                     You("succeed in destroying %s.  Congratulations!",
                         ysimple_name(obj));
-                    release_camera_demon(obj, u.ux, u.uy);
+                    if (!Role_if(PM_CARTOMANCER))
+                        release_camera_demon(obj, u.ux, u.uy);
                     useup(obj);
                     return TRUE;
                 case CORPSE: /* fixed by polder@cs.vu.nl */
@@ -2212,9 +2209,6 @@ int dieroll;
                 canseemon(mon) ? exclam(tmp) : ".");
         } else {
             if (obj && (obj == uarms) && is_shield(obj)) {
-                You("bash %s with %s%s",
-                    mon_nam(mon), ysimple_name(obj),
-                    canseemon(mon) ? exclam(tmp) : ".");
                 /* placing this here, because order of events */
                 if (!rn2(10) && P_SKILL(P_SHIELD) >= P_EXPERT 
                       && (!(resists_stun(mon->data) || defended(mon, AD_STUN)))) {
@@ -4227,8 +4221,7 @@ boolean wouldhavehit;
                 pline("%s %s %s your attack.",
                       s_suffix(Monnam(mdef)),
                       (is_dragon(mdef->data) ? "scaly hide"
-                                             : (mdef->data == &mons[PM_GIANT_TURTLE]
-                                                || is_tortle(mdef->data))
+                                             : is_tortle(mdef->data)
                                                  ? "protective shell"
                                                  : "thick hide"),
                       (rn2(2) ? "blocks" : "deflects"));
@@ -4901,6 +4894,8 @@ boolean wep_was_destroyed;
         break;
     case AD_DRLI:
         if (mhit && !mon->mcan) {
+            You_feel("weaker as you make contact with %s!", 
+                     canseemon(mon) ? mon_nam(mon) : "something");
             if (Drain_resistance) {
                 shieldeff(u.ux, u.uy);
                 monstseesu(M_SEEN_DRAIN);
@@ -5954,6 +5949,34 @@ u_bloodthirsty()
         return TRUE;
     return FALSE;
     
+}
+
+int
+shield_dmg(obj, mon)
+struct monst *mon;
+struct obj *obj;
+{
+    int tmp;
+    if (uarms && P_SKILL(P_SHIELD) >= P_BASIC) {
+        /* dmgval for shields is just one point,
+           plus whatever material damage applies */
+        tmp = dmgval(obj, mon);
+
+        /* add extra damage based on the type
+           of shield */
+        if (obj->otyp == SMALL_SHIELD)
+            tmp += rn2(3) + 1;
+        else if (obj->otyp == TOWER_SHIELD)
+            tmp += rn2(12) + 1;
+        else
+            tmp += rn2(6) + 2;
+
+        /* sprinkle on a bit more damage if
+           shield skill is high enough */
+        if (P_SKILL(P_SHIELD) >= P_EXPERT)
+            tmp += rnd(4);
+    }
+    return tmp;
 }
 
 /*uhitm.c*/

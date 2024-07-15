@@ -210,7 +210,7 @@ struct monst *mtmp;
      * Vecna, monster players, demon lords and princes,
      * honey badgers, shopkeepers inside their own shop, anything that
      * is mindless, priests inside their own temple, the quest leaders
-     * and nemesis, neothelids
+     * and nemesis, neothelids, beholders, other unique creatures
      */
     if (mtmp->iswiz
         || is_lminion(mtmp)
@@ -1290,6 +1290,7 @@ register int after;
     }
     /* Infest corpses. */
     if (is_moldier(ptr) 
+        || mtmp->data == &mons[PM_ARCH_VILE]
         || mtmp->data == &mons[PM_MAGGOT]
         || mtmp->data == &mons[PM_HELLMINTH]
         || mtmp->data == &mons[PM_LARVA])

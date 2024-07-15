@@ -2014,7 +2014,15 @@ boolean *dealloced;
 
     if (otmp->lamplit && otmp->otyp != POT_OIL)
         end_burn(otmp, TRUE);
-
+    
+    if (otmp->otyp == EGG && otmp->corpsenm == PM_PHOENIX) {
+        pline_The("%s start%s cracking as you attempt to bury %s!",
+                  xname(otmp), otmp->quan > 1 ? "" : "s",
+                  otmp->quan > 1 ? "them" : "it");
+        hatch_faster(otmp);
+        return otmp2;
+    }
+        
     obj_extract_self(otmp);
         
     under_ice = is_ice(otmp->ox, otmp->oy);

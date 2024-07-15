@@ -751,6 +751,7 @@ struct obj *otmp;
 boolean calc_costly;
 {
     struct autopickup_exception *ape;
+    struct trap *t;
     static boolean costly = FALSE;
     const char *otypes = flags.pickup_types;
     boolean pickit;
@@ -763,7 +764,13 @@ boolean calc_costly;
     /* first check: reject if an unpaid item in a shop */
     if (costly && !otmp->no_charge)
         return FALSE;
-
+    
+    /* Don't autopickup statues on statue traps */
+    if (otmp->otyp == STATUE 
+        && (t = t_at(bhitpos.x, bhitpos.y)) && t->ttyp == STATUE_TRAP)
+        return FALSE;
+        
+    
     /* check for pickup_types */
     pickit = (!*otypes || index(otypes, otmp->oclass));
 
@@ -1806,6 +1813,14 @@ int cindex, ccount; /* index of this container (1..N), number of them (N) */
                    but don't give that away by suggesting them (same logic
                    as with crystal chests [see below comment]) */
                 unlocktool = carrying(MAGIC_KEY);
+                if (!unlocktool)
+                    unlocktool = carrying_arti(ART_KEY_OF_LAW);
+                if (!unlocktool)
+                    unlocktool = carrying_arti(ART_KEY_OF_CHAOS);
+                if (!unlocktool)
+                    unlocktool = carrying_arti(ART_KEY_OF_NEUTRALITY);
+                if (!unlocktool)
+                    unlocktool = carrying_arti(ART_KEY_OF_ACCESS);
                 break;
             default:
                 /* Don't prompt for crystal chest; only artifact unlocking
@@ -2159,9 +2174,7 @@ boolean taking;
                                    && !which_armor(mtmp, W_ARMG)
                                    && !(resists_ston(mtmp)
                                         || defended(mtmp, AD_STON)));
-        boolean unpaid = otmp->unpaid 
-                || (!otmp->no_charge && costly_spot(otmp->ox, otmp->oy));
-        
+
         /* Clear inapplicable wornmask bits */
         unwornmask &= ~(W_ART | W_ARTI | W_QUIVER);
 
@@ -2169,11 +2182,6 @@ boolean taking;
             int carryamt;
             if (welded(otmp)) {
                 weldmsg(otmp);
-                continue;
-            }
-            if (unpaid) {
-                pline("A mysterious force prevents you from giving away %s...", 
-                      yname(otmp));
                 continue;
             }
             if (otmp->otyp == LOADSTONE && cursed(otmp, TRUE)
@@ -2499,6 +2507,15 @@ register struct obj *obj;
          */
         pline("%s cannot be confined in such trappings.", The(xname(obj)));
         return 0;
+    } else if (obj->otyp == EGG && obj->corpsenm == PM_PHOENIX) {
+        if (!Blind)
+            pline_The("%s start%s cracking as you attempt to confine %s!",
+                  xname(obj), obj->quan > 1 ? "" : "s",
+                  obj->quan > 1 ? "them" : "it");
+        else
+            You_hear("something cracking.");
+        hatch_faster(obj);
+        return 0;
     } else if (is_quest_artifact(obj) && !u.uevent.qcompleted) {
         pline("%s resists being confined until the quest is completed.",
               The(xname(obj)));
@@ -2629,6 +2646,7 @@ register struct obj *obj;
         current_container->owt = weight(current_container);
     }
     
+
     /* gold needs this, and freeinv() many lines above may cause
      * the encumbrance to disappear from the status, so just always
      * update status immediately.
@@ -3891,7 +3909,7 @@ boolean *cancelled;
     anything any;
     char buf[BUFSZ];
     menu_item *pick_list = (menu_item *) 0;
-    struct obj dummyobj, *otmp, *obj2;
+    struct obj dummyobj, *otmp;
     boolean hands_available = TRUE, exclude_it;
 
 #if 0   /* [skip potential early return so that menu response is needed
@@ -3924,10 +3942,11 @@ boolean *cancelled;
     for (otmp = invent; otmp; otmp = otmp->nobj) {
         if (otmp == box)
             continue;
-        /* skip non-containers; bag of tricks and rats are not eligible if they 
-         * have charges. There is some info leakage here, but these bags are so
-         * easy to identify anyway. */
-        if (!Is_container(otmp) || Bad_bag(otmp))
+        /* skip non-containers; bag of tricks passes Is_container() test,
+           only include it if it isn't known to be a bag of tricks */
+        if (!Is_container(otmp)
+            || ((otmp->otyp == BAG_OF_TRICKS || otmp->otyp == BAG_OF_RATS) && otmp->dknown
+                && objects[otmp->otyp].oc_name_known))
             continue;
         if (!n_conts++)
             hands_available = u_handsy(); /* might issue message */
@@ -3940,30 +3959,7 @@ boolean *cancelled;
         add_menu(win, NO_GLYPH, &any, !exclude_it ? otmp->invlet : 0, 0,
                  ATR_NONE, buf, MENU_UNSELECTED);
     }
-    
-    /* TODO: This is just duplicated from above for containers on the floor. 
-     * Maybe refactor to not be copy/paste */
-    for (otmp = level.objects[u.ux][u.uy]; otmp; otmp = obj2) {
-        obj2 = otmp->nexthere;
-        
-        if (otmp == box)
-            continue;
-        /* skip non-containers; bag of tricks passes Is_container() test,
-           only include it if it isn't known to be a bag of tricks */
-        if (!Is_container(otmp) || Bad_bag(otmp))
-            continue;
-        if (!n_conts++)
-            hands_available = u_handsy(); /* might issue message */
-        /* container-to-container tip requires free hands;
-           exclude container as possible target when known to be locked */
-        exclude_it = !hands_available || (otmp->olocked && otmp->lknown);
-        any = zeroany;
-        any.a_obj = !exclude_it ? otmp : 0;
-        Sprintf(buf, "%s%s (on the floor)", !exclude_it ? "" : "    ", doname(otmp));
-        add_menu(win, NO_GLYPH, &any, !exclude_it ? otmp->invlet : 0, 0,
-                 ATR_NONE, buf, MENU_UNSELECTED);
-    }
-    
+
     Sprintf(buf, "Where to tip the contents of %s", doname(box));
     end_menu(win, buf);
     n = select_menu(win, PICK_ONE, &pick_list);
@@ -3995,8 +3991,13 @@ boolean allowempty;    /* affects result when box is empty */
 {
     boolean bag = box->otyp == BAG_OF_TRICKS || box->otyp == BAG_OF_RATS;
     
-    /* Uncharged bags of tricks or rats are now acceptable as
-     * a container-to-container destination. */
+    /* undiscovered bag of tricks is acceptable as a container-to-container
+       destination but it can't receive items; it has to be opened in
+       preparation so apply it once before even trying to tip source box */
+    if (targetbox && (targetbox->otyp == BAG_OF_TRICKS || targetbox->otyp == BAG_OF_RATS)) {
+        bagotricks(targetbox);
+        return TIPCHECK_CANNOT;
+    }
 
     /* caveat: this assumes that cknown, lknown, olocked, and otrapped
        fields haven't been overloaded to mean something special for the

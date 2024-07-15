@@ -12,7 +12,6 @@
 #define PAY_BROKE (-2)
 
 STATIC_DCL void FDECL(makekops, (coord *));
-STATIC_DCL void FDECL(call_kops, (struct monst *, BOOLEAN_P));
 STATIC_DCL void FDECL(kops_gone, (BOOLEAN_P));
 
 #define NOTANGRY(mon) ((mon)->mpeaceful)
@@ -361,7 +360,7 @@ register struct monst *shkp;
 }
 
 
-STATIC_OVL void
+void
 call_kops(shkp, nearshop)
 register struct monst *shkp;
 register boolean nearshop;
@@ -372,10 +371,7 @@ register boolean nearshop;
     coord mm;
 
     Strcpy(kopname, "Keystone Kops");
-
-    if (!shkp)
-        return;
-
+    
     if (!Deaf)
         pline("An alarm sounds!");
     
@@ -403,8 +399,9 @@ register boolean nearshop;
 
     if (nokops)
         return;
-
-    if (nearshop)
+    
+    /* Also handle kops when the Cartomancer forges cards */
+    if (!shkp || nearshop)
         if (!Is_blackmarket(&u.uz)) {
             /* Create swarm around you, if you merely "stepped out" */
             if (flags.verbose)
@@ -2663,6 +2660,7 @@ register struct monst *shkp; /* if angry, impose a surcharge */
             divisor *= 3L;
         }
     }
+
     /* adjust for different material */
     if (obj->oclass != RING_CLASS && obj->oclass != AMULET_CLASS) {
         multiplier *= matprices[obj->material];
@@ -4140,6 +4138,8 @@ long svc_type;
         else if (Hallucination)
             Your("tin roof, un-rusted!");
 
+        if (is_firearm(uwep))
+            uwep->obroken = 0;
         obj->oeroded = obj->oeroded2 = 0;
         obj->rknown = TRUE;
         obj->oerodeproof = TRUE;
@@ -4189,7 +4189,9 @@ long svc_type;
             update_inventory();
             break;
         }
-
+        
+        if (is_firearm(uwep) && uwep->obroken)
+            uwep->obroken = 0;
         obj->spe++;
         update_inventory();
         break;
@@ -4339,13 +4341,15 @@ struct monst *shkp;
     if (obj->oprops) {
         verbalize("Your %s already has a property, I could *try* to remove it...", xname(obj));
         charge = 250;
-        shk_smooth_charge(&charge, 250, NOBOUND);
+        shk_smooth_charge(&charge, 150, 750);
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
         if (!rn2(4)) {
             verbalize("Success!");
             obj->oprops = 0;
             obj->oprops_known = 0;
+            if (is_firearm(uwep))
+                uwep->obroken = 0;
         } else {
             verbalize("Sorry.  I guess it's not your lucky day.");
             return 1;
@@ -4362,7 +4366,7 @@ struct monst *shkp;
         } else
             charge = 750;
         
-        shk_smooth_charge(&charge, 50, NOBOUND);
+        shk_smooth_charge(&charge, 750, NOBOUND);
         if (shk_offer_price(slang, charge, shkp) == FALSE)
             return 0;
 
@@ -4376,6 +4380,8 @@ struct monst *shkp;
             obj->oprops_known = obj->oprops;
         }
     }
+    if (is_firearm(uwep))
+        uwep->obroken = 0;
     fully_identify_obj(obj);
     update_inventory();
 
@@ -4413,6 +4419,10 @@ shk_charge(const char *slang, struct monst *shkp, boolean premier)
             verbalize("I only offer premium charging on rings.");
             return 0;
         }
+    }
+    if (obj->oclass == WEAPON_CLASS || obj->oclass == ARMOR_CLASS) {
+        verbalize("I can't charge that!");
+        return 0;
     }
         
     /*
@@ -4586,7 +4596,7 @@ const char *slang;
 struct monst *shkp;
 {
     register struct obj *obj;
-    int charge = 500; /* Gnomes are greedy */
+    int charge = 450; /* Gnomes are greedy */
     int res = 0;
 
     if (!(obj = getobj(identify_types, "have tinkered")))
@@ -4597,7 +4607,7 @@ struct monst *shkp;
     }
 
     if (ACURR(A_INT) < 13) {
-       charge += 1000;
+       charge += 750;
     }
     if (ACURR(A_INT) < 18) {
         charge += 500;
@@ -4615,7 +4625,7 @@ struct monst *shkp;
         return 0;
     }
 
-    shk_smooth_charge(&charge, 25, 7500);
+    shk_smooth_charge(&charge, 25, 5000);
     if (shk_offer_price(slang, charge, shkp) == FALSE) 
         return 0;
 
@@ -4848,6 +4858,10 @@ boolean shk_buying;
 {
     register long tmp = (long) objects[obj->otyp].oc_cost;
 
+    /* Scale summon card price with monster difficulty */
+    if (obj->otyp == SCR_CREATE_MONSTER && obj->corpsenm != NON_PM) {
+        tmp = 10L * mons[obj->corpsenm].difficulty;
+    }
     if (obj->oartifact) {
         tmp = arti_cost(obj);
         if (shk_buying)

@@ -245,6 +245,9 @@ boolean restore;
                 curse(otmp);
             } else if (otmp->oartifact == ART_THIEFBANE
                        || otmp->oartifact == ART_MASTER_SWORD
+                       || otmp->oartifact == ART_SHAMBLESTICK
+                       || otmp->oartifact == ART_ARVON
+                       || otmp->oartifact == ART_KRELLN
                        || otmp->oartifact == ART_KEY_OF_LAW
                        || otmp->oartifact == ART_KEY_OF_NEUTRALITY
                        || otmp->oartifact == ART_KEY_OF_CHAOS

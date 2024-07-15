@@ -99,7 +99,11 @@ struct blitz_tab {
 #define T_BREAK_ROCK        53
 #define T_UPPERCUT          54
 #define T_ICEARMOR          55
+#define T_HEART_CARDS       56
+#define T_CARD_COMBO        57
+#define T_CARD_CAPTURE      58
+#define T_CARD_SLEEVE       59
 
-#define MAXTECH             56
+#define MAXTECH             60
 
 #endif /* TECH_H */

@@ -45,6 +45,7 @@ static const char *artifact_names[] = {
 #define     LOUD(a,b)   {0,AD_LOUD,a,b}         /* Sonic attack  */
 #define     WTHR(a,b)   {0,AD_WTHR,a,b}         /* Withering attack  */
 #define     MAST(a,b)   {0,AD_MAGM,a,b}         /* magic missile attack  */
+#define     BLND(a,b)   {0,AD_BLND,a,b}         /* blinding attack  */
 
 #define DEFAULT_MAT 0 /* use base object's default material */
 /* clang-format on */
@@ -62,7 +63,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
     A("", STRANGE_OBJECT, 0, 0, 0, NO_ATTK, NO_DFNS, NO_CARY, 0, A_NONE,
       NON_PM, NON_PM, 0L, NO_COLOR, DEFAULT_MAT),
 
-        /*** Lawful artifacts ***/
+    /*** Lawful artifacts ***/
 
     /* Balmung shreds the armor of opponents. */
     A("Balmung", BROADSWORD, 
@@ -112,6 +113,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR), 0, 0, 
       PHYS(1, 1), NO_DFNS, NO_CARY, 0, 
       A_LAWFUL, NON_PM, NON_PM, 300L, NO_COLOR, DEFAULT_MAT),
+
+    A("Krelln", CRYSKNIFE,
+      (SPFX_NOWISH | SPFX_INTEL), 0, 0,
+      PHYS(0, 14), NO_DFNS, NO_CARY, 0,
+      /* We don't have Fremen; using elves as a close alternative. */
+      A_LAWFUL, NON_PM, PM_ELF, 500L, NO_COLOR, MINERAL),
 
     /* Original idea by Spicy. Prevents all monster regen. */
     A("Mortality Dial", EXECUTIONER_S_MACE, 
@@ -185,9 +192,14 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       SPFX_RESTR, 0, 0, PHYS(9, 2), NO_DFNS, NO_CARY, 0, 
       A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR, DEFAULT_MAT),
 
+    /*** Neutral artifacts ***/
 
-        /*** Neutral artifacts ***/
-
+    A("Arvon", CRYSKNIFE,
+      (SPFX_NOWISH | SPFX_INTEL), 0, 0,
+      PHYS(0, 14), NO_DFNS, NO_CARY, 0,
+      /* We don't have Fremen; using elves as a close alternative. */
+      A_NEUTRAL, NON_PM, PM_ELF, 500L, NO_COLOR, MINERAL),
+      
     /* This lance does a lot of damage, and also occasionally stuns */
     A("Bradamante\'s Fury", LANCE, 
       (SPFX_RESTR), 0, 0,
@@ -308,13 +320,13 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       (SPFX_RESTR | SPFX_STLTH), SPFX_LUCK, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0,
       A_NEUTRAL, PM_TOURIST, NON_PM, 5000L, NO_COLOR, DEFAULT_MAT),
-
-        /*** Chaotic artifacts ***/
+      
+    /*** Chaotic artifacts ***/
 
     A("Bat from Hell", BASEBALL_BAT,
       (SPFX_RESTR), 0, 0,
       PHYS(3, 20), NO_DFNS, NO_CARY, 0, 
-      A_CHAOTIC, NON_PM, NON_PM, 5000L, CLR_RED, DEFAULT_MAT),
+      A_CHAOTIC, PM_ROGUE, NON_PM, 5000L, CLR_RED, DEFAULT_MAT),
 
     /* Yeenoghu's infamous triple-headed flail. A massive weapon reputed to have been created
      * from the thighbone and torn flesh of an ancient god he slew. An extremely lethal artifact */
@@ -383,6 +395,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 5), NO_DFNS, NO_CARY, 0, 
       A_CHAOTIC, PM_CONVICT, NON_PM, 3000L, NO_COLOR, METAL),
 
+    A("Shamblestick", QUARTERSTAFF,
+      (SPFX_RESTR | SPFX_ATTK | SPFX_DEFN), 0, 0,
+      PHYS(0, 0), NO_DFNS, NO_CARY, 0, 
+      A_NONE, NON_PM, PM_DOPPELGANGER, 500L, CLR_MAGENTA, DEFAULT_MAT),
+
     /*
     *       This bizarre weapon acts as a cursed luckstone regardless of its
     *       BCU status. It gets bonuses to hit and damage based on the opposite
@@ -448,7 +465,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       A_CHAOTIC, NON_PM, NON_PM, 6000L, NO_COLOR, BONE),
 
       /*** Unaligned artifacts ***/
-
+      
     /* The quasi-evil twin of Demonbane, Angelslayer is an unholy trident
      * geared towards the destruction of all angelic beings */
     A("Angelslayer", TRIDENT,
@@ -510,8 +527,8 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 
     /* Blinding mace. */
     A("Sunspot", MACE, 
-      (SPFX_RESTR | SPFX_BLIND | SPFX_DEFN), 0, 0,
-      PHYS(5, 5), DFNS(AD_BLND), NO_CARY, 0, 
+      (SPFX_RESTR | SPFX_DEFN), 0, 0,
+      BLND(5, 5), DFNS(AD_BLND), NO_CARY, 0, 
       A_NONE, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
 
     A("Thiefbane", LONG_SWORD,
@@ -548,12 +565,19 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 10), DFNS(AD_WERE), NO_CARY, 0, 
       A_NONE, NON_PM, NON_PM, 1500L, NO_COLOR, SILVER),
 
+    /* Xanathar's eyestalk ring of proof against detection and location */
+    A("Xanathar's Ring of Proof", RIN_DISPLACEMENT,
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR), SPFX_WARN, 0,
+      NO_ATTK, DFNS(AD_MAGM), NO_CARY,
+      0, A_NONE, NON_PM, NON_PM, 2000L, NO_COLOR, DEFAULT_MAT),
+      
     /*** Alignment quest artifacts ***/
+        
     A("Nighthorn", UNICORN_HORN,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_REFLECT
-        | SPFX_INTEL | SPFX_DEFN), 0, 0,
+        | SPFX_DEFN | SPFX_INTEL), 0, 0,
       PHYS(1, 3), DFNS(AD_STUN), NO_CARY, 0, 
-      A_LAWFUL, NON_PM, NON_PM, 10000L, NO_COLOR, DEFAULT_MAT),
+      A_LAWFUL, NON_PM, NON_PM, 10000L, NO_COLOR, GEMSTONE),
     
     A("The Eye of the Beholder", EYEBALL,
       (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_WARN), 0, 0,
@@ -568,7 +592,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       A_CHAOTIC, NON_PM, NON_PM, 700L, NO_COLOR, DEFAULT_MAT),
     
     A("The Key of Law", SKELETON_KEY,
-      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR), 0, 0,
+      (SPFX_NOGEN | SPFX_NOWISH | SPFX_RESTR | SPFX_INTEL), 0, 0,
       NO_ATTK, NO_DFNS, NO_CARY, 0, 
       A_LAWFUL, NON_PM, NON_PM, 1000L, NO_COLOR, GEMSTONE),
 
@@ -634,6 +658,12 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       PHYS(5, 0), NO_DFNS, NO_CARY, LEVITATION, 
       A_NEUTRAL, PM_BARBARIAN, NON_PM, 2500L, NO_COLOR, DEFAULT_MAT),
 #endif
+
+    A("The Holographic Void Lily", CREDIT_CARD,
+      (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
+      (SPFX_EREGEN | SPFX_HSPDAM | SPFX_REFLECT), 0,
+      NO_ATTK, NO_DFNS, NO_CARY, SUMMONING, 
+      A_CHAOTIC, PM_CARTOMANCER, NON_PM, 7000L, NO_COLOR, DEFAULT_MAT),
 
     A("The Sceptre of Might", EXECUTIONER_S_MACE,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL | SPFX_DALIGN), 0, 0, PHYS(5, 0),
@@ -750,7 +780,7 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
       A_NEUTRAL, PM_VALKYRIE, NON_PM, 3500L, NO_COLOR, DEFAULT_MAT),
 #endif
 
-    A("Gjallar", TOOLED_HORN,
+        A("Gjallar", TOOLED_HORN,
       (SPFX_NOGEN | SPFX_RESTR | SPFX_INTEL),
         (SPFX_WARN | SPFX_HPHDAM | SPFX_LUCK), 0, 
       NO_ATTK, NO_DFNS, NO_CARY, LEV_TELE, 
@@ -830,7 +860,9 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 #ifndef MAKEDEFS_C
 #undef NO_ATTK
 #undef NO_DFNS
+#undef NO_CARY
 #undef DFNS
+#undef CARY
 #undef PHYS
 #undef DRLI
 #undef COLD
@@ -846,8 +878,11 @@ STATIC_OVL NEARDATA struct artifact artilist[] = {
 #undef DETH
 #undef DISN
 #undef PLYS
+#undef SLEE
 #undef LOUD
 #undef WTHR
+#undef MAST
+#undef BLND
 #endif
 
 /*artilist.h*/

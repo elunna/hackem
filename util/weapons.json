@@ -1,0 +1,1226 @@
+{
+  "weapons": [
+    {
+      "name": "arrow",
+      "skill": "P_BOW",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 1,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "elven arrow",
+      "skill": "P_BOW",
+      "vs_sm": [5],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 1,
+      "bimanual": 0
+    },
+    {
+      "name": "orcish arrow",
+      "skill": "P_BOW",
+      "vs_sm": [7],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 1,
+      "bimanual": 0,
+      "materials": ["IRON","BONE","MINERAL"]
+    },
+    {
+      "name": "ya",
+      "skill": "P_BOW",
+      "vs_sm": [7],
+      "vs_lg": [7],
+      "tohit": 1,
+      "weight": 1,
+      "bimanual": 0
+    },
+    {
+      "name": "light arrow",
+      "skill": "P_BOW",
+      "vs_sm": [12],
+      "vs_lg": [12],
+      "tohit": 2,
+      "weight": 1,
+      "bimanual": 0
+    },
+    {
+      "name": "crossbow bolt",
+      "skill": "P_CROSSBOW",
+      "vs_sm": [4, 1],
+      "vs_lg": [6, 1],
+      "tohit": 0,
+      "weight": 1,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "dart",
+      "skill": "P_DART",
+      "vs_sm": [3],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 1,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "shuriken",
+      "skill": "P_SHURIKEN",
+      "vs_sm": [8],
+      "vs_lg": [6],
+      "tohit": 2,
+      "weight": 1,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "boomerang",
+      "skill": "P_BOOMERANG",
+      "vs_sm": [9],
+      "vs_lg": [9],
+      "tohit": 0,
+      "weight": 5,
+      "bimanual": 0
+    },
+    {
+      "name": "chakram",
+      "skill": "P_BOOMERANG",
+      "vs_sm": [10],
+      "vs_lg": [10],
+      "tohit": 1,
+      "weight": 5,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "spear",
+      "skill": "P_SPEAR",
+      "vs_sm": [6],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "elven spear",
+      "skill": "P_SPEAR",
+      "vs_sm": [7],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 11,
+      "bimanual": 0,
+      "materials": ["WOOD", "COPPER", "MITHRIL", "SILVER"]
+    },
+    {
+      "name": "orcish spear",
+      "skill": "P_SPEAR",
+      "vs_sm": [5],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 0,
+      "materials": ["IRON","BONE","MINERAL"]
+    },
+    {
+      "name": "dwarvish spear",
+      "skill": "P_SPEAR",
+      "vs_sm": [8],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 0,
+      "materials": ["IRON", "METAL", "MITHRIL", "GEMSTONE", "SILVER"]
+    },
+    {
+      "name": "javelin",
+      "skill": "P_SPEAR",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 20,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "atgeir",
+      "skill": "P_SPEAR",
+      "vs_sm": [4, 4],
+      "vs_lg": [12],
+      "tohit": 0,
+      "weight": 45,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "trident",
+      "skill": "P_TRIDENT",
+      "vs_sm": [6, 1],
+      "vs_lg": [4, 4, 4],
+      "tohit": 0,
+      "weight": 20,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "dagger",
+      "skill": "P_DAGGER",
+      "vs_sm": [4],
+      "vs_lg": [3],
+      "tohit": 2,
+      "weight": 10,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "elven dagger",
+      "skill": "P_DAGGER",
+      "vs_sm": [5],
+      "vs_lg": [3],
+      "tohit": 2,
+      "weight": 4,
+      "bimanual": 0,
+      "materials": ["WOOD", "COPPER", "MITHRIL", "SILVER"]
+
+    },
+    {
+      "name": "orcish dagger",
+      "skill": "P_DAGGER",
+      "vs_sm": [3],
+      "vs_lg": [3],
+      "tohit": 2,
+      "weight": 10,
+      "bimanual": 0,
+      "materials": ["IRON","BONE","MINERAL"]
+    },
+    {
+      "name": "athame",
+      "skill": "P_DAGGER",
+      "vs_sm": [4],
+      "vs_lg": [3],
+      "tohit": 2,
+      "weight": 10,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "parazonium",
+      "skill": "P_DAGGER",
+      "vs_sm": [6],
+      "vs_lg": [4],
+      "tohit": 1,
+      "weight": 12,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "stake",
+      "skill": "P_DAGGER",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 20,
+      "bimanual": 0
+    },
+    {
+      "name": "great dagger",
+      "skill": "P_DAGGER",
+      "vs_sm": [6],
+      "vs_lg": [7],
+      "tohit": 2,
+      "weight": 20,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "pencil",
+      "skill": "P_DAGGER",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 1,
+      "weight": 2,
+      "bimanual": 0
+    },
+
+    {
+      "name": "scalpel",
+      "skill": "P_KNIFE",
+      "vs_sm": [3],
+      "vs_lg": [3],
+      "tohit": 2,
+      "weight": 5,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "knife",
+      "skill": "P_KNIFE",
+      "vs_sm": [3],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 5,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "stiletto",
+      "skill": "P_KNIFE",
+      "vs_sm": [3],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 5,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "worm tooth",
+      "skill": "P_KNIFE",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 20,
+      "bimanual": 0
+    },
+    {
+      "name": "crysknife",
+      "skill": "P_KNIFE",
+      "vs_sm": [20],
+      "vs_lg": [30],
+      "tohit": 3,
+      "weight": 20,
+      "bimanual": 0
+    },
+
+    {
+      "name": "axe",
+      "skill": "P_AXE",
+      "vs_sm": [6],
+      "vs_lg": [4],
+      "tohit": 0,
+      "weight": 60,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "throwing axe",
+      "skill": "P_AXE",
+      "vs_sm": [5],
+      "vs_lg": [4],
+      "tohit": 2,
+      "weight": 20,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "dwarvish bearded axe",
+      "skill": "P_AXE",
+      "vs_sm": [8],
+      "vs_lg": [10],
+      "tohit": 0,
+      "weight": 70,
+      "bimanual": 0,
+      "materials": ["IRON", "METAL", "MITHRIL", "GEMSTONE", "SILVER"]
+
+    },
+    {
+      "name": "battle-axe",
+      "skill": "P_AXE",
+      "vs_sm": [6],
+      "vs_lg": [4],
+      "tohit": 0,
+      "weight": 60,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+
+    {
+      "name": "short sword",
+      "skill": "P_SHORT_SWORD",
+      "vs_sm": [6],
+      "vs_lg": [8],
+      "tohit": 1,
+      "weight": 30,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "elven short sword",
+      "skill": "P_SHORT_SWORD",
+      "vs_sm": [8],
+      "vs_lg": [8],
+      "tohit": 1,
+      "weight": 11,
+      "bimanual": 0,
+      "materials": ["WOOD", "COPPER", "MITHRIL", "SILVER"]
+
+    },
+    {
+      "name": "orcish short sword",
+      "skill": "P_SHORT_SWORD",
+      "vs_sm": [5],
+      "vs_lg": [8],
+      "tohit": 1,
+      "weight": 30,
+      "bimanual": 0,
+      "materials": ["IRON","BONE","MINERAL"]
+    },
+    {
+      "name": "dwarvish short sword",
+      "skill": "P_SHORT_SWORD",
+      "vs_sm": [7],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 0,
+      "materials": ["IRON", "METAL", "MITHRIL", "GEMSTONE", "SILVER"]
+
+    },
+    {
+      "name": "gladius",
+      "skill": "P_SHORT_SWORD",
+      "vs_sm": [10],
+      "vs_lg": [6],
+      "tohit": 2,
+      "weight": 30,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+
+    {
+      "name": "scimitar",
+      "skill": "P_SABER",
+      "vs_sm": [8],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "falchion",
+      "skill": "P_SABER",
+      "vs_sm": [12],
+      "vs_lg": [16],
+      "tohit": 1,
+      "weight": 160,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "orcish scimitar",
+      "skill": "P_SABER",
+      "vs_sm": [6],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 0,
+      "materials": ["IRON","BONE","MINERAL"]
+    },
+    {
+      "name": "saber",
+      "skill": "P_SABER",
+      "vs_sm": [8],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 0,
+      "materials": ["SABER","GOLD","MITHRIL","COPPER","METAL","PLATINUM"]
+    },
+    {
+      "name": "rapier",
+      "skill": "P_SABER",
+      "vs_sm": [6],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 15,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+
+    {
+      "name": "broadsword",
+      "skill": "P_BROAD_SWORD",
+      "vs_sm": [4,4],
+      "vs_lg": [6,1],
+      "tohit": 0,
+      "weight": 70,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "elven broadsword",
+      "skill": "P_BROAD_SWORD",
+      "vs_sm": [6,4],
+      "vs_lg": [6,1],
+      "tohit": 0,
+      "weight": 26,
+      "bimanual": 0,
+      "materials": ["WOOD", "COPPER", "MITHRIL", "SILVER"]
+    },
+
+    {
+      "name": "long sword",
+      "skill": "P_LONG_SWORD",
+      "vs_sm": [8],
+      "vs_lg": [12],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "elven long sword",
+      "skill": "P_LONG_SWORD",
+      "vs_sm": [10],
+      "vs_lg": [12],
+      "tohit": 0,
+      "weight": 12,
+      "bimanual": 0,
+      "materials": ["WOOD", "COPPER", "MITHRIL", "SILVER"]
+    },
+    {
+      "name": "orcish long sword",
+      "skill": "P_LONG_SWORD",
+      "vs_sm": [8],
+      "vs_lg": [10],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 0,
+      "materials": ["IRON","BONE","MINERAL"]
+    },
+
+    {
+      "name": "two-handed sword",
+      "skill": "P_TWO_HANDED_SWORD",
+      "vs_sm": [12],
+      "vs_lg": [6,6,6],
+      "tohit": 0,
+      "weight": 150,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+
+    {
+      "name": "katana",
+      "skill": "P_LONG_SWORD",
+      "vs_sm": [10],
+      "vs_lg": [10],
+      "tohit": 1,
+      "weight": 40,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+
+    {
+      "name": "tsurugi",
+      "skill": "P_TWO_HANDED_SWORD",
+      "vs_sm": [16],
+      "vs_lg": [8,6,6],
+      "tohit": 2,
+      "weight": 60,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON"]
+
+    },
+
+    {
+      "name": "runesword",
+      "skill": "P_BROAD_SWORD",
+      "vs_sm": [4,4],
+      "vs_lg": [6,1],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 0,
+      "materials": ["IRON"]
+    },
+
+
+    {
+      "name": "partisan",
+      "skill": "P_POLEARMS",
+      "vs_sm": [6],
+      "vs_lg": [6,1],
+      "tohit": 0,
+      "weight": 80,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+    {
+      "name": "ranseur",
+      "skill": "P_POLEARMS",
+      "vs_sm": [4,4],
+      "vs_lg": [4,4],
+      "tohit": 0,
+      "weight": 50,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+    {
+      "name": "spetum",
+      "skill": "P_POLEARMS",
+      "vs_sm": [6,1],
+      "vs_lg": [6,6],
+      "tohit": 0,
+      "weight": 50,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+    {
+      "name": "glaive",
+      "skill": "P_POLEARMS",
+      "vs_sm": [6],
+      "vs_lg": [10],
+      "tohit": 0,
+      "weight": 75,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+
+    {
+      "name": "lance",
+      "skill": "P_LANCE",
+      "vs_sm": [6],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 180,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+
+    {
+      "name": "halberd",
+      "skill": "P_POLEARMS",
+      "vs_sm": [10],
+      "vs_lg": [6,6],
+      "tohit": 0,
+      "weight": 150,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+    {
+      "name": "bardiche",
+      "skill": "P_POLEARMS",
+      "vs_sm": [4,4],
+      "vs_lg": [4,4,4],
+      "tohit": 0,
+      "weight": 120,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+    {
+      "name": "voulge",
+      "skill": "P_POLEARMS",
+      "vs_sm": [4,4],
+      "vs_lg": [4,4],
+      "tohit": 0,
+      "weight": 125,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+
+    {
+      "name": "dwarvish mattock",
+      "skill": "P_PICK_AXE",
+      "vs_sm": [12],
+      "vs_lg": [8,6,6],
+      "tohit": -1,
+      "weight": 120,
+      "bimanual": 1,
+      "materials": ["IRON", "METAL", "MITHRIL", "GEMSTONE", "SILVER"]
+
+    },
+
+    {
+      "name": "fauchard",
+      "skill": "P_POLEARMS",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 60,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+    {
+      "name": "guisarme",
+      "skill": "P_POLEARMS",
+      "vs_sm": [4,4],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 80,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+    {
+      "name": "bill-guisarme",
+      "skill": "P_POLEARMS",
+      "vs_sm": [4,4],
+      "vs_lg": [10],
+      "tohit": 0,
+      "weight": 120,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+    {
+      "name": "lucern hammer",
+      "skill": "P_POLEARMS",
+      "vs_sm": [4,4],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 150,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+    {
+      "name": "bec de corbin",
+      "skill": "P_POLEARMS",
+      "vs_sm": [8],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 100,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+    {
+      "name": "scythe",
+      "skill": "P_POLEARMS",
+      "vs_sm": [8,4],
+      "vs_lg": [10,4],
+      "tohit": 0,
+      "weight": 60,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+
+    },
+
+    {
+      "name": "mace",
+      "skill": "P_MACE",
+      "vs_sm": [6,1],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "heavy mace",
+      "skill": "P_MACE",
+      "vs_sm": [10,1],
+      "vs_lg": [10],
+      "tohit": 0,
+      "weight": 50,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "executioner's mace",
+      "skill": "P_MACE",
+      "vs_sm": [12],
+      "vs_lg": [12],
+      "tohit": 0,
+      "weight": 65,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "rod",
+      "skill": "P_MACE",
+      "vs_sm": [6,1],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 0,
+      "materials": ["GEMSTONE", "GOLD","SILVER","PLATINUM"]
+    },
+
+
+    {
+      "name": "morning star",
+      "skill": "P_MORNING_STAR",
+      "vs_sm": [4,4],
+      "vs_lg": [6,1],
+      "tohit": 0,
+      "weight": 120,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "orcish morning star",
+      "skill": "P_MORNING_STAR",
+      "vs_sm": [4,4],
+      "vs_lg": [6,1],
+      "tohit": 0,
+      "weight": 120,
+      "bimanual": 0,
+      "materials": ["IRON","BONE","MINERAL"]
+    },
+    
+    {
+      "name": "war hammer",
+      "skill": "P_HAMMER",
+      "vs_sm": [4,1],
+      "vs_lg": [4],
+      "tohit": 0,
+      "weight": 50,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "heavy war hammer",
+      "skill": "P_HAMMER",
+      "vs_sm": [8,1],
+      "vs_lg": [10],
+      "tohit": 0,
+      "weight": 60,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+
+    {
+      "name": "club",
+      "skill": "P_CLUB",
+      "vs_sm": [6],
+      "vs_lg": [3],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 0
+    },
+
+    {
+      "name": "rubber hose",
+      "skill": "P_WHIP",
+      "vs_sm": [4],
+      "vs_lg": [3],
+      "tohit": 0,
+      "weight": 20,
+      "bimanual": 0
+    },
+
+    {
+      "name": "quarterstaff",
+      "skill": "P_QUARTERSTAFF",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 1
+    },
+    {
+      "name": "silver capped staff",
+      "skill": "P_QUARTERSTAFF",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 45,
+      "bimanual": 1,
+      "materials": ["SILVER"]
+    },
+    {
+      "name": "staff of divination",
+      "skill": "P_QUARTERSTAFF",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 1,
+      "materials": ["WOOD"]
+    },
+    {
+      "name": "staff of healing",
+      "skill": "P_QUARTERSTAFF",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 1,
+      "materials": ["WOOD"]
+    },
+    {
+      "name": "staff of necromancy",
+      "skill": "P_QUARTERSTAFF",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 1,
+      "materials": ["BONE"]
+    },
+    {
+      "name": "staff of matter",
+      "skill": "P_QUARTERSTAFF",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 1,
+      "materials": ["MITHRIL"]
+    },
+    {
+      "name": "staff of escape",
+      "skill": "P_QUARTERSTAFF",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 1,
+      "materials": ["WOOD"]
+    },
+    {
+      "name": "staff of war",
+      "skill": "P_QUARTERSTAFF",
+      "vs_sm": [6],
+      "vs_lg": [6],
+      "tohit": 2,
+      "weight": 50,
+      "bimanual": 1,
+      "materials": ["IRON"]
+    },
+
+    {
+      "name": "aklys",
+      "skill": "P_CLUB",
+      "vs_sm": [6],
+      "vs_lg": [3],
+      "tohit": 0,
+      "weight": 15,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "baseball bat",
+      "skill": "P_CLUB",
+      "vs_sm": [8],
+      "vs_lg": [6],
+      "tohit": 0,
+      "weight": 40,
+      "bimanual": 0
+    },
+
+    {
+      "name": "flail",
+      "skill": "P_FLAIL",
+      "vs_sm": [6,1],
+      "vs_lg": [4,4],
+      "tohit": 0,
+      "weight": 15,
+      "bimanual": 0,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+    {
+      "name": "triple-headed flail",
+      "skill": "P_FLAIL",
+      "vs_sm": [12,1],
+      "vs_lg": [6,6,6,6],
+      "tohit": 3,
+      "weight": 150,
+      "bimanual": 1,
+      "materials": ["BONE"]
+    },
+    {
+      "name": "spiked chain",
+      "skill": "P_FLAIL",
+      "vs_sm": [6,1],
+      "vs_lg": [4,4,4],
+      "tohit": 1,
+      "weight": 50,
+      "bimanual": 1,
+      "materials": ["METAL", "IRON","BONE","WOOD","SILVER","COPPER","MITHRIL","GOLD","GLASS","MINERAL","PLATINUM"]
+    },
+
+    {
+      "name": "bullwhip",
+      "skill": "P_WHIP",
+      "vs_sm": [2],
+      "vs_lg": [1],
+      "tohit": 0,
+      "weight": 7,
+      "bimanual": 0
+    },
+    {
+      "name": "flaming lash",
+      "skill": "P_WHIP",
+      "vs_sm": [12],
+      "vs_lg": [12],
+      "tohit": 0,
+      "weight": 180,
+      "bimanual": 0
+    },
+    {
+      "name": "fly swatter",
+      "skill": "P_WHIP",
+      "vs_sm": [10],
+      "vs_lg": [2],
+      "tohit": 2,
+      "weight": 10,
+      "bimanual": 0
+    },
+
+
+    {
+      "name": "green lightsaber",
+      "skill": "P_LIGHTSABER",
+      "vs_sm": [3,1,1,1,1,1,1,1,1,1],
+      "vs_lg": [5,1,1,1,1,1,1,1,1,1,1,1,1,1],
+      "tohit": -3,
+      "weight": 60,
+      "bimanual": 0,
+      "materials": ["PLASTIC"]
+
+    },
+    {
+      "name": "blue lightsaber",
+      "skill": "P_LIGHTSABER",
+      "vs_sm": [5,1,1,1,1,1,1,1,1],
+      "vs_lg": [7,1,1,1,1,1,1,1,1,1,1,1,1],
+      "tohit": -3,
+      "weight": 60,
+      "bimanual": 0,
+      "materials": ["PLATINUM"]
+    },
+    {
+      "name": "red lightsaber",
+      "skill": "P_LIGHTSABER",
+      "vs_sm": [9,1,1,1,1,1,1],
+      "vs_lg": [11,1,1,1,1,1,1,1,1,1,1],
+      "tohit": -3,
+      "weight": 60,
+      "bimanual": 0,
+      "materials": ["PLATINUM"]
+    },
+    {
+      "name": "red double lightsaber",
+      "skill": "P_LIGHTSABER",
+      "vs_sm": [9,9,1,1,1,1,1,1],
+      "vs_lg": [11,11,1,1,1,1,1,1,1,1,1,1],
+      "tohit": -4,
+      "weight": 60,
+      "bimanual": 1,
+      "materials": ["PLATINUM"]
+    },
+
+    {
+      "name": "bow",
+      "skill": "P_BOW",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 1
+    },
+    {
+      "name": "elven bow",
+      "skill": "P_BOW",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 1
+    },
+    {
+      "name": "footbow",
+      "skill": "P_BOW",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 60,
+      "bimanual": 0
+    },
+    {
+      "name": "orcish bow",
+      "skill": "P_BOW",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 1,
+      "materials": ["IRON","BONE","MINERAL"]
+    },
+
+    {
+      "name": "yumi",
+      "skill": "P_BOW",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 30,
+      "bimanual": 1
+    },
+    {
+      "name": "sling",
+      "skill": "P_SLING",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 3,
+      "bimanual": 0
+    },
+    {
+      "name": "sling bullet",
+      "skill": "P_SLING",
+      "vs_sm": [6],
+      "vs_lg": [8],
+      "tohit": 0,
+      "weight": 1,
+      "bimanual": 0,
+      "materials": ["IRON","METAL","MITHRIL","SILVER","COPPER","GOLD","PLATINUM"]
+    },
+    {
+      "name": "crossbow",
+      "skill": "P_CROSSBOW",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 50,
+      "bimanual": 1
+    },
+
+    {
+      "name": "flintlock",
+      "skill": "P_FIREARM",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 10,
+      "bimanual": 0,
+      "materials": ["IRON","SILVER","COPPER","MITHRIL","GOLD","PLATINUM"]
+    },
+    {
+      "name": "pistol",
+      "skill": "P_FIREARM",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 0,
+      "weight": 20,
+      "bimanual": 0,
+      "materials": ["IRON","SILVER","COPPER","MITHRIL","GOLD","PLATINUM"]
+
+    },
+    {
+      "name": "submachine gun",
+      "skill": "P_FIREARM",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": -1,
+      "weight": 25,
+      "bimanual": 0,
+      "materials": ["IRON","SILVER","COPPER","MITHRIL","GOLD","PLATINUM"]
+
+    },
+    {
+      "name": "heavy machine gun",
+      "skill": "P_FIREARM",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": -4,
+      "weight": 200,
+      "bimanual": 1,
+      "materials": ["IRON","SILVER","COPPER","MITHRIL","GOLD","PLATINUM"]
+
+    },
+    {
+      "name": "rifle",
+      "skill": "P_FIREARM",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 1,
+      "weight": 30,
+      "bimanual": 1,
+      "materials": ["IRON","SILVER","COPPER","MITHRIL","GOLD","PLATINUM"]
+
+    },
+    {
+      "name": "assault rifle",
+      "skill": "P_FIREARM",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": -2,
+      "weight": 40,
+      "bimanual": 0,
+      "materials": ["IRON","SILVER","COPPER","MITHRIL","GOLD","PLATINUM"]
+
+    },
+    {
+      "name": "sniper rifle",
+      "skill": "P_FIREARM",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 4,
+      "weight": 50,
+      "bimanual": 1,
+      "materials": ["IRON","SILVER","COPPER","MITHRIL","GOLD","PLATINUM"]
+
+    },
+    {
+      "name": "shotgun",
+      "skill": "P_FIREARM",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 3,
+      "weight": 35,
+      "bimanual": 0,
+      "materials": ["IRON","SILVER","COPPER","MITHRIL","GOLD","PLATINUM"]
+
+    },
+    {
+      "name": "auto shotgun",
+      "skill": "P_FIREARM",
+      "vs_sm": [2],
+      "vs_lg": [2],
+      "tohit": 1,
+      "weight": 60,
+      "bimanual": 0,
+      "materials": ["IRON","SILVER","COPPER","MITHRIL","GOLD","PLATINUM"]
+
+    },
+
+    {
+      "name": "bullet",
+      "skill": "P_FIREARM",
+      "vs_sm": [20],
+      "vs_lg": [30],
+      "tohit": 0,
+      "weight": 1,
+      "bimanual": 0,
+      "materials": ["IRON","METAL","MITHRIL","SILVER","COPPER","GOLD","PLATINUM"]
+    },
+    {
+      "name": "shotgun shell",
+      "skill": "P_FIREARM",
+      "vs_sm": [30],
+      "vs_lg": [45],
+      "tohit": 0,
+      "weight": 1,
+      "bimanual": 0,
+      "materials": ["IRON","METAL","MITHRIL","SILVER","COPPER","GOLD","PLATINUM"]
+    }
+  ],
+  
+  
+  "artifacts": [
+    {
+      "name": "balmung",
+      "type": "broadsword",
+      "attk_type": "physical",
+      "attk_hit": 4,
+      "attk_bon": 10,
+      "material": "gold"
+    }
+  ]
+}

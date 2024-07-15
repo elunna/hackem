@@ -29,7 +29,7 @@ MAP
 6 .TTTTTTTTTTTT..TT.. . CCLLLCCCCCCCCCCLC  +...+...+...+H#                   
 7 ...TT T .TT TTTTTT... LLLCCCCCCCCC CCLC  -...-...-...- H      .     .      
 8  T..TTTTTT....T.TT. .LL  CCCCCCCC   LLCC --+---+---+--                     
-9    ....TT..  .....  LL    CCCCCC   LL CC               #H                  
+9   .....TT..  ...... LL    CCCCCC   LL CC               #H                  
 0       ....     T.  LL       CC     L   CH###############                   
 ENDMAP
 #0123456789012345678901234567890123456789012345678901234567890123456789012345
@@ -240,7 +240,7 @@ REGION: (64,09,68,13), unlit, "swamp"
 OBJECT: ('[', "gray dragon scales"), (66,11), cursed, -9
 TRAP: "statue", (66,11)
 CONTAINER: ('`', "statue"), (66,11), montype:"arch-lich", 0 {
-  OBJECT: ('/', "deluge")
+  OBJECT: ('/', "fireball")
   OBJECT: ('/', "create horde"), uncursed, 1
   OBJECT: ('/', "speed monster"), uncursed, 1
   OBJECT: ('/', "make invisible"), uncursed, 1

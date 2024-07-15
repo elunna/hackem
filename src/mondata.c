@@ -822,6 +822,8 @@ struct permonst *pm1, *pm2;
     /* other creatures are less precise */
     if (is_giant(pm1))
         return is_giant(pm2); /* open to quibbling here */
+    if (is_tortle(pm1))
+        return (is_tortle(pm2));
     if (is_gnoll(pm1))
         return is_gnoll(pm2);
     if (is_golem(pm1))

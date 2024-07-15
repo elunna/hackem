@@ -182,6 +182,7 @@ const struct symdef defsyms[MAXPCHARS] = {
        { '#', "vent", C(CLR_BRIGHT_CYAN) },          /* vent */
        { '}', "water", C(CLR_BLUE) },                /* pool */
        { '.', "ice", C(CLR_CYAN) },                  /* ice */
+       { '.', "rope bridge", C(CLR_BROWN) },         /* rope bridge */
        { ',', "grass", C(CLR_GREEN) },               /* grass */
        { '}', "molten lava", C(CLR_RED) },           /* lava */
 /*40*/ { '.', "lowered drawbridge", C(CLR_BROWN) },  /* vodbridge */
@@ -695,6 +696,7 @@ struct symparse loadsyms[] = {
     { SYM_PCHAR, S_vent, "S_vent" },
     { SYM_PCHAR, S_pool, "S_pool" },
     { SYM_PCHAR, S_ice, "S_ice" },
+    { SYM_PCHAR, S_bridge, "S_bridge" },
     { SYM_PCHAR, S_grass, "S_grass" },
     { SYM_PCHAR, S_lava, "S_lava" },
     { SYM_PCHAR, S_vodbridge, "S_vodbridge" },

@@ -187,6 +187,10 @@ int expltype;
             adstr = "sonic boom";
             adtyp = AD_LOUD;
             break;
+        case 11:
+            adstr = "stun blast";
+            adtyp = AD_STUN;
+            break;
         default:
             impossible("explosion base type %d?", type);
             return;
@@ -239,6 +243,10 @@ int expltype;
                     explmask[i][j] = (how_resistant(SONIC_RES) > 50);
                     physical_dmg = TRUE;
                     break;
+                case AD_STUN:
+                    explmask[i][j] = !!Stun_resistance;
+                    physical_dmg = TRUE;
+                    break;
                 default:
                     impossible("explosion type %d?", adtyp);
                     break;
@@ -288,6 +296,10 @@ int expltype;
                     case AD_LOUD:
                         explmask[i][j] |= resists_sonic(mtmp)
                                           || defended(mtmp, AD_LOUD);
+                        break;
+                    case AD_STUN:
+                        explmask[i][j] |= resists_stun(mtmp->data)
+                                          || defended(mtmp, AD_STUN);
                         break;
                     default:
                         impossible("explosion type %d?", adtyp);
@@ -434,6 +446,9 @@ int expltype;
                         case AD_LOUD:
                             adj = "a case of the hiccups";
                             break;
+                        case AD_STUN:
+                            adj = "indigestion";
+                            break;
                         default:
                             adj = "fried";
                             break;
@@ -465,6 +480,9 @@ int expltype;
                         case AD_LOUD:
                             adj = "blasted";
                             break;
+                        case AD_STUN:
+                            adj = "flashed";
+                            break;
                         default:
                             adj = "fried";
                             break;
@@ -480,6 +498,21 @@ int expltype;
 
                 if (adtyp == AD_FIRE) {
                     (void) burnarmor(mtmp);
+                }
+                if (adtyp == AD_STUN) {
+                    if (!mtmp->mstun)
+                        mtmp->mstun = 1;
+                         
+                    if (can_blnd(&youmonst, mtmp, AT_EXPL, (struct obj *) 0)) {
+                        int tmp = dam;
+                        if (!Blind && mtmp->mcansee)
+                            pline("%s is blinded.", Monnam(mtmp));
+                        mtmp->mcansee = 0;
+                        tmp += mtmp->mblinded;
+                        if (tmp > 127)
+                            tmp = 127;
+                        mtmp->mblinded = tmp;
+                    }
                 }
                 if (mon_underwater(mtmp)
                     && (adtyp == AD_FIRE || adtyp == AD_ACID || adtyp == AD_LOUD)) {
@@ -581,6 +614,17 @@ int expltype;
         if (adtyp == AD_FIRE) {
             if (!Underwater)
                 burn_away_slime();
+        }
+        if (adtyp == AD_STUN) {
+            make_stunned((HStun & TIMEOUT) + (long) damu, FALSE);
+            if (can_blnd((struct monst *) 0, &youmonst, AT_EXPL, (struct obj *) 0)) {
+                if (uarmh && uarmh->otyp == PLASTEEL_HELM) {
+                    Your("shaded visor protects you from the flash.");
+                } else if (!Blind) {
+                    You("are blinded by the flash!");
+                    make_blinded(Blinded + (long) damu, FALSE);
+                }
+            }
         }
         if (Invulnerable) {
             damu = 0;
@@ -981,6 +1025,7 @@ const int adtyp;
     case AD_SPEL:
     case AD_DREN:
     case AD_ENCH:
+    case AD_STUN:
         return EXPL_MAGICAL;
     case AD_LOUD:
         return EXPL_DARK;
@@ -1024,7 +1069,7 @@ struct attack *mattk;
 
     if (mattk->adtyp == AD_PHYS) {
         type = PHYS_EXPL_TYPE;
-    } else if (mattk->adtyp >= AD_MAGM && mattk->adtyp <= AD_WATR) {
+    } else if (mattk->adtyp >= AD_MAGM && mattk->adtyp <= MAX_AD) {
         /* Set it up as a 'monster breath' type for the explosions (it isn't,
          * but this is the closest analogue). */
         type = -(ZT_BREATH(mattk->adtyp - 1));

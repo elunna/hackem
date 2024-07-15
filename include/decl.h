@@ -73,6 +73,7 @@ E struct dgn_topology { /* special dungeon levels for speed */
     xchar d_mines_dnum, d_quest_dnum;
     xchar d_caves_dnum;
     xchar d_spiders_dnum;
+    xchar d_giants_dnum;
     d_level d_qstart_level, d_qlocate_level, d_nemesis_level;
     d_level d_knox_level;
     d_level d_mineend_level;
@@ -114,7 +115,8 @@ E struct dgn_topology { /* special dungeon levels for speed */
 #define qlocate_level           (dungeon_topology.d_qlocate_level)
 #define nemesis_level           (dungeon_topology.d_nemesis_level)
 #define knox_level              (dungeon_topology.d_knox_level)
-#define spiders_dnum		    (dungeon_topology.d_spiders_dnum)
+#define spiders_dnum	        (dungeon_topology.d_spiders_dnum)
+#define giants_dnum             (dungeon_topology.d_giants_dnum)
 #define mineend_level           (dungeon_topology.d_mineend_level)
 #define caveend_level           (dungeon_topology.d_caveend_level)
 #define minetn_level            (dungeon_topology.d_minetn_level)

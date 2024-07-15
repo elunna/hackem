@@ -65,7 +65,7 @@ boolean pushing;
         if (fills_up) {
             struct trap *ttmp = t_at(rx, ry);
 
-            if (ltyp == DRAWBRIDGE_UP) {
+            if (ltyp == DRAWBRIDGE_UP || ltyp == BRIDGE) {
                 levl[rx][ry].drawbridgemask &= ~DB_UNDER; /* clear lava */
                 levl[rx][ry].drawbridgemask |= DB_FLOOR;
             } else
@@ -1175,7 +1175,9 @@ struct obj *obj;
                 costly_alteration(obj, COST_DEGRD);
             obj->otyp = WORM_TOOTH;
             obj->oerodeproof = 0;
-            set_material(obj, objects[WORM_TOOTH].oc_material);
+            if (!obj->oartifact) {
+                set_material(obj, objects[WORM_TOOTH].oc_material);
+            }
         }
         break;
     }
@@ -2006,6 +2008,31 @@ boolean at_stairs, falling, portal;
                     drag_down();
                     ballrelease(FALSE);
                 }
+
+                /* Be careful with that lightsaber Eugene! (from dNetHack) */
+                boolean mainsaber = uwep && is_lightsaber(uwep) && uwep->lamplit;
+                boolean secsaber = uswapwep && u.twoweap && is_lightsaber(uswapwep) && uswapwep->lamplit;
+                
+                if (mainsaber || secsaber) {
+                    if (rnl(20) < ACURR(A_DEX)){
+                        You("hurriedly deactivate your lightsaber%s.", 
+                            (mainsaber && secsaber) ? "s" : "");
+                    } else {
+                        You("come into contact with your lightsaber%s.", 
+                            (mainsaber && secsaber) ? "s" : "");
+                        if (mainsaber) 
+                            losehp(dmgval(uwep, &youmonst), 
+                                   "falling downstairs with a lit lightsaber", KILLED_BY);
+                        if (secsaber) 
+                            losehp(dmgval(uswapwep, &youmonst), 
+                                   "falling downstairs with a lit lightsaber", KILLED_BY);
+                    }
+                    if (mainsaber)
+                        lightsaber_deactivate(uwep, TRUE);
+                    if (secsaber) 
+                        lightsaber_deactivate(uswapwep, TRUE);
+                }
+                
                 /* falling off steed has its own losehp() call */
                 if (u.usteed)
                     dismount_steed(DISMOUNT_FELL);
@@ -2198,7 +2225,7 @@ boolean at_stairs, falling, portal;
 #endif
 
     if ((annotation = get_annotation(&u.uz)) != 0)
-        You("remember this level as %s.", annotation);
+        You(new ? "are at %s." : "return to %s.", annotation);
 
     /* assume this will always return TRUE when changing level */
     (void) in_out_region(u.ux, u.uy);

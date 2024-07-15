@@ -1199,7 +1199,7 @@ int pm;
     if (mons[pm].mlet == S_TROLL) {
         if (!Regeneration)
             You_feel("invigorated!");
-        incr_itimeout(&HRegeneration, d(2, 6));
+        incr_itimeout(&HRegeneration, d(4, 6));
     }
 
     switch (pm) {
@@ -1415,7 +1415,7 @@ int pm;
         incr_itimeout(&HDisplaced, d(6, 6));
         break;
     case PM_PHASE_SPIDER:
-        set_itimeout(&HPasses_walls, (long) (d(4, 4) + 4)); /* 8..20 */
+        set_itimeout(&HPasses_walls, (long) (d(4, 4) + 6)); /* 8..20 */
         break;
     case PM_DISENCHANTER:
         /* picks an intrinsic at random and removes it; there's
@@ -3166,6 +3166,14 @@ doeat()
     if (!is_edible(otmp)) {
         You("cannot eat that!");
         return 0;
+    } else if (otmp->otyp == EGG && otmp->corpsenm == PM_PHOENIX){
+        if (!Blind)
+            pline_The("%s starts cracking as you attempt to devour it!", 
+                  makesingular(xname(otmp)));
+        else
+            You_hear("something cracking.");
+        hatch_faster(otmp);
+        return 1;
     } else if ((otmp->owornmask & (W_ARMOR | W_TOOL | W_AMUL | W_SADDLE))
                != 0) {
         /* let them eat rings */
@@ -3560,8 +3568,27 @@ gethungry()
         if (HConflict || (EConflict & (~W_ARTI)))
             u.uhunger--;
         /* +0 charged rings don't do anything, so don't affect hunger.
-           Slow digestion cancels move hunger but still causes ring hunger. */
+         * Slow digestion cancels move hunger but still causes ring hunger. 
+         *
+         * [If wearing duplicate rings whose effects don't stack,
+         * should they both consume nutrition, or just one of them?
+         * Two +0 rings of protection are treated as if only one,
+         * but this could apply to most rings.]
+           */
         switch (accessorytime) { /* note: use even cases among 0..19 only */
+        case 0:
+            /* 3.7: if not wearing a ring of slow digestion, obtaining
+               that property from worn armor (white dragon scales/mail)
+               causes the armor to burn nutrition; since it's not
+               actually a ring, we don't check for it on the ring
+               turns; because of that, wearing two (non-slow digestion)
+               rings plus the armor consumes more nutrition that one
+               non-slow digestion ring plus ring of slow digestion */
+            if (Slow_digestion
+                && (!uright || uright->otyp != RIN_SLOW_DIGESTION)
+                && (!uleft || uleft->otyp != RIN_SLOW_DIGESTION))
+                u.uhunger--;
+            break;
         case 4:
             if (uleft && (uleft->spe || !objects[uleft->otyp].oc_charged))
                 u.uhunger--;

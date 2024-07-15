@@ -29,7 +29,7 @@
 #define resists_poison(mon) ((mon_resistancebits(mon) & MR_POISON) != 0)
 #define resists_acid(mon) ((mon_resistancebits(mon) & MR_ACID) != 0)
 #define resists_sonic(mon) ((mon_resistancebits(mon) & MR_SONIC) != 0 \
-                            || mon_underwater(mon))
+                            || !has_head((mon)->data) || mon_underwater(mon))
 #define resists_ston(mon) ((mon_resistancebits(mon) & MR_STONE) != 0)
 #define resists_psychic(mon) ((mon_resistancebits(mon) & MR_PSYCHIC) != 0)
 #define resists_clob(mon) ((mon_resistancebits(mon) & MR_CLOB) != 0)
@@ -219,6 +219,8 @@
 #define is_swallower(ptr) \
     ((is_dragon(ptr) && (ptr) != &mons[PM_SEA_DRAGON]) \
      || is_animal(ptr))
+#define is_beholder(ptr) ((ptr) == &mons[PM_BEHOLDER] \
+        || (ptr) == &mons[PM_XANATHAR])
 #define slithy(ptr) (((ptr)->mflags1 & M1_SLITHY) != 0L)
 #define is_wooden(ptr) ((ptr) == &mons[PM_WOOD_GOLEM])
 #define thick_skinned(ptr) (((ptr)->mflags1 & M1_THICK_HIDE) != 0L)
@@ -351,8 +353,8 @@
      || (ptr) == &mons[PM_WEREBEAR] \
      || (ptr) == &mons[PM_GRIZZLY_BEAR] \
      || (ptr) == &mons[PM_HELLBEAR] \
+     || (ptr) == &mons[PM_POLAR_BEAR] \
      || (ptr) == &mons[PM_BLACK_BEAR])
-
 # define is_rat(ptr) \
     ((ptr) == &mons[PM_BLACK_RAT] \
      || (ptr) == &mons[PM_ENORMOUS_RAT] \
@@ -542,9 +544,9 @@
 
 /* various monsters move faster underwater vs on land */
 #define is_fast_underwater(ptr) \
-    (is_tortle(ptr) || (ptr) == &mons[PM_WATER_TROLL]                        \
-     || (ptr) == &mons[PM_GIANT_TURTLE] || (ptr) == &mons[PM_BABY_CROCODILE] \
-     || (ptr) == &mons[PM_CROCODILE] || (ptr) == &mons[PM_GIANT_CROCODILE]   \
+    (is_tortle(ptr)             \
+     || (ptr) == &mons[PM_WATER_TROLL] || (ptr) == &mons[PM_BABY_CROCODILE] \
+     || (ptr) == &mons[PM_CROCODILE] || (ptr) == &mons[PM_GIANT_CROCODILE] \
      || (ptr) == &mons[PM_BABY_SEA_DRAGON] || (ptr) == &mons[PM_SEA_DRAGON])
 
 /* return TRUE if the monster tends to revive */
@@ -618,21 +620,23 @@
 
 #define likes_ice(ptr) \
     ((ptr) == &mons[PM_FROST_SALAMANDER] \
-    (ptr) == &mons[PM_FROST_GIANT] \
-    (ptr) == &mons[PM_FREEZING_SPHERE] \
-    (ptr) == &mons[PM_ICE_NYMPH] \
-    (ptr) == &mons[PM_ICE_VORTEX] \
-    (ptr) == &mons[PM_ICE_ELEMENTAL] \
-    (ptr) == &mons[PM_ICE_TROLL] \
-    (ptr) == &mons[PM_ICE_DEVIL] \
-    (ptr) == &mons[PM_ICE_MAGE] \
-    (ptr) == &mons[PM_FROSTER] \
-    (ptr) == &mons[PM_SNOW_ANT] \
-    (ptr) == &mons[PM_SNOW_ORC] \
-    (ptr) == &mons[PM_SNOW_GOLEM] \
-    (ptr) == &mons[PM_BABY_WHITE_DRAGON] \
-    (ptr) == &mons[PM_WHITE_DRAGON] \
-    (ptr) == &mons[PM_HIGH_ICE_MAGE])
+    || (ptr) == &mons[PM_FROST_GIANT] \
+    || (ptr) == &mons[PM_FREEZING_SPHERE] \
+    || (ptr) == &mons[PM_ICE_NYMPH] \
+    || (ptr) == &mons[PM_ICE_VORTEX] \
+    || (ptr) == &mons[PM_ICE_ELEMENTAL] \
+    || (ptr) == &mons[PM_ICE_TROLL] \
+    || (ptr) == &mons[PM_ICE_DEVIL] \
+    || (ptr) == &mons[PM_ICE_MAGE] \
+    || (ptr) == &mons[PM_FROSTER] \
+    || (ptr) == &mons[PM_SNOW_ANT] \
+    || (ptr) == &mons[PM_SNOW_ORC] \
+    || (ptr) == &mons[PM_SNOW_GOLEM] \
+    || (ptr) == &mons[PM_BABY_WHITE_DRAGON] \
+    || (ptr) == &mons[PM_WHITE_DRAGON] \
+    || (ptr) == &mons[PM_WINTER_WOLF_CUB] \
+    || (ptr) == &mons[PM_WINTER_WOLF] \
+    || (ptr) == &mons[PM_HIGH_ICE_MAGE])
 
 #define touch_petrifies(ptr) ( \
     (ptr) == &mons[PM_COCKATRICE] || \

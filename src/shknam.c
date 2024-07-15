@@ -418,7 +418,8 @@ const struct shclass shtypes[] = {
         { 13, -SHOTGUN_SHELL },
         { 2, -FIRE_BOMB },
         { 2, -GAS_BOMB },
-        { 2, -SONIC_BOMB },
+        { 1, -SONIC_BOMB },
+        { 1, -FLASH_BOMB },
         { 1, -CAN_OF_GREASE },
         { 1, -POT_OIL },
         { 1, -TOWEL },
@@ -958,7 +959,7 @@ int shp_indx;
     eshkp->customer[0] = '\0';
     /* WAC init services */
     init_shk_services(shk);
-    shkmoney = 2250L + 65L * (long) rnd(100);  /* initial capital */
+    shkmoney = 1000L + 30L * (long) rnd(100);  /* initial capital */
     /* [CWC] Lets not create the money yet until we see if the
          shk is a black marketeer, else we'll have to create
        another money object, if GOLDOBJ is defined */
@@ -1201,6 +1202,8 @@ struct monst *shk;
         /* 1 in 10 offer firearms training */
         if (!rn2(10) && P_MAX_SKILL(P_FIREARM) > 0)
             maybe_add_svc(shk, SHK_FIREARMS);
+        if (!rn2(7))
+            maybe_add_svc(shk, SHK_PROP);
     }
 
     /* Each shop type offers it's own identify service */

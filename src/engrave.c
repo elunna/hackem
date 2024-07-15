@@ -195,7 +195,7 @@ register int x, y;
         return "ice";
     else if (is_lava(x, y))
         return hliquid("lava");
-    else if (lev->typ == DRAWBRIDGE_DOWN)
+    else if (lev->typ == DRAWBRIDGE_DOWN || lev->typ == BRIDGE)
         return "bridge";
     else if (IS_ALTAR(levl[x][y].typ))
         return "altar";
@@ -326,10 +326,7 @@ int x, y;
 {
     register struct engr *ep = engr_at(x, y);
     int sensed = 0;
-
-    /* We're running, we don't want to look at engravings. */
-    if (context.run)
-        return;
+    
         
     /* Sensing an engraving does not require sight,
      * nor does it necessarily imply comprehension (literacy).
@@ -345,6 +342,9 @@ int x, y;
             break;
         case ENGRAVE:
         case HEADSTONE:
+            /* We're running, we don't want to look at engravings. */
+            if (context.run && ep->engr_type == HEADSTONE)
+                return;
             if (!Blind || can_reach_floor(TRUE)) {
                 sensed = 1;
                 pline("%s is engraved here on the %s.", Something,
@@ -1001,6 +1001,17 @@ doengrave()
                 Strcpy(post_engr_text, Blind ? "You feel the wand heat up."
                                              : "Flames fly from the wand.");
                 break;
+            case WAN_FIREBALL:
+                ptext = TRUE;
+                type  = BURN;
+                if (!objects[otmp->otyp].oc_name_known) {
+                    if (flags.verbose)
+                        pline("This %s is a wand of fireballs!", xname(otmp));
+                    preknown = TRUE;
+                }
+                Strcpy(post_engr_text, Blind ? "You feel the wand heat up."
+                                             : "Flames fly from the wand.");
+                break;
             case WAN_CORROSION:
                 ptext = TRUE;
                 type = BURN;
@@ -1078,6 +1089,10 @@ doengrave()
                 type = ENGRAVE;
             else
                 pline("%s too dull for engraving.", Yobjnam2(otmp, "are"));
+        } else if (is_firearm(otmp)) {
+            Your("%s gets jammed!", xname(otmp));
+            otmp->obroken = 1;
+            return 0;
         }
         break;
 

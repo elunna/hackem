@@ -14,6 +14,7 @@ static unsigned pline_flags = 0;
 static char prevmsg[BUFSZ];
 
 static void FDECL(putmesg, (const char *));
+static const char *cartsay(const char *);
 static char *FDECL(You_buf, (int));
 #if defined(MSGHANDLER) && (defined(POSIX_TYPES) || defined(__GNUC__))
 static void FDECL(execplinehandler, (const char *));
@@ -186,6 +187,16 @@ piratesay(const char *orig)
     return orig;
 }
 
+const char *
+cartsay(orig)
+const char *orig;
+{
+    orig = replace(orig, "read the scroll", "play the spell card");
+    orig = replace(orig, " reads a", " plays a");
+    orig = replace(orig, "scroll", "spell card");
+    return orig;
+}
+
 /* keep the most recent DUMPLOG_MSG_COUNT messages */
 void
 dumplogmsg(line)
@@ -344,6 +355,8 @@ VA_DECL(const char *, line)
 
     if (Role_if(PM_PIRATE)){
         line = piratesay(line);
+    } else if (Role_if(PM_CARTOMANCER)) {
+        line = cartsay(line);
     }
 
     /* use raw_print() if we're called too early (or perhaps too late

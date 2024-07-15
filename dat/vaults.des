@@ -1133,6 +1133,7 @@ ROOM:"rndvault", unlit, random, random, random {
 GRAVE:random
 [20%]: GRAVE:random, random
 MONSTER: '&', random
+[50%]: MONSTER: ('T', "grave troll"), random
 }
 
 # watcher in the water
@@ -1230,7 +1231,7 @@ ROOM:"rndvault", random, random, random, random {
     TERRAIN:$fill, 'L'
 }            
 
-#Perimeter room
+# Perimeter room
 LEVEL:"vlt-0073"
 FLAGS:rndvault
 MINDEPTH:8
@@ -1242,13 +1243,216 @@ ROOM:"rndvault", random, random, random, (5,5) {
     TERRAIN:rect(0, 0, 4, 4), $terr[0]
 }
 
+# Storage room
+LEVEL:"vlt-0074"
+FLAGS:rndvault
+MINDEPTH:8
+
+ROOM:"rndvault", unlit, random, random, (4,4) { 
+   OBJECT: '(', (2,2)
+   OBJECT: '(', (2,2)
+   
+   SWITCH [ 9 ] {
+    CASE 0: ENGRAVING: (2,2), burn, "Begone! Keep Off! Shoo!"
+        BREAK
+    CASE 1: ENGRAVING: (2,2), burn, "Danger! Cursed Items! Do Not Touch!"
+        BREAK
+    CASE 2: ENGRAVING: (2, 2), burn, "Property of the Wizard! Do Not Touch!"
+        BREAK
+    CASE 3: ENGRAVING: (2,2), burn, "Army of Yendor armory annex. Trespassers will be shot."
+        BREAK
+    CASE 4: ENGRAVING: (2,2), burn, "Mine, not yours.  You touch, you're dead!"
+        BREAK
+    CASE 5: ENGRAVING: (2,2), burn, "Property of the Dungeons of Doom municipal library.  Do not remove."
+        BREAK
+    CASE 6: ENGRAVING: (2,2), burn, "A Elbereth Gilthoniel, silivren penna miriel, o menel aglar elenath!"
+        BREAK
+    CASE 7: ENGRAVING: (2,2), burn, "Warning: Chest is Rigged to Explode."
+        BREAK
+    CASE 8: ENGRAVING: (2,2), burn, "Beware! A Unique Trap Guards This Chest!"
+        BREAK
+    CASE 9: ENGRAVING: (2,2), burn, "Get off this level ASAP! Whatever you do, do not touch these items! - A Friend"
+        BREAK
+    CASE 10: ENGRAVING: (2,2), burn, "elberethelberethelberethelberethelbzlx"
+        BREAK     
+   }
+   
+   CONTAINER: ('(', "chest"), (2,2) {
+       SWITCH [ 7 ] {
+       CASE 0:
+           OBJECT: '/'
+           OBJECT: '='
+           OBJECT: '"'
+           BREAK
+       CASE 1:
+           OBJECT: '/'
+           OBJECT: '='
+           OBJECT: ('=', "regeneration")
+           OBJECT: '*'
+           BREAK
+       CASE 2:
+           OBJECT: '/'
+           OBJECT: '='
+           OBJECT: '/'
+           BREAK
+       CASE 3:
+           LOOP [2] { OBJECT: '/' }
+           LOOP [8] { OBJECT: ('[', "helmet") }
+           LOOP [6] { OBJECT: ')' }
+           BREAK
+       CASE 4:
+           LOOP [2] { OBJECT: '/' }
+           LOOP [2] { OBJECT: ')' }
+           LOOP [4] { OBJECT: '%' }
+           BREAK
+       CASE 5:
+           LOOP [2] { OBJECT: '+' }
+           LOOP [2] { OBJECT: '?' }
+           BREAK
+       CASE 6:
+           OBJECT: (')', "elven broadsword")
+           OBJECT: (')', "elven dagger")
+           OBJECT: (')', "elven spear")
+           OBJECT: (')', "elven bow")
+           OBJECT: (')', "elven arrow")
+           OBJECT: (')', "elven arrow")
+           OBJECT: ('[', "elven helm")
+           OBJECT: ('[', "elven chain mail")
+           OBJECT: ('[', "elven cloak")
+           LOOP [5] { OBJECT: '*' }
+           BREAK
+       DEFAULT:
+           BREAK
+       }
+   }
+
+   # traps for the storage room, deterrents..
+   TRAP: random, random
+   TRAP: random, random
+   TRAP: random, random
+   [50%]: TRAP: random, random
+   
+   OBJECT:('%', "corpse"), random, montype:'@'
+}
+
+# Ozymandias' Tomb
+LEVEL:"vlt-0075"
+FLAGS:rndvault
+MINDEPTH:20
+GEOMETRY:random
+MAP
+---------
+|.......|
+|.......|
+|.......|
+|......\|
+|.......|
+|.......|
+|.......|
+---------
+ENDMAP
+REGION:(1,1,7,7),lit,"rndvault",filled { }
+ENGRAVING: (6,4), burn, "Look on my works, ye mighty, and despair"
+
+[50%]: TRAP: "hole", (3,2)
+[80%]: TRAP: "hole", (5,3)
+[30%]: TRAP: "hole", (3,6)
+[75%]: TRAP: "web", (1,1)
+[75%]: TRAP: "web", (1,6)
+TRAP: "web", (7,6)
+
+CONTAINER:"chest", (6,1), trapped { }
+TRAP: "statue", (7,3)
+TRAP: "statue", (7,7)
+LOOP [4] { [50%]: OBJECT:('`',"statue"),random }
+
+
+# Steam room
+LEVEL:"vlt-0076"
+FLAGS:rndvault
+MINDEPTH:7
+GEOMETRY:random
+MAP
+-----------
+|.........|
+|.........|
+|.........|
+|.........|
+|.........|
+|.........|
+|.........|
+|.........|
+|.........|
+-----------
+ENDMAP
+REGION:(1,1,1,1),random,"rndvault",irregular {
+    $fill = selection: filter(60%, floodfill(1,1))
+    TERRAIN:$fill, ','
+  
+    $fill = selection: filter(5%, floodfill(1,1))
+    TERRAIN:$fill, 'V'
+}
+
+# Kitchen
+LEVEL:"vlt-0077"
+FLAGS:rndvault
+MINDEPTH:5
+ROOM:"rndvault", random, random, random, (10,2) {
+    # -- cookware and other useful things...
+    TERRAIN: random,'K'
+    TERRAIN: random,'K'
+    [50%]: TERRAIN: random,'U'
+    [50%]: OBJECT:('(', "ice box"), random
+    LOOP [3] { [50%]: OBJECT: ('[', "dented pot"), random }
+    LOOP [3] { [50%]: OBJECT: (')', "knife"), random }
+    [70%]: OBJECT:('(', "tin opener"), random
+    [20%]: OBJECT:('(', "tinning kit"), random
+    [20%]: OBJECT:('(', "towel"), random
+    [20%]: OBJECT:('[', "alchemy smock"), random
+    
+    # -- sauces and stocks...
+    LOOP [3] { [50%]: OBJECT: ('!', "oil"), random }
+    LOOP [3] { [50%]: OBJECT: ('!', "fruit juice"), random }
+    LOOP [3] { [50%]: OBJECT: ('!', "booze"), random }
+
+    # -- raw ingredients...
+    LOOP [4] { [50%]: OBJECT: ('%', "tin"), random }
+    
+    $ingredients = OBJECT: {
+        ('%', "meatball"),           
+        ('%', "apple"),
+        ('%', "orange"),
+        ('%', "mushroom"),
+        ('%', "pear"),
+        ('%', "asian pear"),
+        ('%', "melon"),
+        ('%', "banana"),
+        ('%', "egg"),
+        ('%', "carrot"),
+        ('%', "clove of garlic"),
+        ('%', "pineapple"),
+        ('%', "cream pie"),
+        ('%', "kelp frond"),
+        ('%', "slice of cake"),
+        ('%', "pumpkin pie"),
+        ('%', "apple pie"),
+        ('%', "egg"),
+        ('%', "cheese"),
+        ('%', "lump of royal jelly")
+    }
+    LOOP [1d4 + 5] { OBJECT: $ingredients[1d20], random }
+    
+    # And some unfortunate cooking accidents...
+    LOOP [3] { [50%]: MONSTER:'%',random }
+}
+
 
 # Default room
 # Because this is the last room this will show up regardless of MINLEVEL
 # (At least that's what some testing revealed.)
 # We'll make this room add some color to the dungeon but no dangerous 
 # lava or deep water pools.
-LEVEL:"vlt-0074"
+LEVEL:"vlt-0078"
 FLAGS:rndvault
 ROOM:"rndvault", random, random, random, (3,3) {
 $terr = TERRAIN: {'I', 'T', 't', 's', 'w', 'C', ',' }

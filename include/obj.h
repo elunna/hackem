@@ -211,6 +211,7 @@ struct obj {
 #define is_bomb(otmp)	                                     \
     (otmp->otyp == FIRE_BOMB                               \
     || otmp->otyp == SONIC_BOMB                              \
+    || otmp->otyp == FLASH_BOMB                              \
     || otmp->otyp == GAS_BOMB)
 #define matching_launcher(a, l) \
     ((l) && objects[(a)->otyp].oc_skill == -objects[(l)->otyp].oc_skill)
@@ -227,6 +228,10 @@ struct obj {
     ((o)->oclass == TOOL_CLASS && objects[(o)->otyp].oc_skill != P_NONE)
         /* towel is not a weptool:  spe isn't an enchantment, cursed towel
            doesn't weld to hand, and twoweapon won't work with one */
+
+
+#define is_moncard(otmp) \
+    (otmp->otyp == SCR_CREATE_MONSTER && otmp->corpsenm != NON_PM)
 #define touches_body(otmp) \
     (  otmp->otyp == PEA_WHISTLE \
     || otmp->otyp == MAGIC_WHISTLE \

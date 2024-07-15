@@ -647,10 +647,7 @@ unsigned corpseflags;
         }
         goto default_1;
     case PM_LONG_WORM:
-        /* Crysknives remain the same, just much smaller chance of getting 
-         * a worm tooth from a long worm. */
-        if (!rn2(20 - Luck))
-            (void) mksobj_at(WORM_TOOTH, x, y, TRUE, FALSE);
+        (void) mksobj_at(WORM_TOOTH, x, y, TRUE, FALSE);
         goto default_1;
     case PM_KILLER_TRIPE_RATION:
 		obj = mksobj_at(TRIPE_RATION, x, y, TRUE, FALSE);
@@ -1424,12 +1421,19 @@ mcalcdistress()
         }
 
         if (mtmp->msummoned && mtmp->msummoned == 1) {
-            if (canseemon(mtmp))
-                pline(Hallucination ? "%s folds in on itself!"
-                                    : "%s winks out of existence.", Monnam(mtmp));
+            if (canseemon(mtmp)) {
+                if (Hallucination)
+                    pline("%s %s", Monnam(mtmp), rn2(2) 
+                        ? "folds in on itself!" 
+                        : "explodes into multicolored polygons!");
+                else
+                    pline("%s %s", Monnam(mtmp), rn2(2) 
+                        ? "winks out of existence."
+                        : "vanishes in a puff of smoke.");
+            }
             for (obj = mtmp->minvent; obj; obj = otmp) {
                 otmp = obj->nobj;
-                obj_extract_self(obj);
+                /*obj_extract_self(obj);*/
                 if (mtmp->mx) {
                     mdrop_obj(mtmp, obj, FALSE);
                 }
@@ -1799,7 +1803,7 @@ minfestcorpse(struct monst *mtmp)
     register struct obj *otmp;
     coord cc;
     /* If a pet, eating is handled separately, in dog.c */
-    if (mtmp->mtame) 
+    if (mtmp->mtame && mtmp->data != &mons[PM_ARCH_VILE]) 
         return;
 
     /* Infest topmost corpse if it is there */
@@ -1817,8 +1821,9 @@ minfestcorpse(struct monst *mtmp)
                 return;
             }
             if (cansee(mtmp->mx,mtmp->my) && flags.verbose)
-                pline("%s infests %s!", Monnam(mtmp),
-                  distant_name(otmp,doname));
+                pline("%s %s %s!", Monnam(mtmp),
+                      mtmp->data == &mons[PM_ARCH_VILE] ? "resurrects" : "infests",
+                      distant_name(otmp,doname));
             else if (!Deaf && flags.verbose)
                 You_hear("an unsettling writhing noise.");
             
@@ -1827,7 +1832,11 @@ minfestcorpse(struct monst *mtmp)
             if (mtmp->data == &mons[PM_MAGGOT]) {
                 if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_GIANT_MOSQUITO]))
                     makemon(&mons[PM_GIANT_MOSQUITO ], cc.x, cc.y, NO_MINVENT);
-            } 
+            }
+            if (mtmp->data == &mons[PM_ARCH_VILE]) {
+                if (enexto(&cc, mtmp->mx, mtmp->my, &mons[otmp->corpsenm]))
+                    makemon(&mons[otmp->corpsenm], cc.x, cc.y, NO_MINVENT);
+            }
             else if (mtmp->data == &mons[PM_HELLMINTH]) {
                 if (enexto(&cc, mtmp->mx, mtmp->my, &mons[PM_WORM_THAT_WALKS]))
                     makemon(&mons[rn2(4) ? PM_GIBBERSLUG : PM_WORM_THAT_WALKS], cc.x, cc.y, NO_MINVENT);
@@ -1991,13 +2000,16 @@ register struct monst *mtmp;
     int mat_idx;
 
     if ((gold = g_at(mtmp->mx, mtmp->my)) != 0
-        && !(is_floater(mtmp->data) || can_levitate(mtmp))) {
+        && !((is_floater(mtmp->data) && !is_beholder(mtmp->data))
+             || can_levitate(mtmp))) {
         mat_idx = gold->material;
         obj_extract_self(gold);
         add_to_minv(mtmp, gold);
         if (cansee(mtmp->mx, mtmp->my)) {
             if (flags.verbose && !mtmp->isgd)
-                pline("%s picks up some %s.", Monnam(mtmp),
+                pline("%s %s some %s.", Monnam(mtmp),
+                      (is_beholder(mtmp->data)
+                          ? "magically gathers up" : "picks up"),
                       mat_idx == GOLD ? "gold" : "money");
             newsym(mtmp->mx, mtmp->my);
         }
@@ -2120,7 +2132,6 @@ boolean vismon;
 
     if (!container || !Has_contents(container) || container->olocked)
         return res; /* 0 */
-    /* FIXME: handle cursed bag of holding */
     if ((Is_mbag(container) && container->cursed) || Bad_bag(container))
         return res; /* 0 */
     /* levitating/floating monsters can't reach containers
@@ -2247,7 +2258,8 @@ register const char *str;
 
     /* levitating/floating monsters can't reach the ground, just
        like levitating players */
-    if (is_floater(mtmp->data) || can_levitate(mtmp))
+    if ((is_floater(mtmp->data) && !is_beholder(mtmp->data))
+        || can_levitate(mtmp))
         return FALSE;
 
     if (IS_MAGIC_CHEST(levl[mtmp->mx][mtmp->my].typ)) {
@@ -2368,7 +2380,9 @@ register const char *str;
             if (is_soko_prize_flag(otmp))
                 continue;
             if (vismon && flags.verbose)
-                pline("%s picks up %s.", Monnam(mtmp),
+                pline("%s %s %s.", Monnam(mtmp),
+                      (is_beholder(mtmp->data)
+                          ? "magically gathers up" : "picks up"),
                       (distu(mtmp->mx, mtmp->my) <= 5)
                           ? doname(otmp3)
                           : distant_name(otmp3, doname));
@@ -3863,6 +3877,7 @@ struct monst *magr;    /* killer, if swallowed */
 boolean was_swallowed; /* digestion */
 {
     struct permonst *mdat = mon->data;
+    struct obj *otmp;
     int i, tmp, x, y;
     boolean artdial = wielding_artifact(ART_MORTALITY_DIAL);
     
@@ -3923,7 +3938,36 @@ boolean was_swallowed; /* digestion */
         }
         return FALSE;
     }
-
+    
+    /* Anything killed while playing as a cartomancer has 
+     * a chance of leaving behind a card. */
+    if (Role_if(PM_CARTOMANCER) && !(mon->data->geno & G_UNIQ)
+          && !mon->mtame && !mon->msummoned && !rn2(3)) {
+        switch (rnd(2)) {
+            case 1: { /* Wand zap card */
+                int otyp;
+                do {
+                    otyp = rnd_class(WAN_LIGHT, WAN_DELUGE);
+                } while (otyp == WAN_WISHING || otyp == WAN_NOTHING);
+                
+                otmp = mksobj(SCR_ZAPPING, FALSE, FALSE);
+                otmp->corpsenm = otyp;
+                break;
+            }
+            default: /* Monster summon card */
+                otmp = mksobj(SCR_CREATE_MONSTER, FALSE, FALSE);
+                otmp->corpsenm = monsndx(mon->data);
+                break;
+        }
+        place_object(otmp, mon->mx, mon->my);
+        newsym(mon->mx, mon->my);
+        return FALSE;
+    }
+    
+    /* Spell-beings can't leave corpses */
+    if (mon->msummoned)
+        return FALSE;
+    
     /* Corpses don't hover in midair in the presence of gravity */
     if (is_open_air(mon->mx, mon->my)) {
         if (cansee(mon->mx, mon->my) && !no_corpse(mdat))
@@ -6632,6 +6676,7 @@ struct permonst *mdat;
         case PM_CAVEWOMAN:
         case PM_BARBARIAN:
         case PM_NEANDERTHAL:
+        case PM_CARTOMANCER:
             You("smell body odor.");
             msg_given = TRUE;
             break;
@@ -6837,6 +6882,9 @@ short mndx;
     case PM_BARBARIAN:
         permitted |= (MH_CENTAUR | MH_DWARF | MH_GIANT | MH_ORC
                       | MH_TORTLE | MH_VAMPIRE);
+        break;
+    case PM_CARTOMANCER:
+        permitted |= (MH_DWARF | MH_ELF | MH_GNOME | MH_HOBBIT);
         break;
     case PM_CAVEMAN:
     case PM_CAVEWOMAN:

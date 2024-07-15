@@ -14,6 +14,7 @@ STATIC_DCL void NDECL(dosinkfall);
 STATIC_DCL boolean FDECL(findtravelpath, (int));
 STATIC_DCL boolean FDECL(trapmove, (int, int, struct trap *));
 STATIC_DCL struct monst *FDECL(monstinroom, (struct permonst *, int));
+STATIC_DCL void interesting_room(void);
 STATIC_DCL boolean FDECL(doorless_door, (int, int));
 STATIC_DCL void FDECL(move_update, (BOOLEAN_P));
 STATIC_DCL void FDECL(maybe_smudge_engr, (int, int, int, int));
@@ -1474,7 +1475,7 @@ domove_core()
     register xchar x, y;
     struct trap *trap = NULL;
     int wtcap;
-    boolean on_ice;
+    boolean on_ice, on_bridge;
     boolean walk_sewage;
     xchar chainx = 0, chainy = 0,
           ballx = 0, bally = 0;         /* ball&chain new positions */
@@ -1568,6 +1569,19 @@ domove_core()
         }
         if (!walk_sewage && (HSlow & FROMOUTSIDE))
             HSlow &= ~FROMOUTSIDE;
+
+        /* check rickety bridge */
+        on_bridge = !Levitation && is_bridge(u.ux, u.uy);
+        if (on_bridge) {
+            if (Flying || is_floater(youmonst.data)
+                || is_clinger(youmonst.data) || is_whirly(youmonst.data)) {
+                    on_bridge = FALSE;
+            } else if (!rn2(5)) {
+                /* TODO: If the monster is heavy enough, then start the countdown to
+                   snapping the bridge. */
+                pline_The("bridge sways beneath you.");
+            }
+        }
 
         x = u.ux + u.dx;
         y = u.uy + u.dy;
@@ -2699,6 +2713,21 @@ boolean pick;
                                     : (time_left < 10L) ? 1
                                       : 0]);
     }
+
+    if (Warning && is_bridge(u.ux, u.uy)) {
+        static const char *const bridgewarnings[] = {
+                "The bridge creaks ominously.",
+                "You feel the bridge shudder.",
+                "The bridge creaks."
+        };
+        long time_left = spot_time_left(u.ux, u.uy, COLLAPSE_ROPE_BRIDGE);
+
+        if (time_left && time_left < 15L)
+            pline("%s", bridgewarnings[(time_left < 2L) ? 2
+                                                        : (time_left < 5L) ? 1
+                                                                           : 0]);
+    }
+    
     if ((mtmp = m_at(u.ux, u.uy)) != 0 && !u.uswallow) {
         mtmp->mundetected = mtmp->msleeping = 0;
         switch (mtmp->data->mlet) {
@@ -2767,6 +2796,16 @@ boolean pick;
                 "fell to %s death", uhis());
         killer.format = NO_KILLER_PREFIX;
         done(DIED);
+    }
+    if (IS_MAGIC_CHEST(levl[u.ux][u.uy].typ) && !Levitation) {
+        char *tmp = doname(mchest);
+        if (!Blind)
+            You("see here %s.", tmp);
+        /* magic chest is already mentioned if objects are on square */
+        else if (!OBJ_AT(u.ux, u.uy))
+            You("feel here %s.", tmp);
+        /* release doname's obuf, just in case */
+        maybereleaseobuf(tmp);
     }
     if (IS_MAGIC_CHEST(levl[u.ux][u.uy].typ) && !Levitation) {
         if (!Blind)
@@ -3067,6 +3106,12 @@ register boolean newlev;
                           Hello((struct monst *)0), plname);
                 verbalize("Please have a look around, but don't even think about stealing anything.");
             }
+            break;
+        case ARTROOM:
+            if (Blind)
+                msg_given = FALSE;
+            else
+                interesting_room();
             break;
         case TEMPLE:
             intemple(roomno + ROOMOFFSET);
@@ -3444,6 +3489,130 @@ lookaround()
     }
 }
 
+
+/* Message for entering an art room. */
+static void
+interesting_room(void)
+{
+    static const char *const adjectives[] = {
+            "furious",          "wrathful",  "mysterious",  "ugly",
+            "beautiful", "poorly-rendered",  "large",       "lifelike",    
+            "peaceful",         "covetous",  "subservient", "lovely",
+            "misshapen",        "luminous",  "melancholic", "bold",
+            "surreal",          "brooding",  "enigmatic",   "chaotic",
+            "seething",         "frenzied",  "cheap",       "knock-off",
+            "tattered",         "distasteful", "vulgar",    "sordid",
+            "unpleasant",       "expensive", "poor-quality", "tacky",
+            "kitsch",           "tawdry",   "inferior",     "unnerving",
+            "ominous",          "eerie",    "disturbing",   "dark"
+    };
+
+    static const char *const scary_adj[] = {
+            "fearful",   "horrifying",   "sinister", "menacing",
+    };
+    
+    static const char *const art[] = {
+            "painting",   "carving",   "tapestry",  "bas-relief",
+            "photograph", "print",     "etching",   "engraving",
+            "woodcut",    "lithograph", "mosaic",   "oil painting",
+            "watercolor painting", "spray painting", "fresco",
+            "poster",     "sketching",  "pyrograph", 
+    };
+
+    int name, name2;
+    /* Modified version of rndmonnam */
+    do {
+        name = rn2(NUMMONS);
+    } while ((type_is_pname(&mons[name]) || (mons[name].geno & G_UNIQ)));
+    
+    do {
+        name2 = rn2(NUMMONS);
+    } while ((type_is_pname(&mons[name2]) || (mons[name2].geno & G_UNIQ)));
+    
+    const char* carvemon = mons[name].mname;
+    const char* carvemon2 = mons[name2].mname;
+    
+    /* Carving message */
+    switch (rnd(7)) {
+        case 1:
+            pline("%s on the ceiling portrays %s %s.",
+                  An(art[rn2(SIZE(art))]),
+                  an(adjectives[rn2(SIZE(adjectives))]), carvemon);
+            break;
+        case 2:
+            pline("There is %s of %s in this room.",
+                  an(art[rn2(SIZE(art))]), u_gname());
+            if (Afraid) {
+                pline("It calms you.");
+                make_afraid(0L, TRUE);
+            } else if (u.ualign.record > 0) {
+                pline("It shines a bright light through you!");
+                display_nhwindow(WIN_MESSAGE, FALSE);
+                enlightenment(MAGICENLIGHTENMENT, ENL_GAMEINPROGRESS);
+                pline_The("light subsides.");
+                exercise(A_WIS, TRUE);
+            } else {
+                You("have an uneasy feeling...");
+                exercise(A_WIS, FALSE);
+            }
+            break;
+        case 3:
+            pline("%s on the wall depicts a large number of %s.",
+                  An(art[rn2(SIZE(art))]), makeplural(carvemon));
+            break;
+        case 4:
+            pline("%s in this room contains a partial map of the dungeon!",
+                  An(art[rn2(SIZE(art))]));
+            HConfusion = 1;
+            do_mapping(FALSE);
+            HConfusion = 0;
+            break;
+        case 5:
+            /* Scare the player! */
+            pline("%s on the wall portrays %s %s.",
+                  An(art[rn2(SIZE(art))]),
+                  an(scary_adj[rn2(SIZE(scary_adj))]), 
+                  carvemon);
+            if (!Fearless) {
+                switch (rnd(7)) {
+                    case 1:
+                        pline("It %s you!",  rn2(2) ? "scares" : "terrifies");
+                        break;
+                    case 2:
+                        pline("It fills you with fear!");
+                        break;
+                    case 3:
+                        pline("It gives you %s!", rn2(2) ? "the creeps" : "a fright");
+                        break;
+                    case 4:
+                        pline("It sends shivers down your spine!");
+                        break;
+                    case 5:
+                        pline("It makes your blood run cold!");
+                        break;
+                    case 6:
+                        pline("It makes you %s!", 
+                              rn2(2) ? "tremble in fear" : "quiver with fear");
+                        break;
+                    case 7:
+                        pline("It makes you feel petrified!");
+                        if (have_lizard()) {
+                            more_experienced(2, 0);
+                            return;
+                        }
+                }
+                make_afraid((HAfraid & TIMEOUT) + (long) rn1(10, 5), FALSE);
+            }
+            break;
+        default:
+            pline("%s in this room presents a battle between %s and %s.",
+                  An(art[rn2(SIZE(art))]),
+                  makeplural(carvemon), makeplural(carvemon2));
+    }
+    more_experienced(2, 0);
+    newexplevel();
+}
+
 /* check for a doorway which lacks its door (NODOOR or BROKEN) */
 STATIC_OVL boolean
 doorless_door(x, y)
@@ -3648,6 +3817,7 @@ boolean k_format;
         return;
     }
 
+    n = saving_grace(n);
     u.uhp -= n;
     showdmg(n, TRUE);
     
@@ -3747,7 +3917,7 @@ weight_cap()
 
     /* final adjustment: ring of carrying lets you carry more than usual and go
      * over the normal carrycap */
-    pct_increase = ringbon(RIN_CARRYING) * 10;
+    pct_increase = ringbon(RIN_CARRYING) * 5;
     carrcap = (carrcap * (100 + pct_increase)) / 100;
 
     return (int) carrcap;
@@ -3852,6 +4022,26 @@ struct obj *otmp;
         otmp = otmp->nobj;
     }
     return 0L;
+}
+
+/* once per game, if receiving a killing blow from above 90% HP,
+   allow the hero to survive with 1 HP */
+int
+saving_grace(int dmg)
+{
+    if (!u.usaving_grace && (u.uhp <= dmg)
+        && (u.uhp * 100 / u.uhpmax) > 90) {
+        dmg = u.uhp - 1;
+        u.usaving_grace = TRUE; /* used up */
+        context.travel = context.travel1 = context.mv = context.run = 0;
+        if (multi > 0)
+            multi = 0;
+        if (u.usleep)
+            unmul("Suddenly you wake up!");
+        if (is_fainted())
+            reset_faint();
+    }
+    return dmg;
 }
 
 void

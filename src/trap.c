@@ -1427,9 +1427,12 @@ unsigned trflags;
         seetrap(trap);
         dofiretrap((struct obj *) 0);
         break;
+        
     case ICE_TRAP:
         seetrap(trap);
         doicetrap((struct obj*)0);
+        if (!rn2(7))
+            deltrap(trap);
         break;
         
     case PIT:
@@ -2104,16 +2107,20 @@ struct obj *box;	/* at the moment only for floor traps */
     }
 
     pline("A freezing cloud shoots up from the %s!", surface(u.ux, u.uy));
-    if (how_resistant(COLD_RES) > 90) {
+    if (likes_ice(youmonst.data)) {
+        You_feel("quite refreshed!");
+        healup(num, 0, FALSE, FALSE);
+        return;
+    }
+    if (how_resistant(COLD_RES) > 50) {
         shieldeff(u.ux, u.uy);
         num = rn2(3);
-        if (!rn2(3)) {
+        if (!rn2(3) && HCold_resistance) {
             pline("Mist flash-freezes around you as your heat is sucked away!");
-            if (HCold_resistance && !Fixed_abil) {
-                decr_resistance(&HCold_resistance, rnd(25) + 25);
-                You_feel("alarmingly cooler.");
-                lost_resistance = TRUE;
-            }
+            HCold_resistance = HCold_resistance & (TIMEOUT | FROMOUTSIDE | HAVEPARTIAL);
+            decr_resistance(&HCold_resistance, rnd(25) + 25);
+            You_feel("alarmingly cooler.");
+            lost_resistance = TRUE;
         }
     }
 
@@ -2877,6 +2884,17 @@ register struct monst *mtmp;
                 You_see("a freezing cloud shoot from the %s!",
                     surface(mtmp->mx, mtmp->my));
             
+            if (likes_ice(mtmp->data)) {
+                mtmp->mhp += d(4, 8);
+                if (mtmp->mhp > mtmp->mhpmax)
+                    mtmp->mhp = mtmp->mhpmax;
+                if (canseemon(mtmp)) {
+                    pline("%s looks a lot better.", Monnam(mtmp));
+                }
+                if (!rn2(7))
+                    deltrap(trap);
+                break;
+            }
             if (resists_cold(mtmp)) {
                 if (in_sight) {
                     shieldeff(mtmp->mx,mtmp->my);
@@ -2891,10 +2909,15 @@ register struct monst *mtmp;
                 }
             } else {
                 int num = d(4, 8);
-                if (thitm(0, mtmp, (struct obj *)0, num, FALSE))
+                if (thitm(0, mtmp, (struct obj *) 0, num, FALSE))
                     trapkilled = TRUE;
-                else if (!rn2(2))
+                else if (!rn2(2)) {
                     (void) destroy_mitem(mtmp, POTION_CLASS, AD_COLD);
+                }
+                if (rn2(2)) {
+                    mon_adjust_speed(mtmp, -1, (struct obj *) 0);
+                    check_gear_next_turn(mtmp); /* might want speed boots */
+                }
             }
             if (see_it) 
                 seetrap(trap);
@@ -4328,6 +4351,7 @@ xchar x, y;
         if (obj->otyp == SCR_BLANK_PAPER
             || obj->otyp == SCR_FLOOD
             || obj->otyp == SCR_ICE
+            || obj->oerodeproof /* "sleeved" */
 #ifdef MAIL
             || obj->otyp == SCR_MAIL
 #endif
@@ -4443,9 +4467,9 @@ xchar x, y;
             if (in_invent)
                 update_inventory();
             return ER_DAMAGED;
-        } else if (obj->otyp != POT_WATER && obj->otyp != POT_OIL) {
+        } else if (obj->otyp != POT_WATER) {
             if (in_invent)
-                Your("%s %s.", ostr, vtense(ostr, "dilute"));
+                pline("Your %s %s.", ostr, vtense(ostr, "dilute"));
 
             obj->odiluted++;
             if (in_invent)
@@ -6518,13 +6542,18 @@ in_hell_effects()
     int dmg = resist_reduce(d(1, 6), FIRE_RES);
     boolean usurvive, boil_away;
 
-    if (likes_lava(youmonst.data))
+    if (likes_lava(youmonst.data) || Race_if(PM_VAMPIRIC))
         return FALSE;
 
+    /* Small break for Ice Mages or other races that 
+     * are intrinsically vulnerable to fire */
+    if (EFire_resistance)
+        dmg -= 1;
+    
     usurvive = how_resistant(FIRE_RES) == 100 || (dmg < u.uhp);
-
+    
     if (how_resistant(FIRE_RES) < 100) {
-        if (how_resistant(FIRE_RES) > 50) {
+        if (how_resistant(FIRE_RES) >= 50) {
             if (rn2(3))
                 pline_The("flames of hell are slowly %s you alive!",
                           rn2(2) ? "roasting" : "burning");
@@ -6814,25 +6843,18 @@ randomray()
 {
     /* Here we can randomize the beam type, so it isn't the same */
     /* no AD_DISN, thanks */
-    switch (rn2(10)) {
-    case 0: 
-        return -ZT_BREATH(ZT_FIRE);
-    case 1:
-        return -ZT_SPELL(ZT_COLD);
-    case 2:
-        return -ZT_SPELL(ZT_SLEEP);
-    case 3:
-        return -ZT_BREATH(ZT_LIGHTNING);
-    case 4:
-        return -ZT_BREATH(ZT_POISON_GAS);
-    case 5:
-        return -ZT_BREATH(ZT_ACID);
-    case 6:
-        return -ZT_SPELL(ZT_SONIC);
-    case 7:
-        return -ZT_SPELL(ZT_WATER);
-    default:
-        return -ZT_SPELL(ZT_MAGIC_MISSILE);
+    switch (rn2(12)) {
+    case 0: return -ZT_BREATH(ZT_FIRE);
+    case 1: return -ZT_SPELL(ZT_COLD);
+    case 2: return -ZT_SPELL(ZT_SLEEP);
+    case 3: return -ZT_BREATH(ZT_LIGHTNING);
+    case 4: return -ZT_BREATH(ZT_POISON_GAS);
+    case 5: return -ZT_BREATH(ZT_ACID);
+    case 6: return -ZT_SPELL(ZT_SONIC);
+    case 7: return -ZT_SPELL(ZT_WATER);
+    case 8: return -ZT_BREATH(ZT_DRAIN);
+    case 9: return -ZT_BREATH(ZT_STUN);
+    default: return -ZT_SPELL(ZT_MAGIC_MISSILE);
     }
 }
 

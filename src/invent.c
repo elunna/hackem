@@ -1371,7 +1371,7 @@ register int type;
 
     for (otmp = invent; otmp; otmp = otmp->nobj)
         if (otmp->otyp == type)
-            return  otmp;
+            return otmp;
     return (struct obj *) 0;
 }
 
@@ -1710,6 +1710,8 @@ register const char *let, *word;
                     && (!is_lightsaber(otmp) || !otmp->lamplit)))
              || (!strcmp(word, "tin")
                  && (otyp != CORPSE || !tinnable(otmp)))
+             || (!strcmp(word, "zap")
+                 && (otmp->oclass == SCROLL_CLASS && otyp != SCR_ZAPPING))
              || (!strcmp(word, "rub")
                  && ((otmp->oclass == TOOL_CLASS && otyp != OIL_LAMP
                       && otyp != MAGIC_LAMP && otyp != LANTERN)
@@ -3610,6 +3612,8 @@ char *buf;
         cmap = S_lava; /* "molten lava" */
     else if (is_ice(x, y))
         cmap = S_ice; /* "ice" */
+    else if (is_bridge(x, y))
+        cmap = S_bridge;
     else if (is_pool(x, y))
         dfeature = "pool of water";
     else if (IS_GRASS(ltyp))
@@ -3970,6 +3974,11 @@ register struct obj *otmp, *obj;
         && (obj->oeaten != otmp->oeaten || obj->orotten != otmp->orotten))
         return FALSE;
 
+    if (obj->oclass == SCROLL_CLASS
+        && ((obj->corpsenm != NON_PM && obj->corpsenm != otmp->corpsenm)
+         || (obj->oerodeproof != otmp->oerodeproof)))
+        return FALSE;
+    
     if (obj->dknown != otmp->dknown
         || (obj->bknown != otmp->bknown && !Role_if(PM_PRIEST))
         || obj->oeroded != otmp->oeroded 
@@ -4243,6 +4252,13 @@ STATIC_VAR NEARDATA const char *names[] = {
     "Gems/Stones", "Boulders/Statues", "Iron balls", "Chains", "Venoms",
     "Spirits"
 };
+static NEARDATA const char *carnames[] = {
+    0, "Illegal objects", "Weapons", "Armor", "Rings", "Amulets", "Tools",
+    "Comestibles", "Potions", "Spell Cards", "Rulebooks", "Wands", "Coins", 
+    "Gems/Stones", "Boulders/Statues", "Iron balls", "Chains", "Venoms",
+    "Spirits"
+};
+
 STATIC_VAR NEARDATA const char oth_symbols[] = { CONTAINED_SYM, '\0' };
 STATIC_VAR NEARDATA const char *oth_names[] = { "Bagged/Boxed items" };
 
@@ -4262,7 +4278,10 @@ boolean unpaid, showsym;
     unsigned len;
 
     if (oclass)
-        class_name = names[oclass];
+        if (Role_if(PM_CARTOMANCER))
+            class_name = carnames[oclass];
+        else
+            class_name = names[oclass];
     else if ((pos = index(oth_symbols, let)) != 0)
         class_name = oth_names[pos - oth_symbols];
     else

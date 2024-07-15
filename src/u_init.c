@@ -52,6 +52,17 @@ struct trobj Barbarian[] = {
     { FOOD_RATION, 0, FOOD_CLASS, 2, 0 },
     { 0, 0, 0, 0, 0 }
 };
+static struct trobj Cartomancer[] = {
+    { DAGGER, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
+    { FEDORA, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { HAWAIIAN_SHIRT, 0, ARMOR_CLASS, 1, UNDEF_BLESS },
+    { SHURIKEN, 0, GEM_CLASS, 60, UNDEF_BLESS },
+    { UNDEF_TYP, UNDEF_SPE, SCROLL_CLASS, 4, UNDEF_BLESS },
+    { SCR_CREATE_MONSTER, 0, SCROLL_CLASS, 1, UNDEF_BLESS },
+    { SCR_CREATE_MONSTER, 1, SCROLL_CLASS, 1, UNDEF_BLESS },
+    { SCR_CREATE_MONSTER, 2, SCROLL_CLASS, 1, UNDEF_BLESS },
+    { 0, 0, 0, 0, 0 }
+};
 struct trobj Cave_man[] = {
 #define C_AMMO 2
     { CLUB, 1, WEAPON_CLASS, 1, UNDEF_BLESS },
@@ -498,6 +509,34 @@ static const struct def_skill Skill_B[] = {
     { P_TWO_WEAPON_COMBAT, P_SKILLED },
     { P_BARE_HANDED_COMBAT, P_MASTER },
     { P_SHIELD, P_SKILLED },
+    { P_NONE, 0 }
+};
+static const struct def_skill Skill_Car[] = {
+    { P_DAGGER, P_EXPERT },
+    { P_KNIFE, P_SKILLED },
+    { P_AXE, P_BASIC },
+    { P_SHORT_SWORD, P_BASIC },
+    { P_CLUB, P_BASIC },
+    { P_MACE, P_BASIC },
+    { P_QUARTERSTAFF, P_BASIC },
+    { P_POLEARMS, P_BASIC },
+    { P_SPEAR, P_BASIC },
+    { P_TRIDENT, P_BASIC },
+    { P_SLING, P_SKILLED },
+    { P_DART, P_EXPERT },
+    { P_SHURIKEN, P_EXPERT },
+    { P_ATTACK_SPELL, P_BASIC },
+    { P_HEALING_SPELL, P_BASIC },
+    
+    { P_DIVINATION_SPELL, P_EXPERT },
+    { P_ENCHANTMENT_SPELL, P_SKILLED },
+    { P_NECROMANCY_SPELL, P_SKILLED },
+    { P_ESCAPE_SPELL, P_SKILLED },
+    { P_MATTER_SPELL, P_SKILLED },
+    { P_RIDING, P_EXPERT },         /* Card games on motorcycles. */
+    { P_BARE_HANDED_COMBAT, P_SKILLED },
+
+   /* { P_WILD_MAGIC, P_EXPERT },*/
     { P_NONE, 0 }
 };
 static const struct def_skill Skill_C[] = {
@@ -1176,6 +1215,12 @@ u_init()
         ini_inv(Cave_man);
         skill_init(Skill_C);
         break;
+    case PM_CARTOMANCER:
+        ini_inv(Cartomancer);
+        skill_init(Skill_Car);
+        knows_object(PLAYING_CARD_DECK);
+        knows_object(DECK_OF_FATE);
+        break;
     case PM_FLAME_MAGE:
         switch (rnd(2)) {                
             case 1: 
@@ -1471,7 +1516,7 @@ u_init()
          * Non-warriors get an instrument.  We use a kludge to
          * get only non-magic instruments.
          */
-        if (Role_if(PM_PRIEST) || Role_if(PM_WIZARD)) {
+        if (Role_if(PM_PRIEST) || Role_if(PM_WIZARD) || Role_if(PM_CARTOMANCER)) {
             static int trotyp[] = { FLUTE,  TOOLED_HORN,       HARP,
                                     BELL,         BUGLE,       LEATHER_DRUM,
                                     LUTE,         BAGPIPE };
@@ -1766,8 +1811,9 @@ int damg_melee_types [] =
 
 int damg_breath_types [] =
     { AD_MAGM, AD_FIRE, AD_COLD, AD_SLEE, AD_ELEC,
-      AD_DRST, AD_WATR, AD_ACID, AD_LOUD
-    };
+      AD_DRST, AD_ACID, AD_LOUD, AD_WATR, AD_DRLI,
+	  AD_STUN
+	};
 
 int damg_spit_types [] =
     { AD_BLND, AD_ACID, AD_DRST };
@@ -1954,6 +2000,9 @@ int otyp;
         break;
     case PM_CAVEMAN:
         skills = Skill_C;
+        break;
+    case PM_CARTOMANCER:
+        skills = Skill_Car;
         break;
     case PM_CONVICT:
         skills = Skill_Con;
@@ -2196,6 +2245,19 @@ register struct trobj *origtrop;
                 }
         }
 
+        /* Set up cartomancer cards */
+        if (urole.malenum == PM_CARTOMANCER 
+              && obj->otyp == SCR_CREATE_MONSTER) {
+            do {
+                i = rn2(NUMMONS);
+            } while ((type_is_pname(&mons[i])
+                || (mons[i].geno & G_UNIQ) 
+                || (mons[i].geno & G_NOGEN)));
+            obj->corpsenm = i;
+            if (rn2(2))
+                bless(obj);
+        }
+
         /* nudist gets no armor */
         if (u.uroleplay.nudist && obj->oclass == ARMOR_CLASS) {
             dealloc_obj(obj);
@@ -2315,13 +2377,17 @@ register struct trobj *origtrop;
             && (obj->otyp == LENSES || obj->otyp == GOGGLES))
             setworn(obj, W_TOOL);
         
-        /* Don't allow gear with object properties
-         * to be start scummed for. One exception! */
+
         if (Role_if(PM_UNDEAD_SLAYER) && Race_if(PM_VAMPIRIC) 
                 && is_suit(obj)) {
             obj->oprops |= ITEM_FIRE;
             obj->oprops_known |= ITEM_FIRE;
+        } else if (Role_if(PM_CARTOMANCER) 
+                && obj->otyp == HAWAIIAN_SHIRT && !rn2(2)) {
+            obj->oprops |= ITEM_STENCH;
+            obj->oprops_known |= ITEM_STENCH;
         }
+        /* Object properties cannot be start scummed for. */
         else
             obj->oprops = obj->oprops_known = 0L;
 

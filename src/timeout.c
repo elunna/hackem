@@ -590,18 +590,18 @@ nh_timeout()
         baseluck -= 4;
     if (flags.quest_boon)
         baseluck += 1;
-    if (u.uconduct.wishes)
-        baseluck += wishluck();
     
     if (u.uluck != baseluck) {
         int timeout = 600;
         int time_luck = stone_luck(FALSE);
+        int base_dist = u.uluck - baseluck;
         /* Cursed luckstones slow bad luck timing out; blessed luckstones
          * slow good luck timing out; normal luckstones slow both;
          * neither is affected if you don't have a luckstone.
-             * Luck is based at 0 usually, +1 if a full moon and -1 on Friday 13th
-             */
-        if (has_luckitem() && (!time_luck
+         * Luck is based at 0 usually, +1 if a full moon and -1 on Friday 13th
+         */
+        if ((has_luckitem() || base_dist > 15) 
+                               && (!time_luck
                                || (time_luck > 0 && u.uluck > baseluck)
                                || (time_luck < 0 && u.uluck < baseluck))) {
 
@@ -610,24 +610,34 @@ nh_timeout()
              *
              * distance	timeout
              * --------------------
-             *  1		24800
-             *  2		24200
-             *  3		23200
-             *  4		21800
-             *  5		20000
-             *  6		17800
-             *  7		15200
-             *  8		12200
-             *  9		8800
-             *  10		5000
-             *  11		800
+             *  1       9025
+             *  2       8100
+             *  3       7225
+             *  4       6400
+             *  5       5625
+             *  6       4900
+             *  7       4225
+             *  8       3600
+             *  9       3025
+             *  10      2500
+             *  11      2025
+             *  12      1600
+             *  13      1225
+             *  14      900
+             *  15      625
+             *  16      400
+             *  17      225
+             *  18      100
+             *  19      25
+             *  20      0
              */
-            int base_dist = u.uluck - baseluck;
-            int slow_timeout = 25000 - 200 * (base_dist * base_dist);
-            if (slow_timeout > timeout) timeout = slow_timeout;
+            
+            int slow_timeout = 25 * ((20 - base_dist) * (20 - base_dist));
+            timeout = slow_timeout;
         }
 
-        if (u.uhave.amulet || u.ugangr) timeout = timeout / 2;
+        if (u.uhave.amulet || u.ugangr) 
+            timeout = timeout / 2;
 
         if (moves >= u.luckturn + timeout) {
             if (u.uluck > baseluck)
@@ -2363,7 +2373,8 @@ static const ttable timeout_funcs[NUM_TIME_FUNCS] = {
     TTAB(bomb_blow, (timeout_proc) 0, "bomb_blow"),
     TTAB(spirit_fade, (timeout_proc) 0, "spirit_fade"),
     TTAB(ferment, (timeout_proc) 0, "ferment"),
-    TTAB(fixture_activate, (timeout_proc) 0, "fixture_activate")
+    TTAB(fixture_activate, (timeout_proc) 0, "fixture_activate"),
+    TTAB(collapse_rope_bridge, (timeout_proc) 0, "collapse_rope_bridge")
 };
 #undef TTAB
 
