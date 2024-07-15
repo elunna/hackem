@@ -1282,7 +1282,7 @@ long wp_mask;
     }
     if (spfx & SPFX_REFLECT) {
         if (otmp->oartifact == ART_MAGIC_MIRROR_OF_MERLIN
-                || otmp->oartifact == ART_HOLOGRAPHIC_VOID_LILY) {
+                /*|| otmp->oartifact == ART_HOLOGRAPHIC_VOID_LILY */) {
             if (on)
                 EReflecting |= wp_mask;
             else

@@ -408,7 +408,7 @@ const struct Role roles[] = {
       { 7, 2, 0, 2, 0, 2 },
       10, /* Energy */
       10, 8, -2, 2, 20, A_WIS, SPE_RESTORE_ABILITY, -4 },
-
+#if 0 /* Deferred */
     { { "Cartomancer", 0 },
       { { "Learner", 0 },
         { "Shuffler", 0 },
@@ -443,7 +443,8 @@ const struct Role roles[] = {
       /* Init   Lower  Higher */
       { 10, 0, 0, 8, 1, 0 }, /* Hit points */
       { 4, 3, 0, 2, 0, 3 }, 12, /* Energy */
-      0, 1, 0, 3, 10, A_INT, SPE_CREATE_MONSTER, -4 },  
+      0, 1, 0, 3, 10, A_INT, SPE_CREATE_MONSTER, -4 },
+#endif
     { { "Necromancer", 0 }, 
       { { "Gravedigger",  0 },
         { "Embalmer", 0 },
