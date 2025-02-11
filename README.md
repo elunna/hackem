@@ -1,5 +1,18 @@
 # Hack'EM
 
+## HackEM Retirement Notice
+
+
+HackeM is no longer being actively maintained or developed. Due to its numerous bugs and unfinished features, I’ve decided to retire the game and shift focus to new projects. While HackEM was a fun experiment, it became clear that it no longer aligns with my goals or resources.
+
+### Introducing NerfHack
+
+In the spirit of HackEM, I’m excited to announce the launch of NerfHack. This new project takes many of the core features and ideas from HackeM but approaches them with a fresh set of design goals. NerfHack aims to improve upon the original game’s foundation by addressing its issues, optimizing gameplay, and introducing new mechanics while keeping the essence of what made HackeM fun.
+
+If you enjoyed HackeM, I encourage you to check out NerfHack and follow its development here: https://github.com/elunna/NerfHack
+
+----
+
 Welcome, traveler, to Hack'EM!  
 
 ## Design Goals
